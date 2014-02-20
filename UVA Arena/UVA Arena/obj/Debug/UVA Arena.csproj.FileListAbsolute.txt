@@ -1,0 +1,8 @@
+E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.exe
+E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.pdb
+E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csprojResolveAssemblyReference.cache
+E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.MainForm.resources
+E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Properties.Resources.resources
+E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csproj.GenerateResource.Cache
+E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.exe
+E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.pdb

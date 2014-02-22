@@ -38,9 +38,13 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\Custom Tools\Json60r1\Bin\Net20\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="ObjectListView">
+      <HintPath>..\..\..\..\Custom Tools\ObjectListViewFull-2.6.0\ObjectListViewDemo\ObjectListView\bin\debug\ObjectListView.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />

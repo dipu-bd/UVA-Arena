@@ -6,3 +6,6 @@ E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Properties.R
 E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csproj.GenerateResource.Cache
 E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.exe
 E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.pdb
+E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.dll
+E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.pdb
+E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.xml

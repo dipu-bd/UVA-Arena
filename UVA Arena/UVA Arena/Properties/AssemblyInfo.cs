@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("UVA Arena")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("UVA Arena is a windows based software to practice your programming skills. It is based on Felix Halim's uHunt API.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Sand Soft Inc.")]
 [assembly: AssemblyProduct("UVA Arena")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]

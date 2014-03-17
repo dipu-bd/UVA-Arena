@@ -53,6 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Custom\API.cs" />
+    <Compile Include="Custom\Controls.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\HelpAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +85,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\HelpAbout.resx">
       <DependentUpon>HelpAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InputForm.resx">
+      <DependentUpon>InputForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

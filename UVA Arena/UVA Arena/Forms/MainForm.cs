@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text; 
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using TheCodeKing.ActiveButtons.Controls;
 using UVA_Arena.Properties;
 
@@ -12,18 +13,29 @@ namespace UVA_Arena
 {
     public partial class MainForm : Form
     {
+        #region Main Form
+
         public MainForm()
         {
             InitializeComponent();
-            AddActiveButtons();            
+            AddActiveButtons(); 
+
+            //FormAPI.ExtendClientArea(this, new Padding(0, 30, 0, 0));
         }
+        
+        private void tabControl1_SizeChanged(object sender, EventArgs e)
+        {
+            tabControl1.Invalidate();
+        }
+
+        #endregion
 
         #region Active Buttons
 
         private void AddActiveButtons()
         {
             IActiveMenu menu = ActiveMenu.GetInstance(this);
-            
+                        
             //help
             ActiveButton help = new ActiveButton();
             help.BackgroundImage = Resources.ihelp;
@@ -50,10 +62,9 @@ namespace UVA_Arena
         {
             HelpAbout ha = new HelpAbout();
             ha.Show();
-
         }
 
         #endregion
-    
+
     }
 }

@@ -12,3 +12,19 @@ E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.dll
 E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.pdb
 E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.xml
 E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csprojResolveAssemblyReference.cache
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.exe
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.pdb
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.exe
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.pdb
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ActiveButtons.dll
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ActiveButtons.pdb
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.pdb
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.xml
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.pdb
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.xml
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csprojResolveAssemblyReference.cache
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.MainForm.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Properties.Resources.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csproj.GenerateResource.Cache
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.HelpAbout.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.SettingsForm.resources

@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace UVA_Arena
 {
-    public partial class MainForm : Form
+    public partial class HelpAbout : Form
     {
-        public MainForm()
+        public HelpAbout()
         {
             InitializeComponent();
         }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -38,6 +39,7 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.tabImageList = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,9 +72,10 @@
             this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Controls.Add(this.tabPage8);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.ImageList = this.tabImageList;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
-            this.tabControl1.Padding = new System.Drawing.Point(25, 7);
+            this.tabControl1.Padding = new System.Drawing.Point(16, 7);
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(684, 411);
             this.tabControl1.TabIndex = 0;
@@ -80,63 +83,79 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 30);
+            this.tabPage3.ImageKey = "live_submission";
+            this.tabPage3.Location = new System.Drawing.Point(4, 31);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(676, 377);
+            this.tabPage3.Size = new System.Drawing.Size(676, 376);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "SUBMISSIONS";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabPage4
             // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 30);
+            this.tabPage4.ImageKey = "problems";
+            this.tabPage4.Location = new System.Drawing.Point(4, 31);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(676, 377);
+            this.tabPage4.Size = new System.Drawing.Size(676, 376);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "PROBLEMS";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // tabPage5
             // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 30);
+            this.tabPage5.ImageKey = "profile";
+            this.tabPage5.Location = new System.Drawing.Point(4, 31);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(676, 377);
+            this.tabPage5.Size = new System.Drawing.Size(676, 376);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "PROFILES";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // tabPage6
             // 
-            this.tabPage6.Location = new System.Drawing.Point(4, 30);
+            this.tabPage6.ImageKey = "code";
+            this.tabPage6.Location = new System.Drawing.Point(4, 31);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(676, 377);
+            this.tabPage6.Size = new System.Drawing.Size(676, 376);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "CODES";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // tabPage7
             // 
-            this.tabPage7.Location = new System.Drawing.Point(4, 30);
+            this.tabPage7.ImageKey = "submit";
+            this.tabPage7.Location = new System.Drawing.Point(4, 31);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(676, 377);
+            this.tabPage7.Size = new System.Drawing.Size(676, 376);
             this.tabPage7.TabIndex = 4;
             this.tabPage7.Text = "SUBMIT";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
             // tabPage8
             // 
-            this.tabPage8.Location = new System.Drawing.Point(4, 30);
+            this.tabPage8.ImageKey = "utility";
+            this.tabPage8.Location = new System.Drawing.Point(4, 31);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(676, 377);
+            this.tabPage8.Size = new System.Drawing.Size(676, 376);
             this.tabPage8.TabIndex = 5;
             this.tabPage8.Text = "UTILITIES";
             this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // tabImageList
+            // 
+            this.tabImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabImageList.ImageStream")));
+            this.tabImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.tabImageList.Images.SetKeyName(0, "live_submission");
+            this.tabImageList.Images.SetKeyName(1, "problems");
+            this.tabImageList.Images.SetKeyName(2, "profile");
+            this.tabImageList.Images.SetKeyName(3, "code");
+            this.tabImageList.Images.SetKeyName(4, "submit");
+            this.tabImageList.Images.SetKeyName(5, "utility");
             // 
             // MainForm
             // 
@@ -165,6 +184,7 @@
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.ImageList tabImageList;
 
 
 

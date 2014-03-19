@@ -39,8 +39,7 @@ namespace System.Windows.Forms
         #region Private Variables
 
         private Bitmap _BackBuffer;
-        private Graphics _BufferGraphics;
-        private int _Overlap;
+        private Graphics _BufferGraphics; 
 
         #endregion
 
@@ -64,20 +63,14 @@ namespace System.Windows.Forms
         #region Property
 
         [Category("Appearance"), DefaultValue(0)]
-        public int Overlap
-        {
-            get
-            {
-                return this._Overlap;
-            }
-            set
-            {
-                if (value < 0) return;
-                this._Overlap = value;
-                this.Invalidate();
-            }
-        }
+        public int Overlap { get; set; }
 
+        [Browsable(false)]
+        public bool Multiline { get; set; }
+
+        [Browsable(false)]
+        public ContentAlignment Alignment { get; set; }
+        
         #endregion
 
         #region Events
@@ -157,7 +150,7 @@ namespace System.Windows.Forms
                 tabBounds.X += extra;
                 tabBounds.Width -= extra;
             }
-            
+
             graphics.DrawString(this.TabPages[index].Text, this.Font, Brushes.Black, tabBounds);
         }
 
@@ -217,13 +210,7 @@ namespace System.Windows.Forms
             else
             {
                 tabBounds.X -= this.Overlap;
-                tabBounds.Width += this._Overlap;
-            }
-
-            if (this.Alignment == TabAlignment.Bottom)
-            {
-                tabBounds.Height -= 2;
-                tabBounds.Y -= 1;
+                tabBounds.Width += this.Overlap;
             }
 
             return tabBounds;
@@ -231,42 +218,19 @@ namespace System.Windows.Forms
 
         void AddPageBorder(GraphicsPath path, Rectangle pageBounds, Rectangle tabBounds)
         {
-            switch (this.Alignment)
-            {
-                case TabAlignment.Top:
-                    path.AddLine(tabBounds.Right, pageBounds.Y, pageBounds.Right, pageBounds.Y);
-                    path.AddLine(pageBounds.Right, pageBounds.Y, pageBounds.Right, pageBounds.Bottom);
-                    path.AddLine(pageBounds.Right, pageBounds.Bottom, pageBounds.X, pageBounds.Bottom);
-                    path.AddLine(pageBounds.X, pageBounds.Bottom, pageBounds.X, pageBounds.Y);
-                    path.AddLine(pageBounds.X, pageBounds.Y, tabBounds.X, pageBounds.Y);
-                    break;
-                case TabAlignment.Bottom:
-                    path.AddLine(tabBounds.X, pageBounds.Bottom, pageBounds.X, pageBounds.Bottom);
-                    path.AddLine(pageBounds.X, pageBounds.Bottom, pageBounds.X, pageBounds.Y);
-                    path.AddLine(pageBounds.X, pageBounds.Y, pageBounds.Right, pageBounds.Y);
-                    path.AddLine(pageBounds.Right, pageBounds.Y, pageBounds.Right, pageBounds.Bottom);
-                    path.AddLine(pageBounds.Right, pageBounds.Bottom, tabBounds.Right, pageBounds.Bottom);
-                    break;
-            }
+            path.AddLine(tabBounds.Right, pageBounds.Y, pageBounds.Right, pageBounds.Y);
+            path.AddLine(pageBounds.Right, pageBounds.Y, pageBounds.Right, pageBounds.Bottom);
+            path.AddLine(pageBounds.Right, pageBounds.Bottom, pageBounds.X, pageBounds.Bottom);
+            path.AddLine(pageBounds.X, pageBounds.Bottom, pageBounds.X, pageBounds.Y);
+            path.AddLine(pageBounds.X, pageBounds.Y, tabBounds.X, pageBounds.Y);
         }
 
         protected void AddTabBorder(GraphicsPath path, Rectangle tabBounds)
         {
-            switch (this.Alignment)
-            {
-                case TabAlignment.Top:
-                    path.AddLine(tabBounds.X, tabBounds.Bottom, tabBounds.X + tabBounds.Height - 4, tabBounds.Y + 2);
-                    path.AddLine(tabBounds.X + tabBounds.Height, tabBounds.Y, tabBounds.Right - 3, tabBounds.Y);
-                    path.AddArc(tabBounds.Right - 6, tabBounds.Y, 6, 6, 270, 90);
-                    path.AddLine(tabBounds.Right, tabBounds.Y + 3, tabBounds.Right, tabBounds.Bottom);
-                    break;
-                case TabAlignment.Bottom:
-                    path.AddLine(tabBounds.Right, tabBounds.Y, tabBounds.Right, tabBounds.Bottom - 3);
-                    path.AddArc(tabBounds.Right - 6, tabBounds.Bottom - 6, 6, 6, 0, 90);
-                    path.AddLine(tabBounds.Right - 3, tabBounds.Bottom, tabBounds.X + tabBounds.Height, tabBounds.Bottom);
-                    path.AddLine(tabBounds.X + tabBounds.Height - 4, tabBounds.Bottom - 2, tabBounds.X, tabBounds.Y);
-                    break;
-            }
+            path.AddLine(tabBounds.X, tabBounds.Bottom, tabBounds.X + tabBounds.Height - 4, tabBounds.Y + 2);
+            path.AddLine(tabBounds.X + tabBounds.Height, tabBounds.Y, tabBounds.Right - 3, tabBounds.Y);
+            path.AddArc(tabBounds.Right - 6, tabBounds.Y, 6, 6, 270, 90);
+            path.AddLine(tabBounds.Right, tabBounds.Y + 3, tabBounds.Right, tabBounds.Bottom);
 
         }
 

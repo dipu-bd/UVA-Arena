@@ -19,13 +19,12 @@ namespace UVA_Arena
         {
             InitializeComponent();
             AddActiveButtons(); 
-
-            //FormAPI.ExtendClientArea(this, new Padding(0, 30, 0, 0));
+            FormAPI.ExtendClientArea(this, new Padding(5, 40, 5, 5));
         }
         
         private void tabControl1_SizeChanged(object sender, EventArgs e)
         {
-            tabControl1.Invalidate();
+            customTabControl1.Invalidate();
         }
 
         #endregion

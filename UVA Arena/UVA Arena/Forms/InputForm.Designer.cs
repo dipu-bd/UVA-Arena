@@ -31,7 +31,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.ok_button1 = new System.Windows.Forms.Button();
             this.info_text = new System.Windows.Forms.Label();
-            this.inputText1 = new UVA_Arena.Controls.CueTextBox();
+            this.inputText1 = new System.Windows.Forms.CueTextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -113,6 +113,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button ok_button1;
         private System.Windows.Forms.Label info_text;
-        private Controls.CueTextBox inputText1;
+        private System.Windows.Forms.CueTextBox inputText1;
     }
 }

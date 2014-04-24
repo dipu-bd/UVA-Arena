@@ -63,17 +63,17 @@ namespace System.Windows.Forms
         #region Property
 
         [Category("Appearance"), DefaultValue(0)]
-        public int Overlap { get; set; }
-
-        [Browsable(false)]
-        public bool Multiline { get; set; }
-
-        [Browsable(false)]
-        public ContentAlignment Alignment { get; set; }
+        public int Overlap { get; set; } 
         
         #endregion
 
         #region Events
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+            this.Invalidate();
+        }
 
         protected override void OnSelectedIndexChanged(EventArgs e)
         {
@@ -106,6 +106,7 @@ namespace System.Windows.Forms
             }
 
             this._BufferGraphics.Flush();
+
             e.Graphics.DrawImageUnscaled(this._BackBuffer, 0, 0);
         }
 

@@ -29,3 +29,5 @@ E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csproj.Gene
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.HelpAbout.resources
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.SettingsForm.resources
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.InputForm.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Forms.SubmitForm.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.UsernameForm.resources

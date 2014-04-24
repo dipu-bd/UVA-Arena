@@ -32,12 +32,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
             this.customTabControl1 = new System.Windows.Forms.CustomTabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.problemTab = new System.Windows.Forms.TabPage();
+            this.codesTab = new System.Windows.Forms.TabPage();
+            this.submissionTab = new System.Windows.Forms.TabPage();
+            this.profileTab = new System.Windows.Forms.TabPage();
+            this.utilitiesTab = new System.Windows.Forms.TabPage();
             this.customTabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,17 +48,15 @@
             this.tabImageList.Images.SetKeyName(1, "problems");
             this.tabImageList.Images.SetKeyName(2, "profile");
             this.tabImageList.Images.SetKeyName(3, "code");
-            this.tabImageList.Images.SetKeyName(4, "submit");
-            this.tabImageList.Images.SetKeyName(5, "utility");
+            this.tabImageList.Images.SetKeyName(4, "utility");
             // 
             // customTabControl1
-            //  
-            this.customTabControl1.Controls.Add(this.tabPage1);
-            this.customTabControl1.Controls.Add(this.tabPage4);
-            this.customTabControl1.Controls.Add(this.tabPage5);
-            this.customTabControl1.Controls.Add(this.tabPage6);
-            this.customTabControl1.Controls.Add(this.tabPage7);
-            this.customTabControl1.Controls.Add(this.tabPage8);
+            // 
+            this.customTabControl1.Controls.Add(this.problemTab);
+            this.customTabControl1.Controls.Add(this.codesTab);
+            this.customTabControl1.Controls.Add(this.submissionTab);
+            this.customTabControl1.Controls.Add(this.profileTab);
+            this.customTabControl1.Controls.Add(this.utilitiesTab);
             this.customTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.customTabControl1.ImageList = this.tabImageList;
             this.customTabControl1.Location = new System.Drawing.Point(0, 0);
@@ -69,73 +66,61 @@
             this.customTabControl1.SelectedIndex = 0;
             this.customTabControl1.Size = new System.Drawing.Size(784, 411);
             this.customTabControl1.TabIndex = 0;
-            this.customTabControl1.SizeChanged += new System.EventHandler(this.tabControl1_SizeChanged);
             // 
-            // tabPage1
+            // problemTab
             // 
-            this.tabPage1.ImageKey = "live_submission";
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(776, 378);
-            this.tabPage1.TabIndex = 6;
-            this.tabPage1.Text = "SUBMISSIONS";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.problemTab.ImageKey = "problems";
+            this.problemTab.Location = new System.Drawing.Point(4, 29);
+            this.problemTab.Name = "problemTab";
+            this.problemTab.Padding = new System.Windows.Forms.Padding(3);
+            this.problemTab.Size = new System.Drawing.Size(776, 378);
+            this.problemTab.TabIndex = 1;
+            this.problemTab.Text = "PROBLEMS";
+            this.problemTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // codesTab
             // 
-            this.tabPage4.ImageKey = "problems";
-            this.tabPage4.Location = new System.Drawing.Point(4, 29);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(777, 378);
-            this.tabPage4.TabIndex = 1;
-            this.tabPage4.Text = "PROBLEMS";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.codesTab.ImageKey = "code";
+            this.codesTab.Location = new System.Drawing.Point(4, 29);
+            this.codesTab.Name = "codesTab";
+            this.codesTab.Padding = new System.Windows.Forms.Padding(3);
+            this.codesTab.Size = new System.Drawing.Size(776, 378);
+            this.codesTab.TabIndex = 3;
+            this.codesTab.Text = "CODES";
+            this.codesTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
+            // submissionTab
             // 
-            this.tabPage5.ImageKey = "profile";
-            this.tabPage5.Location = new System.Drawing.Point(4, 29);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(777, 378);
-            this.tabPage5.TabIndex = 2;
-            this.tabPage5.Text = "PROFILES";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.submissionTab.ImageKey = "live_submission";
+            this.submissionTab.Location = new System.Drawing.Point(4, 29);
+            this.submissionTab.Name = "submissionTab";
+            this.submissionTab.Padding = new System.Windows.Forms.Padding(3);
+            this.submissionTab.Size = new System.Drawing.Size(776, 378);
+            this.submissionTab.TabIndex = 6;
+            this.submissionTab.Text = "SUBMISSIONS";
+            this.submissionTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage6
+            // profileTab
             // 
-            this.tabPage6.ImageKey = "code";
-            this.tabPage6.Location = new System.Drawing.Point(4, 29);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(777, 378);
-            this.tabPage6.TabIndex = 3;
-            this.tabPage6.Text = "CODES";
-            this.tabPage6.UseVisualStyleBackColor = true;
+            this.profileTab.ImageKey = "profile";
+            this.profileTab.Location = new System.Drawing.Point(4, 29);
+            this.profileTab.Name = "profileTab";
+            this.profileTab.Padding = new System.Windows.Forms.Padding(3);
+            this.profileTab.Size = new System.Drawing.Size(776, 378);
+            this.profileTab.TabIndex = 2;
+            this.profileTab.Text = "PROFILES";
+            this.profileTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage7
+            // utilitiesTab
             // 
-            this.tabPage7.ImageKey = "submit";
-            this.tabPage7.Location = new System.Drawing.Point(4, 29);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(777, 378);
-            this.tabPage7.TabIndex = 4;
-            this.tabPage7.Text = "SUBMIT";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // tabPage8
-            // 
-            this.tabPage8.ImageKey = "utility";
-            this.tabPage8.Location = new System.Drawing.Point(4, 29);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(777, 378);
-            this.tabPage8.TabIndex = 5;
-            this.tabPage8.Text = "UTILITIES";
-            this.tabPage8.UseVisualStyleBackColor = true;
+            this.utilitiesTab.ImageKey = "utility";
+            this.utilitiesTab.Location = new System.Drawing.Point(4, 29);
+            this.utilitiesTab.Name = "utilitiesTab";
+            this.utilitiesTab.Padding = new System.Windows.Forms.Padding(3);
+            this.utilitiesTab.Size = new System.Drawing.Size(776, 378);
+            this.utilitiesTab.TabIndex = 5;
+            this.utilitiesTab.Text = "UTILITIES";
+            this.utilitiesTab.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -148,6 +133,7 @@
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
+            this.Tag = "UVA Arena [{0} : {1}]";
             this.Text = "UVA Arena";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.customTabControl1.ResumeLayout(false);
@@ -157,14 +143,13 @@
 
         #endregion
 
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.TabPage problemTab;
+        private System.Windows.Forms.TabPage profileTab;
+        private System.Windows.Forms.TabPage codesTab;
+        private System.Windows.Forms.TabPage utilitiesTab;
         private System.Windows.Forms.CustomTabControl customTabControl1;
         private System.Windows.Forms.ImageList tabImageList;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage submissionTab;
           
     }
 }

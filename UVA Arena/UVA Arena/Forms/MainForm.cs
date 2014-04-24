@@ -3,28 +3,45 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Text; 
+using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using TheCodeKing.ActiveButtons.Controls;
 using UVA_Arena.Properties;
+using UVA_Arena.Structures;
 
 namespace UVA_Arena
 {
     public partial class MainForm : Form
     {
-        #region Main Form
+        #region Constructor
 
         public MainForm()
         {
+            StartupCheck();
+
             InitializeComponent();
-            AddActiveButtons(); 
+
+            AddActiveButtons();
             FormAPI.ExtendClientArea(this, new Padding(5, 40, 5, 5));
+
+            RefreshForm();
         }
-        
-        private void tabControl1_SizeChanged(object sender, EventArgs e)
+
+        public void RefreshForm()
         {
-            customTabControl1.Invalidate();
+            this.Text = string.Format(this.Tag.ToString(),
+                    RegistryAccess.DefaultUsername,
+                    RegistryAccess.GetUserid(RegistryAccess.DefaultUsername));
+        }
+
+        public void StartupCheck()
+        {
+            if (string.IsNullOrEmpty(RegistryAccess.DefaultUsername))
+            {
+                UsernameForm uf = new UsernameForm();
+                uf.ShowDialog();
+            }
         }
 
         #endregion
@@ -34,7 +51,7 @@ namespace UVA_Arena
         private void AddActiveButtons()
         {
             IActiveMenu menu = ActiveMenu.GetInstance(this);
-                        
+
             //help
             ActiveButton help = new ActiveButton();
             help.BackgroundImage = Resources.ihelp;
@@ -54,7 +71,7 @@ namespace UVA_Arena
         void settings_Click(object sender, EventArgs e)
         {
             SettingsForm sf = new SettingsForm();
-            sf.ShowDialog(this);
+            sf.ShowDialog(this);            
         }
 
         void help_Click(object sender, EventArgs e)

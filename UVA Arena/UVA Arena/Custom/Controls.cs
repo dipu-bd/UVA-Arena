@@ -28,6 +28,14 @@ namespace System.Windows.Forms
                 SendMessage(this.Handle, EM_SETCUEBANNER, 1, value);
             }
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            this.ResumeLayout(false);
+
+        }
+        private IContainer components;
     }
 
     #endregion
@@ -39,7 +47,7 @@ namespace System.Windows.Forms
         #region Private Variables
 
         private Bitmap _BackBuffer;
-        private Graphics _BufferGraphics; 
+        private Graphics _BufferGraphics;
 
         #endregion
 
@@ -63,8 +71,8 @@ namespace System.Windows.Forms
         #region Property
 
         [Category("Appearance"), DefaultValue(0)]
-        public int Overlap { get; set; } 
-        
+        public int Overlap { get; set; }
+
         #endregion
 
         #region Events
@@ -237,6 +245,58 @@ namespace System.Windows.Forms
 
         #endregion
 
+    }
+
+    #endregion
+
+    #region TaskQueue
+
+    public static class TaskQueue
+    {
+        public class Task
+        {
+            public Function func;
+            public int timeout;
+
+            public Task(Function f, int time)
+            {
+                func = f;
+                timeout = time;
+            }
+        }
+
+        private static Timer timer1;
+        public delegate void Function();
+        private static List<Task> queue = new List<Task>();
+
+        public static void AddTask(Function func, int timeout)
+        {
+            AddTask(new Task(func, timeout));
+        }
+        public static void AddTask(Task t)
+        {
+            queue.Add(t);
+            if (timer1 == null)
+            {
+                timer1 = new Timer();
+                timer1.Interval = 10;
+                timer1.Tick += timer1_Tick;
+                timer1.Enabled = true;
+            }
+        }
+        private static void timer1_Tick(object sender, EventArgs e)
+        {
+            for (int i = 0; i < queue.Count; ++i)
+            {
+                queue[i].timeout -= timer1.Interval;
+                if (queue[i].timeout < 10)
+                {
+                    queue[i].func();
+                    queue.RemoveAt(i);
+                    --i;
+                }
+            }
+        }
     }
 
     #endregion

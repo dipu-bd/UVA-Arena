@@ -31,8 +31,7 @@ namespace UVA_Arena.Structures
 
         public static string FormatTimeSpan(long span)
         {
-            if (span < 60)
-                return (span).ToString() + " secs ";
+            if (span < 120) return (span).ToString() + " secs ";
 
             long year, mon, day, hour, min;
 
@@ -51,66 +50,16 @@ namespace UVA_Arena.Structures
             min = span / 60;
 
             string txt = "";
-            if (year > 0) txt += year.ToString() + "y ";
-            if (mon > 0) txt += mon.ToString() + "mh ";
-            if (day > 0) txt += day.ToString() + "d ";
-            if (hour > 0) txt += hour.ToString() + "h ";
-            txt += min.ToString() + "m ";
+            if (year > 0) txt += year.ToString() + "year ";
+            if (mon > 0) txt += mon.ToString() + "month ";
+            if (day > 0) txt += day.ToString() + "day ";
+            if (hour > 0) txt += hour.ToString() + "hour ";
+            txt += min.ToString() + "min ";
 
             return txt;
         }
     }
-
-    public static class RegistryAccess
-    {
-        /// <summary> Registry path where values saved </summary>
-        public static string REG_PATH = "HKEY_CURRENT_USER\\Software\\UVA Arena";
-
-        /// <summary> default user name </summary>
-        public static string DefaultUsername
-        {
-            get
-            {
-                object dat = Registry.GetValue(REG_PATH, "Default Username", "");
-                if (dat == null) return null;
-                return dat.ToString();
-            }
-            set { Registry.SetValue(REG_PATH, "Default Username", value); }
-        }
-
-        #region User Profile Database
-        /// <summary> get accepted problems of uid </summary>
-        public static string GetAcceptedOf(string uid)
-        {
-            string path = Path.Combine(REG_PATH, "Accepted List");
-            object dat = Registry.GetValue(path, uid, "");
-            if (dat == null) return null;
-            return dat.ToString();
-        }
-        /// <summary> set accepted problems of uid </summary>
-        public static void SetAcceptedOf(string uid, string data)
-        {
-            string path = Path.Combine(REG_PATH, "Accepted List");
-            Registry.SetValue(path, uid, data);
-        }
-
-        /// <summary> get user id from name </summary>
-        public static string GetUserid(string name)
-        {
-            string path = Path.Combine(REG_PATH, "UserID");
-            object dat = Registry.GetValue(path, name, "");
-            if (dat == null) return null;
-            return dat.ToString();
-        }
-        /// <summary> set user id of given name </summary>
-        public static void SetUserid(string name, string uid)
-        {
-            string path = Path.Combine(REG_PATH, "UserID");
-            Registry.SetValue(path, name, uid);
-        }
-        #endregion
-    }
-
+    
     public static class UnixTimestamp
     {
         /// <summary> EPOCH time - used by the unix timestamp </summary>

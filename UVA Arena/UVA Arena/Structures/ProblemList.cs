@@ -10,7 +10,7 @@ using System.Security.Permissions;
 namespace UVA_Arena.Structures
 {
     [StructLayout(LayoutKind.Sequential)]
-    class ProblemList
+    public class ProblemList
     {
         public enum Status
         {
@@ -60,12 +60,13 @@ namespace UVA_Arena.Structures
         //Problem Run-Time Limit (milliseconds)
         public long rtl { get; set; }
         //Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
-        public Status status { get; set; }
-
+        public long stat { get; set; }
+        
         //formatted values
-        public string runtime { get; set; }
+        public string best { get; set; }
         public string memory { get; set; }
         public string timelimit { get; set; }
+        public Status status { get; set; }
 
         public void parse(List<string> data)
         {
@@ -74,18 +75,22 @@ namespace UVA_Arena.Structures
             PropertyInfo[] pcol = t.GetProperties();
             for (int i = 0; i < data.Count; ++i)
             {
-                pcol[i].SetValue(this, data[i], null);
+                if (pcol[i].Name == "ptitle")
+                    pcol[i].SetValue(this, data[i], null);
+                else 
+                    pcol[i].SetValue(this, long.Parse(data[i]), null);                
             }
 
-            runtime = Functions.FormatRuntime(run);
+            status = (Status)stat;
+            best = Functions.FormatRuntime(run);
             timelimit = Functions.FormatRuntime(rtl);
-            memory = (mem == 1000000000) ? "-" : Functions.FormatMemory(mem);
+            memory = (mem >= 1000000000) ? "(inf)" : Functions.FormatMemory(mem);
         }
 
         public ProblemList() { }
         public ProblemList(List<string> data) { parse(data); }
     }
-    
+
     public class SubmissionList
     {
         public class SubmissionMessage
@@ -101,6 +106,8 @@ namespace UVA_Arena.Structures
             public long sbt { get; set; }
             public long name { get; set; }
             public long uname { get; set; }
+
+            public SubmissionMessage() {  }
         }
 
         public long id { get; set; }
@@ -119,5 +126,6 @@ namespace UVA_Arena.Structures
         public long name { get; set; }
         public long uname { get; set; }
 
+        public SubmissionList() {  }
     }
 }

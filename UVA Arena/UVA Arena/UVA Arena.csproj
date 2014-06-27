@@ -38,8 +38,9 @@
     <Reference Include="ActiveButtons">
       <HintPath>..\..\..\..\VS Custom Tools\ActiveButtons.Net-master\ActiveButtons.Net-master\Source\bin\Debug\ActiveButtons.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\Custom Tools\Json60r1\Bin\Net20\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\VS Custom Tools\Json60r1\Bin\Net20\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ObjectListView">
       <HintPath>..\..\..\..\Custom Tools\ObjectListViewFull-2.6.0\ObjectListViewDemo\ObjectListView\bin\debug\ObjectListView.dll</HintPath>
@@ -56,6 +57,18 @@
     <Compile Include="Custom\API.cs" />
     <Compile Include="Custom\Controls.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Custom\SearchBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom\SearchBox.Designer.cs">
+      <DependentUpon>SearchBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\PROBLEMS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Elements\PROBLEMS.Designer.cs">
+      <DependentUpon>PROBLEMS.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\HelpAbout.cs">
       <SubType>Form</SubType>
@@ -97,8 +110,19 @@
     </Compile>
     <Compile Include="Structures\Functions.cs" />
     <Compile Include="Structures\Internet.cs" />
+    <Compile Include="Structures\LocalDirectory.cs" />
     <Compile Include="Structures\ProblemList.cs" />
+    <Compile Include="Structures\RegistryAccess.cs" />
     <Compile Include="Structures\Startup.cs" />
+    <EmbeddedResource Include="Custom\Controls.resx">
+      <DependentUpon>Controls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom\SearchBox.resx">
+      <DependentUpon>SearchBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\PROBLEMS.resx">
+      <DependentUpon>PROBLEMS.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\HelpAbout.resx">
       <DependentUpon>HelpAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -139,8 +163,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />
-    <None Include="Resources\ihelp.png" />
-    <None Include="Resources\tools.png" />
+    <None Include="Resources\Image1.bmp" />
+    <None Include="Resources\tools_icon.png" />
+    <None Include="Resources\search_icon.png" />
+    <None Include="Resources\unpinned.bmp" />
+    <None Include="Resources\pinned.bmp" />
+    <None Include="Resources\help_icon.png" />
+    <None Include="Resources\clear_icon.bmp" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

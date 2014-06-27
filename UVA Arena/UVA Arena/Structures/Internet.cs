@@ -44,5 +44,11 @@ namespace UVA_Arena.Structures
             string url = "http://uhunt.felix-halim.net/api/uname2uid/" + username;
             return DownloadString(url);
         }
+
+        public static string DownloadProblemDatabase()
+        {
+            string url = "http://uhunt.felix-halim.net/api/p";
+            return DownloadString(url);
+        }
     }
 }

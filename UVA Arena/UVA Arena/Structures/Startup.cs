@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Text;
+using System.IO;
+using Newtonsoft.Json;
+using UVA_Arena.Structures;
 
 namespace UVA_Arena
 {
@@ -10,35 +13,38 @@ namespace UVA_Arena
     {
         private class Node
         {
-            public int to;
             public Object val;
+            public Dictionary<char, int> next;
 
-            public Node() { to = -1; val = null; }
-            public Node(int to) { this.to = to; }
+            public Node(object val = null)
+            {
+                this.val = val;
+                this.next = new Dictionary<char, int>();
+            }
         }
 
-        private List<Dictionary<char, Node>> data;
+        private List<Node> data;
 
         public void insert(string str, Object dat)
-        { 
+        {
             int ind = 0;
-            
-            for(int i = 0; i < str.Length; ++i)
+
+            for (int i = 0; i < str.Length; ++i)
             {
                 char ch = str[i];
-                if (data[ind].ContainsKey(ch))
+                if (data[ind].next.ContainsKey(ch))
                 {
-                    ind = data[ind][ch].to;
+                    ind = data[ind].next[ch];
                 }
                 else
                 {
-                    data.Add(new Dictionary<char, Node>());                    
-                    data[ind].Add(ch, new Node(data.Count));
+                    data[ind].next.Add(ch, data.Count);
                     ind = data.Count;
+                    data.Add(new Node());
                 }
                 if (i == str.Length - 1)
                 {
-                    data[ind][ch].val = dat;
+                    data[ind].val = dat;
                 }
             }
         }
@@ -46,16 +52,22 @@ namespace UVA_Arena
         public Object find(string str)
         {
             int ind = 0;
-            
+
             for (int i = 0; i < str.Length; ++i)
             {
                 char ch = str[i];
-                if (data[ind].ContainsKey(ch))
-                    ind = data[ind][ch].to;
-                else return null;
-
+                if (data[ind].next.ContainsKey(ch))
+                {
+                    ind = data[ind].next[ch];
+                }
+                else
+                {
+                    return null;
+                }
                 if (i == str.Length - 1)
-                    return data[ind][ch].val;
+                {
+                    return data[ind].val;
+                }
             }
 
             return null;
@@ -65,17 +77,19 @@ namespace UVA_Arena
         {
             return find(str) != null;
         }
-        
+
         public TrieTree()
         {
-            data = new List<Dictionary<char, Node>>();
+            data = new List<Node>();
+            data.Add(new Node());
         }
     }
 
     public static class ProblemDatabase
-    { 
+    {
         private static TrieTree problem_id = new TrieTree();
         private static TrieTree problem_num = new TrieTree();
+        public static List<ProblemList> problem_list;
 
         public static void SetProblemTitle(string pnum, string ptitle)
         {
@@ -97,6 +111,36 @@ namespace UVA_Arena
             string n = problem_id.find(pid).ToString();
             if (string.IsNullOrEmpty(n)) n = "-";
             return n;
+        }
+
+        /// <summary> Load the database from downloaded data </summary>
+        /// <returns> False if fails to load, True if success </returns>
+        public static bool LoadDatabase()
+        {
+            try
+            {
+                string path = LocalDirectory.ProblemDataFile;
+                string text = File.ReadAllText(path);
+                if (text.Length < 10) return false;
+
+                List<List<string>> json = JsonConvert.DeserializeObject<List<List<string>>>(text);
+                if (json == null || json.Count == 0) return false;
+
+                problem_list = new List<ProblemList>();
+                foreach (List<string> lst in json)
+                {
+                    ProblemList plist = new ProblemList(lst);
+                    problem_list.Add(plist);
+                    SetProblemNum(plist.pid.ToString(), plist.pnum.ToString());
+                    SetProblemTitle(plist.pnum.ToString(), plist.ptitle);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

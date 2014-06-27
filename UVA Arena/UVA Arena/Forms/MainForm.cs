@@ -26,6 +26,7 @@ namespace UVA_Arena
             FormAPI.ExtendClientArea(this, new Padding(5, 40, 5, 5));
 
             RefreshForm();
+            InitializeOthers();
         }
 
         public void RefreshForm()
@@ -35,13 +36,18 @@ namespace UVA_Arena
                     RegistryAccess.GetUserid(RegistryAccess.DefaultUsername));
         }
 
-        public void StartupCheck()
+        private void StartupCheck()
         {
             if (string.IsNullOrEmpty(RegistryAccess.DefaultUsername))
             {
                 UsernameForm uf = new UsernameForm();
                 uf.ShowDialog();
             }
+        }
+
+        private void InitializeOthers()
+        {
+            ProblemDatabase.LoadDatabase();
         }
 
         #endregion
@@ -54,13 +60,13 @@ namespace UVA_Arena
 
             //help
             ActiveButton help = new ActiveButton();
-            help.BackgroundImage = Resources.ihelp;
+            help.BackgroundImage = Resources.help_icon;
             help.BackgroundImageLayout = ImageLayout.Center;
             help.Click += help_Click;
 
             //settings
             ActiveButton settings = new ActiveButton();
-            settings.BackgroundImage = Resources.tools;
+            settings.BackgroundImage = Resources.tools_icon;
             settings.Click += settings_Click;
             settings.BackgroundImageLayout = ImageLayout.Center;
 

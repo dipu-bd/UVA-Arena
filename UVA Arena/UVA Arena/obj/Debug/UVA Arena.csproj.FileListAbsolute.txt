@@ -31,3 +31,7 @@ E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.SettingsFor
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.InputForm.resources
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Forms.SubmitForm.resources
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.UsernameForm.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.dll
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Custom.SearchBox.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Elements.PROBLEMS.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\System.Windows.Forms.CueTextBox.resources

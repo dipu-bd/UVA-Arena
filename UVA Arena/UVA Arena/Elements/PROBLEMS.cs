@@ -16,6 +16,11 @@ namespace UVA_Arena.Elements
             InitializeComponent();
         }
 
+        public void InitOthers()
+        {
+            LoadProblems();
+        }
+
         #region ProblemDownloader
 
         private void problemWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -35,10 +40,14 @@ namespace UVA_Arena.Elements
         }
         private void problemWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Result == null)
-                SetStatus("Problem database is successfully updated.");
-            else            
+            if (e.Result != null)
+            {
                 SetStatus((string)e.Result);
+                return;
+            }
+
+            SetStatus("Problem database is successfully updated.");
+            LoadProblems();
         }
 
         #endregion
@@ -85,6 +94,22 @@ namespace UVA_Arena.Elements
 
         #endregion
 
+        void LoadProblems()
+        {            
+            problemListView.SetObjects(ProblemDatabase.problem_list);
+            problemListView.Sort(0);
+        }
 
+        private void problemListView_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
+        {
+            ProblemList plist = (ProblemList)e.Model;
+            if(e.Column == ptitleProb)
+            {
+                FontStyle fs = FontStyle.Regular;
+                if (plist.stat == 2) fs = FontStyle.Italic;
+                else if (plist.stat == 0) fs = FontStyle.Strikeout;
+                e.SubItem.Font = new Font("Segoe UI Semibold", problemListView.Font.Size, fs);
+            }
+        }
     }
 }

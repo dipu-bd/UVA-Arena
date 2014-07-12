@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PROBLEMS));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.memProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.mleProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -42,12 +43,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.searchBox1 = new UVA_Arena.Custom.SearchBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.fastObjectListView1 = new BrightIdeasSoftware.FastObjectListView();
-            this.pidProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.problemListView = new BrightIdeasSoftware.FastObjectListView();
             this.pnumProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.ptitleProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.dacuProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -65,13 +65,13 @@
             this.nverProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.resfProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.statProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.objectListView1 = new BrightIdeasSoftware.ObjectListView();
+            this.pidProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.volumeListView = new BrightIdeasSoftware.ObjectListView();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.treeListView1 = new BrightIdeasSoftware.TreeListView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.searchBox1 = new UVA_Arena.Custom.SearchBox();
             this.searchBox2 = new UVA_Arena.Custom.SearchBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -85,12 +85,24 @@
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fastObjectListView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.problemListView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.volumeListView)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button1.Image = global::UVA_Arena.Properties.Resources.pinned;
+            this.button1.Location = new System.Drawing.Point(85, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 28);
+            this.button1.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.button1, "Pin Volume");
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // memProb
             // 
@@ -102,6 +114,7 @@
             this.memProb.Text = "Memory";
             this.memProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.memProb.ToolTipText = "Best Memory";
+            this.memProb.UseFiltering = false;
             // 
             // mleProb
             // 
@@ -113,6 +126,7 @@
             this.mleProb.Text = "MLE";
             this.mleProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mleProb.ToolTipText = "Number of submission that got \"Memory Limit Exceeded\"";
+            this.mleProb.UseFiltering = false;
             // 
             // statusStrip1
             // 
@@ -220,8 +234,8 @@
             this.tableLayoutPanel1.Controls.Add(this.searchBox1, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.fastObjectListView1, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.objectListView1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.problemListView, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.volumeListView, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.button2, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -232,6 +246,21 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(222, 340);
             this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // searchBox1
+            // 
+            this.searchBox1.BackColor = System.Drawing.Color.White;
+            this.searchBox1.ClearButton = true;
+            this.searchBox1.CueText = "Search...";
+            this.searchBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchBox1.Location = new System.Drawing.Point(118, 312);
+            this.searchBox1.Margin = new System.Windows.Forms.Padding(1);
+            this.searchBox1.Name = "searchBox1";
+            this.searchBox1.SearchButton = false;
+            this.searchBox1.SearchText = "";
+            this.searchBox1.Size = new System.Drawing.Size(102, 26);
+            this.searchBox1.TabIndex = 0;
             // 
             // label2
             // 
@@ -270,44 +299,32 @@
             this.label1.Text = "Volumes";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button1
+            // problemListView
             // 
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button1.Image = global::UVA_Arena.Properties.Resources.pinned;
-            this.button1.Location = new System.Drawing.Point(85, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(30, 28);
-            this.button1.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.button1, "Pin Volume");
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // fastObjectListView1
-            // 
-            this.fastObjectListView1.AllColumns.Add(this.pidProb);
-            this.fastObjectListView1.AllColumns.Add(this.pnumProb);
-            this.fastObjectListView1.AllColumns.Add(this.ptitleProb);
-            this.fastObjectListView1.AllColumns.Add(this.dacuProb);
-            this.fastObjectListView1.AllColumns.Add(this.rtlProb);
-            this.fastObjectListView1.AllColumns.Add(this.runProb);
-            this.fastObjectListView1.AllColumns.Add(this.memProb);
-            this.fastObjectListView1.AllColumns.Add(this.acProb);
-            this.fastObjectListView1.AllColumns.Add(this.waProb);
-            this.fastObjectListView1.AllColumns.Add(this.tleProb);
-            this.fastObjectListView1.AllColumns.Add(this.reProb);
-            this.fastObjectListView1.AllColumns.Add(this.peProb);
-            this.fastObjectListView1.AllColumns.Add(this.ceProb);
-            this.fastObjectListView1.AllColumns.Add(this.subeProb);
-            this.fastObjectListView1.AllColumns.Add(this.oleProb);
-            this.fastObjectListView1.AllColumns.Add(this.cbjProb);
-            this.fastObjectListView1.AllColumns.Add(this.nverProb);
-            this.fastObjectListView1.AllColumns.Add(this.mleProb);
-            this.fastObjectListView1.AllColumns.Add(this.resfProb);
-            this.fastObjectListView1.AllColumns.Add(this.statProb);
-            this.fastObjectListView1.BackColor = System.Drawing.Color.White;
-            this.fastObjectListView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.fastObjectListView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.pidProb,
+            this.problemListView.AllColumns.Add(this.pnumProb);
+            this.problemListView.AllColumns.Add(this.ptitleProb);
+            this.problemListView.AllColumns.Add(this.dacuProb);
+            this.problemListView.AllColumns.Add(this.rtlProb);
+            this.problemListView.AllColumns.Add(this.runProb);
+            this.problemListView.AllColumns.Add(this.memProb);
+            this.problemListView.AllColumns.Add(this.acProb);
+            this.problemListView.AllColumns.Add(this.waProb);
+            this.problemListView.AllColumns.Add(this.tleProb);
+            this.problemListView.AllColumns.Add(this.reProb);
+            this.problemListView.AllColumns.Add(this.peProb);
+            this.problemListView.AllColumns.Add(this.ceProb);
+            this.problemListView.AllColumns.Add(this.subeProb);
+            this.problemListView.AllColumns.Add(this.oleProb);
+            this.problemListView.AllColumns.Add(this.cbjProb);
+            this.problemListView.AllColumns.Add(this.nverProb);
+            this.problemListView.AllColumns.Add(this.mleProb);
+            this.problemListView.AllColumns.Add(this.resfProb);
+            this.problemListView.AllColumns.Add(this.statProb);
+            this.problemListView.AllColumns.Add(this.pidProb);
+            this.problemListView.AlternateRowBackColor = System.Drawing.Color.SeaShell;
+            this.problemListView.BackColor = System.Drawing.Color.White;
+            this.problemListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.problemListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.pnumProb,
             this.ptitleProb,
             this.dacuProb,
@@ -325,27 +342,32 @@
             this.nverProb,
             this.resfProb,
             this.statProb});
-            this.fastObjectListView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fastObjectListView1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fastObjectListView1.ForeColor = System.Drawing.Color.Black;
-            this.fastObjectListView1.Location = new System.Drawing.Point(120, 33);
-            this.fastObjectListView1.Name = "fastObjectListView1";
-            this.fastObjectListView1.ShowGroups = false;
-            this.fastObjectListView1.Size = new System.Drawing.Size(98, 274);
-            this.fastObjectListView1.TabIndex = 3;
-            this.fastObjectListView1.UseCompatibleStateImageBehavior = false;
-            this.fastObjectListView1.View = System.Windows.Forms.View.Details;
-            this.fastObjectListView1.VirtualMode = true;
-            // 
-            // pidProb
-            // 
-            this.pidProb.AspectName = "pid";
-            this.pidProb.CellPadding = null;
-            this.pidProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.pidProb.Text = "ID";
-            this.pidProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.pidProb.ToolTipText = "ID of the Problem";
-            this.pidProb.Width = 0;
+            this.problemListView.Cursor = System.Windows.Forms.Cursors.Default;
+            this.problemListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.problemListView.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.problemListView.ForeColor = System.Drawing.Color.Black;
+            this.problemListView.FullRowSelect = true;
+            this.problemListView.Location = new System.Drawing.Point(120, 33);
+            this.problemListView.MultiSelect = false;
+            this.problemListView.Name = "problemListView";
+            this.problemListView.SelectAllOnControlA = false;
+            this.problemListView.ShowCommandMenuOnRightClick = true;
+            this.problemListView.ShowGroups = false;
+            this.problemListView.ShowItemCountOnGroups = true;
+            this.problemListView.ShowItemToolTips = true;
+            this.problemListView.Size = new System.Drawing.Size(98, 274);
+            this.problemListView.TabIndex = 3;
+            this.problemListView.UseAlternatingBackColors = true;
+            this.problemListView.UseCellFormatEvents = true;
+            this.problemListView.UseCompatibleStateImageBehavior = false;
+            this.problemListView.UseCustomSelectionColors = true;
+            this.problemListView.UseFiltering = true;
+            this.problemListView.UseHotItem = true;
+            this.problemListView.UseTranslucentHotItem = true;
+            this.problemListView.UseTranslucentSelection = true;
+            this.problemListView.View = System.Windows.Forms.View.Details;
+            this.problemListView.VirtualMode = true;
+            this.problemListView.FormatCell += new System.EventHandler<BrightIdeasSoftware.FormatCellEventArgs>(this.problemListView_FormatCell);
             // 
             // pnumProb
             // 
@@ -373,6 +395,7 @@
             this.dacuProb.Text = "DACU";
             this.dacuProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dacuProb.ToolTipText = "Distinct Accepted User";
+            this.dacuProb.UseFiltering = false;
             this.dacuProb.Width = 70;
             // 
             // rtlProb
@@ -383,6 +406,7 @@
             this.rtlProb.Text = "Time Limit";
             this.rtlProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.rtlProb.ToolTipText = "Number of submission that got \"Time Limit Exceeded\"";
+            this.rtlProb.UseFiltering = false;
             this.rtlProb.Width = 75;
             // 
             // runProb
@@ -393,6 +417,7 @@
             this.runProb.Text = "Best";
             this.runProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.runProb.ToolTipText = "Best Runtime";
+            this.runProb.UseFiltering = false;
             this.runProb.Width = 75;
             // 
             // acProb
@@ -403,6 +428,7 @@
             this.acProb.Text = "AC";
             this.acProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.acProb.ToolTipText = "Number of submission that got \"Accepted\"";
+            this.acProb.UseFiltering = false;
             // 
             // waProb
             // 
@@ -412,6 +438,7 @@
             this.waProb.Text = "WA";
             this.waProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.waProb.ToolTipText = "Number of submission that got \"Wrong Answer\"";
+            this.waProb.UseFiltering = false;
             // 
             // tleProb
             // 
@@ -421,6 +448,7 @@
             this.tleProb.Text = "TLE";
             this.tleProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tleProb.ToolTipText = "Number of submission that got \"Time Limit Exceeded\"";
+            this.tleProb.UseFiltering = false;
             // 
             // reProb
             // 
@@ -430,6 +458,7 @@
             this.reProb.Text = "RE";
             this.reProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.reProb.ToolTipText = "Number of submission that got \"Runtime Error\"";
+            this.reProb.UseFiltering = false;
             // 
             // peProb
             // 
@@ -439,6 +468,7 @@
             this.peProb.Text = "PE";
             this.peProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.peProb.ToolTipText = "Number of submission that got \"Presentation Error\"";
+            this.peProb.UseFiltering = false;
             // 
             // ceProb
             // 
@@ -448,6 +478,7 @@
             this.ceProb.Text = "CE";
             this.ceProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ceProb.ToolTipText = "Number of submission that got \"Compile Error\"";
+            this.ceProb.UseFiltering = false;
             // 
             // subeProb
             // 
@@ -457,6 +488,7 @@
             this.subeProb.Text = "SUBE";
             this.subeProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.subeProb.ToolTipText = "Number of submission that got \"Submission Error\"";
+            this.subeProb.UseFiltering = false;
             // 
             // oleProb
             // 
@@ -466,6 +498,7 @@
             this.oleProb.Text = "OLE";
             this.oleProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.oleProb.ToolTipText = "Number of submission that got \"Output Limit Exceeded\"";
+            this.oleProb.UseFiltering = false;
             // 
             // cbjProb
             // 
@@ -475,6 +508,7 @@
             this.cbjProb.Text = "CBJ";
             this.cbjProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.cbjProb.ToolTipText = "Number of submission that got \"Can\'t Be Judged\"";
+            this.cbjProb.UseFiltering = false;
             // 
             // nverProb
             // 
@@ -484,6 +518,7 @@
             this.nverProb.Text = "NVer";
             this.nverProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nverProb.ToolTipText = "Number of submission that got \"No Verdict given\"";
+            this.nverProb.UseFiltering = false;
             // 
             // resfProb
             // 
@@ -493,6 +528,7 @@
             this.resfProb.Text = "ResFunc";
             this.resfProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.resfProb.ToolTipText = "Number of submission that got \"Restricted Function Error\"";
+            this.resfProb.UseFiltering = false;
             // 
             // statProb
             // 
@@ -502,19 +538,49 @@
             this.statProb.Text = "Status";
             this.statProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.statProb.ToolTipText = "Status of current problem UVA Online Judge";
+            this.statProb.UseFiltering = false;
             // 
-            // objectListView1
+            // pidProb
             // 
-            this.objectListView1.BackColor = System.Drawing.Color.White;
-            this.objectListView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.objectListView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.objectListView1.Location = new System.Drawing.Point(1, 30);
-            this.objectListView1.Margin = new System.Windows.Forms.Padding(0);
-            this.objectListView1.Name = "objectListView1";
-            this.objectListView1.Size = new System.Drawing.Size(115, 280);
-            this.objectListView1.TabIndex = 4;
-            this.objectListView1.UseCompatibleStateImageBehavior = false;
-            this.objectListView1.View = System.Windows.Forms.View.Details;
+            this.pidProb.AspectName = "pid";
+            this.pidProb.CellPadding = null;
+            this.pidProb.DisplayIndex = 17;
+            this.pidProb.IsVisible = false;
+            this.pidProb.Searchable = false;
+            this.pidProb.Text = "PID";
+            this.pidProb.ToolTipText = "Problem ID";
+            this.pidProb.UseFiltering = false;
+            // 
+            // volumeListView
+            // 
+            this.volumeListView.BackColor = System.Drawing.Color.White;
+            this.volumeListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.volumeListView.Cursor = System.Windows.Forms.Cursors.Default;
+            this.volumeListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.volumeListView.Location = new System.Drawing.Point(1, 30);
+            this.volumeListView.Margin = new System.Windows.Forms.Padding(0);
+            this.volumeListView.Name = "volumeListView";
+            this.volumeListView.Size = new System.Drawing.Size(115, 280);
+            this.volumeListView.TabIndex = 4;
+            this.volumeListView.UseCompatibleStateImageBehavior = false;
+            this.volumeListView.UseCustomSelectionColors = true;
+            this.volumeListView.UseHotItem = true;
+            this.volumeListView.UseTranslucentHotItem = true;
+            this.volumeListView.UseTranslucentSelection = true;
+            this.volumeListView.View = System.Windows.Forms.View.Details;
+            // 
+            // button2
+            // 
+            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.Maroon;
+            this.button2.Location = new System.Drawing.Point(2, 311);
+            this.button2.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(113, 28);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "All Problems";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -543,44 +609,6 @@
             this.treeListView1.View = System.Windows.Forms.View.Details;
             this.treeListView1.VirtualMode = true;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 30);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(222, 340);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Favourites";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.Maroon;
-            this.button2.Location = new System.Drawing.Point(2, 311);
-            this.button2.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(113, 28);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "All Problems";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // searchBox1
-            // 
-            this.searchBox1.BackColor = System.Drawing.Color.White;
-            this.searchBox1.ClearButton = true;
-            this.searchBox1.CueText = "Search...";
-            this.searchBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.searchBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBox1.Location = new System.Drawing.Point(118, 312);
-            this.searchBox1.Margin = new System.Windows.Forms.Padding(1);
-            this.searchBox1.Name = "searchBox1";
-            this.searchBox1.SearchButton = false;
-            this.searchBox1.SearchText = "";
-            this.searchBox1.Size = new System.Drawing.Size(102, 26);
-            this.searchBox1.TabIndex = 0;
-            // 
             // searchBox2
             // 
             this.searchBox2.BackColor = System.Drawing.Color.White;
@@ -595,6 +623,16 @@
             this.searchBox2.SearchText = "";
             this.searchBox2.Size = new System.Drawing.Size(222, 24);
             this.searchBox2.TabIndex = 1;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 30);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(222, 340);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Favourites";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabControl2
             // 
@@ -671,8 +709,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.fastObjectListView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.problemListView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.volumeListView)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).EndInit();
             this.tabControl2.ResumeLayout(false);
@@ -694,8 +732,8 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private BrightIdeasSoftware.FastObjectListView fastObjectListView1;
-        private BrightIdeasSoftware.ObjectListView objectListView1;
+        private BrightIdeasSoftware.FastObjectListView problemListView;
+        private BrightIdeasSoftware.ObjectListView volumeListView;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel updateToolButton;
         private System.Windows.Forms.ToolStripStatusLabel Status1;
@@ -703,7 +741,6 @@
         private BrightIdeasSoftware.TreeListView treeListView1;
         private Custom.SearchBox searchBox2;
         private System.ComponentModel.BackgroundWorker problemWorker;
-        private BrightIdeasSoftware.OLVColumn pidProb;
         private BrightIdeasSoftware.OLVColumn pnumProb;
         private BrightIdeasSoftware.OLVColumn ptitleProb;
         private BrightIdeasSoftware.OLVColumn dacuProb;
@@ -730,5 +767,6 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage7;
+        private BrightIdeasSoftware.OLVColumn pidProb;
     }
 }

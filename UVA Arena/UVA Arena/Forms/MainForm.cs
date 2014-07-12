@@ -48,6 +48,8 @@ namespace UVA_Arena
         private void InitializeOthers()
         {
             ProblemDatabase.LoadDatabase();
+            
+            problems1.InitOthers();
         }
 
         #endregion

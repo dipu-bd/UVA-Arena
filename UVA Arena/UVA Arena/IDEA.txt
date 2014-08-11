@@ -1,0 +1,6 @@
+﻿NEW IDEAS
+==============
+
+## Add Download Manager to Logger. 
+   * It will show pending tasks and download progress
+   * Also supports task cancelling feature

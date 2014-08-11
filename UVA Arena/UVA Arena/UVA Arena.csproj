@@ -34,27 +34,12 @@
   <PropertyGroup>
     <ApplicationIcon>main.ico</ApplicationIcon>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="ActiveButtons">
-      <HintPath>..\..\..\..\VS Custom Tools\ActiveButtons.Net-master\ActiveButtons.Net-master\Source\bin\Debug\ActiveButtons.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\VS Custom Tools\Json60r1\Bin\Net20\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="ObjectListView">
-      <HintPath>..\..\..\..\Custom Tools\ObjectListViewFull-2.6.0\ObjectListViewDemo\ObjectListView\bin\debug\ObjectListView.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Design" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
+  <PropertyGroup>
+    <StartupObject>UVA_Arena.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Custom\API.cs" />
+    <Compile Include="StaticClass\NativeMethods.cs" />
     <Compile Include="Custom\Controls.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -64,11 +49,35 @@
     <Compile Include="Custom\SearchBox.Designer.cs">
       <DependentUpon>SearchBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Elements\CODES.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Elements\CODES.Designer.cs">
+      <DependentUpon>CODES.cs</DependentUpon>
+    </Compile>
     <Compile Include="Elements\PROBLEMS.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Elements\PROBLEMS.Designer.cs">
       <DependentUpon>PROBLEMS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\ProblemViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Elements\ProblemViewer.Designer.cs">
+      <DependentUpon>ProblemViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CatagoryChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CatagoryChange.Designer.cs">
+      <DependentUpon>CatagoryChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DownloadAllForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DownloadAllForm.Designer.cs">
+      <DependentUpon>DownloadAllForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\HelpAbout.cs">
       <SubType>Form</SubType>
@@ -81,6 +90,12 @@
     </Compile>
     <Compile Include="Forms\InputForm.Designer.cs">
       <DependentUpon>InputForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LoggerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LoggerForm.Designer.cs">
+      <DependentUpon>LoggerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -108,26 +123,44 @@
     <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Structures\Functions.cs" />
-    <Compile Include="Structures\Internet.cs" />
-    <Compile Include="Structures\LocalDirectory.cs" />
-    <Compile Include="Structures\ProblemList.cs" />
-    <Compile Include="Structures\RegistryAccess.cs" />
-    <Compile Include="Structures\Startup.cs" />
-    <EmbeddedResource Include="Custom\Controls.resx">
-      <DependentUpon>Controls.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="StaticClass\Functions.cs" />
+    <Compile Include="StaticClass\Interactivity.cs" />
+    <Compile Include="StaticClass\Internet.cs" />
+    <Compile Include="StaticClass\LocalDirectory.cs" />
+    <Compile Include="StaticClass\Logger.cs" />
+    <Compile Include="StaticClass\ProblemList.cs" />
+    <Compile Include="StaticClass\RegistryAccess.cs" />
+    <Compile Include="StaticClass\ProblemDatabase.cs" />
+    <Compile Include="StaticClass\Stylish.cs" />
+    <Compile Include="StaticClass\SubmissionList.cs" />
+    <Compile Include="StaticClass\TaskQueue.cs" />
+    <Compile Include="StaticClass\UnixTimeStamp.cs" />
     <EmbeddedResource Include="Custom\SearchBox.resx">
       <DependentUpon>SearchBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Elements\CODES.resx">
+      <DependentUpon>CODES.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Elements\PROBLEMS.resx">
       <DependentUpon>PROBLEMS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\ProblemViewer.resx">
+      <DependentUpon>ProblemViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CatagoryChange.resx">
+      <DependentUpon>CatagoryChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DownloadAllForm.resx">
+      <DependentUpon>DownloadAllForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HelpAbout.resx">
       <DependentUpon>HelpAbout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InputForm.resx">
       <DependentUpon>InputForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoggerForm.resx">
+      <DependentUpon>LoggerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -151,6 +184,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -162,16 +196,92 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="IDEA.txt" />
     <Content Include="main.ico" />
-    <None Include="Resources\Image1.bmp" />
-    <None Include="Resources\tools_icon.png" />
-    <None Include="Resources\search_icon.png" />
-    <None Include="Resources\unpinned.bmp" />
-    <None Include="Resources\pinned.bmp" />
-    <None Include="Resources\help_icon.png" />
-    <None Include="Resources\clear_icon.bmp" />
+    <Content Include="unzip\Ionic.BZip2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="unzip\Ionic.Zip.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="unzip\Ionic.Zlib.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="unzip\License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="unzip\Readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="unzip\unzip.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="unzip\zipit.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\web.png" />
+    <None Include="Resources\unpin.png" />
+    <None Include="Resources\tools.png" />
+    <None Include="Resources\submit.png" />
+    <None Include="Resources\search.png" />
+    <None Include="Resources\reload.png" />
+    <None Include="Resources\prev.png" />
+    <None Include="Resources\pin.png" />
+    <None Include="Resources\pdf.png" />
+    <None Include="Resources\next.png" />
+    <None Include="Resources\log.png" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\export.png" />
+    <None Include="Resources\expand.png" />
+    <None Include="Resources\download.png" />
+    <None Include="Resources\code.png" />
+    <None Include="Resources\clear.png" />
+    <None Include="Resources\favourite.png" />
+    <None Include="Resources\back5.gif" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="ActiveButtons, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External References\ActiveButtons.dll</HintPath>
+    </Reference>
+    <Reference Include="FastColoredTextBox, Version=2.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External References\FastColoredTextBox.DLL</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\External References\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ObjectListView, Version=2.5.1.35993, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External References\ObjectListView.DLL</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Design">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.XML">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TabStrip, Version=2.0.2523.29272, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External References\TabStrip.DLL</HintPath>
+    </Reference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

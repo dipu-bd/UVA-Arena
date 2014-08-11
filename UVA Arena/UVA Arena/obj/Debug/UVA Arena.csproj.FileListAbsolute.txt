@@ -1,37 +1,80 @@
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.exe
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.pdb
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.dll
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.pdb
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.xml
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.MainForm.resources
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Properties.Resources.resources
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csproj.GenerateResource.Cache
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.exe
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.pdb
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.dll
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.pdb
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.xml
-E:\Project\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csprojResolveAssemblyReference.cache
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.exe.config
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.exe
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.pdb
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ActiveButtons.dll
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\FastColoredTextBox.DLL
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\HtmlAgilityPack.dll
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.dll
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.DLL
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\System.Data.dll
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\System.Design.dll
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\System.dll
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\System.Drawing.dll
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\System.Windows.Forms.dll
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\System.Xml.dll
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\TabStrip.DLL
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Custom.SearchBox.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Elements.CODES.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Elements.PROBLEMS.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Elements.ProblemViewer.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.CatagoryChange.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.DownloadAllForm.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.HelpAbout.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.InputForm.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.LoggerForm.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.MainForm.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.SettingsForm.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.SubmitForm.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.UsernameForm.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csproj.GenerateResource.Cache
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.exe
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.pdb
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Properties.Resources.resources
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\Ionic.BZip2.dll
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\Ionic.Zip.dll
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\Ionic.Zlib.dll
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\License.txt
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\Readme.txt
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\unzip.exe
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\zipit.exe
+I:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csprojResolveAssemblyReference.cache
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.exe.config
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.exe
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.pdb
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\Ionic.BZip2.dll
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\Ionic.Zip.dll
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\Ionic.Zlib.dll
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\License.txt
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\Readme.txt
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\unzip.exe
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\zipit.exe
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.exe
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.pdb
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ActiveButtons.dll
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ActiveButtons.pdb
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.pdb
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.xml
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.pdb
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.xml
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\FastColoredTextBox.DLL
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\HtmlAgilityPack.dll
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.dll
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.DLL
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\System.Data.dll
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\System.Design.dll
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\System.dll
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\System.Drawing.dll
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\System.Windows.Forms.dll
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\System.Xml.dll
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\TabStrip.DLL
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csprojResolveAssemblyReference.cache
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Custom.SearchBox.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Elements.CODES.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Elements.PROBLEMS.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Elements.ProblemViewer.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.CatagoryChange.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.DownloadAllForm.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.HelpAbout.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.InputForm.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.LoggerForm.resources
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.MainForm.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.SettingsForm.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.SubmitForm.resources
+E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.UsernameForm.resources
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Properties.Resources.resources
 E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csproj.GenerateResource.Cache
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.HelpAbout.resources
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.SettingsForm.resources
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.InputForm.resources
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Forms.SubmitForm.resources
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.UsernameForm.resources
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.dll
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Custom.SearchBox.resources
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Elements.PROBLEMS.resources
-E:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\System.Windows.Forms.CueTextBox.resources

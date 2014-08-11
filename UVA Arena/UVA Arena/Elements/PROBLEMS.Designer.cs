@@ -31,30 +31,12 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PROBLEMS));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.memProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.mleProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.updateToolButton = new System.Windows.Forms.ToolStripStatusLabel();
             this.Status1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.Progress1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.problemWorker = new System.ComponentModel.BackgroundWorker();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.searchBox1 = new UVA_Arena.Custom.SearchBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.problemListView = new BrightIdeasSoftware.FastObjectListView();
-            this.pnumProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.ptitleProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.dacuProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.rtlProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.runProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.acProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.waProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tleProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.reProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.peProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -66,51 +48,69 @@
             this.resfProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.statProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pidProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.volumeListView = new BrightIdeasSoftware.ObjectListView();
-            this.button2 = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.treeListView1 = new BrightIdeasSoftware.TreeListView();
-            this.searchBox2 = new UVA_Arena.Custom.SearchBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.CustomSplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.CustomSplitContainer();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.catagoryButton = new System.Windows.Forms.RadioButton();
+            this.volumesButton = new System.Windows.Forms.RadioButton();
+            this.favouriteButton = new System.Windows.Forms.RadioButton();
+            this.allProbButton = new System.Windows.Forms.RadioButton();
+            this.catagoryListView = new BrightIdeasSoftware.ObjectListView();
+            this.nameVol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.countVol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.problemListContainer = new System.Windows.Forms.TableLayoutPanel();
+            this.searchBox1 = new UVA_Arena.Custom.SearchBox();
+            this.problemListView = new BrightIdeasSoftware.FastObjectListView();
+            this.pnumProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.ptitleProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.levelProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.dacuProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.rtlProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.runProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.totalProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.acProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.waProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.problemContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.downloadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportDownloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importDownloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.viewSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.submitCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.markAsFavouriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.plistLabel = new System.Windows.Forms.Label();
+            this.problemViewer1 = new UVA_Arena.Elements.ProblemViewer();
             this.statusStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.catagoryListView)).BeginInit();
+            this.problemListContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.problemListView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.volumeListView)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).BeginInit();
-            this.tabControl2.SuspendLayout();
+            this.problemContextMenu.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button1.Image = global::UVA_Arena.Properties.Resources.pinned;
-            this.button1.Location = new System.Drawing.Point(85, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(30, 28);
-            this.button1.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.button1, "Pin Volume");
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // memProb
             // 
-            this.memProb.AspectName = "memory";
+            this.memProb.AspectName = "mem";
             this.memProb.CellPadding = null;
-            this.memProb.DisplayIndex = 6;
+            this.memProb.DisplayIndex = 4;
+            this.memProb.Groupable = false;
             this.memProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.memProb.IsVisible = false;
+            this.memProb.Searchable = false;
             this.memProb.Text = "Memory";
             this.memProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.memProb.ToolTipText = "Best Memory";
@@ -121,8 +121,10 @@
             this.mleProb.AspectName = "mle";
             this.mleProb.CellPadding = null;
             this.mleProb.DisplayIndex = 17;
+            this.mleProb.Groupable = false;
             this.mleProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mleProb.IsVisible = false;
+            this.mleProb.Searchable = false;
             this.mleProb.Text = "MLE";
             this.mleProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mleProb.ToolTipText = "Number of submission that got \"Memory Limit Exceeded\"";
@@ -130,30 +132,31 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.statusStrip1.BackColor = System.Drawing.Color.LightBlue;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateToolButton,
             this.Status1,
             this.Progress1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 374);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(787, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(800, 26);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // updateToolButton
             // 
-            this.updateToolButton.BackColor = System.Drawing.Color.MintCream;
+            this.updateToolButton.BackColor = System.Drawing.Color.SeaShell;
             this.updateToolButton.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.updateToolButton.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
-            this.updateToolButton.Image = ((System.Drawing.Image)(resources.GetObject("updateToolButton.Image")));
+            this.updateToolButton.Image = global::UVA_Arena.Properties.Resources.reload;
+            this.updateToolButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.updateToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.updateToolButton.Margin = new System.Windows.Forms.Padding(3, 1, 3, 0);
+            this.updateToolButton.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.updateToolButton.Name = "updateToolButton";
-            this.updateToolButton.Padding = new System.Windows.Forms.Padding(3, 1, 3, 0);
-            this.updateToolButton.Size = new System.Drawing.Size(92, 25);
+            this.updateToolButton.Padding = new System.Windows.Forms.Padding(4, 2, 2, 2);
+            this.updateToolButton.Size = new System.Drawing.Size(92, 24);
             this.updateToolButton.Text = "Update List";
             this.updateToolButton.Click += new System.EventHandler(this.updateToolButton_Click);
             this.updateToolButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolButton1_MouseDown);
@@ -166,22 +169,166 @@
             this.Status1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
             this.Status1.Margin = new System.Windows.Forms.Padding(0, 3, 0, 1);
             this.Status1.Name = "Status1";
-            this.Status1.Size = new System.Drawing.Size(552, 22);
+            this.Status1.Size = new System.Drawing.Size(534, 22);
             this.Status1.Spring = true;
             this.Status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Progress1
             // 
-            this.Progress1.Margin = new System.Windows.Forms.Padding(1, 3, 1, 1);
             this.Progress1.Name = "Progress1";
-            this.Progress1.Size = new System.Drawing.Size(120, 22);
+            this.Progress1.Size = new System.Drawing.Size(120, 20);
             // 
-            // problemWorker
+            // tleProb
             // 
-            this.problemWorker.WorkerReportsProgress = true;
-            this.problemWorker.WorkerSupportsCancellation = true;
-            this.problemWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.problemWorker_DoWork);
-            this.problemWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.problemWorker_RunWorkerCompleted);
+            this.tleProb.AspectName = "tle";
+            this.tleProb.CellPadding = null;
+            this.tleProb.DisplayIndex = 9;
+            this.tleProb.Groupable = false;
+            this.tleProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tleProb.IsVisible = false;
+            this.tleProb.Searchable = false;
+            this.tleProb.Text = "TLE";
+            this.tleProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tleProb.ToolTipText = "Number of submission that got \"Time Limit Exceeded\"";
+            this.tleProb.UseFiltering = false;
+            // 
+            // reProb
+            // 
+            this.reProb.AspectName = "re";
+            this.reProb.CellPadding = null;
+            this.reProb.DisplayIndex = 10;
+            this.reProb.Groupable = false;
+            this.reProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.reProb.IsVisible = false;
+            this.reProb.Searchable = false;
+            this.reProb.Text = "RE";
+            this.reProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.reProb.ToolTipText = "Number of submission that got \"Runtime Error\"";
+            this.reProb.UseFiltering = false;
+            // 
+            // peProb
+            // 
+            this.peProb.AspectName = "pe";
+            this.peProb.CellPadding = null;
+            this.peProb.DisplayIndex = 11;
+            this.peProb.Groupable = false;
+            this.peProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.peProb.IsVisible = false;
+            this.peProb.Searchable = false;
+            this.peProb.Text = "PE";
+            this.peProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.peProb.ToolTipText = "Number of submission that got \"Presentation Error\"";
+            this.peProb.UseFiltering = false;
+            // 
+            // ceProb
+            // 
+            this.ceProb.AspectName = "ce";
+            this.ceProb.CellPadding = null;
+            this.ceProb.DisplayIndex = 12;
+            this.ceProb.Groupable = false;
+            this.ceProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ceProb.IsVisible = false;
+            this.ceProb.Searchable = false;
+            this.ceProb.Text = "CE";
+            this.ceProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ceProb.ToolTipText = "Number of submission that got \"Compile Error\"";
+            this.ceProb.UseFiltering = false;
+            // 
+            // subeProb
+            // 
+            this.subeProb.AspectName = "sube";
+            this.subeProb.CellPadding = null;
+            this.subeProb.DisplayIndex = 13;
+            this.subeProb.Groupable = false;
+            this.subeProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.subeProb.IsVisible = false;
+            this.subeProb.Searchable = false;
+            this.subeProb.Text = "SUBE";
+            this.subeProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.subeProb.ToolTipText = "Number of submission that got \"Submission Error\"";
+            this.subeProb.UseFiltering = false;
+            // 
+            // oleProb
+            // 
+            this.oleProb.AspectName = "ole";
+            this.oleProb.CellPadding = null;
+            this.oleProb.DisplayIndex = 14;
+            this.oleProb.Groupable = false;
+            this.oleProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.oleProb.IsVisible = false;
+            this.oleProb.Searchable = false;
+            this.oleProb.Text = "OLE";
+            this.oleProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.oleProb.ToolTipText = "Number of submission that got \"Output Limit Exceeded\"";
+            this.oleProb.UseFiltering = false;
+            // 
+            // cbjProb
+            // 
+            this.cbjProb.AspectName = "cbj";
+            this.cbjProb.CellPadding = null;
+            this.cbjProb.DisplayIndex = 15;
+            this.cbjProb.Groupable = false;
+            this.cbjProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.cbjProb.IsVisible = false;
+            this.cbjProb.Searchable = false;
+            this.cbjProb.Text = "CBJ";
+            this.cbjProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.cbjProb.ToolTipText = "Number of submission that got \"Can\'t Be Judged\"";
+            this.cbjProb.UseFiltering = false;
+            // 
+            // nverProb
+            // 
+            this.nverProb.AspectName = "nver";
+            this.nverProb.CellPadding = null;
+            this.nverProb.DisplayIndex = 16;
+            this.nverProb.Groupable = false;
+            this.nverProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nverProb.IsVisible = false;
+            this.nverProb.Searchable = false;
+            this.nverProb.Text = "NVer";
+            this.nverProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nverProb.ToolTipText = "Number of submission that got \"No Verdict given\"";
+            this.nverProb.UseFiltering = false;
+            // 
+            // resfProb
+            // 
+            this.resfProb.AspectName = "resf";
+            this.resfProb.CellPadding = null;
+            this.resfProb.DisplayIndex = 18;
+            this.resfProb.Groupable = false;
+            this.resfProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.resfProb.IsVisible = false;
+            this.resfProb.Searchable = false;
+            this.resfProb.Text = "ResFunc";
+            this.resfProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.resfProb.ToolTipText = "Number of submission that got \"Restricted Function Error\"";
+            this.resfProb.UseFiltering = false;
+            this.resfProb.Width = 75;
+            // 
+            // statProb
+            // 
+            this.statProb.AspectName = "status";
+            this.statProb.CellPadding = null;
+            this.statProb.DisplayIndex = 19;
+            this.statProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.statProb.IsVisible = false;
+            this.statProb.Searchable = false;
+            this.statProb.Text = "Status";
+            this.statProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.statProb.ToolTipText = "Status of current problem UVA Online Judge";
+            this.statProb.UseFiltering = false;
+            this.statProb.Width = 100;
+            // 
+            // pidProb
+            // 
+            this.pidProb.AspectName = "pid";
+            this.pidProb.CellPadding = null;
+            this.pidProb.DisplayIndex = 17;
+            this.pidProb.IsVisible = false;
+            this.pidProb.Searchable = false;
+            this.pidProb.Text = "PID";
+            this.pidProb.ToolTipText = "Problem ID";
+            this.pidProb.UseFiltering = false;
             // 
             // splitContainer1
             // 
@@ -191,122 +338,234 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.tabControl1);
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.tabControl2);
-            this.splitContainer1.Size = new System.Drawing.Size(787, 374);
-            this.splitContainer1.SplitterDistance = 230;
+            this.splitContainer1.Panel2.Controls.Add(this.problemViewer1);
+            this.splitContainer1.Size = new System.Drawing.Size(800, 374);
+            this.splitContainer1.SplitterDistance = 270;
             this.splitContainer1.TabIndex = 0;
             // 
-            // tabControl1
+            // splitContainer2
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.Padding = new System.Drawing.Point(16, 5);
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(230, 374);
-            this.tabControl1.TabIndex = 0;
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
             // 
-            // tabPage1
+            // splitContainer2.Panel1
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.SeaShell;
-            this.tabPage1.Controls.Add(this.tableLayoutPanel1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 30);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(222, 340);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Problem List";
+            this.splitContainer2.Panel1.Controls.Add(this.tableLayoutPanel1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.problemListContainer);
+            this.splitContainer2.Size = new System.Drawing.Size(270, 374);
+            this.splitContainer2.SplitterDistance = 120;
+            this.splitContainer2.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Snow;
-            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 115F));
+            this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.searchBox1, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.problemListView, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.volumeListView, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.button2, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.catagoryButton, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.volumesButton, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.favouriteButton, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.allProbButton, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.catagoryListView, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(222, 340);
-            this.tableLayoutPanel1.TabIndex = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(120, 374);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // catagoryButton
+            // 
+            this.catagoryButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.catagoryButton.AutoCheck = false;
+            this.catagoryButton.AutoSize = true;
+            this.catagoryButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.catagoryButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.catagoryButton.ForeColor = System.Drawing.Color.Maroon;
+            this.catagoryButton.Image = ((System.Drawing.Image)(resources.GetObject("catagoryButton.Image")));
+            this.catagoryButton.Location = new System.Drawing.Point(1, 31);
+            this.catagoryButton.Margin = new System.Windows.Forms.Padding(1);
+            this.catagoryButton.Name = "catagoryButton";
+            this.catagoryButton.Size = new System.Drawing.Size(118, 28);
+            this.catagoryButton.TabIndex = 8;
+            this.catagoryButton.TabStop = true;
+            this.catagoryButton.Text = "Catagories";
+            this.catagoryButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.catagoryButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.catagoryButton.UseVisualStyleBackColor = true;
+            this.catagoryButton.Click += new System.EventHandler(this.catagoryButton_Click);
+            // 
+            // volumesButton
+            // 
+            this.volumesButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.volumesButton.AutoCheck = false;
+            this.volumesButton.AutoSize = true;
+            this.volumesButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.volumesButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.volumesButton.ForeColor = System.Drawing.Color.Navy;
+            this.volumesButton.Image = ((System.Drawing.Image)(resources.GetObject("volumesButton.Image")));
+            this.volumesButton.Location = new System.Drawing.Point(1, 1);
+            this.volumesButton.Margin = new System.Windows.Forms.Padding(1);
+            this.volumesButton.Name = "volumesButton";
+            this.volumesButton.Size = new System.Drawing.Size(118, 28);
+            this.volumesButton.TabIndex = 7;
+            this.volumesButton.TabStop = true;
+            this.volumesButton.Text = "Volumes";
+            this.volumesButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.volumesButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.volumesButton.UseVisualStyleBackColor = true;
+            this.volumesButton.Click += new System.EventHandler(this.volumesButton_Click);
+            // 
+            // favouriteButton
+            // 
+            this.favouriteButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.favouriteButton.AutoCheck = false;
+            this.favouriteButton.AutoSize = true;
+            this.favouriteButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.favouriteButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.favouriteButton.ForeColor = System.Drawing.Color.Purple;
+            this.favouriteButton.Image = global::UVA_Arena.Properties.Resources.favourite;
+            this.favouriteButton.Location = new System.Drawing.Point(1, 315);
+            this.favouriteButton.Margin = new System.Windows.Forms.Padding(1);
+            this.favouriteButton.Name = "favouriteButton";
+            this.favouriteButton.Size = new System.Drawing.Size(118, 28);
+            this.favouriteButton.TabIndex = 6;
+            this.favouriteButton.TabStop = true;
+            this.favouriteButton.Text = "Marked";
+            this.favouriteButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.favouriteButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.favouriteButton.UseVisualStyleBackColor = true;
+            this.favouriteButton.Click += new System.EventHandler(this.favouriteButton_Click);
+            // 
+            // allProbButton
+            // 
+            this.allProbButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.allProbButton.AutoCheck = false;
+            this.allProbButton.AutoSize = true;
+            this.allProbButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.allProbButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.allProbButton.Location = new System.Drawing.Point(1, 345);
+            this.allProbButton.Margin = new System.Windows.Forms.Padding(1);
+            this.allProbButton.Name = "allProbButton";
+            this.allProbButton.Size = new System.Drawing.Size(118, 28);
+            this.allProbButton.TabIndex = 5;
+            this.allProbButton.TabStop = true;
+            this.allProbButton.Text = "All Problems";
+            this.allProbButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.allProbButton.UseVisualStyleBackColor = true;
+            this.allProbButton.Click += new System.EventHandler(this.allProbButton_Click);
+            // 
+            // catagoryListView
+            // 
+            this.catagoryListView.AllColumns.Add(this.nameVol);
+            this.catagoryListView.AllColumns.Add(this.countVol);
+            this.catagoryListView.BackColor = System.Drawing.Color.LightCyan;
+            this.catagoryListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.catagoryListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameVol,
+            this.countVol});
+            this.catagoryListView.Cursor = System.Windows.Forms.Cursors.Default;
+            this.catagoryListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.catagoryListView.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.catagoryListView.FullRowSelect = true;
+            this.catagoryListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.catagoryListView.Location = new System.Drawing.Point(1, 61);
+            this.catagoryListView.Margin = new System.Windows.Forms.Padding(1);
+            this.catagoryListView.MultiSelect = false;
+            this.catagoryListView.Name = "catagoryListView";
+            this.catagoryListView.SelectAllOnControlA = false;
+            this.catagoryListView.ShowGroups = false;
+            this.catagoryListView.ShowItemToolTips = true;
+            this.catagoryListView.Size = new System.Drawing.Size(118, 252);
+            this.catagoryListView.TabIndex = 4;
+            this.catagoryListView.UseCellFormatEvents = true;
+            this.catagoryListView.UseCompatibleStateImageBehavior = false;
+            this.catagoryListView.UseCustomSelectionColors = true;
+            this.catagoryListView.UseHotItem = true;
+            this.catagoryListView.UseTranslucentHotItem = true;
+            this.catagoryListView.UseTranslucentSelection = true;
+            this.catagoryListView.View = System.Windows.Forms.View.Details;
+            this.catagoryListView.FormatCell += new System.EventHandler<BrightIdeasSoftware.FormatCellEventArgs>(this.ListView_FormatCell);
+            this.catagoryListView.SelectedIndexChanged += new System.EventHandler(this.volumeListView_SelectedIndexChanged);
+            // 
+            // nameVol
+            // 
+            this.nameVol.AspectName = "name";
+            this.nameVol.AspectToStringFormat = "";
+            this.nameVol.CellPadding = null;
+            this.nameVol.FillsFreeSpace = true;
+            this.nameVol.Text = "Volume";
+            this.nameVol.ToolTipText = "Volume number";
+            // 
+            // countVol
+            // 
+            this.countVol.AspectName = "count";
+            this.countVol.CellPadding = null;
+            this.countVol.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.countVol.Text = "N";
+            this.countVol.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.countVol.ToolTipText = "Count of problems in this volume";
+            this.countVol.Width = 30;
+            // 
+            // problemListContainer
+            // 
+            this.problemListContainer.ColumnCount = 1;
+            this.problemListContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.problemListContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.problemListContainer.Controls.Add(this.searchBox1, 0, 3);
+            this.problemListContainer.Controls.Add(this.problemListView, 0, 1);
+            this.problemListContainer.Controls.Add(this.panel1, 0, 0);
+            this.problemListContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.problemListContainer.Location = new System.Drawing.Point(0, 0);
+            this.problemListContainer.Name = "problemListContainer";
+            this.problemListContainer.RowCount = 4;
+            this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.problemListContainer.Size = new System.Drawing.Size(146, 374);
+            this.problemListContainer.TabIndex = 1;
+            this.problemListContainer.Tag = "115";
             // 
             // searchBox1
             // 
-            this.searchBox1.BackColor = System.Drawing.Color.White;
+            this.searchBox1.BackColor = System.Drawing.Color.Azure;
             this.searchBox1.ClearButton = true;
             this.searchBox1.CueText = "Search...";
             this.searchBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBox1.Location = new System.Drawing.Point(118, 312);
+            this.searchBox1.Location = new System.Drawing.Point(1, 347);
             this.searchBox1.Margin = new System.Windows.Forms.Padding(1);
             this.searchBox1.Name = "searchBox1";
             this.searchBox1.SearchButton = false;
             this.searchBox1.SearchText = "";
-            this.searchBox1.Size = new System.Drawing.Size(102, 26);
+            this.searchBox1.Size = new System.Drawing.Size(144, 26);
             this.searchBox1.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.MintCream;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Navy;
-            this.label2.Location = new System.Drawing.Point(120, 1);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 28);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Problems";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(1, 1);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(115, 28);
-            this.panel1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.MintCream;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Navy;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 28);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Volumes";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.searchBox1.SearchTextChanged += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchTextChanged);
             // 
             // problemListView
             // 
             this.problemListView.AllColumns.Add(this.pnumProb);
             this.problemListView.AllColumns.Add(this.ptitleProb);
+            this.problemListView.AllColumns.Add(this.levelProb);
             this.problemListView.AllColumns.Add(this.dacuProb);
             this.problemListView.AllColumns.Add(this.rtlProb);
             this.problemListView.AllColumns.Add(this.runProb);
             this.problemListView.AllColumns.Add(this.memProb);
+            this.problemListView.AllColumns.Add(this.totalProb);
             this.problemListView.AllColumns.Add(this.acProb);
             this.problemListView.AllColumns.Add(this.waProb);
             this.problemListView.AllColumns.Add(this.tleProb);
@@ -321,41 +580,38 @@
             this.problemListView.AllColumns.Add(this.resfProb);
             this.problemListView.AllColumns.Add(this.statProb);
             this.problemListView.AllColumns.Add(this.pidProb);
-            this.problemListView.AlternateRowBackColor = System.Drawing.Color.SeaShell;
-            this.problemListView.BackColor = System.Drawing.Color.White;
+            this.problemListView.AlternateRowBackColor = System.Drawing.Color.Snow;
+            this.problemListView.BackColor = System.Drawing.Color.Azure;
             this.problemListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.problemListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.pnumProb,
             this.ptitleProb,
+            this.levelProb,
             this.dacuProb,
             this.rtlProb,
             this.runProb,
+            this.totalProb,
             this.acProb,
-            this.waProb,
-            this.tleProb,
-            this.reProb,
-            this.peProb,
-            this.ceProb,
-            this.subeProb,
-            this.oleProb,
-            this.cbjProb,
-            this.nverProb,
-            this.resfProb,
-            this.statProb});
+            this.waProb});
+            this.problemListView.ContextMenuStrip = this.problemContextMenu;
             this.problemListView.Cursor = System.Windows.Forms.Cursors.Default;
             this.problemListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.problemListView.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.problemListView.ForeColor = System.Drawing.Color.Black;
+            this.problemListView.EmptyListMsg = "List is empty";
+            this.problemListView.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.problemListView.ForeColor = System.Drawing.Color.Blue;
             this.problemListView.FullRowSelect = true;
-            this.problemListView.Location = new System.Drawing.Point(120, 33);
+            this.problemListView.Location = new System.Drawing.Point(1, 29);
+            this.problemListView.Margin = new System.Windows.Forms.Padding(1);
             this.problemListView.MultiSelect = false;
             this.problemListView.Name = "problemListView";
+            this.problemListContainer.SetRowSpan(this.problemListView, 2);
             this.problemListView.SelectAllOnControlA = false;
+            this.problemListView.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.Submenu;
             this.problemListView.ShowCommandMenuOnRightClick = true;
             this.problemListView.ShowGroups = false;
             this.problemListView.ShowItemCountOnGroups = true;
             this.problemListView.ShowItemToolTips = true;
-            this.problemListView.Size = new System.Drawing.Size(98, 274);
+            this.problemListView.Size = new System.Drawing.Size(144, 316);
             this.problemListView.TabIndex = 3;
             this.problemListView.UseAlternatingBackColors = true;
             this.problemListView.UseCellFormatEvents = true;
@@ -367,7 +623,10 @@
             this.problemListView.UseTranslucentSelection = true;
             this.problemListView.View = System.Windows.Forms.View.Details;
             this.problemListView.VirtualMode = true;
-            this.problemListView.FormatCell += new System.EventHandler<BrightIdeasSoftware.FormatCellEventArgs>(this.problemListView_FormatCell);
+            this.problemListView.BeforeSorting += new System.EventHandler<BrightIdeasSoftware.BeforeSortingEventArgs>(this.problemListView_BeforeSorting);
+            this.problemListView.CellToolTipShowing += new System.EventHandler<BrightIdeasSoftware.ToolTipShowingEventArgs>(this.problemListView_CellToolTipShowing);
+            this.problemListView.FormatCell += new System.EventHandler<BrightIdeasSoftware.FormatCellEventArgs>(this.ListView_FormatCell);
+            this.problemListView.SelectedIndexChanged += new System.EventHandler(this.problemListView_SelectedIndexChanged);
             // 
             // pnumProb
             // 
@@ -377,7 +636,6 @@
             this.pnumProb.Text = "Number";
             this.pnumProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pnumProb.ToolTipText = "Problem number";
-            this.pnumProb.Width = 70;
             // 
             // ptitleProb
             // 
@@ -385,46 +643,72 @@
             this.ptitleProb.CellPadding = null;
             this.ptitleProb.Text = "Problem Title";
             this.ptitleProb.ToolTipText = "Problem title";
-            this.ptitleProb.Width = 150;
+            this.ptitleProb.Width = 140;
+            // 
+            // levelProb
+            // 
+            this.levelProb.AspectName = "level";
+            this.levelProb.AspectToStringFormat = "{0:0}";
+            this.levelProb.CellPadding = null;
+            this.levelProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.levelProb.Searchable = false;
+            this.levelProb.Text = "Level";
+            this.levelProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.levelProb.ToolTipText = "Hardness level of this problem";
+            this.levelProb.UseFiltering = false;
+            this.levelProb.Width = 50;
             // 
             // dacuProb
             // 
             this.dacuProb.AspectName = "dacu";
             this.dacuProb.CellPadding = null;
             this.dacuProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dacuProb.Searchable = false;
             this.dacuProb.Text = "DACU";
             this.dacuProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dacuProb.ToolTipText = "Distinct Accepted User";
-            this.dacuProb.UseFiltering = false;
-            this.dacuProb.Width = 70;
             // 
             // rtlProb
             // 
-            this.rtlProb.AspectName = "timelimit";
+            this.rtlProb.AspectName = "rtl";
             this.rtlProb.CellPadding = null;
             this.rtlProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.rtlProb.Searchable = false;
             this.rtlProb.Text = "Time Limit";
             this.rtlProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.rtlProb.ToolTipText = "Number of submission that got \"Time Limit Exceeded\"";
-            this.rtlProb.UseFiltering = false;
-            this.rtlProb.Width = 75;
+            this.rtlProb.Width = 80;
             // 
             // runProb
             // 
-            this.runProb.AspectName = "best";
+            this.runProb.AspectName = "run";
             this.runProb.CellPadding = null;
             this.runProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.runProb.Searchable = false;
             this.runProb.Text = "Best";
             this.runProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.runProb.ToolTipText = "Best Runtime";
-            this.runProb.UseFiltering = false;
-            this.runProb.Width = 75;
+            this.runProb.Width = 80;
+            // 
+            // totalProb
+            // 
+            this.totalProb.AspectName = "total";
+            this.totalProb.CellPadding = null;
+            this.totalProb.Groupable = false;
+            this.totalProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.totalProb.Searchable = false;
+            this.totalProb.Text = "Total";
+            this.totalProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.totalProb.ToolTipText = "Number of total submissions";
+            this.totalProb.UseFiltering = false;
             // 
             // acProb
             // 
             this.acProb.AspectName = "ac";
             this.acProb.CellPadding = null;
+            this.acProb.Groupable = false;
             this.acProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.acProb.Searchable = false;
             this.acProb.Text = "AC";
             this.acProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.acProb.ToolTipText = "Number of submission that got \"Accepted\"";
@@ -435,285 +719,181 @@
             this.waProb.AspectName = "wa";
             this.waProb.CellPadding = null;
             this.waProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.waProb.Searchable = false;
             this.waProb.Text = "WA";
             this.waProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.waProb.ToolTipText = "Number of submission that got \"Wrong Answer\"";
             this.waProb.UseFiltering = false;
             // 
-            // tleProb
+            // problemContextMenu
             // 
-            this.tleProb.AspectName = "tle";
-            this.tleProb.CellPadding = null;
-            this.tleProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tleProb.Text = "TLE";
-            this.tleProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tleProb.ToolTipText = "Number of submission that got \"Time Limit Exceeded\"";
-            this.tleProb.UseFiltering = false;
+            this.problemContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.downloadAllToolStripMenuItem,
+            this.exportDownloadToolStripMenuItem,
+            this.importDownloadToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.reloadToolStripMenuItem,
+            this.viewPDFToolStripMenuItem,
+            this.openInBrowserToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.viewSourceToolStripMenuItem,
+            this.submitCodeToolStripMenuItem,
+            this.markAsFavouriteToolStripMenuItem});
+            this.problemContextMenu.Name = "contextMenuStrip1";
+            this.problemContextMenu.Size = new System.Drawing.Size(170, 242);
             // 
-            // reProb
+            // refreshToolStripMenuItem
             // 
-            this.reProb.AspectName = "re";
-            this.reProb.CellPadding = null;
-            this.reProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.reProb.Text = "RE";
-            this.reProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.reProb.ToolTipText = "Number of submission that got \"Runtime Error\"";
-            this.reProb.UseFiltering = false;
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
-            // peProb
+            // toolStripSeparator2
             // 
-            this.peProb.AspectName = "pe";
-            this.peProb.CellPadding = null;
-            this.peProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.peProb.Text = "PE";
-            this.peProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.peProb.ToolTipText = "Number of submission that got \"Presentation Error\"";
-            this.peProb.UseFiltering = false;
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(166, 6);
             // 
-            // ceProb
+            // downloadAllToolStripMenuItem
             // 
-            this.ceProb.AspectName = "ce";
-            this.ceProb.CellPadding = null;
-            this.ceProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ceProb.Text = "CE";
-            this.ceProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ceProb.ToolTipText = "Number of submission that got \"Compile Error\"";
-            this.ceProb.UseFiltering = false;
+            this.downloadAllToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("downloadAllToolStripMenuItem.Image")));
+            this.downloadAllToolStripMenuItem.Name = "downloadAllToolStripMenuItem";
+            this.downloadAllToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.downloadAllToolStripMenuItem.Text = "Download All";
+            this.downloadAllToolStripMenuItem.Click += new System.EventHandler(this.downloadAllToolStripMenuItem_Click);
             // 
-            // subeProb
+            // exportDownloadToolStripMenuItem
             // 
-            this.subeProb.AspectName = "sube";
-            this.subeProb.CellPadding = null;
-            this.subeProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.subeProb.Text = "SUBE";
-            this.subeProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.subeProb.ToolTipText = "Number of submission that got \"Submission Error\"";
-            this.subeProb.UseFiltering = false;
+            this.exportDownloadToolStripMenuItem.Name = "exportDownloadToolStripMenuItem";
+            this.exportDownloadToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.exportDownloadToolStripMenuItem.Text = "Export Download";
+            this.exportDownloadToolStripMenuItem.Click += new System.EventHandler(this.exportDownloadToolStripMenuItem_Click);
             // 
-            // oleProb
+            // importDownloadToolStripMenuItem
             // 
-            this.oleProb.AspectName = "ole";
-            this.oleProb.CellPadding = null;
-            this.oleProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.oleProb.Text = "OLE";
-            this.oleProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.oleProb.ToolTipText = "Number of submission that got \"Output Limit Exceeded\"";
-            this.oleProb.UseFiltering = false;
+            this.importDownloadToolStripMenuItem.Name = "importDownloadToolStripMenuItem";
+            this.importDownloadToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.importDownloadToolStripMenuItem.Text = "Import Download";
+            this.importDownloadToolStripMenuItem.Click += new System.EventHandler(this.importDownloadToolStripMenuItem_Click);
             // 
-            // cbjProb
+            // toolStripSeparator4
             // 
-            this.cbjProb.AspectName = "cbj";
-            this.cbjProb.CellPadding = null;
-            this.cbjProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.cbjProb.Text = "CBJ";
-            this.cbjProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.cbjProb.ToolTipText = "Number of submission that got \"Can\'t Be Judged\"";
-            this.cbjProb.UseFiltering = false;
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(166, 6);
             // 
-            // nverProb
+            // reloadToolStripMenuItem
             // 
-            this.nverProb.AspectName = "nver";
-            this.nverProb.CellPadding = null;
-            this.nverProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nverProb.Text = "NVer";
-            this.nverProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nverProb.ToolTipText = "Number of submission that got \"No Verdict given\"";
-            this.nverProb.UseFiltering = false;
+            this.reloadToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.reload;
+            this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
+            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.reloadToolStripMenuItem.Text = "Redownload";
+            this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
             // 
-            // resfProb
+            // viewPDFToolStripMenuItem
             // 
-            this.resfProb.AspectName = "resf";
-            this.resfProb.CellPadding = null;
-            this.resfProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.resfProb.Text = "ResFunc";
-            this.resfProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.resfProb.ToolTipText = "Number of submission that got \"Restricted Function Error\"";
-            this.resfProb.UseFiltering = false;
+            this.viewPDFToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.pdf;
+            this.viewPDFToolStripMenuItem.Name = "viewPDFToolStripMenuItem";
+            this.viewPDFToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.viewPDFToolStripMenuItem.Text = "View as PDF";
+            this.viewPDFToolStripMenuItem.Click += new System.EventHandler(this.viewPDFToolStripMenuItem_Click);
             // 
-            // statProb
+            // openInBrowserToolStripMenuItem
             // 
-            this.statProb.AspectName = "status";
-            this.statProb.CellPadding = null;
-            this.statProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.statProb.Text = "Status";
-            this.statProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.statProb.ToolTipText = "Status of current problem UVA Online Judge";
-            this.statProb.UseFiltering = false;
+            this.openInBrowserToolStripMenuItem.Name = "openInBrowserToolStripMenuItem";
+            this.openInBrowserToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.openInBrowserToolStripMenuItem.Text = "Open in Browser";
+            this.openInBrowserToolStripMenuItem.Click += new System.EventHandler(this.openInBrowserToolStripMenuItem_Click);
             // 
-            // pidProb
+            // toolStripSeparator1
             // 
-            this.pidProb.AspectName = "pid";
-            this.pidProb.CellPadding = null;
-            this.pidProb.DisplayIndex = 17;
-            this.pidProb.IsVisible = false;
-            this.pidProb.Searchable = false;
-            this.pidProb.Text = "PID";
-            this.pidProb.ToolTipText = "Problem ID";
-            this.pidProb.UseFiltering = false;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(166, 6);
             // 
-            // volumeListView
+            // viewSourceToolStripMenuItem
             // 
-            this.volumeListView.BackColor = System.Drawing.Color.White;
-            this.volumeListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.volumeListView.Cursor = System.Windows.Forms.Cursors.Default;
-            this.volumeListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.volumeListView.Location = new System.Drawing.Point(1, 30);
-            this.volumeListView.Margin = new System.Windows.Forms.Padding(0);
-            this.volumeListView.Name = "volumeListView";
-            this.volumeListView.Size = new System.Drawing.Size(115, 280);
-            this.volumeListView.TabIndex = 4;
-            this.volumeListView.UseCompatibleStateImageBehavior = false;
-            this.volumeListView.UseCustomSelectionColors = true;
-            this.volumeListView.UseHotItem = true;
-            this.volumeListView.UseTranslucentHotItem = true;
-            this.volumeListView.UseTranslucentSelection = true;
-            this.volumeListView.View = System.Windows.Forms.View.Details;
+            this.viewSourceToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.code;
+            this.viewSourceToolStripMenuItem.Name = "viewSourceToolStripMenuItem";
+            this.viewSourceToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.viewSourceToolStripMenuItem.Text = "View Code File";
+            this.viewSourceToolStripMenuItem.Click += new System.EventHandler(this.viewSourceToolStripMenuItem_Click);
             // 
-            // button2
+            // submitCodeToolStripMenuItem
             // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.Maroon;
-            this.button2.Location = new System.Drawing.Point(2, 311);
-            this.button2.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(113, 28);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "All Problems";
-            this.button2.UseVisualStyleBackColor = true;
+            this.submitCodeToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.submit;
+            this.submitCodeToolStripMenuItem.Name = "submitCodeToolStripMenuItem";
+            this.submitCodeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.submitCodeToolStripMenuItem.Text = "Submit Code";
+            this.submitCodeToolStripMenuItem.Click += new System.EventHandler(this.submitCodeToolStripMenuItem_Click);
             // 
-            // tabPage2
+            // markAsFavouriteToolStripMenuItem
             // 
-            this.tabPage2.Controls.Add(this.treeListView1);
-            this.tabPage2.Controls.Add(this.searchBox2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 30);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(222, 340);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Catagory";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.markAsFavouriteToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.favourite;
+            this.markAsFavouriteToolStripMenuItem.Name = "markAsFavouriteToolStripMenuItem";
+            this.markAsFavouriteToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.markAsFavouriteToolStripMenuItem.Text = "Mark As Favourite";
+            this.markAsFavouriteToolStripMenuItem.Click += new System.EventHandler(this.markAsFavouriteToolStripMenuItem_Click);
             // 
-            // treeListView1
+            // panel1
             // 
-            this.treeListView1.BackColor = System.Drawing.Color.White;
-            this.treeListView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeListView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeListView1.ForeColor = System.Drawing.Color.Black;
-            this.treeListView1.Location = new System.Drawing.Point(0, 0);
-            this.treeListView1.Name = "treeListView1";
-            this.treeListView1.OwnerDraw = true;
-            this.treeListView1.ShowGroups = false;
-            this.treeListView1.Size = new System.Drawing.Size(222, 316);
-            this.treeListView1.TabIndex = 2;
-            this.treeListView1.UseCompatibleStateImageBehavior = false;
-            this.treeListView1.View = System.Windows.Forms.View.Details;
-            this.treeListView1.VirtualMode = true;
+            this.panel1.Controls.Add(this.plistLabel);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(1, 1);
+            this.panel1.Margin = new System.Windows.Forms.Padding(1);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(144, 26);
+            this.panel1.TabIndex = 4;
             // 
-            // searchBox2
+            // plistLabel
             // 
-            this.searchBox2.BackColor = System.Drawing.Color.White;
-            this.searchBox2.ClearButton = false;
-            this.searchBox2.CueText = "Search...";
-            this.searchBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.searchBox2.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBox2.Location = new System.Drawing.Point(0, 316);
-            this.searchBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.searchBox2.Name = "searchBox2";
-            this.searchBox2.SearchButton = false;
-            this.searchBox2.SearchText = "";
-            this.searchBox2.Size = new System.Drawing.Size(222, 24);
-            this.searchBox2.TabIndex = 1;
+            this.plistLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plistLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.plistLabel.ForeColor = System.Drawing.Color.Navy;
+            this.plistLabel.Location = new System.Drawing.Point(0, 0);
+            this.plistLabel.Name = "plistLabel";
+            this.plistLabel.Size = new System.Drawing.Size(144, 26);
+            this.plistLabel.TabIndex = 2;
+            this.plistLabel.Text = "Problems";
+            this.plistLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tabPage3
+            // problemViewer1
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 30);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(222, 340);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Favourites";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabControl2
-            // 
-            this.tabControl2.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-            this.tabControl2.Controls.Add(this.tabPage4);
-            this.tabControl2.Controls.Add(this.tabPage5);
-            this.tabControl2.Controls.Add(this.tabPage6);
-            this.tabControl2.Controls.Add(this.tabPage7);
-            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl2.Location = new System.Drawing.Point(0, 0);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.Padding = new System.Drawing.Point(20, 5);
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(553, 374);
-            this.tabControl2.TabIndex = 0;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 4);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(545, 344);
-            this.tabPage4.TabIndex = 0;
-            this.tabPage4.Text = "Description";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 4);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(545, 344);
-            this.tabPage5.TabIndex = 1;
-            this.tabPage5.Text = "Statistics";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // tabPage6
-            // 
-            this.tabPage6.Location = new System.Drawing.Point(4, 4);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(545, 344);
-            this.tabPage6.TabIndex = 2;
-            this.tabPage6.Text = "Submissions";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // tabPage7
-            // 
-            this.tabPage7.Location = new System.Drawing.Point(4, 4);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(545, 344);
-            this.tabPage7.TabIndex = 3;
-            this.tabPage7.Text = "Compare";
-            this.tabPage7.UseVisualStyleBackColor = true;
+            this.problemViewer1.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.problemViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.problemViewer1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.problemViewer1.ForeColor = System.Drawing.Color.Black;
+            this.problemViewer1.Location = new System.Drawing.Point(0, 0);
+            this.problemViewer1.Name = "problemViewer1";
+            this.problemViewer1.Size = new System.Drawing.Size(526, 374);
+            this.problemViewer1.TabIndex = 0;
             // 
             // PROBLEMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.PaleTurquoise;
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "PROBLEMS";
-            this.Size = new System.Drawing.Size(787, 400);
+            this.Size = new System.Drawing.Size(800, 400);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.catagoryListView)).EndInit();
+            this.problemListContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.problemListView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.volumeListView)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).EndInit();
-            this.tabControl2.ResumeLayout(false);
+            this.problemContextMenu.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -721,26 +901,11 @@
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private Custom.SearchBox searchBox1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CustomSplitContainer splitContainer1;
+        private System.Windows.Forms.TableLayoutPanel problemListContainer;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private BrightIdeasSoftware.FastObjectListView problemListView;
-        private BrightIdeasSoftware.ObjectListView volumeListView;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel updateToolButton;
-        private System.Windows.Forms.ToolStripStatusLabel Status1;
-        private System.Windows.Forms.ToolStripProgressBar Progress1;
-        private BrightIdeasSoftware.TreeListView treeListView1;
-        private Custom.SearchBox searchBox2;
-        private System.ComponentModel.BackgroundWorker problemWorker;
+        private System.Windows.Forms.Label plistLabel;
         private BrightIdeasSoftware.OLVColumn pnumProb;
         private BrightIdeasSoftware.OLVColumn ptitleProb;
         private BrightIdeasSoftware.OLVColumn dacuProb;
@@ -760,13 +925,38 @@
         private BrightIdeasSoftware.OLVColumn acProb;
         private BrightIdeasSoftware.OLVColumn rtlProb;
         private BrightIdeasSoftware.OLVColumn statProb;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TabControl tabControl2;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.TabPage tabPage7;
         private BrightIdeasSoftware.OLVColumn pidProb;
+        private BrightIdeasSoftware.OLVColumn totalProb;
+        private BrightIdeasSoftware.OLVColumn levelProb;
+        private BrightIdeasSoftware.OLVColumn nameVol;
+        private BrightIdeasSoftware.OLVColumn countVol;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        public System.Windows.Forms.ToolStripStatusLabel Status1;
+        public BrightIdeasSoftware.FastObjectListView problemListView;
+        public BrightIdeasSoftware.ObjectListView catagoryListView;
+        public System.Windows.Forms.ToolStripStatusLabel updateToolButton;
+        public System.Windows.Forms.ToolStripProgressBar Progress1;
+        public ProblemViewer problemViewer1;
+        public System.Windows.Forms.RadioButton favouriteButton;
+        public System.Windows.Forms.RadioButton allProbButton;
+        private System.Windows.Forms.ContextMenuStrip problemContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem viewPDFToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openInBrowserToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem viewSourceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem submitCodeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem markAsFavouriteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reloadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportDownloadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importDownloadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem downloadAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.CustomSplitContainer splitContainer2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        public System.Windows.Forms.RadioButton volumesButton;
+        public System.Windows.Forms.RadioButton catagoryButton;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using System.Windows.Forms; 
 
 namespace UVA_Arena
 {
@@ -14,7 +14,9 @@ namespace UVA_Arena
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
-        }
+
+            Interactivity.mainForm = new MainForm(); 
+            Application.Run(Interactivity.mainForm);
+        } 
     }
 }

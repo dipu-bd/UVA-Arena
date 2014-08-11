@@ -17,22 +17,39 @@ namespace UVA_Arena
             InitializeSettings();
         }
 
-        private void InitializeSettings()
+        public void InitializeSettings()
         {
             current_username.Text = string.Format("Current: {0} ({1})",
                 RegistryAccess.DefaultUsername,
                 RegistryAccess.GetUserid(RegistryAccess.DefaultUsername));
         }
 
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.Close();
+        }         
+
         private void username_button1_Click(object sender, EventArgs e)
         {
             UsernameForm uf = new UsernameForm();
-            if (uf.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                current_username.Text = string.Format("Current: {0}({1})",
-                      RegistryAccess.DefaultUsername,
-                      RegistryAccess.GetUserid(RegistryAccess.DefaultUsername));
-            }
+            uf.Show();
         }
+
+        private void downloadAll_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowDownloadAllForm();
+        }
+
+        private void backupData_Click(object sender, EventArgs e)
+        {
+            Functions.BackupData(); 
+        }
+
+        private void restoreData_Click(object sender, EventArgs e)
+        {
+            Functions.RestoreData();
+        }
+
     }
 }

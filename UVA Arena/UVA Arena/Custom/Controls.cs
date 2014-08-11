@@ -6,17 +6,17 @@ using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Security.Permissions;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using UVA_Arena;
 
 namespace System.Windows.Forms
 {
-    #region CueTextBox
+    #region CueTextBox : Show a message cue when textbox text is empty
 
     public class CueTextBox : TextBox
     {
-        [DllImport("user32.dll")]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
-        private const int EM_SETCUEBANNER = 0x1501;
+        public CueTextBox() { }
 
         private string _cueText;
         public string CueText
@@ -25,34 +25,98 @@ namespace System.Windows.Forms
             set
             {
                 _cueText = value;
-                SendMessage(this.Handle, EM_SETCUEBANNER, 1, value);
+
+                IntPtr lparam = new IntPtr(1);
+                IntPtr wparam = Marshal.StringToBSTR(value);
+                NativeMethods.SendMessage(this.Handle, NativeMethods.EM_SETCUEBANNER, lparam, wparam);                
+                Marshal.FreeCoTaskMem(lparam);
+                Marshal.FreeBSTR(wparam);
             }
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            this.ResumeLayout(false);
-
-        }
-        private IContainer components;
     }
 
     #endregion
 
-    #region TabControl
+    #region CustomSplitContainer : Supports contents movement on splitter move
+
+    public class CustomSplitContainer : SplitContainer
+    {
+        public CustomSplitContainer()
+        {
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.UserPaint, true);
+        }
+
+        private Point _initial;
+        private DateTime _lastMove;
+        private bool _moving = false;
+
+        private bool _MoveSplitter(int diff, int maxsiz)
+        {
+            if (Math.Abs(diff) == 0) return false;
+            if ((DateTime.Now - _lastMove).TotalMilliseconds < 50) return false;
+
+            int newdis = SplitterDistance + diff;
+            if (newdis < 0 || newdis > maxsiz) return false;
+
+            SplitterDistance = newdis;
+            _lastMove = DateTime.Now;
+
+            return true;
+        }
+
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            if (!IsSplitterFixed)
+            {
+                _moving = true;
+                _lastMove = DateTime.Now;
+                _initial = e.Location;
+                IsSplitterFixed = true;
+            }
+            base.OnMouseDown(e);
+        }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            if (_moving)
+            {
+                _moving = false;
+                IsSplitterFixed = false;
+                System.GC.Collect();
+            }
+            base.OnMouseUp(e);
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            if (_moving)
+            {
+                if (Orientation == Forms.Orientation.Vertical)
+                {
+                    if (_MoveSplitter(e.X - _initial.X, Width))
+                        _initial = e.Location;
+                }
+                else
+                {
+                    if (_MoveSplitter(e.Y - _initial.Y, Height))
+                        _initial = e.Location;
+                }
+            }
+            base.OnMouseMove(e);
+        }
+    }
+
+    #endregion
+
+    #region CustomTabControl : Nice looking, user painted tab control
 
     public class CustomTabControl : TabControl
     {
-        #region Private Variables
-
-        private Bitmap _BackBuffer;
-        private Graphics _BufferGraphics;
-
-        #endregion
-
-        #region Contructors
-
+        //
+        // Contructor and Properties
+        //
         public CustomTabControl()
         {
             this.SetStyle(ControlStyles.Opaque, true);
@@ -61,87 +125,142 @@ namespace System.Windows.Forms
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-
-            this._BackBuffer = new Bitmap(this.Width, this.Height);
-            this._BufferGraphics = Graphics.FromImage(this._BackBuffer);
+            this.BackColor = Color.Transparent;
         }
-
-        #endregion
-
-        #region Property
 
         [Category("Appearance"), DefaultValue(0)]
         public int Overlap { get; set; }
 
-        #endregion
+        [Category("Appearance"), DefaultValue(typeof(Color), "Transparent")]
+        new public Color BackColor { get; set; }
 
-        #region Events
-
-        protected override void OnSizeChanged(EventArgs e)
-        {
-            base.OnSizeChanged(e);
-            this.Invalidate();
-        }
-
+        //
+        // Events
+        //
         protected override void OnSelectedIndexChanged(EventArgs e)
         {
-            base.OnSelectedIndexChanged(e);
             this.Invalidate();
+            base.OnSelectedIndexChanged(e);
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            if (m.Msg == NativeMethods.WM_HSCROLL) this.Invalidate();
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
-            if (this._BackBuffer.Size != this.Size)
-            {
-                this._BackBuffer = new Bitmap(this.Width, this.Height);
-                this._BufferGraphics = Graphics.FromImage(this._BackBuffer);
-            }
+            Bitmap BufferImage = new Bitmap(this.Width, this.Height);
+            Graphics graphics = Graphics.FromImage(BufferImage);
+            graphics.Clear(this.BackColor);
 
-            this._BufferGraphics.Clear(Color.Transparent);
             if (this.TabCount > 0)
             {
                 for (int index = this.TabCount - 1; index >= 0; --index)
                 {
                     if (index != this.SelectedIndex)
-                        this.DrawTabPage(index, this._BufferGraphics);
+                        DrawTabPage(index, graphics);
                 }
                 if (this.SelectedIndex != -1)
                 {
-                    this.DrawTabPage(this.SelectedIndex, this._BufferGraphics);
+                    DrawTabPage(this.SelectedIndex, graphics);
                 }
             }
 
-            this._BufferGraphics.Flush();
+            graphics.Flush();
+            e.Graphics.DrawImageUnscaled(BufferImage, 0, 0);
 
-            e.Graphics.DrawImageUnscaled(this._BackBuffer, 0, 0);
+            graphics.Dispose();
+            BufferImage.Dispose();
+            System.GC.Collect();
         }
 
-        #endregion
-
-        #region Drawing elements
-
+        //
+        // Draw TabPage
+        //
         private void DrawTabPage(int index, Graphics graphics)
         {
-            Color dark = Color.FromArgb(207, 210, 215);
-            Color light = Color.FromArgb(242, 244, 246);
-            Rectangle tabBounds = this.GetTabRectAdjusted(index);
-            Brush fillBrush = new LinearGradientBrush(tabBounds, light, dark, LinearGradientMode.Vertical);
-            if (this.SelectedIndex == index) fillBrush = new SolidBrush(light);
 
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            GraphicsPath path = this.GetTabPageBorder(index); ;
-            graphics.FillPath(fillBrush, path);
-
-            this.DrawTabImage(index, graphics);
-            this.DrawTabText(index, graphics);
-
-            Pen borderPen = new Pen(Color.FromArgb(147, 177, 205));
+            //tab page and border color
+            Pen borderPen = null;
+            Brush fillbrush = null;
             if (this.SelectedIndex == index)
-                borderPen = new Pen(Color.FromArgb(127, 157, 185));
+            {
+                borderPen = new Pen(Color.FromArgb(147, 177, 205));
+                Color fore = Color.FromArgb(207, 210, 225);
+                Color back = Color.FromArgb(242, 246, 252);
+                Stylish.GradientStyle style = new Stylish.GradientStyle(HatchStyle.Trellis, fore, back);
+                fillbrush = style.GetBrush();
+                style.Dispose();
+            }
+            else
+            {
+                borderPen = new Pen(Color.FromArgb(167, 197, 235));
+                Color dark = Color.FromArgb(207, 210, 225);
+                Color light = Color.FromArgb(242, 246, 252);
+                Stylish.GradientStyle style = new Stylish.GradientStyle(light, dark, LinearGradientMode.Vertical);
+                Rectangle tabBounds = GetTabRectAdjusted(index);
+                fillbrush = style.GetBrush(tabBounds.Width, tabBounds.Height + 1);
+                style.Dispose();
+            }
 
+            //draw image
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            GraphicsPath path = GetTabPageBorder(index);
+            graphics.FillPath(fillbrush, path);
+
+            this.DrawTabText(index, graphics);
+            this.DrawTabImage(index, graphics);
             graphics.DrawPath(borderPen, path);
+
+            path.Dispose();
+            fillbrush.Dispose();
+            borderPen.Dispose();
+        }
+
+        Rectangle GetTabRectAdjusted(int index)
+        {
+            Rectangle tabBounds = this.GetTabRect(index);
+            tabBounds.Height += 1;
+            if (index == 0)
+            {
+                tabBounds.X += 1;
+                tabBounds.Width -= 1;
+            }
+            else
+            {
+                tabBounds.X -= this.Overlap;
+                tabBounds.Width += this.Overlap;
+            }
+
+            return tabBounds;
+        }
+
+        GraphicsPath GetTabPageBorder(int index)
+        {
+            GraphicsPath path = new GraphicsPath();
+
+            Rectangle tabBounds = this.GetTabRectAdjusted(index);
+            Rectangle pageBounds = this.TabPages[index].Bounds;
+            pageBounds.X -= 1;
+            pageBounds.Y -= 1;
+            pageBounds.Width += 3;
+            pageBounds.Height += 2;
+
+            //add tab border
+            path.AddLine(tabBounds.X, tabBounds.Bottom, tabBounds.X + tabBounds.Height - 4, tabBounds.Y + 2);
+            path.AddLine(tabBounds.X + tabBounds.Height, tabBounds.Y, tabBounds.Right - 3, tabBounds.Y);
+            path.AddArc(tabBounds.Right - 6, tabBounds.Y, 6, 6, 270, 90);
+            path.AddLine(tabBounds.Right, tabBounds.Y + 2, tabBounds.Right, tabBounds.Bottom);
+
+            //add page border
+            path.AddRectangle(pageBounds);
+
+            path.CloseFigure();
+            return path;
         }
 
         private void DrawTabText(int index, Graphics graphics)
@@ -183,121 +302,10 @@ namespace System.Windows.Forms
             imgRect.Height = tabImage.Height;
 
             graphics.DrawImageUnscaled(tabImage, imgRect);
-        }
-
-        #endregion
-
-        #region Get Borders
-
-        GraphicsPath GetTabPageBorder(int index)
-        {
-            GraphicsPath path = new GraphicsPath();
-
-            Rectangle tabBounds = this.GetTabRectAdjusted(index);
-            Rectangle pageBounds = this.TabPages[index].Bounds;
-            pageBounds.X -= 1;
-            pageBounds.Y -= 1;
-            pageBounds.Width += 4;
-            pageBounds.Height += 4;
-
-            this.AddTabBorder(path, tabBounds);
-            this.AddPageBorder(path, pageBounds, tabBounds);
-
-            path.CloseFigure();
-            return path;
-        }
-
-        Rectangle GetTabRectAdjusted(int index)
-        {
-            Rectangle tabBounds = this.GetTabRect(index);
-            tabBounds.Height += 1;
-            if (index == 0)
-            {
-                tabBounds.X += 1;
-                tabBounds.Width -= 1;
-            }
-            else
-            {
-                tabBounds.X -= this.Overlap;
-                tabBounds.Width += this.Overlap;
-            }
-
-            return tabBounds;
-        }
-
-        void AddPageBorder(GraphicsPath path, Rectangle pageBounds, Rectangle tabBounds)
-        {
-            path.AddLine(tabBounds.Right, pageBounds.Y, pageBounds.Right, pageBounds.Y);
-            path.AddLine(pageBounds.Right, pageBounds.Y, pageBounds.Right, pageBounds.Bottom);
-            path.AddLine(pageBounds.Right, pageBounds.Bottom, pageBounds.X, pageBounds.Bottom);
-            path.AddLine(pageBounds.X, pageBounds.Bottom, pageBounds.X, pageBounds.Y);
-            path.AddLine(pageBounds.X, pageBounds.Y, tabBounds.X, pageBounds.Y);
-        }
-
-        protected void AddTabBorder(GraphicsPath path, Rectangle tabBounds)
-        {
-            path.AddLine(tabBounds.X, tabBounds.Bottom, tabBounds.X + tabBounds.Height - 4, tabBounds.Y + 2);
-            path.AddLine(tabBounds.X + tabBounds.Height, tabBounds.Y, tabBounds.Right - 3, tabBounds.Y);
-            path.AddArc(tabBounds.Right - 6, tabBounds.Y, 6, 6, 270, 90);
-            path.AddLine(tabBounds.Right, tabBounds.Y + 3, tabBounds.Right, tabBounds.Bottom);
-
-        }
-
-        #endregion
-
-    }
-
-    #endregion
-
-    #region TaskQueue
-
-    public static class TaskQueue
-    {
-        public class Task
-        {
-            public Function func;
-            public int timeout;
-
-            public Task(Function f, int time)
-            {
-                func = f;
-                timeout = time;
-            }
-        }
-
-        private static Timer timer1;
-        public delegate void Function();
-        private static List<Task> queue = new List<Task>();
-
-        public static void AddTask(Function func, int timeout)
-        {
-            AddTask(new Task(func, timeout));
-        }
-        public static void AddTask(Task t)
-        {
-            queue.Add(t);
-            if (timer1 == null)
-            {
-                timer1 = new Timer();
-                timer1.Interval = 10;
-                timer1.Tick += timer1_Tick;
-                timer1.Enabled = true;
-            }
-        }
-        private static void timer1_Tick(object sender, EventArgs e)
-        {
-            for (int i = 0; i < queue.Count; ++i)
-            {
-                queue[i].timeout -= timer1.Interval;
-                if (queue[i].timeout < 10)
-                {
-                    queue[i].func();
-                    queue.RemoveAt(i);
-                    --i;
-                }
-            }
+            tabImage.Dispose();
         }
     }
 
     #endregion
+
 }

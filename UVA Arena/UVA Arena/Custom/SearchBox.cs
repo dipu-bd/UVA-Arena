@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace UVA_Arena.Custom
 {
+    [DefaultEvent("SearchTextChanged")]
     public partial class SearchBox : UserControl
     {
         public SearchBox()
@@ -75,6 +76,7 @@ namespace UVA_Arena.Custom
         }
 
         public event EventHandler<KeyEventArgs> SearchKeyDown;
+        public event EventHandler<EventArgs> SearchTextChanged;
         public event EventHandler<EventArgs> SearchButtonClicked;
         public event EventHandler<EventArgs> ClearButtonClicked;
 
@@ -92,6 +94,11 @@ namespace UVA_Arena.Custom
         {
             search_text.Text = "";
             if (ClearButtonClicked != null) ClearButtonClicked(sender, e);
+        }
+
+        private void search_text_TextChanged(object sender, EventArgs e)
+        {
+            if (SearchTextChanged != null) SearchTextChanged(sender, e);
         }
     }
 }

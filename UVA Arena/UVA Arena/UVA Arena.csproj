@@ -37,6 +37,13 @@
   <PropertyGroup>
     <StartupObject>UVA_Arena.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>Custom</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Compile Include="StaticClass\NativeMethods.cs" />
     <Compile Include="Custom\Controls.cs">

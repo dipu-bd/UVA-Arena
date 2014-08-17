@@ -96,8 +96,9 @@ namespace UVA_Arena.Elements
             {
                 string url = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.pdf", pnum / 100, pnum);
                 string file = LocalDirectory.GetProblemPdf(pnum);
-                if (!reloadButton.Enabled || !File.Exists(file) || ((new FileInfo(file)).Length < 200))
-                    Downloader.DownloadFileAsync(url, file, pnum, Internet.Priority.Normal, ProgressChanged, DownloadFinished);
+                if (!reloadButton.Enabled || LocalDirectory.GetFileSize(file) < 200)
+                    Downloader.DownloadFileAsync(url, file, pnum,
+                        Internet.Priority.Normal, ProgressChanged, DownloadFinished);
             }
             catch (Exception ex)
             {
@@ -111,8 +112,9 @@ namespace UVA_Arena.Elements
             {
                 string url = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.html", pnum / 100, pnum);
                 string file = LocalDirectory.GetProblemHtml(pnum);
-                if (!reloadButton.Enabled || !File.Exists(file) || ((new FileInfo(file)).Length < 100))
-                    Downloader.DownloadFileAsync(url, file, pnum, Internet.Priority.Normal, ProgressChanged, DownloadFinished);
+                if (!reloadButton.Enabled || LocalDirectory.GetFileSize(file) < 100)
+                    Downloader.DownloadFileAsync(url, file, pnum,
+                        Internet.Priority.Normal, ProgressChanged, DownloadFinished);
             }
             catch (Exception ex)
             {
@@ -142,31 +144,34 @@ namespace UVA_Arena.Elements
 
         private void DownloadFinished(DownloadTask task)
         {
-            if (task.status != ProgressStatus.Completed) return;
-            if (current == null || current.pnum != (long)task.token) return;
-
             bool finish = false;
-            string ext = Path.GetExtension(task.file);
-            if (ext == ".pdf")
+            if (task.status != ProgressStatus.Completed) finish = true;
+            if (current == null || current.pnum != (long)task.token) finish = true;
+
+            if (!finish)
             {
-                TaskQueue.AddTask(Interactivity.problems.ClearStatus, 1000);
-                System.Diagnostics.Process.Start(task.file);
-                finish = true;
-            }
-            else if (ext == ".html")
-            {
-                webBrowser1.Refresh();
-                int cnt = DownloadContents(current.pnum);
-                if (cnt == 0) finish = true;
-            }
-            else
-            {
-                webBrowser1.Refresh();
-                finish = true;
+                string ext = Path.GetExtension(task.file);
+                if (ext == ".pdf")
+                {
+                    TaskQueue.AddTask(Interactivity.problems.ClearStatus, 1000);
+                    System.Diagnostics.Process.Start(task.file);
+                    finish = true;
+                }
+                else if (ext == ".html")
+                {
+                    webBrowser1.Refresh();
+                    int cnt = DownloadContents(current.pnum);
+                    if (cnt == 0) finish = true;
+                }
+                else
+                {
+                    finish = true;
+                }
             }
 
             if (finish)
             {
+                webBrowser1.Refresh();
                 reloadButton.Enabled = true;
                 TaskQueue.AddTask(Interactivity.problems.ClearStatus, 1000);
             }

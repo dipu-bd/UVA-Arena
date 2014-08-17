@@ -137,6 +137,16 @@ namespace System.Windows.Forms
         //
         // Events
         //
+         
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseDown(e);
+            if (e.Button == Forms.MouseButtons.Left)
+            {
+                NativeMethods.MoveWithMouse(Interactivity.mainForm.Handle);
+            }
+        }
+
         protected override void OnSelectedIndexChanged(EventArgs e)
         {
             this.Invalidate();

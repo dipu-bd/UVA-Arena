@@ -105,7 +105,8 @@ namespace UVA_Arena.Internet
         {
             if (client != null) return;
 
-            client = new WebClient();
+            client = new WebClient();       
+            client.Encoding = Encoding.UTF8;
             client.DownloadStringCompleted += client_DownloadStringCompleted;
             client.DownloadProgressChanged += client_DownloadProgressChanged;
             client.DownloadFileCompleted += client_DownloadFileCompleted;
@@ -260,10 +261,10 @@ namespace UVA_Arena.Internet
 
                 if (error == null)
                 {
+                    LocalDirectory.CreateFile(CurrentTask.file);
                     File.Copy(tmpfile, CurrentTask.file, true);
                     CurrentTask.status = ProgressStatus.Completed;
                 }
-                File.Delete(tmpfile);
             }
             catch (Exception ex)
             {
@@ -277,11 +278,13 @@ namespace UVA_Arena.Internet
                 DownloadNext();
                 return;
             }
+                        
+            
+            if(File.Exists(tmpfile)) File.Delete(tmpfile);
+            if (CurrentTask.status != ProgressStatus.Completed)            
+                CurrentTask.status = ProgressStatus.Failed;             
 
             //raise complete event
-            if (CurrentTask.status != ProgressStatus.Completed)
-                CurrentTask.status = ProgressStatus.Failed;
-
             CurrentTask.error = error;
             CurrentTask.result = result;
             CurrentTask.ReportComplete();

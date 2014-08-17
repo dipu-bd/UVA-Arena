@@ -83,6 +83,7 @@ namespace UVA_Arena.Custom
         private void search_text_KeyDown(object sender, KeyEventArgs e)
         {
             if (SearchKeyDown != null) SearchKeyDown(sender, e);
+            if (e.KeyCode == Keys.Enter) search_button.PerformClick();
         }
 
         private void search_button_Click(object sender, EventArgs e)

@@ -32,6 +32,17 @@ namespace UVA_Arena
             if (!File.Exists(file)) return 0;
             return (new FileInfo(file)).Length;
         }
+        public static bool IsValidFileName(string name)
+        {
+            List<char> invalid = new List<char>();
+            invalid.AddRange(Path.GetInvalidPathChars());
+            invalid.AddRange(Path.GetInvalidFileNameChars());
+            foreach (char ch in name)
+            {
+                if (invalid.Contains(ch)) return false;
+            }
+            return true;
+        }
 
         //
         // Needed in project
@@ -104,23 +115,20 @@ namespace UVA_Arena
         public static string GetProblemHtml(long pnum)
         {
             string name = string.Format("{0}.html", pnum);
-            string file = Path.Combine(GetProblemPath(pnum), name);
-            CreateFile(file);
+            string file = Path.Combine(GetProblemPath(pnum), name);            
             return file;
         }
         /// <summary> get problem html from problem number </summary>
         public static string GetProblemPdf(long pnum)
         {
             string name = string.Format("{0}.pdf", pnum);
-            string file = Path.Combine(GetProblemPath(pnum), name);
-            CreateFile(file);
+            string file = Path.Combine(GetProblemPath(pnum), name);            
             return file;
         }
         /// <summary> get problem html from problem number </summary>
         public static string GetProblemContent(long pnum, string name)
         {
-            string file = Path.Combine(GetProblemPath(pnum), name);
-            CreateFile(file);
+            string file = Path.Combine(GetProblemPath(pnum), name);            
             return file;
         }
 

@@ -16,7 +16,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -38,7 +38,6 @@
     <StartupObject>UVA_Arena.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Custom\API.cs" />
     <Compile Include="StaticClass\NativeMethods.cs" />
     <Compile Include="Custom\Controls.cs">
       <SubType>Component</SubType>
@@ -219,25 +218,6 @@
     <Content Include="unzip\zipit.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\web.png" />
-    <None Include="Resources\unpin.png" />
-    <None Include="Resources\tools.png" />
-    <None Include="Resources\submit.png" />
-    <None Include="Resources\search.png" />
-    <None Include="Resources\reload.png" />
-    <None Include="Resources\prev.png" />
-    <None Include="Resources\pin.png" />
-    <None Include="Resources\pdf.png" />
-    <None Include="Resources\next.png" />
-    <None Include="Resources\log.png" />
-    <None Include="Resources\help.png" />
-    <None Include="Resources\export.png" />
-    <None Include="Resources\expand.png" />
-    <None Include="Resources\download.png" />
-    <None Include="Resources\code.png" />
-    <None Include="Resources\clear.png" />
-    <None Include="Resources\favourite.png" />
-    <None Include="Resources\back5.gif" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ActiveButtons, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">

@@ -21,12 +21,16 @@ namespace UVA_Arena
         public const int WS_EX_TRANSPARENT = 0x20;
         public const int WM_SETFONT = 0x30;
         public const int WM_FONTCHANGE = 0x1D;
-        /// <summary> When horizontal scrolling occurs </summary>
-        public const int WM_HSCROLL = 0x114;
         public const int WM_PAINT = 0xF;
         public const int WS_EX_LAYOUTRTL = 0x400000;
         public const int WS_EX_NOINHERITLAYOUT = 0x100000;
         public const int TCM_HITTEST = 0x130D;
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+        /// <summary> When horizontal scrolling occurs </summary>
+        public const int WM_HSCROLL = 0x114;
+        /// <summary> The left mouse button is down </summary>
+        public const int MK_LBUTTON = 0x0001;
         /// <summary> Set Cue-text on a Textbox control</summary>
         public const int EM_SETCUEBANNER = 0x1501;
 
@@ -65,6 +69,11 @@ namespace UVA_Arena
         [DllImport("user32.dll"), SecurityPermission(SecurityAction.Demand)]
         public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam);
 
+        [DllImport("user32.dll"), SecurityPermission(SecurityAction.Demand)]
+        public static extern int SendMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+
         //
         // DWM Api
         //
@@ -95,6 +104,12 @@ namespace UVA_Arena
         {
             MARGINS mar = new MARGINS(left, right, top, bottom);
             return (DwmExtendFrameIntoClientArea(form.Handle, ref mar) == 0);
+        }
+
+        public static void MoveWithMouse(IntPtr Handle)
+        {
+            ReleaseCapture();
+            SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
     }
 }

@@ -19,10 +19,12 @@ namespace UVA_Arena
         public DownloadAllForm()
         {
             InitializeComponent();
+            remaining = new List<long>();
+            webClient = new WebClient();
+            webClient.Encoding = Encoding.UTF8;
 
             InitDownload();
-            replaceBox.Checked = ReplaceOldFiles;
-            TaskQueue.AddTask(SetStatus, 100);
+            replaceCombo1.SelectedIndex = ReplaceOldFiles;
         }
 
         public enum State
@@ -35,12 +37,9 @@ namespace UVA_Arena
             Cancelled,
         }
 
-        private int progress;
-        private string curstat;
-
         private long current = 0;
-        private List<long> remaining = new List<long>();
-        private List<Internet.DownloadTask> tasklist = new List<Internet.DownloadTask>();
+        private WebClient webClient;
+        private List<long> remaining;
 
         private State _currentState = State.Paused;
         private State CurrentState
@@ -48,7 +47,7 @@ namespace UVA_Arena
             get { return _currentState; }
             set
             {
-                if (_currentState == value) return;                                
+                if (_currentState == value) return;
                 _currentState = value;
 
                 this.BeginInvoke((MethodInvoker)delegate
@@ -119,18 +118,18 @@ namespace UVA_Arena
             }
         }
 
-        public bool ReplaceOldFiles
+        public int ReplaceOldFiles
         {
             get
             {
-                object dat = RegistryAccess.GetValue("Replace Old Files", null);
-                if (dat == null || dat.GetType() != typeof(string)) return false;
-                return bool.Parse((string)dat);
+                object dat = RegistryAccess.GetValue("Replace Old Files", -1);
+                if (dat == null || dat.GetType() != typeof(int)) return -1;
+                return (int)dat;
             }
             set
             {
-                replaceBox.Checked = value;
-                RegistryAccess.SetValue("Replace Old Files", value.ToString());
+                replaceBox.Checked = (value >= 0);
+                RegistryAccess.SetValue("Replace Old Files", value, null, Microsoft.Win32.RegistryValueKind.DWord);
             }
         }
 
@@ -138,10 +137,27 @@ namespace UVA_Arena
         #endregion
 
         #region Event Listeners
-
+        
         private void replaceBox_Click(object sender, EventArgs e)
         {
-            ReplaceOldFiles = !replaceBox.Checked;
+            if (replaceBox.Checked)
+            {
+                replaceBox.Checked = false;
+                ReplaceOldFiles = -1;
+                replaceCombo1.SelectedIndex = -1;
+            }
+            else
+            {
+                replaceBox.Checked = true;
+                ReplaceOldFiles = 0;
+                replaceCombo1.SelectedIndex = 0;
+            }
+        }
+        
+        private void replaceCombo1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            replaceBox.Checked = (replaceCombo1.SelectedIndex != -1);
+            ReplaceOldFiles = replaceCombo1.SelectedIndex;
         }
 
         private void downloadButton_Click(object sender, EventArgs e)
@@ -205,6 +221,7 @@ namespace UVA_Arena
             remaining.Sort();
 
             current = last;
+            SetStatus(0, "");
             CurrentState = State.Paused;
         }
 
@@ -235,11 +252,16 @@ namespace UVA_Arena
 
         #endregion
 
-        #region Downloaders
+        #region Background Worker
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             DownloadNext();
+        }
+
+        private void backgroundWorker1_ProressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            SetStatus(e.ProgressPercentage, (string)e.UserState);
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -253,146 +275,21 @@ namespace UVA_Arena
             switch (CurrentState)
             {
                 case State.Pausing:
+                    remaining.Insert(0, current);
+                    CurrentState = State.Paused;
+                    break;
                 case State.Cancelling:
                     remaining.Insert(0, current);
                     CurrentState = State.Cancelled;
                     break;
             }
 
+            SetStatus(0, "");
             System.GC.Collect();
         }
 
-        private void DownloadNext()
+        void SetStatus(int percent, string status)
         {
-            if (remaining.Count == 0) return;
-            if (CurrentState != State.Running) return;
-
-            LastDownloadedProblem = current;
-            current = remaining[0];
-            remaining.RemoveAt(0);
-
-            if (!ProblemDatabase.HasProblem(current))
-            {
-                DownloadNext();
-                return;
-            }
-
-            curstat = "";
-            progress = 0;
-            DownloadProblem();
-        }
-
-        private void DownloadProblem()
-        {
-            try
-            {
-                //files and urls
-                FileInfo pdffile = new FileInfo(LocalDirectory.GetProblemPdf(current));
-                FileInfo htmlfile = new FileInfo(LocalDirectory.GetProblemHtml(current));
-                string pdf = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.pdf", current / 100, current);
-                string html = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.html", current / 100, current);
-
-                //download html file
-                if (replaceBox.Checked || htmlfile.Length < 100)
-                {
-                    DownloadTask task = new DownloadTask(html, htmlfile.FullName, current);
-                    task.retry = 1;
-                    task.progress += ProgressChanged;
-                    task.completed += DownloadFinished;
-                    tasklist.Add(Downloader.DownloadAsync(task, Internet.Priority.Low));
-                }
-                else
-                {
-                    DownloadHtmlContent();
-                }
-
-                //download pdf file                
-                if (replaceBox.Checked || pdffile.Length < 200)
-                {
-                    DownloadTask task = new DownloadTask(pdf, pdffile.FullName, current);
-                    task.progress += ProgressChanged;
-                    task.completed += DownloadFinished;
-                    tasklist.Add(Downloader.DownloadAsync(task, Internet.Priority.Low));
-                }
-
-                CheckTasklist();
-            }
-            catch (Exception ex)
-            {
-                Logger.Add(ex.Message, this.Name);
-            }
-        }
-
-        private void DownloadHtmlContent()
-        {
-            if (CurrentState != State.Running) return;
-
-            foreach (var itm in Functions.ProcessHtmlContent(current, replaceBox.Checked))
-            {
-                itm.token = current;
-                itm.progress += ProgressChanged;
-                itm.completed += DownloadFinished;
-                tasklist.Add(Downloader.DownloadAsync(itm, Internet.Priority.Low));
-            }
-        }
-
-        private void ProgressChanged(int percent, DownloadTask task)
-        {
-            progress = percent;
-            curstat = string.Format("FILE: \"{0}\" | {1} out of {2} downloaded.",
-                Path.GetFileName(task.file), Functions.FormatMemory(task.received),
-                Functions.FormatMemory(task.total));
-        }
-
-        private void DownloadFinished(DownloadTask task)
-        {
-            if (task.status == ProgressStatus.Completed)
-            {
-                if (task.file.EndsWith(".html")) DownloadHtmlContent();
-            }
-            CheckTasklist();
-        }
-
-        private void CheckTasklist()
-        {
-            //if not running clear list
-            if (CurrentState != State.Running)
-            {
-                foreach (DownloadTask task in tasklist) task.Cancel();
-                return;
-            }
-
-            //remove all stopped tasks
-            Predicate<DownloadTask> pred = delegate(DownloadTask dt)
-            {
-                return (dt == null ||
-                    !(dt.status == ProgressStatus.Running ||
-                    dt.status == ProgressStatus.Waiting));
-            };
-            tasklist.RemoveAll(pred);
-
-            //resume download
-            if (tasklist.Count == 0)
-            {
-                if (backgroundWorker1.IsBusy) DownloadNext();
-                else backgroundWorker1.RunWorkerAsync();
-            }
-            else if (Downloader.DownloadQueue.Count == 0)
-            {
-                tasklist.Clear();
-                CheckTasklist();
-            }
-        }
-
-        #endregion
-
-        #region Set Status
-
-        private void SetStatus()
-        {
-            if (this.Disposing || this.IsDisposed) return;
-
-            //set status
             int tot = ProblemDatabase.problem_list.Count;
             int finished = tot - remaining.Count;
             totalProgress.Value = (int)(100.0 * finished / tot);
@@ -401,22 +298,127 @@ namespace UVA_Arena
 
             if (CurrentState == State.Running)
             {
-                StatusLabel.Text = curstat;
-                currentProgress.Value = progress;
+                StatusLabel.Text = status;
+                currentProgress.Value = percent;
                 currentPercentage.Text = currentProgress.Value.ToString() + "%";
                 currentProblem.Text = string.Format("Downloading {0} - {1}... ",
                    current, ProblemDatabase.GetTitle(current));
             }
             else
             {
-                currentProblem.Text = CurrentState.ToString();
                 StatusLabel.Text = "";
                 currentProgress.Value = 0;
                 currentPercentage.Text = "";
+                currentProblem.Text = CurrentState.ToString();
+            }
+        }
+
+        #endregion
+
+        #region Download Next
+
+        private void DownloadNext()
+        {
+            while (remaining.Count > 0)
+            {
+                current = remaining[0];
+                remaining.RemoveAt(0);
+
+                if (!ProblemDatabase.HasProblem(current)) continue;
+                DownloadProblem();
+
+                if (CurrentState != State.Running) return;
+                LastDownloadedProblem = current;
+            }
+        }
+
+        private void DownloadProblem()
+        {
+            //initial data
+            int total = 2;
+            int finished = 0;
+            long vol = current / 100;
+            string status = "";
+            FileInfo pdffile = new FileInfo(LocalDirectory.GetProblemPdf(current));
+            FileInfo htmlfile = new FileInfo(LocalDirectory.GetProblemHtml(current));
+            string pdf = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.pdf", vol, current);
+            string html = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.html", vol, current);
+
+            //download html file
+            if (ReplaceOldFiles == 0 || ReplaceOldFiles == 1 ||
+                !htmlfile.Exists || htmlfile.Length < 100)
+            {
+                status = "Downloading " + htmlfile.Name + "... ";
+                backgroundWorker1.ReportProgress(100 * finished / total, status);
+                status = DownloadFile(html, htmlfile.FullName, 100);
+                ++finished;
+                backgroundWorker1.ReportProgress(100 * finished / total, status);
             }
 
-            TaskQueue.AddTask(SetStatus, 300);
-            if (CurrentState == State.Running && !backgroundWorker1.IsBusy) CheckTasklist();
+            if (CurrentState != State.Running) return;
+
+            //download pdf file                
+            if (ReplaceOldFiles == 0 || ReplaceOldFiles == 2
+                || !pdffile.Exists || pdffile.Length < 200)
+            {
+                status = "Downloading " + pdffile.Name + "... ";
+                backgroundWorker1.ReportProgress(100 * finished / total, status);
+                status = DownloadFile(pdf, pdffile.FullName, 200);
+                ++finished;
+                backgroundWorker1.ReportProgress(100 * finished / total, status);
+            }
+
+            if (CurrentState != State.Running) return;
+
+            //download html contents
+            var list = Functions.ProcessHtmlContent(current,
+                ReplaceOldFiles == 0 || ReplaceOldFiles == 3);
+            finished = 0;
+            total = list.Count;
+            foreach (var itm in list)
+            {
+                if (CurrentState != State.Running) return;
+
+                status = "Downloading " + Path.GetFileName(itm.file) + "... ";
+                backgroundWorker1.ReportProgress(100 * finished / total, status);
+                status = DownloadFile(itm.uri.ToString(), itm.file, 10);
+                ++finished;
+                backgroundWorker1.ReportProgress(100 * finished / total, status);
+            }
+        }
+
+        private string DownloadFile(string url, string file, int minSiz, int tryCount = 2)
+        {
+            try
+            {
+                string tmp = Path.GetTempFileName();
+                webClient.DownloadFile(url, tmp);
+
+                LocalDirectory.CreateFile(file);
+                if (LocalDirectory.GetFileSize(tmp) >= minSiz)
+                {
+                    File.Copy(tmp, file, true);
+                    File.Delete(tmp);
+                    return "Success.";
+                }
+                else
+                { 
+                    File.Delete(tmp);
+                    return ("File doesn't have desired length.");
+                }
+            }
+            catch (Exception ex)
+            {
+                if (tryCount > 0)
+                {
+                    System.Threading.Thread.Sleep(300);
+                    return DownloadFile(url, file, minSiz, tryCount - 1);
+                }
+                //if couldn't be downloaded
+                if (File.Exists(file) && LocalDirectory.GetFileSize(file) < minSiz) File.Delete(file);
+                Logger.Add(ex.Message, this.Name);
+                return "Download Failed.";
+            }
         }
 
         #endregion

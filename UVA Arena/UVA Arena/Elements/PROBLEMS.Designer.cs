@@ -137,9 +137,10 @@
             this.updateToolButton,
             this.Status1,
             this.Progress1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 374);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 372);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(800, 28);
+            this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -155,8 +156,8 @@
             this.updateToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.updateToolButton.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.updateToolButton.Name = "updateToolButton";
-            this.updateToolButton.Padding = new System.Windows.Forms.Padding(4, 2, 2, 2);
-            this.updateToolButton.Size = new System.Drawing.Size(92, 24);
+            this.updateToolButton.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.updateToolButton.Size = new System.Drawing.Size(94, 28);
             this.updateToolButton.Text = "Update List";
             this.updateToolButton.Click += new System.EventHandler(this.updateToolButton_Click);
             this.updateToolButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolButton1_MouseDown);
@@ -167,14 +168,14 @@
             // Status1
             // 
             this.Status1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
-            this.Status1.Margin = new System.Windows.Forms.Padding(0, 3, 0, 1);
             this.Status1.Name = "Status1";
-            this.Status1.Size = new System.Drawing.Size(534, 22);
+            this.Status1.Size = new System.Drawing.Size(533, 24);
             this.Status1.Spring = true;
             this.Status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Progress1
             // 
+            this.Progress1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Progress1.Name = "Progress1";
             this.Progress1.Size = new System.Drawing.Size(120, 20);
             // 
@@ -343,7 +344,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.problemViewer1);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 374);
+            this.splitContainer1.Size = new System.Drawing.Size(800, 372);
             this.splitContainer1.SplitterDistance = 270;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -361,7 +362,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.problemListContainer);
-            this.splitContainer2.Size = new System.Drawing.Size(270, 374);
+            this.splitContainer2.Size = new System.Drawing.Size(270, 372);
             this.splitContainer2.SplitterDistance = 120;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -384,7 +385,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(120, 374);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(120, 372);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // catagoryButton
@@ -438,7 +439,7 @@
             this.favouriteButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.favouriteButton.ForeColor = System.Drawing.Color.Purple;
             this.favouriteButton.Image = global::UVA_Arena.Properties.Resources.favourite;
-            this.favouriteButton.Location = new System.Drawing.Point(1, 315);
+            this.favouriteButton.Location = new System.Drawing.Point(1, 313);
             this.favouriteButton.Margin = new System.Windows.Forms.Padding(1);
             this.favouriteButton.Name = "favouriteButton";
             this.favouriteButton.Size = new System.Drawing.Size(118, 28);
@@ -457,7 +458,7 @@
             this.allProbButton.AutoSize = true;
             this.allProbButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.allProbButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.allProbButton.Location = new System.Drawing.Point(1, 345);
+            this.allProbButton.Location = new System.Drawing.Point(1, 343);
             this.allProbButton.Margin = new System.Windows.Forms.Padding(1);
             this.allProbButton.Name = "allProbButton";
             this.allProbButton.Size = new System.Drawing.Size(118, 28);
@@ -489,7 +490,7 @@
             this.catagoryListView.SelectAllOnControlA = false;
             this.catagoryListView.ShowGroups = false;
             this.catagoryListView.ShowItemToolTips = true;
-            this.catagoryListView.Size = new System.Drawing.Size(118, 252);
+            this.catagoryListView.Size = new System.Drawing.Size(118, 250);
             this.catagoryListView.TabIndex = 4;
             this.catagoryListView.UseCellFormatEvents = true;
             this.catagoryListView.UseCompatibleStateImageBehavior = false;
@@ -536,7 +537,7 @@
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.problemListContainer.Size = new System.Drawing.Size(146, 374);
+            this.problemListContainer.Size = new System.Drawing.Size(146, 372);
             this.problemListContainer.TabIndex = 1;
             this.problemListContainer.Tag = "115";
             // 
@@ -547,7 +548,7 @@
             this.searchBox1.CueText = "Search...";
             this.searchBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBox1.Location = new System.Drawing.Point(1, 347);
+            this.searchBox1.Location = new System.Drawing.Point(1, 345);
             this.searchBox1.Margin = new System.Windows.Forms.Padding(1);
             this.searchBox1.Name = "searchBox1";
             this.searchBox1.SearchButton = false;
@@ -611,7 +612,7 @@
             this.problemListView.ShowGroups = false;
             this.problemListView.ShowItemCountOnGroups = true;
             this.problemListView.ShowItemToolTips = true;
-            this.problemListView.Size = new System.Drawing.Size(144, 316);
+            this.problemListView.Size = new System.Drawing.Size(144, 314);
             this.problemListView.TabIndex = 3;
             this.problemListView.UseAlternatingBackColors = true;
             this.problemListView.UseCellFormatEvents = true;
@@ -865,7 +866,7 @@
             this.problemViewer1.ForeColor = System.Drawing.Color.Black;
             this.problemViewer1.Location = new System.Drawing.Point(0, 0);
             this.problemViewer1.Name = "problemViewer1";
-            this.problemViewer1.Size = new System.Drawing.Size(526, 374);
+            this.problemViewer1.Size = new System.Drawing.Size(526, 372);
             this.problemViewer1.TabIndex = 0;
             // 
             // PROBLEMS

@@ -87,20 +87,19 @@ namespace UVA_Arena
                 List<DownloadTask> tasks = new List<DownloadTask>();
 
                 HtmlAgilityPack.HtmlDocument htdoc = new HtmlAgilityPack.HtmlDocument();
-                htdoc.LoadHtml(html);
+                htdoc.Load(filepath);
                 DFS(htdoc.DocumentNode, urls);
                 htdoc.Save(filepath);
 
-                foreach (string url in urls)
+                foreach (string str in urls)
                 {
-                    string path = url.StartsWith("./") ? url.Substring(2) : url;
-                    string file = path.Replace('/', Path.DirectorySeparatorChar);
-                    file = LocalDirectory.GetProblemContent(pnum, file);
-                    FileInfo local = new FileInfo(file);
-
-                    if (replace || !local.Exists || local.Length < 5)
+                    string url = str.StartsWith("./") ? str.Remove(0, 2) : str;
+                    while (url.StartsWith("/")) url = url.Remove(0, 1);
+                    string file = url.Replace('/', Path.DirectorySeparatorChar);
+                    file = LocalDirectory.GetProblemContent(pnum, file);                    
+                    if (replace || LocalDirectory.GetFileSize(file) < 10)
                     {
-                        tasks.Add(new DownloadTask(external + path, file, pnum));
+                        tasks.Add(new DownloadTask(external + url, file, pnum));
                     }
                 }
 
@@ -113,6 +112,7 @@ namespace UVA_Arena
                 return new List<DownloadTask>();
             }
         }
+         
 
         private static void DFS(HtmlAgilityPack.HtmlNode nod, List<string> urls)
         {
@@ -123,10 +123,11 @@ namespace UVA_Arena
             if (name != null)
             {
                 string url = nod.Attributes[name].Value;
-                if (!(url.StartsWith("http:") || url.StartsWith("ftp:")))
+                if (!(url.StartsWith("http:") || url.StartsWith("ftp:") || url.StartsWith("https:")))
                 {
                     if (!urls.Contains(url)) urls.Add(url);
                     if (url.StartsWith("./")) url = url.Remove(0, 2);
+                    while (url.StartsWith("/")) url = url.Remove(0, 1);
                     url = url.Replace('/', Path.DirectorySeparatorChar);
                     nod.Attributes[name].Value = url;
                 }
@@ -154,14 +155,14 @@ namespace UVA_Arena
         {
             string file = @"unzip\unzip.exe";
             if (!System.IO.File.Exists(file)) return;
-            
+
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.FileName = "Problems.uapak";
             sfd.Filter = "UVA Arena Package | *.uapak";
             sfd.DefaultExt = ".uapak";
             sfd.AddExtension = true;
             sfd.CheckPathExists = true;
-            
+
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 System.Threading.ThreadPool.QueueUserWorkItem(Backup, sfd.FileName);
@@ -178,7 +179,7 @@ namespace UVA_Arena
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.FileName = "Problems.uapak";
             ofd.Filter = "UVA Arena Package | *.uapak";
-            
+
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 System.Threading.ThreadPool.QueueUserWorkItem(Restore, ofd.FileName);
@@ -218,7 +219,7 @@ namespace UVA_Arena
             System.Diagnostics.Process.Start(unzip, arg).WaitForExit();
 
             //restore reg
-            string regfile = Path.Combine(path, "regkey.dat");            
+            string regfile = Path.Combine(path, "regkey.dat");
             string regdat = File.ReadAllText(regfile);
             RestoreRegistryData(regdat);
         }
@@ -260,11 +261,11 @@ namespace UVA_Arena
             List<string> values = JsonConvert.DeserializeObject<List<string>>(fdat[0]);
             List<string> keydat = JsonConvert.DeserializeObject<List<string>>(fdat[1]);
 
-            foreach(string dat in values)
+            foreach (string dat in values)
             {
                 string[] val = JsonConvert.DeserializeObject<string[]>(dat);
-                key.SetValue((string)val[0], 
-                    JsonConvert.DeserializeObject((string)val[1]), 
+                key.SetValue((string)val[0],
+                    JsonConvert.DeserializeObject((string)val[1]),
                     (RegistryValueKind)int.Parse(val[2]));
             }
 

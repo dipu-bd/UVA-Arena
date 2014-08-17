@@ -16,8 +16,7 @@
             if (disposing)
             {
                 if (components != null) components.Dispose();
-                if (remaining != null) remaining.Clear();
-                if (tasklist != null) tasklist.Clear();
+                if (remaining != null) remaining.Clear(); 
             }
             base.Dispose(disposing);
         }
@@ -46,6 +45,7 @@
             this.replaceBox = new System.Windows.Forms.CheckBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.overallStatus = new System.Windows.Forms.Label();
+            this.replaceCombo1 = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +60,7 @@
             this.tableLayoutPanel1.Controls.Add(this.restartButton, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cancelButton, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.startButton, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(196, 148);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(232, 147);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -119,20 +119,20 @@
             // 
             // totalProgress
             // 
-            this.totalProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.totalProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalProgress.Location = new System.Drawing.Point(12, 30);
             this.totalProgress.Name = "totalProgress";
-            this.totalProgress.Size = new System.Drawing.Size(484, 26);
+            this.totalProgress.Size = new System.Drawing.Size(520, 26);
             this.totalProgress.TabIndex = 2;
             // 
             // currentProgress
             // 
-            this.currentProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.currentProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentProgress.Location = new System.Drawing.Point(11, 93);
             this.currentProgress.Name = "currentProgress";
-            this.currentProgress.Size = new System.Drawing.Size(484, 23);
+            this.currentProgress.Size = new System.Drawing.Size(520, 23);
             this.currentProgress.TabIndex = 4;
             // 
             // label2
@@ -150,7 +150,7 @@
             // 
             this.totalPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.totalPercentage.BackColor = System.Drawing.Color.Transparent;
-            this.totalPercentage.Location = new System.Drawing.Point(437, 11);
+            this.totalPercentage.Location = new System.Drawing.Point(473, 11);
             this.totalPercentage.Name = "totalPercentage";
             this.totalPercentage.Size = new System.Drawing.Size(59, 16);
             this.totalPercentage.TabIndex = 5;
@@ -161,7 +161,7 @@
             // 
             this.currentPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.currentPercentage.BackColor = System.Drawing.Color.Transparent;
-            this.currentPercentage.Location = new System.Drawing.Point(437, 74);
+            this.currentPercentage.Location = new System.Drawing.Point(473, 74);
             this.currentPercentage.Name = "currentPercentage";
             this.currentPercentage.Size = new System.Drawing.Size(59, 16);
             this.currentPercentage.TabIndex = 6;
@@ -170,19 +170,19 @@
             // 
             // StatusLabel
             // 
-            this.StatusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.StatusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StatusLabel.BackColor = System.Drawing.Color.Transparent;
             this.StatusLabel.Location = new System.Drawing.Point(12, 119);
             this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(484, 13);
+            this.StatusLabel.Size = new System.Drawing.Size(520, 13);
             this.StatusLabel.TabIndex = 7;
             this.StatusLabel.Text = "no status...";
             this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // currentProblem
             // 
-            this.currentProblem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.currentProblem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentProblem.AutoSize = true;
             this.currentProblem.BackColor = System.Drawing.Color.Transparent;
@@ -201,11 +201,11 @@
             this.replaceBox.AutoSize = true;
             this.replaceBox.BackColor = System.Drawing.Color.Transparent;
             this.replaceBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.replaceBox.Location = new System.Drawing.Point(15, 154);
+            this.replaceBox.Location = new System.Drawing.Point(13, 152);
             this.replaceBox.Name = "replaceBox";
-            this.replaceBox.Size = new System.Drawing.Size(153, 23);
+            this.replaceBox.Size = new System.Drawing.Size(103, 23);
             this.replaceBox.TabIndex = 9;
-            this.replaceBox.Text = "Redownload old files";
+            this.replaceBox.Text = "Redownload";
             this.replaceBox.UseVisualStyleBackColor = false;
             this.replaceBox.Click += new System.EventHandler(this.replaceBox_Click);
             // 
@@ -214,11 +214,12 @@
             this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // overallStatus
             // 
-            this.overallStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.overallStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.overallStatus.AutoSize = true;
             this.overallStatus.BackColor = System.Drawing.Color.Transparent;
@@ -230,13 +231,30 @@
             this.overallStatus.Text = "no status...";
             this.overallStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // replaceCombo1
+            // 
+            this.replaceCombo1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.replaceCombo1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.replaceCombo1.FormattingEnabled = true;
+            this.replaceCombo1.Items.AddRange(new object[] {
+            "All Files",
+            "HTML Files",
+            "PDF Files",
+            "Image Files"});
+            this.replaceCombo1.Location = new System.Drawing.Point(113, 151);
+            this.replaceCombo1.Name = "replaceCombo1";
+            this.replaceCombo1.Size = new System.Drawing.Size(98, 25);
+            this.replaceCombo1.TabIndex = 11;
+            this.replaceCombo1.SelectedIndexChanged += new System.EventHandler(this.replaceCombo1_SelectedIndexChanged);
+            // 
             // DownloadAllForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UVA_Arena.Properties.Resources.back5;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(508, 192);
+            this.ClientSize = new System.Drawing.Size(544, 191);
+            this.Controls.Add(this.replaceCombo1);
             this.Controls.Add(this.overallStatus);
             this.Controls.Add(this.replaceBox);
             this.Controls.Add(this.currentProblem);
@@ -254,7 +272,7 @@
             this.Name = "DownloadAllForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Download Problems";
+            this.Text = "Downloading Problems";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadAllForm_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -279,6 +297,7 @@
         private System.Windows.Forms.CheckBox replaceBox;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label overallStatus;
+        private System.Windows.Forms.ComboBox replaceCombo1;
 
     }
 }

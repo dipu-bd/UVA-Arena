@@ -4,14 +4,14 @@
   <description asmv2:publisher="UVA Arena" asmv2:product="UVA Arena" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" />
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="UVA Arena.exe.manifest" size="7769">
+    <dependentAssembly dependencyType="install" codebase="UVA Arena.exe.manifest" size="7146">
       <assemblyIdentity name="UVA Arena.exe" version="1.0.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>2K+y284QImMn6xfVpyKpNzgMyb0=</dsig:DigestValue>
+        <dsig:DigestValue>eDpXRdSyboJhcflMNiXzjXC2Zso=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

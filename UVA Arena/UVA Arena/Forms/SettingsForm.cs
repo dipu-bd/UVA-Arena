@@ -68,6 +68,8 @@ namespace UVA_Arena
                 autoIndentChars.Enabled = autoIndent.Checked;
             }
 
+            //precode
+            LoadPrecode();
         }
         #endregion
 
@@ -258,69 +260,58 @@ namespace UVA_Arena
         #endregion
 
         #region Precode
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            codeTextBox.Enabled = true;
-            cancelCodeButton.PerformClick();
-        }
-
+        
         private void codeTextBox_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
         {
-            switch (comboBox1.SelectedIndex)
-            {
-                case 0:
-                case 1:
-                    HighlightSyntax.HighlightCPPSyntax(e.ChangedRange);
-                    break;
-                case 2:
-                    HighlightSyntax.HighlightJavaSyntax(e.ChangedRange);
-                    break;
-            }
-
+            if (ansiCradioButton.Checked || cppRadioButton.Checked)
+                HighlightSyntax.HighlightCPPSyntax(e.ChangedRange);
+            else if (JavaRadioButton.Checked)
+                HighlightSyntax.HighlightJavaSyntax(e.ChangedRange);
         }
 
         private void saveCodeButton_Click(object sender, EventArgs e)
         {
-            switch (comboBox1.SelectedIndex)
-            {
-                case 0:
-                    Elements.CODES.CPrecode = codeTextBox.Text;
-                    break;
-                case 1:
-                    Elements.CODES.CPPPrecode = codeTextBox.Text;
-                    break;
-                case 2:
-                    Elements.CODES.JavaPrecode = codeTextBox.Text;
-                    break;
-                default:
-                    Elements.CODES.PascalPrecode = codeTextBox.Text;
-                    break;
-            }
+            string text = codeTextBox.Text;
+            text = UVA_Arena.Elements.StringCompressor.CompressString(text);
+
+            if (ansiCradioButton.Checked)
+                Elements.CODES.CPrecode = text;
+            else if (cppRadioButton.Checked)
+                Elements.CODES.CPPPrecode = text;
+            else if (JavaRadioButton.Checked)
+                Elements.CODES.JavaPrecode = text;
+            else if (PascalRadioButton.Checked)
+                Elements.CODES.PascalPrecode = text;
+        }
+
+        private void LoadPrecode()
+        {
+            string text = "";
+            if (ansiCradioButton.Checked)
+                text = Elements.CODES.CPrecode;
+            else if (cppRadioButton.Checked)
+                text = Elements.CODES.CPPPrecode;
+            else if (JavaRadioButton.Checked)
+                text = Elements.CODES.JavaPrecode;
+            else if (PascalRadioButton.Checked)
+                text = Elements.CODES.PascalPrecode;
+
+            text = text = UVA_Arena.Elements.StringCompressor.DecompressString(text);
+            codeTextBox.Text = text;
+        }
+
+        private void radioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadPrecode();
         }
 
         private void cancelCodeButton_Click(object sender, EventArgs e)
         {
-            string text = "";
-            switch (comboBox1.SelectedIndex)
-            {
-                case 0:
-                    text = Elements.CODES.CPrecode;
-                    break;
-                case 1:
-                    text = Elements.CODES.CPPPrecode;
-                    break;
-                case 2:
-                    text = Elements.CODES.JavaPrecode;
-                    break;
-                default:
-                    text = Elements.CODES.PascalPrecode;
-                    break;
-            }
-            codeTextBox.Text = text;
+            LoadPrecode();
         }
 
         #endregion
+
 
     }
 }

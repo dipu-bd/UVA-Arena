@@ -12,8 +12,7 @@ namespace UVA_Arena.Elements
     {
         public UserProgTracker()
         {
-            InitializeComponent();
-
+            InitializeComponent();            
         }
     }
 }

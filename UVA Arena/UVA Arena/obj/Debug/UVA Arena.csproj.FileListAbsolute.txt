@@ -141,7 +141,6 @@ G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\FastColoredTextBox.DL
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\HtmlAgilityPack.dll
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.dll
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.DLL
-G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\TabStrip.DLL
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.TrustInfo.xml
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.exe.manifest
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.application

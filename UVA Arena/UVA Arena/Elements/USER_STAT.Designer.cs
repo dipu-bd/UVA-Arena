@@ -42,8 +42,8 @@
             this.twoMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fiveMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tenMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.updateRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.viewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -53,8 +53,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.acceptedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notAcceptedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.noneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,8 +62,8 @@
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verdictToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.problemNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.groupByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -90,6 +90,10 @@
             this.usernameList = new BrightIdeasSoftware.FastObjectListView();
             this.unameCol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.uidCol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.uernameContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -119,10 +123,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.Status1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.Progress1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.uernameContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.deleteUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
-            this.refreshListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateContextMenu.SuspendLayout();
             this.viewContextMenu.SuspendLayout();
             this.groupContextMenu.SuspendLayout();
@@ -131,6 +131,7 @@
             this.customSplitContainer1.Panel2.SuspendLayout();
             this.customSplitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.usernameList)).BeginInit();
+            this.uernameContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -141,7 +142,6 @@
             this.progtrackerTab.SuspendLayout();
             this.panel2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.uernameContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // updateContextMenu
@@ -159,7 +159,7 @@
             this.fiveMinutesToolItem,
             this.tenMinutesToolItem});
             this.updateContextMenu.Name = "updateContextMenu";
-            this.updateContextMenu.OwnerItem = this.updateRateToolStripMenuItem;
+            this.updateContextMenu.OwnerItem = this.toolStripSplitButton1;
             this.updateContextMenu.Size = new System.Drawing.Size(142, 230);
             // 
             // autoUpdateToolMenu
@@ -250,6 +250,13 @@
             this.tenMinutesToolItem.Text = "10 minutes";
             this.tenMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
             // 
+            // updateRateToolStripMenuItem
+            // 
+            this.updateRateToolStripMenuItem.DropDown = this.updateContextMenu;
+            this.updateRateToolStripMenuItem.Name = "updateRateToolStripMenuItem";
+            this.updateRateToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.updateRateToolStripMenuItem.Text = "Auto Update";
+            // 
             // toolStripSplitButton1
             // 
             this.toolStripSplitButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -260,13 +267,6 @@
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
             this.toolStripSplitButton1.Size = new System.Drawing.Size(84, 20);
             this.toolStripSplitButton1.Text = "Update Rate";
-            // 
-            // updateRateToolStripMenuItem
-            // 
-            this.updateRateToolStripMenuItem.DropDown = this.updateContextMenu;
-            this.updateRateToolStripMenuItem.Name = "updateRateToolStripMenuItem";
-            this.updateRateToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.updateRateToolStripMenuItem.Text = "Auto Update";
             // 
             // viewContextMenu
             // 
@@ -280,7 +280,7 @@
             this.acceptedToolStripMenuItem,
             this.notAcceptedToolStripMenuItem});
             this.viewContextMenu.Name = "viewContextMenu";
-            this.viewContextMenu.OwnerItem = this.viewToolStripMenuItem;
+            this.viewContextMenu.OwnerItem = this.toolStripSplitButton2;
             this.viewContextMenu.Size = new System.Drawing.Size(148, 148);
             // 
             // allToolStripMenuItem
@@ -343,6 +343,13 @@
             this.notAcceptedToolStripMenuItem.Text = "Not Accepted";
             this.notAcceptedToolStripMenuItem.Click += new System.EventHandler(this.viewMenuItem_Click);
             // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDown = this.viewContextMenu;
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
             // toolStripSplitButton2
             // 
             this.toolStripSplitButton2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -353,13 +360,6 @@
             this.toolStripSplitButton2.Name = "toolStripSplitButton2";
             this.toolStripSplitButton2.Size = new System.Drawing.Size(45, 20);
             this.toolStripSplitButton2.Text = "View";
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.DropDown = this.viewContextMenu;
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.viewToolStripMenuItem.Text = "View";
             // 
             // timer1
             // 
@@ -375,7 +375,7 @@
             this.verdictToolStripMenuItem,
             this.problemNameToolStripMenuItem});
             this.groupContextMenu.Name = "contextMenuStrip1";
-            this.groupContextMenu.OwnerItem = this.toolStripButton1;
+            this.groupContextMenu.OwnerItem = this.groupByToolStripMenuItem;
             this.groupContextMenu.Size = new System.Drawing.Size(155, 98);
             // 
             // noneToolStripMenuItem
@@ -413,13 +413,6 @@
             this.problemNameToolStripMenuItem.Text = "Problem Name";
             this.problemNameToolStripMenuItem.Click += new System.EventHandler(this.groupMenuItem_Click);
             // 
-            // groupByToolStripMenuItem
-            // 
-            this.groupByToolStripMenuItem.DropDown = this.groupContextMenu;
-            this.groupByToolStripMenuItem.Name = "groupByToolStripMenuItem";
-            this.groupByToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.groupByToolStripMenuItem.Text = "Group By";
-            // 
             // toolStripButton1
             // 
             this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -430,6 +423,13 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(69, 20);
             this.toolStripButton1.Text = "Group By";
+            // 
+            // groupByToolStripMenuItem
+            // 
+            this.groupByToolStripMenuItem.DropDown = this.groupContextMenu;
+            this.groupByToolStripMenuItem.Name = "groupByToolStripMenuItem";
+            this.groupByToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.groupByToolStripMenuItem.Text = "Group By";
             // 
             // MainContextMenu
             // 
@@ -621,6 +621,7 @@
             this.usernameList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.unameCol,
             this.uidCol});
+            this.usernameList.ContextMenuStrip = this.uernameContextMenu;
             this.usernameList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usernameList.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameList.FullRowSelect = true;
@@ -632,6 +633,8 @@
             this.usernameList.UseCellFormatEvents = true;
             this.usernameList.UseCompatibleStateImageBehavior = false;
             this.usernameList.UseCustomSelectionColors = true;
+            this.usernameList.UseHotItem = true;
+            this.usernameList.UseTranslucentHotItem = true;
             this.usernameList.UseTranslucentSelection = true;
             this.usernameList.View = System.Windows.Forms.View.Details;
             this.usernameList.VirtualMode = true;
@@ -655,6 +658,35 @@
             this.uidCol.Text = "User ID";
             this.uidCol.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.uidCol.Width = 80;
+            // 
+            // uernameContextMenu
+            // 
+            this.uernameContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteUserToolStripMenuItem,
+            this.toolStripSeparator9,
+            this.refreshListToolStripMenuItem});
+            this.uernameContextMenu.Name = "uernameContextMenu";
+            this.uernameContextMenu.Size = new System.Drawing.Size(134, 54);
+            // 
+            // deleteUserToolStripMenuItem
+            // 
+            this.deleteUserToolStripMenuItem.Name = "deleteUserToolStripMenuItem";
+            this.deleteUserToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.deleteUserToolStripMenuItem.Text = "Delete User";
+            this.deleteUserToolStripMenuItem.Click += new System.EventHandler(this.deleteUserToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(130, 6);
+            // 
+            // refreshListToolStripMenuItem
+            // 
+            this.refreshListToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.reload;
+            this.refreshListToolStripMenuItem.Name = "refreshListToolStripMenuItem";
+            this.refreshListToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.refreshListToolStripMenuItem.Text = "Refresh list";
+            this.refreshListToolStripMenuItem.Click += new System.EventHandler(this.refreshListToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -1003,34 +1035,6 @@
             this.Progress1.Name = "Progress1";
             this.Progress1.Size = new System.Drawing.Size(100, 22);
             // 
-            // uernameContextMenu
-            // 
-            this.uernameContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteUserToolStripMenuItem,
-            this.toolStripSeparator9,
-            this.refreshListToolStripMenuItem});
-            this.uernameContextMenu.Name = "uernameContextMenu";
-            this.uernameContextMenu.Size = new System.Drawing.Size(134, 54);
-            // 
-            // deleteUserToolStripMenuItem
-            // 
-            this.deleteUserToolStripMenuItem.Name = "deleteUserToolStripMenuItem";
-            this.deleteUserToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-            this.deleteUserToolStripMenuItem.Text = "Delete User";
-            // 
-            // toolStripSeparator9
-            // 
-            this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(130, 6);
-            // 
-            // refreshListToolStripMenuItem
-            // 
-            this.refreshListToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.reload;
-            this.refreshListToolStripMenuItem.Name = "refreshListToolStripMenuItem";
-            this.refreshListToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-            this.refreshListToolStripMenuItem.Text = "Refresh list";
-            this.refreshListToolStripMenuItem.Click += new System.EventHandler(this.refreshListToolStripMenuItem_Click);
-            // 
             // USER_STAT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1050,6 +1054,7 @@
             this.customSplitContainer1.Panel2.PerformLayout();
             this.customSplitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.usernameList)).EndInit();
+            this.uernameContextMenu.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1066,7 +1071,6 @@
             this.panel2.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.uernameContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

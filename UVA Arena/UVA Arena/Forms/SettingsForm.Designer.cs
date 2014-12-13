@@ -86,11 +86,14 @@
             this.label26 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label23 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.PascalRadioButton = new System.Windows.Forms.RadioButton();
+            this.JavaRadioButton = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cppRadioButton = new System.Windows.Forms.RadioButton();
+            this.ansiCradioButton = new System.Windows.Forms.RadioButton();
+            this.saveCodeButton = new System.Windows.Forms.Button();
             this.cancelCodeButton = new System.Windows.Forms.Button();
             this.codeTextBox = new FastColoredTextBoxNS.FastColoredTextBox();
-            this.saveCodeButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel3.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.generalTab.SuspendLayout();
@@ -780,39 +783,85 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.label23);
-            this.panel2.Controls.Add(this.comboBox1);
+            this.panel2.Controls.Add(this.PascalRadioButton);
+            this.panel2.Controls.Add(this.JavaRadioButton);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.cppRadioButton);
+            this.panel2.Controls.Add(this.ansiCradioButton);
             this.panel2.Location = new System.Drawing.Point(8, 9);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(360, 40);
             this.panel2.TabIndex = 9;
             // 
-            // label23
+            // PascalRadioButton
             // 
-            this.label23.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(44, 13);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(106, 13);
-            this.label23.TabIndex = 0;
-            this.label23.Text = "Choose Language :";
+            this.PascalRadioButton.AutoSize = true;
+            this.PascalRadioButton.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PascalRadioButton.Location = new System.Drawing.Point(268, 9);
+            this.PascalRadioButton.Name = "PascalRadioButton";
+            this.PascalRadioButton.Size = new System.Drawing.Size(62, 21);
+            this.PascalRadioButton.TabIndex = 4;
+            this.PascalRadioButton.Text = "Pascal";
+            this.PascalRadioButton.UseVisualStyleBackColor = true;
+            this.PascalRadioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
-            // comboBox1
+            // JavaRadioButton
             // 
-            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Ansi C",
-            "C++ ",
-            "Java",
-            "Pascal"});
-            this.comboBox1.Location = new System.Drawing.Point(156, 7);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(135, 25);
-            this.comboBox1.TabIndex = 1;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.JavaRadioButton.AutoSize = true;
+            this.JavaRadioButton.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JavaRadioButton.Location = new System.Drawing.Point(211, 9);
+            this.JavaRadioButton.Name = "JavaRadioButton";
+            this.JavaRadioButton.Size = new System.Drawing.Size(51, 21);
+            this.JavaRadioButton.TabIndex = 3;
+            this.JavaRadioButton.Text = "Java";
+            this.JavaRadioButton.UseVisualStyleBackColor = true;
+            this.JavaRadioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(7, 11);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 17);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Language :";
+            // 
+            // cppRadioButton
+            // 
+            this.cppRadioButton.AutoSize = true;
+            this.cppRadioButton.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cppRadioButton.Location = new System.Drawing.Point(153, 9);
+            this.cppRadioButton.Name = "cppRadioButton";
+            this.cppRadioButton.Size = new System.Drawing.Size(52, 21);
+            this.cppRadioButton.TabIndex = 1;
+            this.cppRadioButton.Text = "C++";
+            this.cppRadioButton.UseVisualStyleBackColor = true;
+            this.cppRadioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // ansiCradioButton
+            // 
+            this.ansiCradioButton.AutoSize = true;
+            this.ansiCradioButton.Checked = true;
+            this.ansiCradioButton.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ansiCradioButton.Location = new System.Drawing.Point(85, 9);
+            this.ansiCradioButton.Name = "ansiCradioButton";
+            this.ansiCradioButton.Size = new System.Drawing.Size(62, 21);
+            this.ansiCradioButton.TabIndex = 0;
+            this.ansiCradioButton.TabStop = true;
+            this.ansiCradioButton.Text = "Ansi C";
+            this.ansiCradioButton.UseVisualStyleBackColor = true;
+            this.ansiCradioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // saveCodeButton
+            // 
+            this.saveCodeButton.Location = new System.Drawing.Point(152, 414);
+            this.saveCodeButton.Name = "saveCodeButton";
+            this.saveCodeButton.Size = new System.Drawing.Size(105, 25);
+            this.saveCodeButton.TabIndex = 4;
+            this.saveCodeButton.Text = "Save";
+            this.saveCodeButton.UseVisualStyleBackColor = true;
+            this.saveCodeButton.Click += new System.EventHandler(this.saveCodeButton_Click);
             // 
             // cancelCodeButton
             // 
@@ -846,7 +895,6 @@
             this.codeTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.codeTextBox.DelayedTextChangedInterval = 50;
             this.codeTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.codeTextBox.Enabled = false;
             this.codeTextBox.FindEndOfFoldingBlockStrategy = FastColoredTextBoxNS.FindEndOfFoldingBlockStrategy.Strategy2;
             this.codeTextBox.Font = new System.Drawing.Font("Consolas", 10F);
             this.codeTextBox.ForeColor = System.Drawing.Color.Black;
@@ -864,16 +912,6 @@
             this.codeTextBox.ToolTipDelay = 300;
             this.codeTextBox.Zoom = 100;
             this.codeTextBox.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.codeTextBox_TextChanged);
-            // 
-            // saveCodeButton
-            // 
-            this.saveCodeButton.Location = new System.Drawing.Point(152, 414);
-            this.saveCodeButton.Name = "saveCodeButton";
-            this.saveCodeButton.Size = new System.Drawing.Size(105, 25);
-            this.saveCodeButton.TabIndex = 4;
-            this.saveCodeButton.Text = "Save";
-            this.saveCodeButton.UseVisualStyleBackColor = true;
-            this.saveCodeButton.Click += new System.EventHandler(this.saveCodeButton_Click);
             // 
             // SettingsForm
             // 
@@ -976,8 +1014,6 @@
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.TextBox cppCompilerOptions;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Button cancelCodeButton;
         public FastColoredTextBoxNS.FastColoredTextBox codeTextBox;
         private System.Windows.Forms.Panel panel2;
@@ -987,5 +1023,10 @@
         private System.Windows.Forms.CheckBox showHints;
         private System.Windows.Forms.CheckBox highlightFoldingIndicator;
         private System.Windows.Forms.Button saveCodeButton;
+        private System.Windows.Forms.RadioButton PascalRadioButton;
+        private System.Windows.Forms.RadioButton JavaRadioButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.RadioButton cppRadioButton;
+        private System.Windows.Forms.RadioButton ansiCradioButton;
     }
 }

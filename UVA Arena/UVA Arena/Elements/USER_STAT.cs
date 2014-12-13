@@ -599,6 +599,16 @@ namespace UVA_Arena.Elements
             LoadUsernames();
         }
 
+        private void deleteUserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(usernameList.SelectedObject == null) return;
+            string val = ((KeyValuePair<string, string>)usernameList.SelectedObject).Key;
+            if (MessageBox.Show("Are you sure to delete '" + val + "' from list?", 
+                "Delete User?", MessageBoxButtons.YesNo) == DialogResult.No) return;
+            RegistryAccess.DeleteUserid(val);
+            LoadUsernames();
+        }
+
         #endregion
 
     }

@@ -59,6 +59,16 @@ namespace UVA_Arena
             if(!DefaultDatabase.usernames.ContainsKey(name))
                 DefaultDatabase.usernames.Add(name, uid);
         }
+
+        /// <summary> delete a user id </summary>
+        public static void DeleteUserid(string name)
+        {            
+            if (!DefaultDatabase.usernames.ContainsKey(name)) return;
+            DefaultDatabase.usernames.Remove(name);
+            RegistryKey key = DEFAULT.CreateSubKey("UserID");
+            key.DeleteValue(name, false);
+        }
+
         /// <summary> Get a list of all stored usernames and userids </summary>
         public static Dictionary<string, string> GetAllUsers()
         {
@@ -90,11 +100,13 @@ namespace UVA_Arena
                 SetValue("Favourites", dat);
             }
         }
+
         public static void SetTags(long pnum, List<string> catagory)
         {
             string data = JsonConvert.SerializeObject(catagory);
             SetValue(pnum.ToString(), data, "Problem Database", RegistryValueKind.String);
         }
+
         public static List<string> GetTags(long pnum)
         {
             string dat = (string)GetValue(pnum.ToString(), "[]", "Problem Database");
@@ -102,6 +114,5 @@ namespace UVA_Arena
             if (tags == null) tags = new List<string>();
             return tags;
         }
-
     }
 }

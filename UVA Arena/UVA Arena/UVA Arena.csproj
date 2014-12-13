@@ -11,12 +11,28 @@
     <AssemblyName>UVA Arena</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -41,18 +57,44 @@
     <TargetZone>Custom</TargetZone>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>D51084874C605B3694536694C190E955125E0E47</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>UVA Arena_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
-    <Compile Include="StaticClass\NativeMethods.cs" />
-    <Compile Include="Custom\Controls.cs">
-      <SubType>Component</SubType>
+    <Compile Include="Classes\General\Internet.cs">
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Custom\SearchBox.cs">
+    <Compile Include="Classes\Userinfo\UserSubmissions.cs" />
+    <Compile Include="Elements\STATUS.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Custom\SearchBox.Designer.cs">
+    <Compile Include="Elements\STATUS.Designer.cs">
+      <DependentUpon>STATUS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Utilities\CodeFileMerger.cs" />
+    <Compile Include="Classes\Utilities\FileOperations.cs" />
+    <Compile Include="Classes\Utilities\HighlightSyntax.cs" />
+    <Compile Include="Classes\General\NativeMethods.cs" />
+    <Compile Include="Controls\Controls.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\SearchBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SearchBox.Designer.cs">
       <DependentUpon>SearchBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Elements\CODES.cs">
@@ -72,6 +114,24 @@
     </Compile>
     <Compile Include="Elements\ProblemViewer.Designer.cs">
       <DependentUpon>ProblemViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\UserProgTracker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Elements\UserProgTracker.Designer.cs">
+      <DependentUpon>UserProgTracker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\USER_STAT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Elements\USER_STAT.Designer.cs">
+      <DependentUpon>USER_STAT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\UTILITIES.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Elements\UTILITIES.Designer.cs">
+      <DependentUpon>UTILITIES.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CatagoryChange.cs">
       <SubType>Form</SubType>
@@ -129,19 +189,18 @@
     <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="StaticClass\Functions.cs" />
-    <Compile Include="StaticClass\Interactivity.cs" />
-    <Compile Include="StaticClass\Internet.cs" />
-    <Compile Include="StaticClass\LocalDirectory.cs" />
-    <Compile Include="StaticClass\Logger.cs" />
-    <Compile Include="StaticClass\ProblemList.cs" />
-    <Compile Include="StaticClass\RegistryAccess.cs" />
-    <Compile Include="StaticClass\ProblemDatabase.cs" />
-    <Compile Include="StaticClass\Stylish.cs" />
-    <Compile Include="StaticClass\SubmissionList.cs" />
-    <Compile Include="StaticClass\TaskQueue.cs" />
-    <Compile Include="StaticClass\UnixTimeStamp.cs" />
-    <EmbeddedResource Include="Custom\SearchBox.resx">
+    <Compile Include="Classes\General\Functions.cs" />
+    <Compile Include="Classes\General\Interactivity.cs" />
+    <Compile Include="Classes\General\LocalDirectory.cs" />
+    <Compile Include="Classes\Utilities\Logger.cs" />
+    <Compile Include="Classes\Problems\ProblemList.cs" />
+    <Compile Include="Classes\General\RegistryAccess.cs" />
+    <Compile Include="Classes\Problems\DefaultDatabase.cs" />
+    <Compile Include="Classes\Utilities\Stylish.cs" />
+    <Compile Include="Classes\Userinfo\SubmissionList.cs" />
+    <Compile Include="Classes\Utilities\TaskQueue.cs" />
+    <Compile Include="Classes\Utilities\UnixTimeStamp.cs" />
+    <EmbeddedResource Include="Controls\SearchBox.resx">
       <DependentUpon>SearchBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Elements\CODES.resx">
@@ -152,6 +211,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Elements\ProblemViewer.resx">
       <DependentUpon>ProblemViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\STATUS.resx">
+      <DependentUpon>STATUS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\UserProgTracker.resx">
+      <DependentUpon>UserProgTracker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\USER_STAT.resx">
+      <DependentUpon>USER_STAT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements\UTILITIES.resx">
+      <DependentUpon>UTILITIES.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CatagoryChange.resx">
       <DependentUpon>CatagoryChange.cs</DependentUpon>
@@ -204,69 +275,94 @@
   <ItemGroup>
     <Content Include="IDEA.txt" />
     <Content Include="main.ico" />
-    <Content Include="unzip\Ionic.BZip2.dll">
+    <None Include="Resources\home.png" />
+    <None Include="Resources\web.png" />
+    <None Include="Resources\vertical.png" />
+    <None Include="Resources\unpin.png" />
+    <None Include="Resources\tools.png" />
+    <None Include="Resources\submit.png" />
+    <None Include="Resources\show.png" />
+    <None Include="Resources\search.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\reload.png" />
+    <None Include="Resources\prev.png" />
+    <None Include="Resources\pin.png" />
+    <None Include="Resources\pdf.png" />
+    <None Include="Resources\paste.png" />
+    <None Include="Resources\open.png" />
+    <None Include="Resources\next.png" />
+    <None Include="Resources\log.png" />
+    <None Include="Resources\horizontal.png" />
+    <None Include="Resources\hide.png" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\favourite.png" />
+    <None Include="Resources\external.png" />
+    <None Include="Resources\export.png" />
+    <None Include="Resources\explorer.png" />
+    <None Include="Resources\expand.png" />
+    <None Include="Resources\download.png" />
+    <None Include="Resources\copy.png" />
+    <None Include="Resources\code.png" />
+    <None Include="Resources\clear.png" />
+    <None Include="Resources\backimg.gif" />
+    <None Include="unzip\Ionic.BZip2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="unzip\Ionic.Zip.dll">
+    </None>
+    <None Include="unzip\Ionic.Zip.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="unzip\Ionic.Zlib.dll">
+    </None>
+    <None Include="unzip\Ionic.Zlib.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="unzip\License.txt">
+    </None>
+    <None Include="unzip\License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="unzip\Readme.txt">
+    </None>
+    <None Include="unzip\Readme.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="unzip\unzip.exe">
+    </None>
+    <None Include="unzip\unzip.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="unzip\zipit.exe">
+    </None>
+    <None Include="unzip\zipit.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ActiveButtons, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External References\ActiveButtons.dll</HintPath>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ActiveButtons">
+      <HintPath>..\..\External References\ActiveButtons.dll</HintPath>
     </Reference>
-    <Reference Include="FastColoredTextBox, Version=2.15.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External References\FastColoredTextBox.DLL</HintPath>
+    <Reference Include="FastColoredTextBox">
+      <HintPath>..\..\External References\FastColoredTextBox.DLL</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\External References\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\External References\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External References\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\External References\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="ObjectListView, Version=2.5.1.35993, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External References\ObjectListView.DLL</HintPath>
+    <Reference Include="ObjectListView">
+      <HintPath>..\..\External References\ObjectListView.DLL</HintPath>
     </Reference>
-    <Reference Include="System">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Design">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Drawing">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Windows.Forms">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.XML">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="TabStrip, Version=2.0.2523.29272, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External References\TabStrip.DLL</HintPath>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+    <Reference Include="TabStrip">
+      <HintPath>..\..\External References\TabStrip.DLL</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

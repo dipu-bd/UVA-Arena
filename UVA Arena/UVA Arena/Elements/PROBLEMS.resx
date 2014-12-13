@@ -123,7 +123,21 @@
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>114, 17</value>
   </metadata>
+  <metadata name="problemContextMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>251, 22</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="downloadAllToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAASFJREFUOE+1
+        kT1Ow0AQhX0KSjo6SloqbsQdIkEEXIFDJCD/EAWJEqFYmAhX9EDspCIikj3sN7CW116JULDS8+yb9+at
+        dh2cng+Ozi6GLyfDgWwL/MyJSBBA0scHeS9etwZ+5jSARJpPeSrZ8+xX4MPPnBOAeHzZR3fh+5+A9hXS
+        7F65BdxqvSv4HjGbz2S1KmVRvGmFt3XnEX2/MUzGslyWkudzrfC2jr/5jXy6iCfXpoiU5ULrD/d6vc0/
+        B0RRtIPJ4vZuInVdawAV3tbxOwEgSUa7iHat1x8aQLULHZ/ZNnPNBsTxaM+GbDaf5gELrSw93ehm68w4
+        BETT8b4NqapKK5y+2fb8vQaIp1cHNkRPNtxqXXibILwJDxmm+vRvSPAFy0QsRW69BiwAAAAASUVORK5C
+        YII=
+</value>
+  </data>
   <data name="catagoryButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -149,20 +163,6 @@
         oDAAaSYHg8OgMHjJiQTF+v/k4JLwFVsZpu/9+v/N9/9kYZBeuAGOBTzgQNz94AfRGMMAUCBWLn5JNIYY
         sO9bp2vepv/k4Ol7vpQxeJaGn9AOiv5PDvapCNvK0Lnf7//d/zvIwiC9cANggbjsZi7RGMMAUCAWrtMn
         GoMN6Drg1wnSTA7u2OdXBgAIH5j0+lSxPAAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="problemContextMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>251, 22</value>
-  </metadata>
-  <data name="downloadAllToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAASFJREFUOE+1
-        kT1Ow0AQhX0KSjo6SloqbsQdIkEEXIFDJCD/EAWJEqFYmAhX9EDspCIikj3sN7CW116JULDS8+yb9+at
-        dh2cng+Ozi6GLyfDgWwL/MyJSBBA0scHeS9etwZ+5jSARJpPeSrZ8+xX4MPPnBOAeHzZR3fh+5+A9hXS
-        7F65BdxqvSv4HjGbz2S1KmVRvGmFt3XnEX2/MUzGslyWkudzrfC2jr/5jXy6iCfXpoiU5ULrD/d6vc0/
-        B0RRtIPJ4vZuInVdawAV3tbxOwEgSUa7iHat1x8aQLULHZ/ZNnPNBsTxaM+GbDaf5gELrSw93ehm68w4
-        BETT8b4NqapKK5y+2fb8vQaIp1cHNkRPNtxqXXibILwJDxmm+vRvSPAFy0QsRW69BiwAAAAASUVORK5C
-        YII=
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

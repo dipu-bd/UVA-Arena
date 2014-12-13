@@ -251,7 +251,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::UVA_Arena.Properties.Resources.back5;
+            this.BackgroundImage = global::UVA_Arena.Properties.Resources.backimg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(544, 191);
             this.Controls.Add(this.replaceCombo1);
@@ -274,6 +274,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Downloading Problems";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadAllForm_FormClosing);
+            this.Load += new System.EventHandler(this.DownloadAllForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -20,18 +20,28 @@ namespace UVA_Arena.Elements
         public PROBLEMS()
         {
             InitializeComponent();
-            SetObjectListView();
-            problemListView.MakeColumnSelectMenu(problemContextMenu);
-            //Stylish.SetGradientBackground(plistLabel, new Stylish.GradientStyle(
-            //        Color.PaleTurquoise, Color.LightBlue, System.Drawing.Drawing2D.LinearGradientMode.Vertical));
+
+            //initialize aspect values of problem list
+            SetAspectValues();
+            CustomStatusButton.Initialize(updateToolButton);
         }
 
-        public void ExpandView(bool val)
+        protected override void OnLoad(EventArgs e)
         {
-            splitContainer1.Panel1Collapsed = val;
+            base.OnLoad(e);
+
+            Interactivity.ProblemDatabaseUpdated();
+            problemListView.MakeColumnSelectMenu(problemContextMenu);
         }
 
-        private void SetObjectListView()
+        public bool ExpandCollapseView()
+        {
+            bool val = !mainSplitContainer.Panel1Collapsed;
+            mainSplitContainer.Panel1Collapsed = val;
+            return val;
+        }
+
+        private void SetAspectValues()
         {
             pnumProb.GroupKeyGetter = delegate(object row)
             {
@@ -81,12 +91,14 @@ namespace UVA_Arena.Elements
 
         public void SetStatus(string text, int timeout = 1000)
         {
+            if (this.IsDisposed) return;
             Status1.Text = text;
             TaskQueue.AddTask(ClearStatus, timeout);
             Logger.Add(text, "Problems");
         }
         public void ClearStatus()
         {
+            if (this.IsDisposed) return;
             Status1.Text = "";
         }
 
@@ -100,47 +112,19 @@ namespace UVA_Arena.Elements
             Downloader.DownloadProblemDatabase(problemWorkerStateChanged, problemWorkerProgress);
         }
 
-        private void problemWorkerProgress(int percent, DownloadTask task)
+        private void problemWorkerProgress(DownloadTask task)
         {
+            if (this.IsDisposed) return;
             Status1.Text = string.Format("Downloading problem database... ({0}/{1} completed)",
-                Functions.FormatMemory(task.received), Functions.FormatMemory(task.total));
-            Progress1.Value = percent;
+                Functions.FormatMemory(task.Received), Functions.FormatMemory(task.DataSize));
+            Progress1.Value = task.ProgressPercentage;
         }
         private void problemWorkerStateChanged(DownloadTask task)
-        {
-            if (task.status == ProgressStatus.Completed)
+        { 
+            if (task.Status == ProgressStatus.Completed)
                 SetStatus("Problem database is successfully updated.");
             else
                 SetStatus("Failed to update problem database. See log for details.");
-        }
-        
-        //
-        // Update Tool Button
-        //
-        private void toolButton1_MouseDown(object sender, MouseEventArgs e)
-        {            
-            updateToolButton.BorderStyle = Border3DStyle.SunkenInner;
-            updateToolButton.BackColor = Color.MediumTurquoise;
-        }
-        private void toolButton1_MouseUp(object sender, MouseEventArgs e)
-        {
-            updateToolButton.BorderStyle = Border3DStyle.RaisedInner;
-            updateToolButton.BackColor = Color.SeaShell;
-            updateToolButton.BackgroundImage = null;
-        }
-        private void toolButton1_MouseEnter(object sender, EventArgs e)
-        {
-            updateToolButton.BorderStyle = Border3DStyle.RaisedInner;
-
-            Stylish.GradientStyle style = new Stylish.GradientStyle(
-                System.Drawing.Drawing2D.HatchStyle.Trellis, Color.Linen, Color.PaleTurquoise);
-            updateToolButton.BackgroundImage = style.GetImage(updateToolButton.Size);                
-        }
-        private void toolButton1_MouseLeave(object sender, EventArgs e)
-        {
-            updateToolButton.BorderStyle = Border3DStyle.RaisedOuter;
-            updateToolButton.BackColor = Color.Linen;
-            updateToolButton.BackgroundImage = null;
         }
 
         #endregion
@@ -155,10 +139,10 @@ namespace UVA_Arena.Elements
             volumesButton.Checked = true;
             catagoryButton.Checked = false;
 
-            if (ProblemDatabase.problem_vol == null) return;
+            if (DefaultDatabase.problem_vol == null) return;
 
             List<CatagoryList> volumes = new List<CatagoryList>();
-            var it = ProblemDatabase.problem_vol.GetEnumerator();
+            var it = DefaultDatabase.problem_vol.GetEnumerator();
             while (it.MoveNext())
             {
                 if (it.Current.Value.Count == 0) continue;
@@ -178,10 +162,10 @@ namespace UVA_Arena.Elements
             volumesButton.Checked = false;
             catagoryButton.Checked = true;
 
-            if (ProblemDatabase.problem_cat == null) return;
+            if (DefaultDatabase.problem_cat == null) return;
 
             List<CatagoryList> catagory = new List<CatagoryList>();
-            var it = ProblemDatabase.problem_cat.GetEnumerator();
+            var it = DefaultDatabase.problem_cat.GetEnumerator();
             while (it.MoveNext())
             {
                 if (it.Current.Value.Count == 0) continue;
@@ -203,9 +187,9 @@ namespace UVA_Arena.Elements
             favouriteButton.Checked = false;
             plistLabel.Text = "All Problems";
 
-            if (ProblemDatabase.problem_list == null) return;
+            if (DefaultDatabase.problem_list == null) return;
 
-            problemListView.SetObjects(ProblemDatabase.problem_list);
+            problemListView.SetObjects(DefaultDatabase.problem_list);
             problemListView.Sort(pnumProb);
         }
 
@@ -220,8 +204,8 @@ namespace UVA_Arena.Elements
             List<ProblemInfo> plist = new List<ProblemInfo>();
             foreach (long pnum in fav)
             {
-                if (ProblemDatabase.HasProblem(pnum))
-                    plist.Add(ProblemDatabase.GetProblem(pnum));
+                if (DefaultDatabase.HasProblem(pnum))
+                    plist.Add(DefaultDatabase.GetProblem(pnum));
             }
             if (plist.Count > 0)
             {
@@ -237,9 +221,9 @@ namespace UVA_Arena.Elements
             favouriteButton.Checked = false;
             plistLabel.Text = string.Format("Volume {0:000}", vol);
 
-            if (ProblemDatabase.problem_vol == null) return;
+            if (DefaultDatabase.problem_vol == null) return;
 
-            problemListView.SetObjects(ProblemDatabase.GetVolume(vol));
+            problemListView.SetObjects(DefaultDatabase.GetVolume(vol));
             countVol.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
             problemListView.Sort(0);
         }
@@ -253,9 +237,9 @@ namespace UVA_Arena.Elements
             favouriteButton.Checked = false;
             plistLabel.Text = cat;
 
-            if (ProblemDatabase.problem_cat == null) return;
+            if (DefaultDatabase.problem_cat == null) return;
 
-            problemListView.SetObjects(ProblemDatabase.GetCatagory(cat));
+            problemListView.SetObjects(DefaultDatabase.GetCatagory(cat));
             countVol.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
             problemListView.Sort(0);
         }
@@ -308,7 +292,7 @@ namespace UVA_Arena.Elements
         {
             object sel = problemListView.SelectedObject;
             if (sel == null) return;
-            this.problemViewer1.LoadProblem((ProblemInfo)sel);
+            Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
         }
 
         private void problemListView_BeforeSorting(object sender, BeforeSortingEventArgs e)
@@ -375,11 +359,14 @@ namespace UVA_Arena.Elements
             {
                 ProblemInfo plist = (ProblemInfo)e.Model;
                 size = 9.0F;
-                fore = Color.Black;
                 font = "Segoe UI Semibold";
+                //set style
                 if (plist.stat == 0) fs = FontStyle.Strikeout;
                 if (plist.stat == 1) fs = FontStyle.Regular;
                 if (plist.stat == 2) fs = FontStyle.Italic;
+                //set color <-- current coloring is only temporary
+                if (plist.solved) fore = Color.Blue;
+                else fore = Color.Black;
             }
             else if (e.Column == levelProb)
             {

@@ -48,8 +48,22 @@
             this.resfProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.statProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pidProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.splitContainer1 = new System.Windows.Forms.CustomSplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.CustomSplitContainer();
+            this.problemContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.downloadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportDownloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importDownloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.viewSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.submitCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.markAsFavouriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainSplitContainer = new System.Windows.Forms.CustomSplitContainer();
+            this.problemViewSplitContainer = new System.Windows.Forms.CustomSplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.catagoryButton = new System.Windows.Forms.RadioButton();
             this.volumesButton = new System.Windows.Forms.RadioButton();
@@ -70,35 +84,19 @@
             this.totalProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.acProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.waProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.problemContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.downloadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportDownloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importDownloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.viewSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.submitCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.markAsFavouriteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.plistLabel = new System.Windows.Forms.Label();
-            this.problemViewer1 = new UVA_Arena.Elements.ProblemViewer();
             this.statusStrip1.SuspendLayout();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            this.problemContextMenu.SuspendLayout();
+            this.mainSplitContainer.Panel1.SuspendLayout();
+            this.mainSplitContainer.SuspendLayout();
+            this.problemViewSplitContainer.Panel1.SuspendLayout();
+            this.problemViewSplitContainer.Panel2.SuspendLayout();
+            this.problemViewSplitContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.catagoryListView)).BeginInit();
             this.problemListContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.problemListView)).BeginInit();
-            this.problemContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -132,12 +130,12 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.BackColor = System.Drawing.Color.LightBlue;
+            this.statusStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateToolButton,
             this.Status1,
             this.Progress1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 372);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 422);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(800, 28);
             this.statusStrip1.SizingGrip = false;
@@ -146,30 +144,20 @@
             // 
             // updateToolButton
             // 
-            this.updateToolButton.BackColor = System.Drawing.Color.SeaShell;
-            this.updateToolButton.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.updateToolButton.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
             this.updateToolButton.Image = global::UVA_Arena.Properties.Resources.reload;
             this.updateToolButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.updateToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.updateToolButton.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.updateToolButton.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
             this.updateToolButton.Name = "updateToolButton";
-            this.updateToolButton.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.updateToolButton.Size = new System.Drawing.Size(94, 28);
-            this.updateToolButton.Text = "Update List";
+            this.updateToolButton.Padding = new System.Windows.Forms.Padding(12, 2, 12, 2);
+            this.updateToolButton.Size = new System.Drawing.Size(85, 24);
+            this.updateToolButton.Text = "Update";
             this.updateToolButton.Click += new System.EventHandler(this.updateToolButton_Click);
-            this.updateToolButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolButton1_MouseDown);
-            this.updateToolButton.MouseEnter += new System.EventHandler(this.toolButton1_MouseEnter);
-            this.updateToolButton.MouseLeave += new System.EventHandler(this.toolButton1_MouseLeave);
-            this.updateToolButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolButton1_MouseUp);
             // 
             // Status1
             // 
             this.Status1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
             this.Status1.Name = "Status1";
-            this.Status1.Size = new System.Drawing.Size(533, 24);
+            this.Status1.Size = new System.Drawing.Size(543, 23);
             this.Status1.Spring = true;
             this.Status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -331,40 +319,147 @@
             this.pidProb.ToolTipText = "Problem ID";
             this.pidProb.UseFiltering = false;
             // 
-            // splitContainer1
+            // problemContextMenu
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
+            this.problemContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.downloadAllToolStripMenuItem,
+            this.exportDownloadToolStripMenuItem,
+            this.importDownloadToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.reloadToolStripMenuItem,
+            this.viewPDFToolStripMenuItem,
+            this.openInBrowserToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.viewSourceToolStripMenuItem,
+            this.submitCodeToolStripMenuItem,
+            this.markAsFavouriteToolStripMenuItem});
+            this.problemContextMenu.Name = "contextMenuStrip1";
+            this.problemContextMenu.Size = new System.Drawing.Size(170, 242);
             // 
-            // splitContainer1.Panel1
+            // refreshToolStripMenuItem
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
-            // splitContainer1.Panel2
+            // toolStripSeparator2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.problemViewer1);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 372);
-            this.splitContainer1.SplitterDistance = 270;
-            this.splitContainer1.TabIndex = 0;
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(166, 6);
             // 
-            // splitContainer2
+            // downloadAllToolStripMenuItem
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
+            this.downloadAllToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("downloadAllToolStripMenuItem.Image")));
+            this.downloadAllToolStripMenuItem.Name = "downloadAllToolStripMenuItem";
+            this.downloadAllToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.downloadAllToolStripMenuItem.Text = "Download All";
+            this.downloadAllToolStripMenuItem.Click += new System.EventHandler(this.downloadAllToolStripMenuItem_Click);
             // 
-            // splitContainer2.Panel1
+            // exportDownloadToolStripMenuItem
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.tableLayoutPanel1);
+            this.exportDownloadToolStripMenuItem.Name = "exportDownloadToolStripMenuItem";
+            this.exportDownloadToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.exportDownloadToolStripMenuItem.Text = "Export Download";
+            this.exportDownloadToolStripMenuItem.Click += new System.EventHandler(this.exportDownloadToolStripMenuItem_Click);
             // 
-            // splitContainer2.Panel2
+            // importDownloadToolStripMenuItem
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.problemListContainer);
-            this.splitContainer2.Size = new System.Drawing.Size(270, 372);
-            this.splitContainer2.SplitterDistance = 120;
-            this.splitContainer2.TabIndex = 0;
+            this.importDownloadToolStripMenuItem.Name = "importDownloadToolStripMenuItem";
+            this.importDownloadToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.importDownloadToolStripMenuItem.Text = "Import Download";
+            this.importDownloadToolStripMenuItem.Click += new System.EventHandler(this.importDownloadToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(166, 6);
+            // 
+            // reloadToolStripMenuItem
+            // 
+            this.reloadToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.reload;
+            this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
+            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.reloadToolStripMenuItem.Text = "Redownload";
+            this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
+            // 
+            // viewPDFToolStripMenuItem
+            // 
+            this.viewPDFToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.pdf;
+            this.viewPDFToolStripMenuItem.Name = "viewPDFToolStripMenuItem";
+            this.viewPDFToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.viewPDFToolStripMenuItem.Text = "View as PDF";
+            this.viewPDFToolStripMenuItem.Click += new System.EventHandler(this.viewPDFToolStripMenuItem_Click);
+            // 
+            // openInBrowserToolStripMenuItem
+            // 
+            this.openInBrowserToolStripMenuItem.Name = "openInBrowserToolStripMenuItem";
+            this.openInBrowserToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.openInBrowserToolStripMenuItem.Text = "Open in Browser";
+            this.openInBrowserToolStripMenuItem.Click += new System.EventHandler(this.openInBrowserToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(166, 6);
+            // 
+            // viewSourceToolStripMenuItem
+            // 
+            this.viewSourceToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.code;
+            this.viewSourceToolStripMenuItem.Name = "viewSourceToolStripMenuItem";
+            this.viewSourceToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.viewSourceToolStripMenuItem.Text = "View Code File";
+            this.viewSourceToolStripMenuItem.Click += new System.EventHandler(this.viewSourceToolStripMenuItem_Click);
+            // 
+            // submitCodeToolStripMenuItem
+            // 
+            this.submitCodeToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.submit;
+            this.submitCodeToolStripMenuItem.Name = "submitCodeToolStripMenuItem";
+            this.submitCodeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.submitCodeToolStripMenuItem.Text = "Submit Code";
+            this.submitCodeToolStripMenuItem.Click += new System.EventHandler(this.submitCodeToolStripMenuItem_Click);
+            // 
+            // markAsFavouriteToolStripMenuItem
+            // 
+            this.markAsFavouriteToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.favourite;
+            this.markAsFavouriteToolStripMenuItem.Name = "markAsFavouriteToolStripMenuItem";
+            this.markAsFavouriteToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.markAsFavouriteToolStripMenuItem.Text = "Mark As Favourite";
+            this.markAsFavouriteToolStripMenuItem.Click += new System.EventHandler(this.markAsFavouriteToolStripMenuItem_Click);
+            // 
+            // mainSplitContainer
+            // 
+            this.mainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainSplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.mainSplitContainer.Name = "mainSplitContainer";
+            // 
+            // mainSplitContainer.Panel1
+            // 
+            this.mainSplitContainer.Panel1.Controls.Add(this.problemViewSplitContainer);
+            this.mainSplitContainer.Size = new System.Drawing.Size(800, 422);
+            this.mainSplitContainer.SplitterDistance = 269;
+            this.mainSplitContainer.TabIndex = 0;
+            // 
+            // problemViewSplitContainer
+            // 
+            this.problemViewSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.problemViewSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.problemViewSplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.problemViewSplitContainer.Name = "problemViewSplitContainer";
+            // 
+            // problemViewSplitContainer.Panel1
+            // 
+            this.problemViewSplitContainer.Panel1.Controls.Add(this.tableLayoutPanel1);
+            // 
+            // problemViewSplitContainer.Panel2
+            // 
+            this.problemViewSplitContainer.Panel2.BackColor = System.Drawing.Color.LightBlue;
+            this.problemViewSplitContainer.Panel2.Controls.Add(this.problemListContainer);
+            this.problemViewSplitContainer.Size = new System.Drawing.Size(269, 422);
+            this.problemViewSplitContainer.SplitterDistance = 120;
+            this.problemViewSplitContainer.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
@@ -385,7 +480,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(120, 372);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(120, 422);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // catagoryButton
@@ -439,7 +534,7 @@
             this.favouriteButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.favouriteButton.ForeColor = System.Drawing.Color.Purple;
             this.favouriteButton.Image = global::UVA_Arena.Properties.Resources.favourite;
-            this.favouriteButton.Location = new System.Drawing.Point(1, 313);
+            this.favouriteButton.Location = new System.Drawing.Point(1, 363);
             this.favouriteButton.Margin = new System.Windows.Forms.Padding(1);
             this.favouriteButton.Name = "favouriteButton";
             this.favouriteButton.Size = new System.Drawing.Size(118, 28);
@@ -458,7 +553,7 @@
             this.allProbButton.AutoSize = true;
             this.allProbButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.allProbButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.allProbButton.Location = new System.Drawing.Point(1, 343);
+            this.allProbButton.Location = new System.Drawing.Point(1, 393);
             this.allProbButton.Margin = new System.Windows.Forms.Padding(1);
             this.allProbButton.Name = "allProbButton";
             this.allProbButton.Size = new System.Drawing.Size(118, 28);
@@ -473,14 +568,15 @@
             // 
             this.catagoryListView.AllColumns.Add(this.nameVol);
             this.catagoryListView.AllColumns.Add(this.countVol);
-            this.catagoryListView.BackColor = System.Drawing.Color.LightCyan;
+            this.catagoryListView.AlternateRowBackColor = System.Drawing.Color.Snow;
+            this.catagoryListView.BackColor = System.Drawing.Color.SeaShell;
             this.catagoryListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.catagoryListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameVol,
             this.countVol});
             this.catagoryListView.Cursor = System.Windows.Forms.Cursors.Default;
             this.catagoryListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.catagoryListView.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.catagoryListView.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.catagoryListView.FullRowSelect = true;
             this.catagoryListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.catagoryListView.Location = new System.Drawing.Point(1, 61);
@@ -490,8 +586,9 @@
             this.catagoryListView.SelectAllOnControlA = false;
             this.catagoryListView.ShowGroups = false;
             this.catagoryListView.ShowItemToolTips = true;
-            this.catagoryListView.Size = new System.Drawing.Size(118, 250);
+            this.catagoryListView.Size = new System.Drawing.Size(118, 300);
             this.catagoryListView.TabIndex = 4;
+            this.catagoryListView.UseAlternatingBackColors = true;
             this.catagoryListView.UseCellFormatEvents = true;
             this.catagoryListView.UseCompatibleStateImageBehavior = false;
             this.catagoryListView.UseCustomSelectionColors = true;
@@ -537,7 +634,7 @@
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.problemListContainer.Size = new System.Drawing.Size(146, 372);
+            this.problemListContainer.Size = new System.Drawing.Size(145, 422);
             this.problemListContainer.TabIndex = 1;
             this.problemListContainer.Tag = "115";
             // 
@@ -548,12 +645,12 @@
             this.searchBox1.CueText = "Search...";
             this.searchBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBox1.Location = new System.Drawing.Point(1, 345);
+            this.searchBox1.Location = new System.Drawing.Point(1, 395);
             this.searchBox1.Margin = new System.Windows.Forms.Padding(1);
             this.searchBox1.Name = "searchBox1";
             this.searchBox1.SearchButton = false;
             this.searchBox1.SearchText = "";
-            this.searchBox1.Size = new System.Drawing.Size(144, 26);
+            this.searchBox1.Size = new System.Drawing.Size(143, 26);
             this.searchBox1.TabIndex = 0;
             this.searchBox1.SearchTextChanged += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchTextChanged);
             // 
@@ -581,8 +678,8 @@
             this.problemListView.AllColumns.Add(this.resfProb);
             this.problemListView.AllColumns.Add(this.statProb);
             this.problemListView.AllColumns.Add(this.pidProb);
-            this.problemListView.AlternateRowBackColor = System.Drawing.Color.Snow;
-            this.problemListView.BackColor = System.Drawing.Color.Azure;
+            this.problemListView.AlternateRowBackColor = System.Drawing.Color.LightCyan;
+            this.problemListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(255)))));
             this.problemListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.problemListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.pnumProb,
@@ -598,7 +695,7 @@
             this.problemListView.Cursor = System.Windows.Forms.Cursors.Default;
             this.problemListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.problemListView.EmptyListMsg = "List is empty";
-            this.problemListView.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.problemListView.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.problemListView.ForeColor = System.Drawing.Color.Blue;
             this.problemListView.FullRowSelect = true;
             this.problemListView.Location = new System.Drawing.Point(1, 29);
@@ -612,7 +709,7 @@
             this.problemListView.ShowGroups = false;
             this.problemListView.ShowItemCountOnGroups = true;
             this.problemListView.ShowItemToolTips = true;
-            this.problemListView.Size = new System.Drawing.Size(144, 314);
+            this.problemListView.Size = new System.Drawing.Size(143, 364);
             this.problemListView.TabIndex = 3;
             this.problemListView.UseAlternatingBackColors = true;
             this.problemListView.UseCellFormatEvents = true;
@@ -726,116 +823,6 @@
             this.waProb.ToolTipText = "Number of submission that got \"Wrong Answer\"";
             this.waProb.UseFiltering = false;
             // 
-            // problemContextMenu
-            // 
-            this.problemContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.downloadAllToolStripMenuItem,
-            this.exportDownloadToolStripMenuItem,
-            this.importDownloadToolStripMenuItem,
-            this.toolStripSeparator4,
-            this.reloadToolStripMenuItem,
-            this.viewPDFToolStripMenuItem,
-            this.openInBrowserToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.viewSourceToolStripMenuItem,
-            this.submitCodeToolStripMenuItem,
-            this.markAsFavouriteToolStripMenuItem});
-            this.problemContextMenu.Name = "contextMenuStrip1";
-            this.problemContextMenu.Size = new System.Drawing.Size(170, 242);
-            // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(166, 6);
-            // 
-            // downloadAllToolStripMenuItem
-            // 
-            this.downloadAllToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("downloadAllToolStripMenuItem.Image")));
-            this.downloadAllToolStripMenuItem.Name = "downloadAllToolStripMenuItem";
-            this.downloadAllToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.downloadAllToolStripMenuItem.Text = "Download All";
-            this.downloadAllToolStripMenuItem.Click += new System.EventHandler(this.downloadAllToolStripMenuItem_Click);
-            // 
-            // exportDownloadToolStripMenuItem
-            // 
-            this.exportDownloadToolStripMenuItem.Name = "exportDownloadToolStripMenuItem";
-            this.exportDownloadToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.exportDownloadToolStripMenuItem.Text = "Export Download";
-            this.exportDownloadToolStripMenuItem.Click += new System.EventHandler(this.exportDownloadToolStripMenuItem_Click);
-            // 
-            // importDownloadToolStripMenuItem
-            // 
-            this.importDownloadToolStripMenuItem.Name = "importDownloadToolStripMenuItem";
-            this.importDownloadToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.importDownloadToolStripMenuItem.Text = "Import Download";
-            this.importDownloadToolStripMenuItem.Click += new System.EventHandler(this.importDownloadToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(166, 6);
-            // 
-            // reloadToolStripMenuItem
-            // 
-            this.reloadToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.reload;
-            this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
-            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.reloadToolStripMenuItem.Text = "Redownload";
-            this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
-            // 
-            // viewPDFToolStripMenuItem
-            // 
-            this.viewPDFToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.pdf;
-            this.viewPDFToolStripMenuItem.Name = "viewPDFToolStripMenuItem";
-            this.viewPDFToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.viewPDFToolStripMenuItem.Text = "View as PDF";
-            this.viewPDFToolStripMenuItem.Click += new System.EventHandler(this.viewPDFToolStripMenuItem_Click);
-            // 
-            // openInBrowserToolStripMenuItem
-            // 
-            this.openInBrowserToolStripMenuItem.Name = "openInBrowserToolStripMenuItem";
-            this.openInBrowserToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.openInBrowserToolStripMenuItem.Text = "Open in Browser";
-            this.openInBrowserToolStripMenuItem.Click += new System.EventHandler(this.openInBrowserToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(166, 6);
-            // 
-            // viewSourceToolStripMenuItem
-            // 
-            this.viewSourceToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.code;
-            this.viewSourceToolStripMenuItem.Name = "viewSourceToolStripMenuItem";
-            this.viewSourceToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.viewSourceToolStripMenuItem.Text = "View Code File";
-            this.viewSourceToolStripMenuItem.Click += new System.EventHandler(this.viewSourceToolStripMenuItem_Click);
-            // 
-            // submitCodeToolStripMenuItem
-            // 
-            this.submitCodeToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.submit;
-            this.submitCodeToolStripMenuItem.Name = "submitCodeToolStripMenuItem";
-            this.submitCodeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.submitCodeToolStripMenuItem.Text = "Submit Code";
-            this.submitCodeToolStripMenuItem.Click += new System.EventHandler(this.submitCodeToolStripMenuItem_Click);
-            // 
-            // markAsFavouriteToolStripMenuItem
-            // 
-            this.markAsFavouriteToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.favourite;
-            this.markAsFavouriteToolStripMenuItem.Name = "markAsFavouriteToolStripMenuItem";
-            this.markAsFavouriteToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.markAsFavouriteToolStripMenuItem.Text = "Mark As Favourite";
-            this.markAsFavouriteToolStripMenuItem.Click += new System.EventHandler(this.markAsFavouriteToolStripMenuItem_Click);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.plistLabel);
@@ -843,7 +830,7 @@
             this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Margin = new System.Windows.Forms.Padding(1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(144, 26);
+            this.panel1.Size = new System.Drawing.Size(143, 26);
             this.panel1.TabIndex = 4;
             // 
             // plistLabel
@@ -853,47 +840,35 @@
             this.plistLabel.ForeColor = System.Drawing.Color.Navy;
             this.plistLabel.Location = new System.Drawing.Point(0, 0);
             this.plistLabel.Name = "plistLabel";
-            this.plistLabel.Size = new System.Drawing.Size(144, 26);
+            this.plistLabel.Size = new System.Drawing.Size(143, 26);
             this.plistLabel.TabIndex = 2;
             this.plistLabel.Text = "Problems";
             this.plistLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // problemViewer1
-            // 
-            this.problemViewer1.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.problemViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.problemViewer1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.problemViewer1.ForeColor = System.Drawing.Color.Black;
-            this.problemViewer1.Location = new System.Drawing.Point(0, 0);
-            this.problemViewer1.Name = "problemViewer1";
-            this.problemViewer1.Size = new System.Drawing.Size(526, 372);
-            this.problemViewer1.TabIndex = 0;
             // 
             // PROBLEMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.mainSplitContainer);
             this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "PROBLEMS";
-            this.Size = new System.Drawing.Size(800, 400);
+            this.Size = new System.Drawing.Size(800, 450);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.ResumeLayout(false);
+            this.problemContextMenu.ResumeLayout(false);
+            this.mainSplitContainer.Panel1.ResumeLayout(false);
+            this.mainSplitContainer.ResumeLayout(false);
+            this.problemViewSplitContainer.Panel1.ResumeLayout(false);
+            this.problemViewSplitContainer.Panel2.ResumeLayout(false);
+            this.problemViewSplitContainer.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.catagoryListView)).EndInit();
             this.problemListContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.problemListView)).EndInit();
-            this.problemContextMenu.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -903,7 +878,6 @@
         #endregion
 
         private Custom.SearchBox searchBox1;
-        private System.Windows.Forms.CustomSplitContainer splitContainer1;
         private System.Windows.Forms.TableLayoutPanel problemListContainer;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label plistLabel;
@@ -935,9 +909,7 @@
         public System.Windows.Forms.ToolStripStatusLabel Status1;
         public BrightIdeasSoftware.FastObjectListView problemListView;
         public BrightIdeasSoftware.ObjectListView catagoryListView;
-        public System.Windows.Forms.ToolStripStatusLabel updateToolButton;
         public System.Windows.Forms.ToolStripProgressBar Progress1;
-        public ProblemViewer problemViewer1;
         public System.Windows.Forms.RadioButton favouriteButton;
         public System.Windows.Forms.RadioButton allProbButton;
         private System.Windows.Forms.ContextMenuStrip problemContextMenu;
@@ -953,11 +925,13 @@
         private System.Windows.Forms.ToolStripMenuItem importDownloadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.CustomSplitContainer splitContainer2;
+        private System.Windows.Forms.CustomSplitContainer problemViewSplitContainer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         public System.Windows.Forms.RadioButton volumesButton;
         public System.Windows.Forms.RadioButton catagoryButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        public System.Windows.Forms.CustomSplitContainer mainSplitContainer;
+        private System.Windows.Forms.ToolStripStatusLabel updateToolButton;
     }
 }

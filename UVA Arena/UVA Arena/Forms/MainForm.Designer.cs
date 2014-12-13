@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.customTabControl1 = new System.Windows.Forms.CustomTabControl();
             this.problemTab = new System.Windows.Forms.TabPage();
             this.codesTab = new System.Windows.Forms.TabPage();
@@ -45,10 +44,10 @@
             // 
             this.tabImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabImageList.ImageStream")));
             this.tabImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.tabImageList.Images.SetKeyName(0, "live_submission");
-            this.tabImageList.Images.SetKeyName(1, "problems");
-            this.tabImageList.Images.SetKeyName(2, "profile");
-            this.tabImageList.Images.SetKeyName(3, "code");
+            this.tabImageList.Images.SetKeyName(0, "code");
+            this.tabImageList.Images.SetKeyName(1, "live_submission");
+            this.tabImageList.Images.SetKeyName(2, "problems");
+            this.tabImageList.Images.SetKeyName(3, "profile");
             this.tabImageList.Images.SetKeyName(4, "utility");
             // 
             // customTabControl1
@@ -59,11 +58,13 @@
             this.customTabControl1.Controls.Add(this.profileTab);
             this.customTabControl1.Controls.Add(this.utilitiesTab);
             this.customTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customTabControl1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customTabControl1.ImageList = this.tabImageList;
             this.customTabControl1.Location = new System.Drawing.Point(0, 0);
+            this.customTabControl1.Margin = new System.Windows.Forms.Padding(0);
             this.customTabControl1.Name = "customTabControl1";
             this.customTabControl1.Overlap = 6;
-            this.customTabControl1.Padding = new System.Drawing.Point(30, 8);
+            this.customTabControl1.Padding = new System.Drawing.Point(30, 7);
             this.customTabControl1.SelectedIndex = 0;
             this.customTabControl1.Size = new System.Drawing.Size(844, 442);
             this.customTabControl1.TabIndex = 0;
@@ -72,9 +73,9 @@
             // 
             this.problemTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.problemTab.ImageKey = "problems";
-            this.problemTab.Location = new System.Drawing.Point(4, 35);
+            this.problemTab.Location = new System.Drawing.Point(4, 33);
             this.problemTab.Name = "problemTab";
-            this.problemTab.Size = new System.Drawing.Size(876, 423);
+            this.problemTab.Size = new System.Drawing.Size(836, 405);
             this.problemTab.TabIndex = 1;
             this.problemTab.Text = "PROBLEMS";
             // 
@@ -82,10 +83,9 @@
             // 
             this.codesTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.codesTab.ImageKey = "code";
-            this.codesTab.Location = new System.Drawing.Point(4, 35);
+            this.codesTab.Location = new System.Drawing.Point(4, 33);
             this.codesTab.Name = "codesTab";
-            this.codesTab.Padding = new System.Windows.Forms.Padding(3);
-            this.codesTab.Size = new System.Drawing.Size(836, 403);
+            this.codesTab.Size = new System.Drawing.Size(836, 405);
             this.codesTab.TabIndex = 3;
             this.codesTab.Text = "CODES";
             // 
@@ -93,10 +93,9 @@
             // 
             this.submissionTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.submissionTab.ImageKey = "live_submission";
-            this.submissionTab.Location = new System.Drawing.Point(4, 35);
+            this.submissionTab.Location = new System.Drawing.Point(4, 33);
             this.submissionTab.Name = "submissionTab";
-            this.submissionTab.Padding = new System.Windows.Forms.Padding(3);
-            this.submissionTab.Size = new System.Drawing.Size(876, 423);
+            this.submissionTab.Size = new System.Drawing.Size(836, 405);
             this.submissionTab.TabIndex = 6;
             this.submissionTab.Text = "STATUS";
             // 
@@ -104,10 +103,9 @@
             // 
             this.profileTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.profileTab.ImageKey = "profile";
-            this.profileTab.Location = new System.Drawing.Point(4, 35);
+            this.profileTab.Location = new System.Drawing.Point(4, 33);
             this.profileTab.Name = "profileTab";
-            this.profileTab.Padding = new System.Windows.Forms.Padding(3);
-            this.profileTab.Size = new System.Drawing.Size(876, 423);
+            this.profileTab.Size = new System.Drawing.Size(836, 405);
             this.profileTab.TabIndex = 2;
             this.profileTab.Text = "PROFILES";
             // 
@@ -115,10 +113,9 @@
             // 
             this.utilitiesTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.utilitiesTab.ImageKey = "utility";
-            this.utilitiesTab.Location = new System.Drawing.Point(4, 35);
+            this.utilitiesTab.Location = new System.Drawing.Point(4, 33);
             this.utilitiesTab.Name = "utilitiesTab";
-            this.utilitiesTab.Padding = new System.Windows.Forms.Padding(3);
-            this.utilitiesTab.Size = new System.Drawing.Size(876, 423);
+            this.utilitiesTab.Size = new System.Drawing.Size(836, 405);
             this.utilitiesTab.TabIndex = 5;
             this.utilitiesTab.Text = "UTILITIES";
             // 
@@ -136,6 +133,7 @@
             this.Tag = "UVA Arena [{0} : {1}]";
             this.Text = "UVA Arena";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.customTabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -144,7 +142,6 @@
         #endregion
 
         private System.Windows.Forms.ImageList tabImageList;
-        private System.Windows.Forms.ToolTip toolTip1;
         public System.Windows.Forms.CustomTabControl customTabControl1;
         public System.Windows.Forms.TabPage problemTab;
         public System.Windows.Forms.TabPage profileTab;

@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Net;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Text;
 using System.Windows.Forms;
-using UVA_Arena.Structures;
 using UVA_Arena.Internet;
 
 namespace UVA_Arena
@@ -44,8 +36,7 @@ namespace UVA_Arena
         {
             try
             {
-                if (task.status != Internet.ProgressStatus.Completed) 
-                    throw task.error;
+                if (task.Status != Internet.ProgressStatus.Completed) throw task.Error;
 
                 RegistryAccess.DefaultUsername = username1.Text;
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;

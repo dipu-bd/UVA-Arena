@@ -12,26 +12,54 @@ namespace UVA_Arena
     {
         public InputForm(
             string description = "Input : ",
-            string cue_text = "Type your text here...",
-            string form_name = "Input Form",
+            string deftext = "Type your text here...",
+            string title = "Input Form",
             int width = 450, int height = 130)
         {
             InitializeComponent();
 
-            info_text.Text = description;
-            inputText1.CueText = cue_text;
-            this.Text = form_name;
+            this.Text = deftext;
+            this.Title = title;
             this.Width = width;
             this.Height = height;
+            info_text.Text = description;
         }
 
-        public string InputText
+        public static string GetInput(
+            string description = "Input : ",
+            string deftext = "Type your text here...",
+            string title = "Input Form",
+            int width = 450, int height = 130)
         {
-            get { return inputText1.Text; }
-            set { inputText1.Text = ""; }
+            InputForm inf = new InputForm(description, deftext, title, width, height);
+            if (inf.ShowDialog() == DialogResult.OK) return inf.Text;
+            return deftext;
         }
 
+        public override string Text
+        {
+            get
+            {
+                return info_text.Text;
+            }
+            set
+            {
+                info_text.Text = value;
+            }
+        }
 
+        public string Title
+        {
+            get
+            {
+                return base.Text;
+            }
+            set
+            {
+                base.Text = value;
+            }
+        }
+                
         private void ok_button1_Click(object sender, EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.OK;

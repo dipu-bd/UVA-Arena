@@ -38,6 +38,7 @@
             this.cancelTaskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.forceStopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.forceStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.gotoEndButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -51,14 +52,12 @@
             this.receiveINT = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.totalINT = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.priorityINT = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.retryINT = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.statINT = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.taskQueue1 = new BrightIdeasSoftware.FastObjectListView();
             this.funcTask = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Status1 = new System.Windows.Forms.Label();
-            this.forceStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.activityList)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -94,14 +93,13 @@
             this.activityList.ShowGroups = false;
             this.activityList.ShowItemCountOnGroups = true;
             this.activityList.ShowItemToolTips = true;
-            this.activityList.Size = new System.Drawing.Size(756, 345);
-            this.activityList.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.activityList.Size = new System.Drawing.Size(756, 345); 
             this.activityList.TabIndex = 0;
             this.activityList.UseAlternatingBackColors = true;
             this.activityList.UseCellFormatEvents = true;
             this.activityList.UseCompatibleStateImageBehavior = false;
             this.activityList.UseCustomSelectionColors = true;
-            this.activityList.UseHotItem = true;
+            this.activityList.UseHotItem = false;
             this.activityList.UseTranslucentHotItem = true;
             this.activityList.UseTranslucentSelection = true;
             this.activityList.View = System.Windows.Forms.View.Details;
@@ -145,26 +143,33 @@
             this.forceStopToolStripMenuItem,
             this.forceStartToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 98);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(138, 76);
             // 
             // cancelTaskToolStripMenuItem
             // 
             this.cancelTaskToolStripMenuItem.Name = "cancelTaskToolStripMenuItem";
-            this.cancelTaskToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cancelTaskToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.cancelTaskToolStripMenuItem.Text = "Cancel Task";
             this.cancelTaskToolStripMenuItem.Click += new System.EventHandler(this.cancelTaskToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(134, 6);
             // 
             // forceStopToolStripMenuItem
             // 
             this.forceStopToolStripMenuItem.Name = "forceStopToolStripMenuItem";
-            this.forceStopToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.forceStopToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.forceStopToolStripMenuItem.Text = "Force Stop";
             this.forceStopToolStripMenuItem.Click += new System.EventHandler(this.forceStopToolStripMenuItem_Click);
+            // 
+            // forceStartToolStripMenuItem
+            // 
+            this.forceStartToolStripMenuItem.Name = "forceStartToolStripMenuItem";
+            this.forceStartToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.forceStartToolStripMenuItem.Text = "Force Start";
+            this.forceStartToolStripMenuItem.Click += new System.EventHandler(this.forceStartToolStripMenuItem_Click);
             // 
             // button1
             // 
@@ -233,7 +238,6 @@
             this.downloadQueue1.AllColumns.Add(this.receiveINT);
             this.downloadQueue1.AllColumns.Add(this.totalINT);
             this.downloadQueue1.AllColumns.Add(this.priorityINT);
-            this.downloadQueue1.AllColumns.Add(this.retryINT);
             this.downloadQueue1.AllColumns.Add(this.statINT);
             this.downloadQueue1.AlternateRowBackColor = System.Drawing.Color.SeaShell;
             this.downloadQueue1.BackColor = System.Drawing.Color.Azure;
@@ -246,7 +250,6 @@
             this.receiveINT,
             this.totalINT,
             this.priorityINT,
-            this.retryINT,
             this.statINT});
             this.downloadQueue1.ContextMenuStrip = this.contextMenuStrip1;
             this.downloadQueue1.Cursor = System.Windows.Forms.Cursors.Default;
@@ -284,21 +287,21 @@
             // 
             // uriINT
             // 
-            this.uriINT.AspectName = "uri";
+            this.uriINT.AspectName = "Url";
             this.uriINT.CellPadding = null;
             this.uriINT.Text = "Download From";
             this.uriINT.Width = 200;
             // 
             // fileINT
             // 
-            this.fileINT.AspectName = "file";
+            this.fileINT.AspectName = "FileName";
             this.fileINT.CellPadding = null;
             this.fileINT.Text = "Save To";
             this.fileINT.Width = 200;
             // 
             // percentINT
             // 
-            this.percentINT.AspectName = "percentage";
+            this.percentINT.AspectName = "ProgressPercentage";
             this.percentINT.AspectToStringFormat = "{0}%";
             this.percentINT.CellPadding = null;
             this.percentINT.Text = "Progress";
@@ -306,34 +309,27 @@
             // 
             // receiveINT
             // 
-            this.receiveINT.AspectName = "received";
+            this.receiveINT.AspectName = "Received";
             this.receiveINT.CellPadding = null;
             this.receiveINT.Text = "Received";
             this.receiveINT.Width = 70;
             // 
             // totalINT
             // 
-            this.totalINT.AspectName = "total";
+            this.totalINT.AspectName = "DataSize";
             this.totalINT.CellPadding = null;
             this.totalINT.Text = "Total";
             this.totalINT.Width = 70;
             // 
             // priorityINT
             // 
-            this.priorityINT.AspectName = "priority";
+            this.priorityINT.AspectName = "TaskPriority";
             this.priorityINT.CellPadding = null;
             this.priorityINT.Text = "Priority";
             // 
-            // retryINT
-            // 
-            this.retryINT.AspectName = "retry";
-            this.retryINT.AspectToStringFormat = "{0} times";
-            this.retryINT.CellPadding = null;
-            this.retryINT.Text = "Retry";
-            // 
             // statINT
             // 
-            this.statINT.AspectName = "status";
+            this.statINT.AspectName = "Status";
             this.statINT.CellPadding = null;
             this.statINT.Text = "Status";
             this.statINT.Width = 80;
@@ -370,7 +366,6 @@
             this.taskQueue1.ShowItemCountOnGroups = true;
             this.taskQueue1.ShowItemToolTips = true;
             this.taskQueue1.Size = new System.Drawing.Size(750, 339);
-            this.taskQueue1.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.taskQueue1.TabIndex = 1;
             this.taskQueue1.UseAlternatingBackColors = true;
             this.taskQueue1.UseCellFormatEvents = true;
@@ -417,13 +412,6 @@
             this.Status1.TabIndex = 3;
             this.Status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // forceStartToolStripMenuItem
-            // 
-            this.forceStartToolStripMenuItem.Name = "forceStartToolStripMenuItem";
-            this.forceStartToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.forceStartToolStripMenuItem.Text = "Force Start";
-            this.forceStartToolStripMenuItem.Click += new System.EventHandler(this.forceStartToolStripMenuItem_Click);
-            // 
             // LoggerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -439,6 +427,7 @@
             this.Name = "LoggerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Log Keeper";
+            this.Load += new System.EventHandler(this.LoggerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.activityList)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -468,7 +457,6 @@
         private BrightIdeasSoftware.OLVColumn nameINT;
         private BrightIdeasSoftware.OLVColumn uriINT;
         private BrightIdeasSoftware.OLVColumn fileINT;
-        private BrightIdeasSoftware.OLVColumn retryINT;
         private BrightIdeasSoftware.OLVColumn percentINT;
         private BrightIdeasSoftware.OLVColumn receiveINT;
         private BrightIdeasSoftware.OLVColumn totalINT;

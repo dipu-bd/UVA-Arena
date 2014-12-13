@@ -15,30 +15,33 @@ namespace UVA_Arena
         {
             InitializeComponent();
 
+            this.problem = pinfo;
             if (pinfo == null)
             {
                 this.DialogResult = System.Windows.Forms.DialogResult.Abort;
                 this.Close();
                 return;
             }
-
-            if (pinfo.tags == null)
+        }
+        
+        private void CatagoryChange_Load(object sender, EventArgs e)
+        {
+            if (problem.tags == null)
             {
-                pinfo.tags = RegistryAccess.GetTags(pinfo.pnum);
-            }
+                problem.tags = RegistryAccess.GetTags(problem.pnum);
+            }            
 
-            this.problem = pinfo;
             listView1.Items.Clear();
-            foreach (string itm in pinfo.tags)
+            foreach (string itm in problem.tags)
             {
                 listView1.Items.Add(new ListViewItem(itm));
             }
 
-            //add all tags
             List<string> catagory = new List<string>();
-            var it = ProblemDatabase.problem_cat.GetEnumerator();
+            var it = DefaultDatabase.problem_cat.GetEnumerator();
             while (it.MoveNext()) catagory.Add(it.Current.Key);
             textBox1.Items.AddRange(catagory.ToArray());
+
         }
 
         private ProblemInfo problem = null;
@@ -112,10 +115,10 @@ namespace UVA_Arena
             try
             { 
                 //remove old tags
-                foreach (string tag in old) ProblemDatabase.GetCatagory(tag).Remove(problem);
+                foreach (string tag in old) DefaultDatabase.GetCatagory(tag).Remove(problem);
                 //add new tags
                 RegistryAccess.SetTags(problem.pnum, problem.tags);
-                foreach (string tag in problem.tags) ProblemDatabase.GetCatagory(tag).Add(problem);
+                foreach (string tag in problem.tags) DefaultDatabase.GetCatagory(tag).Add(problem);
                 
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 if (Interactivity.problems.catagoryButton.Checked)
@@ -135,5 +138,6 @@ namespace UVA_Arena
             this.Close();
             System.GC.Collect();
         }
+
     }
 }

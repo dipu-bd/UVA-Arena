@@ -12,24 +12,28 @@ namespace UVA_Arena
 {
     public partial class LoggerForm : Form
     {
+        #region Loader Functions
+
         public LoggerForm()
         {
             InitializeComponent();
+        }
+
+        private void LoggerForm_Load(object sender, EventArgs e)
+        {
             InitOthers();
         }
 
-        #region Init Others and Refresh List
-
         private void InitOthers()
         {
-            TaskQueue.AddTask(new TaskQueue.Task(RefreshList, 100));
+            TaskQueue.AddTask(RefreshList, 100);
 
             nameINT.AspectGetter = delegate(object row)
             {
                 if (row == null) return null;
                 Internet.DownloadTask task = (Internet.DownloadTask)row;
-                if (task.saveToFile) return System.IO.Path.GetFileName(task.file);
-                else return task.uri.AbsolutePath;
+                if (task.IsSaveToFile) return System.IO.Path.GetFileName(task.FileName);
+                else return task.Url.AbsolutePath;
             };
             receiveINT.AspectToStringConverter =
                 totalINT.AspectToStringConverter = delegate(object key)
@@ -73,15 +77,14 @@ namespace UVA_Arena
                 downloadQueue1.ShowGroups = true;
                 downloadQueue1.Sort(statINT);
 
-                if (Downloader.IsBusy) Status1.Text = "Downloading...";
+                if (Downloader.IsBusy()) Status1.Text = "Downloading...";
                 else Status1.Text = "Stoppped";
             }
 
             if (tabControl1.SelectedIndex == 2 && TaskQueue.queue != null)
             {
                 taskQueue1.SetObjects(TaskQueue.queue);
-                funcTask.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
-                taskQueue1.Sort(funcTask);
+                funcTask.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); 
 
                 Status1.Text = "Interval = " + Functions.FormatRuntime(TaskQueue.timer1.Interval);
             }
@@ -155,12 +158,12 @@ namespace UVA_Arena
 
         private void forceStopToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Downloader.client.CancelAsync();
+            Downloader.StopDownload();
         }
 
         private void forceStartToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Downloader.DownloadNext();
+            Downloader.StartDownload();
         }
 
         #endregion

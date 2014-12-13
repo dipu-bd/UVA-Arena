@@ -22,7 +22,10 @@ namespace UVA_Arena
             remaining = new List<long>();
             webClient = new WebClient();
             webClient.Encoding = Encoding.UTF8;
+        }
 
+        private void DownloadAllForm_Load(object sender, EventArgs e)
+        {
             InitDownload();
             replaceCombo1.SelectedIndex = ReplaceOldFiles;
         }
@@ -213,7 +216,7 @@ namespace UVA_Arena
             remaining.Clear();
 
             long last = LastDownloadedProblem;
-            foreach (ProblemInfo pi in ProblemDatabase.problem_list)
+            foreach (ProblemInfo pi in DefaultDatabase.problem_list)
             {
                 if (pi.pnum > last)
                     remaining.Add(pi.pnum);
@@ -290,7 +293,7 @@ namespace UVA_Arena
 
         void SetStatus(int percent, string status)
         {
-            int tot = ProblemDatabase.problem_list.Count;
+            int tot = DefaultDatabase.problem_list.Count;
             int finished = tot - remaining.Count;
             totalProgress.Value = (int)(100.0 * finished / tot);
             totalPercentage.Text = totalProgress.Value.ToString() + "%";
@@ -302,7 +305,7 @@ namespace UVA_Arena
                 currentProgress.Value = percent;
                 currentPercentage.Text = currentProgress.Value.ToString() + "%";
                 currentProblem.Text = string.Format("Downloading {0} - {1}... ",
-                   current, ProblemDatabase.GetTitle(current));
+                   current, DefaultDatabase.GetTitle(current));
             }
             else
             {
@@ -324,7 +327,7 @@ namespace UVA_Arena
                 current = remaining[0];
                 remaining.RemoveAt(0);
 
-                if (!ProblemDatabase.HasProblem(current)) continue;
+                if (!DefaultDatabase.HasProblem(current)) continue;
                 DownloadProblem();
 
                 if (CurrentState != State.Running) return;
@@ -379,9 +382,9 @@ namespace UVA_Arena
             {
                 if (CurrentState != State.Running) return;
 
-                status = "Downloading " + Path.GetFileName(itm.file) + "... ";
+                status = "Downloading " + Path.GetFileName(itm.FileName) + "... ";
                 backgroundWorker1.ReportProgress(100 * finished / total, status);
-                status = DownloadFile(itm.uri.ToString(), itm.file, 10);
+                status = DownloadFile(itm.Url.ToString(), itm.FileName, 10);
                 ++finished;
                 backgroundWorker1.ReportProgress(100 * finished / total, status);
             }

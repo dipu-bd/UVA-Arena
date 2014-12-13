@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Net;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 using UVA_Arena.Structures;
 using UVA_Arena.Internet;
-using Newtonsoft.Json;
 
 namespace UVA_Arena.Elements
 {
@@ -18,6 +12,12 @@ namespace UVA_Arena.Elements
         public ProblemViewer()
         {
             InitializeComponent();
+        }
+        protected override void OnBackColorChanged(EventArgs e)
+        {
+            base.OnBackColorChanged(e);
+            titleBox1.BackColor = this.BackColor;
+            catagoryInfo.BackColor = this.BackColor;
         }
 
         #region Load Problem
@@ -71,6 +71,8 @@ namespace UVA_Arena.Elements
 
             string path = LocalDirectory.GetProblemHtml(current.pnum);
             webBrowser1.Navigate(path);
+            tabControl1.SelectedTab = descriptionTab;
+                       
             markButton.Checked = RegistryAccess.FavouriteProblems.Contains(current.pnum);
 
             FileInfo local = new FileInfo(path);
@@ -87,7 +89,7 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
-
+        
         #region Problem Downloader
 
         private void DownloadPdf(long pnum)
@@ -127,39 +129,40 @@ namespace UVA_Arena.Elements
             List<Internet.DownloadTask> dlist = Functions.ProcessHtmlContent(pnum, !reloadButton.Enabled);
             for (int i = 0; i < dlist.Count; ++i)
             {
-                dlist[i].progress += ProgressChanged;
-                if (i == dlist.Count - 1) dlist[i].completed += DownloadFinished;
+                dlist[i].ProgressChangedEvent += ProgressChanged;
+                if (i == dlist.Count - 1) dlist[i].DownloadCompletedEvent += DownloadFinished;
                 Downloader.DownloadAsync(dlist[i], Internet.Priority.Low);
             }
             return dlist.Count;
         }
 
-        private void ProgressChanged(int percent, Internet.DownloadTask task)
+        private void ProgressChanged(Internet.DownloadTask task)
         {
-            string file = Path.GetFileName(task.file);
+            string file = Path.GetFileName(task.FileName);
             string text = string.Format("Downloading \"{0}\"... {1}% [{2} out of {3}] completed.",
-                    file, percent, Functions.FormatMemory(task.received), Functions.FormatMemory(task.total));
+                    file, task.ProgressPercentage, Functions.FormatMemory(task.Received), Functions.FormatMemory(task.DataSize));
             Interactivity.problems.Status1.Text = text;
         }
 
         private void DownloadFinished(DownloadTask task)
         {
             bool finish = false;
-            if (task.status != ProgressStatus.Completed) finish = true;
-            if (current == null || current.pnum != (long)task.token) finish = true;
+            if (task.Status != ProgressStatus.Completed) finish = true;
+            if (current == null || current.pnum != (long)task.Token) finish = true;
 
             if (!finish)
             {
-                string ext = Path.GetExtension(task.file);
+                string ext = Path.GetExtension(task.FileName);
                 if (ext == ".pdf")
                 {
                     TaskQueue.AddTask(Interactivity.problems.ClearStatus, 1000);
-                    System.Diagnostics.Process.Start(task.file);
+                    System.Diagnostics.Process.Start(task.FileName);
                     finish = true;
                 }
                 else if (ext == ".html")
                 {
-                    webBrowser1.Refresh();
+                    string file = LocalDirectory.GetProblemHtml(current.pnum);
+                    webBrowser1.Navigate(file);
                     int cnt = DownloadContents(current.pnum);
                     if (cnt == 0) finish = true;
                 }
@@ -194,9 +197,15 @@ namespace UVA_Arena.Elements
         }
 
         private void expandViewButton1_Click(object sender, EventArgs e)
-        {
-            expandViewButton1.Checked = !expandViewButton1.Checked;
-            Interactivity.problems.ExpandView(expandViewButton1.Checked);
+        {            
+            if(Interactivity.problems.ExpandCollapseView())
+            {
+                ((Control)sender).Text = "Collapse";
+            }
+            else
+            {
+                ((Control)sender).Text = "Expand";
+            }
         }
 
         private void catagoryInfo_KeyDown(object sender, KeyEventArgs e)
@@ -281,6 +290,57 @@ namespace UVA_Arena.Elements
             if (Interactivity.problems.favouriteButton.Checked)
                 Interactivity.problems.LoadFavourites();
         }
+
+        #endregion
+
+        #region TabControl
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == discussTab)
+            {
+                homeDiscussButton.PerformClick();
+            }
+        }
+
+        #endregion
+
+        #region Discuss Tab
+
+        private void goDiscussButton_Click(object sender, EventArgs e)
+        {
+            webBrowser2.Navigate(discussUrlBox.Text);
+        }
+
+        private void reloadDiscussButton_Click(object sender, EventArgs e)
+        {
+            webBrowser2.Refresh();
+            discussUrlBox.Text = webBrowser2.Url.ToString();
+        }
+
+        private void webBrowser2_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+        {
+            discussUrlBox.Text = e.Url.ToString();
+        }
+
+        private void prevDiscussButton_Click(object sender, EventArgs e)
+        {
+            webBrowser2.GoBack();
+        }
+
+        private void nextDiscussButton_Click(object sender, EventArgs e)
+        {
+            webBrowser2.GoForward();
+        }
+        private void homeDiscussButton_Click(object sender, EventArgs e)
+        {
+            string query = "";
+            if (current != null) query = string.Format("search.php?keywords={0}", current.pnum);
+            string discuss = string.Format("http://acm.uva.es/board/{0}", query);
+            webBrowser2.Navigate(discuss);
+            discussUrlBox.Text = discuss;
+        }
+
         #endregion
 
     }

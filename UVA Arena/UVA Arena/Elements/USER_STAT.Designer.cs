@@ -42,8 +42,8 @@
             this.twoMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fiveMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tenMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.updateRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -98,7 +98,7 @@
             this.usernameButton = new System.Windows.Forms.Button();
             this.usernameStatus = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.submissionTab = new System.Windows.Forms.TabPage();
             this.lastSubmissions1 = new BrightIdeasSoftware.FastObjectListView();
             this.sidSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pnumSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -110,14 +110,19 @@
             this.subtimeSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.progtrackerTab = new System.Windows.Forms.TabPage();
+            this.userProgTracker1 = new UVA_Arena.Elements.UserProgTracker();
+            this.worldrankTab = new System.Windows.Forms.TabPage();
+            this.compareTab = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.userNameTitle = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.Status1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.Progress1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.uernameContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateContextMenu.SuspendLayout();
             this.viewContextMenu.SuspendLayout();
             this.groupContextMenu.SuspendLayout();
@@ -130,11 +135,13 @@
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.submissionTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lastSubmissions1)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            this.progtrackerTab.SuspendLayout();
             this.panel2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.uernameContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // updateContextMenu
@@ -152,7 +159,7 @@
             this.fiveMinutesToolItem,
             this.tenMinutesToolItem});
             this.updateContextMenu.Name = "updateContextMenu";
-            this.updateContextMenu.OwnerItem = this.toolStripSplitButton1;
+            this.updateContextMenu.OwnerItem = this.updateRateToolStripMenuItem;
             this.updateContextMenu.Size = new System.Drawing.Size(142, 230);
             // 
             // autoUpdateToolMenu
@@ -243,13 +250,6 @@
             this.tenMinutesToolItem.Text = "10 minutes";
             this.tenMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
             // 
-            // updateRateToolStripMenuItem
-            // 
-            this.updateRateToolStripMenuItem.DropDown = this.updateContextMenu;
-            this.updateRateToolStripMenuItem.Name = "updateRateToolStripMenuItem";
-            this.updateRateToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.updateRateToolStripMenuItem.Text = "Auto Update";
-            // 
             // toolStripSplitButton1
             // 
             this.toolStripSplitButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -260,6 +260,13 @@
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
             this.toolStripSplitButton1.Size = new System.Drawing.Size(84, 20);
             this.toolStripSplitButton1.Text = "Update Rate";
+            // 
+            // updateRateToolStripMenuItem
+            // 
+            this.updateRateToolStripMenuItem.DropDown = this.updateContextMenu;
+            this.updateRateToolStripMenuItem.Name = "updateRateToolStripMenuItem";
+            this.updateRateToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.updateRateToolStripMenuItem.Text = "Auto Update";
             // 
             // viewContextMenu
             // 
@@ -737,10 +744,10 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.submissionTab);
+            this.tabControl1.Controls.Add(this.progtrackerTab);
+            this.tabControl1.Controls.Add(this.worldrankTab);
+            this.tabControl1.Controls.Add(this.compareTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(0, 35);
@@ -750,16 +757,16 @@
             this.tabControl1.Size = new System.Drawing.Size(556, 344);
             this.tabControl1.TabIndex = 0;
             // 
-            // tabPage1
+            // submissionTab
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.PowderBlue;
-            this.tabPage1.Controls.Add(this.lastSubmissions1);
-            this.tabPage1.Controls.Add(this.toolStrip1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 30);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(548, 310);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Submissions";
+            this.submissionTab.BackColor = System.Drawing.Color.PowderBlue;
+            this.submissionTab.Controls.Add(this.lastSubmissions1);
+            this.submissionTab.Controls.Add(this.toolStrip1);
+            this.submissionTab.Location = new System.Drawing.Point(4, 30);
+            this.submissionTab.Name = "submissionTab";
+            this.submissionTab.Size = new System.Drawing.Size(548, 310);
+            this.submissionTab.TabIndex = 0;
+            this.submissionTab.Text = "Submissions";
             // 
             // lastSubmissions1
             // 
@@ -913,32 +920,41 @@
             this.toolStripButton2.Text = "Refresh";
             this.toolStripButton2.Click += new System.EventHandler(this.refreshToolButton_Click);
             // 
-            // tabPage2
+            // progtrackerTab
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 30);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(548, 310);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Progress Tracker";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.progtrackerTab.Controls.Add(this.userProgTracker1);
+            this.progtrackerTab.Location = new System.Drawing.Point(4, 30);
+            this.progtrackerTab.Name = "progtrackerTab";
+            this.progtrackerTab.Size = new System.Drawing.Size(548, 310);
+            this.progtrackerTab.TabIndex = 1;
+            this.progtrackerTab.Text = "Progress Tracker";
+            this.progtrackerTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // userProgTracker1
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 30);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(548, 310);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "World Rank";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.userProgTracker1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userProgTracker1.Location = new System.Drawing.Point(0, 0);
+            this.userProgTracker1.Name = "userProgTracker1";
+            this.userProgTracker1.Size = new System.Drawing.Size(548, 310);
+            this.userProgTracker1.TabIndex = 0;
             // 
-            // tabPage4
+            // worldrankTab
             // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 30);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(548, 310);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Compare";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.worldrankTab.Location = new System.Drawing.Point(4, 30);
+            this.worldrankTab.Name = "worldrankTab";
+            this.worldrankTab.Size = new System.Drawing.Size(548, 310);
+            this.worldrankTab.TabIndex = 2;
+            this.worldrankTab.Text = "World Rank";
+            this.worldrankTab.UseVisualStyleBackColor = true;
+            // 
+            // compareTab
+            // 
+            this.compareTab.Location = new System.Drawing.Point(4, 30);
+            this.compareTab.Name = "compareTab";
+            this.compareTab.Size = new System.Drawing.Size(548, 310);
+            this.compareTab.TabIndex = 3;
+            this.compareTab.Text = "Compare";
+            this.compareTab.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -987,6 +1003,34 @@
             this.Progress1.Name = "Progress1";
             this.Progress1.Size = new System.Drawing.Size(100, 22);
             // 
+            // uernameContextMenu
+            // 
+            this.uernameContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteUserToolStripMenuItem,
+            this.toolStripSeparator9,
+            this.refreshListToolStripMenuItem});
+            this.uernameContextMenu.Name = "uernameContextMenu";
+            this.uernameContextMenu.Size = new System.Drawing.Size(134, 54);
+            // 
+            // deleteUserToolStripMenuItem
+            // 
+            this.deleteUserToolStripMenuItem.Name = "deleteUserToolStripMenuItem";
+            this.deleteUserToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.deleteUserToolStripMenuItem.Text = "Delete User";
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(130, 6);
+            // 
+            // refreshListToolStripMenuItem
+            // 
+            this.refreshListToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.reload;
+            this.refreshListToolStripMenuItem.Name = "refreshListToolStripMenuItem";
+            this.refreshListToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.refreshListToolStripMenuItem.Text = "Refresh list";
+            this.refreshListToolStripMenuItem.Click += new System.EventHandler(this.refreshListToolStripMenuItem_Click);
+            // 
             // USER_STAT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1012,15 +1056,17 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.submissionTab.ResumeLayout(false);
+            this.submissionTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lastSubmissions1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.progtrackerTab.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.uernameContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1031,10 +1077,10 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage submissionTab;
+        private System.Windows.Forms.TabPage progtrackerTab;
+        private System.Windows.Forms.TabPage worldrankTab;
+        private System.Windows.Forms.TabPage compareTab;
         private BrightIdeasSoftware.OLVColumn unameCol;
         private BrightIdeasSoftware.OLVColumn uidCol;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -1115,5 +1161,10 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private UserProgTracker userProgTracker1;
+        private System.Windows.Forms.ContextMenuStrip uernameContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem deleteUserToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem refreshListToolStripMenuItem;
     }
 }

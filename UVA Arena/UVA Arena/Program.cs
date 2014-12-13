@@ -12,6 +12,11 @@ namespace UVA_Arena
         [STAThread]
         static void Main()
         {
+            string dat = "";
+            for(int i = 0; i < 80; ++i) dat += '*';
+            dat += Environment.NewLine;
+            System.IO.File.AppendAllText(LocalDirectory.GetLogFile(), Environment.NewLine + dat);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -24,9 +29,26 @@ namespace UVA_Arena
                 Application.Run(uf);
             }
 
-            //run main program
-            Interactivity.mainForm = new MainForm(); 
-            Application.Run(Interactivity.mainForm);
+            while (true)
+            {
+                try
+                {
+                    //run main program
+                    Interactivity.mainForm = new MainForm();
+                    Application.Run(Interactivity.mainForm);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Add(ex.Message, "Program");
+                    string msg = "Looks like something went wrong with this application" + Environment.NewLine;
+                    msg += "Error message : " + ex.Message + Environment.NewLine + Environment.NewLine;
+                    msg += "Relaunch this application now?";
+                    if (MessageBox.Show(msg, "UVA Arena", MessageBoxButtons.YesNo) == DialogResult.No) break;                    
+                }
+            }
+
+            System.IO.File.AppendAllText(LocalDirectory.GetLogFile(), dat);
         } 
     }
 }

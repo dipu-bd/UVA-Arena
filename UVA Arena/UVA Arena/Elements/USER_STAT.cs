@@ -136,6 +136,51 @@ namespace UVA_Arena.Elements
 
         #endregion
 
+        #region Status Strip
+
+        private void refreshToolButton_Click(object sender, EventArgs e)
+        {
+            DownloadUserSubs(currentUser.uname);
+        }
+
+        public bool _QueueOnRun = false;
+        public Queue<string> StatusQueue = new Queue<string>();
+
+        private void ShowNextStatus()
+        {
+            _QueueOnRun = false;
+            if (this.IsDisposed) return;
+            if (StatusQueue.Count == 0)
+            {
+                Status1.Text = "";
+                return;
+            }
+            try
+            {
+                Status1.Text = StatusQueue.Dequeue();
+                _QueueOnRun = true;
+                TaskQueue.AddTask(ShowNextStatus, 1000);
+            }
+            catch { }
+        }
+
+        public void SetStatus(string text = "", bool instant = false)
+        {
+            if (instant)
+            {
+                if (!_QueueOnRun) Status1.Text = text;
+            }
+            else
+            {
+                StatusQueue.Enqueue(text);
+                if (!_QueueOnRun) ShowNextStatus();
+            }
+        }
+
+
+
+        #endregion
+
         #region Username List
 
         //
@@ -217,6 +262,9 @@ namespace UVA_Arena.Elements
 
             try
             {
+                if (!_QueueOnRun) Status1.Text = "";
+                else StatusQueue.Clear();
+
                 if (user == RegistryAccess.DefaultUsername)
                 {
                     currentUser = DefaultDatabase.DefaultUser;
@@ -248,7 +296,7 @@ namespace UVA_Arena.Elements
             catch (Exception ex)
             {
                 SetStatus("Error : " + ex.Message);
-                Logger.Add(ex.Message, "User Statistics");
+                Logger.Add(ex.Message, "User Statistics | ShowUserSubs(string user)");
             }
         }
 
@@ -346,7 +394,7 @@ namespace UVA_Arena.Elements
             catch (Exception ex)
             {
                 SetStatus("Error : " + ex.Message);
-                Logger.Add(ex.Message, "User Statistics");
+                Logger.Add(ex.Message, "User Statistics | dt_completed(DownloadTask Task)");
             }
         }
 
@@ -358,51 +406,6 @@ namespace UVA_Arena.Elements
             SetStatus(string.Format("Downloading {0}'s submissions... [{1} out of {2}]",
                 Task.Token, Functions.FormatMemory(Task.Received), Functions.FormatMemory(Task.DataSize)), true);
         }
-
-        #endregion
-
-        #region Status Strip
-
-        private void refreshToolButton_Click(object sender, EventArgs e)
-        {
-            DownloadUserSubs(currentUser.uname);
-        }
-
-        public bool _QueueOnRun = false;
-        public Queue<string> StatusQueue = new Queue<string>();
-
-        private void ShowNextStatus()
-        {
-            _QueueOnRun = false;
-            if (this.IsDisposed) return;
-            if (StatusQueue.Count == 0)
-            {
-                Status1.Text = "";
-                return;
-            }
-            try
-            {
-                Status1.Text = StatusQueue.Dequeue();
-                _QueueOnRun = true;
-                TaskQueue.AddTask(ShowNextStatus, 1000);
-            }
-            catch { }
-        }
-
-        public void SetStatus(string text = "", bool instant = false)
-        {
-            if (instant)
-            {
-                if (!_QueueOnRun) Status1.Text = text;
-            }
-            else
-            {
-                StatusQueue.Enqueue(text);
-                if (!_QueueOnRun) ShowNextStatus();
-            }
-        }
-
-
 
         #endregion
 
@@ -419,7 +422,7 @@ namespace UVA_Arena.Elements
             //check if this is focused
             if (Interactivity.mainForm.customTabControl1.SelectedTab
                 != Interactivity.mainForm.profileTab) return;
-            if (this.tabControl1.SelectedTab != tabPage1) return;
+            if (this.tabControl1.SelectedTab != submissionTab) return;
 
             //refresh items
             //lastSubmissions1.Refresh();
@@ -589,6 +592,11 @@ namespace UVA_Arena.Elements
             autoUpdateToolMenu.Checked = !autoUpdateToolMenu.Checked;
             AutoUpdateStatus = autoUpdateToolMenu.Checked;
             SelectUpdateRateMenu();
+        }
+
+        private void refreshListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadUsernames();
         }
 
         #endregion

@@ -65,20 +65,20 @@ namespace UVA_Arena
             //try { SHOptionsAPI.Copy(from, dest); }
             //catch
             {
-                foreach(string file in from)
+                foreach (string file in from)
                 {
                     string npath = Path.Combine(dest, Path.GetFileName(file));
                     if (File.Exists(file))
                     {
-                        File.Copy(file, npath, true); 
+                        File.Copy(file, npath, true);
                     }
-                    else if(Directory.Exists(file))
+                    else if (Directory.Exists(file))
                     {
                         CopyFilesOrFolders(Directory.GetFiles(file), npath);
                         CopyFilesOrFolders(Directory.GetDirectories(file), npath);
                     }
                 }
-           }
+            }
         }
 
         public static void DeleteFilesOrFolders(string[] files)
@@ -135,7 +135,7 @@ namespace UVA_Arena
                 return path;
             }
         }
-         
+
 
         /// <summary> get path where problem description is saved </summary>
         public static string ProblemsPath
@@ -168,16 +168,16 @@ namespace UVA_Arena
         public static string GetCodesPath(long pnum)
         {
             if (!DefaultDatabase.IsReady) return null;
-            
+
             string path = Elements.CODES.CodesPath;
             if (string.IsNullOrEmpty(path) || !Directory.Exists(path)) return null;
 
             string title = DefaultDatabase.GetTitle(pnum);
             title = ValidateFileName(title);
-            
+
             char sep = Path.DirectorySeparatorChar;
             path += sep + string.Format("Volume {0:000}", pnum / 100);
-            path += sep + string.Format("{0} - {1}", pnum, title);                       
+            path += sep + string.Format("{0} - {1}", pnum, title);
 
             CreateDirectory(path);
             return path;
@@ -230,6 +230,21 @@ namespace UVA_Arena
             string file = Path.Combine(path, uid);
             CreateDirectory(path);
             File.WriteAllText(file, data);
+        }
+
+        /// <summary> returns the file path where log could be stored </summary>
+        public static string GetLogFile()
+        {
+            string file = Path.Combine(DefaultPath, "log.dat");
+            CreateFile(file);
+            if ((new FileInfo(file)).Length > 1048576) // > 1MB
+            {
+                string[] lines = File.ReadAllLines(file);
+                File.WriteAllText(file, "");
+                for (int i = Math.Max(lines.Length - 1000, 0); i < lines.Length; ++i)
+                    File.AppendAllText(file, lines[i] + Environment.NewLine);
+            }
+            return file;
         }
     }
 }

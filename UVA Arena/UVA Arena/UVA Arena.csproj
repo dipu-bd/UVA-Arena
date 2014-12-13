@@ -273,7 +273,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IDEA.txt" />
     <Content Include="main.ico" />
     <None Include="Resources\home.png" />
     <None Include="Resources\web.png" />

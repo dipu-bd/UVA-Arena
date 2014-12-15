@@ -32,6 +32,11 @@ namespace UVA_Arena.Structures
         public string ptitle { get; set; }
         public List<long> data { get; set; }
 
+        public bool IsAccepted()
+        {
+            return (ver == 90);
+        }
+
         public void LoadData(List<long> data)
         {
             this.data = data;
@@ -118,7 +123,7 @@ namespace UVA_Arena.Structures
                 if (this.LastSID < usub.sid) this.LastSID = usub.sid;
 
                 //if accepted
-                if (usub.ver == 90 && !ACList.Contains(usub.pnum))
+                if (usub.IsAccepted() && !ACList.Contains(usub.pnum))
                 {
                     ACList.Add(usub.pnum);
                     if (isdef)

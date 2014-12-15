@@ -246,8 +246,14 @@ namespace UVA_Arena.Elements
 
         private void usernameList_ItemActivate(object sender, EventArgs e)
         {
-            if (usernameList.SelectedObject == null) return;
-            ShowUserSubs(((KeyValuePair<string, string>)usernameList.SelectedObject).Key);
+            if (usernameList.SelectedObject == null)
+            {
+                userProgTracker1.ShowUserInfo(null);
+            }
+            else
+            {
+                ShowUserSubs(((KeyValuePair<string, string>)usernameList.SelectedObject).Key);
+            }
         }
 
         #endregion
@@ -302,6 +308,8 @@ namespace UVA_Arena.Elements
 
         private void SetSubmissionToListView()
         {
+            userProgTracker1.ShowUserInfo(currentUser);
+
             if (currentUser == null) return;
             List<UserSubmission> list = new List<UserSubmission>();
             switch (ViewOption)

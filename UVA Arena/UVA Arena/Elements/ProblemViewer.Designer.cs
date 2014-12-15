@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.descriptionTab = new System.Windows.Forms.TabPage();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.problemWebBrowser = new System.Windows.Forms.WebBrowser();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.backButton = new System.Windows.Forms.ToolStripButton();
             this.nextButton = new System.Windows.Forms.ToolStripButton();
@@ -48,22 +48,20 @@
             this.ranksTab = new System.Windows.Forms.TabPage();
             this.compareTab = new System.Windows.Forms.TabPage();
             this.discussTab = new System.Windows.Forms.TabPage();
-            this.webBrowser2 = new System.Windows.Forms.WebBrowser();
+            this.discussWebBrowser = new System.Windows.Forms.WebBrowser();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
             this.goDiscussButton = new System.Windows.Forms.Button();
-            this.reloadDiscussButton = new System.Windows.Forms.Button();
             this.discussUrlBox = new System.Windows.Forms.TextBox();
             this.prevDiscussButton = new System.Windows.Forms.Button();
             this.nextDiscussButton = new System.Windows.Forms.Button();
             this.homeDiscussButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.titleBox1 = new System.Windows.Forms.TextBox();
             this.catagoryButton = new System.Windows.Forms.Button();
-            this.catagoryInfo = new System.Windows.Forms.CueTextBox();
+            this.titleBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.prevContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.nextContext = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.catagoryInfo = new System.Windows.Forms.CueTextBox();
             this.tabControl1.SuspendLayout();
             this.descriptionTab.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -93,7 +91,7 @@
             // descriptionTab
             // 
             this.descriptionTab.BackColor = System.Drawing.Color.AliceBlue;
-            this.descriptionTab.Controls.Add(this.webBrowser1);
+            this.descriptionTab.Controls.Add(this.problemWebBrowser);
             this.descriptionTab.Controls.Add(this.toolStrip1);
             this.descriptionTab.Location = new System.Drawing.Point(4, 4);
             this.descriptionTab.Name = "descriptionTab";
@@ -101,15 +99,15 @@
             this.descriptionTab.TabIndex = 0;
             this.descriptionTab.Text = "Description";
             // 
-            // webBrowser1
+            // problemWebBrowser
             // 
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 38);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(710, 264);
-            this.webBrowser1.TabIndex = 1;
+            this.problemWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.problemWebBrowser.Location = new System.Drawing.Point(0, 38);
+            this.problemWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.problemWebBrowser.Name = "problemWebBrowser";
+            this.problemWebBrowser.ScriptErrorsSuppressed = true;
+            this.problemWebBrowser.Size = new System.Drawing.Size(710, 264);
+            this.problemWebBrowser.TabIndex = 1;
             // 
             // toolStrip1
             // 
@@ -260,7 +258,7 @@
             // 
             // discussTab
             // 
-            this.discussTab.Controls.Add(this.webBrowser2);
+            this.discussTab.Controls.Add(this.discussWebBrowser);
             this.discussTab.Controls.Add(this.tableLayoutPanel2);
             this.discussTab.Location = new System.Drawing.Point(4, 4);
             this.discussTab.Name = "discussTab";
@@ -269,32 +267,30 @@
             this.discussTab.Text = "Discuss";
             this.discussTab.UseVisualStyleBackColor = true;
             // 
-            // webBrowser2
+            // discussWebBrowser
             // 
-            this.webBrowser2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser2.Location = new System.Drawing.Point(0, 28);
-            this.webBrowser2.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser2.Name = "webBrowser2";
-            this.webBrowser2.ScriptErrorsSuppressed = true;
-            this.webBrowser2.Size = new System.Drawing.Size(710, 274);
-            this.webBrowser2.TabIndex = 2;
-            this.webBrowser2.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser2_Navigated);
+            this.discussWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.discussWebBrowser.Location = new System.Drawing.Point(0, 28);
+            this.discussWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.discussWebBrowser.Name = "discussWebBrowser";
+            this.discussWebBrowser.ScriptErrorsSuppressed = true;
+            this.discussWebBrowser.Size = new System.Drawing.Size(710, 274);
+            this.discussWebBrowser.TabIndex = 2;
+            this.discussWebBrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser2_Navigated);
+            this.discussWebBrowser.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.webBrowser2_ProgressChanged);
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.BackColor = System.Drawing.Color.LightCyan;
-            this.tableLayoutPanel2.ColumnCount = 7;
+            this.tableLayoutPanel2.ColumnCount = 5;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.tableLayoutPanel2.Controls.Add(this.label1, 3, 0);
-            this.tableLayoutPanel2.Controls.Add(this.goDiscussButton, 5, 0);
-            this.tableLayoutPanel2.Controls.Add(this.reloadDiscussButton, 6, 0);
-            this.tableLayoutPanel2.Controls.Add(this.discussUrlBox, 4, 0);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Controls.Add(this.goDiscussButton, 4, 0);
+            this.tableLayoutPanel2.Controls.Add(this.discussUrlBox, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.prevDiscussButton, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.nextDiscussButton, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.homeDiscussButton, 2, 0);
@@ -303,53 +299,30 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(710, 28);
             this.tableLayoutPanel2.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(153, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "URL :";
             // 
             // goDiscussButton
             // 
             this.goDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.goDiscussButton.Location = new System.Drawing.Point(553, 2);
+            this.goDiscussButton.Location = new System.Drawing.Point(623, 2);
             this.goDiscussButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.goDiscussButton.Name = "goDiscussButton";
-            this.goDiscussButton.Size = new System.Drawing.Size(64, 24);
+            this.goDiscussButton.Size = new System.Drawing.Size(84, 24);
             this.goDiscussButton.TabIndex = 1;
             this.goDiscussButton.Text = "GO";
             this.goDiscussButton.UseVisualStyleBackColor = true;
             this.goDiscussButton.Click += new System.EventHandler(this.goDiscussButton_Click);
-            // 
-            // reloadDiscussButton
-            // 
-            this.reloadDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reloadDiscussButton.Location = new System.Drawing.Point(623, 2);
-            this.reloadDiscussButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.reloadDiscussButton.Name = "reloadDiscussButton";
-            this.reloadDiscussButton.Size = new System.Drawing.Size(84, 24);
-            this.reloadDiscussButton.TabIndex = 2;
-            this.reloadDiscussButton.Text = "Reload";
-            this.reloadDiscussButton.UseVisualStyleBackColor = true;
-            this.reloadDiscussButton.Click += new System.EventHandler(this.reloadDiscussButton_Click);
             // 
             // discussUrlBox
             // 
             this.discussUrlBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.discussUrlBox.BackColor = System.Drawing.Color.White;
             this.discussUrlBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.discussUrlBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.discussUrlBox.Location = new System.Drawing.Point(193, 5);
+            this.discussUrlBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.discussUrlBox.Location = new System.Drawing.Point(123, 4);
             this.discussUrlBox.Name = "discussUrlBox";
-            this.discussUrlBox.Size = new System.Drawing.Size(354, 18);
+            this.discussUrlBox.Size = new System.Drawing.Size(494, 20);
             this.discussUrlBox.TabIndex = 3;
             // 
             // prevDiscussButton
@@ -394,7 +367,7 @@
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 123F));
             this.tableLayoutPanel1.Controls.Add(this.catagoryButton, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.catagoryInfo, 0, 1);
@@ -408,6 +381,25 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(718, 60);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // catagoryButton
+            // 
+            this.catagoryButton.BackColor = System.Drawing.Color.PowderBlue;
+            this.catagoryButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.catagoryButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkTurquoise;
+            this.catagoryButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightSeaGreen;
+            this.catagoryButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
+            this.catagoryButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.catagoryButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.catagoryButton.Location = new System.Drawing.Point(595, 33);
+            this.catagoryButton.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.catagoryButton.Name = "catagoryButton";
+            this.catagoryButton.Size = new System.Drawing.Size(121, 26);
+            this.catagoryButton.TabIndex = 2;
+            this.catagoryButton.Text = "Change";
+            this.catagoryButton.UseVisualStyleBackColor = false;
+            this.catagoryButton.Visible = false;
+            this.catagoryButton.Click += new System.EventHandler(this.catagoryButton_Click);
+            // 
             // titleBox1
             // 
             this.titleBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -419,44 +411,25 @@
             this.titleBox1.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.titleBox1.Name = "titleBox1";
             this.titleBox1.ReadOnly = true;
-            this.titleBox1.Size = new System.Drawing.Size(587, 25);
+            this.titleBox1.Size = new System.Drawing.Size(584, 25);
             this.titleBox1.TabIndex = 0;
             this.titleBox1.TabStop = false;
             this.titleBox1.Text = "No problem selected";
             // 
-            // catagoryButton
+            // button1
             // 
-            this.catagoryButton.BackColor = System.Drawing.Color.PowderBlue;
-            this.catagoryButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.catagoryButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkTurquoise;
-            this.catagoryButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightSeaGreen;
-            this.catagoryButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
-            this.catagoryButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.catagoryButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.catagoryButton.Location = new System.Drawing.Point(598, 33);
-            this.catagoryButton.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.catagoryButton.Name = "catagoryButton";
-            this.catagoryButton.Size = new System.Drawing.Size(118, 26);
-            this.catagoryButton.TabIndex = 2;
-            this.catagoryButton.Text = "Change";
-            this.catagoryButton.UseVisualStyleBackColor = false;
-            this.catagoryButton.Visible = false;
-            this.catagoryButton.Click += new System.EventHandler(this.catagoryButton_Click);
-            // 
-            // catagoryInfo
-            // 
-            this.catagoryInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.catagoryInfo.BackColor = System.Drawing.Color.LightBlue;
-            this.catagoryInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.catagoryInfo.CueText = "Set tags to identify the type of the problem...";
-            this.catagoryInfo.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.catagoryInfo.ForeColor = System.Drawing.Color.Maroon;
-            this.catagoryInfo.Location = new System.Drawing.Point(4, 38);
-            this.catagoryInfo.Name = "catagoryInfo";
-            this.catagoryInfo.Size = new System.Drawing.Size(589, 16);
-            this.catagoryInfo.TabIndex = 1;
-            this.catagoryInfo.TabStop = false;
-            this.catagoryInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.catagoryInfo_KeyDown);
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Image = global::UVA_Arena.Properties.Resources.expand;
+            this.button1.Location = new System.Drawing.Point(595, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(121, 29);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Expand";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.expandViewButton1_Click);
             // 
             // prevContext
             // 
@@ -468,20 +441,20 @@
             this.nextContext.Name = "nextContext";
             this.nextContext.Size = new System.Drawing.Size(61, 4);
             // 
-            // button1
+            // catagoryInfo
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Image = global::UVA_Arena.Properties.Resources.expand;
-            this.button1.Location = new System.Drawing.Point(598, 2);
-            this.button1.Margin = new System.Windows.Forms.Padding(1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 29);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Expand";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.expandViewButton1_Click);
+            this.catagoryInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.catagoryInfo.BackColor = System.Drawing.Color.LightBlue;
+            this.catagoryInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.catagoryInfo.CueText = "Set tags to identify the type of the problem...";
+            this.catagoryInfo.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.catagoryInfo.ForeColor = System.Drawing.Color.Maroon;
+            this.catagoryInfo.Location = new System.Drawing.Point(4, 38);
+            this.catagoryInfo.Name = "catagoryInfo";
+            this.catagoryInfo.Size = new System.Drawing.Size(586, 16);
+            this.catagoryInfo.TabIndex = 1;
+            this.catagoryInfo.TabStop = false;
+            this.catagoryInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.catagoryInfo_KeyDown);
             // 
             // ProblemViewer
             // 
@@ -533,14 +506,12 @@
         public System.Windows.Forms.TextBox titleBox1;
         public System.Windows.Forms.Button catagoryButton;
         public System.Windows.Forms.CueTextBox catagoryInfo;
-        public System.Windows.Forms.WebBrowser webBrowser1;
+        public System.Windows.Forms.WebBrowser problemWebBrowser;
         public System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage discussTab;
-        public System.Windows.Forms.WebBrowser webBrowser2;
+        public System.Windows.Forms.WebBrowser discussWebBrowser;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button goDiscussButton;
-        private System.Windows.Forms.Button reloadDiscussButton;
         private System.Windows.Forms.TextBox discussUrlBox;
         private System.Windows.Forms.Button nextDiscussButton;
         private System.Windows.Forms.Button prevDiscussButton;

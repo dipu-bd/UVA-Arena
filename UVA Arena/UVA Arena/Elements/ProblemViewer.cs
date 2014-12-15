@@ -57,7 +57,7 @@ namespace UVA_Arena.Elements
             titleBox1.Text = "No problem selected";
             catagoryInfo.Text = "";
             catagoryButton.Visible = false;
-            webBrowser1.Navigate("");
+            problemWebBrowser.Navigate("");
         }
 
         private void ShowCurrent()
@@ -70,9 +70,9 @@ namespace UVA_Arena.Elements
             ShowCurrentTags();
 
             string path = LocalDirectory.GetProblemHtml(current.pnum);
-            webBrowser1.Navigate(path);
+            problemWebBrowser.Navigate(path);
             tabControl1.SelectedTab = descriptionTab;
-                       
+
             markButton.Checked = RegistryAccess.FavouriteProblems.Contains(current.pnum);
 
             FileInfo local = new FileInfo(path);
@@ -89,7 +89,7 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
-        
+
         #region Problem Downloader
 
         private void DownloadPdf(long pnum)
@@ -104,7 +104,7 @@ namespace UVA_Arena.Elements
             }
             catch (Exception ex)
             {
-                Logger.Add(ex.Message, "Problem Viewer");
+                Logger.Add(ex.Message, "Problem Viewer | DownloadPdf(long pnum)");
             }
         }
 
@@ -120,7 +120,7 @@ namespace UVA_Arena.Elements
             }
             catch (Exception ex)
             {
-                Logger.Add(ex.Message, "Problem Viewer");
+                Logger.Add(ex.Message, "Problem Viewer | DownloadHtml(long pnum)");
             }
         }
 
@@ -162,7 +162,7 @@ namespace UVA_Arena.Elements
                 else if (ext == ".html")
                 {
                     string file = LocalDirectory.GetProblemHtml(current.pnum);
-                    webBrowser1.Navigate(file);
+                    problemWebBrowser.Navigate(file);
                     int cnt = DownloadContents(current.pnum);
                     if (cnt == 0) finish = true;
                 }
@@ -174,7 +174,7 @@ namespace UVA_Arena.Elements
 
             if (finish)
             {
-                webBrowser1.Refresh();
+                problemWebBrowser.Refresh();
                 reloadButton.Enabled = true;
                 TaskQueue.AddTask(Interactivity.problems.ClearStatus, 1000);
             }
@@ -197,8 +197,8 @@ namespace UVA_Arena.Elements
         }
 
         private void expandViewButton1_Click(object sender, EventArgs e)
-        {            
-            if(Interactivity.problems.ExpandCollapseView())
+        {
+            if (Interactivity.problems.ExpandCollapseView())
             {
                 ((Control)sender).Text = "Collapse";
             }
@@ -309,15 +309,10 @@ namespace UVA_Arena.Elements
 
         private void goDiscussButton_Click(object sender, EventArgs e)
         {
-            webBrowser2.Navigate(discussUrlBox.Text);
+            discussWebBrowser.Stop();
+            discussWebBrowser.Navigate(discussUrlBox.Text);
         }
-
-        private void reloadDiscussButton_Click(object sender, EventArgs e)
-        {
-            webBrowser2.Refresh();
-            discussUrlBox.Text = webBrowser2.Url.ToString();
-        }
-
+         
         private void webBrowser2_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
             discussUrlBox.Text = e.Url.ToString();
@@ -325,20 +320,26 @@ namespace UVA_Arena.Elements
 
         private void prevDiscussButton_Click(object sender, EventArgs e)
         {
-            webBrowser2.GoBack();
+            discussWebBrowser.GoBack();
         }
 
         private void nextDiscussButton_Click(object sender, EventArgs e)
         {
-            webBrowser2.GoForward();
+            discussWebBrowser.GoForward();
         }
         private void homeDiscussButton_Click(object sender, EventArgs e)
         {
             string query = "";
             if (current != null) query = string.Format("search.php?keywords={0}", current.pnum);
             string discuss = string.Format("http://acm.uva.es/board/{0}", query);
-            webBrowser2.Navigate(discuss);
+            discussWebBrowser.Navigate(discuss);
             discussUrlBox.Text = discuss;
+        }
+
+        private void webBrowser2_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
+        {
+            Interactivity.problems.Status1.Text = discussWebBrowser.StatusText;
+            Interactivity.problems.Progress1.Value = (int)(100 * e.CurrentProgress / e.MaximumProgress);
         }
 
         #endregion

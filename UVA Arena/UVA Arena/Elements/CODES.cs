@@ -365,14 +365,14 @@ namespace UVA_Arena.Elements
             if (!Directory.Exists(path)) return;
 
             //create codespath and check them
-            if (!DefaultDatabase.IsReady)
+            if (!LocalDatabase.IsReady)
             {
                 Logger.Add("Problem Database is not ready yet.", "Codes : FormatCodeDirectory()");
                 return;
             }
 
             //just call codesPath. it will create directory automatically
-            foreach (Structures.ProblemInfo prob in DefaultDatabase.problem_list)
+            foreach (Structures.ProblemInfo prob in LocalDatabase.problem_list)
             {
                 LocalDirectory.GetCodesPath(prob.pnum);
             }
@@ -633,7 +633,7 @@ namespace UVA_Arena.Elements
             {
                 string num = name.Substring(m.Index, m.Length);
                 long.TryParse(num, out res);
-                if (!DefaultDatabase.HasProblem(res)) res = -1;
+                if (!LocalDatabase.HasProblem(res)) res = -1;
             }
             return res;
         }
@@ -929,7 +929,7 @@ namespace UVA_Arena.Elements
             runtestToolButton.Enabled = true;
             //change file name label text to include problem numbre and title
             fileNameLabel.Text = string.Format("Problem {0} - {1} ({2})",
-                  SelectedPNUM, DefaultDatabase.GetTitle(SelectedPNUM), fileNameLabel.Text);
+                  SelectedPNUM, LocalDatabase.GetTitle(SelectedPNUM), fileNameLabel.Text);
         }
 
         private bool PrecheckOpenFile(FileInfo file, bool history = true)

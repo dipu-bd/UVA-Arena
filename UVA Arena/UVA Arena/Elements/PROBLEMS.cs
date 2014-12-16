@@ -55,7 +55,7 @@ namespace UVA_Arena.Elements
             levelProb.AspectGetter = delegate(object row)
             {
                 ProblemInfo pl = (ProblemInfo)row;
-                return string.Format("{0:00}{1}", pl.level, pl.star);
+                return string.Format("{0:00}{1}", pl.level, pl.levelstar);
             };
             levelProb.AspectToStringConverter = delegate(object key)
             {
@@ -116,11 +116,11 @@ namespace UVA_Arena.Elements
         {
             if (this.IsDisposed) return;
             Status1.Text = string.Format("Downloading problem database... ({0}/{1} completed)",
-                Functions.FormatMemory(task.Received), Functions.FormatMemory(task.DataSize));
+                Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
             Progress1.Value = task.ProgressPercentage;
         }
         private void problemWorkerStateChanged(DownloadTask task)
-        { 
+        {
             if (task.Status == ProgressStatus.Completed)
                 SetStatus("Problem database is successfully updated.");
             else
@@ -136,13 +136,14 @@ namespace UVA_Arena.Elements
         //
         public void LoadVolumes()
         {
+            searchBox2.SearchText = "";
             volumesButton.Checked = true;
             catagoryButton.Checked = false;
 
-            if (DefaultDatabase.problem_vol == null) return;
+            if (LocalDatabase.problem_vol == null) return;
 
             List<CatagoryList> volumes = new List<CatagoryList>();
-            var it = DefaultDatabase.problem_vol.GetEnumerator();
+            var it = LocalDatabase.problem_vol.GetEnumerator();
             while (it.MoveNext())
             {
                 if (it.Current.Value.Count == 0) continue;
@@ -159,13 +160,14 @@ namespace UVA_Arena.Elements
 
         public void LoadCatagory()
         {
+            searchBox2.SearchText = "";
             volumesButton.Checked = false;
             catagoryButton.Checked = true;
 
-            if (DefaultDatabase.problem_cat == null) return;
+            if (LocalDatabase.problem_cat == null) return;
 
             List<CatagoryList> catagory = new List<CatagoryList>();
-            var it = DefaultDatabase.problem_cat.GetEnumerator();
+            var it = LocalDatabase.problem_cat.GetEnumerator();
             while (it.MoveNext())
             {
                 if (it.Current.Value.Count == 0) continue;
@@ -187,9 +189,9 @@ namespace UVA_Arena.Elements
             favouriteButton.Checked = false;
             plistLabel.Text = "All Problems";
 
-            if (DefaultDatabase.problem_list == null) return;
+            if (LocalDatabase.problem_list == null) return;
 
-            problemListView.SetObjects(DefaultDatabase.problem_list);
+            problemListView.SetObjects(LocalDatabase.problem_list);
             problemListView.Sort(pnumProb);
         }
 
@@ -204,8 +206,8 @@ namespace UVA_Arena.Elements
             List<ProblemInfo> plist = new List<ProblemInfo>();
             foreach (long pnum in fav)
             {
-                if (DefaultDatabase.HasProblem(pnum))
-                    plist.Add(DefaultDatabase.GetProblem(pnum));
+                if (LocalDatabase.HasProblem(pnum))
+                    plist.Add(LocalDatabase.GetProblem(pnum));
             }
             if (plist.Count > 0)
             {
@@ -221,9 +223,9 @@ namespace UVA_Arena.Elements
             favouriteButton.Checked = false;
             plistLabel.Text = string.Format("Volume {0:000}", vol);
 
-            if (DefaultDatabase.problem_vol == null) return;
+            if (LocalDatabase.problem_vol == null) return;
 
-            problemListView.SetObjects(DefaultDatabase.GetVolume(vol));
+            problemListView.SetObjects(LocalDatabase.GetVolume(vol));
             countVol.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
             problemListView.Sort(0);
         }
@@ -237,9 +239,9 @@ namespace UVA_Arena.Elements
             favouriteButton.Checked = false;
             plistLabel.Text = cat;
 
-            if (DefaultDatabase.problem_cat == null) return;
+            if (LocalDatabase.problem_cat == null) return;
 
-            problemListView.SetObjects(DefaultDatabase.GetCatagory(cat));
+            problemListView.SetObjects(LocalDatabase.GetCatagory(cat));
             countVol.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
             problemListView.Sort(0);
         }
@@ -342,6 +344,25 @@ namespace UVA_Arena.Elements
                 problemListView.ShowGroups = false;
                 problemListView.DefaultRenderer = new HighlightTextRenderer(filter);
                 problemListView.AdditionalFilter = filter;
+            }
+        }
+
+        //
+        // Filter Catagory and Volume list
+        //
+        private void searchBox2_SearchTextChanged(object sender, EventArgs e)
+        {
+            if (searchBox2.SearchText.Length == 0)
+            {
+                catagoryListView.DefaultRenderer = null;
+                catagoryListView.AdditionalFilter = null;
+            }
+            else
+            {
+                TextMatchFilter filter = new TextMatchFilter(catagoryListView,
+                    searchBox2.SearchText, StringComparison.OrdinalIgnoreCase);
+                catagoryListView.DefaultRenderer = new HighlightTextRenderer(filter);
+                catagoryListView.AdditionalFilter = filter;
             }
         }
 
@@ -484,6 +505,7 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
+
 
     }
 }

@@ -44,8 +44,36 @@
             this.markButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.reloadButton = new System.Windows.Forms.ToolStripButton();
-            this.statusTab = new System.Windows.Forms.TabPage();
-            this.ranksTab = new System.Windows.Forms.TabPage();
+            this.submissionTab = new System.Windows.Forms.TabPage();
+            this.submissionStatus = new BrightIdeasSoftware.FastObjectListView();
+            this.sidSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.unameSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.fullnameSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.lanSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.verSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.runSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.rankSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.subtimeSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.subListLabel = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.showUserSubButton = new System.Windows.Forms.Button();
+            this.usernameList1 = new BrightIdeasSoftware.FastObjectListView();
+            this.unameCol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.uidCol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.showUsersRankButton = new System.Windows.Forms.Button();
+            this.showSubmissionButton = new System.Windows.Forms.Button();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.showRanksButton = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.compareTab = new System.Windows.Forms.TabPage();
             this.discussTab = new System.Windows.Forms.TabPage();
             this.discussWebBrowser = new System.Windows.Forms.WebBrowser();
@@ -58,13 +86,23 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.catagoryButton = new System.Windows.Forms.Button();
             this.titleBox1 = new System.Windows.Forms.TextBox();
+            this.catagoryInfo = new System.Windows.Forms.CueTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.prevContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.nextContext = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.catagoryInfo = new System.Windows.Forms.CueTextBox();
             this.tabControl1.SuspendLayout();
             this.descriptionTab.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.submissionTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).BeginInit();
+            this.panel7.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.usernameList1)).BeginInit();
+            this.panel6.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.discussTab.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -74,8 +112,7 @@
             // 
             this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this.tabControl1.Controls.Add(this.descriptionTab);
-            this.tabControl1.Controls.Add(this.statusTab);
-            this.tabControl1.Controls.Add(this.ranksTab);
+            this.tabControl1.Controls.Add(this.submissionTab);
             this.tabControl1.Controls.Add(this.compareTab);
             this.tabControl1.Controls.Add(this.discussTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -84,7 +121,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(35, 6);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(718, 336);
+            this.tabControl1.Size = new System.Drawing.Size(800, 390);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -95,7 +132,7 @@
             this.descriptionTab.Controls.Add(this.toolStrip1);
             this.descriptionTab.Location = new System.Drawing.Point(4, 4);
             this.descriptionTab.Name = "descriptionTab";
-            this.descriptionTab.Size = new System.Drawing.Size(710, 302);
+            this.descriptionTab.Size = new System.Drawing.Size(792, 356);
             this.descriptionTab.TabIndex = 0;
             this.descriptionTab.Text = "Description";
             // 
@@ -106,11 +143,12 @@
             this.problemWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.problemWebBrowser.Name = "problemWebBrowser";
             this.problemWebBrowser.ScriptErrorsSuppressed = true;
-            this.problemWebBrowser.Size = new System.Drawing.Size(710, 264);
+            this.problemWebBrowser.Size = new System.Drawing.Size(792, 318);
             this.problemWebBrowser.TabIndex = 1;
             // 
             // toolStrip1
             // 
+            this.toolStrip1.BackColor = System.Drawing.Color.DarkTurquoise;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backButton,
             this.nextButton,
@@ -125,31 +163,29 @@
             this.reloadButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(710, 38);
+            this.toolStrip1.Size = new System.Drawing.Size(792, 38);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.TabStop = true;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // backButton
             // 
-            this.backButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.backButton.Enabled = false;
             this.backButton.Image = global::UVA_Arena.Properties.Resources.prev;
             this.backButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(23, 35);
-            this.backButton.Text = "Previous";
+            this.backButton.Size = new System.Drawing.Size(36, 35);
+            this.backButton.Text = "Back";
             this.backButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // nextButton
             // 
-            this.nextButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.nextButton.Enabled = false;
             this.nextButton.Image = global::UVA_Arena.Properties.Resources.next;
             this.nextButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.nextButton.Name = "nextButton";
-            this.nextButton.Size = new System.Drawing.Size(23, 35);
+            this.nextButton.Size = new System.Drawing.Size(35, 35);
             this.nextButton.Text = "Next";
             this.nextButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
@@ -229,29 +265,438 @@
             this.reloadButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.reloadButton.Click += new System.EventHandler(this.reloadButton_Click);
             // 
-            // statusTab
+            // submissionTab
             // 
-            this.statusTab.Location = new System.Drawing.Point(4, 4);
-            this.statusTab.Name = "statusTab";
-            this.statusTab.Size = new System.Drawing.Size(710, 302);
-            this.statusTab.TabIndex = 1;
-            this.statusTab.Text = "Status";
-            this.statusTab.UseVisualStyleBackColor = true;
+            this.submissionTab.Controls.Add(this.submissionStatus);
+            this.submissionTab.Controls.Add(this.panel7);
+            this.submissionTab.Controls.Add(this.tableLayoutPanel4);
+            this.submissionTab.Location = new System.Drawing.Point(4, 4);
+            this.submissionTab.Name = "submissionTab";
+            this.submissionTab.Size = new System.Drawing.Size(792, 356);
+            this.submissionTab.TabIndex = 1;
+            this.submissionTab.Text = "Submissions";
+            this.submissionTab.UseVisualStyleBackColor = true;
             // 
-            // ranksTab
+            // submissionStatus
             // 
-            this.ranksTab.Location = new System.Drawing.Point(4, 4);
-            this.ranksTab.Name = "ranksTab";
-            this.ranksTab.Size = new System.Drawing.Size(710, 302);
-            this.ranksTab.TabIndex = 2;
-            this.ranksTab.Text = "Ranks";
-            this.ranksTab.UseVisualStyleBackColor = true;
+            this.submissionStatus.AllColumns.Add(this.sidSUB);
+            this.submissionStatus.AllColumns.Add(this.unameSUB);
+            this.submissionStatus.AllColumns.Add(this.fullnameSUB);
+            this.submissionStatus.AllColumns.Add(this.lanSUB);
+            this.submissionStatus.AllColumns.Add(this.verSUB);
+            this.submissionStatus.AllColumns.Add(this.runSUB);
+            this.submissionStatus.AllColumns.Add(this.rankSUB);
+            this.submissionStatus.AllColumns.Add(this.subtimeSUB);
+            this.submissionStatus.AlternateRowBackColor = System.Drawing.Color.AliceBlue;
+            this.submissionStatus.BackColor = System.Drawing.Color.Azure;
+            this.submissionStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.submissionStatus.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.sidSUB,
+            this.unameSUB,
+            this.fullnameSUB,
+            this.lanSUB,
+            this.verSUB,
+            this.runSUB,
+            this.rankSUB,
+            this.subtimeSUB});
+            this.submissionStatus.CopySelectionOnControlC = false;
+            this.submissionStatus.Cursor = System.Windows.Forms.Cursors.Default;
+            this.submissionStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.submissionStatus.EmptyListMsg = "Refresh to view last submissions";
+            this.submissionStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.submissionStatus.ForeColor = System.Drawing.Color.Black;
+            this.submissionStatus.FullRowSelect = true;
+            this.submissionStatus.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.submissionStatus.Location = new System.Drawing.Point(0, 31);
+            this.submissionStatus.Name = "submissionStatus";
+            this.submissionStatus.ShowGroups = false;
+            this.submissionStatus.ShowItemToolTips = true;
+            this.submissionStatus.Size = new System.Drawing.Size(598, 325);
+            this.submissionStatus.Sorting = System.Windows.Forms.SortOrder.Descending;
+            this.submissionStatus.TabIndex = 2;
+            this.submissionStatus.UseCellFormatEvents = true;
+            this.submissionStatus.UseCompatibleStateImageBehavior = false;
+            this.submissionStatus.UseCustomSelectionColors = true;
+            this.submissionStatus.UseHyperlinks = true;
+            this.submissionStatus.UseTranslucentSelection = true;
+            this.submissionStatus.View = System.Windows.Forms.View.Details;
+            this.submissionStatus.VirtualMode = true;
+            this.submissionStatus.FormatCell += new System.EventHandler<BrightIdeasSoftware.FormatCellEventArgs>(this.submissionStatus_FormatCell);
+            this.submissionStatus.HyperlinkClicked += new System.EventHandler<BrightIdeasSoftware.HyperlinkClickedEventArgs>(this.submissionStatus_HyperlinkClicked);
+            // 
+            // sidSUB
+            // 
+            this.sidSUB.AspectName = "sid";
+            this.sidSUB.CellPadding = null;
+            this.sidSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.sidSUB.Text = "SID";
+            this.sidSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.sidSUB.Width = 75;
+            // 
+            // unameSUB
+            // 
+            this.unameSUB.AspectName = "uname";
+            this.unameSUB.CellPadding = null;
+            this.unameSUB.FillsFreeSpace = true;
+            this.unameSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.unameSUB.Hyperlink = true;
+            this.unameSUB.MinimumWidth = 80;
+            this.unameSUB.Text = "User";
+            this.unameSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.unameSUB.Width = 120;
+            // 
+            // fullnameSUB
+            // 
+            this.fullnameSUB.AspectName = "name";
+            this.fullnameSUB.CellPadding = null;
+            this.fullnameSUB.FillsFreeSpace = true;
+            this.fullnameSUB.MinimumWidth = 150;
+            this.fullnameSUB.Text = "Full Name";
+            this.fullnameSUB.Width = 160;
+            // 
+            // lanSUB
+            // 
+            this.lanSUB.AspectName = "lan";
+            this.lanSUB.CellPadding = null;
+            this.lanSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.lanSUB.Text = "Language";
+            this.lanSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.lanSUB.Width = 85;
+            // 
+            // verSUB
+            // 
+            this.verSUB.AspectName = "ver";
+            this.verSUB.CellPadding = null;
+            this.verSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.verSUB.Text = "Verdict";
+            this.verSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.verSUB.Width = 110;
+            // 
+            // runSUB
+            // 
+            this.runSUB.AspectName = "run";
+            this.runSUB.CellPadding = null;
+            this.runSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.runSUB.Text = "Runtime";
+            this.runSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.runSUB.Width = 80;
+            // 
+            // rankSUB
+            // 
+            this.rankSUB.AspectName = "rank";
+            this.rankSUB.CellPadding = null;
+            this.rankSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.rankSUB.Text = "Rank";
+            this.rankSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.rankSUB.Width = 80;
+            // 
+            // subtimeSUB
+            // 
+            this.subtimeSUB.AspectName = "sbt";
+            this.subtimeSUB.CellPadding = null;
+            this.subtimeSUB.FillsFreeSpace = true;
+            this.subtimeSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.subtimeSUB.MinimumWidth = 140;
+            this.subtimeSUB.Text = "Submission Time";
+            this.subtimeSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.subtimeSUB.Width = 140;
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.panel7.Controls.Add(this.subListLabel);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel7.Location = new System.Drawing.Point(0, 0);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(598, 31);
+            this.panel7.TabIndex = 6;
+            // 
+            // subListLabel
+            // 
+            this.subListLabel.BackColor = System.Drawing.Color.Transparent;
+            this.subListLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.subListLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.subListLabel.ForeColor = System.Drawing.Color.Navy;
+            this.subListLabel.Location = new System.Drawing.Point(0, 0);
+            this.subListLabel.Margin = new System.Windows.Forms.Padding(3, 1, 1, 1);
+            this.subListLabel.Name = "subListLabel";
+            this.subListLabel.Size = new System.Drawing.Size(598, 31);
+            this.subListLabel.TabIndex = 2;
+            this.subListLabel.Text = "Last submissions on this problem";
+            this.subListLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.BackColor = System.Drawing.Color.LightBlue;
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.showUserSubButton, 0, 10);
+            this.tableLayoutPanel4.Controls.Add(this.usernameList1, 0, 8);
+            this.tableLayoutPanel4.Controls.Add(this.panel6, 0, 7);
+            this.tableLayoutPanel4.Controls.Add(this.showUsersRankButton, 0, 9);
+            this.tableLayoutPanel4.Controls.Add(this.showSubmissionButton, 0, 3);
+            this.tableLayoutPanel4.Controls.Add(this.dateTimePicker1, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.panel2, 0, 4);
+            this.tableLayoutPanel4.Controls.Add(this.showRanksButton, 0, 6);
+            this.tableLayoutPanel4.Controls.Add(this.panel4, 0, 5);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(598, 0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 12;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(194, 356);
+            this.tableLayoutPanel4.TabIndex = 5;
+            // 
+            // showUserSubButton
+            // 
+            this.showUserSubButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.showUserSubButton.Location = new System.Drawing.Point(1, 319);
+            this.showUserSubButton.Margin = new System.Windows.Forms.Padding(1);
+            this.showUserSubButton.Name = "showUserSubButton";
+            this.showUserSubButton.Size = new System.Drawing.Size(192, 26);
+            this.showUserSubButton.TabIndex = 13;
+            this.showUserSubButton.Text = "Show User\'s Submissions";
+            this.showUserSubButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.showUserSubButton.UseVisualStyleBackColor = true;
+            this.showUserSubButton.Click += new System.EventHandler(this.showUserSubButton_Click);
+            // 
+            // usernameList1
+            // 
+            this.usernameList1.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.usernameList1.AllColumns.Add(this.unameCol);
+            this.usernameList1.AllColumns.Add(this.uidCol);
+            this.usernameList1.BackColor = System.Drawing.Color.Azure;
+            this.usernameList1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.usernameList1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.unameCol,
+            this.uidCol});
+            this.usernameList1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.usernameList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usernameList1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usernameList1.FullRowSelect = true;
+            this.usernameList1.Location = new System.Drawing.Point(3, 195);
+            this.usernameList1.Name = "usernameList1";
+            this.usernameList1.ShowGroups = false;
+            this.usernameList1.Size = new System.Drawing.Size(188, 92);
+            this.usernameList1.TabIndex = 12;
+            this.usernameList1.UseCellFormatEvents = true;
+            this.usernameList1.UseCompatibleStateImageBehavior = false;
+            this.usernameList1.UseCustomSelectionColors = true;
+            this.usernameList1.UseHotItem = true;
+            this.usernameList1.UseTranslucentHotItem = true;
+            this.usernameList1.UseTranslucentSelection = true;
+            this.usernameList1.View = System.Windows.Forms.View.Details;
+            this.usernameList1.VirtualMode = true;
+            this.usernameList1.SelectedIndexChanged += new System.EventHandler(this.usernameList1_SelectedIndexChanged);
+            // 
+            // unameCol
+            // 
+            this.unameCol.AspectName = "Key";
+            this.unameCol.CellPadding = null;
+            this.unameCol.FillsFreeSpace = true;
+            this.unameCol.MinimumWidth = 100;
+            this.unameCol.Text = "Username";
+            this.unameCol.Width = 100;
+            // 
+            // uidCol
+            // 
+            this.uidCol.AspectName = "Value";
+            this.uidCol.CellPadding = null;
+            this.uidCol.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.uidCol.Text = "User ID";
+            this.uidCol.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.uidCol.Width = 80;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.label4);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(1, 168);
+            this.panel6.Margin = new System.Windows.Forms.Padding(1);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(192, 23);
+            this.panel6.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(0, 0);
+            this.label4.Margin = new System.Windows.Forms.Padding(3, 1, 1, 1);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(190, 21);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "User\'s Rank";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // showUsersRankButton
+            // 
+            this.showUsersRankButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.showUsersRankButton.Location = new System.Drawing.Point(1, 291);
+            this.showUsersRankButton.Margin = new System.Windows.Forms.Padding(1);
+            this.showUsersRankButton.Name = "showUsersRankButton";
+            this.showUsersRankButton.Size = new System.Drawing.Size(192, 26);
+            this.showUsersRankButton.TabIndex = 11;
+            this.showUsersRankButton.Text = "Show User\'s Rank";
+            this.showUsersRankButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.showUsersRankButton.UseVisualStyleBackColor = true;
+            this.showUsersRankButton.Click += new System.EventHandler(this.showUsersRankButton_Click);
+            // 
+            // showSubmissionButton
+            // 
+            this.showSubmissionButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.showSubmissionButton.Location = new System.Drawing.Point(69, 61);
+            this.showSubmissionButton.Margin = new System.Windows.Forms.Padding(1);
+            this.showSubmissionButton.Name = "showSubmissionButton";
+            this.showSubmissionButton.Size = new System.Drawing.Size(124, 26);
+            this.showSubmissionButton.TabIndex = 4;
+            this.showSubmissionButton.Text = "Show Submissions";
+            this.showSubmissionButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.showSubmissionButton.UseVisualStyleBackColor = true;
+            this.showSubmissionButton.Click += new System.EventHandler(this.submissionReloadButton_Click);
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(3, 36);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(188, 23);
+            this.dateTimePicker1.TabIndex = 1;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.MediumTurquoise;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(1, 11);
+            this.panel1.Margin = new System.Windows.Forms.Padding(1);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(192, 23);
+            this.panel1.TabIndex = 5;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(0, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(190, 21);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Submissions From";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(1, 89);
+            this.panel2.Margin = new System.Windows.Forms.Padding(1);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(192, 23);
+            this.panel2.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(190, 21);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Ranks";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // showRanksButton
+            // 
+            this.showRanksButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.showRanksButton.Location = new System.Drawing.Point(69, 140);
+            this.showRanksButton.Margin = new System.Windows.Forms.Padding(1);
+            this.showRanksButton.Name = "showRanksButton";
+            this.showRanksButton.Size = new System.Drawing.Size(124, 26);
+            this.showRanksButton.TabIndex = 7;
+            this.showRanksButton.Text = "Show Ranks";
+            this.showRanksButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.showRanksButton.UseVisualStyleBackColor = true;
+            this.showRanksButton.Click += new System.EventHandler(this.showRanksButton_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.label3);
+            this.panel4.Controls.Add(this.numericUpDown1);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 113);
+            this.panel4.Margin = new System.Windows.Forms.Padding(0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(194, 26);
+            this.panel4.TabIndex = 9;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 5);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 15);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Count :";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown1.BackColor = System.Drawing.Color.LightCyan;
+            this.numericUpDown1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.numericUpDown1.Font = new System.Drawing.Font("Consolas", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDown1.ForeColor = System.Drawing.Color.Black;
+            this.numericUpDown1.Location = new System.Drawing.Point(53, 3);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(137, 21);
+            this.numericUpDown1.TabIndex = 10;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // compareTab
             // 
             this.compareTab.Location = new System.Drawing.Point(4, 4);
             this.compareTab.Name = "compareTab";
-            this.compareTab.Size = new System.Drawing.Size(710, 302);
+            this.compareTab.Size = new System.Drawing.Size(792, 356);
             this.compareTab.TabIndex = 3;
             this.compareTab.Text = "Compare";
             this.compareTab.UseVisualStyleBackColor = true;
@@ -262,7 +707,7 @@
             this.discussTab.Controls.Add(this.tableLayoutPanel2);
             this.discussTab.Location = new System.Drawing.Point(4, 4);
             this.discussTab.Name = "discussTab";
-            this.discussTab.Size = new System.Drawing.Size(710, 302);
+            this.discussTab.Size = new System.Drawing.Size(792, 356);
             this.discussTab.TabIndex = 4;
             this.discussTab.Text = "Discuss";
             this.discussTab.UseVisualStyleBackColor = true;
@@ -274,7 +719,7 @@
             this.discussWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.discussWebBrowser.Name = "discussWebBrowser";
             this.discussWebBrowser.ScriptErrorsSuppressed = true;
-            this.discussWebBrowser.Size = new System.Drawing.Size(710, 274);
+            this.discussWebBrowser.Size = new System.Drawing.Size(792, 328);
             this.discussWebBrowser.TabIndex = 2;
             this.discussWebBrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser2_Navigated);
             this.discussWebBrowser.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.webBrowser2_ProgressChanged);
@@ -287,8 +732,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel2.Controls.Add(this.goDiscussButton, 4, 0);
             this.tableLayoutPanel2.Controls.Add(this.discussUrlBox, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.prevDiscussButton, 0, 0);
@@ -299,16 +743,16 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(710, 28);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(792, 28);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // goDiscussButton
             // 
             this.goDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.goDiscussButton.Location = new System.Drawing.Point(623, 2);
+            this.goDiscussButton.Location = new System.Drawing.Point(695, 2);
             this.goDiscussButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.goDiscussButton.Name = "goDiscussButton";
-            this.goDiscussButton.Size = new System.Drawing.Size(84, 24);
+            this.goDiscussButton.Size = new System.Drawing.Size(94, 24);
             this.goDiscussButton.TabIndex = 1;
             this.goDiscussButton.Text = "GO";
             this.goDiscussButton.UseVisualStyleBackColor = true;
@@ -322,7 +766,7 @@
             this.discussUrlBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.discussUrlBox.Location = new System.Drawing.Point(123, 4);
             this.discussUrlBox.Name = "discussUrlBox";
-            this.discussUrlBox.Size = new System.Drawing.Size(494, 20);
+            this.discussUrlBox.Size = new System.Drawing.Size(566, 20);
             this.discussUrlBox.TabIndex = 3;
             // 
             // prevDiscussButton
@@ -367,7 +811,7 @@
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 123F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 139F));
             this.tableLayoutPanel1.Controls.Add(this.catagoryButton, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.catagoryInfo, 0, 1);
@@ -378,7 +822,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(718, 60);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 60);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // catagoryButton
@@ -390,10 +834,10 @@
             this.catagoryButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
             this.catagoryButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.catagoryButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.catagoryButton.Location = new System.Drawing.Point(595, 33);
+            this.catagoryButton.Location = new System.Drawing.Point(661, 33);
             this.catagoryButton.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.catagoryButton.Name = "catagoryButton";
-            this.catagoryButton.Size = new System.Drawing.Size(121, 26);
+            this.catagoryButton.Size = new System.Drawing.Size(137, 26);
             this.catagoryButton.TabIndex = 2;
             this.catagoryButton.Text = "Change";
             this.catagoryButton.UseVisualStyleBackColor = false;
@@ -406,24 +850,39 @@
             this.titleBox1.BackColor = System.Drawing.Color.LightBlue;
             this.titleBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.titleBox1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleBox1.ForeColor = System.Drawing.Color.Navy;
+            this.titleBox1.ForeColor = System.Drawing.Color.Indigo;
             this.titleBox1.Location = new System.Drawing.Point(6, 4);
             this.titleBox1.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.titleBox1.Name = "titleBox1";
             this.titleBox1.ReadOnly = true;
-            this.titleBox1.Size = new System.Drawing.Size(584, 25);
+            this.titleBox1.Size = new System.Drawing.Size(650, 25);
             this.titleBox1.TabIndex = 0;
             this.titleBox1.TabStop = false;
             this.titleBox1.Text = "No problem selected";
+            // 
+            // catagoryInfo
+            // 
+            this.catagoryInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.catagoryInfo.BackColor = System.Drawing.Color.LightBlue;
+            this.catagoryInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.catagoryInfo.CueText = "Set tags to identify the type of the problem...";
+            this.catagoryInfo.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.catagoryInfo.ForeColor = System.Drawing.Color.Maroon;
+            this.catagoryInfo.Location = new System.Drawing.Point(4, 38);
+            this.catagoryInfo.Name = "catagoryInfo";
+            this.catagoryInfo.Size = new System.Drawing.Size(652, 16);
+            this.catagoryInfo.TabIndex = 1;
+            this.catagoryInfo.TabStop = false;
+            this.catagoryInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.catagoryInfo_KeyDown);
             // 
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Image = global::UVA_Arena.Properties.Resources.expand;
-            this.button1.Location = new System.Drawing.Point(595, 2);
+            this.button1.Location = new System.Drawing.Point(661, 2);
             this.button1.Margin = new System.Windows.Forms.Padding(1);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 29);
+            this.button1.Size = new System.Drawing.Size(137, 29);
             this.button1.TabIndex = 3;
             this.button1.Text = "Expand";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -441,21 +900,6 @@
             this.nextContext.Name = "nextContext";
             this.nextContext.Size = new System.Drawing.Size(61, 4);
             // 
-            // catagoryInfo
-            // 
-            this.catagoryInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.catagoryInfo.BackColor = System.Drawing.Color.LightBlue;
-            this.catagoryInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.catagoryInfo.CueText = "Set tags to identify the type of the problem...";
-            this.catagoryInfo.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.catagoryInfo.ForeColor = System.Drawing.Color.Maroon;
-            this.catagoryInfo.Location = new System.Drawing.Point(4, 38);
-            this.catagoryInfo.Name = "catagoryInfo";
-            this.catagoryInfo.Size = new System.Drawing.Size(586, 16);
-            this.catagoryInfo.TabIndex = 1;
-            this.catagoryInfo.TabStop = false;
-            this.catagoryInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.catagoryInfo_KeyDown);
-            // 
             // ProblemViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -466,12 +910,23 @@
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "ProblemViewer";
-            this.Size = new System.Drawing.Size(718, 396);
+            this.Size = new System.Drawing.Size(800, 450);
             this.tabControl1.ResumeLayout(false);
             this.descriptionTab.ResumeLayout(false);
             this.descriptionTab.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.submissionTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).EndInit();
+            this.panel7.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.usernameList1)).EndInit();
+            this.panel6.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.discussTab.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -485,8 +940,7 @@
         #endregion
 
         private System.Windows.Forms.TabPage descriptionTab;
-        private System.Windows.Forms.TabPage statusTab;
-        private System.Windows.Forms.TabPage ranksTab;
+        private System.Windows.Forms.TabPage submissionTab;
         private System.Windows.Forms.TabPage compareTab;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ContextMenuStrip prevContext;
@@ -517,5 +971,34 @@
         private System.Windows.Forms.Button prevDiscussButton;
         private System.Windows.Forms.Button homeDiscussButton;
         private System.Windows.Forms.Button button1;
+        public BrightIdeasSoftware.FastObjectListView submissionStatus;
+        private BrightIdeasSoftware.OLVColumn sidSUB;
+        private BrightIdeasSoftware.OLVColumn unameSUB;
+        private BrightIdeasSoftware.OLVColumn fullnameSUB;
+        private BrightIdeasSoftware.OLVColumn lanSUB;
+        private BrightIdeasSoftware.OLVColumn verSUB;
+        private BrightIdeasSoftware.OLVColumn runSUB;
+        private BrightIdeasSoftware.OLVColumn rankSUB;
+        private BrightIdeasSoftware.OLVColumn subtimeSUB;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Button showSubmissionButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button showRanksButton;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Button showUsersRankButton;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label label4;
+        public BrightIdeasSoftware.FastObjectListView usernameList1;
+        private BrightIdeasSoftware.OLVColumn unameCol;
+        private BrightIdeasSoftware.OLVColumn uidCol;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label subListLabel;
+        private System.Windows.Forms.Button showUserSubButton;
     }
 }

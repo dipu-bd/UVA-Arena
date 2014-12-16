@@ -19,6 +19,8 @@ namespace UVA_Arena.Elements
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            Stylish.SetGradientBackground(basicInfoTab,
+                new Stylish.GradientStyle(Color.LightCyan, Color.LightBlue, 90));
         }
 
         UserInfo currentUser = null;
@@ -48,7 +50,6 @@ namespace UVA_Arena.Elements
             BuildRankCloud();
         }
 
-        #region Chart Builder
 
         private int _solvedCount, _unsolvedCount, _totalSubmission;
         private int _subInAnsiC, _subInCPP, _subInCPP11, _subInJava, _subInPascal;
@@ -70,7 +71,7 @@ namespace UVA_Arena.Elements
             _acOverTime.Clear();
             _subOverTime.Clear();
             _RankCount.Clear();
-            currentUser.ACList.Clear();
+            List<long> aclist = new List<long>();
             List<long> unsolved = new List<long>();
 
             _solvedCount = _unsolvedCount = _totalSubmission = 0;
@@ -85,17 +86,18 @@ namespace UVA_Arena.Elements
                 //add rank count
                 if (usub.IsAccepted())
                 {
-                    _RankCount.Add(usub.rank, usub.pnum);
+                    _RankCount.Add(usub.rank, usub.pid);
                 }
 
-                //solved unsolved count
-                bool isInAClist = currentUser.ACList.Contains(usub.pnum);
-                if (usub.IsAccepted() && !isInAClist)
+                //solved count
+                if (usub.IsAccepted() && !aclist.Contains(usub.pnum))
                 {
                     _solvedCount++;
-                    currentUser.ACList.Add(usub.pnum);
+                    aclist.Add(usub.pnum);
                 }
-                if (!isInAClist && !unsolved.Contains(usub.pnum))
+
+                //unsolved count
+                if (!currentUser.ACList.Contains(usub.pnum) && !unsolved.Contains(usub.pnum))
                 {
                     _unsolvedCount++;
                     unsolved.Add(usub.pnum);
@@ -134,20 +136,20 @@ namespace UVA_Arena.Elements
             //finalize
             _subOverTime.Add(new ZedGraph.XDate(DateTime.Now), _totalSubmission);
             _acOverTime.Add(new ZedGraph.XDate(DateTime.Now), _solvedCount);
-        } 
+        }
 
         private void BuildSubPerLangGraph()
         {
             ZedGraph.ZedGraphControl zg1 = new ZedGraph.ZedGraphControl();
             zg1.Dock = DockStyle.Fill;
-            zg1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            zg1.IsShowPointValues = true;
 
             ZedGraph.GraphPane pane = zg1.GraphPane;
 
             pane.Fill = new ZedGraph.Fill(Color.Azure, Color.FromArgb(245, 220, 250), 90);
             pane.Chart.Fill = new ZedGraph.Fill(Color.Snow, Color.FromArgb(225, 240, 250), -90);
 
-            pane.Title.Text = "Submissions per Languages";
+            pane.Title.Text = "Submission per Language";
             pane.Title.FontSpec.Size = 18;
             pane.Title.FontSpec.FontColor = Color.Navy;
             pane.Title.FontSpec.Family = "Segoe UI Semibold";
@@ -183,15 +185,14 @@ namespace UVA_Arena.Elements
         {
             ZedGraph.ZedGraphControl zg1 = new ZedGraph.ZedGraphControl();
             zg1.Dock = DockStyle.Fill;
-            zg1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            zg1.Cursor = Cursors.Arrow;
+            zg1.IsShowPointValues = true;
 
             ZedGraph.GraphPane pane = zg1.GraphPane;
 
             pane.Fill = new ZedGraph.Fill(Color.MintCream, Color.FromArgb(245, 250, 210), -90);
             pane.Chart.Fill = new ZedGraph.Fill(Color.Snow, Color.FromArgb(245, 250, 230), 90);
 
-            pane.Title.Text = "Submissions per Languages";
+            pane.Title.Text = "Submission and Accepted over Time";
             pane.Title.FontSpec.Size = 18;
             pane.Title.FontSpec.FontColor = Color.Navy;
             pane.Title.FontSpec.Family = "Segoe UI Semibold";
@@ -200,11 +201,13 @@ namespace UVA_Arena.Elements
             pane.Legend.FontSpec.Size = 12;
             pane.Legend.Position = ZedGraph.LegendPos.TopCenter;
 
-            pane.XAxis.Title.Text = "Submission Time";
+            pane.XAxis.Title.Text = "Date-Time";
             pane.XAxis.Title.FontSpec.Family = "Courier New";
             pane.XAxis.Title.FontSpec.FontColor = Color.Maroon;
             pane.XAxis.Title.FontSpec.IsBold = false;
             pane.XAxis.Type = ZedGraph.AxisType.Date;
+            pane.XAxis.Scale.MinorUnit = ZedGraph.DateUnit.Hour;
+            pane.XAxis.Scale.MajorUnit = ZedGraph.DateUnit.Year;
 
             pane.YAxis.Title.Text = "Submissions";
             pane.YAxis.Title.FontSpec.Family = "Courier New";
@@ -224,19 +227,18 @@ namespace UVA_Arena.Elements
 
         private void BuildSubPerVerGraph()
         {
-
             ZedGraph.ZedGraphControl zg1 = new ZedGraph.ZedGraphControl();
             zg1.Dock = DockStyle.Fill;
-            zg1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            zg1.IsShowPointValues = true;
 
             ZedGraph.GraphPane pane = zg1.GraphPane;
 
             pane.Fill = new ZedGraph.Fill(Color.Azure, Color.FromArgb(230, 220, 250), 90);
             pane.Chart.Fill = new ZedGraph.Fill(Color.FromArgb(225, 220, 245), Color.LightCyan, -90);
 
-            pane.Title.Text = "Submissions per Verdict";
+            pane.Title.Text = "Submission per Verdict";
             pane.Title.FontSpec.Size = 18;
-            pane.Title.FontSpec.FontColor = Color.Navy;
+            pane.Title.FontSpec.FontColor = Color.Maroon;
             pane.Title.FontSpec.Family = "Segoe UI Semibold";
             pane.Title.FontSpec.IsBold = false;
 
@@ -247,16 +249,17 @@ namespace UVA_Arena.Elements
             pane.XAxis.Title.FontSpec.FontColor = Color.Maroon;
             pane.XAxis.Title.FontSpec.IsBold = false;
             pane.XAxis.Scale.TextLabels = new string[] { "AC", "WA", "TLE", "RE", "PE", "CE", "OLE", "SUBE", "MLE" };
-            pane.YAxis.Scale.IsVisible = true;
+            pane.XAxis.Type = ZedGraph.AxisType.Text;
 
             pane.YAxis.Title.Text = "Submissions";
             pane.YAxis.Title.FontSpec.Family = "Courier New";
             pane.YAxis.Title.FontSpec.FontColor = Color.Navy;
-            pane.YAxis.Title.FontSpec.IsBold = false;            
+            pane.YAxis.Title.FontSpec.IsBold = false;
 
-            // Generate a bar chart       
+            // Generate a bar chart                   
             double[] yval = new double[] { _acCount, _waCount, _tleCount, _reCount, _peCount, _ceCount, _oleCount, _subeCount, _mleCount };
-            pane.AddBar("Verdicts", null, yval, Color.DarkTurquoise);
+            ZedGraph.BarItem bar = pane.AddBar("Verdicts", null, yval, Color.DarkTurquoise);
+            bar.Label.IsVisible = true;
 
             pane.AxisChange();
 
@@ -269,7 +272,7 @@ namespace UVA_Arena.Elements
         {
             ZedGraph.ZedGraphControl zg1 = new ZedGraph.ZedGraphControl();
             zg1.Dock = DockStyle.Fill;
-            zg1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            zg1.IsShowPointValues = true;
 
             ZedGraph.GraphPane pane = zg1.GraphPane;
 
@@ -284,16 +287,16 @@ namespace UVA_Arena.Elements
 
             pane.Legend.IsVisible = false;
 
-            pane.XAxis.Title.Text = "Rank";
+            pane.XAxis.Title.Text = "Ranks";
             pane.XAxis.Title.FontSpec.Family = "Courier New";
             pane.XAxis.Title.FontSpec.FontColor = Color.Maroon;
             pane.XAxis.Title.FontSpec.IsBold = false;
 
-            pane.YAxis.Title.Text = "Submissions";
+            pane.YAxis.Title.Text = "Problems";
             pane.YAxis.Title.FontSpec.Family = "Courier New";
             pane.YAxis.Title.FontSpec.FontColor = Color.Navy;
             pane.YAxis.Title.FontSpec.IsBold = false;
-            pane.YAxis.Type = ZedGraph.AxisType.LinearAsOrdinal;
+            pane.YAxis.Type = ZedGraph.AxisType.Linear;
 
             ZedGraph.LineItem curve = pane.AddCurve("Ranks", _RankCount, Color.Black, ZedGraph.SymbolType.Circle);
             curve.Symbol.Fill = new ZedGraph.Fill(Color.LightCyan, Color.DarkTurquoise);
@@ -308,7 +311,6 @@ namespace UVA_Arena.Elements
             System.GC.Collect();
         }
 
-        #endregion
 
         private void prevTabButton_Click(object sender, EventArgs e)
         {

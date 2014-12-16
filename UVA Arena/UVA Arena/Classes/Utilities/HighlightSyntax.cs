@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace UVA_Arena
 {
-    public class HighlightSyntax
+    internal static class HighlightSyntax
     {
         //line styles        
         public static Style GreenLineStyle = new MarkerStyle(new SolidBrush(Color.FromArgb(80, Color.Lime)));

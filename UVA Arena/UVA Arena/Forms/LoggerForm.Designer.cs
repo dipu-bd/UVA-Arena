@@ -93,13 +93,13 @@
             this.activityList.ShowGroups = false;
             this.activityList.ShowItemCountOnGroups = true;
             this.activityList.ShowItemToolTips = true;
-            this.activityList.Size = new System.Drawing.Size(756, 345); 
+            this.activityList.Size = new System.Drawing.Size(756, 345);
             this.activityList.TabIndex = 0;
             this.activityList.UseAlternatingBackColors = true;
             this.activityList.UseCellFormatEvents = true;
             this.activityList.UseCompatibleStateImageBehavior = false;
             this.activityList.UseCustomSelectionColors = true;
-            this.activityList.UseHotItem = false;
+            this.activityList.UseHotItem = true;
             this.activityList.UseTranslucentHotItem = true;
             this.activityList.UseTranslucentSelection = true;
             this.activityList.View = System.Windows.Forms.View.Details;
@@ -316,7 +316,7 @@
             // 
             // totalINT
             // 
-            this.totalINT.AspectName = "DataSize";
+            this.totalINT.AspectName = "Total";
             this.totalINT.CellPadding = null;
             this.totalINT.Text = "Total";
             this.totalINT.Width = 70;

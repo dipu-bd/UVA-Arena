@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace UVA_Arena
 {
-    public class Interactivity
+    internal static class Interactivity
     {
         public static MainForm mainForm;
         public static SettingsForm settingsForm;
@@ -68,7 +68,7 @@ namespace UVA_Arena
             {
                 mainForm.BeginInvoke(new MethodInvoker(mainForm.SetFormProperties));
                 settingsForm.BeginInvoke(new MethodInvoker(settingsForm.SetCurrentUsername));
-                DefaultDatabase.LoadDefaultUser();
+                LocalDatabase.LoadDefaultUser();
             }
             catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity"); }
         }
@@ -77,14 +77,14 @@ namespace UVA_Arena
         {
             try
             {
-                if (!DefaultDatabase.ContainsUsers(user)) return;
+                if (!LocalDatabase.ContainsUsers(user)) return;
 
                 userstat.BeginInvoke((MethodInvoker)delegate
                 {
                     userstat.LoadUsernames();
                     userstat.usernameList.SelectedObject =
-                        new KeyValuePair<string, string>(user, DefaultDatabase.usernames[user]);
-                    userstat.ShowUserSubs(user);
+                        new KeyValuePair<string, string>(user, LocalDatabase.usernames[user]);
+                    userstat.ShowUserSub(user);
                 });
 
                 mainForm.BeginInvoke((MethodInvoker)delegate
@@ -100,8 +100,8 @@ namespace UVA_Arena
         {
             try
             {
-                if (!DefaultDatabase.HasProblem(pnum)) return;
-                ProblemInfo pinfo = DefaultDatabase.GetProblem(pnum);
+                if (!LocalDatabase.HasProblem(pnum)) return;
+                ProblemInfo pinfo = LocalDatabase.GetProblem(pnum);
 
                 problems.BeginInvoke((MethodInvoker)delegate
                 {
@@ -123,7 +123,7 @@ namespace UVA_Arena
         {
             try
             {
-                if (!DefaultDatabase.HasProblem(pnum)) return;
+                if (!LocalDatabase.HasProblem(pnum)) return;
 
                 codes.BeginInvoke((MethodInvoker)delegate
                 {
@@ -141,7 +141,7 @@ namespace UVA_Arena
 
         public static void ProblemDatabaseUpdated()
         {
-            if (!DefaultDatabase.IsReady) return;
+            if (!LocalDatabase.IsReady) return;
             if (problems == null || problems.IsDisposed) return;
 
             try

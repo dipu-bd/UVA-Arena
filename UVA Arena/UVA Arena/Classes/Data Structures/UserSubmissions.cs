@@ -28,6 +28,8 @@ namespace UVA_Arena.Structures
         //Submission Rank
         public long rank { get; set; }
 
+        public string uname { get; set; }
+        public string name { get; set; }
         public long pnum { get; set; }
         public string ptitle { get; set; }
         public List<long> data { get; set; }
@@ -48,8 +50,8 @@ namespace UVA_Arena.Structures
                 pcol[i].SetValue(this, data[i], null);
             }
 
-            pnum = DefaultDatabase.GetNumber(pid);
-            ptitle = DefaultDatabase.GetTitle(pnum);
+            pnum = LocalDatabase.GetNumber(pid);
+            ptitle = LocalDatabase.GetTitle(pnum);
         }
 
     }
@@ -57,6 +59,12 @@ namespace UVA_Arena.Structures
     public class UserInfo
     {
         public UserInfo() { LastSID = 0; }
+        public UserInfo(string user)
+        {
+            name = user;
+            uname = user;
+            subs = new List<List<long>>();
+        }
 
         public string name { get; set; }
         public string uname { get; set; }
@@ -86,14 +94,14 @@ namespace UVA_Arena.Structures
         public void Process()
         {
             LastSID = 0;
-            uid = DefaultDatabase.GetUserid(uname);
+            uid = LocalDatabase.GetUserid(uname);
 
             ACList = new List<long>();
             submissions = new List<UserSubmission>();
             sidToSub = new Dictionary<long, UserSubmission>();
 
             ProcessListData(subs);
-        }        
+        }
 
         public void AddSubmissions(string json)
         {
@@ -103,7 +111,7 @@ namespace UVA_Arena.Structures
 
             name = ui.name;
             uname = ui.uname;
-            ProcessListData(ui.subs, true);            
+            ProcessListData(ui.subs, true);
         }
 
         private void ProcessListData(List<List<long>> allsub, bool addToDef = false)
@@ -115,6 +123,9 @@ namespace UVA_Arena.Structures
             {
                 UserSubmission usub = new UserSubmission(lst);
                 if (sidToSub.ContainsKey(usub.sid)) continue;
+
+                usub.name = name;
+                usub.uname = uname;
 
                 submissions.Add(usub);
                 sidToSub.Add(usub.sid, usub);
@@ -128,7 +139,7 @@ namespace UVA_Arena.Structures
                     ACList.Add(usub.pnum);
                     if (isdef)
                     {
-                        ProblemInfo prob = DefaultDatabase.GetProblem(usub.pnum);
+                        ProblemInfo prob = LocalDatabase.GetProblem(usub.pnum);
                         if (prob != null) prob.solved = true;
                     }
                 }

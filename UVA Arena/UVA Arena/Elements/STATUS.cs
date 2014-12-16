@@ -56,7 +56,7 @@ namespace UVA_Arena.Elements
             }
             set
             {
-                RegistryAccess.SetValue("Auto Update Status", (value ? 0 : 1),
+                RegistryAccess.SetValue("Auto Update Status", (value ? 1 : 0),
                     null, Microsoft.Win32.RegistryValueKind.DWord);
                 timer1.Enabled = value;
             }
@@ -270,14 +270,14 @@ namespace UVA_Arena.Elements
             {
                 for (int i = 0; i < e.Item.SubItems.Count; ++i)
                 {
-                    e.Item.SubItems[i].BackColor = Color.LightBlue;
+                    e.Item.SubItems[i].BackColor = Color.Turquoise;
                 }
             }
-            else if (DefaultDatabase.ContainsUsers(js.name))
+            else if (LocalDatabase.ContainsUsers(js.uname))
             {
                 for (int i = 0; i < e.Item.SubItems.Count; ++i)
                 {
-                    e.Item.SubItems[i].BackColor = Color.MediumTurquoise;
+                    e.Item.SubItems[i].BackColor = Color.LightBlue;
                 }
             }
 
@@ -305,7 +305,7 @@ namespace UVA_Arena.Elements
             else if (e.Column == ptitleSUB)
             {
                 font = "Segoe UI Semibold";
-                if (DefaultDatabase.IsProbSolved(js.pnum))
+                if (LocalDatabase.IsProbSolved(js.pnum))
                     fore = Color.Blue;
                 else
                     fore = Color.Black;
@@ -332,7 +332,7 @@ namespace UVA_Arena.Elements
             else if (e.Column == verSUB)
             {
                 font = "Segoe UI";
-                fore = Functions.GetVerdictColor(((JudgeStatus)e.Model).ver);
+                fore = Functions.GetVerdictColor(js.ver);
                 style = FontStyle.Bold;
             }
             else if (e.Column == lanSUB)
@@ -355,7 +355,7 @@ namespace UVA_Arena.Elements
             }
             else if (e.Column == unameSUB)
             {
-                if (DefaultDatabase.ContainsUsers(list.uname))
+                if (LocalDatabase.ContainsUsers(list.uname))
                 {
                     Interactivity.ShowUserStat(list.uname);
                 }

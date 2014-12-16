@@ -1,5 +1,4 @@
-﻿
-namespace UVA_Arena.Structures
+﻿namespace UVA_Arena.Structures
 {
     public enum Language
     {
@@ -14,7 +13,7 @@ namespace UVA_Arena.Structures
     public enum Verdict
     {
         SubError = 10,
-        CBJ = 15,
+        CantBeJudge = 15,
         InQueue = 20,
         CompileError = 30,
         RestrictedFunction = 35,
@@ -27,27 +26,24 @@ namespace UVA_Arena.Structures
         Accepted = 90
     }
 
-    namespace StatusList
+    public class SubmissionMessage
     {
-        public class SubmissionMessage
-        {
-            public long sid { get; set; }
-            public long uid { get; set; }
-            public long pid { get; set; }
-            public long ver { get; set; }
-            public long lan { get; set; }
-            public long run { get; set; }
-            public long mem { get; set; }
-            public long rank { get; set; }
-            public long sbt { get; set; }
-            public string name { get; set; }
-            public string uname { get; set; }
+        public long sid { get; set; }
+        public long uid { get; set; }
+        public long pid { get; set; }
+        public long ver { get; set; }
+        public long lan { get; set; }
+        public long run { get; set; }
+        public long mem { get; set; }
+        public long rank { get; set; }
+        public long sbt { get; set; }
+        public string name { get; set; }
+        public string uname { get; set; }
 
-            public long pnum = -1;
-            public string ptitle = null;
+        public long pnum { get { return LocalDatabase.GetNumber(pid); } }
+        public string ptitle { get { return LocalDatabase.GetTitle(pnum); } }
 
-            public SubmissionMessage() { }
-        }
+        public SubmissionMessage() { }
     }
 
     public class JudgeStatus
@@ -56,7 +52,7 @@ namespace UVA_Arena.Structures
 
         public long id { get; set; }
         public string type { get; set; }
-        public StatusList.SubmissionMessage msg { get; set; }
+        public SubmissionMessage msg { get; set; }
 
         public long sid { get { return msg.sid; } set { msg.sid = value; } }
         public long uid { get { return msg.uid; } set { msg.uid = value; } }
@@ -67,6 +63,8 @@ namespace UVA_Arena.Structures
         public long sbt { get { return msg.sbt; } set { msg.sbt = value; } }
         public string name { get { return msg.name; } set { msg.name = value; } }
         public string uname { get { return msg.uname; } set { msg.uname = value; } }
+        public long pnum { get { return msg.pnum; } }
+        public string ptitle { get { return msg.ptitle; } }
         public Verdict ver
         {
             get { return (Verdict)msg.ver; }
@@ -76,22 +74,6 @@ namespace UVA_Arena.Structures
         {
             get { return (Language)msg.lan; }
             set { msg.lan = (int)value; }
-        }
-        public long pnum
-        {
-            get
-            {
-                if (msg.pnum == -1) msg.pnum = DefaultDatabase.GetNumber(msg.pid);
-                return msg.pnum;
-            }
-        }
-        public string ptitle
-        {
-            get
-            {
-                if (msg.ptitle == null) msg.ptitle = DefaultDatabase.GetTitle(pnum);
-                return msg.ptitle;
-            }
         }
     }
 }

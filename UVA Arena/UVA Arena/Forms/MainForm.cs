@@ -38,7 +38,7 @@ namespace UVA_Arena
         {
             this.Text = string.Format(this.Tag.ToString(),
                     RegistryAccess.DefaultUsername,
-                    DefaultDatabase.GetUserid(RegistryAccess.DefaultUsername));
+                    LocalDatabase.GetUserid(RegistryAccess.DefaultUsername));
         }
 
         private void DelayInitialize(object background)
@@ -51,7 +51,7 @@ namespace UVA_Arena
             }
 
             //first load problem database
-            DefaultDatabase.RunLoadAsync(false);
+            LocalDatabase.RunLoadAsync(false);
 
             //load problems 
             this.BeginInvoke((MethodInvoker)delegate
@@ -114,10 +114,10 @@ namespace UVA_Arena
 
             //fetch prblem database from internet if not available
             System.Threading.Thread.Sleep(3000);
-            if (!System.IO.File.Exists(LocalDirectory.ProblemDataFile))
+            if (!System.IO.File.Exists(LocalDirectory.GetProblemDataFile()))
             {
                 Internet.DownloadTaskHandler complete =
-                    delegate(Internet.DownloadTask task) { DefaultDatabase.LoadDatabase(); };
+                    delegate(Internet.DownloadTask task) { LocalDatabase.LoadDatabase(); };
                 Internet.Downloader.DownloadProblemDatabase(complete, null);
             }
 

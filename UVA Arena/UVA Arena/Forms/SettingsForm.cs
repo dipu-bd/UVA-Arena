@@ -80,7 +80,7 @@ namespace UVA_Arena
             //general settings
             current_username.Text = string.Format("Current: {0} ({1})",
                 RegistryAccess.DefaultUsername,
-                DefaultDatabase.GetUserid(RegistryAccess.DefaultUsername));
+                LocalDatabase.GetUserid(RegistryAccess.DefaultUsername));
         }
 
         private void username_button1_Click(object sender, EventArgs e)
@@ -272,7 +272,7 @@ namespace UVA_Arena
         private void saveCodeButton_Click(object sender, EventArgs e)
         {
             string text = codeTextBox.Text;
-            text = UVA_Arena.Elements.StringCompressor.CompressString(text);
+            text = UVA_Arena.StringCompressor.CompressString(text);
 
             if (ansiCradioButton.Checked)
                 Elements.CODES.CPrecode = text;
@@ -296,7 +296,7 @@ namespace UVA_Arena
             else if (PascalRadioButton.Checked)
                 text = Elements.CODES.PascalPrecode;
 
-            text = text = UVA_Arena.Elements.StringCompressor.DecompressString(text);
+            text = text = UVA_Arena.StringCompressor.DecompressString(text);
             codeTextBox.Text = text;
         }
 

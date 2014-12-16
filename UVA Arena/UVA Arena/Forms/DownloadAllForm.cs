@@ -216,7 +216,7 @@ namespace UVA_Arena
             remaining.Clear();
 
             long last = LastDownloadedProblem;
-            foreach (ProblemInfo pi in DefaultDatabase.problem_list)
+            foreach (ProblemInfo pi in LocalDatabase.problem_list)
             {
                 if (pi.pnum > last)
                     remaining.Add(pi.pnum);
@@ -293,7 +293,7 @@ namespace UVA_Arena
 
         void SetStatus(int percent, string status)
         {
-            int tot = DefaultDatabase.problem_list.Count;
+            int tot = LocalDatabase.problem_list.Count;
             int finished = tot - remaining.Count;
             totalProgress.Value = (int)(100.0 * finished / tot);
             totalPercentage.Text = totalProgress.Value.ToString() + "%";
@@ -305,7 +305,7 @@ namespace UVA_Arena
                 currentProgress.Value = percent;
                 currentPercentage.Text = currentProgress.Value.ToString() + "%";
                 currentProblem.Text = string.Format("Downloading {0} - {1}... ",
-                   current, DefaultDatabase.GetTitle(current));
+                   current, LocalDatabase.GetTitle(current));
             }
             else
             {
@@ -327,7 +327,7 @@ namespace UVA_Arena
                 current = remaining[0];
                 remaining.RemoveAt(0);
 
-                if (!DefaultDatabase.HasProblem(current)) continue;
+                if (!LocalDatabase.HasProblem(current)) continue;
                 DownloadProblem();
 
                 if (CurrentState != State.Running) return;

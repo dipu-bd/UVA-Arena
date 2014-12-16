@@ -4,7 +4,7 @@ using System.IO;
 
 namespace UVA_Arena
 {
-    sealed class LocalDirectory
+    internal static class LocalDirectory
     {
         //
         // Usual functions
@@ -116,28 +116,25 @@ namespace UVA_Arena
             }
         }
 
-        public static string ProblemDataFile
+        /// <summary> Get path where downloaded problems info should be saved </summary>
+        /// <returns>Valid filename with .json extension</returns>
+        public static string GetProblemDataFile()
         {
-            get
-            {
-                string path = Path.Combine(DefaultPath, "problems.json");
-                CreateFile(path);
-                return path;
-            }
+            string path = Path.Combine(DefaultPath, "problems.json");
+            CreateFile(path);
+            return path;
         }
 
-        public static string BitEncodedSolved
+        /// <summary> Get path where catagory data should be saved </summary>
+        /// <returns>Valid filename with .json extension</returns>
+        public static string GetCatagoryPath()
         {
-            get
-            {
-                string path = Path.Combine(DefaultPath, "solvebits.json");
-                CreateFile(path);
-                return path;
-            }
+            string path = Path.Combine(DefaultPath, "catagory.json");
+            CreateFile(path);
+            return path;
         }
 
-
-        /// <summary> get path where problem description is saved </summary>
+        /// <summary> Get path where problem description is saved (Readonly) </summary>
         public static string ProblemsPath
         {
             get
@@ -167,12 +164,12 @@ namespace UVA_Arena
         /// <summary> get path where codes are saved </summary>
         public static string GetCodesPath(long pnum)
         {
-            if (!DefaultDatabase.IsReady) return null;
+            if (!LocalDatabase.IsReady) return null;
 
             string path = Elements.CODES.CodesPath;
             if (string.IsNullOrEmpty(path) || !Directory.Exists(path)) return null;
 
-            string title = DefaultDatabase.GetTitle(pnum);
+            string title = LocalDatabase.GetTitle(pnum);
             title = ValidateFileName(title);
 
             char sep = Path.DirectorySeparatorChar;
@@ -207,7 +204,7 @@ namespace UVA_Arena
         /// <summary> get user's submission path from username</summary>
         public static string GetUserSubPath(string username)
         {
-            string uid = DefaultDatabase.GetUserid(username);
+            string uid = LocalDatabase.GetUserid(username);
             string name = uid.ToString() + ".json";
             string file = Path.Combine("Users", name);
             file = Path.Combine(DefaultPath, file);

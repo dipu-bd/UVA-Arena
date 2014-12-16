@@ -2,7 +2,7 @@
 
 namespace UVA_Arena
 {
-    sealed class UnixTimestamp
+    internal static class UnixTimestamp
     {
         /// <summary> EPOCH time - used by the unix timestamp </summary>
         public static readonly DateTime EPOCH = new DateTime(1970, 1, 1);

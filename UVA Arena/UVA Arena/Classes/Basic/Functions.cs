@@ -8,7 +8,7 @@ using UVA_Arena.Internet;
 
 namespace UVA_Arena
 {
-    public class Functions
+    internal static class Functions
     {
         #region Formatter Functions
 
@@ -84,7 +84,7 @@ namespace UVA_Arena
             switch (ver)
             {
                 case Structures.Verdict.SubError: return "Submission error";
-                case Structures.Verdict.CBJ: return "Can't be judged"; 
+                case Structures.Verdict.CantBeJudge: return "Can't be judged"; 
                 case Structures.Verdict.CompileError: return "Compile error";
                 case Structures.Verdict.RestrictedFunction: return "Restricted function";
                 case Structures.Verdict.RuntimeError: return "Runtime error";
@@ -103,7 +103,7 @@ namespace UVA_Arena
             switch (ver)
             {
                 case Structures.Verdict.SubError: return System.Drawing.Color.DarkKhaki;
-                case Structures.Verdict.CBJ: return System.Drawing.Color.DarkGray;
+                case Structures.Verdict.CantBeJudge: return System.Drawing.Color.DarkGray;
                 case Structures.Verdict.CompileError: return System.Drawing.Color.Red;
                 case Structures.Verdict.RestrictedFunction: return System.Drawing.Color.SlateBlue;
                 case Structures.Verdict.RuntimeError: return System.Drawing.Color.DarkGreen;

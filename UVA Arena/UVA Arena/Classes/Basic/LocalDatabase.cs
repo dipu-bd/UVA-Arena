@@ -6,7 +6,7 @@ using UVA_Arena.Structures;
 
 namespace UVA_Arena
 {
-    sealed class DefaultDatabase
+    internal static class LocalDatabase
     {
         public static bool IsReady = false;
         public static UserInfo DefaultUser;
@@ -24,7 +24,7 @@ namespace UVA_Arena
         {
             RunLoadAsync(true);
         }
-        
+
         public static void RunLoadAsync(object background)
         {
             if ((bool)background)
@@ -38,27 +38,27 @@ namespace UVA_Arena
                 IsReady = false;
 
                 //load new problem list
-                string text = File.ReadAllText(LocalDirectory.ProblemDataFile);
+                string text = File.ReadAllText(LocalDirectory.GetProblemDataFile());
                 List<List<string>> data = JsonConvert.DeserializeObject<List<List<string>>>(text);
                 if (data == null || data.Count == 0) throw new Exception("Problem database was empty");
 
                 LoadList(data);
-                LoadOthers();                
+                LoadOthers();
                 data.Clear();
 
                 IsReady = true;
-                LoadDefaultUser();
+                LoadDefaultUser(); 
             }
             catch (Exception ex)
             {
                 Logger.Add(ex.Message, "Problem Database");
             }
 
-            IsReady = true; 
+            IsReady = true;
             Interactivity.ProblemDatabaseUpdated();
             System.GC.Collect();
         }
-         
+
         private static void LoadList(List<List<string>> datalist)
         {
             //set values 
@@ -111,14 +111,26 @@ namespace UVA_Arena
                 }
             }
         }
-         
+
         public static void LoadDefaultUser()
         {
             string user = RegistryAccess.DefaultUsername;
-            string file = LocalDirectory.GetUserSubPath(user); 
-            string data = File.ReadAllText(file); 
-            DefaultUser = JsonConvert.DeserializeObject<UserInfo>(data);            
-            if (DefaultUser != null) DefaultUser.Process();         
+            string file = LocalDirectory.GetUserSubPath(user);
+            string data = File.ReadAllText(file);
+            DefaultUser = JsonConvert.DeserializeObject<UserInfo>(data);
+            if (DefaultUser != null) DefaultUser.Process();
+        }
+
+        public static void LoadCatagories()
+        {
+            string file = LocalDirectory.GetCatagoryPath();
+            string data = File.ReadAllText(file);
+            List<ContextBook> catlist = JsonConvert.DeserializeObject<List<ContextBook>>(data);
+            if (catlist == null) return;
+            foreach (ContextBook book in catlist)
+            {
+                book.Process();
+            }
         }
 
         #endregion
@@ -159,7 +171,7 @@ namespace UVA_Arena
             if (!HasProblem(pnum)) return null;
             return problem_num[pnum];
         }
-        
+
         /// <summary> Check if problem is solved by default user </summary>
         public static bool IsProbSolved(long pnum)
         {
@@ -199,7 +211,7 @@ namespace UVA_Arena
 
         /// <summary> check if this user contains in the list </summary>
         public static bool ContainsUsers(string user)
-        {            
+        {
             return usernames.ContainsKey(user);
         }
         /// <summary> get user id from name </summary>
@@ -208,6 +220,7 @@ namespace UVA_Arena
             if (!ContainsUsers(name)) return null;
             return usernames[name];
         }
+
         #endregion
 
     }

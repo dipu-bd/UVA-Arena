@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace UVA_Arena
 {
-    public static class TaskQueue
+    internal static class TaskQueue
     {
         public class Task
         {

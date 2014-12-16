@@ -75,10 +75,12 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Classes\General\Internet.cs">
+    <Compile Include="Classes\Data Structures\ContextBook.cs" />
+    <Compile Include="Classes\Data Structures\UserRanklist.cs" />
+    <Compile Include="Classes\Utilities\Internet.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Userinfo\UserSubmissions.cs" />
+    <Compile Include="Classes\Data Structures\UserSubmissions.cs" />
     <Compile Include="Classes\Utilities\DataCompressor.cs" />
     <Compile Include="Elements\STATUS.cs">
       <SubType>UserControl</SubType>
@@ -89,7 +91,7 @@
     <Compile Include="Classes\Utilities\CodeFileMerger.cs" />
     <Compile Include="Classes\Utilities\FileOperations.cs" />
     <Compile Include="Classes\Utilities\HighlightSyntax.cs" />
-    <Compile Include="Classes\General\NativeMethods.cs" />
+    <Compile Include="Classes\Utilities\NativeMethods.cs" />
     <Compile Include="Controls\Controls.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -191,15 +193,15 @@
     <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\General\Functions.cs" />
-    <Compile Include="Classes\General\Interactivity.cs" />
-    <Compile Include="Classes\General\LocalDirectory.cs" />
+    <Compile Include="Classes\Basic\Functions.cs" />
+    <Compile Include="Classes\Basic\Interactivity.cs" />
+    <Compile Include="Classes\Basic\LocalDirectory.cs" />
     <Compile Include="Classes\Utilities\Logger.cs" />
-    <Compile Include="Classes\Problems\ProblemList.cs" />
-    <Compile Include="Classes\General\RegistryAccess.cs" />
-    <Compile Include="Classes\Problems\DefaultDatabase.cs" />
+    <Compile Include="Classes\Data Structures\ProblemList.cs" />
+    <Compile Include="Classes\Basic\RegistryAccess.cs" />
+    <Compile Include="Classes\Basic\LocalDatabase.cs" />
     <Compile Include="Classes\Utilities\Stylish.cs" />
-    <Compile Include="Classes\Userinfo\SubmissionList.cs" />
+    <Compile Include="Classes\Data Structures\SubmissionList.cs" />
     <Compile Include="Classes\Utilities\TaskQueue.cs" />
     <Compile Include="Classes\Utilities\UnixTimeStamp.cs" />
     <EmbeddedResource Include="Controls\SearchBox.resx">

@@ -4,7 +4,7 @@ using System.IO.Compression;
 using System.Collections.Generic;
 using System.Text;
 
-namespace UVA_Arena.Elements
+namespace UVA_Arena
 {
     internal static class StringCompressor
     {

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace UVA_Arena
 { 
-    internal sealed class NativeMethods
+    public class NativeMethods
     {
         private NativeMethods() { }
         

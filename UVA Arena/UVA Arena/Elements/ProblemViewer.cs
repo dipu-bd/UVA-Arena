@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Drawing;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 using UVA_Arena.Structures;
 using UVA_Arena.Internet;
 
@@ -9,6 +11,9 @@ namespace UVA_Arena.Elements
 {
     public partial class ProblemViewer : UserControl
     {
+
+        #region Top Level
+
         public ProblemViewer()
         {
             InitializeComponent();
@@ -19,6 +24,35 @@ namespace UVA_Arena.Elements
             titleBox1.BackColor = this.BackColor;
             catagoryInfo.BackColor = this.BackColor;
         }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            AssignAspectToSubList();
+            usernameList1.SetObjects(LocalDatabase.usernames);
+            dateTimePicker1.Value = DateTime.Now.Subtract(new TimeSpan(7, 0, 0, 0));
+
+            showUsersRankButton.Text = "Show " + RegistryAccess.DefaultUsername + "'s Rank";
+            showUserSubButton.Text = "Show " + RegistryAccess.DefaultUsername + "'s Submissions";
+        }
+
+        #endregion
+
+        #region TabControl
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == discussTab)
+            {
+                homeDiscussButton.PerformClick();
+            }
+            else if (tabControl1.SelectedTab == submissionTab)
+            {
+                LoadSubmission();
+            }
+        }
+
+        #endregion
 
         #region Load Problem
 
@@ -65,7 +99,7 @@ namespace UVA_Arena.Elements
             if (current == null) return;
 
             titleBox1.Text = string.Format("{0} - {1}", current.pnum, current.ptitle);
-            titleBox1.Text += string.Format(" (Level : {0}{1})", current.level, current.star);
+            titleBox1.Text += string.Format(" (Level : {0}{1})", current.level, current.levelstar);
             catagoryButton.Visible = true;
             ShowCurrentTags();
 
@@ -140,7 +174,7 @@ namespace UVA_Arena.Elements
         {
             string file = Path.GetFileName(task.FileName);
             string text = string.Format("Downloading \"{0}\"... {1}% [{2} out of {3}] completed.",
-                    file, task.ProgressPercentage, Functions.FormatMemory(task.Received), Functions.FormatMemory(task.DataSize));
+                    file, task.ProgressPercentage, Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
             Interactivity.problems.Status1.Text = text;
         }
 
@@ -293,18 +327,6 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region TabControl
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabControl1.SelectedTab == discussTab)
-            {
-                homeDiscussButton.PerformClick();
-            }
-        }
-
-        #endregion
-
         #region Discuss Tab
 
         private void goDiscussButton_Click(object sender, EventArgs e)
@@ -312,7 +334,7 @@ namespace UVA_Arena.Elements
             discussWebBrowser.Stop();
             discussWebBrowser.Navigate(discussUrlBox.Text);
         }
-         
+
         private void webBrowser2_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
             discussUrlBox.Text = e.Url.ToString();
@@ -344,5 +366,298 @@ namespace UVA_Arena.Elements
 
         #endregion
 
+        #region Submission Tab
+
+        enum SubViewType
+        {
+            LastSubmission,
+            Ranklist,
+            UsersRank,
+            UsersSub
+        }
+
+        private SubViewType _curSubType = SubViewType.LastSubmission;
+
+        private void submissionReloadButton_Click(object sender, EventArgs e)
+        {
+            _curSubType = SubViewType.LastSubmission;
+            LoadSubmission();
+        }
+        private void showRanksButton_Click(object sender, EventArgs e)
+        {
+            _curSubType = SubViewType.Ranklist;
+            LoadSubmission();
+        }
+        private void showUsersRankButton_Click(object sender, EventArgs e)
+        {
+            _curSubType = SubViewType.UsersRank;
+            LoadSubmission();
+        }
+        private void showUserSubButton_Click(object sender, EventArgs e)
+        {
+            _curSubType = SubViewType.UsersSub;
+            LoadSubmission();
+        }
+
+        private void usernameList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string user = RegistryAccess.DefaultUsername;
+            if (usernameList1.SelectedObject != null)
+                user = ((KeyValuePair<string, string>)usernameList1.SelectedObject).Key;
+            usernameList1.Tag = user;
+
+            showUsersRankButton.Text = "Show " + user + "'s Rank";
+            showUserSubButton.Text = "Show " + user + "'s Submissions";
+        }
+
+        private void LoadSubmission()
+        {
+            if (current == null) return;
+
+            long start, stop;
+            string url = "", format;
+            string user = (string)usernameList1.Tag;
+            if (string.IsNullOrEmpty(user))
+                user = RegistryAccess.DefaultUsername;
+            string uid = LocalDatabase.GetUserid(user);  //uid            
+            usernameList1.SetObjects(LocalDatabase.usernames);
+
+            switch (_curSubType)
+            {
+                case SubViewType.LastSubmission:
+                    start = UnixTimestamp.ToUnixTime(dateTimePicker1.Value);
+                    stop = UnixTimestamp.ToUnixTime(DateTime.Now);
+                    format = "http://uhunt.felix-halim.net/api/p/subs/{0}/{1}/{2}"; //pid, unix time start, stop
+                    url = string.Format(format, current.pid, start, stop);
+                    Interactivity.problems.SetStatus("Downoading submissions...");
+                    break;
+                case SubViewType.Ranklist:
+                    start = 1;
+                    stop = (long)numericUpDown1.Value;
+                    format = "http://uhunt.felix-halim.net/api/p/rank/{0}/{1}/{2}"; //pid, rank start, rank count
+                    url = string.Format(format, current.pid, start, stop);
+                    Interactivity.problems.SetStatus("Downoading ranks...");
+                    break;
+                case SubViewType.UsersRank:
+                    start = stop = 15;
+                    format = "http://uhunt.felix-halim.net/api/p/ranklist/{0}/{1}/{2}/{3}"; //pid uid, before_count, after_count
+                    url = string.Format(format, current.pid, uid, start, stop);
+                    Interactivity.problems.SetStatus("Downoading " + user + "'s rankdata...");
+                    break;
+                case SubViewType.UsersSub:
+                    format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/{2}"; //uid, pnum, last sid
+                    url = string.Format(format, uid, current.pnum, 0);
+                    Interactivity.problems.SetStatus("Downoading " + user + "'s submission...");                    
+                    break;
+            }
+
+            Downloader.DownloadStringAsync(url, user, Priority.Normal, dt_progressChanged, dt_taskCompleted);
+        }
+
+        private void dt_progressChanged(DownloadTask task)
+        {
+            string status = string.Format("Downoading... [{0} of {1} received]",
+               Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
+            Interactivity.problems.SetStatus(status);
+            Interactivity.problems.Progress1.Value = task.ProgressPercentage;
+        }
+
+        private void dt_taskCompleted(DownloadTask task)
+        {
+            if (task.Status != ProgressStatus.Completed)
+            {
+                if (task.Error != null)
+                {
+                    Interactivity.problems.SetStatus("Download failed.");
+                    Logger.Add(task.Error.Message, "Problem Viewer | dt_taskCompleted(DownloadTask task)");
+                }
+                return;
+            }
+
+            string user = (string)task.Token;
+
+            if (_curSubType == SubViewType.UsersSub)
+            {
+                task.Result = task.Result.Remove(0, task.Result.IndexOf(":") + 1);
+                task.Result = task.Result.Remove(task.Result.Length - 1);
+                UserInfo uinfo = JsonConvert.DeserializeObject<UserInfo>(task.Result);
+                uinfo.Process();
+                submissionStatus.ClearObjects();
+                submissionStatus.SetObjects(uinfo.submissions);
+            }
+            else
+            {
+                List<SubmissionMessage> lsm =
+                    JsonConvert.DeserializeObject<List<SubmissionMessage>>(task.Result);
+                if (lsm == null) return;
+                submissionStatus.ClearObjects();
+                submissionStatus.SetObjects(lsm);
+            }
+
+            switch (_curSubType)
+            {
+                case SubViewType.LastSubmission:
+                    submissionStatus.Sort(sidSUB, SortOrder.Descending);
+                    subListLabel.Text = "Last submissions on this problem from " +
+                        dateTimePicker1.Value.ToString();
+                    break;
+                case SubViewType.Ranklist:
+                    submissionStatus.Sort(rankSUB, SortOrder.Ascending);
+                    subListLabel.Text = "Ranklist of this problem showing first " +
+                        numericUpDown1.Value.ToString() + "' users.";
+                    break;
+                case SubViewType.UsersRank:
+                    submissionStatus.Sort(rankSUB, SortOrder.Ascending);
+                    subListLabel.Text = user + "'s nearby users on this problem";
+                    break;
+                case SubViewType.UsersSub:
+                    submissionStatus.Sort(sidSUB, SortOrder.Descending);
+                    subListLabel.Text = user + "'s submissions on this problem";
+                    break;
+            }
+
+            System.GC.Collect();
+        }
+
+        //
+        //Submission Status Listview
+        //
+        private void AssignAspectToSubList()
+        {
+            subtimeSUB.AspectToStringConverter = delegate(object dat)
+            {
+                if (dat == null) return "";
+                return UnixTimestamp.GetTimeSpan((long)dat);
+            };
+            lanSUB.AspectToStringConverter = delegate(object dat)
+            {
+                if (dat == null) return "";
+                return Functions.GetLanguage((Language)((long)dat));
+            };
+            verSUB.AspectToStringConverter = delegate(object dat)
+            {
+                if (dat == null) return "";
+                return Functions.GetVerdict((Verdict)((long)dat));
+            };
+            runSUB.AspectToStringConverter = delegate(object dat)
+            {
+                if (dat == null) return "";
+                return Functions.FormatRuntime((long)dat);
+            };
+            rankSUB.AspectToStringConverter = delegate(object dat)
+            {
+                if (dat == null) return "";
+                if ((long)dat == -1) return "-";
+                return ((long)dat).ToString();
+            };
+        }
+
+        private void submissionStatus_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
+        {
+            if (e.Model == null) return;
+
+            string font = "Segoe UI";
+            float size = 9.0F;
+            FontStyle style = FontStyle.Regular;
+            Color fore = Color.Black;
+
+            //get two aspect used later
+            Verdict ver; string uname;
+            if (typeof(SubmissionMessage) == e.Model.GetType())
+            {
+                SubmissionMessage js = (SubmissionMessage)e.Model;
+                ver = (Verdict)js.ver; uname = js.uname;
+            }
+            else
+            {
+                UserSubmission js = (UserSubmission)e.Model;
+                ver = (Verdict)js.ver; uname = js.uname;
+            }
+
+            //mark submission's with known user name
+            if (_curSubType != SubViewType.UsersSub)
+            {                
+                if (uname == RegistryAccess.DefaultUsername)
+                {
+                    for (int i = 0; i < e.Item.SubItems.Count; ++i)
+                    {
+                        e.Item.SubItems[i].BackColor = Color.Turquoise;
+                    }
+                }
+                else if (LocalDatabase.ContainsUsers(uname))
+                {
+                    for (int i = 0; i < e.Item.SubItems.Count; ++i)
+                    {
+                        e.Item.SubItems[i].BackColor = Color.LightBlue;
+                    }
+                }
+            }
+
+            //format cells
+            if (e.Column == sidSUB)
+            {
+                font = "Consolas";
+                fore = Color.Teal;
+                size = 8.5F;
+            }
+            else if (e.Column == unameSUB)
+            {
+                fore = Color.Navy;
+                style = FontStyle.Italic;
+            }
+            else if (e.Column == fullnameSUB)
+            {
+                font = "Segoe UI Semibold";
+            }
+            else if (e.Column == runSUB)
+            {
+                fore = Color.SlateBlue;
+            }
+            else if (e.Column == subtimeSUB)
+            {
+                fore = Color.Maroon;
+            }
+            else if (e.Column == rankSUB)
+            {
+                fore = Color.Navy;
+                font = "Segoe UI Semibold";
+            }
+            else if (e.Column == verSUB)
+            {
+                font = "Segoe UI";
+                fore = Functions.GetVerdictColor(ver);
+                style = FontStyle.Bold;
+            }
+            else if (e.Column == lanSUB)
+            {
+                style = FontStyle.Bold;
+                fore = Color.Navy;
+            }
+            else { return; }
+
+            e.SubItem.ForeColor = fore;
+            e.SubItem.Font = new Font(font, size, style);
+        }
+
+        private void submissionStatus_HyperlinkClicked(object sender, BrightIdeasSoftware.HyperlinkClickedEventArgs e)
+        {
+            SubmissionMessage list = (SubmissionMessage)e.Model;
+            if (e.Column == unameSUB)
+            {
+                if (LocalDatabase.ContainsUsers(list.uname))
+                {
+                    Interactivity.ShowUserStat(list.uname);
+                }
+                else
+                {
+                    if (MessageBox.Show("Add this user to your favourite list?", "Add User",
+                        MessageBoxButtons.YesNo) == DialogResult.No) return;
+                    RegistryAccess.SetUserid(list.uname, list.uid.ToString());
+                    Interactivity.ShowUserStat(list.uname);
+                }
+            }
+        }
+
+        #endregion
     }
 }

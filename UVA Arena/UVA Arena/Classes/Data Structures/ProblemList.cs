@@ -8,23 +8,24 @@ namespace UVA_Arena.Structures
     [StructLayout(LayoutKind.Sequential)]
     public class CatagoryList
     { 
+        public CatagoryList() { }
         public int count { get; set; }
         public string name { get; set; }
-        public object tag { get; set; } 
-        public CatagoryList() { }
+        public object tag { get; set; }
     }
-    
+
+    public enum ProblemStatus
+    {
+        Unavailable,
+        Normal,
+        Special_Judge        
+    };
+
     [StructLayout(LayoutKind.Sequential)]
     public class ProblemInfo
-    {
-        public enum Status
-        {
-            Unavailable,
-            Normal,
-            Special_Judge,
-            Accepted,
-            Tried
-        };
+    {        
+        public ProblemInfo() { }
+        public ProblemInfo(List<string> data) { ParseData(data); }
 
         /// <summary>Problem ID</summary>
         public long pid { get; set; }
@@ -68,17 +69,19 @@ namespace UVA_Arena.Structures
         public long rtl { get; set; }
         //Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
         public long stat { get; set; }
-         
+
         //formatted special values 
-        public Status status { get; set; }
+        public ProblemStatus status { get; set; }
         public int volume { get; set; }
         public long total { get; set; }
         public int level { get; set; }
-        public string star { get; set; }
+        public string levelstar { get; set; }
+        public bool stared { get; set; }
         public bool solved { get; set; }
+
         public List<string> tags = new List<string>();
 
-        public void parse(List<string> data)
+        public void ParseData(List<string> data)
         {
             //[36,100,"The 3n + 1 problem",61026,0,1000000000,0,6473,0,0,93803,0,50329,49,48954,5209,215870,3957,157711,3000,1]
 
@@ -96,22 +99,19 @@ namespace UVA_Arena.Structures
             volume = (int)(pnum / 100);
             if (run >= 1000000000) run = -1;
             if (mem >= 1000000000) mem = -1;
-            
-            total = ac + wa + cbj + ce + mle + tle + ole + nver + pe + re + resf + sube;
-            
-            if (stat == 0) status = Status.Unavailable;
-            else if (stat == 1) status = Status.Normal;
-            else status = Status.Special_Judge;
 
-            star = "";
+            total = ac + wa + cbj + ce + mle + tle + ole + nver + pe + re + resf + sube;
+
+            if (stat == 0) status = ProblemStatus.Unavailable;
+            else if (stat == 1) status = ProblemStatus.Normal;
+            else status = ProblemStatus.Special_Judge;
+
+            levelstar = "";
             double urank = (total == 0) ? 0 : (double)ac / total;
-            if (urank < 0.35) star += '*';
-            if (urank <= 0.15) star += '*';
+            if (urank < 0.35) levelstar += '*';
+            if (urank <= 0.15) levelstar += '*';
 
             tags = RegistryAccess.GetTags(pnum);
         }
-
-        public ProblemInfo() { }
-        public ProblemInfo(List<string> data) { parse(data); }
     }
 }

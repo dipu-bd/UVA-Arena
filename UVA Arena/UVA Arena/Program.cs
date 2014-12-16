@@ -23,7 +23,7 @@ namespace UVA_Arena
             System.IO.File.AppendAllText(LocalDirectory.GetLogFile(), dat);
             
             //load usernames
-            DefaultDatabase.usernames = RegistryAccess.GetAllUsers();            
+            LocalDatabase.usernames = RegistryAccess.GetAllUsers();            
             if (string.IsNullOrEmpty(RegistryAccess.DefaultUsername))
             {
                 UsernameForm uf = new UsernameForm();

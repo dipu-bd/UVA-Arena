@@ -38,7 +38,7 @@ namespace UVA_Arena
             }
 
             List<string> catagory = new List<string>();
-            var it = DefaultDatabase.problem_cat.GetEnumerator();
+            var it = LocalDatabase.problem_cat.GetEnumerator();
             while (it.MoveNext()) catagory.Add(it.Current.Key);
             textBox1.Items.AddRange(catagory.ToArray());
 
@@ -115,10 +115,10 @@ namespace UVA_Arena
             try
             { 
                 //remove old tags
-                foreach (string tag in old) DefaultDatabase.GetCatagory(tag).Remove(problem);
+                foreach (string tag in old) LocalDatabase.GetCatagory(tag).Remove(problem);
                 //add new tags
                 RegistryAccess.SetTags(problem.pnum, problem.tags);
-                foreach (string tag in problem.tags) DefaultDatabase.GetCatagory(tag).Add(problem);
+                foreach (string tag in problem.tags) LocalDatabase.GetCatagory(tag).Add(problem);
                 
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 if (Interactivity.problems.catagoryButton.Checked)

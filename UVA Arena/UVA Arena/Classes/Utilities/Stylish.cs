@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace UVA_Arena
 {
-    public class Stylish
+    internal static class Stylish
     {
         public enum GradientType
         {

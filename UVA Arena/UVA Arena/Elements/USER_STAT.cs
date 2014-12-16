@@ -29,9 +29,17 @@ namespace UVA_Arena.Elements
             SetViewMenu();
             AssignAspectFunctions();
             SelectUpdateRateMenu();
-            timer1.Enabled = AutoUpdateStatus;
             autoUpdateToolMenu.Checked = AutoUpdateStatus;
             lastSubmissions1.MakeColumnSelectMenu(MainContextMenu);
+        }
+
+        //
+        // Public Functions
+        // 
+        public void ShowUserSub(string user)
+        {
+            tabControl1.SelectedTab = submissionTab;
+            LoadUserSub(user);
         }
 
         //
@@ -41,6 +49,9 @@ namespace UVA_Arena.Elements
         {
             bool enable = AutoUpdateStatus;
             string tag = UpdateInterval.ToString();
+
+            timer1.Enabled = enable;
+            autoUpdateToolMenu.Checked = enable;
             foreach (ToolStripItem item in updateContextMenu.Items)
             {
                 if (item.GetType() == typeof(ToolStripMenuItem)
@@ -85,7 +96,7 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
-        
+
         #region Registry Access
 
         public static int ViewOption
@@ -123,12 +134,12 @@ namespace UVA_Arena.Elements
             get
             {
                 object val = RegistryAccess.GetValue("Auto Update User State");
-                if (val == null || val.GetType() != typeof(int)) return true;
+                if (val == null || val.GetType() != typeof(int)) return false;
                 return ((int)val == 1);
             }
             set
             {
-                RegistryAccess.SetValue("Auto Update User State", (value ? 0 : 1),
+                RegistryAccess.SetValue("Auto Update User State", (value ? 1 : 0),
                     null, Microsoft.Win32.RegistryValueKind.DWord);
                 timer1.Enabled = value;
             }
@@ -189,9 +200,16 @@ namespace UVA_Arena.Elements
         private void usernameButton_Click(object sender, EventArgs e)
         {
             string user = usernameBox.Text;
-            Internet.Downloader.DownloadUserid(user, username_completed);
-            usernameButton.UseWaitCursor = true;
-            usernameStatus.Text = "Getting userid...";
+            if (LocalDatabase.ContainsUsers(user))
+            {
+                usernameStatus.Text = "Already added.";
+            }
+            else 
+            {
+                Internet.Downloader.DownloadUserid(user, username_completed);
+                usernameButton.UseWaitCursor = true;
+                usernameStatus.Text = "Getting userid...";
+            }
         }
 
         private void username_completed(Internet.DownloadTask task)
@@ -205,7 +223,7 @@ namespace UVA_Arena.Elements
             }
             else
             {
-                usernameStatus.Text = "Failed " + task.Token.ToString();
+                usernameStatus.Text = task.Error.Message;
             }
         }
 
@@ -227,7 +245,7 @@ namespace UVA_Arena.Elements
         //
         public void LoadUsernames()
         {
-            usernameList.SetObjects(DefaultDatabase.usernames);
+            usernameList.SetObjects(LocalDatabase.usernames);
         }
 
         private void usernameList_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
@@ -246,124 +264,92 @@ namespace UVA_Arena.Elements
 
         private void usernameList_ItemActivate(object sender, EventArgs e)
         {
-            if (usernameList.SelectedObject == null)
+            object sel = usernameList.SelectedObject;
+            if (sel == null)
             {
                 userProgTracker1.ShowUserInfo(null);
+                return;
             }
-            else
-            {
-                ShowUserSubs(((KeyValuePair<string, string>)usernameList.SelectedObject).Key);
-            }
+
+            LoadUserSub(((KeyValuePair<string, string>)sel).Key);
         }
 
         #endregion
 
-        #region Show Submissions
+        #region Load User's Submissions
 
         private UserInfo currentUser = null;
 
-        public void ShowUserSubs(string user)
+        public void LoadUserSub(string user)
         {
+            //if 'user' is already loaded then do nothing
             if (currentUser != null && currentUser.uname == user) return;
 
             try
             {
+                //remove previous status
                 if (!_QueueOnRun) Status1.Text = "";
                 else StatusQueue.Clear();
 
+                //if current user is default user then get it from LocalDatabase
                 if (user == RegistryAccess.DefaultUsername)
                 {
-                    currentUser = DefaultDatabase.DefaultUser;
+                    currentUser = LocalDatabase.DefaultUser;
                 }
                 else
                 {
+                    //load current user from json data stored on documents
                     string file = LocalDirectory.GetUserSubPath(user);
                     string json = File.ReadAllText(file);
                     currentUser = JsonConvert.DeserializeObject<UserInfo>(json);
                 }
 
+                //if no data could fould, create a new instance
                 if (currentUser == null)
                 {
-                    currentUser = new UserInfo();
-                    currentUser.uname = user;
-                    currentUser.name = user;
+                    currentUser = new UserInfo(user);
                     if (user == RegistryAccess.DefaultUsername)
-                        DefaultDatabase.DefaultUser = currentUser;
+                        LocalDatabase.DefaultUser = currentUser;
                 }
 
+                //process loaded data
+                //-> this is very important
                 currentUser.Process();
 
-                SetSubmissionToListView();
-                userNameTitle.Text = string.Format(userNameTitle.Tag.ToString(), currentUser.name);
-
-                //download latest data
-                DownloadUserSubs(user);
+                //if no previous data exist
+                if (currentUser.LastSID == 0)
+                {
+                    DownloadUserSubs(user);
+                }
+                else
+                {
+                    //show list 
+                    ShowDataByTab();                    
+                }
             }
             catch (Exception ex)
             {
                 SetStatus("Error : " + ex.Message);
-                Logger.Add(ex.Message, "User Statistics | ShowUserSubs(string user)");
+                Logger.Add(ex.Message, "User Statistics | LoadUserSub(string user)");
             }
-        }
-
-        private void SetSubmissionToListView()
-        {
-            userProgTracker1.ShowUserInfo(currentUser);
-
-            if (currentUser == null) return;
-            List<UserSubmission> list = new List<UserSubmission>();
-            switch (ViewOption)
-            {
-                case -1:
-                    list = currentUser.submissions;
-                    break;
-                case -10:
-                    foreach(UserSubmission usub in currentUser.submissions)
-                    {
-                        if(currentUser.ACList.Contains(usub.pnum)) 
-                            list.Add(usub);
-                    }
-                    break;
-                case -20:
-                    foreach (UserSubmission usub in currentUser.submissions)
-                    {
-                        if (!currentUser.ACList.Contains(usub.pnum))
-                            list.Add(usub);
-                    }
-                    break;
-                default:
-                    int cnt = ViewOption;
-                    for (int i = currentUser.submissions.Count - 1; cnt > 0; --i, --cnt)
-                        list.Add(currentUser.submissions[i]);
-                    break;
-            }
-
-            lastSubmissions1.ShowGroups = false;
-            lastSubmissions1.SetObjects(list);
-            lastSubmissions1.Sort(0);
-            SetGroupBy();
-        }
-
-        private void SetGroupBy()
-        {
-            if (noneToolStripMenuItem.Checked)
-                lastSubmissions1.ShowGroups = false;
-            else if (problemNameToolStripMenuItem.Checked)
-                lastSubmissions1.BuildGroups(ptitleSUB, SortOrder.Ascending);
-            else if (verdictToolStripMenuItem.Checked)
-                lastSubmissions1.BuildGroups(verSUB, SortOrder.Ascending);
-            else if (languageToolStripMenuItem.Checked)
-                lastSubmissions1.BuildGroups(lanSUB, SortOrder.Ascending); 
         }
 
         public void DownloadUserSubs(string user)
         {
             if (currentUser == null || currentUser.uname != user) return;
-
             Updating = true;
             string format = "http://uhunt.felix-halim.net/api/subs-user/{0}/{1}";
             string url = string.Format(format, currentUser.uid, currentUser.LastSID);
+            SetStatus("Downloading " + user + "'s submissions...");
             Internet.Downloader.DownloadStringAsync(url, user, Priority.Normal, dt_progress, dt_completed);
+        }
+
+        void dt_progress(DownloadTask Task)
+        {
+            if (this.IsDisposed) return;
+            Progress1.Value = Task.ProgressPercentage;
+            SetStatus(string.Format("Downloading {0}'s submissions... [{1} out of {2}]",
+                Task.Token, Functions.FormatMemory(Task.Received), Functions.FormatMemory(Task.Total)), true);
         }
 
         void dt_completed(DownloadTask Task)
@@ -391,11 +377,9 @@ namespace UVA_Arena.Elements
                 string data = currentUser.GetJsonData();
                 File.WriteAllText(file, data);
 
-                SetSubmissionToListView();
-                userNameTitle.Text = string.Format(userNameTitle.Tag.ToString(), currentUser.name);
+                ShowDataByTab();
 
-                SetStatus(Task.Token.ToString() + "'s submissions downloaded");
-
+                SetStatus("Downloaded " + Task.Token.ToString() + "'s submissions");
                 if (currentUser.LastSID == 0)
                     Logger.Add("Downloaded " + currentUser.uname + "'s submissions", "User Statistics");
             }
@@ -404,15 +388,6 @@ namespace UVA_Arena.Elements
                 SetStatus("Error : " + ex.Message);
                 Logger.Add(ex.Message, "User Statistics | dt_completed(DownloadTask Task)");
             }
-        }
-
-        void dt_progress(DownloadTask Task)
-        {
-            if (this.IsDisposed) return;
-
-            Progress1.Value = Task.ProgressPercentage;
-            SetStatus(string.Format("Downloading {0}'s submissions... [{1} out of {2}]",
-                Task.Token, Functions.FormatMemory(Task.Received), Functions.FormatMemory(Task.DataSize)), true);
         }
 
         #endregion
@@ -513,7 +488,7 @@ namespace UVA_Arena.Elements
             else if (e.Column == ptitleSUB)
             {
                 font = "Segoe UI Semibold";
-                if (DefaultDatabase.IsProbSolved(js.pnum))
+                if (LocalDatabase.IsProbSolved(js.pnum))
                     fore = Color.Blue;
                 else
                     fore = Color.Black;
@@ -597,8 +572,7 @@ namespace UVA_Arena.Elements
 
         private void autoUpdateToolMenu_Click(object sender, EventArgs e)
         {
-            autoUpdateToolMenu.Checked = !autoUpdateToolMenu.Checked;
-            AutoUpdateStatus = autoUpdateToolMenu.Checked;
+            AutoUpdateStatus = !AutoUpdateStatus;
             SelectUpdateRateMenu();
         }
 
@@ -609,13 +583,245 @@ namespace UVA_Arena.Elements
 
         private void deleteUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(usernameList.SelectedObject == null) return;
+            if (usernameList.SelectedObject == null) return;
             string val = ((KeyValuePair<string, string>)usernameList.SelectedObject).Key;
-            if (MessageBox.Show("Are you sure to delete '" + val + "' from list?", 
+            if (MessageBox.Show("Are you sure to delete '" + val + "' from list?",
                 "Delete User?", MessageBoxButtons.YesNo) == DialogResult.No) return;
             RegistryAccess.DeleteUserid(val);
             LoadUsernames();
         }
+
+        #endregion
+
+        #region Show data by tab
+
+        private void ShowDataByTab()
+        {
+            if (currentUser == null) return;
+
+            if (tabControl1.SelectedTab == submissionTab)
+            {
+                SetSubmissionToListView();
+                if (AutoUpdateStatus) DownloadUserSubs(currentUser.uname);
+            }
+            else if (tabControl1.SelectedTab == progtrackerTab)
+            {
+                userProgTracker1.ShowUserInfo(currentUser);
+            }
+            else if (tabControl1.SelectedTab == worldrankTab)
+            {
+                ShowWorldRank();
+            }
+            else if (tabControl1.SelectedTab == compareTab)
+            {
+                // implement compare tab functionality here
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex != -1) ShowDataByTab();
+        }
+
+        #endregion
+
+        #region Show Submissions
+
+        private void SetSubmissionToListView()
+        {
+            if (currentUser == null) return;
+
+            //set username tile
+            userNameTitle.Text = string.Format(userNameTitle.Tag.ToString(), currentUser.name);
+
+            //load submission list according to view option
+            List<UserSubmission> list = new List<UserSubmission>();
+            switch (ViewOption)
+            {
+                case -1:
+                    list = currentUser.submissions;
+                    break;
+                case -10:
+                    foreach (UserSubmission usub in currentUser.submissions)
+                    {
+                        if (currentUser.ACList.Contains(usub.pnum))
+                            list.Add(usub);
+                    }
+                    break;
+                case -20:
+                    foreach (UserSubmission usub in currentUser.submissions)
+                    {
+                        if (!currentUser.ACList.Contains(usub.pnum))
+                            list.Add(usub);
+                    }
+                    break;
+                default:
+                    int cnt = ViewOption;
+                    for (int i = currentUser.submissions.Count - 1; i >= 0 && cnt > 0; --i, --cnt)
+                        list.Add(currentUser.submissions[i]);
+                    break;
+            }
+
+            lastSubmissions1.ShowGroups = false;
+            lastSubmissions1.SetObjects(list);
+            lastSubmissions1.Sort(0);
+            SetGroupBy();
+        }
+        private void SetGroupBy()
+        {
+            if (noneToolStripMenuItem.Checked)
+                lastSubmissions1.ShowGroups = false;
+            else if (problemNameToolStripMenuItem.Checked)
+                lastSubmissions1.BuildGroups(ptitleSUB, SortOrder.Ascending);
+            else if (verdictToolStripMenuItem.Checked)
+                lastSubmissions1.BuildGroups(verSUB, SortOrder.Ascending);
+            else if (languageToolStripMenuItem.Checked)
+                lastSubmissions1.BuildGroups(lanSUB, SortOrder.Ascending);
+        }
+
+        #endregion
+
+        #region World Rank
+
+        private void reloadButton_Click(object sender, EventArgs e)
+        {
+            ShowWorldRank();
+        }
+
+        private void showUser_Click(object sender, EventArgs e)
+        {
+            ShowWorldRank((int)rankSelector.Value);
+        }
+
+        private void ShowWorldRank(int from = -1)
+        {
+            if (currentUser == null) return;
+
+            string url;
+            if (from <= 0)
+            {
+                //get current user's ranklist
+                string format = "http://uhunt.felix-halim.net/api/ranklist/{0}/{1}/{2}";
+                url = string.Format(format, currentUser.uid, 100, 100);
+                SetStatus("Downloading " + currentUser.uname + "'s ranklist...");
+            }
+            else
+            {
+                //get ranklist from a specific rank
+                string format = "http://uhunt.felix-halim.net/api/rank/{0}/{1}";
+                url = string.Format(format, from, 200);
+                SetStatus("Downloading ranklist from " + from.ToString() + "...");
+            }
+
+            Downloader.DownloadStringAsync(url, from, Priority.Normal, worldRankProgress, worldRankCompleted);
+        }
+
+        private void worldRankProgress(DownloadTask task)
+        {
+            if (this.IsDisposed) return;
+            Progress1.Value = task.ProgressPercentage;
+            SetStatus(string.Format("Downloading ranklist... [{0} out of {1}]",
+                Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total)), true);
+        }
+
+        private void worldRankCompleted(DownloadTask task)
+        {
+            if (this.IsDisposed) return;
+            if (task.Status != ProgressStatus.Completed)
+            {
+                if (task.Error != null)
+                {
+                    SetStatus("Ranklist download failed due to an error. Please retry.");
+                    Logger.Add(task.Error.Message, "World Rank | worldRankCompleted(DownloadTask task)");
+                }
+                return;
+            }
+
+            List<UserRanklist> ranks = JsonConvert.DeserializeObject<List<UserRanklist>>(task.Result);
+            if (ranks == null)
+            {
+                SetStatus("Boo! No data found! Please retry.");
+                return;
+            }
+
+            worldRanklist.ClearObjects();
+            worldRanklist.SetObjects(ranks);
+            worldRanklist.Sort(rankRANK, SortOrder.Ascending);
+
+            if ((int)task.Token < 0)
+            {
+                int pos = ranks.Count / 2;
+                pos += worldRanklist.Height / (2 * worldRanklist.RowHeightEffective) - 2;
+                if (pos < 0 || pos >= ranks.Count) pos = ranks.Count / 2;
+                worldRanklist.EnsureVisible(pos);
+            }
+
+            SetStatus(currentUser.uname + "'s ranklist downloaded.");
+            Logger.Add("World rank downloaded - " + currentUser.uname, "World Rank | worldRankCompleted(DownloadTask task)");
+            System.GC.Collect();
+        }               
+
+        private void worldRanklist_HyperlinkClicked(object sender, BrightIdeasSoftware.HyperlinkClickedEventArgs e)
+        {
+            if(e.Column == usernameRANK)
+            {
+                UserRanklist js = (UserRanklist)e.Model;
+                usernameBox.Text = js.username; 
+                usernameBox.Focus();
+            }
+        }
+
+        private void worldRanklist_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
+        {
+            if (e.Model == null) return;
+
+            string font = "Segoe UI";
+            float size = 9.0F;
+            FontStyle style = FontStyle.Regular;
+            Color fore = Color.Black;
+
+            UserRanklist js = (UserRanklist)e.Model;
+
+            if (js.username == RegistryAccess.DefaultUsername)
+            {
+                for (int i = 0; i < e.Item.SubItems.Count; ++i)
+                {
+                    e.Item.SubItems[i].BackColor = Color.Turquoise;
+                }
+            }
+            else if (LocalDatabase.ContainsUsers(js.username))
+            {
+                for (int i = 0; i < e.Item.SubItems.Count; ++i)
+                {
+                    e.Item.SubItems[i].BackColor = Color.LightBlue;
+                }
+            }
+
+            if (e.Column == rankRANK)
+            {
+                font = "Consolas";
+                fore = Color.Teal;                
+            }            
+            else if (e.Column == nameRANK)
+            {
+                font = "Segoe UI Semibold";                
+            }
+            else if (e.Column == acRANK)
+            {
+                font = "Consolas";
+                fore = Color.Navy;
+            }
+            else if (e.Column == nosRANK)
+            {
+                font = "Consolas";
+                fore = Color.Maroon;
+            }            
+            else { return; }
+
+            e.SubItem.ForeColor = fore;
+            e.SubItem.Font = new Font(font, size, style);
+        } 
+        
 
         #endregion
 

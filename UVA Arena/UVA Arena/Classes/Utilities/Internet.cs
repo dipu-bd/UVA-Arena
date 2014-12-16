@@ -36,7 +36,7 @@ namespace UVA_Arena.Internet
         public string FileName { get; set; }
         public string TempFileName { get; private set; }
 
-        public long DataSize { get; set; }
+        public long Total { get; set; }
         public long Received { get; set; }
         public int ProgressPercentage { get; set; }
         public Exception Error { get; set; }
@@ -136,7 +136,7 @@ namespace UVA_Arena.Internet
         void webClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             this.Received = e.BytesReceived;
-            this.DataSize = e.TotalBytesToReceive;
+            this.Total = e.TotalBytesToReceive;
             this.ProgressPercentage = e.ProgressPercentage;
             if (ProgressChangedEvent != null)
                 ProgressChangedEvent(this);
@@ -319,9 +319,9 @@ namespace UVA_Arena.Internet
             string url = "http://uhunt.felix-halim.net/api/uname2uid/" + name;
             DownloadTask dt = new DownloadTask(url, null, name);
 
-            if (DefaultDatabase.ContainsUsers(name))
+            if (LocalDatabase.ContainsUsers(name))
             {
-                dt.Result = DefaultDatabase.GetUserid(name);
+                dt.Result = LocalDatabase.GetUserid(name);
                 dt.Status = ProgressStatus.Completed;
                 if (complete != null) complete(dt);
             }
@@ -338,40 +338,59 @@ namespace UVA_Arena.Internet
             string uid = (string)task.Result;
             string name = (string)task.Token;
 
-            if (uid == "0")
+            task.Status = ProgressStatus.Failed;            
+            if (string.IsNullOrEmpty(uid))
+                task.Error = new Exception("Connection error. Retry please.");
+            else if (uid.Trim() == "0")
                 task.Error = new Exception(name + " doesn't exist.");
-            else if (string.IsNullOrEmpty(uid) || uid.Length <= 1)
-                task.Error = new Exception(uid + " is not valid as userid.");
-            else task.Status = ProgressStatus.Completed;
+            else  if(task.Error == null)
+                task.Status = ProgressStatus.Completed;
 
             if (task.Status == ProgressStatus.Completed)
                 RegistryAccess.SetUserid(name, uid);
-            else
-                task.Status = ProgressStatus.Failed;
         }
 
         #endregion
 
-        #region Problem Database Downloader
+        #region Problem Database and Catagory Downloader
 
         public static void DownloadProblemDatabase(DownloadTaskHandler completed, DownloadTaskHandler progress)
         {
+            //problem database
             string url = "http://uhunt.felix-halim.net/api/p";
-            string file = LocalDirectory.ProblemDataFile;
+            string file = LocalDirectory.GetProblemDataFile();
+            DownloadFileAsync(url, file, null, Priority.High, progress, __DownloadProblemDatabaseCompleted);
+
+            //problem catagories
+            url = "http://uhunt.felix-halim.net/api/cpbook/3";
+            file = LocalDirectory.GetCatagoryPath();
             DownloadTask task = DownloadFileAsync(url, file, null, Priority.High, progress, completed);
-            task.DownloadCompletedEvent += __DownloadProblemDatabaseCompleted;
+            task.DownloadCompletedEvent += __DownloadProblemCatagoryCompleted;
         }
 
         private static void __DownloadProblemDatabaseCompleted(DownloadTask task)
         {
             if (task.Status == ProgressStatus.Completed)
             {
-                DefaultDatabase.LoadDatabase();
-                Logger.Add("Downloaded problem databse file", "Downloader");
+                LocalDatabase.LoadDatabase();
+                Logger.Add("Downloaded problem databse file", "Downloader | __DownloadProblemDatabaseCompleted(DownloadTask task)");
             }
             else if (task.Error != null)
             {
-                Logger.Add(task.Error.Message, "Downloader");
+                Logger.Add(task.Error.Message, "Downloader | __DownloadProblemDatabaseCompleted(DownloadTask task)");
+            }
+        }
+
+        private static void __DownloadProblemCatagoryCompleted(DownloadTask task)
+        {
+            if (task.Status == ProgressStatus.Completed)
+            {
+                LocalDatabase.LoadCatagories();
+                Logger.Add("Downloaded context book 3 catagories", "Downloader | __DownloadProblemCatagoryCompleted(DownloadTask task)");
+            }
+            else if (task.Error != null)
+            {
+                Logger.Add(task.Error.Message, "Downloader | __DownloadProblemCatagoryCompleted(DownloadTask task)");
             }
         }
 

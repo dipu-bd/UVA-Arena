@@ -32,34 +32,67 @@ namespace UVA_Arena
             return String.Format("{0:0.00}{1}", res, suf[ind]);
         }
 
-        public static string FormatTimeSpan(long span)
+        public static string FormatTimeSpan(TimeSpan span)
         {
-            if (span < 120) return (span).ToString() + " secs ";
-
-            long year, mon, day, hour, min;
-
-            year = span / 31536000;
-            span -= 31536000 * year;
-
-            mon = span / 2592000;
-            span -= 2592000 * mon;
-
-            day = span / 86400;
-            span -= 86400 * day;
-
-            hour = span / 3600;
-            span -= 3600 * hour;
-
-            min = span / 60;
+            int year = (int)(span.TotalDays / 365);
+            int month = (span.Days - year * 365) / 30;
+            int days = span.Days - year * 365 - month * 30;
 
             string txt = "";
-            if (year > 0) txt += year.ToString() + "year ";
-            if (mon > 0) txt += mon.ToString() + "month ";
-            if (day > 0) txt += day.ToString() + "day ";
-            if (hour > 0) txt += hour.ToString() + "hour ";
-            txt += min.ToString() + "min ";
+            bool space = false;
+
+            if (year > 0)
+            {
+                space = true;
+                txt += string.Format("{0} Year", year);
+                if (year > 1) txt += "s";
+            }
+
+            if (month > 0)
+            {
+                if (space) txt += " "; space = true;
+                txt += string.Format(" {0} Month", month);
+                if (month > 1) txt += "s";
+            }
+
+            if (span.TotalDays < 30)
+            {
+                if (days > 0)
+                {
+                    if (space) txt += " "; space = true;
+                    txt += string.Format("{0} Day", days);
+                    if (days > 1) txt += "s";
+                }
+            }
+
+            if (span.TotalDays < 1)
+            {
+                if (span.Hours > 0)
+                {
+                    if (space) txt += " "; space = true;
+                    txt += string.Format("{0} Hour", span.Hours);
+                    if (span.Hours > 1) txt += "s";
+                }
+                if (span.Minutes > 0)
+                {
+                    if (space) txt += " "; space = true;
+                    txt += string.Format("{0} Minute", span.Minutes);
+                    if (span.Minutes > 1) txt += "s";
+                }
+                if (span.TotalMinutes < 2)
+                {
+                    if (space) txt += " "; space = true;
+                    txt += string.Format("{0} Second", span.Seconds);
+                    if (span.Seconds > 1) txt += "s";
+                }
+            }
 
             return txt;
+        }
+
+        public static string FormatTimeSpan(long span)
+        {
+            return FormatTimeSpan(new TimeSpan(span * 10000000));
         }
 
         #endregion
@@ -84,7 +117,7 @@ namespace UVA_Arena
             switch (ver)
             {
                 case Structures.Verdict.SubError: return "Submission error";
-                case Structures.Verdict.CantBeJudge: return "Can't be judged"; 
+                case Structures.Verdict.CantBeJudge: return "Can't be judged";
                 case Structures.Verdict.CompileError: return "Compile error";
                 case Structures.Verdict.RestrictedFunction: return "Restricted function";
                 case Structures.Verdict.RuntimeError: return "Runtime error";
@@ -97,7 +130,7 @@ namespace UVA_Arena
                 default: return "- In queue -";
             }
         }
-        
+
         public static System.Drawing.Color GetVerdictColor(Structures.Verdict ver)
         {
             switch (ver)
@@ -112,7 +145,7 @@ namespace UVA_Arena
                 case Structures.Verdict.MemoryLimit: return System.Drawing.Color.SlateGray;
                 case Structures.Verdict.WrongAnswer: return System.Drawing.Color.Maroon;
                 case Structures.Verdict.PresentationError: return System.Drawing.Color.Navy;
-                case Structures.Verdict.Accepted: return System.Drawing.Color.Blue; 
+                case Structures.Verdict.Accepted: return System.Drawing.Color.Blue;
                 default: return System.Drawing.Color.Black;
             }
         }

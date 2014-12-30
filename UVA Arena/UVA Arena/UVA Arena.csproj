@@ -76,6 +76,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\Data Structures\ContextBook.cs" />
+    <Compile Include="Classes\Data Structures\UserInfo.cs" />
     <Compile Include="Classes\Data Structures\UserRanklist.cs" />
     <Compile Include="Classes\Utilities\Internet.cs">
       <SubType>Code</SubType>
@@ -142,6 +143,12 @@
     </Compile>
     <Compile Include="Forms\CatagoryChange.Designer.cs">
       <DependentUpon>CatagoryChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CodeFileCreator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CodeFileCreator.Designer.cs">
+      <DependentUpon>CodeFileCreator.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DownloadAllForm.cs">
       <SubType>Form</SubType>
@@ -230,6 +237,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CatagoryChange.resx">
       <DependentUpon>CatagoryChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CodeFileCreator.resx">
+      <DependentUpon>CodeFileCreator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DownloadAllForm.resx">
       <DependentUpon>DownloadAllForm.cs</DependentUpon>

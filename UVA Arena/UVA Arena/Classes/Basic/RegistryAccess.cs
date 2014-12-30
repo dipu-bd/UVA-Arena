@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace UVA_Arena
 {
-    internal static class  RegistryAccess
+    internal static class RegistryAccess
     {
         public static RegistryKey DEFAULT
         {
@@ -48,21 +48,21 @@ namespace UVA_Arena
                 DEFAULT.SetValue("Default Username", value);
             }
         }
-        
+
         //
         // UserID
         //
         /// <summary> set user id of given name </summary>
         public static void SetUserid(string name, string uid)
-        {            
+        {
             SetValue(name, uid, "UserID", RegistryValueKind.String);
-            if(!LocalDatabase.usernames.ContainsKey(name))
+            if (!LocalDatabase.usernames.ContainsKey(name))
                 LocalDatabase.usernames.Add(name, uid);
         }
 
         /// <summary> delete a user id </summary>
         public static void DeleteUserid(string name)
-        {            
+        {
             if (!LocalDatabase.usernames.ContainsKey(name)) return;
             LocalDatabase.usernames.Remove(name);
             RegistryKey key = DEFAULT.CreateSubKey("UserID");
@@ -74,14 +74,30 @@ namespace UVA_Arena
         {
             RegistryKey key = DEFAULT.CreateSubKey("UserID");
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            foreach(string name in key.GetValueNames())
+            foreach (string name in key.GetValueNames())
             {
                 dic.Add(name, key.GetValue(name).ToString());
             }
             return dic;
         }
-      
 
+        //
+        // User Rank
+        //
+        /// <summary> set user rank of given name </summary>
+        public static void SetUserRank(Structures.UserRanklist urank)
+        {
+            string data = JsonConvert.SerializeObject(urank);
+            SetValue(urank.username, data, "User Rank", RegistryValueKind.String);            
+        }
+
+        public static Structures.UserRanklist GetUserRank(string name)
+        {
+            string data = (string)GetValue(name, "", "User Rank");
+            if (string.IsNullOrEmpty((string)data)) return null;
+            return JsonConvert.DeserializeObject<Structures.UserRanklist>(data);
+        }
+        
         //
         // Problem Database
         //
@@ -103,16 +119,79 @@ namespace UVA_Arena
 
         public static void SetTags(long pnum, List<string> catagory)
         {
-            string data = JsonConvert.SerializeObject(catagory);            
+            string data = JsonConvert.SerializeObject(catagory);
             SetValue(pnum.ToString(), data, "Problem Database", RegistryValueKind.String);
         }
 
         public static List<string> GetTags(long pnum)
         {
-            string data = (string)GetValue(pnum.ToString(), "[]", "Problem Database");            
+            string data = (string)GetValue(pnum.ToString(), "[]", "Problem Database");
             List<string> tags = JsonConvert.DeserializeObject<List<string>>(data);
             if (tags == null) tags = new List<string>();
             return tags;
         }
+
+        //
+        // Precodes
+        //
+        /// <summary> C Precode </summary>
+        public static string CPrecode
+        {
+            get
+            {
+                string dat = (string)RegistryAccess.GetValue("C Precode", null);
+                if (string.IsNullOrEmpty(dat)) return "";
+                return StringCompressor.DecompressString(dat);
+            }
+            set
+            {
+                RegistryAccess.SetValue("C Precode", StringCompressor.CompressString(value));
+            }
+        }
+        /// <summary> C++ Precode </summary>
+        public static string CPPPrecode
+        {
+            get
+            {
+                string dat = (string)RegistryAccess.GetValue("C++ Precode", null);
+                if (string.IsNullOrEmpty(dat)) return "";
+                return StringCompressor.DecompressString(dat);
+            }
+            set
+            {
+                RegistryAccess.SetValue("C++ Precode", StringCompressor.CompressString(value));
+            }
+        }
+
+        /// <summary> Java Precode </summary>
+        public static string JavaPrecode
+        {
+            get
+            {
+                string dat = (string)RegistryAccess.GetValue("Java Precode", null);
+                if (string.IsNullOrEmpty(dat)) return "";
+                return StringCompressor.DecompressString(dat);
+            }
+            set
+            {
+                RegistryAccess.SetValue("Java Precode", StringCompressor.CompressString(value));
+            }
+        }
+
+        /// <summary> Pascal Precode </summary>
+        public static string PascalPrecode
+        {
+            get
+            {
+                string dat = (string)RegistryAccess.GetValue("Pascal Precode", null);
+                if (string.IsNullOrEmpty(dat)) return "";
+                return StringCompressor.DecompressString(dat);
+            }
+            set
+            {
+                RegistryAccess.SetValue("Pascal Precode", StringCompressor.CompressString(value));
+            }
+        }
+
     }
 }

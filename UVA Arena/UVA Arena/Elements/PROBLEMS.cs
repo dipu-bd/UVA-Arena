@@ -30,6 +30,7 @@ namespace UVA_Arena.Elements
         {
             base.OnLoad(e);
 
+            //load volume and problems data at once
             Interactivity.ProblemDatabaseUpdated();
             problemListView.MakeColumnSelectMenu(problemContextMenu);
         }

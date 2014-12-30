@@ -181,7 +181,7 @@ namespace UVA_Arena.Elements
             {
                 if (!_QueueOnRun) Status1.Text = text;
             }
-            else
+            else if (StatusQueue.Count < 10)
             {
                 StatusQueue.Enqueue(text);
                 if (!_QueueOnRun) ShowNextStatus();
@@ -204,7 +204,7 @@ namespace UVA_Arena.Elements
             {
                 usernameStatus.Text = "Already added.";
             }
-            else 
+            else
             {
                 Internet.Downloader.DownloadUserid(user, username_completed);
                 usernameButton.UseWaitCursor = true;
@@ -271,6 +271,10 @@ namespace UVA_Arena.Elements
                 return;
             }
 
+            worldRanklist.ClearObjects();
+            lastSubmissions1.ClearObjects();
+            userProgTracker1.ShowUserInfo(null);
+
             LoadUserSub(((KeyValuePair<string, string>)sel).Key);
         }
 
@@ -324,7 +328,7 @@ namespace UVA_Arena.Elements
                 else
                 {
                     //show list 
-                    ShowDataByTab();                    
+                    ShowDataByTab();
                 }
             }
             catch (Exception ex)
@@ -360,34 +364,37 @@ namespace UVA_Arena.Elements
             if (this.IsDisposed) return;
             Progress1.Value = 0;
 
-            try
+            if (Task.Status != ProgressStatus.Completed)
             {
-                if (currentUser != null)
+                if (Task.Error != null)
                 {
-                    if (currentUser.uname != Task.Token.ToString()) return;
-                    currentUser.AddSubmissions(Task.Result);
+                    SetStatus("Error : " + Task.Error.Message);
+                    Logger.Add(Task.Error.Message, "User Statistics | LoadUserSub(string user)");
                 }
-                else
-                {
-                    currentUser = JsonConvert.DeserializeObject<UserInfo>(Task.Result);
-                    currentUser.Process();
-                }
-
-                string file = LocalDirectory.GetUserSubPath(currentUser.uname);
-                string data = currentUser.GetJsonData();
-                File.WriteAllText(file, data);
-
-                ShowDataByTab();
-
-                SetStatus("Downloaded " + Task.Token.ToString() + "'s submissions");
-                if (currentUser.LastSID == 0)
-                    Logger.Add("Downloaded " + currentUser.uname + "'s submissions", "User Statistics");
+                return;
             }
-            catch (Exception ex)
+
+            if (currentUser != null)
             {
-                SetStatus("Error : " + ex.Message);
-                Logger.Add(ex.Message, "User Statistics | dt_completed(DownloadTask Task)");
+                if (currentUser.uname != Task.Token.ToString()) return;
+                currentUser.AddSubmissions(Task.Result);
             }
+            else
+            {
+                currentUser = JsonConvert.DeserializeObject<UserInfo>(Task.Result);
+                currentUser.Process();
+            }
+
+            string file = LocalDirectory.GetUserSubPath(currentUser.uname);
+            string data = currentUser.GetJsonData();
+            File.WriteAllText(file, data);
+
+            ShowDataByTab();
+
+            SetStatus("Downloaded " + Task.Token.ToString() + "'s submissions");
+            if (currentUser.LastSID == 0)
+                Logger.Add("Downloaded " + currentUser.uname + "'s submissions", "User Statistics");
+
         }
 
         #endregion
@@ -403,12 +410,9 @@ namespace UVA_Arena.Elements
         private void timer1_Tick(object sender, EventArgs e)
         {
             //check if this is focused
+            if (this.tabControl1.SelectedTab != submissionTab) return;
             if (Interactivity.mainForm.customTabControl1.SelectedTab
                 != Interactivity.mainForm.profileTab) return;
-            if (this.tabControl1.SelectedTab != submissionTab) return;
-
-            //refresh items
-            //lastSubmissions1.Refresh();
 
             //check if update needed
             if (Updating || !AutoUpdateStatus || currentUser == null) return;
@@ -422,9 +426,10 @@ namespace UVA_Arena.Elements
             }
             else
             {
-                //show status about when to update
-                long remain = (long)Math.Ceiling((UpdateInterval - diff) / 1000.0);
-                SetStatus("Updating in " + Functions.FormatTimeSpan(remain), true);
+                //show status about when to update 
+                long inv = (long)Math.Ceiling((UpdateInterval - diff) / 1000.0);
+                string msg = Functions.FormatTimeSpan(inv);
+                SetStatus("Updating in " + msg, true);
             }
         }
 
@@ -438,7 +443,7 @@ namespace UVA_Arena.Elements
             {
                 if (row == null) return null;
                 UserSubmission last = (UserSubmission)row;
-                return UnixTimestamp.GetTimeSpan(last.sbt);
+                return UnixTimestamp.FormatUnixTime(last.sbt);
             };
             lanSUB.AspectToStringConverter = delegate(object dat)
             {
@@ -597,20 +602,35 @@ namespace UVA_Arena.Elements
 
         private void ShowDataByTab()
         {
+            SetStatus("", true);
             if (currentUser == null) return;
+
+            //change view and looks
+            userNameTitle.Text = string.Format(userNameTitle.Tag.ToString(), currentUser.name);
 
             if (tabControl1.SelectedTab == submissionTab)
             {
-                SetSubmissionToListView();
-                if (AutoUpdateStatus) DownloadUserSubs(currentUser.uname);
+                if ((string)submissionTab.Tag != currentUser.uid)
+                {
+                    SetSubmissionToListView();
+                    submissionTab.Tag = currentUser.uid;
+                }
             }
             else if (tabControl1.SelectedTab == progtrackerTab)
             {
-                userProgTracker1.ShowUserInfo(currentUser);
+                if ((string)progtrackerTab.Tag != currentUser.uid)
+                {
+                    userProgTracker1.ShowUserInfo(currentUser);
+                    progtrackerTab.Tag = currentUser.uid;
+                }
             }
             else if (tabControl1.SelectedTab == worldrankTab)
             {
-                ShowWorldRank();
+                if ((string)worldrankTab.Tag != currentUser.uid)
+                {
+                    ShowWorldRank();
+                    worldrankTab.Tag = currentUser.uid;
+                }
             }
             else if (tabControl1.SelectedTab == compareTab)
             {
@@ -620,19 +640,23 @@ namespace UVA_Arena.Elements
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex != -1) ShowDataByTab();
+            if (tabControl1.SelectedIndex != -1)
+                ShowDataByTab();
         }
 
         #endregion
 
         #region Show Submissions
 
+        private void lastSubmissions1_Click(object sender, EventArgs e)
+        {
+            if (lastSubmissions1.Items.Count == 0)
+                refreshSubmission.PerformClick();
+        }
+
         private void SetSubmissionToListView()
         {
             if (currentUser == null) return;
-
-            //set username tile
-            userNameTitle.Text = string.Format(userNameTitle.Tag.ToString(), currentUser.name);
 
             //load submission list according to view option
             List<UserSubmission> list = new List<UserSubmission>();
@@ -693,6 +717,12 @@ namespace UVA_Arena.Elements
             ShowWorldRank((int)rankSelector.Value);
         }
 
+        private void worldRanklist_Click(object sender, EventArgs e)
+        {
+            if (worldRanklist.Items.Count == 0)
+                ShowWorldRank();
+        }
+
         private void ShowWorldRank(int from = -1)
         {
             if (currentUser == null) return;
@@ -744,6 +774,14 @@ namespace UVA_Arena.Elements
                 return;
             }
 
+            foreach (UserRanklist urank in ranks)
+            {
+                if (LocalDatabase.ContainsUsers(urank.username))
+                {
+                    RegistryAccess.SetUserRank(urank);
+                }
+            }
+
             worldRanklist.ClearObjects();
             worldRanklist.SetObjects(ranks);
             worldRanklist.Sort(rankRANK, SortOrder.Ascending);
@@ -759,14 +797,14 @@ namespace UVA_Arena.Elements
             SetStatus(currentUser.uname + "'s ranklist downloaded.");
             Logger.Add("World rank downloaded - " + currentUser.uname, "World Rank | worldRankCompleted(DownloadTask task)");
             System.GC.Collect();
-        }               
+        }
 
         private void worldRanklist_HyperlinkClicked(object sender, BrightIdeasSoftware.HyperlinkClickedEventArgs e)
         {
-            if(e.Column == usernameRANK)
+            if (e.Column == usernameRANK)
             {
                 UserRanklist js = (UserRanklist)e.Model;
-                usernameBox.Text = js.username; 
+                usernameBox.Text = js.username;
                 usernameBox.Focus();
             }
         }
@@ -780,31 +818,27 @@ namespace UVA_Arena.Elements
             FontStyle style = FontStyle.Regular;
             Color fore = Color.Black;
 
+            //highlight item 
             UserRanklist js = (UserRanklist)e.Model;
-
             if (js.username == RegistryAccess.DefaultUsername)
             {
                 for (int i = 0; i < e.Item.SubItems.Count; ++i)
-                {
                     e.Item.SubItems[i].BackColor = Color.Turquoise;
-                }
             }
             else if (LocalDatabase.ContainsUsers(js.username))
             {
                 for (int i = 0; i < e.Item.SubItems.Count; ++i)
-                {
                     e.Item.SubItems[i].BackColor = Color.LightBlue;
-                }
             }
 
             if (e.Column == rankRANK)
             {
                 font = "Consolas";
-                fore = Color.Teal;                
-            }            
+                fore = Color.Teal;
+            }
             else if (e.Column == nameRANK)
             {
-                font = "Segoe UI Semibold";                
+                font = "Segoe UI Semibold";
             }
             else if (e.Column == acRANK)
             {
@@ -815,15 +849,16 @@ namespace UVA_Arena.Elements
             {
                 font = "Consolas";
                 fore = Color.Maroon;
-            }            
+            }
             else { return; }
 
             e.SubItem.ForeColor = fore;
             e.SubItem.Font = new Font(font, size, style);
-        } 
-        
+
+        }
+
 
         #endregion
-
+        
     }
 }

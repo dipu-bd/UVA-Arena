@@ -16,7 +16,7 @@ namespace UVA_Arena
         private long pnum;
         private string code;
         private Language lang;
-        private const string QUICK = "http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=25";
+        private const string QUICK = "http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=25&page=submit_problem";
 
         public void LoadSubmit(long pnum, string code = null, Language lang = Language.CPP)
         {
@@ -47,11 +47,11 @@ namespace UVA_Arena
                 string name = inpbox.GetAttribute("name");
                 if (name == "code")
                 {
-                    inpbox.InnerText = this.code; 
+                    inpbox.InnerText = this.code;
                     break;
-                }                
+                }
             }
-            
+
             //set other values
             foreach (HtmlElement inpbox in hcol)
             {
@@ -74,24 +74,26 @@ namespace UVA_Arena
 
         private void webBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
         {
-            if (progress1.Maximum != e.MaximumProgress)
-            {
-                progress1.Value = 0;
-                progress1.Maximum = (int)e.MaximumProgress;
-            }
-
-            progress1.Value = (int)e.CurrentProgress;
             status1.Text = webBrowser1.StatusText;
+            progress1.Value = (int)(100 * e.CurrentProgress / e.MaximumProgress);
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            status1.Text = webBrowser1.StatusText;
+            discussUrlBox.Text = webBrowser1.Url.ToString();
             HtmlDocument hdoc = webBrowser1.Document;
             foreach (HtmlElement helem in hdoc.Forms) ProcessPage(helem);
         }
-         
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+
+        private void goDiscussButton_Click(object sender, EventArgs e)
         {
+            webBrowser1.Navigate(discussUrlBox.Text);
+        }
+
+        private void homeDiscussButton_Click(object sender, EventArgs e)
+        {
+            discussUrlBox.Text = QUICK;
             webBrowser1.Navigate(QUICK);
         }
     }

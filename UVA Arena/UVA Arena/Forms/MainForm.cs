@@ -18,8 +18,9 @@ namespace UVA_Arena
             if (!set) customTabControl1.BackColor = Color.PowderBlue;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
             Logger.Add("UVA Arena started", "Main Form");
 
             //set some properties to the form
@@ -29,9 +30,7 @@ namespace UVA_Arena
             AddActiveButtons();
 
             //initialize controls and add them
-            DelayInitialize(true);
-
-            System.GC.Collect();
+            DelayInitialize(true); 
         }
 
         public void SetFormProperties()
@@ -59,21 +58,18 @@ namespace UVA_Arena
                 Interactivity.problems = new Elements.PROBLEMS();
                 Interactivity.problems.Dock = DockStyle.Fill;
                 Interactivity.problems.BorderStyle = BorderStyle.FixedSingle;
-                problemTab.Controls.Add(Interactivity.problems);
-            });
 
-            //load problem viewer
-            System.Threading.Thread.Sleep(20);
-            this.BeginInvoke((MethodInvoker)delegate
-            {
+                //load problem viewer            
                 Interactivity.problemViewer = new Elements.ProblemViewer();
                 Interactivity.problemViewer.Dock = DockStyle.Fill;
                 Interactivity.problemViewer.BorderStyle = BorderStyle.None;
                 Interactivity.problems.mainSplitContainer.Panel2.Controls.Add(Interactivity.problemViewer);
-            });
 
-            //load codes
-            System.Threading.Thread.Sleep(100);
+                problemTab.Controls.Add(Interactivity.problems);
+            });
+               
+            //load codes            
+            System.Threading.Thread.Sleep(50);
             this.BeginInvoke((MethodInvoker)delegate
             {
                 Interactivity.codes = new Elements.CODES();
@@ -83,7 +79,7 @@ namespace UVA_Arena
             });
 
             //load judge status
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(50);
             this.BeginInvoke((MethodInvoker)delegate
             {
                 Interactivity.status = new Elements.STATUS();
@@ -93,16 +89,16 @@ namespace UVA_Arena
             });
 
             //load user stat
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(50);
             this.BeginInvoke((MethodInvoker)delegate
             {
                 Interactivity.userstat = new Elements.USER_STAT();
                 Interactivity.userstat.Dock = DockStyle.Fill;
                 profileTab.Controls.Add(Interactivity.userstat);
             });
-            
+
             //load utilities
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(50);
             this.BeginInvoke((MethodInvoker)delegate
             {
                 Interactivity.utilities = new Elements.UTILITIES();

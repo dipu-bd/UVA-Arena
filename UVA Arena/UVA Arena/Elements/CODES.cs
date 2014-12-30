@@ -41,7 +41,23 @@ namespace UVA_Arena.Elements
         {
             if (IsReady)
             {
-                TreeNode tn = LocateProblem((long)pnum);
+                //create code file if doesn't exist
+                string path = LocalDirectory.GetCodesPath((long)pnum);
+                if (!Directory.Exists(path) || Directory.GetFiles(path).Length == 0)
+                {
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        CodeFileCreator cfc = new CodeFileCreator();
+                        if (cfc.ShowDialog() == DialogResult.OK)
+                        {
+                            AddProblem((long)pnum, cfc.Language);
+                            return;
+                        }
+                    });
+                }
+
+                //select code file path
+                TreeNode tn = GetNode(new DirectoryInfo(path));
                 ExpandAndSelect(tn, ExpandSelectType.SelecFirstChild);
             }
             else
@@ -159,66 +175,6 @@ namespace UVA_Arena.Elements
             }
         }
 
-
-        /// <summary> C Precode </summary>
-        public static string CPrecode
-        {
-            get
-            {
-                string dat = (string)RegistryAccess.GetValue("C Precode", null);
-                if (string.IsNullOrEmpty(dat)) return "";
-                return dat;
-            }
-            set
-            {
-                RegistryAccess.SetValue("C Precode", value);
-            }
-        }
-        /// <summary> C++ Precode </summary>
-        public static string CPPPrecode
-        {
-            get
-            {
-                string dat = (string)RegistryAccess.GetValue("C++ Precode", null);
-                if (string.IsNullOrEmpty(dat)) return "";
-                return dat;
-            }
-            set
-            {
-                RegistryAccess.SetValue("C++ Precode", value);
-            }
-        }
-
-        /// <summary> Java Precode </summary>
-        public static string JavaPrecode
-        {
-            get
-            {
-                string dat = (string)RegistryAccess.GetValue("Java Precode", null);
-                if (string.IsNullOrEmpty(dat)) return "";
-                return dat;
-            }
-            set
-            {
-                RegistryAccess.SetValue("Java Precode", value);
-            }
-        }
-
-        /// <summary> Pascal Precode </summary>
-        public static string PascalPrecode
-        {
-            get
-            {
-                string dat = (string)RegistryAccess.GetValue("Pascal Precode", null);
-                if (string.IsNullOrEmpty(dat)) return "";
-                return dat;
-            }
-            set
-            {
-                RegistryAccess.SetValue("Pascal Precode", value);
-            }
-        }
-
         /// <summary> Show Hints </summary>
         public static bool ShowHints
         {
@@ -250,6 +206,7 @@ namespace UVA_Arena.Elements
 
             if ((bool)background)
             {
+                selectDirectoryPanel.Visible = false;
                 folderTreeView.UseWaitCursor = true;
                 System.Threading.ThreadPool.QueueUserWorkItem(LoadCodeFolder, false);
                 return;
@@ -290,7 +247,7 @@ namespace UVA_Arena.Elements
                 else
                 {
                     int cnt = folderTreeView.Nodes.Count;
-                    if(cnt > 0) folderTreeView.Nodes[0].Expand();
+                    if (cnt > 0) folderTreeView.Nodes[0].Expand();
                 }
             });
 
@@ -590,7 +547,8 @@ namespace UVA_Arena.Elements
             if (type != ExpandSelectType.ExpandToNode) node.Expand();
             if (type == ExpandSelectType.SelecFirstChild)
             {
-                if (node.Nodes.Count > 0) folderTreeView.SelectedNode = node.Nodes[0];
+                if (node.Nodes.Count > 0)
+                    folderTreeView.SelectedNode = node.Nodes[0];
             }
         }
 
@@ -613,16 +571,61 @@ namespace UVA_Arena.Elements
             else if (lang == Structures.Language.Pascal) ext = ".pascal";
 
             //create code file
-            string name = Path.GetFileName(path) + ext;
-            string file = Path.Combine(path, name);
-            LocalDirectory.CreateFile(file);
+            string name = Path.GetFileName(path);
+            CreateFile(path, name, ext);
 
             //create input-output
-            LocalDirectory.CreateFile(Path.Combine(path, "input.txt"));
-            LocalDirectory.CreateFile(Path.Combine(path, "output.txt"));
+            string input = Path.Combine(path, "input.txt");
+            string output = Path.Combine(path, "output.txt");
+            string correct = Path.Combine(path, "correct.txt");
+            LocalDirectory.CreateFile(input);
+            LocalDirectory.CreateFile(output);
+            LocalDirectory.CreateFile(correct);
+            ParseInputOutput(pnum, input, correct);
 
             //select created problem
-            ExpandAndSelect(LocateProblem(pnum), ExpandSelectType.SelecFirstChild);
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                ExpandAndSelect(LocateProblem(pnum), ExpandSelectType.SelecFirstChild);
+            });
+        }
+
+        private void ParseInputOutput(long pnum, string inpfile, string outfile)
+        {
+            try
+            {
+                string file = LocalDirectory.GetProblemHtml(pnum);
+                if (LocalDirectory.GetFileSize(file) < 100) return;
+
+                string html = File.ReadAllText(file);
+                int indx = html.ToLower().IndexOf("sample input");
+                if (indx < 0) return;
+                int start = html.IndexOf("<pre>", indx);
+                if (start < 0) return;
+                int stop = html.IndexOf("</pre>", start);
+                if (stop <= start) return;
+                string xml = html.Substring(start, stop - start + 7);
+                System.Xml.XmlDocument xdoc = new System.Xml.XmlDocument();
+                xdoc.LoadXml(xml);
+                string data = xdoc.DocumentElement.InnerText.TrimStart(new char[] { ' ', '\r', '\n' });
+                File.WriteAllText(inpfile, data);
+
+                indx = html.ToLower().IndexOf("sample output", stop);
+                if (indx < 0) return;
+                start = html.IndexOf("<pre>", indx);
+                if (start < 0) return;
+                stop = html.IndexOf("</pre>", start);
+                if (stop <= start) return;
+                xml = html.Substring(start, stop - start + 7);
+                xdoc.LoadXml(xml);
+                data = xdoc.DocumentElement.InnerText.TrimStart(new char[] { ' ', '\r', '\n' });
+                if (!data.EndsWith(Environment.NewLine)) data += Environment.NewLine;
+                File.WriteAllText(outfile, data);
+            }
+            catch (Exception ex)
+            {
+                Logger.Add("Failed to write Input/Output data. Error: " + ex.Message, "CODES| ParseInputOutput()");
+            }
         }
 
         private long GetProblemNumber(string name)
@@ -1128,6 +1131,9 @@ namespace UVA_Arena.Elements
                 case FCTBAction.CustomAction4: //compile and execute
                     buildRunToolButton.PerformClick();
                     break;
+                case FCTBAction.CustomAction5: //hide or show compiler
+                    ToggleCompilerOutput();
+                    break;
             }
         }
 
@@ -1253,7 +1259,6 @@ namespace UVA_Arena.Elements
                     Place start = new Place(0, i);
                     Place stop = new Place(compilerOutput.GetLineLength(i), i);
                     return compilerOutput.GetRange(start, stop);
-
                 }
             }
 
@@ -1671,7 +1676,7 @@ namespace UVA_Arena.Elements
 
         private void fileSystemWatcher1_Created(object sender, FileSystemEventArgs e)
         {
-            if (!IsReady) return; 
+            if (!IsReady) return;
 
             try
             {
@@ -1698,7 +1703,7 @@ namespace UVA_Arena.Elements
 
         private void fileSystemWatcher1_Deleted(object sender, FileSystemEventArgs e)
         {
-            if (!IsReady) return; 
+            if (!IsReady) return;
 
             try
             {
@@ -1722,7 +1727,7 @@ namespace UVA_Arena.Elements
 
         private void fileSystemWatcher1_Renamed(object sender, RenamedEventArgs e)
         {
-            if (!IsReady) return; 
+            if (!IsReady) return;
 
             try
             {
@@ -1838,16 +1843,22 @@ namespace UVA_Arena.Elements
         //
         private void precodeToolButton_ButtonClick(object sender, EventArgs e)
         {
+            if (!LocalDatabase.HasProblem(SelectedPNUM))
+            {
+                MessageBox.Show("Create a code file first.");
+                return;
+            }
+
             switch (CustomLang)
             {
                 case Structures.Language.C:
-                    codeTextBox.Text = CPrecode;
+                    codeTextBox.Text = RegistryAccess.CPrecode;
                     break;
                 case Structures.Language.CPP:
-                    codeTextBox.Text = CPPPrecode;
+                    codeTextBox.Text = RegistryAccess.CPPPrecode;
                     break;
                 case Structures.Language.Java:
-                    codeTextBox.Text = JavaPrecode;
+                    codeTextBox.Text = RegistryAccess.JavaPrecode;
                     break;
                 default:
                     codeTextBox.Text = "";
@@ -1981,6 +1992,8 @@ namespace UVA_Arena.Elements
                 compileToolButton.Enabled = false;
                 buildRunToolButton.Enabled = false;
                 runtestToolButton.Enabled = false;
+                //show compiler output
+                if (compilerOutputIsHidden) ToggleCompilerOutput();
             });
         }
 
@@ -2340,17 +2353,26 @@ namespace UVA_Arena.Elements
 
         private void compareOutputButton_Click(object sender, EventArgs e)
         {
-            CompareOutputTexts();
+            if (CompareOutputTexts())
+            {
+                MessageBox.Show("Files matched.",
+                    Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            else
+            {
+                MessageBox.Show("Files did not match.",
+                    Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
         }
 
         private int __updating = 0;
-        private void CompareOutputTexts()
+        private bool CompareOutputTexts()
         {
             //get file names
             string file1 = (string)correctOutputTextBox.Tag;
             string file2 = (string)outputTextBox.Tag;
-            if (file1 == null || !File.Exists(file1)) return;
-            if (file2 == null || !File.Exists(file2)) return;
+            if (file1 == null || !File.Exists(file1)) return false;
+            if (file2 == null || !File.Exists(file2)) return false;
 
             //first clear prev result
             progOutputTextBox.Clear();
@@ -2372,6 +2394,7 @@ namespace UVA_Arena.Elements
             __updating--;
 
             progOutputTextBox.Cursor = Cursors.Default;
+            return (File.ReadAllText(file1) == File.ReadAllText(file2));
         }
 
         private void _Process(DiffMergeStuffs.Lines lines, FastColoredTextBox fctb1, FastColoredTextBox fctb2)
@@ -2439,5 +2462,50 @@ namespace UVA_Arena.Elements
 
         #endregion
 
+        #region udebug
+
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == uDebugTab)
+            {
+                if (webBrowser1.Tag == null ||
+                    (long)webBrowser1.Tag != SelectedPNUM)
+                    homeDiscussButton.PerformClick();
+
+                if (!compilerOutputIsHidden)
+                    ToggleCompilerOutput();
+            }
+        }
+
+        private void homeDiscussButton_Click(object sender, EventArgs e)
+        {
+            string url = "http://www.udebug.com";
+            if (LocalDatabase.HasProblem(SelectedPNUM))
+                url += "/UVa/" + SelectedPNUM;
+            discussUrlBox.Text = url;
+            webBrowser1.Tag = SelectedPNUM;
+            webBrowser1.Navigate(url);
+        }
+
+        private void goDiscussButton_Click(object sender, EventArgs e)
+        {
+            webBrowser1.Tag = SelectedPNUM;
+            webBrowser1.Navigate(discussUrlBox.Text);
+        }
+
+        private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+        {
+            discussUrlBox.Text = webBrowser1.Url.ToString();
+            status1.Text = webBrowser1.StatusText;
+        }
+
+        private void webBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
+        {
+            status1.Text = webBrowser1.StatusText;
+            progress1.Value = (int)(100 * e.CurrentProgress / e.MaximumProgress);
+        }
+
+        #endregion
     }
 }

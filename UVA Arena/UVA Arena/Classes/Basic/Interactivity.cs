@@ -93,7 +93,7 @@ namespace UVA_Arena
                     mainForm.BringToFront();
                 });
             }
-            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity"); }
+            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ShowUserStat(string user)"); }
         }
 
         public static void ShowProblem(long pnum)
@@ -116,7 +116,7 @@ namespace UVA_Arena
                     mainForm.BringToFront();
                 });
             }
-            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity"); }
+            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ShowProblem(long pnum)"); }
         }
 
         public static void ShowCode(long pnum)
@@ -136,7 +136,7 @@ namespace UVA_Arena
                     mainForm.BringToFront();
                 });
             }
-            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity"); }
+            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ShowCode(long pnum)"); }
         }
 
         public static void ProblemDatabaseUpdated()
@@ -169,7 +169,7 @@ namespace UVA_Arena
                     }
                 });
             }
-            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity"); }
+            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ProblemDatabaseUpdated()"); }
         }
     }
 }

@@ -57,13 +57,11 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.subListLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.showUserSubButton = new System.Windows.Forms.Button();
             this.usernameList1 = new BrightIdeasSoftware.FastObjectListView();
             this.unameCol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.uidCol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel6 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.showUsersRankButton = new System.Windows.Forms.Button();
             this.showSubmissionButton = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -74,6 +72,8 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.showUsersRankButton = new System.Windows.Forms.Button();
+            this.showUserSubButton = new System.Windows.Forms.Button();
             this.compareTab = new System.Windows.Forms.TabPage();
             this.discussTab = new System.Windows.Forms.TabPage();
             this.discussWebBrowser = new System.Windows.Forms.WebBrowser();
@@ -303,7 +303,7 @@
             this.submissionStatus.Cursor = System.Windows.Forms.Cursors.Default;
             this.submissionStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.submissionStatus.EmptyListMsg = "Refresh to view last submissions";
-            this.submissionStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.submissionStatus.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.submissionStatus.ForeColor = System.Drawing.Color.Black;
             this.submissionStatus.FullRowSelect = true;
             this.submissionStatus.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
@@ -430,16 +430,16 @@
             this.tableLayoutPanel4.BackColor = System.Drawing.Color.LightBlue;
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.showUserSubButton, 0, 10);
             this.tableLayoutPanel4.Controls.Add(this.usernameList1, 0, 8);
             this.tableLayoutPanel4.Controls.Add(this.panel6, 0, 7);
-            this.tableLayoutPanel4.Controls.Add(this.showUsersRankButton, 0, 9);
             this.tableLayoutPanel4.Controls.Add(this.showSubmissionButton, 0, 3);
             this.tableLayoutPanel4.Controls.Add(this.dateTimePicker1, 0, 2);
             this.tableLayoutPanel4.Controls.Add(this.panel1, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.panel2, 0, 4);
             this.tableLayoutPanel4.Controls.Add(this.showRanksButton, 0, 6);
             this.tableLayoutPanel4.Controls.Add(this.panel4, 0, 5);
+            this.tableLayoutPanel4.Controls.Add(this.showUsersRankButton, 0, 10);
+            this.tableLayoutPanel4.Controls.Add(this.showUserSubButton, 0, 9);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Right;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(598, 0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -458,21 +458,6 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(194, 356);
             this.tableLayoutPanel4.TabIndex = 5;
-            // 
-            // showUserSubButton
-            // 
-            this.showUserSubButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.showUserSubButton.Location = new System.Drawing.Point(1, 319);
-            this.showUserSubButton.Margin = new System.Windows.Forms.Padding(1);
-            this.showUserSubButton.Name = "showUserSubButton";
-            this.showUserSubButton.Size = new System.Drawing.Size(192, 26);
-            this.showUserSubButton.TabIndex = 13;
-            this.showUserSubButton.Text = "Show User\'s Submissions";
-            this.showUserSubButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.showUserSubButton.UseVisualStyleBackColor = true;
-            this.showUserSubButton.Click += new System.EventHandler(this.showUserSubButton_Click);
             // 
             // usernameList1
             // 
@@ -545,21 +530,6 @@
             this.label4.TabIndex = 1;
             this.label4.Text = "User\'s Rank";
             this.label4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // showUsersRankButton
-            // 
-            this.showUsersRankButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.showUsersRankButton.Location = new System.Drawing.Point(1, 291);
-            this.showUsersRankButton.Margin = new System.Windows.Forms.Padding(1);
-            this.showUsersRankButton.Name = "showUsersRankButton";
-            this.showUsersRankButton.Size = new System.Drawing.Size(192, 26);
-            this.showUsersRankButton.TabIndex = 11;
-            this.showUsersRankButton.Text = "Show User\'s Rank";
-            this.showUsersRankButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.showUsersRankButton.UseVisualStyleBackColor = true;
-            this.showUsersRankButton.Click += new System.EventHandler(this.showUsersRankButton_Click);
             // 
             // showSubmissionButton
             // 
@@ -692,6 +662,38 @@
             0,
             0});
             // 
+            // showUsersRankButton
+            // 
+            this.showUsersRankButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.showUsersRankButton.Location = new System.Drawing.Point(1, 319);
+            this.showUsersRankButton.Margin = new System.Windows.Forms.Padding(1);
+            this.showUsersRankButton.Name = "showUsersRankButton";
+            this.showUsersRankButton.Size = new System.Drawing.Size(192, 26);
+            this.showUsersRankButton.TabIndex = 11;
+            this.showUsersRankButton.Tag = "Rank of {0}";
+            this.showUsersRankButton.Text = "Rank of User";
+            this.showUsersRankButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.showUsersRankButton.UseVisualStyleBackColor = true;
+            this.showUsersRankButton.Click += new System.EventHandler(this.showUsersRankButton_Click);
+            // 
+            // showUserSubButton
+            // 
+            this.showUserSubButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.showUserSubButton.Location = new System.Drawing.Point(1, 291);
+            this.showUserSubButton.Margin = new System.Windows.Forms.Padding(1);
+            this.showUserSubButton.Name = "showUserSubButton";
+            this.showUserSubButton.Size = new System.Drawing.Size(192, 26);
+            this.showUserSubButton.TabIndex = 13;
+            this.showUserSubButton.Tag = "Submissions of {0}";
+            this.showUserSubButton.Text = "Submissions of User";
+            this.showUserSubButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.showUserSubButton.UseVisualStyleBackColor = true;
+            this.showUserSubButton.Click += new System.EventHandler(this.showUserSubButton_Click);
+            // 
             // compareTab
             // 
             this.compareTab.Location = new System.Drawing.Point(4, 4);
@@ -811,7 +813,7 @@
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 139F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 141F));
             this.tableLayoutPanel1.Controls.Add(this.catagoryButton, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.catagoryInfo, 0, 1);
@@ -834,10 +836,10 @@
             this.catagoryButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
             this.catagoryButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.catagoryButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.catagoryButton.Location = new System.Drawing.Point(661, 33);
+            this.catagoryButton.Location = new System.Drawing.Point(659, 33);
             this.catagoryButton.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.catagoryButton.Name = "catagoryButton";
-            this.catagoryButton.Size = new System.Drawing.Size(137, 26);
+            this.catagoryButton.Size = new System.Drawing.Size(139, 26);
             this.catagoryButton.TabIndex = 2;
             this.catagoryButton.Text = "Change";
             this.catagoryButton.UseVisualStyleBackColor = false;
@@ -855,7 +857,7 @@
             this.titleBox1.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.titleBox1.Name = "titleBox1";
             this.titleBox1.ReadOnly = true;
-            this.titleBox1.Size = new System.Drawing.Size(650, 25);
+            this.titleBox1.Size = new System.Drawing.Size(648, 25);
             this.titleBox1.TabIndex = 0;
             this.titleBox1.TabStop = false;
             this.titleBox1.Text = "No problem selected";
@@ -870,7 +872,7 @@
             this.catagoryInfo.ForeColor = System.Drawing.Color.Maroon;
             this.catagoryInfo.Location = new System.Drawing.Point(4, 38);
             this.catagoryInfo.Name = "catagoryInfo";
-            this.catagoryInfo.Size = new System.Drawing.Size(652, 16);
+            this.catagoryInfo.Size = new System.Drawing.Size(650, 16);
             this.catagoryInfo.TabIndex = 1;
             this.catagoryInfo.TabStop = false;
             this.catagoryInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.catagoryInfo_KeyDown);
@@ -879,10 +881,10 @@
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Image = global::UVA_Arena.Properties.Resources.expand;
-            this.button1.Location = new System.Drawing.Point(661, 2);
+            this.button1.Location = new System.Drawing.Point(659, 2);
             this.button1.Margin = new System.Windows.Forms.Padding(1);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(137, 29);
+            this.button1.Size = new System.Drawing.Size(139, 29);
             this.button1.TabIndex = 3;
             this.button1.Text = "Expand";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;

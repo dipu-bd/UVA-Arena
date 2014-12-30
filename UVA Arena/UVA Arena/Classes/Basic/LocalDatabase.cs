@@ -217,7 +217,7 @@ namespace UVA_Arena
         /// <summary> get user id from name </summary>
         public static string GetUserid(string name)
         {
-            if (!ContainsUsers(name)) return null;
+            if (!ContainsUsers(name)) return "";
             return usernames[name];
         }
 

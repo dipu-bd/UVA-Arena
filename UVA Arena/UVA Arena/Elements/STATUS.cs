@@ -27,7 +27,7 @@ namespace UVA_Arena.Elements
             timer1.Enabled = AutoUpdateStatus;
             autoUpdateToolMenu.Checked = AutoUpdateStatus;
         }
-        
+
         //
         // Registry Access
         //
@@ -160,7 +160,7 @@ namespace UVA_Arena.Elements
         {
             //check if this is focused
             if (Interactivity.mainForm.customTabControl1.SelectedTab
-                != Interactivity.mainForm.submissionTab) return;
+                    != Interactivity.mainForm.submissionTab) return;
 
             //refresh items
             submissionStatus.Refresh();
@@ -177,9 +177,10 @@ namespace UVA_Arena.Elements
             }
             else
             {
-                //show status about when to update
-                long remain = (long)Math.Ceiling((UpdateInterval - diff) / 1000.0);
-                Status1.Text = "Updating in " + Functions.FormatTimeSpan(remain);
+                //show status about when to update 
+                long inv = (long)Math.Ceiling((UpdateInterval - diff) / 1000.0);
+                string msg = Functions.FormatTimeSpan(inv);
+                Status1.Text = "Updating in " + msg;
             }
         }
 
@@ -233,7 +234,7 @@ namespace UVA_Arena.Elements
             subtimeSUB.AspectGetter = delegate(object row)
             {
                 JudgeStatus last = (JudgeStatus)row;
-                return UnixTimestamp.GetTimeSpan(last.sbt);
+                return UnixTimestamp.FormatUnixTime(last.sbt);
             };
             lanSUB.AspectToStringConverter = delegate(object dat)
             {
@@ -265,22 +266,20 @@ namespace UVA_Arena.Elements
             FontStyle style = FontStyle.Regular;
             Color fore = Color.Black;
 
+            //highlight item 
             JudgeStatus js = (JudgeStatus)e.Model;
             if (js.uname == RegistryAccess.DefaultUsername)
             {
                 for (int i = 0; i < e.Item.SubItems.Count; ++i)
-                {
                     e.Item.SubItems[i].BackColor = Color.Turquoise;
-                }
             }
             else if (LocalDatabase.ContainsUsers(js.uname))
             {
                 for (int i = 0; i < e.Item.SubItems.Count; ++i)
-                {
                     e.Item.SubItems[i].BackColor = Color.LightBlue;
-                }
             }
-
+             
+            //highlight other
             if (e.Column == sidSUB)
             {
                 font = "Consolas";
@@ -341,7 +340,7 @@ namespace UVA_Arena.Elements
                 fore = Color.Navy;
             }
             else { return; }
-
+             
             e.SubItem.ForeColor = fore;
             e.SubItem.Font = new Font(font, size, style);
         }

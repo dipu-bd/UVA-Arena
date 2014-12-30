@@ -155,6 +155,15 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.refreshCompareButton = new System.Windows.Forms.Button();
             this.compareOutputButton = new System.Windows.Forms.Button();
+            this.uDebugTab = new System.Windows.Forms.TabPage();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.goDiscussButton = new System.Windows.Forms.Button();
+            this.discussUrlBox = new System.Windows.Forms.TextBox();
+            this.homeDiscussButton = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.status1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.progress1 = new System.Windows.Forms.ToolStripProgressBar();
             this.compilerOutput = new FastColoredTextBoxNS.FastColoredTextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
@@ -219,6 +228,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.progOutputTextBox)).BeginInit();
             this.toolStrip4.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.uDebugTab.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.compilerOutput)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.BottomToolbar.SuspendLayout();
@@ -310,7 +322,6 @@
             this.inputFileToolStripMenuItem,
             this.outputFileToolStripMenuItem});
             this.newContextMenu.Name = "newContextMenu";
-            this.newContextMenu.OwnerItem = this.toolStripButton2;
             this.newContextMenu.Size = new System.Drawing.Size(151, 192);
             // 
             // folderToolStripMenuItem
@@ -609,8 +620,8 @@
             this.label1.Size = new System.Drawing.Size(198, 158);
             this.label1.TabIndex = 0;
             this.label1.Text = "Please select a directory to store your code files. \r\nOtherwise they will be stor" +
-    "ed in default directory for codes.\r\n\r\nNote : This will automatically <FORMAT> se" +
-    "lected directory.";
+    "ed in default directory.\r\n\r\nNote : This will automatically <FORMAT> selected dir" +
+    "ectory.";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel1
@@ -798,6 +809,7 @@
             this.tabControl1.Controls.Add(this.codeTAB);
             this.tabControl1.Controls.Add(this.ioTAB);
             this.tabControl1.Controls.Add(this.compareTAB);
+            this.tabControl1.Controls.Add(this.uDebugTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -805,6 +817,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(616, 304);
             this.tabControl1.TabIndex = 4;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // codeTAB
             // 
@@ -1035,7 +1048,7 @@
             // 
             // ioTAB
             // 
-            this.ioTAB.BackColor = System.Drawing.Color.Tan;
+            this.ioTAB.BackColor = System.Drawing.Color.Bisque;
             this.ioTAB.Controls.Add(this.IOContainer1);
             this.ioTAB.Location = new System.Drawing.Point(4, 26);
             this.ioTAB.Name = "ioTAB";
@@ -1046,7 +1059,6 @@
             // 
             // IOContainer1
             // 
-            this.IOContainer1.BackColor = System.Drawing.Color.Tan;
             this.IOContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.IOContainer1.Location = new System.Drawing.Point(1, 1);
             this.IOContainer1.Name = "IOContainer1";
@@ -1084,7 +1096,6 @@
             // 
             // inputToolBar
             // 
-            this.inputToolBar.BackColor = System.Drawing.Color.Ivory;
             this.inputToolBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.inputToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.inputToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1154,7 +1165,7 @@
             this.inputTextBox.AutoIndent = false;
             this.inputTextBox.AutoIndentChars = false;
             this.inputTextBox.AutoIndentExistingLines = false;
-            this.inputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.inputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.inputTextBox.BackBrush = null;
             this.inputTextBox.BackColor = System.Drawing.Color.Snow;
             this.inputTextBox.CharHeight = 14;
@@ -1262,7 +1273,7 @@
             this.outputTextBox.AutoIndent = false;
             this.outputTextBox.AutoIndentChars = false;
             this.outputTextBox.AutoIndentExistingLines = false;
-            this.outputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.outputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.outputTextBox.BackBrush = null;
             this.outputTextBox.BackColor = System.Drawing.Color.MintCream;
             this.outputTextBox.CharHeight = 14;
@@ -1307,7 +1318,6 @@
             // 
             // ouputToolBar
             // 
-            this.ouputToolBar.BackColor = System.Drawing.Color.Ivory;
             this.ouputToolBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ouputToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.ouputToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1351,7 +1361,7 @@
             // 
             // compareTAB
             // 
-            this.compareTAB.BackColor = System.Drawing.Color.PeachPuff;
+            this.compareTAB.BackColor = System.Drawing.Color.Linen;
             this.compareTAB.Controls.Add(this.compareContainer);
             this.compareTAB.Controls.Add(this.panel3);
             this.compareTAB.Location = new System.Drawing.Point(4, 26);
@@ -1362,7 +1372,7 @@
             // 
             // compareContainer
             // 
-            this.compareContainer.BackColor = System.Drawing.Color.Tan;
+            this.compareContainer.BackColor = System.Drawing.Color.Bisque;
             this.compareContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.compareContainer.Location = new System.Drawing.Point(0, 0);
             this.compareContainer.Name = "compareContainer";
@@ -1400,7 +1410,6 @@
             // 
             // toolStrip2
             // 
-            this.toolStrip2.BackColor = System.Drawing.Color.Ivory;
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1470,7 +1479,7 @@
             this.correctOutputTextBox.AutoIndent = false;
             this.correctOutputTextBox.AutoIndentChars = false;
             this.correctOutputTextBox.AutoIndentExistingLines = false;
-            this.correctOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.correctOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.correctOutputTextBox.BackBrush = null;
             this.correctOutputTextBox.BackColor = System.Drawing.Color.Snow;
             this.correctOutputTextBox.CharHeight = 14;
@@ -1579,7 +1588,7 @@
             this.progOutputTextBox.AutoIndent = false;
             this.progOutputTextBox.AutoIndentChars = false;
             this.progOutputTextBox.AutoIndentExistingLines = false;
-            this.progOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.progOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.progOutputTextBox.BackBrush = null;
             this.progOutputTextBox.BackColor = System.Drawing.Color.MintCream;
             this.progOutputTextBox.CharHeight = 14;
@@ -1602,7 +1611,6 @@
             // 
             // toolStrip4
             // 
-            this.toolStrip4.BackColor = System.Drawing.Color.Ivory;
             this.toolStrip4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip4.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1663,6 +1671,108 @@
             this.compareOutputButton.Text = "Compare";
             this.compareOutputButton.UseVisualStyleBackColor = true;
             this.compareOutputButton.Click += new System.EventHandler(this.compareOutputButton_Click);
+            // 
+            // uDebugTab
+            // 
+            this.uDebugTab.BackColor = System.Drawing.Color.Aquamarine;
+            this.uDebugTab.Controls.Add(this.webBrowser1);
+            this.uDebugTab.Controls.Add(this.tableLayoutPanel6);
+            this.uDebugTab.Controls.Add(this.statusStrip1);
+            this.uDebugTab.Location = new System.Drawing.Point(4, 26);
+            this.uDebugTab.Name = "uDebugTab";
+            this.uDebugTab.Size = new System.Drawing.Size(608, 274);
+            this.uDebugTab.TabIndex = 3;
+            this.uDebugTab.Text = "uDebug";
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowser1.Location = new System.Drawing.Point(0, 28);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.ScriptErrorsSuppressed = true;
+            this.webBrowser1.Size = new System.Drawing.Size(608, 218);
+            this.webBrowser1.TabIndex = 5;
+            this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated);
+            this.webBrowser1.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.webBrowser1_ProgressChanged);
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.ColumnCount = 3;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.Controls.Add(this.goDiscussButton, 2, 0);
+            this.tableLayoutPanel6.Controls.Add(this.discussUrlBox, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.homeDiscussButton, 0, 0);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 1;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(608, 28);
+            this.tableLayoutPanel6.TabIndex = 7;
+            // 
+            // goDiscussButton
+            // 
+            this.goDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.goDiscussButton.Location = new System.Drawing.Point(511, 2);
+            this.goDiscussButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.goDiscussButton.Name = "goDiscussButton";
+            this.goDiscussButton.Size = new System.Drawing.Size(94, 24);
+            this.goDiscussButton.TabIndex = 1;
+            this.goDiscussButton.Text = "GO";
+            this.goDiscussButton.UseVisualStyleBackColor = true;
+            this.goDiscussButton.Click += new System.EventHandler(this.goDiscussButton_Click);
+            // 
+            // discussUrlBox
+            // 
+            this.discussUrlBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.discussUrlBox.BackColor = System.Drawing.Color.White;
+            this.discussUrlBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.discussUrlBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.discussUrlBox.Location = new System.Drawing.Point(43, 4);
+            this.discussUrlBox.Name = "discussUrlBox";
+            this.discussUrlBox.Size = new System.Drawing.Size(462, 20);
+            this.discussUrlBox.TabIndex = 3;
+            // 
+            // homeDiscussButton
+            // 
+            this.homeDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.homeDiscussButton.Image = global::UVA_Arena.Properties.Resources.home;
+            this.homeDiscussButton.Location = new System.Drawing.Point(2, 2);
+            this.homeDiscussButton.Margin = new System.Windows.Forms.Padding(2);
+            this.homeDiscussButton.Name = "homeDiscussButton";
+            this.homeDiscussButton.Size = new System.Drawing.Size(36, 24);
+            this.homeDiscussButton.TabIndex = 6;
+            this.homeDiscussButton.UseVisualStyleBackColor = true;
+            this.homeDiscussButton.Click += new System.EventHandler(this.homeDiscussButton_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.status1,
+            this.progress1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 246);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(608, 28);
+            this.statusStrip1.TabIndex = 6;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // status1
+            // 
+            this.status1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.status1.Name = "status1";
+            this.status1.Size = new System.Drawing.Size(485, 23);
+            this.status1.Spring = true;
+            this.status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // progress1
+            // 
+            this.progress1.Name = "progress1";
+            this.progress1.Size = new System.Drawing.Size(100, 22);
             // 
             // compilerOutput
             // 
@@ -1967,6 +2077,12 @@
             this.toolStrip4.ResumeLayout(false);
             this.toolStrip4.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.uDebugTab.ResumeLayout(false);
+            this.uDebugTab.PerformLayout();
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.compilerOutput)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -2125,6 +2241,15 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.Button refreshCompareButton;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.TabPage uDebugTab;
+        public System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Button goDiscussButton;
+        private System.Windows.Forms.TextBox discussUrlBox;
+        private System.Windows.Forms.Button homeDiscussButton;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel status1;
+        private System.Windows.Forms.ToolStripProgressBar progress1;
 
     }
 }

@@ -132,8 +132,7 @@
             this.Name = "MainForm";
             this.Tag = "UVA Arena [{0} : {1}]";
             this.Text = "UVA Arena";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized; 
             this.customTabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 

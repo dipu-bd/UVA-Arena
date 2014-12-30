@@ -44,7 +44,8 @@ namespace UVA_Arena.Elements
         {
             if (tabControl1.SelectedTab == discussTab)
             {
-                homeDiscussButton.PerformClick();
+                if (discussWebBrowser.Tag == null || (long)discussWebBrowser.Tag != current.pnum)
+                    homeDiscussButton.PerformClick();
             }
             else if (tabControl1.SelectedTab == submissionTab)
             {
@@ -331,13 +332,14 @@ namespace UVA_Arena.Elements
 
         private void goDiscussButton_Click(object sender, EventArgs e)
         {
-            discussWebBrowser.Stop();
+            discussWebBrowser.Stop(); 
             discussWebBrowser.Navigate(discussUrlBox.Text);
         }
 
         private void webBrowser2_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
-            discussUrlBox.Text = e.Url.ToString();
+            discussUrlBox.Text = discussWebBrowser.Url.ToString();
+            Interactivity.problems.Status1.Text = discussWebBrowser.StatusText;
         }
 
         private void prevDiscussButton_Click(object sender, EventArgs e)
@@ -356,6 +358,7 @@ namespace UVA_Arena.Elements
             string discuss = string.Format("http://acm.uva.es/board/{0}", query);
             discussWebBrowser.Navigate(discuss);
             discussUrlBox.Text = discuss;
+            discussWebBrowser.Tag = current.pnum;
         }
 
         private void webBrowser2_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
@@ -406,22 +409,27 @@ namespace UVA_Arena.Elements
                 user = ((KeyValuePair<string, string>)usernameList1.SelectedObject).Key;
             usernameList1.Tag = user;
 
-            showUsersRankButton.Text = "Show " + user + "'s Rank";
-            showUserSubButton.Text = "Show " + user + "'s Submissions";
+            showUsersRankButton.Text = string.Format((string)showUsersRankButton.Tag, user);
+            showUserSubButton.Text = string.Format((string)showUserSubButton.Tag, user);
+             
+            _curSubType = SubViewType.UsersSub;
+            LoadSubmission();
         }
 
         private void LoadSubmission()
         {
             if (current == null) return;
 
-            long start, stop;
-            string url = "", format;
             string user = (string)usernameList1.Tag;
-            if (string.IsNullOrEmpty(user))
+            if (string.IsNullOrEmpty(user)) 
                 user = RegistryAccess.DefaultUsername;
-            string uid = LocalDatabase.GetUserid(user);  //uid            
+            string uid = LocalDatabase.GetUserid(user);  //uid        
+    
+            submissionStatus.ClearObjects();
             usernameList1.SetObjects(LocalDatabase.usernames);
 
+            long start, stop;
+            string url = "", format;
             switch (_curSubType)
             {
                 case SubViewType.LastSubmission:
@@ -447,7 +455,7 @@ namespace UVA_Arena.Elements
                 case SubViewType.UsersSub:
                     format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/{2}"; //uid, pnum, last sid
                     url = string.Format(format, uid, current.pnum, 0);
-                    Interactivity.problems.SetStatus("Downoading " + user + "'s submission...");                    
+                    Interactivity.problems.SetStatus("Downoading " + user + "'s submission...");
                     break;
             }
 
@@ -527,7 +535,7 @@ namespace UVA_Arena.Elements
             subtimeSUB.AspectToStringConverter = delegate(object dat)
             {
                 if (dat == null) return "";
-                return UnixTimestamp.GetTimeSpan((long)dat);
+                return UnixTimestamp.FormatUnixTime((long)dat);
             };
             lanSUB.AspectToStringConverter = delegate(object dat)
             {
@@ -562,11 +570,13 @@ namespace UVA_Arena.Elements
             Color fore = Color.Black;
 
             //get two aspect used later
-            Verdict ver; string uname;
+            Verdict ver;
+            string uname;
             if (typeof(SubmissionMessage) == e.Model.GetType())
             {
                 SubmissionMessage js = (SubmissionMessage)e.Model;
-                ver = (Verdict)js.ver; uname = js.uname;
+                ver = (Verdict)js.ver;
+                uname = js.uname;
             }
             else
             {
@@ -576,20 +586,16 @@ namespace UVA_Arena.Elements
 
             //mark submission's with known user name
             if (_curSubType != SubViewType.UsersSub)
-            {                
+            {
                 if (uname == RegistryAccess.DefaultUsername)
                 {
                     for (int i = 0; i < e.Item.SubItems.Count; ++i)
-                    {
                         e.Item.SubItems[i].BackColor = Color.Turquoise;
-                    }
                 }
                 else if (LocalDatabase.ContainsUsers(uname))
                 {
                     for (int i = 0; i < e.Item.SubItems.Count; ++i)
-                    {
                         e.Item.SubItems[i].BackColor = Color.LightBlue;
-                    }
                 }
             }
 
@@ -634,7 +640,7 @@ namespace UVA_Arena.Elements
                 fore = Color.Navy;
             }
             else { return; }
-
+             
             e.SubItem.ForeColor = fore;
             e.SubItem.Font = new Font(font, size, style);
         }

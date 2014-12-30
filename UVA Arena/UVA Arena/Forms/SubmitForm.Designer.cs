@@ -33,18 +33,22 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.status1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.progress1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.goDiscussButton = new System.Windows.Forms.Button();
+            this.discussUrlBox = new System.Windows.Forms.TextBox();
+            this.homeDiscussButton = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // webBrowser1
             // 
             this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 0);
+            this.webBrowser1.Location = new System.Drawing.Point(0, 28);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(684, 334);
+            this.webBrowser1.Size = new System.Drawing.Size(684, 306);
             this.webBrowser1.TabIndex = 0;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             this.webBrowser1.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.webBrowser1_ProgressChanged);
@@ -52,7 +56,6 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
             this.status1,
             this.progress1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 334);
@@ -65,7 +68,7 @@
             // 
             this.status1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.status1.Name = "status1";
-            this.status1.Size = new System.Drawing.Size(450, 23);
+            this.status1.Size = new System.Drawing.Size(567, 23);
             this.status1.Spring = true;
             this.status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -74,17 +77,60 @@
             this.progress1.Name = "progress1";
             this.progress1.Size = new System.Drawing.Size(100, 22);
             // 
-            // toolStripStatusLabel1
+            // tableLayoutPanel2
             // 
-            this.toolStripStatusLabel1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.toolStripStatusLabel1.BorderStyle = System.Windows.Forms.Border3DStyle.Raised;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Padding = new System.Windows.Forms.Padding(18, 2, 18, 2);
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(86, 23);
-            this.toolStripStatusLabel1.Text = "Refresh";
-            this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.LightCyan;
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Controls.Add(this.goDiscussButton, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.discussUrlBox, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.homeDiscussButton, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(684, 28);
+            this.tableLayoutPanel2.TabIndex = 4;
+            // 
+            // goDiscussButton
+            // 
+            this.goDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.goDiscussButton.Location = new System.Drawing.Point(587, 2);
+            this.goDiscussButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.goDiscussButton.Name = "goDiscussButton";
+            this.goDiscussButton.Size = new System.Drawing.Size(94, 24);
+            this.goDiscussButton.TabIndex = 1;
+            this.goDiscussButton.Text = "GO";
+            this.goDiscussButton.UseVisualStyleBackColor = true;
+            this.goDiscussButton.Click += new System.EventHandler(this.goDiscussButton_Click);
+            // 
+            // discussUrlBox
+            // 
+            this.discussUrlBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.discussUrlBox.BackColor = System.Drawing.Color.White;
+            this.discussUrlBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.discussUrlBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.discussUrlBox.Location = new System.Drawing.Point(43, 4);
+            this.discussUrlBox.Name = "discussUrlBox";
+            this.discussUrlBox.Size = new System.Drawing.Size(538, 20);
+            this.discussUrlBox.TabIndex = 3;
+            // 
+            // homeDiscussButton
+            // 
+            this.homeDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.homeDiscussButton.Image = global::UVA_Arena.Properties.Resources.home;
+            this.homeDiscussButton.Location = new System.Drawing.Point(2, 2);
+            this.homeDiscussButton.Margin = new System.Windows.Forms.Padding(2);
+            this.homeDiscussButton.Name = "homeDiscussButton";
+            this.homeDiscussButton.Size = new System.Drawing.Size(36, 24);
+            this.homeDiscussButton.TabIndex = 6;
+            this.homeDiscussButton.UseVisualStyleBackColor = true;
+            this.homeDiscussButton.Click += new System.EventHandler(this.homeDiscussButton_Click);
             // 
             // SubmitForm
             // 
@@ -93,15 +139,18 @@
             this.BackColor = System.Drawing.Color.PaleTurquoise;
             this.ClientSize = new System.Drawing.Size(684, 362);
             this.Controls.Add(this.webBrowser1);
+            this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SubmitForm";
-            this.Text = "SubmitForm";
+            this.Text = "Submit Problem";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,6 +162,9 @@
         private System.Windows.Forms.ToolStripStatusLabel status1;
         private System.Windows.Forms.ToolStripProgressBar progress1;
         public System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Button goDiscussButton;
+        private System.Windows.Forms.TextBox discussUrlBox;
+        private System.Windows.Forms.Button homeDiscussButton;
     }
 }

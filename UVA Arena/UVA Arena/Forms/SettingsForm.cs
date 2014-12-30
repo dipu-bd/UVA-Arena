@@ -271,32 +271,28 @@ namespace UVA_Arena
 
         private void saveCodeButton_Click(object sender, EventArgs e)
         {
-            string text = codeTextBox.Text;
-            text = UVA_Arena.StringCompressor.CompressString(text);
-
+            string text = codeTextBox.Text; 
             if (ansiCradioButton.Checked)
-                Elements.CODES.CPrecode = text;
+                RegistryAccess.CPrecode = text;
             else if (cppRadioButton.Checked)
-                Elements.CODES.CPPPrecode = text;
+                RegistryAccess.CPPPrecode = text;
             else if (JavaRadioButton.Checked)
-                Elements.CODES.JavaPrecode = text;
+                RegistryAccess.JavaPrecode = text;
             else if (PascalRadioButton.Checked)
-                Elements.CODES.PascalPrecode = text;
+                RegistryAccess.PascalPrecode = text;
         }
 
         private void LoadPrecode()
         {
             string text = "";
             if (ansiCradioButton.Checked)
-                text = Elements.CODES.CPrecode;
+                text = RegistryAccess.CPrecode;
             else if (cppRadioButton.Checked)
-                text = Elements.CODES.CPPPrecode;
+                text = RegistryAccess.CPPPrecode;
             else if (JavaRadioButton.Checked)
-                text = Elements.CODES.JavaPrecode;
+                text = RegistryAccess.JavaPrecode;
             else if (PascalRadioButton.Checked)
-                text = Elements.CODES.PascalPrecode;
-
-            text = text = UVA_Arena.StringCompressor.DecompressString(text);
+                text = RegistryAccess.PascalPrecode; 
             codeTextBox.Text = text;
         }
 

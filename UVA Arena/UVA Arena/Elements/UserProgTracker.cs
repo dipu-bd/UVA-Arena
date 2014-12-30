@@ -43,14 +43,26 @@ namespace UVA_Arena.Elements
             acceptedLabel.Text = _solvedCount.ToString();
             triednacLabel.Text = _unsolvedCount.ToString();
 
+            //account age
+            if (_firstSub == long.MaxValue) accountAge.Text = "[-]";
+            else accountAge.Text = Functions.FormatTimeSpan(UnixTimestamp.GetTimeSpan(_firstSub));
+
+            //user rank
+            worldRankLabel.Text = userRank.rank.ToString();
+            last2DaysLabel.Text = userRank.day2.ToString();
+            last7Dayslabel.Text = userRank.day7.ToString();
+            lastMonthLabel.Text = userRank.day31.ToString();
+            last3MonthLabel.Text = userRank.month3.ToString();
+
             //draw graphs
             BuildSubPerLangGraph();
             BuildSubPerDateGraph();
             BuildSubPerVerGraph();
             BuildRankCloud();
         }
-
-
+        
+        private long _firstSub;
+        private UserRanklist userRank;
         private int _solvedCount, _unsolvedCount, _totalSubmission;
         private int _subInAnsiC, _subInCPP, _subInCPP11, _subInJava, _subInPascal;
         double _acCount, _waCount, _tleCount, _reCount, _peCount, _ceCount, _oleCount, _subeCount, _mleCount;
@@ -68,12 +80,23 @@ namespace UVA_Arena.Elements
                 currentUser.Process();
             }
 
+            userRank = RegistryAccess.GetUserRank(currentUser.uname);
+            if(userRank == null)
+            {
+                userRank = new UserRanklist();
+                userRank.username = currentUser.uname;
+                userRank.rank = 0;
+                userRank.activity = new List<long>();
+                for (int i = 0; i < 5; ++i) userRank.activity.Add(0);
+            }
+
             _acOverTime.Clear();
             _subOverTime.Clear();
             _RankCount.Clear();
             List<long> aclist = new List<long>();
             List<long> unsolved = new List<long>();
 
+            _firstSub = long.MaxValue;
             _solvedCount = _unsolvedCount = _totalSubmission = 0;
             _subInAnsiC = _subInCPP = _subInCPP11 = _subInJava = _subInPascal = 0;
             _acCount = _waCount = _tleCount = _reCount = _peCount = _ceCount = _oleCount = _subeCount = _mleCount = 0;
@@ -82,6 +105,10 @@ namespace UVA_Arena.Elements
             {
                 //total submission count
                 _totalSubmission++;
+
+                //age meter
+                if (_firstSub > usub.sbt)
+                    _firstSub = usub.sbt;
 
                 //add rank count
                 if (usub.IsAccepted())

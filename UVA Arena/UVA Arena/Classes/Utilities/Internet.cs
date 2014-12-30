@@ -279,7 +279,6 @@ namespace UVA_Arena.Internet
             task.TaskPriority = priority;
             Enqueue(task);
             DownloadNext();
-
             return task;
         }
 

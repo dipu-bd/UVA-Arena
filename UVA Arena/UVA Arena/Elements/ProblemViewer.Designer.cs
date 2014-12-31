@@ -57,6 +57,9 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.subListLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.compareUserButton = new System.Windows.Forms.Button();
             this.usernameList1 = new BrightIdeasSoftware.FastObjectListView();
             this.unameCol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.uidCol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -74,7 +77,6 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.showUsersRankButton = new System.Windows.Forms.Button();
             this.showUserSubButton = new System.Windows.Forms.Button();
-            this.compareTab = new System.Windows.Forms.TabPage();
             this.discussTab = new System.Windows.Forms.TabPage();
             this.discussWebBrowser = new System.Windows.Forms.WebBrowser();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -97,6 +99,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).BeginInit();
             this.panel7.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.usernameList1)).BeginInit();
             this.panel6.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -113,7 +116,6 @@
             this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this.tabControl1.Controls.Add(this.descriptionTab);
             this.tabControl1.Controls.Add(this.submissionTab);
-            this.tabControl1.Controls.Add(this.compareTab);
             this.tabControl1.Controls.Add(this.discussTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -310,6 +312,7 @@
             this.submissionStatus.Location = new System.Drawing.Point(0, 31);
             this.submissionStatus.Name = "submissionStatus";
             this.submissionStatus.ShowGroups = false;
+            this.submissionStatus.ShowItemCountOnGroups = true;
             this.submissionStatus.ShowItemToolTips = true;
             this.submissionStatus.Size = new System.Drawing.Size(598, 325);
             this.submissionStatus.Sorting = System.Windows.Forms.SortOrder.Descending;
@@ -323,6 +326,7 @@
             this.submissionStatus.VirtualMode = true;
             this.submissionStatus.FormatCell += new System.EventHandler<BrightIdeasSoftware.FormatCellEventArgs>(this.submissionStatus_FormatCell);
             this.submissionStatus.HyperlinkClicked += new System.EventHandler<BrightIdeasSoftware.HyperlinkClickedEventArgs>(this.submissionStatus_HyperlinkClicked);
+            this.submissionStatus.Click += new System.EventHandler(this.submissionStatus_Click);
             // 
             // sidSUB
             // 
@@ -337,7 +341,8 @@
             // 
             this.unameSUB.AspectName = "uname";
             this.unameSUB.CellPadding = null;
-            this.unameSUB.FillsFreeSpace = true;
+            this.unameSUB.GroupWithItemCountFormat = "\"{0}\" has following {1} submissions";
+            this.unameSUB.GroupWithItemCountSingularFormat = "\"{0}\" has following submission";
             this.unameSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.unameSUB.Hyperlink = true;
             this.unameSUB.MinimumWidth = 80;
@@ -349,7 +354,6 @@
             // 
             this.fullnameSUB.AspectName = "name";
             this.fullnameSUB.CellPadding = null;
-            this.fullnameSUB.FillsFreeSpace = true;
             this.fullnameSUB.MinimumWidth = 150;
             this.fullnameSUB.Text = "Full Name";
             this.fullnameSUB.Width = 160;
@@ -394,12 +398,11 @@
             // 
             this.subtimeSUB.AspectName = "sbt";
             this.subtimeSUB.CellPadding = null;
-            this.subtimeSUB.FillsFreeSpace = true;
             this.subtimeSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.subtimeSUB.MinimumWidth = 140;
             this.subtimeSUB.Text = "Submission Time";
             this.subtimeSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.subtimeSUB.Width = 140;
+            this.subtimeSUB.Width = 160;
             // 
             // panel7
             // 
@@ -430,34 +433,73 @@
             this.tableLayoutPanel4.BackColor = System.Drawing.Color.LightBlue;
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.usernameList1, 0, 8);
-            this.tableLayoutPanel4.Controls.Add(this.panel6, 0, 7);
-            this.tableLayoutPanel4.Controls.Add(this.showSubmissionButton, 0, 3);
-            this.tableLayoutPanel4.Controls.Add(this.dateTimePicker1, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.panel1, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.panel2, 0, 4);
-            this.tableLayoutPanel4.Controls.Add(this.showRanksButton, 0, 6);
-            this.tableLayoutPanel4.Controls.Add(this.panel4, 0, 5);
-            this.tableLayoutPanel4.Controls.Add(this.showUsersRankButton, 0, 10);
-            this.tableLayoutPanel4.Controls.Add(this.showUserSubButton, 0, 9);
+            this.tableLayoutPanel4.Controls.Add(this.panel3, 0, 10);
+            this.tableLayoutPanel4.Controls.Add(this.compareUserButton, 0, 10);
+            this.tableLayoutPanel4.Controls.Add(this.usernameList1, 0, 7);
+            this.tableLayoutPanel4.Controls.Add(this.panel6, 0, 6);
+            this.tableLayoutPanel4.Controls.Add(this.showSubmissionButton, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.dateTimePicker1, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.panel2, 0, 3);
+            this.tableLayoutPanel4.Controls.Add(this.showRanksButton, 0, 5);
+            this.tableLayoutPanel4.Controls.Add(this.panel4, 0, 4);
+            this.tableLayoutPanel4.Controls.Add(this.showUsersRankButton, 0, 9);
+            this.tableLayoutPanel4.Controls.Add(this.showUserSubButton, 0, 8);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Right;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(598, 0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 12;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel4.RowCount = 11;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(194, 356);
             this.tableLayoutPanel4.TabIndex = 5;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.MediumTurquoise;
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(1, 304);
+            this.panel3.Margin = new System.Windows.Forms.Padding(1);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(192, 23);
+            this.panel3.TabIndex = 15;
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(0, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(192, 23);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "User Comparision";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // compareUserButton
+            // 
+            this.compareUserButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.compareUserButton.Location = new System.Drawing.Point(22, 329);
+            this.compareUserButton.Margin = new System.Windows.Forms.Padding(1);
+            this.compareUserButton.Name = "compareUserButton";
+            this.compareUserButton.Size = new System.Drawing.Size(150, 26);
+            this.compareUserButton.TabIndex = 14;
+            this.compareUserButton.Text = "Comapre Users";
+            this.compareUserButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.compareUserButton.UseVisualStyleBackColor = true;
+            this.compareUserButton.Click += new System.EventHandler(this.compareUserButton_Click);
             // 
             // usernameList1
             // 
@@ -473,10 +515,10 @@
             this.usernameList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usernameList1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameList1.FullRowSelect = true;
-            this.usernameList1.Location = new System.Drawing.Point(3, 195);
+            this.usernameList1.Location = new System.Drawing.Point(3, 185);
             this.usernameList1.Name = "usernameList1";
             this.usernameList1.ShowGroups = false;
-            this.usernameList1.Size = new System.Drawing.Size(188, 92);
+            this.usernameList1.Size = new System.Drawing.Size(188, 59);
             this.usernameList1.TabIndex = 12;
             this.usernameList1.UseCellFormatEvents = true;
             this.usernameList1.UseCompatibleStateImageBehavior = false;
@@ -508,11 +550,10 @@
             // 
             // panel6
             // 
-            this.panel6.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.BackColor = System.Drawing.Color.Turquoise;
             this.panel6.Controls.Add(this.label4);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(1, 168);
+            this.panel6.Location = new System.Drawing.Point(1, 158);
             this.panel6.Margin = new System.Windows.Forms.Padding(1);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(192, 23);
@@ -526,19 +567,18 @@
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Margin = new System.Windows.Forms.Padding(3, 1, 1, 1);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(190, 21);
+            this.label4.Size = new System.Drawing.Size(192, 23);
             this.label4.TabIndex = 1;
             this.label4.Text = "User\'s Rank";
             this.label4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // showSubmissionButton
             // 
-            this.showSubmissionButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.showSubmissionButton.Location = new System.Drawing.Point(69, 61);
+            this.showSubmissionButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.showSubmissionButton.Location = new System.Drawing.Point(22, 51);
             this.showSubmissionButton.Margin = new System.Windows.Forms.Padding(1);
             this.showSubmissionButton.Name = "showSubmissionButton";
-            this.showSubmissionButton.Size = new System.Drawing.Size(124, 26);
+            this.showSubmissionButton.Size = new System.Drawing.Size(150, 26);
             this.showSubmissionButton.TabIndex = 4;
             this.showSubmissionButton.Text = "Show Submissions";
             this.showSubmissionButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -547,7 +587,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(3, 36);
+            this.dateTimePicker1.Location = new System.Drawing.Point(3, 26);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(188, 23);
@@ -556,10 +596,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.MediumTurquoise;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(1, 11);
+            this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Margin = new System.Windows.Forms.Padding(1);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(192, 23);
@@ -572,7 +611,7 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(190, 21);
+            this.label2.Size = new System.Drawing.Size(192, 23);
             this.label2.TabIndex = 1;
             this.label2.Text = "Submissions From";
             this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -580,10 +619,9 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(1, 89);
+            this.panel2.Location = new System.Drawing.Point(1, 79);
             this.panel2.Margin = new System.Windows.Forms.Padding(1);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(192, 23);
@@ -596,19 +634,18 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(190, 21);
+            this.label1.Size = new System.Drawing.Size(192, 23);
             this.label1.TabIndex = 1;
             this.label1.Text = "Ranks";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // showRanksButton
             // 
-            this.showRanksButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.showRanksButton.Location = new System.Drawing.Point(69, 140);
+            this.showRanksButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.showRanksButton.Location = new System.Drawing.Point(22, 130);
             this.showRanksButton.Margin = new System.Windows.Forms.Padding(1);
             this.showRanksButton.Name = "showRanksButton";
-            this.showRanksButton.Size = new System.Drawing.Size(124, 26);
+            this.showRanksButton.Size = new System.Drawing.Size(150, 26);
             this.showRanksButton.TabIndex = 7;
             this.showRanksButton.Text = "Show Ranks";
             this.showRanksButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -620,7 +657,7 @@
             this.panel4.Controls.Add(this.label3);
             this.panel4.Controls.Add(this.numericUpDown1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 113);
+            this.panel4.Location = new System.Drawing.Point(0, 103);
             this.panel4.Margin = new System.Windows.Forms.Padding(0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(194, 26);
@@ -667,13 +704,13 @@
             this.showUsersRankButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.showUsersRankButton.Location = new System.Drawing.Point(1, 319);
+            this.showUsersRankButton.Location = new System.Drawing.Point(1, 276);
             this.showUsersRankButton.Margin = new System.Windows.Forms.Padding(1);
             this.showUsersRankButton.Name = "showUsersRankButton";
             this.showUsersRankButton.Size = new System.Drawing.Size(192, 26);
             this.showUsersRankButton.TabIndex = 11;
             this.showUsersRankButton.Tag = "Rank of {0}";
-            this.showUsersRankButton.Text = "Rank of User";
+            this.showUsersRankButton.Text = "Show Rank of User";
             this.showUsersRankButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.showUsersRankButton.UseVisualStyleBackColor = true;
             this.showUsersRankButton.Click += new System.EventHandler(this.showUsersRankButton_Click);
@@ -683,7 +720,7 @@
             this.showUserSubButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.showUserSubButton.Location = new System.Drawing.Point(1, 291);
+            this.showUserSubButton.Location = new System.Drawing.Point(1, 248);
             this.showUserSubButton.Margin = new System.Windows.Forms.Padding(1);
             this.showUserSubButton.Name = "showUserSubButton";
             this.showUserSubButton.Size = new System.Drawing.Size(192, 26);
@@ -693,15 +730,6 @@
             this.showUserSubButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.showUserSubButton.UseVisualStyleBackColor = true;
             this.showUserSubButton.Click += new System.EventHandler(this.showUserSubButton_Click);
-            // 
-            // compareTab
-            // 
-            this.compareTab.Location = new System.Drawing.Point(4, 4);
-            this.compareTab.Name = "compareTab";
-            this.compareTab.Size = new System.Drawing.Size(792, 356);
-            this.compareTab.TabIndex = 3;
-            this.compareTab.Text = "Compare";
-            this.compareTab.UseVisualStyleBackColor = true;
             // 
             // discussTab
             // 
@@ -813,7 +841,7 @@
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 141F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 151F));
             this.tableLayoutPanel1.Controls.Add(this.catagoryButton, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.catagoryInfo, 0, 1);
@@ -836,10 +864,10 @@
             this.catagoryButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
             this.catagoryButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.catagoryButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.catagoryButton.Location = new System.Drawing.Point(659, 33);
+            this.catagoryButton.Location = new System.Drawing.Point(649, 33);
             this.catagoryButton.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.catagoryButton.Name = "catagoryButton";
-            this.catagoryButton.Size = new System.Drawing.Size(139, 26);
+            this.catagoryButton.Size = new System.Drawing.Size(149, 26);
             this.catagoryButton.TabIndex = 2;
             this.catagoryButton.Text = "Change";
             this.catagoryButton.UseVisualStyleBackColor = false;
@@ -857,7 +885,7 @@
             this.titleBox1.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.titleBox1.Name = "titleBox1";
             this.titleBox1.ReadOnly = true;
-            this.titleBox1.Size = new System.Drawing.Size(648, 25);
+            this.titleBox1.Size = new System.Drawing.Size(638, 25);
             this.titleBox1.TabIndex = 0;
             this.titleBox1.TabStop = false;
             this.titleBox1.Text = "No problem selected";
@@ -872,7 +900,7 @@
             this.catagoryInfo.ForeColor = System.Drawing.Color.Maroon;
             this.catagoryInfo.Location = new System.Drawing.Point(4, 38);
             this.catagoryInfo.Name = "catagoryInfo";
-            this.catagoryInfo.Size = new System.Drawing.Size(650, 16);
+            this.catagoryInfo.Size = new System.Drawing.Size(640, 16);
             this.catagoryInfo.TabIndex = 1;
             this.catagoryInfo.TabStop = false;
             this.catagoryInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.catagoryInfo_KeyDown);
@@ -881,10 +909,10 @@
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Image = global::UVA_Arena.Properties.Resources.expand;
-            this.button1.Location = new System.Drawing.Point(659, 2);
+            this.button1.Location = new System.Drawing.Point(649, 2);
             this.button1.Margin = new System.Windows.Forms.Padding(1);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(139, 29);
+            this.button1.Size = new System.Drawing.Size(149, 29);
             this.button1.TabIndex = 3;
             this.button1.Text = "Expand";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -922,6 +950,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).EndInit();
             this.panel7.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.usernameList1)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -943,7 +972,6 @@
 
         private System.Windows.Forms.TabPage descriptionTab;
         private System.Windows.Forms.TabPage submissionTab;
-        private System.Windows.Forms.TabPage compareTab;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ContextMenuStrip prevContext;
         private System.Windows.Forms.ContextMenuStrip nextContext;
@@ -1002,5 +1030,8 @@
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label subListLabel;
         private System.Windows.Forms.Button showUserSubButton;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button compareUserButton;
     }
 }

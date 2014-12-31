@@ -208,7 +208,7 @@
     <Compile Include="Classes\Basic\RegistryAccess.cs" />
     <Compile Include="Classes\Basic\LocalDatabase.cs" />
     <Compile Include="Classes\Utilities\Stylish.cs" />
-    <Compile Include="Classes\Data Structures\SubmissionList.cs" />
+    <Compile Include="Classes\Data Structures\JudgeStatus.cs" />
     <Compile Include="Classes\Utilities\TaskQueue.cs" />
     <Compile Include="Classes\Utilities\UnixTimeStamp.cs" />
     <EmbeddedResource Include="Controls\SearchBox.resx">

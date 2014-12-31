@@ -332,7 +332,7 @@ namespace UVA_Arena.Elements
 
         private void goDiscussButton_Click(object sender, EventArgs e)
         {
-            discussWebBrowser.Stop(); 
+            discussWebBrowser.Stop();
             discussWebBrowser.Navigate(discussUrlBox.Text);
         }
 
@@ -376,7 +376,8 @@ namespace UVA_Arena.Elements
             LastSubmission,
             Ranklist,
             UsersRank,
-            UsersSub
+            UsersSub,
+            Comapre
         }
 
         private SubViewType _curSubType = SubViewType.LastSubmission;
@@ -401,6 +402,17 @@ namespace UVA_Arena.Elements
             _curSubType = SubViewType.UsersSub;
             LoadSubmission();
         }
+        private void compareUserButton_Click(object sender, EventArgs e)
+        {
+            _curSubType = SubViewType.Comapre;
+            LoadSubmission();
+        }
+
+        private void submissionStatus_Click(object sender, EventArgs e)
+        {
+            if (submissionStatus.Items.Count == 0)
+                LoadSubmission();
+        }
 
         private void usernameList1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -411,7 +423,7 @@ namespace UVA_Arena.Elements
 
             showUsersRankButton.Text = string.Format((string)showUsersRankButton.Tag, user);
             showUserSubButton.Text = string.Format((string)showUserSubButton.Tag, user);
-             
+
             _curSubType = SubViewType.UsersSub;
             LoadSubmission();
         }
@@ -421,10 +433,10 @@ namespace UVA_Arena.Elements
             if (current == null) return;
 
             string user = (string)usernameList1.Tag;
-            if (string.IsNullOrEmpty(user)) 
+            if (string.IsNullOrEmpty(user))
                 user = RegistryAccess.DefaultUsername;
             string uid = LocalDatabase.GetUserid(user);  //uid        
-    
+
             submissionStatus.ClearObjects();
             usernameList1.SetObjects(LocalDatabase.usernames);
 
@@ -447,7 +459,7 @@ namespace UVA_Arena.Elements
                     Interactivity.problems.SetStatus("Downoading ranks...");
                     break;
                 case SubViewType.UsersRank:
-                    start = stop = 15;
+                    start = stop = 10;
                     format = "http://uhunt.felix-halim.net/api/p/ranklist/{0}/{1}/{2}/{3}"; //pid uid, before_count, after_count
                     url = string.Format(format, current.pid, uid, start, stop);
                     Interactivity.problems.SetStatus("Downoading " + user + "'s rankdata...");
@@ -456,6 +468,13 @@ namespace UVA_Arena.Elements
                     format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/{2}"; //uid, pnum, last sid
                     url = string.Format(format, uid, current.pnum, 0);
                     Interactivity.problems.SetStatus("Downoading " + user + "'s submission...");
+                    break;
+                case SubViewType.Comapre:
+                    format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/0"; //uids(sep = comma), pnum
+                    List<string> uidcol = new List<string>();
+                    foreach (var val in LocalDatabase.usernames.Values) uidcol.Add(val);
+                    url = string.Format(format, string.Join(",", uidcol.ToArray()), current.pnum, 0);
+                    Interactivity.problems.SetStatus("Comparing user's for this problem...");
                     break;
             }
 
@@ -472,6 +491,7 @@ namespace UVA_Arena.Elements
 
         private void dt_taskCompleted(DownloadTask task)
         {
+            //check validity of result
             if (task.Status != ProgressStatus.Completed)
             {
                 if (task.Error != null)
@@ -484,24 +504,47 @@ namespace UVA_Arena.Elements
 
             string user = (string)task.Token;
 
+            //set result to listview
             if (_curSubType == SubViewType.UsersSub)
             {
                 task.Result = task.Result.Remove(0, task.Result.IndexOf(":") + 1);
                 task.Result = task.Result.Remove(task.Result.Length - 1);
                 UserInfo uinfo = JsonConvert.DeserializeObject<UserInfo>(task.Result);
                 uinfo.Process();
-                submissionStatus.ClearObjects();
                 submissionStatus.SetObjects(uinfo.submissions);
+            }
+            else if (_curSubType == SubViewType.Comapre)
+            {
+                List<UserSubmission> allsubs = new List<UserSubmission>();
+
+                string data = task.Result.Substring(1, task.Result.Length - 2);
+                do
+                {
+                    int i = data.IndexOf("{");
+                    if (i < 0) break;
+                    int j = data.IndexOf("}", i);
+                    if (j < 0) break;
+
+                    string tmp = data.Substring(i, j - i + 1);
+                    UserInfo uinfo = JsonConvert.DeserializeObject<UserInfo>(tmp);
+                    uinfo.Process();
+                    allsubs.AddRange(uinfo.submissions.ToArray());
+
+                    data = data.Substring(j + 1);
+                }
+                while (data.Length > 0);
+                submissionStatus.SetObjects(allsubs);
             }
             else
             {
                 List<SubmissionMessage> lsm =
                     JsonConvert.DeserializeObject<List<SubmissionMessage>>(task.Result);
                 if (lsm == null) return;
-                submissionStatus.ClearObjects();
                 submissionStatus.SetObjects(lsm);
             }
 
+            //sort listview and set other flags
+            submissionStatus.ShowGroups = false;
             switch (_curSubType)
             {
                 case SubViewType.LastSubmission:
@@ -521,6 +564,10 @@ namespace UVA_Arena.Elements
                 case SubViewType.UsersSub:
                     submissionStatus.Sort(sidSUB, SortOrder.Descending);
                     subListLabel.Text = user + "'s submissions on this problem";
+                    break;
+                case SubViewType.Comapre:
+                    submissionStatus.BuildGroups(unameSUB, SortOrder.Ascending);
+                    subListLabel.Text = "Comparision between all users on this problem";
                     break;
             }
 
@@ -560,16 +607,32 @@ namespace UVA_Arena.Elements
             };
         }
 
+        private void submissionStatus_HyperlinkClicked(object sender, BrightIdeasSoftware.HyperlinkClickedEventArgs e)
+        {
+            if (e.Model.GetType() != typeof(SubmissionMessage)) return;
+
+            SubmissionMessage list = (SubmissionMessage)e.Model;
+            if (e.Column == unameSUB)
+            {
+                if (LocalDatabase.ContainsUsers(list.uname))
+                {
+                    Interactivity.ShowUserStat(list.uname);
+                }
+                else
+                {
+                    if (MessageBox.Show("Add \"" + list.uname + "\" to your favourite list?", "Add User",
+                        MessageBoxButtons.YesNo) == DialogResult.No) return;
+                    RegistryAccess.SetUserid(list.uname, list.uid.ToString());
+                    Interactivity.ShowUserStat(list.uname);
+                }
+            }
+        }
+
         private void submissionStatus_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
         {
             if (e.Model == null) return;
 
-            string font = "Segoe UI";
-            float size = 9.0F;
-            FontStyle style = FontStyle.Regular;
-            Color fore = Color.Black;
-
-            //get two aspect used later
+            //get two properties that are used later
             Verdict ver;
             string uname;
             if (typeof(SubmissionMessage) == e.Model.GetType())
@@ -584,8 +647,9 @@ namespace UVA_Arena.Elements
                 ver = (Verdict)js.ver; uname = js.uname;
             }
 
-            //mark submission's with known user name
-            if (_curSubType != SubViewType.UsersSub)
+            //change backcolor of items with known user name
+            if (!(_curSubType == SubViewType.UsersSub ||
+                    _curSubType == SubViewType.Comapre))
             {
                 if (uname == RegistryAccess.DefaultUsername)
                 {
@@ -599,7 +663,12 @@ namespace UVA_Arena.Elements
                 }
             }
 
-            //format cells
+            //format other cells
+            string font = "Segoe UI";
+            float size = 9.0F;
+            FontStyle style = FontStyle.Regular;
+            Color fore = Color.Black;
+
             if (e.Column == sidSUB)
             {
                 font = "Consolas";
@@ -640,30 +709,12 @@ namespace UVA_Arena.Elements
                 fore = Color.Navy;
             }
             else { return; }
-             
+
             e.SubItem.ForeColor = fore;
             e.SubItem.Font = new Font(font, size, style);
         }
 
-        private void submissionStatus_HyperlinkClicked(object sender, BrightIdeasSoftware.HyperlinkClickedEventArgs e)
-        {
-            SubmissionMessage list = (SubmissionMessage)e.Model;
-            if (e.Column == unameSUB)
-            {
-                if (LocalDatabase.ContainsUsers(list.uname))
-                {
-                    Interactivity.ShowUserStat(list.uname);
-                }
-                else
-                {
-                    if (MessageBox.Show("Add this user to your favourite list?", "Add User",
-                        MessageBoxButtons.YesNo) == DialogResult.No) return;
-                    RegistryAccess.SetUserid(list.uname, list.uid.ToString());
-                    Interactivity.ShowUserStat(list.uname);
-                }
-            }
-        }
-
         #endregion
+
     }
 }

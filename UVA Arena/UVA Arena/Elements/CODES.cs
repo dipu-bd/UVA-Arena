@@ -597,29 +597,34 @@ namespace UVA_Arena.Elements
                 string file = LocalDirectory.GetProblemHtml(pnum);
                 if (LocalDirectory.GetFileSize(file) < 100) return;
 
+                //get input
                 string html = File.ReadAllText(file);
-                int indx = html.ToLower().IndexOf("sample input");
+                string low = html.ToLower();
+                int indx = low.IndexOf("sample input");
                 if (indx < 0) return;
-                int start = html.IndexOf("<pre>", indx);
+                int start = low.IndexOf("<pre>", indx);
                 if (start < 0) return;
-                int stop = html.IndexOf("</pre>", start);
+                int stop = low.IndexOf("</pre>", start);
                 if (stop <= start) return;
-                string xml = html.Substring(start, stop - start + 7);
+
+                string xml = html.Substring(start, stop - start + 6);
                 System.Xml.XmlDocument xdoc = new System.Xml.XmlDocument();
                 xdoc.LoadXml(xml);
                 string data = xdoc.DocumentElement.InnerText.TrimStart(new char[] { ' ', '\r', '\n' });
                 File.WriteAllText(inpfile, data);
 
-                indx = html.ToLower().IndexOf("sample output", stop);
+                //get output
+                indx = low.IndexOf("sample output", stop);
                 if (indx < 0) return;
-                start = html.IndexOf("<pre>", indx);
+                start = low.IndexOf("<pre>", indx);
                 if (start < 0) return;
-                stop = html.IndexOf("</pre>", start);
+                stop = low.IndexOf("</pre>", start);
                 if (stop <= start) return;
-                xml = html.Substring(start, stop - start + 7);
+
+                xml = html.Substring(start, stop - start + 6);
                 xdoc.LoadXml(xml);
                 data = xdoc.DocumentElement.InnerText.TrimStart(new char[] { ' ', '\r', '\n' });
-                if (!data.EndsWith(Environment.NewLine)) data += Environment.NewLine;
+                if (!data.EndsWith("\n")) data += "\n";
                 File.WriteAllText(outfile, data);
             }
             catch (Exception ex)

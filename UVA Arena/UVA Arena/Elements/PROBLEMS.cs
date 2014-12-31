@@ -94,8 +94,7 @@ namespace UVA_Arena.Elements
         {
             if (this.IsDisposed) return;
             Status1.Text = text;
-            TaskQueue.AddTask(ClearStatus, timeout);
-            Logger.Add(text, "Problems");
+            TaskQueue.AddTask(ClearStatus, timeout); 
         }
         public void ClearStatus()
         {
@@ -110,7 +109,7 @@ namespace UVA_Arena.Elements
         private void updateToolButton_Click(object sender, EventArgs e)
         {
             Status1.Text = "Updating problem database...";
-            Downloader.DownloadProblemDatabase(problemWorkerStateChanged, problemWorkerProgress);
+            Downloader.DownloadProblemDatabase(problemWorkerCompleted, problemWorkerProgress);
         }
 
         private void problemWorkerProgress(DownloadTask task)
@@ -120,12 +119,16 @@ namespace UVA_Arena.Elements
                 Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
             Progress1.Value = task.ProgressPercentage;
         }
-        private void problemWorkerStateChanged(DownloadTask task)
+        private void problemWorkerCompleted(DownloadTask task)
         {
+            string msg = "";
             if (task.Status == ProgressStatus.Completed)
-                SetStatus("Problem database is successfully updated.");
+                msg = "Problem database is successfully updated.";
             else
-                SetStatus("Failed to update problem database. See log for details.");
+                msg = "Failed to update problem database. See log for details.";
+
+            SetStatus(msg);
+            Logger.Add(msg, "Problems|problemWorkerCompleted");
         }
 
         #endregion

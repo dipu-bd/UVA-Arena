@@ -250,6 +250,10 @@ namespace UVA_Arena.Elements
 
         private void usernameList_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
         {
+            if (RegistryAccess.DefaultUsername == ((KeyValuePair<string, string>)e.Model).Key)
+            {
+                e.Item.SubItems[0].BackColor = Color.LightBlue;
+            }
             if (e.Column == unameCol)
             {
                 e.SubItem.Font = new Font("Segoe UI Semibold", 9.5F, FontStyle.Regular);
@@ -590,8 +594,16 @@ namespace UVA_Arena.Elements
         {
             if (usernameList.SelectedObject == null) return;
             string val = ((KeyValuePair<string, string>)usernameList.SelectedObject).Key;
+
+            if (val == RegistryAccess.DefaultUsername)
+            {
+                MessageBox.Show("You can not remove default user from this list.");
+                return;
+            }
+
             if (MessageBox.Show("Are you sure to delete '" + val + "' from list?",
                 "Delete User?", MessageBoxButtons.YesNo) == DialogResult.No) return;
+
             RegistryAccess.DeleteUserid(val);
             LoadUsernames();
         }
@@ -812,13 +824,8 @@ namespace UVA_Arena.Elements
         private void worldRanklist_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
         {
             if (e.Model == null) return;
-
-            string font = "Segoe UI";
-            float size = 9.0F;
-            FontStyle style = FontStyle.Regular;
-            Color fore = Color.Black;
-
-            //highlight item 
+            
+            //change backcolor of known users
             UserRanklist js = (UserRanklist)e.Model;
             if (js.username == RegistryAccess.DefaultUsername)
             {
@@ -831,6 +838,11 @@ namespace UVA_Arena.Elements
                     e.Item.SubItems[i].BackColor = Color.LightBlue;
             }
 
+            //format other cells
+            string font = "Segoe UI";
+            float size = 9.0F;
+            FontStyle style = FontStyle.Regular;
+            Color fore = Color.Black;
             if (e.Column == rankRANK)
             {
                 font = "Consolas";
@@ -854,7 +866,6 @@ namespace UVA_Arena.Elements
 
             e.SubItem.ForeColor = fore;
             e.SubItem.Font = new Font(font, size, style);
-
         }
 
 

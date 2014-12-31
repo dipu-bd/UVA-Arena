@@ -35,6 +35,5 @@ namespace UVA_Arena.Structures
         /// <summary> The number of accepted problems of the user in 1 year. </summary>
         public long year1 { get { return activity[4]; } }
 
-
     }
 }

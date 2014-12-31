@@ -360,7 +360,7 @@ namespace UVA_Arena.Elements
                 }
                 else
                 {
-                    if (MessageBox.Show("Add this user to your favourite list?", "Add User",
+                    if (MessageBox.Show("Add \"" + list.uname + "\" to your favourite list?", "Add User",
                         MessageBoxButtons.YesNo) == DialogResult.No) return;
                     RegistryAccess.SetUserid(list.uname, list.uid.ToString());
                     Interactivity.ShowUserStat(list.uname);

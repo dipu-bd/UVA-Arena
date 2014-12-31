@@ -148,14 +148,14 @@ namespace UVA_Arena
             {
                 problems.BeginInvoke((MethodInvoker)delegate
                 {
-                    //load volumes or catagory
-                    if (!problems.catagoryButton.Checked)
+                    //load volumes or category
+                    if (!problems.categoryButton.Checked)
                     {
                         problems.LoadVolumes();
                     }
                     else
                     {
-                        problems.LoadCatagory();
+                        problems.LoadCategory();
                     }
 
                     //load problems or refresh

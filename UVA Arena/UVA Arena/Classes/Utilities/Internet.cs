@@ -351,24 +351,32 @@ namespace UVA_Arena.Internet
 
         #endregion
 
-        #region Problem Database and Catagory Downloader
+        #region Problem Database and Category Downloader
 
+        public static bool _DownloadingProblemDatabase = false;
         public static void DownloadProblemDatabase(DownloadTaskHandler completed, DownloadTaskHandler progress)
         {
+            if (_DownloadingProblemDatabase) return;
+            
+            _DownloadingProblemDatabase = true;
+
             //problem database
             string url = "http://uhunt.felix-halim.net/api/p";
             string file = LocalDirectory.GetProblemDataFile();
             DownloadFileAsync(url, file, null, Priority.High, progress, __DownloadProblemDatabaseCompleted);
-
+                        
             //problem catagories
             url = "http://uhunt.felix-halim.net/api/cpbook/3";
-            file = LocalDirectory.GetCatagoryPath();
+            file = LocalDirectory.GetCategoryPath();
+            
             DownloadTask task = DownloadFileAsync(url, file, null, Priority.High, progress, completed);
-            task.DownloadCompletedEvent += __DownloadProblemCatagoryCompleted;
+            task.DownloadCompletedEvent += __DownloadProblemCategoryCompleted;
         }
 
         private static void __DownloadProblemDatabaseCompleted(DownloadTask task)
         {
+            _DownloadingProblemDatabase = false;
+
             if (task.Status == ProgressStatus.Completed)
             {
                 LocalDatabase.LoadDatabase();
@@ -377,19 +385,19 @@ namespace UVA_Arena.Internet
             else if (task.Error != null)
             {
                 Logger.Add(task.Error.Message, "Downloader | __DownloadProblemDatabaseCompleted(DownloadTask task)");
-            }
+            }            
         }
 
-        private static void __DownloadProblemCatagoryCompleted(DownloadTask task)
+        private static void __DownloadProblemCategoryCompleted(DownloadTask task)
         {
             if (task.Status == ProgressStatus.Completed)
             {
                 LocalDatabase.LoadCatagories();
-                Logger.Add("Downloaded context book 3 catagories", "Downloader | __DownloadProblemCatagoryCompleted(DownloadTask task)");
+                Logger.Add("Downloaded context book 3 catagories", "Downloader | __DownloadProblemCategoryCompleted(DownloadTask task)");
             }
             else if (task.Error != null)
             {
-                Logger.Add(task.Error.Message, "Downloader | __DownloadProblemCatagoryCompleted(DownloadTask task)");
+                Logger.Add(task.Error.Message, "Downloader | __DownloadProblemCategoryCompleted(DownloadTask task)");
             }
         }
 

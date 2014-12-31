@@ -151,6 +151,7 @@ namespace UVA_Arena.Elements
 
         private void refreshToolButton_Click(object sender, EventArgs e)
         {
+            if (currentUser == null) return;
             DownloadUserSubs(currentUser.uname);
         }
 
@@ -252,8 +253,10 @@ namespace UVA_Arena.Elements
         {
             if (RegistryAccess.DefaultUsername == ((KeyValuePair<string, string>)e.Model).Key)
             {
-                e.Item.SubItems[0].BackColor = Color.LightBlue;
+                for (int i = 0; i < e.Item.SubItems.Count; ++i)
+                    e.Item.SubItems[i].BackColor = Color.LightBlue;
             }
+
             if (e.Column == unameCol)
             {
                 e.SubItem.Font = new Font("Segoe UI Semibold", 9.5F, FontStyle.Regular);
@@ -266,19 +269,10 @@ namespace UVA_Arena.Elements
             }
         }
 
-        private void usernameList_ItemActivate(object sender, EventArgs e)
+        private void usernameList_SelectionChanged(object sender, EventArgs e)
         {
             object sel = usernameList.SelectedObject;
-            if (sel == null)
-            {
-                userProgTracker1.ShowUserInfo(null);
-                return;
-            }
-
-            worldRanklist.ClearObjects();
-            lastSubmissions1.ClearObjects();
-            userProgTracker1.ShowUserInfo(null);
-
+            if (sel == null) return;
             LoadUserSub(((KeyValuePair<string, string>)sel).Key);
         }
 
@@ -292,6 +286,10 @@ namespace UVA_Arena.Elements
         {
             //if 'user' is already loaded then do nothing
             if (currentUser != null && currentUser.uname == user) return;
+
+            worldRanklist.ClearObjects();
+            lastSubmissions1.ClearObjects();
+            userProgTracker1.ShowUserInfo(null);
 
             try
             {
@@ -622,7 +620,8 @@ namespace UVA_Arena.Elements
 
             if (tabControl1.SelectedTab == submissionTab)
             {
-                if ((string)submissionTab.Tag != currentUser.uid)
+                if ((string)submissionTab.Tag != currentUser.uid ||
+                    lastSubmissions1.Items.Count == 0)
                 {
                     SetSubmissionToListView();
                     submissionTab.Tag = currentUser.uid;
@@ -630,15 +629,15 @@ namespace UVA_Arena.Elements
             }
             else if (tabControl1.SelectedTab == progtrackerTab)
             {
-                if ((string)progtrackerTab.Tag != currentUser.uid)
+                if (userProgTracker1.currentUser != currentUser)
                 {
                     userProgTracker1.ShowUserInfo(currentUser);
-                    progtrackerTab.Tag = currentUser.uid;
                 }
             }
             else if (tabControl1.SelectedTab == worldrankTab)
             {
-                if ((string)worldrankTab.Tag != currentUser.uid)
+                if ((string)worldrankTab.Tag != currentUser.uid
+                    || worldRanklist.Items.Count == 0)
                 {
                     ShowWorldRank();
                     worldrankTab.Tag = currentUser.uid;
@@ -824,7 +823,7 @@ namespace UVA_Arena.Elements
         private void worldRanklist_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
         {
             if (e.Model == null) return;
-            
+
             //change backcolor of known users
             UserRanklist js = (UserRanklist)e.Model;
             if (js.username == RegistryAccess.DefaultUsername)
@@ -870,6 +869,6 @@ namespace UVA_Arena.Elements
 
 
         #endregion
-        
+
     }
 }

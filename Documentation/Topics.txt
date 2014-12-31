@@ -1,0 +1,115 @@
+Welcome
+	What's new
+	Basic features
+	System requirements				
+	Getting Help	
+Quick Guide 	
+User's Guide
+	Shortcut Keys
+	Activity Buttons	
+	PROBLEMS Tab
+		FAQ
+		Status bar
+		Update Problems		
+		Side List
+			Volumes
+			Categories
+			Marked
+			All Problems
+			Filter list
+		Problem List
+			List Title
+			List Header
+			Manage Headers
+			Context Menu
+			Group by Columns
+			Show or Hide Columns			
+			Downloading Problem Description
+			Exporting and Importing Description
+		Problem Description		
+			Problem title
+			Expand Button
+			Problem Category
+			Change Category				
+			Description Tab				
+				Tool Bar
+				Download description again
+			Submission Tab
+				Submissions From
+				Ranks				
+				User's submissions
+				User's rank
+				Compare Users
+			Discuss Tab
+				Tool Bar				
+	CODES Tab
+		FAQ
+		Select a directory
+		File explorer
+		Create New File
+		Format directory
+		Open Externally
+		Search Box
+		Opened file title		
+		Source Code Tab
+			Tool Bar
+			Code Editor
+		Input Output Tab
+			Input Box
+			Output Box
+		Compare Tab
+			Correct Output
+			Program's Output
+		uDebug Tab
+		Compiler Output
+		Run Project				
+		Using Precode		
+	STATUS Tab
+		Status bar
+		Auto Update		
+	PROFILES Tab
+		List of Users
+		Add User
+		Status Bar
+		Submissions	
+			Group By
+			View By
+			Auto Update
+			Update Rate
+		Progress Tracker
+			Basic Info
+			Submission over date
+			Submission per verdict
+			Submission per language
+			Rank cloud
+		World Rank
+		Compare
+	UTILITIES Tab
+		Quick navigator
+		Wikipedia Browser
+		Notes
+		Calculator
+	Settings 
+		General  
+			Default username
+			Problem data
+			Change code directory
+		Editor  
+			Font
+			Check values
+			Shortcuts
+		Compiler
+			MinGW directory
+			JDK directory
+			Compiler options
+		Precodes			
+	Logger	
+		Activity log
+		Download queue
+		Pending tasks		
+Technical Support	
+	Installation
+	Getting updates	
+	Frequently Asked Questions
+	End of user licence
+Credits

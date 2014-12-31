@@ -139,6 +139,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.Status1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.Progress1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.updateContextMenu.SuspendLayout();
             this.viewContextMenu.SuspendLayout();
             this.groupContextMenu.SuspendLayout();
@@ -279,7 +280,6 @@
             // 
             // toolStripSplitButton1
             // 
-            this.toolStripSplitButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripSplitButton1.DropDown = this.updateContextMenu;
             this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
@@ -372,7 +372,6 @@
             // 
             // toolStripSplitButton2
             // 
-            this.toolStripSplitButton2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSplitButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripSplitButton2.DropDown = this.viewContextMenu;
             this.toolStripSplitButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton2.Image")));
@@ -395,7 +394,6 @@
             this.verdictToolStripMenuItem,
             this.problemNameToolStripMenuItem});
             this.groupContextMenu.Name = "contextMenuStrip1";
-            this.groupContextMenu.OwnerItem = this.toolStripButton1;
             this.groupContextMenu.Size = new System.Drawing.Size(155, 98);
             // 
             // noneToolStripMenuItem
@@ -442,7 +440,6 @@
             // 
             // toolStripButton1
             // 
-            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripButton1.DropDown = this.groupContextMenu;
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
@@ -662,7 +659,6 @@
             // 
             // usernameList
             // 
-            this.usernameList.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.usernameList.AllColumns.Add(this.unameCol);
             this.usernameList.AllColumns.Add(this.uidCol);
             this.usernameList.BackColor = System.Drawing.Color.Azure;
@@ -689,7 +685,7 @@
             this.usernameList.View = System.Windows.Forms.View.Details;
             this.usernameList.VirtualMode = true;
             this.usernameList.FormatCell += new System.EventHandler<BrightIdeasSoftware.FormatCellEventArgs>(this.usernameList_FormatCell);
-            this.usernameList.ItemActivate += new System.EventHandler(this.usernameList_ItemActivate);
+            this.usernameList.SelectionChanged += new System.EventHandler(this.usernameList_SelectionChanged);
             // 
             // unameCol
             // 
@@ -803,11 +799,11 @@
             this.tabControl1.Controls.Add(this.compareTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(0, 35);
+            this.tabControl1.Location = new System.Drawing.Point(0, 38);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(25, 6);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(596, 337);
+            this.tabControl1.Size = new System.Drawing.Size(596, 334);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -818,7 +814,7 @@
             this.submissionTab.Controls.Add(this.toolStrip1);
             this.submissionTab.Location = new System.Drawing.Point(4, 30);
             this.submissionTab.Name = "submissionTab";
-            this.submissionTab.Size = new System.Drawing.Size(588, 303);
+            this.submissionTab.Size = new System.Drawing.Size(588, 300);
             this.submissionTab.TabIndex = 0;
             this.submissionTab.Text = "Submissions";
             // 
@@ -859,7 +855,7 @@
             this.lastSubmissions1.ShowGroups = false;
             this.lastSubmissions1.ShowItemCountOnGroups = true;
             this.lastSubmissions1.ShowItemToolTips = true;
-            this.lastSubmissions1.Size = new System.Drawing.Size(588, 278);
+            this.lastSubmissions1.Size = new System.Drawing.Size(588, 275);
             this.lastSubmissions1.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.lastSubmissions1.TabIndex = 2;
             this.lastSubmissions1.UseAlternatingBackColors = true;
@@ -954,11 +950,12 @@
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSplitButton1,
-            this.toolStripSplitButton2,
+            this.refreshSubmission,
+            this.toolStripSeparator10,
             this.toolStripButton1,
-            this.refreshSubmission});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 278);
+            this.toolStripSplitButton2,
+            this.toolStripSplitButton1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 275);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 2, 1, 0);
             this.toolStrip1.Size = new System.Drawing.Size(588, 25);
@@ -968,9 +965,11 @@
             // refreshSubmission
             // 
             this.refreshSubmission.Image = global::UVA_Arena.Properties.Resources.reload;
+            this.refreshSubmission.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.refreshSubmission.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.refreshSubmission.Name = "refreshSubmission";
-            this.refreshSubmission.Size = new System.Drawing.Size(66, 20);
+            this.refreshSubmission.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.refreshSubmission.Size = new System.Drawing.Size(76, 20);
             this.refreshSubmission.Text = "Refresh";
             this.refreshSubmission.Click += new System.EventHandler(this.refreshToolButton_Click);
             // 
@@ -979,7 +978,7 @@
             this.progtrackerTab.Controls.Add(this.userProgTracker1);
             this.progtrackerTab.Location = new System.Drawing.Point(4, 30);
             this.progtrackerTab.Name = "progtrackerTab";
-            this.progtrackerTab.Size = new System.Drawing.Size(588, 303);
+            this.progtrackerTab.Size = new System.Drawing.Size(588, 300);
             this.progtrackerTab.TabIndex = 1;
             this.progtrackerTab.Text = "Progress Tracker";
             this.progtrackerTab.UseVisualStyleBackColor = true;
@@ -994,7 +993,7 @@
             this.userProgTracker1.ForeColor = System.Drawing.Color.Black;
             this.userProgTracker1.Location = new System.Drawing.Point(0, 0);
             this.userProgTracker1.Name = "userProgTracker1";
-            this.userProgTracker1.Size = new System.Drawing.Size(588, 303);
+            this.userProgTracker1.Size = new System.Drawing.Size(588, 300);
             this.userProgTracker1.TabIndex = 0;
             // 
             // worldrankTab
@@ -1003,7 +1002,7 @@
             this.worldrankTab.Controls.Add(this.tableLayoutPanel2);
             this.worldrankTab.Location = new System.Drawing.Point(4, 30);
             this.worldrankTab.Name = "worldrankTab";
-            this.worldrankTab.Size = new System.Drawing.Size(588, 303);
+            this.worldrankTab.Size = new System.Drawing.Size(588, 300);
             this.worldrankTab.TabIndex = 2;
             this.worldrankTab.Text = "World Rank";
             this.worldrankTab.UseVisualStyleBackColor = true;
@@ -1049,7 +1048,7 @@
             this.worldRanklist.ShowGroups = false;
             this.worldRanklist.ShowItemCountOnGroups = true;
             this.worldRanklist.ShowItemToolTips = true;
-            this.worldRanklist.Size = new System.Drawing.Size(588, 273);
+            this.worldRanklist.Size = new System.Drawing.Size(588, 270);
             this.worldRanklist.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.worldRanklist.TabIndex = 3;
             this.worldRanklist.UseAlternatingBackColors = true;
@@ -1188,7 +1187,7 @@
             this.tableLayoutPanel2.Controls.Add(this.rankSelector, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.showRankButton, 3, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 273);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 270);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -1271,7 +1270,7 @@
             // 
             this.compareTab.Location = new System.Drawing.Point(4, 30);
             this.compareTab.Name = "compareTab";
-            this.compareTab.Size = new System.Drawing.Size(588, 303);
+            this.compareTab.Size = new System.Drawing.Size(588, 300);
             this.compareTab.TabIndex = 3;
             this.compareTab.Text = "Compare";
             this.compareTab.UseVisualStyleBackColor = true;
@@ -1282,19 +1281,19 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(596, 35);
+            this.panel2.Size = new System.Drawing.Size(596, 38);
             this.panel2.TabIndex = 4;
             // 
             // userNameTitle
             // 
             this.userNameTitle.AutoSize = true;
-            this.userNameTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.userNameTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userNameTitle.ForeColor = System.Drawing.Color.Navy;
-            this.userNameTitle.Location = new System.Drawing.Point(5, 5);
+            this.userNameTitle.Location = new System.Drawing.Point(5, 4);
             this.userNameTitle.Name = "userNameTitle";
-            this.userNameTitle.Size = new System.Drawing.Size(130, 25);
+            this.userNameTitle.Size = new System.Drawing.Size(148, 30);
             this.userNameTitle.TabIndex = 0;
-            this.userNameTitle.Tag = "Name : {0}";
+            this.userNameTitle.Tag = "{0}";
             this.userNameTitle.Text = "Users\'s Profile";
             // 
             // statusStrip1
@@ -1322,6 +1321,11 @@
             // 
             this.Progress1.Name = "Progress1";
             this.Progress1.Size = new System.Drawing.Size(100, 22);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 23);
             // 
             // USER_STAT
             // 
@@ -1479,5 +1483,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown rankSelector;
         private System.Windows.Forms.Button showRankButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
     }
 }

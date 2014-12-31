@@ -22,7 +22,7 @@ namespace UVA_Arena.Elements
         {
             base.OnBackColorChanged(e);
             titleBox1.BackColor = this.BackColor;
-            catagoryInfo.BackColor = this.BackColor;
+            categoryInfo.BackColor = this.BackColor;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -90,8 +90,8 @@ namespace UVA_Arena.Elements
         {
             current = null;
             titleBox1.Text = "No problem selected";
-            catagoryInfo.Text = "";
-            catagoryButton.Visible = false;
+            categoryInfo.Text = "";
+            categoryButton.Visible = false;
             problemWebBrowser.Navigate("");
         }
 
@@ -101,14 +101,14 @@ namespace UVA_Arena.Elements
 
             titleBox1.Text = string.Format("{0} - {1}", current.pnum, current.ptitle);
             titleBox1.Text += string.Format(" (Level : {0}{1})", current.level, current.levelstar);
-            catagoryButton.Visible = true;
+            categoryButton.Visible = true;
             ShowCurrentTags();
 
             string path = LocalDirectory.GetProblemHtml(current.pnum);
             problemWebBrowser.Navigate(path);
             tabControl1.SelectedTab = descriptionTab;
 
-            markButton.Checked = RegistryAccess.FavouriteProblems.Contains(current.pnum);
+            markButton.Checked = RegistryAccess.FavoriteProblems.Contains(current.pnum);
 
             FileInfo local = new FileInfo(path);
             if (!local.Exists || local.Length < 100) DownloadHtml(current.pnum);
@@ -120,7 +120,7 @@ namespace UVA_Arena.Elements
             if (current.tags == null) current.tags = RegistryAccess.GetTags(current.pnum);
             string txt = string.Join("; ", current.tags.ToArray());
             if (txt.Length > 0) txt = "Tags : " + txt;
-            catagoryInfo.Text = txt;
+            categoryInfo.Text = txt;
         }
 
         #endregion
@@ -243,16 +243,16 @@ namespace UVA_Arena.Elements
             }
         }
 
-        private void catagoryInfo_KeyDown(object sender, KeyEventArgs e)
+        private void categoryInfo_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter) catagoryButton.PerformClick();
+            if (e.KeyCode == Keys.Enter) categoryButton.PerformClick();
             e.SuppressKeyPress = true;
         }
 
-        private void catagoryButton_Click(object sender, EventArgs e)
+        private void categoryButton_Click(object sender, EventArgs e)
         {
             if (current == null) return;
-            CatagoryChange cc = new CatagoryChange(current);
+            CategoryChange cc = new CategoryChange(current);
             if (cc.ShowDialog() == DialogResult.OK) ShowCurrentTags();
         }
 
@@ -315,15 +315,15 @@ namespace UVA_Arena.Elements
         {
             if (current == null) return;
 
-            List<long> fav = RegistryAccess.FavouriteProblems;
+            List<long> fav = RegistryAccess.FavoriteProblems;
             if (markButton.Checked) fav.Remove(current.pnum);
             else if (!fav.Contains(current.pnum)) fav.Add(current.pnum);
 
-            RegistryAccess.FavouriteProblems = fav;
+            RegistryAccess.FavoriteProblems = fav;
             markButton.Checked = !markButton.Checked;
 
-            if (Interactivity.problems.favouriteButton.Checked)
-                Interactivity.problems.LoadFavourites();
+            if (Interactivity.problems.favoriteButton.Checked)
+                Interactivity.problems.LoadFavorites();
         }
 
         #endregion
@@ -416,14 +416,21 @@ namespace UVA_Arena.Elements
 
         private void usernameList1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string user = RegistryAccess.DefaultUsername;
+            string user = "user";
             if (usernameList1.SelectedObject != null)
+            {
                 user = ((KeyValuePair<string, string>)usernameList1.SelectedObject).Key;
-            usernameList1.Tag = user;
+                usernameList1.Tag = user;
+            }
+            else
+            {
+                usernameList1.Tag = null;
+            }
 
             showUsersRankButton.Text = string.Format((string)showUsersRankButton.Tag, user);
             showUserSubButton.Text = string.Format((string)showUserSubButton.Tag, user);
 
+            usernameList1.Tag = user;
             _curSubType = SubViewType.UsersSub;
             LoadSubmission();
         }
@@ -433,9 +440,9 @@ namespace UVA_Arena.Elements
             if (current == null) return;
 
             string user = (string)usernameList1.Tag;
-            if (string.IsNullOrEmpty(user))
-                user = RegistryAccess.DefaultUsername;
-            string uid = LocalDatabase.GetUserid(user);  //uid        
+            string uid = "";
+            if (!string.IsNullOrEmpty(user))
+                uid = LocalDatabase.GetUserid(user);  //uid        
 
             submissionStatus.ClearObjects();
             usernameList1.SetObjects(LocalDatabase.usernames);
@@ -460,19 +467,22 @@ namespace UVA_Arena.Elements
                     break;
                 case SubViewType.UsersRank:
                     start = stop = 10;
-                    format = "http://uhunt.felix-halim.net/api/p/ranklist/{0}/{1}/{2}/{3}"; //pid uid, before_count, after_count
+                    if (string.IsNullOrEmpty(uid)) return;
+                    format = "http://uhunt.felix-halim.net/api/p/ranklist/{0}/{1}/{2}/{3}"; //pid, uid, before_count, after_count
                     url = string.Format(format, current.pid, uid, start, stop);
                     Interactivity.problems.SetStatus("Downoading " + user + "'s rankdata...");
                     break;
                 case SubViewType.UsersSub:
+                    if (string.IsNullOrEmpty(uid)) return;
                     format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/{2}"; //uid, pnum, last sid
                     url = string.Format(format, uid, current.pnum, 0);
                     Interactivity.problems.SetStatus("Downoading " + user + "'s submission...");
                     break;
                 case SubViewType.Comapre:
-                    format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/0"; //uids(sep = comma), pnum
                     List<string> uidcol = new List<string>();
                     foreach (var val in LocalDatabase.usernames.Values) uidcol.Add(val);
+                    if (uidcol.Count == 0) return;
+                    format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/0"; //uids(sep = comma), pnum
                     url = string.Format(format, string.Join(",", uidcol.ToArray()), current.pnum, 0);
                     Interactivity.problems.SetStatus("Comparing user's for this problem...");
                     break;
@@ -620,7 +630,7 @@ namespace UVA_Arena.Elements
                 }
                 else
                 {
-                    if (MessageBox.Show("Add \"" + list.uname + "\" to your favourite list?", "Add User",
+                    if (MessageBox.Show("Add \"" + list.uname + "\" to your favorite list?", "Add User",
                         MessageBoxButtons.YesNo) == DialogResult.No) return;
                     RegistryAccess.SetUserid(list.uname, list.uid.ToString());
                     Interactivity.ShowUserStat(list.uname);

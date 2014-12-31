@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 namespace UVA_Arena.Structures
 {
     [StructLayout(LayoutKind.Sequential)]
-    public class CatagoryList
+    public class CategoryList
     { 
-        public CatagoryList() { }
+        public CategoryList() { }
         public int count { get; set; }
         public string name { get; set; }
         public object tag { get; set; }

@@ -30,7 +30,7 @@ namespace UVA_Arena
             AddActiveButtons();
 
             //initialize controls and add them
-            DelayInitialize(true); 
+            DelayInitialize(true);
         }
 
         public void SetFormProperties()
@@ -51,70 +51,73 @@ namespace UVA_Arena
 
             //first load problem database
             LocalDatabase.RunLoadAsync(false);
-
-            //load problems 
+             
+            //load controls
             this.BeginInvoke((MethodInvoker)delegate
             {
+                //load problems
                 Interactivity.problems = new Elements.PROBLEMS();
                 Interactivity.problems.Dock = DockStyle.Fill;
                 Interactivity.problems.BorderStyle = BorderStyle.FixedSingle;
-
+                
                 //load problem viewer            
                 Interactivity.problemViewer = new Elements.ProblemViewer();
                 Interactivity.problemViewer.Dock = DockStyle.Fill;
                 Interactivity.problemViewer.BorderStyle = BorderStyle.None;
                 Interactivity.problems.mainSplitContainer.Panel2.Controls.Add(Interactivity.problemViewer);
 
-                problemTab.Controls.Add(Interactivity.problems);
-            });
-               
-            //load codes            
-            System.Threading.Thread.Sleep(50);
-            this.BeginInvoke((MethodInvoker)delegate
-            {
+                //load codes
                 Interactivity.codes = new Elements.CODES();
                 Interactivity.codes.Dock = DockStyle.Fill;
                 Interactivity.codes.BorderStyle = BorderStyle.FixedSingle;
-                codesTab.Controls.Add(Interactivity.codes);
-            });
-
-            //load judge status
-            System.Threading.Thread.Sleep(50);
-            this.BeginInvoke((MethodInvoker)delegate
-            {
+                
+                //load status
                 Interactivity.status = new Elements.STATUS();
                 Interactivity.status.Dock = DockStyle.Fill;
                 Interactivity.status.BorderStyle = BorderStyle.FixedSingle;
-                submissionTab.Controls.Add(Interactivity.status);
-            });
 
-            //load user stat
-            System.Threading.Thread.Sleep(50);
-            this.BeginInvoke((MethodInvoker)delegate
-            {
+                //load user stat
                 Interactivity.userstat = new Elements.USER_STAT();
                 Interactivity.userstat.Dock = DockStyle.Fill;
-                profileTab.Controls.Add(Interactivity.userstat);
-            });
 
-            //load utilities
-            System.Threading.Thread.Sleep(50);
-            this.BeginInvoke((MethodInvoker)delegate
-            {
+                //load utilities
                 Interactivity.utilities = new Elements.UTILITIES();
                 Interactivity.utilities.Dock = DockStyle.Fill;
+
+                //turn off visibility
+                Interactivity.problems.Visible = false;
+                Interactivity.status.Visible = false;
+                Interactivity.codes.Visible = false;
+                Interactivity.userstat.Visible = false;
+                Interactivity.utilities.Visible = false;
+
+                //add controls
+                problemTab.Controls.Add(Interactivity.problems);
+                codesTab.Controls.Add(Interactivity.codes);
+                submissionTab.Controls.Add(Interactivity.status);
+                profileTab.Controls.Add(Interactivity.userstat);
                 utilitiesTab.Controls.Add(Interactivity.utilities);
+
+                //turn on visibility      
+                Interactivity.problems.Visible = true;
+                Interactivity.codes.Visible = true;
+                Interactivity.status.Visible = true;
+                Interactivity.userstat.Visible = true;
+                Interactivity.utilities.Visible = true;
+
+                Logger.Add("Initialized all controls", "Main Form");
             });
 
-            Logger.Add("Initialized all controls", "Main Form");
-
-            //fetch prblem database from internet if not available
-            System.Threading.Thread.Sleep(3000);
-            if (!System.IO.File.Exists(LocalDirectory.GetProblemDataFile()))
+            //fetch problem database from internet if not available            
+            System.Threading.Thread.Sleep(3000);            
+            if (LocalDirectory.GetFileSize(LocalDirectory.GetProblemDataFile()) < 100)
             {
-                Internet.DownloadTaskHandler complete =
-                    delegate(Internet.DownloadTask task) { LocalDatabase.LoadDatabase(); };
-                Internet.Downloader.DownloadProblemDatabase(complete, null);
+                this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        Internet.DownloadTaskHandler complete =
+                            delegate(Internet.DownloadTask task) { LocalDatabase.LoadDatabase(); };
+                        Internet.Downloader.DownloadProblemDatabase(complete, null);
+                    });
             }
 
             System.GC.Collect();

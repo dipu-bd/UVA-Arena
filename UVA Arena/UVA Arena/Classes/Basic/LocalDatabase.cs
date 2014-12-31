@@ -107,7 +107,7 @@ namespace UVA_Arena
                 GetVolume(plist.volume).Add(plist);
                 foreach (string cat in plist.tags)
                 {
-                    GetCatagory(cat).Add(plist);
+                    GetCategory(cat).Add(plist);
                 }
             }
         }
@@ -123,7 +123,7 @@ namespace UVA_Arena
 
         public static void LoadCatagories()
         {
-            string file = LocalDirectory.GetCatagoryPath();
+            string file = LocalDirectory.GetCategoryPath();
             string data = File.ReadAllText(file);
             List<ContextBook> catlist = JsonConvert.DeserializeObject<List<ContextBook>>(data);
             if (catlist == null) return;
@@ -200,8 +200,8 @@ namespace UVA_Arena
             problem_vol.Add(vol, new List<ProblemInfo>());
             return problem_vol[vol];
         }
-        /// <summary> Get problem list for given catagory </summary>
-        public static List<ProblemInfo> GetCatagory(string cat)
+        /// <summary> Get problem list for given category </summary>
+        public static List<ProblemInfo> GetCategory(string cat)
         {
             if (problem_cat == null) return null;
             if (problem_cat.ContainsKey(cat)) return problem_cat[cat];

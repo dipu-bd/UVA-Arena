@@ -15,12 +15,12 @@ namespace UVA_Arena.Structures
         }
 
 
-        private void AddCatagory(ProblemInfo pinfo, string cat)
+        private void AddCategory(ProblemInfo pinfo, string cat)
         {
             if(!pinfo.tags.Contains(cat))
             {
                 pinfo.tags.Add(cat);
-                LocalDatabase.GetCatagory(cat).Add(pinfo);
+                LocalDatabase.GetCategory(cat).Add(pinfo);
             }
         }
 
@@ -40,9 +40,9 @@ namespace UVA_Arena.Structures
                         ProblemInfo pinfo = LocalDatabase.GetProblem(Math.Abs(pnum));
                         if (pinfo == null) continue;
                                                 
-                        AddCatagory(pinfo, title);
-                        AddCatagory(pinfo, sub.title);
-                        AddCatagory(pinfo, name);
+                        AddCategory(pinfo, title);
+                        AddCategory(pinfo, sub.title);
+                        AddCategory(pinfo, name);
                         pinfo.stared = (pnum < 0);
                         RegistryAccess.SetTags(pinfo.pnum, pinfo.tags);
                     }

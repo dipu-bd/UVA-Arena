@@ -23,7 +23,7 @@ namespace UVA_Arena.Elements
                 new Stylish.GradientStyle(Color.LightCyan, Color.LightBlue, 90));
         }
 
-        UserInfo currentUser = null;
+        public UserInfo currentUser = null;
 
         public void ShowUserInfo(UserInfo uinfo)
         {

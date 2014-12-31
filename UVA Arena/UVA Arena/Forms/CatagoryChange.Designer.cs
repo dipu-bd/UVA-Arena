@@ -1,6 +1,6 @@
 ﻿namespace UVA_Arena 
 {
-    partial class CatagoryChange
+    partial class CategoryChange
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CatagoryChange));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CategoryChange));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.ComboBox();
@@ -67,7 +67,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(86, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Add Catagory : ";
+            this.label2.Text = "Add Category : ";
             // 
             // textBox1
             // 
@@ -196,7 +196,7 @@
             // 
             this.columnHeader1.Width = 220;
             // 
-            // CatagoryChange
+            // CategoryChange
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -214,11 +214,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "CatagoryChange";
+            this.Name = "CategoryChange";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Change Catagory";
-            this.Load += new System.EventHandler(this.CatagoryChange_Load);
+            this.Text = "Change Category";
+            this.Load += new System.EventHandler(this.CategoryChange_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

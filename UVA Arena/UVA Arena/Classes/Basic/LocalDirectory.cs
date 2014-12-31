@@ -125,11 +125,11 @@ namespace UVA_Arena
             return path;
         }
 
-        /// <summary> Get path where catagory data should be saved </summary>
+        /// <summary> Get path where category data should be saved </summary>
         /// <returns>Valid filename with .json extension</returns>
-        public static string GetCatagoryPath()
+        public static string GetCategoryPath()
         {
-            string path = Path.Combine(DefaultPath, "catagory.json");
+            string path = Path.Combine(DefaultPath, "category.json");
             CreateFile(path);
             return path;
         }

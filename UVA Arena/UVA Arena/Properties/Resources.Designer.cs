@@ -162,9 +162,9 @@ namespace UVA_Arena.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap favourite {
+        internal static System.Drawing.Bitmap favorite {
             get {
-                object obj = ResourceManager.GetObject("favourite", resourceCulture);
+                object obj = ResourceManager.GetObject("favorite", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

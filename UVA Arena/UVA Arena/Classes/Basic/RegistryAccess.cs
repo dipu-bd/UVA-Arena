@@ -101,11 +101,11 @@ namespace UVA_Arena
         //
         // Problem Database
         //
-        public static List<long> FavouriteProblems
+        public static List<long> FavoriteProblems
         {
             get
             {
-                string dat = (string)GetValue("Favourites", "[]");
+                string dat = (string)GetValue("Favorites", "[]");
                 List<long> lst = JsonConvert.DeserializeObject<List<long>>(dat);
                 if (lst == null) lst = new List<long>();
                 return lst;
@@ -113,13 +113,13 @@ namespace UVA_Arena
             set
             {
                 string dat = JsonConvert.SerializeObject(value);
-                SetValue("Favourites", dat);
+                SetValue("Favorites", dat);
             }
         }
 
-        public static void SetTags(long pnum, List<string> catagory)
+        public static void SetTags(long pnum, List<string> category)
         {
-            string data = JsonConvert.SerializeObject(catagory);
+            string data = JsonConvert.SerializeObject(category);
             SetValue(pnum.ToString(), data, "Problem Database", RegistryValueKind.String);
         }
 

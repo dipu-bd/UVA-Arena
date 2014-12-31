@@ -94,7 +94,7 @@ namespace UVA_Arena.Elements
         {
             if (this.IsDisposed) return;
             Status1.Text = text;
-            TaskQueue.AddTask(ClearStatus, timeout); 
+            TaskQueue.AddTask(ClearStatus, timeout);
         }
         public void ClearStatus()
         {
@@ -108,6 +108,7 @@ namespace UVA_Arena.Elements
         //
         private void updateToolButton_Click(object sender, EventArgs e)
         {
+            if (Downloader._DownloadingProblemDatabase) return;
             Status1.Text = "Updating problem database...";
             Downloader.DownloadProblemDatabase(problemWorkerCompleted, problemWorkerProgress);
         }
@@ -142,55 +143,55 @@ namespace UVA_Arena.Elements
         {
             searchBox2.SearchText = "";
             volumesButton.Checked = true;
-            catagoryButton.Checked = false;
+            categoryButton.Checked = false;
 
             if (LocalDatabase.problem_vol == null) return;
 
-            List<CatagoryList> volumes = new List<CatagoryList>();
+            List<CategoryList> volumes = new List<CategoryList>();
             var it = LocalDatabase.problem_vol.GetEnumerator();
             while (it.MoveNext())
             {
                 if (it.Current.Value.Count == 0) continue;
-                CatagoryList cl = new CatagoryList();
+                CategoryList cl = new CategoryList();
                 cl.name = string.Format("Volume {0:000}", it.Current.Key);
                 cl.tag = it.Current.Key;
                 cl.count = it.Current.Value.Count;
                 volumes.Add(cl);
             }
 
-            catagoryListView.SetObjects(volumes);
-            catagoryListView.Sort(0);
+            categoryListView.SetObjects(volumes);
+            categoryListView.Sort(0);
         }
 
-        public void LoadCatagory()
+        public void LoadCategory()
         {
             searchBox2.SearchText = "";
             volumesButton.Checked = false;
-            catagoryButton.Checked = true;
+            categoryButton.Checked = true;
 
             if (LocalDatabase.problem_cat == null) return;
 
-            List<CatagoryList> catagory = new List<CatagoryList>();
+            List<CategoryList> category = new List<CategoryList>();
             var it = LocalDatabase.problem_cat.GetEnumerator();
             while (it.MoveNext())
             {
                 if (it.Current.Value.Count == 0) continue;
-                CatagoryList cl = new CatagoryList();
+                CategoryList cl = new CategoryList();
                 cl.name = it.Current.Key;
                 cl.tag = it.Current.Key;
                 cl.count = it.Current.Value.Count;
-                catagory.Add(cl);
+                category.Add(cl);
             }
 
-            catagoryListView.SetObjects(catagory);
-            catagoryListView.Sort(0);
+            categoryListView.SetObjects(category);
+            categoryListView.Sort(0);
         }
 
         public void LoadProblems()
         {
             searchBox1.SearchText = "";
             allProbButton.Checked = true;
-            favouriteButton.Checked = false;
+            favoriteButton.Checked = false;
             plistLabel.Text = "All Problems";
 
             if (LocalDatabase.problem_list == null) return;
@@ -199,14 +200,14 @@ namespace UVA_Arena.Elements
             problemListView.Sort(pnumProb);
         }
 
-        public void LoadFavourites()
+        public void LoadFavorites()
         {
             searchBox1.SearchText = "";
             allProbButton.Checked = false;
-            favouriteButton.Checked = true;
+            favoriteButton.Checked = true;
             plistLabel.Text = "Marked Problems";
 
-            List<long> fav = RegistryAccess.FavouriteProblems;
+            List<long> fav = RegistryAccess.FavoriteProblems;
             List<ProblemInfo> plist = new List<ProblemInfo>();
             foreach (long pnum in fav)
             {
@@ -224,7 +225,7 @@ namespace UVA_Arena.Elements
         {
             searchBox1.SearchText = "";
             allProbButton.Checked = false;
-            favouriteButton.Checked = false;
+            favoriteButton.Checked = false;
             plistLabel.Text = string.Format("Volume {0:000}", vol);
 
             if (LocalDatabase.problem_vol == null) return;
@@ -234,18 +235,18 @@ namespace UVA_Arena.Elements
             problemListView.Sort(0);
         }
 
-        public void ShowCatagory(string cat)
+        public void ShowCategory(string cat)
         {
             if (string.IsNullOrEmpty(cat)) return;
 
             searchBox1.SearchText = "";
             allProbButton.Checked = false;
-            favouriteButton.Checked = false;
+            favoriteButton.Checked = false;
             plistLabel.Text = cat;
 
             if (LocalDatabase.problem_cat == null) return;
 
-            problemListView.SetObjects(LocalDatabase.GetCatagory(cat));
+            problemListView.SetObjects(LocalDatabase.GetCategory(cat));
             countVol.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
             problemListView.Sort(0);
         }
@@ -258,14 +259,14 @@ namespace UVA_Arena.Elements
             if (!volumesButton.Checked) LoadVolumes();
         }
 
-        private void catagoryButton_Click(object sender, EventArgs e)
+        private void categoryButton_Click(object sender, EventArgs e)
         {
-            if (!catagoryButton.Checked) LoadCatagory();
+            if (!categoryButton.Checked) LoadCategory();
         }
 
-        private void favouriteButton_Click(object sender, EventArgs e)
+        private void favoriteButton_Click(object sender, EventArgs e)
         {
-            if (!favouriteButton.Checked) LoadFavourites();
+            if (!favoriteButton.Checked) LoadFavorites();
         }
 
         private void allProbButton_Click(object sender, EventArgs e)
@@ -282,13 +283,13 @@ namespace UVA_Arena.Elements
         //
         private void volumeListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            object sel = catagoryListView.SelectedObject;
+            object sel = categoryListView.SelectedObject;
             if (sel == null) return;
 
             if (volumesButton.Checked)
-                ShowVolume((long)((CatagoryList)sel).tag);
+                ShowVolume((long)((CategoryList)sel).tag);
             else
-                ShowCatagory((string)((CatagoryList)sel).tag);
+                ShowCategory((string)((CategoryList)sel).tag);
         }
 
         //
@@ -352,21 +353,21 @@ namespace UVA_Arena.Elements
         }
 
         //
-        // Filter Catagory and Volume list
+        // Filter Category and Volume list
         //
         private void searchBox2_SearchTextChanged(object sender, EventArgs e)
         {
             if (searchBox2.SearchText.Length == 0)
             {
-                catagoryListView.DefaultRenderer = null;
-                catagoryListView.AdditionalFilter = null;
+                categoryListView.DefaultRenderer = null;
+                categoryListView.AdditionalFilter = null;
             }
             else
             {
-                TextMatchFilter filter = new TextMatchFilter(catagoryListView,
+                TextMatchFilter filter = new TextMatchFilter(categoryListView,
                     searchBox2.SearchText, StringComparison.OrdinalIgnoreCase);
-                catagoryListView.DefaultRenderer = new HighlightTextRenderer(filter);
-                catagoryListView.AdditionalFilter = filter;
+                categoryListView.DefaultRenderer = new HighlightTextRenderer(filter);
+                categoryListView.AdditionalFilter = filter;
             }
         }
 
@@ -492,10 +493,10 @@ namespace UVA_Arena.Elements
             Interactivity.problemViewer.submitButton.PerformClick();
         }
 
-        private void markAsFavouriteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void markAsFavoriteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Interactivity.problemViewer.markButton.PerformClick();
-            markAsFavouriteToolStripMenuItem.Checked = Interactivity.problemViewer.markButton.Checked;
+            markAsFavoriteToolStripMenuItem.Checked = Interactivity.problemViewer.markButton.Checked;
         }
 
         private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -509,7 +510,6 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
-
 
     }
 }

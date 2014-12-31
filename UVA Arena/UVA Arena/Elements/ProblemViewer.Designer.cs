@@ -86,12 +86,12 @@
             this.nextDiscussButton = new System.Windows.Forms.Button();
             this.homeDiscussButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.catagoryButton = new System.Windows.Forms.Button();
+            this.categoryButton = new System.Windows.Forms.Button();
             this.titleBox1 = new System.Windows.Forms.TextBox();
-            this.catagoryInfo = new System.Windows.Forms.CueTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.prevContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.nextContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.categoryInfo = new System.Windows.Forms.CueTextBox();
             this.tabControl1.SuspendLayout();
             this.descriptionTab.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -244,7 +244,7 @@
             // 
             // markButton
             // 
-            this.markButton.Image = global::UVA_Arena.Properties.Resources.favourite;
+            this.markButton.Image = global::UVA_Arena.Properties.Resources.favorite;
             this.markButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.markButton.Name = "markButton";
             this.markButton.Size = new System.Drawing.Size(38, 35);
@@ -304,11 +304,10 @@
             this.submissionStatus.CopySelectionOnControlC = false;
             this.submissionStatus.Cursor = System.Windows.Forms.Cursors.Default;
             this.submissionStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.submissionStatus.EmptyListMsg = "Refresh to view last submissions";
+            this.submissionStatus.EmptyListMsg = "Select a problem and click here";
             this.submissionStatus.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.submissionStatus.ForeColor = System.Drawing.Color.Black;
             this.submissionStatus.FullRowSelect = true;
-            this.submissionStatus.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.submissionStatus.Location = new System.Drawing.Point(0, 31);
             this.submissionStatus.Name = "submissionStatus";
             this.submissionStatus.ShowGroups = false;
@@ -515,6 +514,7 @@
             this.usernameList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usernameList1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameList1.FullRowSelect = true;
+            this.usernameList1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.usernameList1.Location = new System.Drawing.Point(3, 185);
             this.usernameList1.Name = "usernameList1";
             this.usernameList1.ShowGroups = false;
@@ -535,7 +535,7 @@
             this.unameCol.AspectName = "Key";
             this.unameCol.CellPadding = null;
             this.unameCol.FillsFreeSpace = true;
-            this.unameCol.MinimumWidth = 100;
+            this.unameCol.MinimumWidth = 80;
             this.unameCol.Text = "Username";
             this.unameCol.Width = 100;
             // 
@@ -544,9 +544,10 @@
             this.uidCol.AspectName = "Value";
             this.uidCol.CellPadding = null;
             this.uidCol.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.uidCol.MinimumWidth = 60;
             this.uidCol.Text = "User ID";
             this.uidCol.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.uidCol.Width = 80;
+            this.uidCol.Width = 70;
             // 
             // panel6
             // 
@@ -569,7 +570,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(192, 23);
             this.label4.TabIndex = 1;
-            this.label4.Text = "User\'s Rank";
+            this.label4.Text = "Favorite Users";
             this.label4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // showSubmissionButton
@@ -841,10 +842,10 @@
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 151F));
-            this.tableLayoutPanel1.Controls.Add(this.catagoryButton, 1, 1);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 153F));
+            this.tableLayoutPanel1.Controls.Add(this.categoryButton, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.catagoryInfo, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.categoryInfo, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.button1, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -855,24 +856,22 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 60);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // catagoryButton
+            // categoryButton
             // 
-            this.catagoryButton.BackColor = System.Drawing.Color.PowderBlue;
-            this.catagoryButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.catagoryButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkTurquoise;
-            this.catagoryButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightSeaGreen;
-            this.catagoryButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
-            this.catagoryButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.catagoryButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.catagoryButton.Location = new System.Drawing.Point(649, 33);
-            this.catagoryButton.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.catagoryButton.Name = "catagoryButton";
-            this.catagoryButton.Size = new System.Drawing.Size(149, 26);
-            this.catagoryButton.TabIndex = 2;
-            this.catagoryButton.Text = "Change";
-            this.catagoryButton.UseVisualStyleBackColor = false;
-            this.catagoryButton.Visible = false;
-            this.catagoryButton.Click += new System.EventHandler(this.catagoryButton_Click);
+            this.categoryButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.categoryButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkTurquoise;
+            this.categoryButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightSeaGreen;
+            this.categoryButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
+            this.categoryButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.categoryButton.Location = new System.Drawing.Point(647, 33);
+            this.categoryButton.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.categoryButton.Name = "categoryButton";
+            this.categoryButton.Size = new System.Drawing.Size(151, 26);
+            this.categoryButton.TabIndex = 2;
+            this.categoryButton.Text = "Change";
+            this.categoryButton.UseVisualStyleBackColor = false;
+            this.categoryButton.Visible = false;
+            this.categoryButton.Click += new System.EventHandler(this.categoryButton_Click);
             // 
             // titleBox1
             // 
@@ -885,34 +884,19 @@
             this.titleBox1.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.titleBox1.Name = "titleBox1";
             this.titleBox1.ReadOnly = true;
-            this.titleBox1.Size = new System.Drawing.Size(638, 25);
+            this.titleBox1.Size = new System.Drawing.Size(636, 25);
             this.titleBox1.TabIndex = 0;
             this.titleBox1.TabStop = false;
             this.titleBox1.Text = "No problem selected";
-            // 
-            // catagoryInfo
-            // 
-            this.catagoryInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.catagoryInfo.BackColor = System.Drawing.Color.LightBlue;
-            this.catagoryInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.catagoryInfo.CueText = "Set tags to identify the type of the problem...";
-            this.catagoryInfo.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.catagoryInfo.ForeColor = System.Drawing.Color.Maroon;
-            this.catagoryInfo.Location = new System.Drawing.Point(4, 38);
-            this.catagoryInfo.Name = "catagoryInfo";
-            this.catagoryInfo.Size = new System.Drawing.Size(640, 16);
-            this.catagoryInfo.TabIndex = 1;
-            this.catagoryInfo.TabStop = false;
-            this.catagoryInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.catagoryInfo_KeyDown);
             // 
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Image = global::UVA_Arena.Properties.Resources.expand;
-            this.button1.Location = new System.Drawing.Point(649, 2);
+            this.button1.Location = new System.Drawing.Point(647, 2);
             this.button1.Margin = new System.Windows.Forms.Padding(1);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(149, 29);
+            this.button1.Size = new System.Drawing.Size(151, 29);
             this.button1.TabIndex = 3;
             this.button1.Text = "Expand";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -929,6 +913,21 @@
             // 
             this.nextContext.Name = "nextContext";
             this.nextContext.Size = new System.Drawing.Size(61, 4);
+            // 
+            // categoryInfo
+            // 
+            this.categoryInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.categoryInfo.BackColor = System.Drawing.Color.LightBlue;
+            this.categoryInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.categoryInfo.CueText = "Set tags to identify the type of the problem...";
+            this.categoryInfo.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.categoryInfo.ForeColor = System.Drawing.Color.Maroon;
+            this.categoryInfo.Location = new System.Drawing.Point(4, 38);
+            this.categoryInfo.Name = "categoryInfo";
+            this.categoryInfo.Size = new System.Drawing.Size(638, 16);
+            this.categoryInfo.TabIndex = 1;
+            this.categoryInfo.TabStop = false;
+            this.categoryInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.categoryInfo_KeyDown);
             // 
             // ProblemViewer
             // 
@@ -988,8 +987,8 @@
         public System.Windows.Forms.ToolStripButton nextButton;
         public System.Windows.Forms.ToolStripButton reloadButton;
         public System.Windows.Forms.TextBox titleBox1;
-        public System.Windows.Forms.Button catagoryButton;
-        public System.Windows.Forms.CueTextBox catagoryInfo;
+        public System.Windows.Forms.Button categoryButton;
+        public System.Windows.Forms.CueTextBox categoryInfo;
         public System.Windows.Forms.WebBrowser problemWebBrowser;
         public System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage discussTab;

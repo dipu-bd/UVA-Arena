@@ -9,9 +9,9 @@ using UVA_Arena.Structures;
 
 namespace UVA_Arena
 {
-    public partial class CatagoryChange : Form
+    public partial class CategoryChange : Form
     {
-        public CatagoryChange(ProblemInfo pinfo)
+        public CategoryChange(ProblemInfo pinfo)
         {
             InitializeComponent();
 
@@ -24,7 +24,7 @@ namespace UVA_Arena
             }
         }
         
-        private void CatagoryChange_Load(object sender, EventArgs e)
+        private void CategoryChange_Load(object sender, EventArgs e)
         {
             if (problem.tags == null)
             {
@@ -37,10 +37,10 @@ namespace UVA_Arena
                 listView1.Items.Add(new ListViewItem(itm));
             }
 
-            List<string> catagory = new List<string>();
+            List<string> category = new List<string>();
             var it = LocalDatabase.problem_cat.GetEnumerator();
-            while (it.MoveNext()) catagory.Add(it.Current.Key);
-            textBox1.Items.AddRange(catagory.ToArray());
+            while (it.MoveNext()) category.Add(it.Current.Key);
+            textBox1.Items.AddRange(category.ToArray());
 
         }
 
@@ -115,21 +115,21 @@ namespace UVA_Arena
             try
             { 
                 //remove old tags
-                foreach (string tag in old) LocalDatabase.GetCatagory(tag).Remove(problem);
+                foreach (string tag in old) LocalDatabase.GetCategory(tag).Remove(problem);
                 //add new tags
                 RegistryAccess.SetTags(problem.pnum, problem.tags);
-                foreach (string tag in problem.tags) LocalDatabase.GetCatagory(tag).Add(problem);
+                foreach (string tag in problem.tags) LocalDatabase.GetCategory(tag).Add(problem);
                 
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
-                if (Interactivity.problems.catagoryButton.Checked)
+                if (Interactivity.problems.categoryButton.Checked)
                 {
-                    Interactivity.problems.LoadCatagory();
+                    Interactivity.problems.LoadCategory();
                     Interactivity.problems.problemListView.Refresh();
                 }
             }
             catch (Exception ex)
             {
-                Logger.Add(ex.Message, "Catagory Change");   
+                Logger.Add(ex.Message, "Category Change");   
 
                 problem.tags = old;
                 this.DialogResult = System.Windows.Forms.DialogResult.Abort;

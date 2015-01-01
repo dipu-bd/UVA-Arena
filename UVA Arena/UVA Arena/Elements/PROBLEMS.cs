@@ -33,11 +33,24 @@ namespace UVA_Arena.Elements
             //load volume and problems data at once
             Interactivity.ProblemDatabaseUpdated();
             problemListView.MakeColumnSelectMenu(problemContextMenu);
+
+            Stylish.SetGradientBackground(plistLabel,
+                new Stylish.GradientStyle(Color.LightBlue, Color.LightCyan, 45F));
         }
 
         public bool ExpandCollapseView()
         {
             bool val = !mainSplitContainer.Panel1Collapsed;
+            if (val)
+            {
+                Interactivity.problemViewer.expandCollapseButton.Image
+                            = UVA_Arena.Properties.Resources.next;
+            }
+            else
+            {
+                Interactivity.problemViewer.expandCollapseButton.Image
+                            = UVA_Arena.Properties.Resources.prev;
+            }
             mainSplitContainer.Panel1Collapsed = val;
             return val;
         }
@@ -141,7 +154,7 @@ namespace UVA_Arena.Elements
         //
         public void LoadVolumes()
         {
-            searchBox2.SearchText = "";
+            filterBox1.SearchText = "";
             volumesButton.Checked = true;
             categoryButton.Checked = false;
 
@@ -165,7 +178,7 @@ namespace UVA_Arena.Elements
 
         public void LoadCategory()
         {
-            searchBox2.SearchText = "";
+            filterBox1.SearchText = "";
             volumesButton.Checked = false;
             categoryButton.Checked = true;
 
@@ -197,7 +210,7 @@ namespace UVA_Arena.Elements
             if (LocalDatabase.problem_list == null) return;
 
             problemListView.SetObjects(LocalDatabase.problem_list);
-            problemListView.Sort(pnumProb);
+            problemListView.Sort(0); //sort by volume when showing all problems
         }
 
         public void LoadFavorites()
@@ -206,19 +219,8 @@ namespace UVA_Arena.Elements
             allProbButton.Checked = false;
             favoriteButton.Checked = true;
             plistLabel.Text = "Marked Problems";
-
-            List<long> fav = RegistryAccess.FavoriteProblems;
-            List<ProblemInfo> plist = new List<ProblemInfo>();
-            foreach (long pnum in fav)
-            {
-                if (LocalDatabase.HasProblem(pnum))
-                    plist.Add(LocalDatabase.GetProblem(pnum));
-            }
-            if (plist.Count > 0)
-            {
-                problemListView.ShowGroups = false;
-                problemListView.SetObjects(plist);
-            }
+             
+            problemListView.SetObjects(LocalDatabase.favorite_list);            
         }
 
         public void ShowVolume(long vol)
@@ -232,7 +234,7 @@ namespace UVA_Arena.Elements
 
             problemListView.SetObjects(LocalDatabase.GetVolume(vol));
             countVol.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
-            problemListView.Sort(0);
+            problemListView.Sort();
         }
 
         public void ShowCategory(string cat)
@@ -248,7 +250,7 @@ namespace UVA_Arena.Elements
 
             problemListView.SetObjects(LocalDatabase.GetCategory(cat));
             countVol.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
-            problemListView.Sort(0);
+            problemListView.Sort();
         }
 
         //
@@ -318,16 +320,6 @@ namespace UVA_Arena.Elements
             catch { }
         }
 
-        private void problemListView_CellToolTipShowing(object sender, ToolTipShowingEventArgs e)
-        {
-            ProblemInfo plist = (ProblemInfo)e.Model;
-            e.Title = string.Format("{0} - {1}", plist.pnum, plist.ptitle);
-            e.Text = string.Format("Timelimit : {1}\nStatus : {2}\n" +
-                "Hardness Level : {0}\nAccepted Percentage : {3:0.00}%",
-                plist.level, runProb.AspectToStringConverter(plist.run),
-                plist.status, 100 * (double)plist.ac / plist.total);
-        }
-
         //
         // Filter Problem List
         //
@@ -348,7 +340,8 @@ namespace UVA_Arena.Elements
                 allProbButton.Checked = false;
                 problemListView.ShowGroups = false;
                 problemListView.DefaultRenderer = new HighlightTextRenderer(filter);
-                problemListView.AdditionalFilter = filter;
+                if (!deepSearchCheckBox.Checked)
+                    problemListView.AdditionalFilter = filter;
             }
         }
 
@@ -357,7 +350,7 @@ namespace UVA_Arena.Elements
         //
         private void searchBox2_SearchTextChanged(object sender, EventArgs e)
         {
-            if (searchBox2.SearchText.Length == 0)
+            if (filterBox1.SearchText.Length == 0)
             {
                 categoryListView.DefaultRenderer = null;
                 categoryListView.AdditionalFilter = null;
@@ -365,7 +358,7 @@ namespace UVA_Arena.Elements
             else
             {
                 TextMatchFilter filter = new TextMatchFilter(categoryListView,
-                    searchBox2.SearchText, StringComparison.OrdinalIgnoreCase);
+                    filterBox1.SearchText, StringComparison.OrdinalIgnoreCase);
                 categoryListView.DefaultRenderer = new HighlightTextRenderer(filter);
                 categoryListView.AdditionalFilter = filter;
             }
@@ -386,13 +379,12 @@ namespace UVA_Arena.Elements
                 ProblemInfo plist = (ProblemInfo)e.Model;
                 size = 9.0F;
                 font = "Segoe UI Semibold";
+                //set color 
+                fore = Functions.GetProblemTitleColor(plist.pnum);
                 //set style
                 if (plist.stat == 0) fs = FontStyle.Strikeout;
                 if (plist.stat == 1) fs = FontStyle.Regular;
                 if (plist.stat == 2) fs = FontStyle.Italic;
-                //set color <-- current coloring is only temporary
-                if (plist.solved) fore = Color.Blue;
-                else fore = Color.Black;
             }
             else if (e.Column == levelProb)
             {
@@ -452,6 +444,18 @@ namespace UVA_Arena.Elements
 
         #region Problem List Context
 
+        private void problemContextMenu_Opening(object sender, CancelEventArgs e)
+        {
+            bool marked = false;
+            if (problemListView.SelectedObject != null)
+            {
+                ProblemInfo pinfo = (ProblemInfo)problemListView.SelectedObject;
+                marked = pinfo.marked;
+            }
+            if (marked) markAsFavoriteToolStripMenuItem.Text = "Remove From Favorite";
+            else markAsFavoriteToolStripMenuItem.Text = "Mark As Favorite";
+        }
+
         //
         // Major Tasks
         //
@@ -507,6 +511,142 @@ namespace UVA_Arena.Elements
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             problemListView.Refresh();
+        }
+
+        #endregion
+
+        #region Deep Search
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            searchBox1.SearchButtonVisible = deepSearchCheckBox.Checked;
+        }
+
+        private void searchBox1_SearchButtonClicked(object sender, EventArgs e)
+        {
+            if (!LocalDatabase.IsReady) return;
+            if (_InDeepSearch) return;
+
+            string src = searchBox1.SearchText;
+            if (src.Length < 3) return;
+            if (!src.StartsWith("*")) src = "\\b" + src;
+            if (!src.EndsWith("*")) src += "\\b";
+
+            //run new thread
+            _InDeepSearch = true;
+            _CancelSearch = false;
+            ShowDeepSearchStatus();
+            cancelDeepSearchButton.Visible = true;
+            System.Threading.ThreadPool.QueueUserWorkItem(LoadDeepSearch, src);
+        }
+        private void cancelDeepSearchButton_Click(object sender, EventArgs e)
+        {
+            if (_InDeepSearch) _CancelSearch = true;
+        }
+
+        private void searchBox1_ClearButtonClicked(object sender, EventArgs e)
+        {
+            _CancelSearch = true;
+        }
+
+        private bool _InDeepSearch = false;
+        private bool _CancelSearch = false;
+        private long _DeepSearchProgress = 0;
+        List<ProblemInfo> _deepSearchList = new List<ProblemInfo>();
+
+        public void LoadDeepSearch(object state)
+        {
+            _InDeepSearch = true;
+
+            if (LocalDatabase.problem_list == null) return;
+
+            //search string
+            string src = (string)state;
+            var regex = new System.Text.RegularExpressions.Regex(src,
+                            System.Text.RegularExpressions.RegexOptions.Compiled |
+                            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+            //clear data
+            _DeepSearchProgress = 0;
+            _deepSearchList.Clear();
+
+            //set data
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                allProbButton.Checked = false;
+                favoriteButton.Checked = false;
+                plistLabel.Text = "Deep Search Result";
+
+                problemListView.SetObjects(_deepSearchList);
+                problemListView.Sort(priorityProb, SortOrder.Descending);
+            });
+
+            //search
+            foreach (ProblemInfo prob in LocalDatabase.problem_list)
+            {
+                prob.priority = 0;
+
+                //search in problem data
+                prob.priority += regex.Matches(prob.ToString()).Count;
+
+                //search in problem description
+                try
+                {
+                    string file = LocalDirectory.GetProblemHtml(prob.pnum);
+                    if (LocalDirectory.GetFileSize(file) > 100)
+                    {
+                        var hdoc = new HtmlAgilityPack.HtmlDocument();
+                        hdoc.Load(file);
+                        string dat = hdoc.DocumentNode.InnerText;
+                        //string dat = System.IO.File.ReadAllText(file);
+                        prob.priority += regex.Matches(dat).Count;
+                    }
+                }
+                catch { }
+
+                //add to list
+                if (prob.priority > 0)
+                    _deepSearchList.Add(prob);
+
+                //complete
+                _DeepSearchProgress++;
+                if (_CancelSearch) break;
+            }
+
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                problemListView.SetObjects(_deepSearchList);
+                cancelDeepSearchButton.Visible = false;
+            });
+
+            _InDeepSearch = false;
+        }
+
+        private void ShowDeepSearchStatus()
+        {
+            if (this.IsDisposed) return;
+
+            if (_InDeepSearch)
+            {
+                int total = LocalDatabase.problem_list.Count;
+                Progress1.Value = (int)(100 * _DeepSearchProgress / total);
+                Status1.Text = "Searching... ";
+                Status1.Text += string.Format("[{0} of {1} problems completed.]", _DeepSearchProgress, total);
+
+                problemListView.SetObjects(_deepSearchList);
+                problemListView.Sort(priorityProb, SortOrder.Descending);
+
+                TaskQueue.AddTask(ShowDeepSearchStatus, 1000);
+            }
+            else
+            {
+                Progress1.Value = 0;
+                if (_CancelSearch)
+                    SetStatus("Search Cancelled.");
+                else
+                    SetStatus("Search Completed.");
+            }
+
         }
 
         #endregion

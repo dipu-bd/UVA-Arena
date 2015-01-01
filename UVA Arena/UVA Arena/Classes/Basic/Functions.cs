@@ -131,6 +131,18 @@ namespace UVA_Arena
             }
         }
 
+        public static System.Drawing.Color GetProblemTitleColor(long pnum)
+        {
+            if (LocalDatabase.DefaultUser == null)
+                return System.Drawing.Color.Black;
+            if (LocalDatabase.DefaultUser.IsSolved(pnum))
+                return System.Drawing.Color.Blue;
+            else if (LocalDatabase.DefaultUser.IsTriedButUnsolved(pnum))
+                return System.Drawing.Color.Brown;
+            else
+                return System.Drawing.Color.Black;
+        }
+
         public static System.Drawing.Color GetVerdictColor(Structures.Verdict ver)
         {
             switch (ver)

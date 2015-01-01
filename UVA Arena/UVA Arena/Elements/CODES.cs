@@ -590,46 +590,69 @@ namespace UVA_Arena.Elements
             });
         }
 
-        private void ParseInputOutput(long pnum, string inpfile, string outfile)
+        private bool ParseInputOutput(long pnum, string inpfile, string outfile, bool replace = false)
         {
             try
             {
+                //get html
                 string file = LocalDirectory.GetProblemHtml(pnum);
-                if (LocalDirectory.GetFileSize(file) < 100) return;
+                if (LocalDirectory.GetFileSize(file) < 100) return false;
+
+                int start, stop = 0, indx;
+                string html, low, data;
+                var xdoc = new System.Xml.XmlDocument();
+                char[] white = { ' ', '\r', '\n' };
+
+                html = File.ReadAllText(file);
+                low = html.ToLower();
+
+                bool ok = false;
 
                 //get input
-                string html = File.ReadAllText(file);
-                string low = html.ToLower();
-                int indx = low.IndexOf("sample input");
-                if (indx < 0) return;
-                int start = low.IndexOf("<pre>", indx);
-                if (start < 0) return;
-                int stop = low.IndexOf("</pre>", start);
-                if (stop <= start) return;
+                while (true)
+                {
+                    if (LocalDirectory.GetFileSize(inpfile) > 2 && !replace) break;
+                    indx = low.IndexOf("sample input");
+                    if (indx < 0) break;
+                    start = low.IndexOf("<pre>", indx);
+                    if (start < 0) break;
+                    stop = low.IndexOf("</pre>", start);
+                    if (stop <= start) break;
 
-                string xml = html.Substring(start, stop - start + 6);
-                System.Xml.XmlDocument xdoc = new System.Xml.XmlDocument();
-                xdoc.LoadXml(xml);
-                string data = xdoc.DocumentElement.InnerText.TrimStart(new char[] { ' ', '\r', '\n' });
-                File.WriteAllText(inpfile, data);
+                    xdoc.LoadXml(html.Substring(start, stop - start + 6));
+                    data = xdoc.DocumentElement.InnerText.TrimStart(white);
+                    data = data.Replace("\n\r", "\n");
+                    File.WriteAllText(inpfile, data);
+                    ok = true;
+                    break;
+                }
 
                 //get output
-                indx = low.IndexOf("sample output", stop);
-                if (indx < 0) return;
-                start = low.IndexOf("<pre>", indx);
-                if (start < 0) return;
-                stop = low.IndexOf("</pre>", start);
-                if (stop <= start) return;
+                while (true)
+                {
+                    if (LocalDirectory.GetFileSize(outfile) > 2 && !replace) break;
+                    indx = low.IndexOf("sample output", stop);
+                    if (indx < 0) break;
+                    start = low.IndexOf("<pre>", indx);
+                    if (start < 0) break;
+                    stop = low.IndexOf("</pre>", start);
+                    if (stop <= start) break;
 
-                xml = html.Substring(start, stop - start + 6);
-                xdoc.LoadXml(xml);
-                data = xdoc.DocumentElement.InnerText.TrimStart(new char[] { ' ', '\r', '\n' });
-                if (!data.EndsWith("\n")) data += "\n";
-                File.WriteAllText(outfile, data);
+                    xdoc.LoadXml(html.Substring(start, stop - start + 6));
+                    data = xdoc.DocumentElement.InnerText.TrimStart(white);
+                    data = data.Replace("\n\r", "\n");
+                    if (!data.EndsWith("\n")) data += "\n";
+                    File.WriteAllText(outfile, data);
+                    ok = true;
+                    break;
+                }
+
+                return ok;
             }
             catch (Exception ex)
             {
                 Logger.Add("Failed to write Input/Output data. Error: " + ex.Message, "CODES| ParseInputOutput()");
+                return false;
             }
         }
 
@@ -895,6 +918,7 @@ namespace UVA_Arena.Elements
 
             outputTextBox.Tag = null;
             outputTextBox.Clear();
+            progOutputTextBox.Clear();
 
             correctOutputTextBox.Clear();
             correctOutputTextBox.Tag = null;
@@ -1586,6 +1610,21 @@ namespace UVA_Arena.Elements
         }
 
         //
+        //Load Default 
+        // 
+        private void loadDefaultInput_Click(object sender, EventArgs e)
+        {
+            if (!LocalDatabase.HasProblem(SelectedPNUM)) return;
+            string path = LocalDirectory.GetCodesPath(SelectedPNUM);
+            string inp = Path.Combine(path, "input.txt");
+            string correct = Path.Combine(path, "correct.txt");
+            if (!ParseInputOutput(SelectedPNUM, inp, correct, true))
+            {
+                MessageBox.Show("Can't load input-output automatically. Parsing failed.");
+            }
+        }
+
+        //
         // Output Text Box
         //
         private void saveOutputTool_Click(object sender, EventArgs e)
@@ -1782,6 +1821,10 @@ namespace UVA_Arena.Elements
                 else if ((string)outputTextBox.Tag == e.FullPath)
                 {
                     OpenOutputFile(e.FullPath);
+                }
+                else if ((string)correctOutputTextBox.Tag == e.FullPath)
+                {
+                    OpenCorrectFile(e.FullPath); 
                 }
             }
             catch { }
@@ -2018,7 +2061,7 @@ namespace UVA_Arena.Elements
                 Thread.Sleep(100);
                 this.BeginInvoke((MethodInvoker)delegate { ProcessErrorData(); });
                 //if no error and runtest
-                if (runtest) tabControl1.SelectedTab = ioTAB;
+                if (runtest) tabControl1.SelectedTab = compareTAB;
             });
 
         }
@@ -2393,17 +2436,18 @@ namespace UVA_Arena.Elements
             __updating++;
 
             //add lines
-            _Process(source1, correctOutputTextBox, progOutputTextBox);
+            bool res = _Process(source1, correctOutputTextBox, progOutputTextBox);
 
             //end update
             __updating--;
 
             progOutputTextBox.Cursor = Cursors.Default;
-            return (File.ReadAllText(file1) == File.ReadAllText(file2));
+            return res;
         }
 
-        private void _Process(DiffMergeStuffs.Lines lines, FastColoredTextBox fctb1, FastColoredTextBox fctb2)
+        private bool _Process(DiffMergeStuffs.Lines lines, FastColoredTextBox fctb1, FastColoredTextBox fctb2)
         {
+            bool match = true;
             foreach (var line in lines)
             {
                 switch (line.state)
@@ -2415,15 +2459,18 @@ namespace UVA_Arena.Elements
                     case DiffMergeStuffs.DiffType.Inserted:
                         fctb1.AppendText(Environment.NewLine);
                         fctb2.AppendText(line.line + Environment.NewLine, HighlightSyntax.GreenLineStyle);
+                        match = false;
                         break;
                     case DiffMergeStuffs.DiffType.Deleted:
                         fctb1.AppendText(line.line + Environment.NewLine, HighlightSyntax.RedLineStyle);
                         fctb2.AppendText(Environment.NewLine);
+                        match = false;
                         break;
                 }
                 if (line.subLines != null)
-                    _Process(line.subLines, fctb1, fctb2);
+                    match = match && _Process(line.subLines, fctb1, fctb2);
             }
+            return match;
         }
 
         void tb_VisibleRangeChanged(object sender, EventArgs e)
@@ -2512,5 +2559,6 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
+
     }
 }

@@ -103,14 +103,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UVA Arena.exe" size="2127360">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UVA Arena.exe" size="2135040">
       <assemblyIdentity name="UVA Arena" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>eU7OsDUiPBLljYsrZn7HnsHtY0I=</dsig:DigestValue>
+        <dsig:DigestValue>g0VRnf9ZGsKYM0pZT7rZRgcIAvE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

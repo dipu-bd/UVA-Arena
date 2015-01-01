@@ -18,6 +18,7 @@ namespace UVA_Arena.Elements
         {
             InitializeComponent();
         }
+
         protected override void OnBackColorChanged(EventArgs e)
         {
             base.OnBackColorChanged(e);
@@ -32,8 +33,11 @@ namespace UVA_Arena.Elements
             usernameList1.SetObjects(LocalDatabase.usernames);
             dateTimePicker1.Value = DateTime.Now.Subtract(new TimeSpan(7, 0, 0, 0));
 
-            showUsersRankButton.Text = "Show " + RegistryAccess.DefaultUsername + "'s Rank";
-            showUserSubButton.Text = "Show " + RegistryAccess.DefaultUsername + "'s Submissions";
+            Stylish.SetGradientBackground(categoryButton,
+                new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 90F));
+
+            Stylish.SetGradientBackground(titleBox1,
+                new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 100F));
         }
 
         #endregion
@@ -92,6 +96,7 @@ namespace UVA_Arena.Elements
             titleBox1.Text = "No problem selected";
             categoryInfo.Text = "";
             categoryButton.Visible = false;
+            problemMessage.Text = (string)problemMessage.Tag;
             problemWebBrowser.Navigate("");
         }
 
@@ -100,19 +105,38 @@ namespace UVA_Arena.Elements
             if (current == null) return;
 
             titleBox1.Text = string.Format("{0} - {1}", current.pnum, current.ptitle);
-            titleBox1.Text += string.Format(" (Level : {0}{1})", current.level, current.levelstar);
             categoryButton.Visible = true;
             ShowCurrentTags();
+            ShowProblemMessage();
+            markButton.Checked = current.marked;
 
             string path = LocalDirectory.GetProblemHtml(current.pnum);
             problemWebBrowser.Navigate(path);
             tabControl1.SelectedTab = descriptionTab;
 
-            markButton.Checked = RegistryAccess.FavoriteProblems.Contains(current.pnum);
-
             FileInfo local = new FileInfo(path);
             if (!local.Exists || local.Length < 100) DownloadHtml(current.pnum);
             else DownloadContents(current.pnum);
+        }
+
+        private void ShowProblemMessage()
+        {
+            bool tried = false, solved = false;
+            if (LocalDatabase.DefaultUser != null)
+            {
+                solved = LocalDatabase.DefaultUser.IsSolved(current.pnum);
+                tried = LocalDatabase.DefaultUser.IsTriedButUnsolved(current.pnum);
+            }
+
+            string msg = "You DID NOT TRY this problem.";
+            if (tried) msg = "You TRIED but failed to solve this.";
+            if (solved) msg = "You SOLVED this problem.";
+            if (current.marked) msg += " | This problem is MARKED.";
+            msg += string.Format(" | Timelimit = {0}", Functions.FormatRuntime(current.run));
+            msg += string.Format(" | Level = {0}", current.level.ToString() + current.levelstar);
+            msg += string.Format(" | Dacu = {0}", current.dacu);
+            msg += string.Format(" | AC Ratio = {0:0.00}%", 100.0 * current.ac / current.total);
+            problemMessage.Text = msg;
         }
 
         private void ShowCurrentTags()
@@ -233,14 +257,7 @@ namespace UVA_Arena.Elements
 
         private void expandViewButton1_Click(object sender, EventArgs e)
         {
-            if (Interactivity.problems.ExpandCollapseView())
-            {
-                ((Control)sender).Text = "Collapse";
-            }
-            else
-            {
-                ((Control)sender).Text = "Expand";
-            }
+            Interactivity.problems.ExpandCollapseView();
         }
 
         private void categoryInfo_KeyDown(object sender, KeyEventArgs e)
@@ -322,8 +339,15 @@ namespace UVA_Arena.Elements
             RegistryAccess.FavoriteProblems = fav;
             markButton.Checked = !markButton.Checked;
 
+            current.marked = markButton.Checked;
+
             if (Interactivity.problems.favoriteButton.Checked)
                 Interactivity.problems.LoadFavorites();
+        }
+
+        private void markButton_CheckedChanged(object sender, EventArgs e)
+        {            
+            markButton.Text = markButton.Checked ? "Unmark" : "Mark";
         }
 
         #endregion

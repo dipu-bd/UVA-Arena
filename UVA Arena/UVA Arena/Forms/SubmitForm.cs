@@ -13,10 +13,20 @@ namespace UVA_Arena
             InitializeComponent();
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                this.Hide();
+            }
+        }
+
         private long pnum;
         private string code;
         private Language lang;
-        private const string QUICK = "http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=25&page=submit_problem";
+        private const string QUICK = "http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=25";
 
         public void LoadSubmit(long pnum, string code = null, Language lang = Language.CPP)
         {
@@ -25,51 +35,67 @@ namespace UVA_Arena
             this.lang = lang;
 
             //submit problem
-            webBrowser1.Navigate(QUICK);
+            if(!ProcessPage())
+                webBrowser1.Navigate(QUICK); 
         }
 
-        private void ProcessPage(HtmlElement helem)
+        private bool ProcessPage()
         {
-            if (helem == null) return;
-            HtmlElementCollection hcol = helem.GetElementsByTagName("input");
-            HtmlElementCollection tarea = helem.GetElementsByTagName("textarea");
+            bool result = false;
 
-            string check = "3";
-            if (lang == Language.C) check = "1";
-            if (lang == Language.CPP) check = "3";
-            if (lang == Language.CPP11) check = "5";
-            if (lang == Language.Java) check = "2";
-            if (lang == Language.Pascal) check = "4";
-
-            //set code
-            foreach (HtmlElement inpbox in tarea)
+            try
             {
-                string name = inpbox.GetAttribute("name");
-                if (name == "code")
+                HtmlDocument hdoc = webBrowser1.Document;
+                if (hdoc == null) return false;
+                foreach (HtmlElement helem in hdoc.Forms)
                 {
-                    inpbox.InnerText = this.code;
-                    break;
+                    if (helem == null) continue;
+                    HtmlElementCollection hcol = helem.GetElementsByTagName("input");
+                    HtmlElementCollection tarea = helem.GetElementsByTagName("textarea");
+
+                    string check = "3";
+                    if (lang == Language.C) check = "1";
+                    if (lang == Language.CPP) check = "3";
+                    if (lang == Language.CPP11) check = "5";
+                    if (lang == Language.Java) check = "2";
+                    if (lang == Language.Pascal) check = "4";
+
+                    //set code
+                    foreach (HtmlElement inpbox in tarea)
+                    {
+                        string name = inpbox.GetAttribute("name");
+                        if (name == "code")
+                        {
+                            inpbox.InnerText = this.code;
+                            result = true;
+                            break;
+                        }
+                    }
+
+                    //set other values
+                    foreach (HtmlElement inpbox in hcol)
+                    {
+                        string name = inpbox.GetAttribute("name");
+                        if (name == "remember")
+                        {
+                            inpbox.SetAttribute("checked", "true");
+                            result = false;
+                        }
+                        else if (name == "localid")
+                        {
+                            inpbox.SetAttribute("value", pnum.ToString());
+                        }
+                        else if (name == "language")
+                        {
+                            string value = inpbox.GetAttribute("value");
+                            if (value == check) inpbox.SetAttribute("checked", "1");
+                        }
+                    }
                 }
             }
+            catch { }
 
-            //set other values
-            foreach (HtmlElement inpbox in hcol)
-            {
-                string name = inpbox.GetAttribute("name");
-                if (name == "remember")
-                {
-                    inpbox.SetAttribute("checked", "true");
-                }
-                else if (name == "localid")
-                {
-                    inpbox.SetAttribute("value", pnum.ToString());
-                }
-                else if (name == "language")
-                {
-                    string value = inpbox.GetAttribute("value");
-                    if (value == check) inpbox.SetAttribute("checked", "1");
-                }
-            }
+            return result;
         }
 
         private void webBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
@@ -80,10 +106,30 @@ namespace UVA_Arena
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            ProcessPage();
+
+            //set new data
+            string url = e.Url.ToString();
+            discussUrlBox.Text = url;
             status1.Text = webBrowser1.StatusText;
-            discussUrlBox.Text = webBrowser1.Url.ToString();
-            HtmlDocument hdoc = webBrowser1.Document;
-            foreach (HtmlElement helem in hdoc.Forms) ProcessPage(helem);
+
+            //check if a submission occured            
+            string msg = "mosmsg=Submission+received+with+ID+";
+            if(url.Contains(msg))
+            {
+                int tmp;
+                url = url.Substring(url.IndexOf(msg) + msg.Length);
+                if (int.TryParse(url, out tmp))
+                {
+                    Interactivity.ShowJudgeStatus();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Submission Error", "Submit Problem", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void goDiscussButton_Click(object sender, EventArgs e)

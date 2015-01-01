@@ -49,10 +49,6 @@
             this.nextTabButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.basicInfoTab = new System.Windows.Forms.TabPage();
-            this.subPerDateTab = new System.Windows.Forms.TabPage();
-            this.subPerVerTab = new System.Windows.Forms.TabPage();
-            this.subPerLanTab = new System.Windows.Forms.TabPage();
-            this.rankCloudTab = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -60,12 +56,18 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.lastMonthLabel = new System.Windows.Forms.Label();
-            this.last7Dayslabel = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.last2DaysLabel = new System.Windows.Forms.Label();
             this.last3MonthLabel = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.last2DaysLabel = new System.Windows.Forms.Label();
+            this.lastMonthLabel = new System.Windows.Forms.Label();
+            this.last7Dayslabel = new System.Windows.Forms.Label();
+            this.subPerDateTab = new System.Windows.Forms.TabPage();
+            this.subPerVerTab = new System.Windows.Forms.TabPage();
+            this.subPerLanTab = new System.Windows.Forms.TabPage();
+            this.rankCloudTab = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
+            this.totalTriedLabel = new System.Windows.Forms.Label();
             this.subCounterPanel.SuspendLayout();
             this.namePanel.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -77,24 +79,29 @@
             // 
             // subCounterPanel
             // 
-            this.subCounterPanel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.subCounterPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.subCounterPanel.BackColor = System.Drawing.Color.LightCyan;
             this.subCounterPanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.subCounterPanel.ColumnCount = 3;
-            this.subCounterPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.subCounterPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.subCounterPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.subCounterPanel.Controls.Add(this.label6, 2, 1);
-            this.subCounterPanel.Controls.Add(this.label5, 1, 1);
+            this.subCounterPanel.ColumnCount = 4;
+            this.subCounterPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.99999F));
+            this.subCounterPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.subCounterPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.subCounterPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.subCounterPanel.Controls.Add(this.totalTriedLabel, 3, 0);
             this.subCounterPanel.Controls.Add(this.triednacLabel, 2, 0);
             this.subCounterPanel.Controls.Add(this.acceptedLabel, 1, 0);
             this.subCounterPanel.Controls.Add(this.label1, 0, 1);
             this.subCounterPanel.Controls.Add(this.totalsubLabel, 0, 0);
+            this.subCounterPanel.Controls.Add(this.label11, 2, 1);
+            this.subCounterPanel.Controls.Add(this.label6, 2, 1);
+            this.subCounterPanel.Controls.Add(this.label5, 1, 1);
             this.subCounterPanel.Location = new System.Drawing.Point(34, 142);
             this.subCounterPanel.Name = "subCounterPanel";
             this.subCounterPanel.RowCount = 2;
             this.subCounterPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.subCounterPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.subCounterPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.subCounterPanel.Size = new System.Drawing.Size(588, 89);
             this.subCounterPanel.TabIndex = 0;
             // 
@@ -103,11 +110,11 @@
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(425, 63);
+            this.label6.Location = new System.Drawing.Point(475, 63);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(127, 19);
+            this.label6.Size = new System.Drawing.Size(75, 19);
             this.label6.TabIndex = 5;
-            this.label6.Text = "Tried But Unsolved";
+            this.label6.Text = "Total Tried";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
@@ -115,7 +122,7 @@
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(259, 63);
+            this.label5.Location = new System.Drawing.Point(186, 63);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 19);
             this.label5.TabIndex = 4;
@@ -127,8 +134,8 @@
             this.triednacLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.triednacLabel.AutoSize = true;
             this.triednacLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.triednacLabel.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.triednacLabel.Location = new System.Drawing.Point(453, 10);
+            this.triednacLabel.ForeColor = System.Drawing.Color.Sienna;
+            this.triednacLabel.Location = new System.Drawing.Point(330, 10);
             this.triednacLabel.Name = "triednacLabel";
             this.triednacLabel.Size = new System.Drawing.Size(71, 37);
             this.triednacLabel.TabIndex = 3;
@@ -139,8 +146,8 @@
             this.acceptedLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.acceptedLabel.AutoSize = true;
             this.acceptedLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.acceptedLabel.ForeColor = System.Drawing.Color.Navy;
-            this.acceptedLabel.Location = new System.Drawing.Point(257, 10);
+            this.acceptedLabel.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.acceptedLabel.Location = new System.Drawing.Point(184, 10);
             this.acceptedLabel.Name = "acceptedLabel";
             this.acceptedLabel.Size = new System.Drawing.Size(71, 37);
             this.acceptedLabel.TabIndex = 2;
@@ -151,7 +158,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(40, 63);
+            this.label1.Location = new System.Drawing.Point(15, 63);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(116, 19);
             this.label1.TabIndex = 0;
@@ -164,7 +171,7 @@
             this.totalsubLabel.AutoSize = true;
             this.totalsubLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalsubLabel.ForeColor = System.Drawing.Color.Maroon;
-            this.totalsubLabel.Location = new System.Drawing.Point(62, 10);
+            this.totalsubLabel.Location = new System.Drawing.Point(38, 10);
             this.totalsubLabel.Name = "totalsubLabel";
             this.totalsubLabel.Size = new System.Drawing.Size(71, 37);
             this.totalsubLabel.TabIndex = 1;
@@ -172,7 +179,8 @@
             // 
             // namePanel
             // 
-            this.namePanel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.namePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.namePanel.AutoSize = true;
             this.namePanel.BackColor = System.Drawing.Color.GhostWhite;
             this.namePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
@@ -387,42 +395,6 @@
             this.basicInfoTab.TabIndex = 4;
             this.basicInfoTab.Text = "Basic Info";
             // 
-            // subPerDateTab
-            // 
-            this.subPerDateTab.BackColor = System.Drawing.Color.FloralWhite;
-            this.subPerDateTab.Location = new System.Drawing.Point(4, 4);
-            this.subPerDateTab.Name = "subPerDateTab";
-            this.subPerDateTab.Size = new System.Drawing.Size(655, 462);
-            this.subPerDateTab.TabIndex = 1;
-            this.subPerDateTab.Text = "Submission over Date";
-            // 
-            // subPerVerTab
-            // 
-            this.subPerVerTab.BackColor = System.Drawing.Color.LightCyan;
-            this.subPerVerTab.Location = new System.Drawing.Point(4, 4);
-            this.subPerVerTab.Name = "subPerVerTab";
-            this.subPerVerTab.Size = new System.Drawing.Size(655, 462);
-            this.subPerVerTab.TabIndex = 2;
-            this.subPerVerTab.Text = "Submission per Verdict";
-            // 
-            // subPerLanTab
-            // 
-            this.subPerLanTab.BackColor = System.Drawing.Color.AliceBlue;
-            this.subPerLanTab.Location = new System.Drawing.Point(4, 4);
-            this.subPerLanTab.Name = "subPerLanTab";
-            this.subPerLanTab.Size = new System.Drawing.Size(655, 462);
-            this.subPerLanTab.TabIndex = 0;
-            this.subPerLanTab.Text = "Submission per Language";
-            // 
-            // rankCloudTab
-            // 
-            this.rankCloudTab.BackColor = System.Drawing.Color.Honeydew;
-            this.rankCloudTab.Location = new System.Drawing.Point(4, 4);
-            this.rankCloudTab.Name = "rankCloudTab";
-            this.rankCloudTab.Size = new System.Drawing.Size(655, 462);
-            this.rankCloudTab.TabIndex = 3;
-            this.rankCloudTab.Text = "Rank Cloud";
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -474,7 +446,7 @@
             this.worldRankLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.worldRankLabel.AutoSize = true;
             this.worldRankLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.worldRankLabel.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.worldRankLabel.ForeColor = System.Drawing.Color.Purple;
             this.worldRankLabel.Location = new System.Drawing.Point(53, 60);
             this.worldRankLabel.Name = "worldRankLabel";
             this.worldRankLabel.Size = new System.Drawing.Size(71, 37);
@@ -533,30 +505,6 @@
             this.label10.Text = "Last 7 Days";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lastMonthLabel
-            // 
-            this.lastMonthLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lastMonthLabel.AutoSize = true;
-            this.lastMonthLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lastMonthLabel.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.lastMonthLabel.Location = new System.Drawing.Point(215, 9);
-            this.lastMonthLabel.Name = "lastMonthLabel";
-            this.lastMonthLabel.Size = new System.Drawing.Size(71, 37);
-            this.lastMonthLabel.TabIndex = 3;
-            this.lastMonthLabel.Text = "[0]";
-            // 
-            // last7Dayslabel
-            // 
-            this.last7Dayslabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.last7Dayslabel.AutoSize = true;
-            this.last7Dayslabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.last7Dayslabel.ForeColor = System.Drawing.Color.Green;
-            this.last7Dayslabel.Location = new System.Drawing.Point(115, 9);
-            this.last7Dayslabel.Name = "last7Dayslabel";
-            this.last7Dayslabel.Size = new System.Drawing.Size(71, 37);
-            this.last7Dayslabel.TabIndex = 2;
-            this.last7Dayslabel.Text = "[0]";
-            // 
             // label15
             // 
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -569,18 +517,6 @@
             this.label15.TabIndex = 0;
             this.label15.Text = "Last 2 Days";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // last2DaysLabel
-            // 
-            this.last2DaysLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.last2DaysLabel.AutoSize = true;
-            this.last2DaysLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.last2DaysLabel.ForeColor = System.Drawing.Color.SeaGreen;
-            this.last2DaysLabel.Location = new System.Drawing.Point(15, 9);
-            this.last2DaysLabel.Name = "last2DaysLabel";
-            this.last2DaysLabel.Size = new System.Drawing.Size(71, 37);
-            this.last2DaysLabel.TabIndex = 1;
-            this.last2DaysLabel.Text = "[0]";
             // 
             // last3MonthLabel
             // 
@@ -606,6 +542,102 @@
             this.label18.TabIndex = 7;
             this.label18.Text = "Last 3 Month";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // last2DaysLabel
+            // 
+            this.last2DaysLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.last2DaysLabel.AutoSize = true;
+            this.last2DaysLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.last2DaysLabel.ForeColor = System.Drawing.Color.SeaGreen;
+            this.last2DaysLabel.Location = new System.Drawing.Point(15, 9);
+            this.last2DaysLabel.Name = "last2DaysLabel";
+            this.last2DaysLabel.Size = new System.Drawing.Size(71, 37);
+            this.last2DaysLabel.TabIndex = 1;
+            this.last2DaysLabel.Text = "[0]";
+            // 
+            // lastMonthLabel
+            // 
+            this.lastMonthLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lastMonthLabel.AutoSize = true;
+            this.lastMonthLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lastMonthLabel.ForeColor = System.Drawing.Color.SaddleBrown;
+            this.lastMonthLabel.Location = new System.Drawing.Point(215, 9);
+            this.lastMonthLabel.Name = "lastMonthLabel";
+            this.lastMonthLabel.Size = new System.Drawing.Size(71, 37);
+            this.lastMonthLabel.TabIndex = 3;
+            this.lastMonthLabel.Text = "[0]";
+            // 
+            // last7Dayslabel
+            // 
+            this.last7Dayslabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.last7Dayslabel.AutoSize = true;
+            this.last7Dayslabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.last7Dayslabel.ForeColor = System.Drawing.Color.Green;
+            this.last7Dayslabel.Location = new System.Drawing.Point(115, 9);
+            this.last7Dayslabel.Name = "last7Dayslabel";
+            this.last7Dayslabel.Size = new System.Drawing.Size(71, 37);
+            this.last7Dayslabel.TabIndex = 2;
+            this.last7Dayslabel.Text = "[0]";
+            // 
+            // subPerDateTab
+            // 
+            this.subPerDateTab.BackColor = System.Drawing.Color.FloralWhite;
+            this.subPerDateTab.Location = new System.Drawing.Point(4, 4);
+            this.subPerDateTab.Name = "subPerDateTab";
+            this.subPerDateTab.Size = new System.Drawing.Size(655, 462);
+            this.subPerDateTab.TabIndex = 1;
+            this.subPerDateTab.Text = "Submission over Date";
+            // 
+            // subPerVerTab
+            // 
+            this.subPerVerTab.BackColor = System.Drawing.Color.LightCyan;
+            this.subPerVerTab.Location = new System.Drawing.Point(4, 4);
+            this.subPerVerTab.Name = "subPerVerTab";
+            this.subPerVerTab.Size = new System.Drawing.Size(655, 462);
+            this.subPerVerTab.TabIndex = 2;
+            this.subPerVerTab.Text = "Submission per Verdict";
+            // 
+            // subPerLanTab
+            // 
+            this.subPerLanTab.BackColor = System.Drawing.Color.AliceBlue;
+            this.subPerLanTab.Location = new System.Drawing.Point(4, 4);
+            this.subPerLanTab.Name = "subPerLanTab";
+            this.subPerLanTab.Size = new System.Drawing.Size(655, 462);
+            this.subPerLanTab.TabIndex = 0;
+            this.subPerLanTab.Text = "Submission per Language";
+            // 
+            // rankCloudTab
+            // 
+            this.rankCloudTab.BackColor = System.Drawing.Color.Honeydew;
+            this.rankCloudTab.Location = new System.Drawing.Point(4, 4);
+            this.rankCloudTab.Name = "rankCloudTab";
+            this.rankCloudTab.Size = new System.Drawing.Size(655, 462);
+            this.rankCloudTab.TabIndex = 3;
+            this.rankCloudTab.Text = "Rank Cloud";
+            // 
+            // label11
+            // 
+            this.label11.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(302, 63);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(127, 19);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "Tried But Unsolved";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // totalTriedLabel
+            // 
+            this.totalTriedLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.totalTriedLabel.AutoSize = true;
+            this.totalTriedLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalTriedLabel.ForeColor = System.Drawing.Color.Navy;
+            this.totalTriedLabel.Location = new System.Drawing.Point(477, 10);
+            this.totalTriedLabel.Name = "totalTriedLabel";
+            this.totalTriedLabel.Size = new System.Drawing.Size(71, 37);
+            this.totalTriedLabel.TabIndex = 6;
+            this.totalTriedLabel.Text = "[0]";
             // 
             // UserProgTracker
             // 
@@ -672,6 +704,8 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label last2DaysLabel;
         private System.Windows.Forms.Label last3MonthLabel;
-        private System.Windows.Forms.Label label18; 
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label totalTriedLabel;
+        private System.Windows.Forms.Label label11; 
     }
 }

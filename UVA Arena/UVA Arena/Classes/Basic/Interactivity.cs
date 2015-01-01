@@ -81,9 +81,6 @@ namespace UVA_Arena
 
                 userstat.BeginInvoke((MethodInvoker)delegate
                 {
-                    userstat.LoadUsernames();
-                    userstat.usernameList.SelectedObject =
-                        new KeyValuePair<string, string>(user, LocalDatabase.usernames[user]);
                     userstat.ShowUserSub(user);
                 });
 
@@ -93,7 +90,20 @@ namespace UVA_Arena
                     mainForm.BringToFront();
                 });
             }
-            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ShowUserStat(string user)"); }
+            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ShowUserStat()"); }
+        }
+
+        public static void ShowJudgeStatus()
+        {
+            try
+            {                                                
+                mainForm.BeginInvoke((MethodInvoker)delegate
+                {
+                    mainForm.customTabControl1.SelectedTab = mainForm.submissionTab;
+                    mainForm.BringToFront();
+                });
+            }
+            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ShowJudgeStatus()"); }
         }
 
         public static void ShowProblem(long pnum)
@@ -116,7 +126,7 @@ namespace UVA_Arena
                     mainForm.BringToFront();
                 });
             }
-            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ShowProblem(long pnum)"); }
+            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ShowProblem()"); }
         }
 
         public static void ShowCode(long pnum)
@@ -136,7 +146,7 @@ namespace UVA_Arena
                     mainForm.BringToFront();
                 });
             }
-            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ShowCode(long pnum)"); }
+            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ShowCode()"); }
         }
 
         public static void ProblemDatabaseUpdated()

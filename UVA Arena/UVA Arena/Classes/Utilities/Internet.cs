@@ -43,6 +43,9 @@ namespace UVA_Arena.Internet
         public Priority TaskPriority { get; set; }
         public ProgressStatus Status { get; set; }
 
+        public DateTime StartedAt { get; set; }
+        public TimeSpan TimeElapsed { get { return (DateTime.Now.Subtract(StartedAt)); } }
+
         public bool IsSaveToFile { get; set; }
         public WebClient webClient;
 
@@ -112,6 +115,7 @@ namespace UVA_Arena.Internet
 
             webClient.DownloadFileAsync(Url, TempFileName);
             Status = ProgressStatus.Running;
+            StartedAt = DateTime.Now; 
         }
 
         void webClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)

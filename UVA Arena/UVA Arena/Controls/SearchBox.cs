@@ -16,7 +16,7 @@ namespace UVA_Arena.Custom
             InitializeComponent();
         }
 
-        public bool ClearButton
+        public bool ClearButtonVisible
         {
             get
             {
@@ -36,7 +36,8 @@ namespace UVA_Arena.Custom
                 }
             }
         }
-        public bool SearchButton
+
+        public bool SearchButtonVisible
         {
             get
             {

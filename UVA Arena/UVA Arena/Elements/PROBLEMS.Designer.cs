@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PROBLEMS));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.deepSearchCheckBox = new System.Windows.Forms.CheckBox();
             this.memProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.mleProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -65,7 +66,7 @@
             this.mainSplitContainer = new System.Windows.Forms.CustomSplitContainer();
             this.problemViewSplitContainer = new System.Windows.Forms.CustomSplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.searchBox2 = new UVA_Arena.Custom.SearchBox();
+            this.filterBox1 = new UVA_Arena.Custom.SearchBox();
             this.categoryButton = new System.Windows.Forms.RadioButton();
             this.volumesButton = new System.Windows.Forms.RadioButton();
             this.favoriteButton = new System.Windows.Forms.RadioButton();
@@ -85,8 +86,11 @@
             this.totalProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.acProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.waProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.priorityProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel1 = new System.Windows.Forms.Panel();
             this.plistLabel = new System.Windows.Forms.Label();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.cancelDeepSearchButton = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.problemContextMenu.SuspendLayout();
             this.mainSplitContainer.Panel1.SuspendLayout();
@@ -99,7 +103,21 @@
             this.problemListContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.problemListView)).BeginInit();
             this.panel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // deepSearchCheckBox
+            // 
+            this.deepSearchCheckBox.AutoSize = true;
+            this.deepSearchCheckBox.Location = new System.Drawing.Point(3, 3);
+            this.deepSearchCheckBox.Name = "deepSearchCheckBox";
+            this.deepSearchCheckBox.Size = new System.Drawing.Size(35, 17);
+            this.deepSearchCheckBox.TabIndex = 5;
+            this.deepSearchCheckBox.Text = "Deep search";
+            this.toolTip1.SetToolTip(this.deepSearchCheckBox, "Also search in tags and problem description. \r\nHit enter or press search button t" +
+        "o make it effective.");
+            this.deepSearchCheckBox.UseVisualStyleBackColor = true;
+            this.deepSearchCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // memProb
             // 
@@ -337,52 +355,53 @@
             this.submitCodeToolStripMenuItem,
             this.markAsFavoriteToolStripMenuItem});
             this.problemContextMenu.Name = "contextMenuStrip1";
-            this.problemContextMenu.Size = new System.Drawing.Size(170, 242);
+            this.problemContextMenu.Size = new System.Drawing.Size(168, 264);
+            this.problemContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.problemContextMenu_Opening);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(166, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(164, 6);
             // 
             // downloadAllToolStripMenuItem
             // 
             this.downloadAllToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("downloadAllToolStripMenuItem.Image")));
             this.downloadAllToolStripMenuItem.Name = "downloadAllToolStripMenuItem";
-            this.downloadAllToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.downloadAllToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.downloadAllToolStripMenuItem.Text = "Download All";
             this.downloadAllToolStripMenuItem.Click += new System.EventHandler(this.downloadAllToolStripMenuItem_Click);
             // 
             // exportDownloadToolStripMenuItem
             // 
             this.exportDownloadToolStripMenuItem.Name = "exportDownloadToolStripMenuItem";
-            this.exportDownloadToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.exportDownloadToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.exportDownloadToolStripMenuItem.Text = "Export Download";
             this.exportDownloadToolStripMenuItem.Click += new System.EventHandler(this.exportDownloadToolStripMenuItem_Click);
             // 
             // importDownloadToolStripMenuItem
             // 
             this.importDownloadToolStripMenuItem.Name = "importDownloadToolStripMenuItem";
-            this.importDownloadToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.importDownloadToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.importDownloadToolStripMenuItem.Text = "Import Download";
             this.importDownloadToolStripMenuItem.Click += new System.EventHandler(this.importDownloadToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(166, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(164, 6);
             // 
             // reloadToolStripMenuItem
             // 
             this.reloadToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.reload;
             this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
-            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.reloadToolStripMenuItem.Text = "Redownload";
             this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
             // 
@@ -390,27 +409,27 @@
             // 
             this.viewPDFToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.pdf;
             this.viewPDFToolStripMenuItem.Name = "viewPDFToolStripMenuItem";
-            this.viewPDFToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.viewPDFToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.viewPDFToolStripMenuItem.Text = "View as PDF";
             this.viewPDFToolStripMenuItem.Click += new System.EventHandler(this.viewPDFToolStripMenuItem_Click);
             // 
             // openInBrowserToolStripMenuItem
             // 
             this.openInBrowserToolStripMenuItem.Name = "openInBrowserToolStripMenuItem";
-            this.openInBrowserToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.openInBrowserToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.openInBrowserToolStripMenuItem.Text = "Open in Browser";
             this.openInBrowserToolStripMenuItem.Click += new System.EventHandler(this.openInBrowserToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(166, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(164, 6);
             // 
             // viewSourceToolStripMenuItem
             // 
             this.viewSourceToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.code;
             this.viewSourceToolStripMenuItem.Name = "viewSourceToolStripMenuItem";
-            this.viewSourceToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.viewSourceToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.viewSourceToolStripMenuItem.Text = "View Code File";
             this.viewSourceToolStripMenuItem.Click += new System.EventHandler(this.viewSourceToolStripMenuItem_Click);
             // 
@@ -418,7 +437,7 @@
             // 
             this.submitCodeToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.submit;
             this.submitCodeToolStripMenuItem.Name = "submitCodeToolStripMenuItem";
-            this.submitCodeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.submitCodeToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.submitCodeToolStripMenuItem.Text = "Submit Code";
             this.submitCodeToolStripMenuItem.Click += new System.EventHandler(this.submitCodeToolStripMenuItem_Click);
             // 
@@ -426,7 +445,7 @@
             // 
             this.markAsFavoriteToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.favorite;
             this.markAsFavoriteToolStripMenuItem.Name = "markAsFavoriteToolStripMenuItem";
-            this.markAsFavoriteToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.markAsFavoriteToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.markAsFavoriteToolStripMenuItem.Text = "Mark As Favorite";
             this.markAsFavoriteToolStripMenuItem.Click += new System.EventHandler(this.markAsFavoriteToolStripMenuItem_Click);
             // 
@@ -458,6 +477,7 @@
             // 
             this.problemViewSplitContainer.Panel2.BackColor = System.Drawing.Color.LightBlue;
             this.problemViewSplitContainer.Panel2.Controls.Add(this.problemListContainer);
+            this.problemViewSplitContainer.Panel2.Controls.Add(this.tableLayoutPanel2);
             this.problemViewSplitContainer.Size = new System.Drawing.Size(270, 422);
             this.problemViewSplitContainer.SplitterDistance = 125;
             this.problemViewSplitContainer.TabIndex = 0;
@@ -466,7 +486,7 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.searchBox2, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.filterBox1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.categoryButton, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.volumesButton, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.favoriteButton, 0, 4);
@@ -485,21 +505,21 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(125, 422);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // searchBox2
+            // filterBox1
             // 
-            this.searchBox2.BackColor = System.Drawing.Color.Azure;
-            this.searchBox2.ClearButton = true;
-            this.searchBox2.CueText = "Filter...";
-            this.searchBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.searchBox2.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBox2.Location = new System.Drawing.Point(3, 339);
-            this.searchBox2.Margin = new System.Windows.Forms.Padding(3, 1, 1, 1);
-            this.searchBox2.Name = "searchBox2";
-            this.searchBox2.SearchButton = false;
-            this.searchBox2.SearchText = "";
-            this.searchBox2.Size = new System.Drawing.Size(121, 22);
-            this.searchBox2.TabIndex = 9;
-            this.searchBox2.SearchTextChanged += new System.EventHandler<System.EventArgs>(this.searchBox2_SearchTextChanged);
+            this.filterBox1.BackColor = System.Drawing.Color.Azure;
+            this.filterBox1.ClearButtonVisible = true;
+            this.filterBox1.CueText = "Filter...";
+            this.filterBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filterBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filterBox1.Location = new System.Drawing.Point(3, 339);
+            this.filterBox1.Margin = new System.Windows.Forms.Padding(3, 1, 1, 1);
+            this.filterBox1.Name = "filterBox1";
+            this.filterBox1.SearchButtonVisible = false;
+            this.filterBox1.SearchText = "";
+            this.filterBox1.Size = new System.Drawing.Size(121, 22);
+            this.filterBox1.TabIndex = 9;
+            this.filterBox1.SearchTextChanged += new System.EventHandler<System.EventArgs>(this.searchBox2_SearchTextChanged);
             // 
             // categoryButton
             // 
@@ -652,25 +672,28 @@
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.problemListContainer.Size = new System.Drawing.Size(141, 422);
+            this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.problemListContainer.Size = new System.Drawing.Size(141, 397);
             this.problemListContainer.TabIndex = 1;
             this.problemListContainer.Tag = "115";
             // 
             // searchBox1
             // 
             this.searchBox1.BackColor = System.Drawing.Color.Azure;
-            this.searchBox1.ClearButton = true;
+            this.searchBox1.ClearButtonVisible = true;
             this.searchBox1.CueText = "Search...";
             this.searchBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBox1.Location = new System.Drawing.Point(1, 395);
+            this.searchBox1.Location = new System.Drawing.Point(1, 370);
             this.searchBox1.Margin = new System.Windows.Forms.Padding(1);
             this.searchBox1.Name = "searchBox1";
-            this.searchBox1.SearchButton = false;
+            this.searchBox1.SearchButtonVisible = false;
             this.searchBox1.SearchText = "";
             this.searchBox1.Size = new System.Drawing.Size(139, 26);
             this.searchBox1.TabIndex = 0;
             this.searchBox1.SearchTextChanged += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchTextChanged);
+            this.searchBox1.SearchButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchButtonClicked);
+            this.searchBox1.ClearButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_ClearButtonClicked);
             // 
             // problemListView
             // 
@@ -696,6 +719,7 @@
             this.problemListView.AllColumns.Add(this.resfProb);
             this.problemListView.AllColumns.Add(this.statProb);
             this.problemListView.AllColumns.Add(this.pidProb);
+            this.problemListView.AllColumns.Add(this.priorityProb);
             this.problemListView.AlternateRowBackColor = System.Drawing.Color.LightCyan;
             this.problemListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(255)))));
             this.problemListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -708,7 +732,8 @@
             this.runProb,
             this.totalProb,
             this.acProb,
-            this.waProb});
+            this.waProb,
+            this.priorityProb});
             this.problemListView.ContextMenuStrip = this.problemContextMenu;
             this.problemListView.Cursor = System.Windows.Forms.Cursors.Default;
             this.problemListView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -727,7 +752,7 @@
             this.problemListView.ShowGroups = false;
             this.problemListView.ShowItemCountOnGroups = true;
             this.problemListView.ShowItemToolTips = true;
-            this.problemListView.Size = new System.Drawing.Size(139, 357);
+            this.problemListView.Size = new System.Drawing.Size(139, 332);
             this.problemListView.TabIndex = 3;
             this.problemListView.UseAlternatingBackColors = true;
             this.problemListView.UseCellFormatEvents = true;
@@ -740,7 +765,6 @@
             this.problemListView.View = System.Windows.Forms.View.Details;
             this.problemListView.VirtualMode = true;
             this.problemListView.BeforeSorting += new System.EventHandler<BrightIdeasSoftware.BeforeSortingEventArgs>(this.problemListView_BeforeSorting);
-            this.problemListView.CellToolTipShowing += new System.EventHandler<BrightIdeasSoftware.ToolTipShowingEventArgs>(this.problemListView_CellToolTipShowing);
             this.problemListView.FormatCell += new System.EventHandler<BrightIdeasSoftware.FormatCellEventArgs>(this.ListView_FormatCell);
             this.problemListView.SelectedIndexChanged += new System.EventHandler(this.problemListView_SelectedIndexChanged);
             // 
@@ -841,6 +865,16 @@
             this.waProb.ToolTipText = "Number of submission that got \"Wrong Answer\"";
             this.waProb.UseFiltering = false;
             // 
+            // priorityProb
+            // 
+            this.priorityProb.AspectName = "priority";
+            this.priorityProb.CellPadding = null;
+            this.priorityProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.priorityProb.Text = "Priority";
+            this.priorityProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.priorityProb.ToolTipText = "Sorting priority used in deep search";
+            this.priorityProb.Width = 0;
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.plistLabel);
@@ -862,6 +896,34 @@
             this.plistLabel.TabIndex = 2;
             this.plistLabel.Text = "Problems";
             this.plistLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.deepSearchCheckBox, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.cancelDeepSearchButton, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 397);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(141, 25);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // cancelDeepSearchButton
+            // 
+            this.cancelDeepSearchButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cancelDeepSearchButton.Location = new System.Drawing.Point(44, 1);
+            this.cancelDeepSearchButton.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.cancelDeepSearchButton.Name = "cancelDeepSearchButton";
+            this.cancelDeepSearchButton.Size = new System.Drawing.Size(94, 23);
+            this.cancelDeepSearchButton.TabIndex = 6;
+            this.cancelDeepSearchButton.Text = "Cancel";
+            this.cancelDeepSearchButton.UseVisualStyleBackColor = true;
+            this.cancelDeepSearchButton.Visible = false;
+            this.cancelDeepSearchButton.Click += new System.EventHandler(this.cancelDeepSearchButton_Click);
             // 
             // PROBLEMS
             // 
@@ -888,6 +950,8 @@
             this.problemListContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.problemListView)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -951,6 +1015,10 @@
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         public System.Windows.Forms.CustomSplitContainer mainSplitContainer;
         private System.Windows.Forms.ToolStripStatusLabel updateToolButton;
-        private Custom.SearchBox searchBox2;
+        private Custom.SearchBox filterBox1;
+        private System.Windows.Forms.CheckBox deepSearchCheckBox;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Button cancelDeepSearchButton;
+        private BrightIdeasSoftware.OLVColumn priorityProb;
     }
 }

@@ -42,6 +42,7 @@ namespace UVA_Arena.Elements
             totalsubLabel.Text = _totalSubmission.ToString();
             acceptedLabel.Text = _solvedCount.ToString();
             triednacLabel.Text = _unsolvedCount.ToString();
+            totalTriedLabel.Text = _tryCount.ToString();
 
             //account age
             if (_firstSub == long.MaxValue) accountAge.Text = "[-]";
@@ -63,7 +64,7 @@ namespace UVA_Arena.Elements
         
         private long _firstSub;
         private UserRanklist userRank;
-        private int _solvedCount, _unsolvedCount, _totalSubmission;
+        private int _solvedCount, _unsolvedCount, _tryCount, _totalSubmission;
         private int _subInAnsiC, _subInCPP, _subInCPP11, _subInJava, _subInPascal;
         double _acCount, _waCount, _tleCount, _reCount, _peCount, _ceCount, _oleCount, _subeCount, _mleCount;
         private ZedGraph.PointPairList _subOverTime = new ZedGraph.PointPairList();
@@ -92,15 +93,23 @@ namespace UVA_Arena.Elements
 
             _acOverTime.Clear();
             _subOverTime.Clear();
-            _RankCount.Clear();
-            List<long> aclist = new List<long>();
-            List<long> unsolved = new List<long>();
+            _RankCount.Clear(); 
 
             _firstSub = long.MaxValue;
-            _solvedCount = _unsolvedCount = _totalSubmission = 0;
+            _solvedCount = _unsolvedCount = _tryCount =  _totalSubmission = 0;
             _subInAnsiC = _subInCPP = _subInCPP11 = _subInJava = _subInPascal = 0;
             _acCount = _waCount = _tleCount = _reCount = _peCount = _ceCount = _oleCount = _subeCount = _mleCount = 0;
 
+            _tryCount = currentUser.TryList.Count;
+            var it = currentUser.TryList.GetEnumerator();
+            while (it.MoveNext())
+            {
+                if (it.Current.Value)
+                    _solvedCount++;
+                else
+                    _unsolvedCount++;
+            }
+            
             foreach (UserSubmission usub in currentUser.submissions)
             {
                 //total submission count
@@ -115,21 +124,7 @@ namespace UVA_Arena.Elements
                 {
                     _RankCount.Add(usub.rank, usub.pid);
                 }
-
-                //solved count
-                if (usub.IsAccepted() && !aclist.Contains(usub.pnum))
-                {
-                    _solvedCount++;
-                    aclist.Add(usub.pnum);
-                }
-
-                //unsolved count
-                if (!currentUser.ACList.Contains(usub.pnum) && !unsolved.Contains(usub.pnum))
-                {
-                    _unsolvedCount++;
-                    unsolved.Add(usub.pnum);
-                }
-
+                                
                 //language
                 switch ((Language)usub.lan)
                 {
@@ -159,9 +154,9 @@ namespace UVA_Arena.Elements
                     case Structures.Verdict.Accepted: _acCount++; break;
                 }
             }
-
-            //finalize
-            _subOverTime.Add(new ZedGraph.XDate(DateTime.Now), _totalSubmission);
+            
+                //finalize
+             _subOverTime.Add(new ZedGraph.XDate(DateTime.Now), _totalSubmission);
             _acOverTime.Add(new ZedGraph.XDate(DateTime.Now), _solvedCount);
         }
 

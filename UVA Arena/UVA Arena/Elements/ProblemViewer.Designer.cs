@@ -86,12 +86,15 @@
             this.nextDiscussButton = new System.Windows.Forms.Button();
             this.homeDiscussButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.titleBox1 = new System.Windows.Forms.Label();
+            this.problemMessage = new System.Windows.Forms.Label();
+            this.panel8 = new System.Windows.Forms.Panel();
             this.categoryButton = new System.Windows.Forms.Button();
-            this.titleBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.categoryInfo = new System.Windows.Forms.CueTextBox();
+            this.expandCollapseButton = new System.Windows.Forms.Button();
             this.prevContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.nextContext = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.categoryInfo = new System.Windows.Forms.CueTextBox();
+            this.TopPanel = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.descriptionTab.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -109,6 +112,8 @@
             this.discussTab.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -119,11 +124,11 @@
             this.tabControl1.Controls.Add(this.discussTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(0, 60);
+            this.tabControl1.Location = new System.Drawing.Point(0, 83);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(35, 6);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(800, 390);
+            this.tabControl1.Size = new System.Drawing.Size(800, 367);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -134,7 +139,7 @@
             this.descriptionTab.Controls.Add(this.toolStrip1);
             this.descriptionTab.Location = new System.Drawing.Point(4, 4);
             this.descriptionTab.Name = "descriptionTab";
-            this.descriptionTab.Size = new System.Drawing.Size(792, 356);
+            this.descriptionTab.Size = new System.Drawing.Size(792, 333);
             this.descriptionTab.TabIndex = 0;
             this.descriptionTab.Text = "Description";
             // 
@@ -145,12 +150,12 @@
             this.problemWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.problemWebBrowser.Name = "problemWebBrowser";
             this.problemWebBrowser.ScriptErrorsSuppressed = true;
-            this.problemWebBrowser.Size = new System.Drawing.Size(792, 318);
+            this.problemWebBrowser.Size = new System.Drawing.Size(792, 295);
             this.problemWebBrowser.TabIndex = 1;
             // 
             // toolStrip1
             // 
-            this.toolStrip1.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.toolStrip1.BackColor = System.Drawing.Color.LightCyan;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backButton,
             this.nextButton,
@@ -250,6 +255,7 @@
             this.markButton.Size = new System.Drawing.Size(38, 35);
             this.markButton.Text = "Mark";
             this.markButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.markButton.CheckedChanged += new System.EventHandler(this.markButton_CheckedChanged);
             this.markButton.Click += new System.EventHandler(this.markButton_Click);
             // 
             // toolStripSeparator3
@@ -274,7 +280,7 @@
             this.submissionTab.Controls.Add(this.tableLayoutPanel4);
             this.submissionTab.Location = new System.Drawing.Point(4, 4);
             this.submissionTab.Name = "submissionTab";
-            this.submissionTab.Size = new System.Drawing.Size(792, 356);
+            this.submissionTab.Size = new System.Drawing.Size(792, 333);
             this.submissionTab.TabIndex = 1;
             this.submissionTab.Text = "Submissions";
             this.submissionTab.UseVisualStyleBackColor = true;
@@ -313,7 +319,7 @@
             this.submissionStatus.ShowGroups = false;
             this.submissionStatus.ShowItemCountOnGroups = true;
             this.submissionStatus.ShowItemToolTips = true;
-            this.submissionStatus.Size = new System.Drawing.Size(598, 325);
+            this.submissionStatus.Size = new System.Drawing.Size(598, 302);
             this.submissionStatus.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.submissionStatus.TabIndex = 2;
             this.submissionStatus.UseCellFormatEvents = true;
@@ -461,7 +467,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(194, 356);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(194, 333);
             this.tableLayoutPanel4.TabIndex = 5;
             // 
             // panel3
@@ -469,7 +475,7 @@
             this.panel3.BackColor = System.Drawing.Color.MediumTurquoise;
             this.panel3.Controls.Add(this.label5);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(1, 304);
+            this.panel3.Location = new System.Drawing.Point(1, 281);
             this.panel3.Margin = new System.Windows.Forms.Padding(1);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(192, 23);
@@ -490,7 +496,7 @@
             // compareUserButton
             // 
             this.compareUserButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.compareUserButton.Location = new System.Drawing.Point(22, 329);
+            this.compareUserButton.Location = new System.Drawing.Point(22, 306);
             this.compareUserButton.Margin = new System.Windows.Forms.Padding(1);
             this.compareUserButton.Name = "compareUserButton";
             this.compareUserButton.Size = new System.Drawing.Size(150, 26);
@@ -518,7 +524,7 @@
             this.usernameList1.Location = new System.Drawing.Point(3, 185);
             this.usernameList1.Name = "usernameList1";
             this.usernameList1.ShowGroups = false;
-            this.usernameList1.Size = new System.Drawing.Size(188, 59);
+            this.usernameList1.Size = new System.Drawing.Size(188, 36);
             this.usernameList1.TabIndex = 12;
             this.usernameList1.UseCellFormatEvents = true;
             this.usernameList1.UseCompatibleStateImageBehavior = false;
@@ -705,7 +711,7 @@
             this.showUsersRankButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.showUsersRankButton.Location = new System.Drawing.Point(1, 276);
+            this.showUsersRankButton.Location = new System.Drawing.Point(1, 253);
             this.showUsersRankButton.Margin = new System.Windows.Forms.Padding(1);
             this.showUsersRankButton.Name = "showUsersRankButton";
             this.showUsersRankButton.Size = new System.Drawing.Size(192, 26);
@@ -721,7 +727,7 @@
             this.showUserSubButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.showUserSubButton.Location = new System.Drawing.Point(1, 248);
+            this.showUserSubButton.Location = new System.Drawing.Point(1, 225);
             this.showUserSubButton.Margin = new System.Windows.Forms.Padding(1);
             this.showUserSubButton.Name = "showUserSubButton";
             this.showUserSubButton.Size = new System.Drawing.Size(192, 26);
@@ -738,7 +744,7 @@
             this.discussTab.Controls.Add(this.tableLayoutPanel2);
             this.discussTab.Location = new System.Drawing.Point(4, 4);
             this.discussTab.Name = "discussTab";
-            this.discussTab.Size = new System.Drawing.Size(792, 356);
+            this.discussTab.Size = new System.Drawing.Size(792, 333);
             this.discussTab.TabIndex = 4;
             this.discussTab.Text = "Discuss";
             this.discussTab.UseVisualStyleBackColor = true;
@@ -750,7 +756,7 @@
             this.discussWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.discussWebBrowser.Name = "discussWebBrowser";
             this.discussWebBrowser.ScriptErrorsSuppressed = true;
-            this.discussWebBrowser.Size = new System.Drawing.Size(792, 328);
+            this.discussWebBrowser.Size = new System.Drawing.Size(792, 305);
             this.discussWebBrowser.TabIndex = 2;
             this.discussWebBrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser2_Navigated);
             this.discussWebBrowser.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.webBrowser2_ProgressChanged);
@@ -839,70 +845,111 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 153F));
-            this.tableLayoutPanel1.Controls.Add(this.categoryButton, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.categoryInfo, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.problemMessage, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.panel8, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(31, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 60);
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 79);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // titleBox1
+            // 
+            this.titleBox1.AutoSize = true;
+            this.titleBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.titleBox1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleBox1.ForeColor = System.Drawing.Color.Indigo;
+            this.titleBox1.Location = new System.Drawing.Point(1, 1);
+            this.titleBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.titleBox1.Name = "titleBox1";
+            this.titleBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.titleBox1.Size = new System.Drawing.Size(766, 29);
+            this.titleBox1.TabIndex = 0;
+            this.titleBox1.Text = "No problem selected";
+            // 
+            // problemMessage
+            // 
+            this.problemMessage.AutoSize = true;
+            this.problemMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.problemMessage.Font = new System.Drawing.Font("Cambria", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.problemMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(64)))), ((int)(((byte)(16)))));
+            this.problemMessage.Location = new System.Drawing.Point(1, 58);
+            this.problemMessage.Margin = new System.Windows.Forms.Padding(0);
+            this.problemMessage.Name = "problemMessage";
+            this.problemMessage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.problemMessage.Size = new System.Drawing.Size(766, 20);
+            this.problemMessage.TabIndex = 4;
+            this.problemMessage.Tag = "You DID NOT TRY this problem.";
+            this.problemMessage.Text = "You DID NOT TRY this problem.";
+            this.problemMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel8
+            // 
+            this.panel8.AutoSize = true;
+            this.panel8.Controls.Add(this.categoryButton);
+            this.panel8.Controls.Add(this.categoryInfo);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel8.Location = new System.Drawing.Point(1, 31);
+            this.panel8.Margin = new System.Windows.Forms.Padding(0);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(766, 26);
+            this.panel8.TabIndex = 5;
             // 
             // categoryButton
             // 
-            this.categoryButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.categoryButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.categoryButton.BackColor = System.Drawing.Color.PowderBlue;
             this.categoryButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkTurquoise;
             this.categoryButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightSeaGreen;
             this.categoryButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
             this.categoryButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.categoryButton.Location = new System.Drawing.Point(647, 33);
+            this.categoryButton.Location = new System.Drawing.Point(635, 0);
             this.categoryButton.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.categoryButton.Name = "categoryButton";
-            this.categoryButton.Size = new System.Drawing.Size(151, 26);
+            this.categoryButton.Size = new System.Drawing.Size(130, 26);
             this.categoryButton.TabIndex = 2;
             this.categoryButton.Text = "Change";
             this.categoryButton.UseVisualStyleBackColor = false;
             this.categoryButton.Visible = false;
             this.categoryButton.Click += new System.EventHandler(this.categoryButton_Click);
             // 
-            // titleBox1
+            // categoryInfo
             // 
-            this.titleBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.titleBox1.BackColor = System.Drawing.Color.LightBlue;
-            this.titleBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.titleBox1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleBox1.ForeColor = System.Drawing.Color.Indigo;
-            this.titleBox1.Location = new System.Drawing.Point(6, 4);
-            this.titleBox1.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
-            this.titleBox1.Name = "titleBox1";
-            this.titleBox1.ReadOnly = true;
-            this.titleBox1.Size = new System.Drawing.Size(636, 25);
-            this.titleBox1.TabIndex = 0;
-            this.titleBox1.TabStop = false;
-            this.titleBox1.Text = "No problem selected";
+            this.categoryInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.categoryInfo.BackColor = System.Drawing.Color.LightBlue;
+            this.categoryInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.categoryInfo.CueText = "Set tags to identify the type of the problem...";
+            this.categoryInfo.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.categoryInfo.ForeColor = System.Drawing.Color.Maroon;
+            this.categoryInfo.Location = new System.Drawing.Point(7, 5);
+            this.categoryInfo.Name = "categoryInfo";
+            this.categoryInfo.Size = new System.Drawing.Size(754, 16);
+            this.categoryInfo.TabIndex = 1;
+            this.categoryInfo.TabStop = false;
+            this.categoryInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.categoryInfo_KeyDown);
             // 
-            // button1
+            // expandCollapseButton
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Image = global::UVA_Arena.Properties.Resources.expand;
-            this.button1.Location = new System.Drawing.Point(647, 2);
-            this.button1.Margin = new System.Windows.Forms.Padding(1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(151, 29);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Expand";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.expandViewButton1_Click);
+            this.expandCollapseButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.expandCollapseButton.Image = global::UVA_Arena.Properties.Resources.prev;
+            this.expandCollapseButton.Location = new System.Drawing.Point(1, 2);
+            this.expandCollapseButton.Margin = new System.Windows.Forms.Padding(0);
+            this.expandCollapseButton.Name = "expandCollapseButton";
+            this.expandCollapseButton.Size = new System.Drawing.Size(30, 79);
+            this.expandCollapseButton.TabIndex = 3;
+            this.expandCollapseButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.expandCollapseButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.expandCollapseButton.UseVisualStyleBackColor = true;
+            this.expandCollapseButton.Click += new System.EventHandler(this.expandViewButton1_Click);
             // 
             // prevContext
             // 
@@ -914,20 +961,17 @@
             this.nextContext.Name = "nextContext";
             this.nextContext.Size = new System.Drawing.Size(61, 4);
             // 
-            // categoryInfo
+            // TopPanel
             // 
-            this.categoryInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.categoryInfo.BackColor = System.Drawing.Color.LightBlue;
-            this.categoryInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.categoryInfo.CueText = "Set tags to identify the type of the problem...";
-            this.categoryInfo.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.categoryInfo.ForeColor = System.Drawing.Color.Maroon;
-            this.categoryInfo.Location = new System.Drawing.Point(4, 38);
-            this.categoryInfo.Name = "categoryInfo";
-            this.categoryInfo.Size = new System.Drawing.Size(638, 16);
-            this.categoryInfo.TabIndex = 1;
-            this.categoryInfo.TabStop = false;
-            this.categoryInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.categoryInfo_KeyDown);
+            this.TopPanel.AutoSize = true;
+            this.TopPanel.Controls.Add(this.tableLayoutPanel1);
+            this.TopPanel.Controls.Add(this.expandCollapseButton);
+            this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TopPanel.Location = new System.Drawing.Point(0, 0);
+            this.TopPanel.Name = "TopPanel";
+            this.TopPanel.Padding = new System.Windows.Forms.Padding(1, 2, 1, 2);
+            this.TopPanel.Size = new System.Drawing.Size(800, 83);
+            this.TopPanel.TabIndex = 4;
             // 
             // ProblemViewer
             // 
@@ -935,7 +979,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.TopPanel);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "ProblemViewer";
@@ -962,6 +1006,10 @@
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
+            this.TopPanel.ResumeLayout(false);
+            this.TopPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -986,7 +1034,7 @@
         public System.Windows.Forms.ToolStripButton backButton;
         public System.Windows.Forms.ToolStripButton nextButton;
         public System.Windows.Forms.ToolStripButton reloadButton;
-        public System.Windows.Forms.TextBox titleBox1;
+        public System.Windows.Forms.Label titleBox1;
         public System.Windows.Forms.Button categoryButton;
         public System.Windows.Forms.CueTextBox categoryInfo;
         public System.Windows.Forms.WebBrowser problemWebBrowser;
@@ -999,7 +1047,6 @@
         private System.Windows.Forms.Button nextDiscussButton;
         private System.Windows.Forms.Button prevDiscussButton;
         private System.Windows.Forms.Button homeDiscussButton;
-        private System.Windows.Forms.Button button1;
         public BrightIdeasSoftware.FastObjectListView submissionStatus;
         private BrightIdeasSoftware.OLVColumn sidSUB;
         private BrightIdeasSoftware.OLVColumn unameSUB;
@@ -1032,5 +1079,9 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button compareUserButton;
+        private System.Windows.Forms.Panel TopPanel;
+        public System.Windows.Forms.Button expandCollapseButton;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Label problemMessage;
     }
 }

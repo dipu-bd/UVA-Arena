@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Windows.Forms;
@@ -7,7 +8,7 @@ using System.Text;
 using Newtonsoft.Json;
 
 namespace UVA_Arena.Structures
-{ 
+{
     public class UserInfo
     {
         public UserInfo() { LastSID = 0; }
@@ -25,30 +26,23 @@ namespace UVA_Arena.Structures
         public string uid { get; set; }
         public long LastSID { get; set; }
 
-        public List<long> ACList;
+        public Dictionary<long, bool> TryList;
         public List<UserSubmission> submissions;
         public Dictionary<long, UserSubmission> sidToSub;
 
-        public UserSubmission GetSubmission(long sid)
-        {
-            if (sidToSub == null || !sidToSub.ContainsKey(sid))
-                throw new NullReferenceException();
-            return sidToSub[sid];
-        }
-
-        public string GetJsonData()
+        public string GetJSONData()
         {
             string format = "{\"name\":\"" + name + "\",\"uname\":\"" + uname + "\",\"subs\":";
             format += JsonConvert.SerializeObject(subs) + "}";
             return format;
         }
-
+         
         public void Process()
         {
             LastSID = 0;
             uid = LocalDatabase.GetUserid(uname);
 
-            ACList = new List<long>();
+            TryList = new Dictionary<long, bool>();
             submissions = new List<UserSubmission>();
             sidToSub = new Dictionary<long, UserSubmission>();
 
@@ -65,11 +59,35 @@ namespace UVA_Arena.Structures
             uname = ui.uname;
             ProcessListData(ui.subs, true);
         }
+        
+        public bool IsTried(long pnum)
+        {
+            return TryList.ContainsKey(pnum);
+        }
 
+        public bool IsSolved(long pnum)
+        {
+            return IsTried(pnum) && TryList[pnum];
+        }
+
+        public bool IsTriedButUnsolved(long pnum)
+        {
+            return IsTried(pnum) && !TryList[pnum];
+        }
+
+        private void SetTried(long pnum, bool acc = false)
+        {
+            if (IsTried(pnum)) 
+                TryList[pnum] = acc;
+            else
+                TryList.Add(pnum, acc);
+        }
+        
         private void ProcessListData(List<List<long>> allsub, bool addToDef = false)
         {
             if (subs == null) subs = new List<List<long>>();
 
+            bool sortneed = false;
             bool isdef = (this.uname == RegistryAccess.DefaultUsername);
             foreach (List<long> lst in allsub)
             {
@@ -77,43 +95,39 @@ namespace UVA_Arena.Structures
                 if (sidToSub.ContainsKey(usub.sid))
                 {
                     if (usub.isInQueue()) continue;
-                    else
-                    {
-                        submissions.Remove(sidToSub[usub.sid]);
-                        sidToSub.Remove(usub.sid);
-                    }
+                    submissions.Remove(sidToSub[usub.sid]);
+                    sidToSub.Remove(usub.sid);
                 }
 
                 usub.name = name;
                 usub.uname = uname;
-
                 submissions.Add(usub);
                 sidToSub.Add(usub.sid, usub);
-                
+                sortneed = true;
+
                 if (!usub.isInQueue())
                 {
                     if (addToDef) subs.Add(lst);
                     if (this.LastSID < usub.sid) this.LastSID = usub.sid;
                 }
-
-                //if accepted
-                if (usub.IsAccepted() && !ACList.Contains(usub.pnum))
+                 
+                SetTried(usub.pnum, usub.IsAccepted());
+                if (isdef && usub.IsAccepted() && IsSolved(usub.pnum))
                 {
-                    ACList.Add(usub.pnum);
-                    if (isdef)
-                    {
-                        ProblemInfo prob = LocalDatabase.GetProblem(usub.pnum);
-                        if (prob != null) prob.solved = true;
-                    }
+                    ProblemInfo prob = LocalDatabase.GetProblem(usub.pnum);
+                    if (prob != null) prob.solved = true;
                 }
             }
 
             //sort by sid
-            submissions.Sort((Comparison<UserSubmission>)
-                delegate(UserSubmission a, UserSubmission b)
-                {
-                    return (int)(a.sid - b.sid);
-                });
+            if (sortneed)
+            {
+                submissions.Sort((Comparison<UserSubmission>)
+                   delegate(UserSubmission a, UserSubmission b)
+                   {
+                       return (int)(a.sid - b.sid);
+                   });
+            }
         }
 
     }

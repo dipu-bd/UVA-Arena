@@ -16,6 +16,7 @@ namespace UVA_Arena
         public static Dictionary<long, List<ProblemInfo>> problem_vol;
         public static Dictionary<string, List<ProblemInfo>> problem_cat;
         public static Dictionary<string, string> usernames;
+        public static List<ProblemInfo> favorite_list;
 
         #region Loader Functions
 
@@ -47,7 +48,7 @@ namespace UVA_Arena
                 data.Clear();
 
                 IsReady = true;
-                LoadDefaultUser(); 
+                LoadDefaultUser();                 
             }
             catch (Exception ex)
             {
@@ -110,6 +111,17 @@ namespace UVA_Arena
                     GetCategory(cat).Add(plist);
                 }
             }
+            
+            favorite_list = new List<ProblemInfo>();
+            foreach(long pnum in RegistryAccess.FavoriteProblems)
+            {
+                if(HasProblem(pnum))
+                {
+                    ProblemInfo prob = GetProblem(pnum);
+                    prob.marked = true;
+                    favorite_list.Add(prob);
+                }
+            }
         }
 
         public static void LoadDefaultUser()
@@ -170,14 +182,7 @@ namespace UVA_Arena
         {
             if (!HasProblem(pnum)) return null;
             return problem_num[pnum];
-        }
-
-        /// <summary> Check if problem is solved by default user </summary>
-        public static bool IsProbSolved(long pnum)
-        {
-            if (!HasProblem(pnum)) return false;
-            return problem_num[pnum].solved;
-        }
+        } 
 
         /// <summary> Get problem title for given problem number </summary>
         public static string GetTitle(long pnum)

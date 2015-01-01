@@ -7,7 +7,7 @@ namespace UVA_Arena.Structures
 {
     [StructLayout(LayoutKind.Sequential)]
     public class CategoryList
-    { 
+    {
         public CategoryList() { }
         public int count { get; set; }
         public string name { get; set; }
@@ -18,12 +18,12 @@ namespace UVA_Arena.Structures
     {
         Unavailable,
         Normal,
-        Special_Judge        
+        Special_Judge
     };
 
     [StructLayout(LayoutKind.Sequential)]
     public class ProblemInfo
-    {        
+    {
         public ProblemInfo() { }
         public ProblemInfo(List<string> data) { ParseData(data); }
 
@@ -77,9 +77,17 @@ namespace UVA_Arena.Structures
         public int level { get; set; }
         public string levelstar { get; set; }
         public bool stared { get; set; }
-        public bool solved { get; set; }
+        public bool solved { get; set; }        
+        public bool marked { get; set; }
+        public int priority { get; set;}
 
         public List<string> tags = new List<string>();
+
+        public override string ToString()
+        {
+            return string.Format(" {0} {1} {2} {3} ", pnum, ptitle,
+                    string.Join(" ", tags.ToArray()), status);
+        }
 
         public void ParseData(List<string> data)
         {

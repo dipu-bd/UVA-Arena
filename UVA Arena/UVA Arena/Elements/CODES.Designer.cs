@@ -185,6 +185,8 @@
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.panel2 = new System.Windows.Forms.Panel();
             this.fileNameLabel = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.loadDefaultInput = new System.Windows.Forms.Button(); 
             this.folderTreeContext.SuspendLayout();
             this.newContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
@@ -235,6 +237,7 @@
             this.toolStrip1.SuspendLayout();
             this.BottomToolbar.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // folderTreeContext
@@ -322,6 +325,7 @@
             this.inputFileToolStripMenuItem,
             this.outputFileToolStripMenuItem});
             this.newContextMenu.Name = "newContextMenu";
+            this.newContextMenu.OwnerItem = this.toolStripButton2;
             this.newContextMenu.Size = new System.Drawing.Size(151, 192);
             // 
             // folderToolStripMenuItem
@@ -688,14 +692,14 @@
             // searchBox1
             // 
             this.searchBox1.BackColor = System.Drawing.Color.LightCyan;
-            this.searchBox1.ClearButton = true;
+            this.searchBox1.ClearButtonVisible = true;
             this.searchBox1.CueText = "Search...";
             this.searchBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchBox1.Location = new System.Drawing.Point(1, 423);
             this.searchBox1.Margin = new System.Windows.Forms.Padding(1);
             this.searchBox1.Name = "searchBox1";
-            this.searchBox1.SearchButton = true;
+            this.searchBox1.SearchButtonVisible = true;
             this.searchBox1.SearchText = "";
             this.searchBox1.Size = new System.Drawing.Size(198, 26);
             this.searchBox1.TabIndex = 0;
@@ -1050,6 +1054,7 @@
             // 
             this.ioTAB.BackColor = System.Drawing.Color.Bisque;
             this.ioTAB.Controls.Add(this.IOContainer1);
+            this.ioTAB.Controls.Add(this.panel4);
             this.ioTAB.Location = new System.Drawing.Point(4, 26);
             this.ioTAB.Name = "ioTAB";
             this.ioTAB.Padding = new System.Windows.Forms.Padding(1);
@@ -1074,7 +1079,7 @@
             this.IOContainer1.Panel2.BackColor = System.Drawing.Color.Ivory;
             this.IOContainer1.Panel2.Controls.Add(this.tableLayoutPanel3);
             this.IOContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.IOContainer1.Size = new System.Drawing.Size(606, 272);
+            this.IOContainer1.Size = new System.Drawing.Size(606, 242);
             this.IOContainer1.SplitterDistance = 285;
             this.IOContainer1.TabIndex = 0;
             // 
@@ -1091,7 +1096,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(285, 272);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(285, 242);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // inputToolBar
@@ -1174,6 +1179,7 @@
             this.inputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.inputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.inputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.inputTextBox.Hotkeys = resources.GetString("inputTextBox.Hotkeys");
             this.inputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.inputTextBox.IsReplaceMode = false;
@@ -1182,7 +1188,7 @@
             this.inputTextBox.Paddings = new System.Windows.Forms.Padding(0);
             this.inputTextBox.ReadOnly = true;
             this.inputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.inputTextBox.Size = new System.Drawing.Size(279, 244);
+            this.inputTextBox.Size = new System.Drawing.Size(279, 214);
             this.inputTextBox.TabIndex = 3;
             this.inputTextBox.Zoom = 100;
             this.inputTextBox.SelectionChanged += new System.EventHandler(this.FCTB_SelectionChanged);
@@ -1254,7 +1260,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(317, 272);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(317, 242);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // outputTextBox
@@ -1282,6 +1288,7 @@
             this.outputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.outputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.outputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.outputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.outputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.outputTextBox.IsReplaceMode = false;
             this.outputTextBox.Location = new System.Drawing.Point(3, 25);
@@ -1289,7 +1296,7 @@
             this.outputTextBox.Paddings = new System.Windows.Forms.Padding(0);
             this.outputTextBox.ReadOnly = true;
             this.outputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.outputTextBox.Size = new System.Drawing.Size(311, 244);
+            this.outputTextBox.Size = new System.Drawing.Size(311, 214);
             this.outputTextBox.TabIndex = 4;
             this.outputTextBox.Zoom = 100;
             this.outputTextBox.SelectionChanged += new System.EventHandler(this.FCTB_SelectionChanged);
@@ -1488,6 +1495,7 @@
             this.correctOutputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.correctOutputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.correctOutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.correctOutputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.correctOutputTextBox.Hotkeys = resources.GetString("correctOutputTextBox.Hotkeys");
             this.correctOutputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.correctOutputTextBox.IsReplaceMode = false;
@@ -1596,6 +1604,7 @@
             this.progOutputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.progOutputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.progOutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.progOutputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.progOutputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.progOutputTextBox.IsReplaceMode = false;
             this.progOutputTextBox.Location = new System.Drawing.Point(3, 25);
@@ -1765,7 +1774,7 @@
             // 
             this.status1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.status1.Name = "status1";
-            this.status1.Size = new System.Drawing.Size(485, 23);
+            this.status1.Size = new System.Drawing.Size(491, 23);
             this.status1.Spring = true;
             this.status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -2008,6 +2017,26 @@
             this.fileNameLabel.Text = "No Opened File";
             this.fileNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.loadDefaultInput); 
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(1, 243);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(606, 30);
+            this.panel4.TabIndex = 3;
+            // 
+            // loadDefaultInput
+            // 
+            this.loadDefaultInput.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.loadDefaultInput.Location = new System.Drawing.Point(3, 1);
+            this.loadDefaultInput.Name = "loadDefaultInput";
+            this.loadDefaultInput.Size = new System.Drawing.Size(150, 28);
+            this.loadDefaultInput.TabIndex = 1;
+            this.loadDefaultInput.Text = "Load Default";
+            this.loadDefaultInput.UseVisualStyleBackColor = true;
+            this.loadDefaultInput.Click += new System.EventHandler(this.loadDefaultInput_Click); 
+            // 
             // CODES
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2089,6 +2118,7 @@
             this.BottomToolbar.ResumeLayout(false);
             this.BottomToolbar.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2250,6 +2280,8 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel status1;
         private System.Windows.Forms.ToolStripProgressBar progress1;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button loadDefaultInput; 
 
     }
 }

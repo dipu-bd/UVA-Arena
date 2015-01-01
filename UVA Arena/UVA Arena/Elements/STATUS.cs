@@ -1,12 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
 using UVA_Arena.Structures;
-using Newtonsoft.Json;
 
 namespace UVA_Arena.Elements
 {
@@ -69,76 +66,80 @@ namespace UVA_Arena.Elements
         private bool Updating = false;
         private DateTime LastUpdate = DateTime.Now;
         public List<JudgeStatus> StatusList = new List<JudgeStatus>();
-        public Dictionary<long, JudgeStatus> IDtoStatus = new Dictionary<long, JudgeStatus>();
+        public Dictionary<long, JudgeStatus> SIDtoStatus = new Dictionary<long, JudgeStatus>();
+        public Internet.DownloadTask LastTask;
 
         public bool Contains(long sid)
         {
-            return IDtoStatus.ContainsKey(sid);
+            return SIDtoStatus.ContainsKey(sid);
         }
-        public JudgeStatus GetStatus(long sid)
+
+        public bool SetStatus(JudgeStatus status)
         {
-            if (!Contains(sid)) return null;
-            return IDtoStatus[sid];
-        }
-        public void SetStatus(JudgeStatus status)
-        {
-            //if not contains add it
-            if (!Contains(status.sid))
+            if (Contains(status.sid))
+            {
+                SIDtoStatus[status.sid] = status;
+                return false;
+            }
+            else
             {
                 StatusList.Add(status);
-                IDtoStatus.Add(status.sid, status);
-                return;
+                SIDtoStatus.Add(status.sid, status);
+                return true;
             }
-
-            //otherwise update it
-            JudgeStatus prev = IDtoStatus[status.sid];
-            prev.id = status.id;
-            prev.mem = status.mem;
-            prev.run = status.run;
-            prev.ver = status.ver;
-            prev.rank = status.rank;
         }
+
         public void ClearSome()
         {
-            while (StatusList.Count > 1000)
+            int remcount = StatusList.Count - 100;
+            if (remcount < 50) return;
+            for (int i = 0; i < remcount; ++i)
             {
-                long id = StatusList[0].id;
-                StatusList.RemoveAt(0);
-                IDtoStatus.Remove(id);
+                long sid = StatusList[i].sid;
+                SIDtoStatus.Remove(sid);
             }
+            StatusList.RemoveRange(0, remcount);
         }
 
         public void UpdateSubmissions()
         {
-            if (Updating) return;
+            if (Updating)
+            {
+                if (LastTask.TimeElapsed.TotalSeconds > 6
+                    && LastTask.ProgressPercentage == 0)
+                    LastTask.Cancel();
+                return;
+            }
+
             ClearSome();
             Updating = true;
             Status1.Text = "Update started...";
+
             string url = string.Format("http://uhunt.felix-halim.net/api/poll/{0}.", LastSubID);
-            Internet.Downloader.DownloadStringAsync(url,
-                null, Internet.Priority.Low, null, DownloadComplete);
+            LastTask = Internet.Downloader.DownloadStringAsync(url, null, Internet.Priority.Low, null, DownloadComplete);
         }
 
         public void DownloadComplete(Internet.DownloadTask task)
         {
             try
             {
-                if (!string.IsNullOrEmpty(task.Result))
+                bool updated = false;
+                //update or add last submission id
+                JudgeStatus[] statuslist = JsonConvert.DeserializeObject<JudgeStatus[]>(task.Result);
+                foreach (JudgeStatus status in statuslist)
                 {
-                    JudgeStatus[] statuslist = JsonConvert.DeserializeObject<JudgeStatus[]>(task.Result);
-                    foreach (JudgeStatus status in statuslist)
-                    {
-                        //update or add last submission id
-                        SetStatus(status);
-                        if (status.id > LastSubID) LastSubID = status.id;
-                        //reload submisstion status
-                        submissionStatus.SetObjects(StatusList, true);
-                        //sort submission status
-                        submissionStatus.Sort(sidSUB, SortOrder.Descending);
-                        //make first item visible
-                        if (submissionStatus.SelectedItem == null)
-                            submissionStatus.EnsureVisible(0);
-                    }
+                    updated = SetStatus(status);
+                    if (status.id > LastSubID) LastSubID = status.id;                    
+                }
+
+                if (updated)
+                {
+                    //reload submisstion status
+                    submissionStatus.SetObjects(StatusList, true);
+                    //sort submission status
+                    submissionStatus.Sort(sidSUB, SortOrder.Descending);
+                    //make first item visible
+                    submissionStatus.EnsureVisible(0);
                 }
             }
             catch (Exception ex)
@@ -278,7 +279,7 @@ namespace UVA_Arena.Elements
                 for (int i = 0; i < e.Item.SubItems.Count; ++i)
                     e.Item.SubItems[i].BackColor = Color.LightBlue;
             }
-             
+
             //highlight other
             if (e.Column == sidSUB)
             {
@@ -304,10 +305,7 @@ namespace UVA_Arena.Elements
             else if (e.Column == ptitleSUB)
             {
                 font = "Segoe UI Semibold";
-                if (LocalDatabase.IsProbSolved(js.pnum))
-                    fore = Color.Blue;
-                else
-                    fore = Color.Black;
+                fore = Functions.GetProblemTitleColor(js.pnum);
             }
             else if (e.Column == runSUB)
             {
@@ -340,7 +338,7 @@ namespace UVA_Arena.Elements
                 fore = Color.Navy;
             }
             else { return; }
-             
+
             e.SubItem.ForeColor = fore;
             e.SubItem.Font = new Font(font, size, style);
         }

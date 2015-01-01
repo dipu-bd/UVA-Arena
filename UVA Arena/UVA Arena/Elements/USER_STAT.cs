@@ -149,12 +149,6 @@ namespace UVA_Arena.Elements
 
         #region Status Strip
 
-        private void refreshToolButton_Click(object sender, EventArgs e)
-        {
-            if (currentUser == null) return;
-            DownloadUserSubs(currentUser.uname);
-        }
-
         public bool _QueueOnRun = false;
         public Queue<string> StatusQueue = new Queue<string>();
 
@@ -278,6 +272,52 @@ namespace UVA_Arena.Elements
 
         #endregion
 
+        #region Show data by tab
+
+        private void ShowDataByTab()
+        {
+            SetStatus("", true);
+            if (currentUser == null) return;
+
+            //change view and looks
+            userNameTitle.Text = string.Format(userNameTitle.Tag.ToString(), currentUser.name);
+
+            if (tabControl1.SelectedTab == submissionTab)
+            {
+                if ((string)submissionTab.Tag != currentUser.uid ||
+                    lastSubmissions1.Items.Count == 0)
+                {
+                    SetSubmissionToListView();
+                    submissionTab.Tag = currentUser.uid;
+                }
+            }
+            else if (tabControl1.SelectedTab == progtrackerTab)
+            {
+                userProgTracker1.ShowUserInfo(currentUser);
+            }
+            else if (tabControl1.SelectedTab == worldrankTab)
+            {
+                if ((string)worldrankTab.Tag != currentUser.uid
+                    || worldRanklist.Items.Count == 0)
+                {
+                    ShowWorldRank();
+                    worldrankTab.Tag = currentUser.uid;
+                }
+            }
+            else if (tabControl1.SelectedTab == compareTab)
+            {
+                // implement compare tab functionality here
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex != -1)
+                ShowDataByTab();
+        }
+
+        #endregion
+
         #region Load User's Submissions
 
         private UserInfo currentUser = null;
@@ -371,7 +411,7 @@ namespace UVA_Arena.Elements
                 if (Task.Error != null)
                 {
                     SetStatus("Error : " + Task.Error.Message);
-                    Logger.Add(Task.Error.Message, "User Statistics | LoadUserSub(string user)");
+                    //Logger.Add(Task.Error.Message, "User Statistics | dt_completed(DownloadTask Task)");
                 }
                 return;
             }
@@ -388,14 +428,16 @@ namespace UVA_Arena.Elements
             }
 
             string file = LocalDirectory.GetUserSubPath(currentUser.uname);
-            string data = currentUser.GetJsonData();
+            string data = currentUser.GetJSONData();
             File.WriteAllText(file, data);
 
             ShowDataByTab();
 
             SetStatus("Downloaded " + Task.Token.ToString() + "'s submissions");
             if (currentUser.LastSID == 0)
+            {
                 Logger.Add("Downloaded " + currentUser.uname + "'s submissions", "User Statistics");
+            }
 
         }
 
@@ -432,114 +474,6 @@ namespace UVA_Arena.Elements
                 long inv = (long)Math.Ceiling((UpdateInterval - diff) / 1000.0);
                 string msg = Functions.FormatTimeSpan(inv);
                 SetStatus("Updating in " + msg, true);
-            }
-        }
-
-        #endregion
-
-        #region Last Submissions List
-
-        private void AssignAspectFunctions()
-        {
-            subtimeSUB.AspectGetter = delegate(object row)
-            {
-                if (row == null) return null;
-                UserSubmission last = (UserSubmission)row;
-                return UnixTimestamp.FormatUnixTime(last.sbt);
-            };
-            lanSUB.AspectToStringConverter = delegate(object dat)
-            {
-                if (dat == null) return "";
-                return Functions.GetLanguage((Language)((long)dat));
-            };
-            verSUB.AspectToStringConverter = delegate(object dat)
-            {
-                if (dat == null) return "";
-                return Functions.GetVerdict((Verdict)((long)dat));
-            };
-            runSUB.AspectToStringConverter = delegate(object dat)
-            {
-                if (dat == null) return "";
-                return Functions.FormatRuntime((long)dat);
-            };
-            rankSUB.AspectToStringConverter = delegate(object dat)
-            {
-                if (dat == null) return "";
-                if ((long)dat == -1) return "-";
-                return ((long)dat).ToString();
-            };
-        }
-        private void lastSubmissions1_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
-        {
-            if (e.Model == null) return;
-
-            string font = "Segoe UI";
-            float size = 9.0F;
-            FontStyle style = FontStyle.Regular;
-            Color fore = Color.Black;
-
-            UserSubmission js = (UserSubmission)e.Model;
-
-            if (e.Column == sidSUB)
-            {
-                font = "Consolas";
-                fore = Color.Teal;
-                size = 8.5F;
-            }
-            else if (e.Column == pnumSUB)
-            {
-                font = "Consolas";
-                fore = Color.Navy;
-                style = FontStyle.Italic;
-            }
-            else if (e.Column == ptitleSUB)
-            {
-                font = "Segoe UI Semibold";
-                if (LocalDatabase.IsProbSolved(js.pnum))
-                    fore = Color.Blue;
-                else
-                    fore = Color.Black;
-            }
-            else if (e.Column == runSUB)
-            {
-                fore = Color.SlateBlue;
-            }
-            else if (e.Column == subtimeSUB)
-            {
-                fore = Color.Maroon;
-            }
-            else if (e.Column == rankSUB)
-            {
-                fore = Color.Navy;
-                font = "Segoe UI Semibold";
-            }
-            else if (e.Column == verSUB)
-            {
-                font = "Segoe UI";
-                long ver = ((UserSubmission)e.Model).ver;
-                fore = Functions.GetVerdictColor((Verdict)ver);
-                style = FontStyle.Bold;
-            }
-            else if (e.Column == lanSUB)
-            {
-                style = FontStyle.Bold;
-                fore = Color.Navy;
-            }
-            else { return; }
-
-            e.SubItem.ForeColor = fore;
-            e.SubItem.Font = new Font(font, size, style);
-        }
-
-        private void lastSubmissions1_HyperlinkClicked(object sender, BrightIdeasSoftware.HyperlinkClickedEventArgs e)
-        {
-            if (e.Model == null) return;
-
-            UserSubmission usub = (UserSubmission)e.Model;
-
-            if (e.Column == pnumSUB || e.Column == ptitleSUB)
-            {
-                Interactivity.ShowProblem(usub.pnum);
             }
         }
 
@@ -608,61 +542,22 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Show data by tab
+        #region Submissions List
 
-        private void ShowDataByTab()
+        private void refreshToolButton_Click(object sender, EventArgs e)
         {
-            SetStatus("", true);
             if (currentUser == null) return;
-
-            //change view and looks
-            userNameTitle.Text = string.Format(userNameTitle.Tag.ToString(), currentUser.name);
-
-            if (tabControl1.SelectedTab == submissionTab)
-            {
-                if ((string)submissionTab.Tag != currentUser.uid ||
-                    lastSubmissions1.Items.Count == 0)
-                {
-                    SetSubmissionToListView();
-                    submissionTab.Tag = currentUser.uid;
-                }
-            }
-            else if (tabControl1.SelectedTab == progtrackerTab)
-            {
-                if (userProgTracker1.currentUser != currentUser)
-                {
-                    userProgTracker1.ShowUserInfo(currentUser);
-                }
-            }
-            else if (tabControl1.SelectedTab == worldrankTab)
-            {
-                if ((string)worldrankTab.Tag != currentUser.uid
-                    || worldRanklist.Items.Count == 0)
-                {
-                    ShowWorldRank();
-                    worldrankTab.Tag = currentUser.uid;
-                }
-            }
-            else if (tabControl1.SelectedTab == compareTab)
-            {
-                // implement compare tab functionality here
-            }
+            currentUser.LastSID = 0;
+            DownloadUserSubs(currentUser.uname);
         }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabControl1.SelectedIndex != -1)
-                ShowDataByTab();
-        }
-
-        #endregion
-
-        #region Show Submissions
 
         private void lastSubmissions1_Click(object sender, EventArgs e)
         {
             if (lastSubmissions1.Items.Count == 0)
-                refreshSubmission.PerformClick();
+            {
+                if (currentUser != null)
+                    DownloadUserSubs(currentUser.uname);
+            }
         }
 
         private void SetSubmissionToListView()
@@ -673,24 +568,24 @@ namespace UVA_Arena.Elements
             List<UserSubmission> list = new List<UserSubmission>();
             switch (ViewOption)
             {
-                case -1:
+                case -1: //all submissions
                     list = currentUser.submissions;
                     break;
-                case -10:
+                case -10: //acc submissions
                     foreach (UserSubmission usub in currentUser.submissions)
                     {
-                        if (currentUser.ACList.Contains(usub.pnum))
+                        if (currentUser.IsSolved(usub.pnum))
                             list.Add(usub);
                     }
                     break;
-                case -20:
+                case -20: //not acc submission
                     foreach (UserSubmission usub in currentUser.submissions)
                     {
-                        if (!currentUser.ACList.Contains(usub.pnum))
+                        if (currentUser.IsTriedButUnsolved(usub.pnum))
                             list.Add(usub);
                     }
                     break;
-                default:
+                default: //ViewOption-ps submissions
                     int cnt = ViewOption;
                     for (int i = currentUser.submissions.Count - 1; i >= 0 && cnt > 0; --i, --cnt)
                         list.Add(currentUser.submissions[i]);
@@ -702,6 +597,7 @@ namespace UVA_Arena.Elements
             lastSubmissions1.Sort(0);
             SetGroupBy();
         }
+
         private void SetGroupBy()
         {
             if (noneToolStripMenuItem.Checked)
@@ -713,6 +609,108 @@ namespace UVA_Arena.Elements
             else if (languageToolStripMenuItem.Checked)
                 lastSubmissions1.BuildGroups(lanSUB, SortOrder.Ascending);
         }
+
+        private void AssignAspectFunctions()
+        {
+            subtimeSUB.AspectGetter = delegate(object row)
+            {
+                if (row == null) return null;
+                UserSubmission last = (UserSubmission)row;
+                return UnixTimestamp.FormatUnixTime(last.sbt);
+            };
+            lanSUB.AspectToStringConverter = delegate(object dat)
+            {
+                if (dat == null) return "";
+                return Functions.GetLanguage((Language)((long)dat));
+            };
+            verSUB.AspectToStringConverter = delegate(object dat)
+            {
+                if (dat == null) return "";
+                return Functions.GetVerdict((Verdict)((long)dat));
+            };
+            runSUB.AspectToStringConverter = delegate(object dat)
+            {
+                if (dat == null) return "";
+                return Functions.FormatRuntime((long)dat);
+            };
+            rankSUB.AspectToStringConverter = delegate(object dat)
+            {
+                if (dat == null) return "";
+                if ((long)dat == -1) return "-";
+                return ((long)dat).ToString();
+            };
+        }
+        private void lastSubmissions1_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
+        {
+            if (e.Model == null) return;
+
+            string font = "Segoe UI";
+            float size = 9.0F;
+            FontStyle style = FontStyle.Regular;
+            Color fore = Color.Black;
+
+            UserSubmission js = (UserSubmission)e.Model;
+
+            if (e.Column == sidSUB)
+            {
+                font = "Consolas";
+                fore = Color.Teal;
+                size = 8.5F;
+            }
+            else if (e.Column == pnumSUB)
+            {
+                font = "Consolas";
+                fore = Color.Navy;
+                style = FontStyle.Italic;
+            }
+            else if (e.Column == ptitleSUB)
+            {
+                font = "Segoe UI Semibold";
+                fore = Functions.GetProblemTitleColor(js.pnum);
+            }
+            else if (e.Column == runSUB)
+            {
+                fore = Color.SlateBlue;
+            }
+            else if (e.Column == subtimeSUB)
+            {
+                fore = Color.Maroon;
+            }
+            else if (e.Column == rankSUB)
+            {
+                fore = Color.Navy;
+                font = "Segoe UI Semibold";
+            }
+            else if (e.Column == verSUB)
+            {
+                font = "Segoe UI";
+                long ver = ((UserSubmission)e.Model).ver;
+                fore = Functions.GetVerdictColor((Verdict)ver);
+                style = FontStyle.Bold;
+            }
+            else if (e.Column == lanSUB)
+            {
+                style = FontStyle.Bold;
+                fore = Color.Navy;
+            }
+            else { return; }
+
+            e.SubItem.ForeColor = fore;
+            e.SubItem.Font = new Font(font, size, style);
+        }
+
+        private void lastSubmissions1_HyperlinkClicked(object sender, BrightIdeasSoftware.HyperlinkClickedEventArgs e)
+        {
+            if (e.Model == null) return;
+
+            UserSubmission usub = (UserSubmission)e.Model;
+
+            if (e.Column == pnumSUB || e.Column == ptitleSUB)
+            {
+                Interactivity.ShowProblem(usub.pnum);
+            }
+        }
+
 
         #endregion
 

@@ -777,7 +777,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(376, 448);
             this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "Precodes";
+            this.tabPage1.Text = "Pre-Codes";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // panel2

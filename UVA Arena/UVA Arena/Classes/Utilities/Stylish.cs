@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace UVA_Arena
 {
-    internal static class Stylish
+    public static class Stylish
     {
         public enum GradientType
         {
@@ -14,7 +14,7 @@ namespace UVA_Arena
             HatchStyleGradient
         }
 
-        public class GradientStyle : IDisposable
+        public class GradientStyle
         {
             public HatchStyle Hatch { get; set; }
             public Color FirstColor { get; set; }
@@ -47,8 +47,6 @@ namespace UVA_Arena
                 Hatch = hatch;
             }
 
-            public void Dispose() { }
-
             public Brush GetBrush(int width = 0, int height = 0)
             {
                 Rectangle rect = new Rectangle(0, 0, width, height);
@@ -66,13 +64,14 @@ namespace UVA_Arena
 
             public Image GetImage(int width, int height)
             {
+                if (width < 10 || height < 5) return null;
                 Image img = new Bitmap(width, height);
                 Graphics g = Graphics.FromImage(img);
                 Brush brush = GetBrush(width, height);
 
                 g.SmoothingMode = SmoothingMode.AntiAlias;
                 g.FillRectangle(brush, 0, 0, width, height);
-                
+
                 g.Dispose();
                 return img;
             }
@@ -90,8 +89,8 @@ namespace UVA_Arena
         public static void SetGradientBackground(Control control, GradientStyle style)
         {
             if (control == null || control.IsDisposed) return;
-            control.BackgroundImage = style.GetImage(control.Size);
             control.BackgroundImageLayout = ImageLayout.Stretch;
+            control.BackgroundImage = style.GetImage(control.Size);
         }
     }
 

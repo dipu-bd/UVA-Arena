@@ -22,7 +22,7 @@ namespace UVA_Arena
         {
             username1.Enabled = false;
             set_button1.Enabled = false;
-            Status.Text = "Requesting server to get userid...";
+            Status.Text = "Requesting server to get id...";
             Downloader.DownloadUserid(username1.Text, DownloadCompleted);
         }
 

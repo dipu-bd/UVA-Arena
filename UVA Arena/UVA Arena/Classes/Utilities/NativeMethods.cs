@@ -104,21 +104,15 @@ namespace UVA_Arena
         // User32.dll
         //
         [DllImport("user32.dll"), SecurityPermission(SecurityAction.Demand)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam);
-
-        [DllImport("user32.dll"), SecurityPermission(SecurityAction.Demand)]
-        public static extern int SendMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
+        public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam);         
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
-         
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public static extern int AnimateWindow(IntPtr hwand, int dwTime, int dwFlags);
-
+          
         //
         // UXTheme
         //
         [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
-        public extern static int SetWindowTheme(IntPtr hWnd, string pszSubAppName, string pszSubIdList);
+        public static extern int SetWindowTheme(IntPtr hWnd, IntPtr pszSubAppName, IntPtr pszSubIdList);
 
         //
         // DWM Api
@@ -155,7 +149,9 @@ namespace UVA_Arena
         public static void MoveWithMouse(IntPtr Handle)
         {
             ReleaseCapture();
-            SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            IntPtr lparam = new IntPtr(HT_CAPTION);
+            IntPtr wparam = new IntPtr(0);
+            SendMessage(Handle, WM_NCLBUTTONDOWN, lparam, wparam);
         }
     }
 }

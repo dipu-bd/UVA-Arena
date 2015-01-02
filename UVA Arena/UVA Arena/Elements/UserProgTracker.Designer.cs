@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {            
             this.subCounterPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.totalTriedLabel = new System.Windows.Forms.Label();
             this.triednacLabel = new System.Windows.Forms.Label();
             this.acceptedLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.totalsubLabel = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.namePanel = new System.Windows.Forms.TableLayoutPanel();
             this.fullnameLabel = new System.Windows.Forms.Label();
             this.usernameLabel = new System.Windows.Forms.Label();
@@ -66,8 +68,6 @@
             this.subPerVerTab = new System.Windows.Forms.TabPage();
             this.subPerLanTab = new System.Windows.Forms.TabPage();
             this.rankCloudTab = new System.Windows.Forms.TabPage();
-            this.label11 = new System.Windows.Forms.Label();
-            this.totalTriedLabel = new System.Windows.Forms.Label();
             this.subCounterPanel.SuspendLayout();
             this.namePanel.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -105,29 +105,17 @@
             this.subCounterPanel.Size = new System.Drawing.Size(588, 89);
             this.subCounterPanel.TabIndex = 0;
             // 
-            // label6
+            // totalTriedLabel
             // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(475, 63);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(75, 19);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Total Tried";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(186, 63);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(67, 19);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Accepted";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.totalTriedLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.totalTriedLabel.AutoSize = true;
+            this.totalTriedLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalTriedLabel.ForeColor = System.Drawing.Color.Navy;
+            this.totalTriedLabel.Location = new System.Drawing.Point(477, 10);
+            this.totalTriedLabel.Name = "totalTriedLabel";
+            this.totalTriedLabel.Size = new System.Drawing.Size(71, 37);
+            this.totalTriedLabel.TabIndex = 6;
+            this.totalTriedLabel.Text = "[0]";
             // 
             // triednacLabel
             // 
@@ -176,6 +164,42 @@
             this.totalsubLabel.Size = new System.Drawing.Size(71, 37);
             this.totalsubLabel.TabIndex = 1;
             this.totalsubLabel.Text = "[0]";
+            // 
+            // label11
+            // 
+            this.label11.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(332, 63);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(67, 19);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "Unsolved";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(475, 63);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(75, 19);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Total Tried";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(186, 63);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(67, 19);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Accepted";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // namePanel
             // 
@@ -236,12 +260,12 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(3)));
             this.label9.ForeColor = System.Drawing.Color.Purple;
-            this.label9.Location = new System.Drawing.Point(62, 4);
+            this.label9.Location = new System.Drawing.Point(56, 4);
             this.label9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(56, 19);
+            this.label9.Size = new System.Drawing.Size(62, 19);
             this.label9.TabIndex = 2;
-            this.label9.Text = "Userid :";
+            this.label9.Text = "User ID :";
             // 
             // label8
             // 
@@ -614,30 +638,6 @@
             this.rankCloudTab.Size = new System.Drawing.Size(655, 462);
             this.rankCloudTab.TabIndex = 3;
             this.rankCloudTab.Text = "Rank Cloud";
-            // 
-            // label11
-            // 
-            this.label11.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(302, 63);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(127, 19);
-            this.label11.TabIndex = 7;
-            this.label11.Text = "Tried But Unsolved";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // totalTriedLabel
-            // 
-            this.totalTriedLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.totalTriedLabel.AutoSize = true;
-            this.totalTriedLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalTriedLabel.ForeColor = System.Drawing.Color.Navy;
-            this.totalTriedLabel.Location = new System.Drawing.Point(477, 10);
-            this.totalTriedLabel.Name = "totalTriedLabel";
-            this.totalTriedLabel.Size = new System.Drawing.Size(71, 37);
-            this.totalTriedLabel.TabIndex = 6;
-            this.totalTriedLabel.Text = "[0]";
             // 
             // UserProgTracker
             // 

@@ -34,6 +34,8 @@
             this.refreshToolButton = new System.Windows.Forms.ToolStripStatusLabel();
             this.Status1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.updateToolMenu = new System.Windows.Forms.ToolStripDropDownButton();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.instantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.twoSecondsToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fiveSecondsToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tenSecondsToolItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,6 +65,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -109,7 +112,17 @@
             // updateToolMenu
             // 
             this.updateToolMenu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.updateToolMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.updateToolMenu.DropDown = this.contextMenuStrip1;
+            this.updateToolMenu.Image = ((System.Drawing.Image)(resources.GetObject("updateToolMenu.Image")));
+            this.updateToolMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.updateToolMenu.Name = "updateToolMenu";
+            this.updateToolMenu.Size = new System.Drawing.Size(58, 23);
+            this.updateToolMenu.Text = "Update";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.instantToolStripMenuItem,
             this.twoSecondsToolItem,
             this.fiveSecondsToolItem,
             this.tenSecondsToolItem,
@@ -121,11 +134,17 @@
             this.tenMinutesToolItem,
             this.toolStripSeparator1,
             this.autoUpdateToolMenu});
-            this.updateToolMenu.Image = ((System.Drawing.Image)(resources.GetObject("updateToolMenu.Image")));
-            this.updateToolMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.updateToolMenu.Name = "updateToolMenu";
-            this.updateToolMenu.Size = new System.Drawing.Size(58, 23);
-            this.updateToolMenu.Text = "Update";
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.OwnerItem = this.updateToolMenu;
+            this.contextMenuStrip1.Size = new System.Drawing.Size(142, 252);
+            // 
+            // instantToolStripMenuItem
+            // 
+            this.instantToolStripMenuItem.Name = "instantToolStripMenuItem";
+            this.instantToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.instantToolStripMenuItem.Tag = "500";
+            this.instantToolStripMenuItem.Text = "Instant";
+            this.instantToolStripMenuItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
             // 
             // twoSecondsToolItem
             // 
@@ -151,6 +170,7 @@
             this.tenSecondsToolItem.Size = new System.Drawing.Size(141, 22);
             this.tenSecondsToolItem.Tag = "10000";
             this.tenSecondsToolItem.Text = "10 seconds";
+            this.tenSecondsToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
             // 
             // fifteenSecondsToolItem
             // 
@@ -165,7 +185,7 @@
             this.thirtySecodsToolItem.Name = "thirtySecodsToolItem";
             this.thirtySecodsToolItem.Size = new System.Drawing.Size(141, 22);
             this.thirtySecodsToolItem.Tag = "30000";
-            this.thirtySecodsToolItem.Text = "30 secods";
+            this.thirtySecodsToolItem.Text = "30 seconds";
             this.thirtySecodsToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
             // 
             // oneMinutesToolItem
@@ -350,9 +370,10 @@
             this.verSUB.AspectName = "ver";
             this.verSUB.CellPadding = null;
             this.verSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.verSUB.MinimumWidth = 100;
             this.verSUB.Text = "Verdict";
             this.verSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.verSUB.Width = 120;
+            this.verSUB.Width = 140;
             // 
             // runSUB
             // 
@@ -416,7 +437,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 500;
+            this.timer1.Interval = 800;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // STATUS
@@ -433,6 +454,7 @@
             this.Size = new System.Drawing.Size(790, 434);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -460,8 +482,15 @@
         private System.Windows.Forms.ToolStripStatusLabel Status1;
         private System.Windows.Forms.ToolStripStatusLabel refreshToolButton;
         private System.Windows.Forms.ToolStripDropDownButton updateToolMenu;
+        private BrightIdeasSoftware.OLVColumn pnumSUB;
+        private BrightIdeasSoftware.OLVColumn ptitleSUB;
+        public BrightIdeasSoftware.FastObjectListView submissionStatus;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem instantToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem twoSecondsToolItem;
         private System.Windows.Forms.ToolStripMenuItem fiveSecondsToolItem;
+        private System.Windows.Forms.ToolStripMenuItem tenSecondsToolItem;
         private System.Windows.Forms.ToolStripMenuItem fifteenSecondsToolItem;
         private System.Windows.Forms.ToolStripMenuItem thirtySecodsToolItem;
         private System.Windows.Forms.ToolStripMenuItem oneMinutesToolItem;
@@ -470,10 +499,5 @@
         private System.Windows.Forms.ToolStripMenuItem tenMinutesToolItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem autoUpdateToolMenu;
-        private BrightIdeasSoftware.OLVColumn pnumSUB;
-        private BrightIdeasSoftware.OLVColumn ptitleSUB;
-        private System.Windows.Forms.ToolStripMenuItem tenSecondsToolItem;
-        public BrightIdeasSoftware.FastObjectListView submissionStatus;
-        private System.Windows.Forms.Timer timer1;
     }
 }

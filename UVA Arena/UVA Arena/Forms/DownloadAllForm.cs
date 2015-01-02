@@ -106,7 +106,7 @@ namespace UVA_Arena
             }
         }
 
-        public long LastDownloadedProblem
+        public static long LastDownloadedProblem
         {
             get
             {
@@ -287,8 +287,7 @@ namespace UVA_Arena
                     break;
             }
 
-            SetStatus(0, "");
-            System.GC.Collect();
+            SetStatus(0, ""); 
         }
 
         void SetStatus(int percent, string status)

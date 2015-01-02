@@ -37,7 +37,10 @@ namespace UVA_Arena.Elements
                 new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 90F));
 
             Stylish.SetGradientBackground(titleBox1,
-                new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 100F));
+                new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 90F));
+
+            Stylish.SetGradientBackground(toolStrip1,
+                new Stylish.GradientStyle(Color.Azure, Color.LightCyan, 90F)); 
         }
 
         #endregion
@@ -97,30 +100,45 @@ namespace UVA_Arena.Elements
             categoryInfo.Text = "";
             categoryButton.Visible = false;
             problemMessage.Text = (string)problemMessage.Tag;
-            problemWebBrowser.Navigate("");
+            problemWebBrowser.GoHome();
         }
 
         private void ShowCurrent()
         {
             if (current == null) return;
 
-            titleBox1.Text = string.Format("{0} - {1}", current.pnum, current.ptitle);
+            LoadTopBar();
             categoryButton.Visible = true;
-            ShowCurrentTags();
-            ShowProblemMessage();
             markButton.Checked = current.marked;
-
-            string path = LocalDirectory.GetProblemHtml(current.pnum);
-            problemWebBrowser.Navigate(path);
             tabControl1.SelectedTab = descriptionTab;
 
-            FileInfo local = new FileInfo(path);
-            if (!local.Exists || local.Length < 100) DownloadHtml(current.pnum);
-            else DownloadContents(current.pnum);
+            string path = LocalDirectory.GetProblemHtml(current.pnum);            
+            if (LocalDirectory.GetFileSize(path) < 100)
+            {
+                DownloadHtml(current.pnum);
+                problemWebBrowser.GoHome();
+            }
+            else
+            {
+                DownloadContents(current.pnum);
+                problemWebBrowser.Navigate(path);
+            }
         }
 
-        private void ShowProblemMessage()
+        private void ShowTags()
         {
+
+        }
+
+        private void LoadTopBar()
+        {
+            //title
+            titleBox1.Text = string.Format("{0} - {1}", current.pnum, current.ptitle);
+
+            //tags
+            ShowTags();
+
+            //check status
             bool tried = false, solved = false;
             if (LocalDatabase.DefaultUser != null)
             {
@@ -128,23 +146,26 @@ namespace UVA_Arena.Elements
                 tried = LocalDatabase.DefaultUser.IsTriedButUnsolved(current.pnum);
             }
 
+            //level star
+            string levelstar = "";
+            double urank = 1.0;
+            if (current.total > 0)
+                urank = (double)current.ac / current.total;
+            if (urank < 0.35) levelstar += '*';
+            if (urank <= 0.15) levelstar += '*';
+            if (current.stared) levelstar += "#";
+
+            //message
             string msg = "You DID NOT TRY this problem.";
             if (tried) msg = "You TRIED but failed to solve this.";
             if (solved) msg = "You SOLVED this problem.";
             if (current.marked) msg += " | This problem is MARKED.";
-            msg += string.Format(" | Timelimit = {0}", Functions.FormatRuntime(current.run));
-            msg += string.Format(" | Level = {0}", current.level.ToString() + current.levelstar);
+            msg += string.Format(" | Time-limit = {0}", Functions.FormatRuntime(current.rtl));
+            msg += string.Format(" | Level = {0:0}{1}", current.level, levelstar);
             msg += string.Format(" | Dacu = {0}", current.dacu);
             msg += string.Format(" | AC Ratio = {0:0.00}%", 100.0 * current.ac / current.total);
+            msg += string.Format(" | Status = {0}", current.status);
             problemMessage.Text = msg;
-        }
-
-        private void ShowCurrentTags()
-        {
-            if (current.tags == null) current.tags = RegistryAccess.GetTags(current.pnum);
-            string txt = string.Join("; ", current.tags.ToArray());
-            if (txt.Length > 0) txt = "Tags : " + txt;
-            categoryInfo.Text = txt;
         }
 
         #endregion
@@ -174,8 +195,7 @@ namespace UVA_Arena.Elements
                 string url = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.html", pnum / 100, pnum);
                 string file = LocalDirectory.GetProblemHtml(pnum);
                 if (!reloadButton.Enabled || LocalDirectory.GetFileSize(file) < 100)
-                    Downloader.DownloadFileAsync(url, file, pnum,
-                        Internet.Priority.Normal, ProgressChanged, DownloadFinished);
+                    Downloader.DownloadStringAsync(url, pnum, Internet.Priority.Normal, ProgressChanged, DownloadFinished);
             }
             catch (Exception ex)
             {
@@ -206,10 +226,11 @@ namespace UVA_Arena.Elements
         private void DownloadFinished(DownloadTask task)
         {
             bool finish = false;
+            long pnum = (long)task.Token;
             if (task.Status != ProgressStatus.Completed) finish = true;
-            if (current == null || current.pnum != (long)task.Token) finish = true;
+            if (current == null || current.pnum != pnum) finish = true;
 
-            if (!finish)
+            if (!finish) //if no error occured
             {
                 string ext = Path.GetExtension(task.FileName);
                 if (ext == ".pdf")
@@ -220,9 +241,13 @@ namespace UVA_Arena.Elements
                 }
                 else if (ext == ".html")
                 {
-                    string file = LocalDirectory.GetProblemHtml(current.pnum);
+                    string file = LocalDirectory.GetProblemHtml(pnum);
+                    if (LocalDirectory.GetFileSize(task.TempFileName) > 100)
+                    {
+                        File.Copy(task.TempFileName, file, true);
+                    }
                     problemWebBrowser.Navigate(file);
-                    int cnt = DownloadContents(current.pnum);
+                    int cnt = DownloadContents(pnum);
                     if (cnt == 0) finish = true;
                 }
                 else
@@ -270,7 +295,7 @@ namespace UVA_Arena.Elements
         {
             if (current == null) return;
             CategoryChange cc = new CategoryChange(current);
-            if (cc.ShowDialog() == DialogResult.OK) ShowCurrentTags();
+            if (cc.ShowDialog() == DialogResult.OK) LoadTopBar();
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -333,8 +358,8 @@ namespace UVA_Arena.Elements
             if (current == null) return;
 
             List<long> fav = RegistryAccess.FavoriteProblems;
-            if (markButton.Checked) fav.Remove(current.pnum);
-            else if (!fav.Contains(current.pnum)) fav.Add(current.pnum);
+            if (current.marked) fav.Remove(current.pnum);
+            else fav.Add(current.pnum);
 
             RegistryAccess.FavoriteProblems = fav;
             markButton.Checked = !markButton.Checked;
@@ -342,11 +367,11 @@ namespace UVA_Arena.Elements
             current.marked = markButton.Checked;
 
             if (Interactivity.problems.favoriteButton.Checked)
-                Interactivity.problems.LoadFavorites();
+                Interactivity.problems.ShowFavorites();
         }
 
         private void markButton_CheckedChanged(object sender, EventArgs e)
-        {            
+        {
             markButton.Text = markButton.Checked ? "Unmark" : "Mark";
         }
 
@@ -480,34 +505,34 @@ namespace UVA_Arena.Elements
                     stop = UnixTimestamp.ToUnixTime(DateTime.Now);
                     format = "http://uhunt.felix-halim.net/api/p/subs/{0}/{1}/{2}"; //pid, unix time start, stop
                     url = string.Format(format, current.pid, start, stop);
-                    Interactivity.problems.SetStatus("Downoading submissions...");
+                    Interactivity.problems.SetStatus("Downloading submissions...");
                     break;
                 case SubViewType.Ranklist:
                     start = 1;
                     stop = (long)numericUpDown1.Value;
                     format = "http://uhunt.felix-halim.net/api/p/rank/{0}/{1}/{2}"; //pid, rank start, rank count
                     url = string.Format(format, current.pid, start, stop);
-                    Interactivity.problems.SetStatus("Downoading ranks...");
+                    Interactivity.problems.SetStatus("Downloading ranks...");
                     break;
                 case SubViewType.UsersRank:
                     start = stop = 10;
                     if (string.IsNullOrEmpty(uid)) return;
                     format = "http://uhunt.felix-halim.net/api/p/ranklist/{0}/{1}/{2}/{3}"; //pid, uid, before_count, after_count
                     url = string.Format(format, current.pid, uid, start, stop);
-                    Interactivity.problems.SetStatus("Downoading " + user + "'s rankdata...");
+                    Interactivity.problems.SetStatus("Downloading " + user + "'s rankdata...");
                     break;
                 case SubViewType.UsersSub:
                     if (string.IsNullOrEmpty(uid)) return;
                     format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/{2}"; //uid, pnum, last sid
                     url = string.Format(format, uid, current.pnum, 0);
-                    Interactivity.problems.SetStatus("Downoading " + user + "'s submission...");
+                    Interactivity.problems.SetStatus("Downloading " + user + "'s submission...");
                     break;
                 case SubViewType.Comapre:
                     List<string> uidcol = new List<string>();
                     foreach (var val in LocalDatabase.usernames.Values) uidcol.Add(val);
                     if (uidcol.Count == 0) return;
                     format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/0"; //uids(sep = comma), pnum
-                    url = string.Format(format, string.Join(",", uidcol.ToArray()), current.pnum, 0);
+                    url = string.Format(format, string.Join(",", uidcol.ToArray()), current.pnum);
                     Interactivity.problems.SetStatus("Comparing user's for this problem...");
                     break;
             }
@@ -517,7 +542,7 @@ namespace UVA_Arena.Elements
 
         private void dt_progressChanged(DownloadTask task)
         {
-            string status = string.Format("Downoading... [{0} of {1} received]",
+            string status = string.Format("Downloading... [{0} of {1} received]",
                Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
             Interactivity.problems.SetStatus(status);
             Interactivity.problems.Progress1.Value = task.ProgressPercentage;
@@ -588,7 +613,7 @@ namespace UVA_Arena.Elements
                     break;
                 case SubViewType.Ranklist:
                     submissionStatus.Sort(rankSUB, SortOrder.Ascending);
-                    subListLabel.Text = "Ranklist of this problem showing first " +
+                    subListLabel.Text = "Rank-list of this problem displaying first " +
                         numericUpDown1.Value.ToString() + "' users.";
                     break;
                 case SubViewType.UsersRank:
@@ -601,11 +626,9 @@ namespace UVA_Arena.Elements
                     break;
                 case SubViewType.Comapre:
                     submissionStatus.BuildGroups(unameSUB, SortOrder.Ascending);
-                    subListLabel.Text = "Comparision between all users on this problem";
+                    subListLabel.Text = "Comparison between all users in this problem";
                     break;
             }
-
-            System.GC.Collect();
         }
 
         //

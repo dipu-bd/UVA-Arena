@@ -7,15 +7,15 @@ namespace UVA_Arena.Structures
     public class ContextBook
     {
         public string title { get; set; }
-        public List<SubGroup> arr { get; set; }
+        public List<SubGroup> arr { get; private set; }
         public class SubGroup
         {
             public string title { get; set; }
-            public List<List<object>> arr { get; set; }            
+            public List<List<object>> arr { get; private set; }            
         }
 
 
-        private void AddCategory(ProblemInfo pinfo, string cat)
+        private static void AddCategory(ProblemInfo pinfo, string cat)
         {
             if(!pinfo.tags.Contains(cat))
             {

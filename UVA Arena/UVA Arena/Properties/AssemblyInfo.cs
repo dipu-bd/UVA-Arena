@@ -1,11 +1,12 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("UVA Arena")]
-[assembly: AssemblyDescription("UVA Arena is a windows based software to practice your programming skills. It is based on Felix Halim's uHunt API.")]
+[assembly: AssemblyDescription("UVA Arena is a programming practice tool")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sand Soft Inc.")]
 [assembly: AssemblyProduct("UVA Arena")]
@@ -32,4 +33,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")] 
+[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: NeutralResourcesLanguageAttribute("en")]

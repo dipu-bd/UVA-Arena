@@ -211,23 +211,7 @@ namespace UVA_Arena
             CreateFile(file);
             return file;
         }
-
-        /// <summary> get accepted problems of uid </summary>
-        public static string GetAcceptedOf(string uid)
-        {
-            string path = Path.Combine(DefaultPath, "Accepted List");
-            string file = Path.Combine(path, uid);
-            if (!File.Exists(file)) return "[]";
-            return File.ReadAllText(file);
-        }
-        /// <summary> set accepted problems of uid </summary>
-        public static void SetAcceptedOf(string uid, string data)
-        {
-            string path = Path.Combine(DefaultPath, "Accepted List");
-            string file = Path.Combine(path, uid);
-            CreateDirectory(path);
-            File.WriteAllText(file, data);
-        }
+         
 
         /// <summary> returns the file path where log could be stored </summary>
         public static string GetLogFile()

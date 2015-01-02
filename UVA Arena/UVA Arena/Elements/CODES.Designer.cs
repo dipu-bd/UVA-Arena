@@ -49,13 +49,13 @@
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.inputFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.changeDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formatDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.collapseAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.codeboxContext = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -79,7 +79,7 @@
             this.cancelBrowseButton = new System.Windows.Forms.Button();
             this.problemListContainer = new System.Windows.Forms.TableLayoutPanel();
             this.searchBox1 = new UVA_Arena.Custom.SearchBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.plistPanel = new System.Windows.Forms.Panel();
             this.plistLabel = new System.Windows.Forms.Label();
             this.folderTreeView = new System.Windows.Forms.NativeTreeView();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
@@ -131,6 +131,8 @@
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.copyOutputTool = new System.Windows.Forms.ToolStripButton();
             this.saveOutputTool = new System.Windows.Forms.ToolStripButton();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.loadDefaultInput = new System.Windows.Forms.Button();
             this.compareTAB = new System.Windows.Forms.TabPage();
             this.compareContainer = new System.Windows.Forms.CustomSplitContainer();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -183,10 +185,8 @@
             this.CurColLabel = new System.Windows.Forms.ToolStripLabel();
             this.CurLnLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.filenamePanel = new System.Windows.Forms.Panel();
             this.fileNameLabel = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.loadDefaultInput = new System.Windows.Forms.Button(); 
             this.folderTreeContext.SuspendLayout();
             this.newContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
@@ -197,7 +197,7 @@
             this.selectDirectoryPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.problemListContainer.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.plistPanel.SuspendLayout();
             this.toolStrip3.SuspendLayout();
             this.compilerSplitContainer1.Panel1.SuspendLayout();
             this.compilerSplitContainer1.Panel2.SuspendLayout();
@@ -218,6 +218,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.outputTextBox)).BeginInit();
             this.outputContext.SuspendLayout();
             this.ouputToolBar.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.compareTAB.SuspendLayout();
             this.compareContainer.Panel1.SuspendLayout();
             this.compareContainer.Panel2.SuspendLayout();
@@ -236,8 +237,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.compilerOutput)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.BottomToolbar.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.filenamePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // folderTreeContext
@@ -325,7 +325,7 @@
             this.inputFileToolStripMenuItem,
             this.outputFileToolStripMenuItem});
             this.newContextMenu.Name = "newContextMenu";
-            this.newContextMenu.OwnerItem = this.toolStripButton2;
+            this.newContextMenu.OwnerItem = this.newToolStripMenuItem;
             this.newContextMenu.Size = new System.Drawing.Size(151, 192);
             // 
             // folderToolStripMenuItem
@@ -403,6 +403,15 @@
             this.outputFileToolStripMenuItem.Text = "Output File";
             this.outputFileToolStripMenuItem.Click += new System.EventHandler(this.outputFileToolStripMenuItem_Click);
             // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DropDown = this.newContextMenu;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(60, 22);
+            this.toolStripButton2.Text = "New";
+            // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
@@ -442,15 +451,6 @@
             this.refreshToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshTool_Click);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DropDown = this.newContextMenu;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(60, 22);
-            this.toolStripButton2.Text = "New";
             // 
             // imageList1
             // 
@@ -597,7 +597,7 @@
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(210)))), ((int)(((byte)(225)))));
             this.splitContainer1.Panel2.Controls.Add(this.compilerSplitContainer1);
             this.splitContainer1.Panel2.Controls.Add(this.BottomToolbar);
-            this.splitContainer1.Panel2.Controls.Add(this.panel2);
+            this.splitContainer1.Panel2.Controls.Add(this.filenamePanel);
             this.splitContainer1.Size = new System.Drawing.Size(820, 450);
             this.splitContainer1.SplitterDistance = 200;
             this.splitContainer1.TabIndex = 0;
@@ -674,7 +674,7 @@
             this.problemListContainer.ColumnCount = 1;
             this.problemListContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.problemListContainer.Controls.Add(this.searchBox1, 0, 3);
-            this.problemListContainer.Controls.Add(this.panel1, 0, 0);
+            this.problemListContainer.Controls.Add(this.plistPanel, 0, 0);
             this.problemListContainer.Controls.Add(this.folderTreeView, 0, 2);
             this.problemListContainer.Controls.Add(this.toolStrip3, 0, 1);
             this.problemListContainer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -706,18 +706,19 @@
             this.searchBox1.SearchButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchButtonClicked);
             this.searchBox1.ClearButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_ClearButtonClicked);
             // 
-            // panel1
+            // plistPanel
             // 
-            this.panel1.Controls.Add(this.plistLabel);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(1, 1);
-            this.panel1.Margin = new System.Windows.Forms.Padding(1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(198, 26);
-            this.panel1.TabIndex = 4;
+            this.plistPanel.Controls.Add(this.plistLabel);
+            this.plistPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plistPanel.Location = new System.Drawing.Point(1, 1);
+            this.plistPanel.Margin = new System.Windows.Forms.Padding(1);
+            this.plistPanel.Name = "plistPanel";
+            this.plistPanel.Size = new System.Drawing.Size(198, 26);
+            this.plistPanel.TabIndex = 4;
             // 
             // plistLabel
             // 
+            this.plistLabel.BackColor = System.Drawing.Color.Transparent;
             this.plistLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.plistLabel.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.plistLabel.ForeColor = System.Drawing.Color.Navy;
@@ -1170,7 +1171,7 @@
             this.inputTextBox.AutoIndent = false;
             this.inputTextBox.AutoIndentChars = false;
             this.inputTextBox.AutoIndentExistingLines = false;
-            this.inputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.inputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
             this.inputTextBox.BackBrush = null;
             this.inputTextBox.BackColor = System.Drawing.Color.Snow;
             this.inputTextBox.CharHeight = 14;
@@ -1179,7 +1180,6 @@
             this.inputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.inputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.inputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.inputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.inputTextBox.Hotkeys = resources.GetString("inputTextBox.Hotkeys");
             this.inputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.inputTextBox.IsReplaceMode = false;
@@ -1279,7 +1279,7 @@
             this.outputTextBox.AutoIndent = false;
             this.outputTextBox.AutoIndentChars = false;
             this.outputTextBox.AutoIndentExistingLines = false;
-            this.outputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.outputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
             this.outputTextBox.BackBrush = null;
             this.outputTextBox.BackColor = System.Drawing.Color.MintCream;
             this.outputTextBox.CharHeight = 14;
@@ -1288,7 +1288,6 @@
             this.outputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.outputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.outputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.outputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.outputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.outputTextBox.IsReplaceMode = false;
             this.outputTextBox.Location = new System.Drawing.Point(3, 25);
@@ -1365,6 +1364,26 @@
             this.saveOutputTool.Size = new System.Drawing.Size(23, 19);
             this.saveOutputTool.Text = "Save To File";
             this.saveOutputTool.Click += new System.EventHandler(this.saveOutputTool_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.loadDefaultInput);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(1, 243);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(606, 30);
+            this.panel4.TabIndex = 3;
+            // 
+            // loadDefaultInput
+            // 
+            this.loadDefaultInput.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.loadDefaultInput.Location = new System.Drawing.Point(3, 1);
+            this.loadDefaultInput.Name = "loadDefaultInput";
+            this.loadDefaultInput.Size = new System.Drawing.Size(150, 28);
+            this.loadDefaultInput.TabIndex = 1;
+            this.loadDefaultInput.Text = "Load Default";
+            this.loadDefaultInput.UseVisualStyleBackColor = true;
+            this.loadDefaultInput.Click += new System.EventHandler(this.loadDefaultInput_Click);
             // 
             // compareTAB
             // 
@@ -1486,7 +1505,7 @@
             this.correctOutputTextBox.AutoIndent = false;
             this.correctOutputTextBox.AutoIndentChars = false;
             this.correctOutputTextBox.AutoIndentExistingLines = false;
-            this.correctOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.correctOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
             this.correctOutputTextBox.BackBrush = null;
             this.correctOutputTextBox.BackColor = System.Drawing.Color.Snow;
             this.correctOutputTextBox.CharHeight = 14;
@@ -1495,7 +1514,6 @@
             this.correctOutputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.correctOutputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.correctOutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.correctOutputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.correctOutputTextBox.Hotkeys = resources.GetString("correctOutputTextBox.Hotkeys");
             this.correctOutputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.correctOutputTextBox.IsReplaceMode = false;
@@ -1596,7 +1614,7 @@
             this.progOutputTextBox.AutoIndent = false;
             this.progOutputTextBox.AutoIndentChars = false;
             this.progOutputTextBox.AutoIndentExistingLines = false;
-            this.progOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.progOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
             this.progOutputTextBox.BackBrush = null;
             this.progOutputTextBox.BackColor = System.Drawing.Color.MintCream;
             this.progOutputTextBox.CharHeight = 14;
@@ -1604,7 +1622,6 @@
             this.progOutputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.progOutputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.progOutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progOutputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.progOutputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.progOutputTextBox.IsReplaceMode = false;
             this.progOutputTextBox.Location = new System.Drawing.Point(3, 25);
@@ -1826,7 +1843,8 @@
             // 
             // toolStrip1
             // 
-            this.toolStrip1.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.toolStrip1.BackColor = System.Drawing.Color.LightBlue;
+            this.toolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel3,
@@ -1947,22 +1965,22 @@
             this.precodeToolButton.Image = global::UVA_Arena.Properties.Resources.code;
             this.precodeToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.precodeToolButton.Name = "precodeToolButton";
-            this.precodeToolButton.Size = new System.Drawing.Size(82, 22);
-            this.precodeToolButton.Text = "Precode";
+            this.precodeToolButton.Size = new System.Drawing.Size(89, 22);
+            this.precodeToolButton.Text = "Pre-Code";
             this.precodeToolButton.ButtonClick += new System.EventHandler(this.precodeToolButton_ButtonClick);
             // 
             // loadPrecodeToolStripMenuItem
             // 
             this.loadPrecodeToolStripMenuItem.Name = "loadPrecodeToolStripMenuItem";
-            this.loadPrecodeToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.loadPrecodeToolStripMenuItem.Text = "Load Precode";
+            this.loadPrecodeToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.loadPrecodeToolStripMenuItem.Text = "Load Pre-Code";
             this.loadPrecodeToolStripMenuItem.Click += new System.EventHandler(this.precodeToolButton_ButtonClick);
             // 
             // changePrecodesToolStripMenuItem
             // 
             this.changePrecodesToolStripMenuItem.Name = "changePrecodesToolStripMenuItem";
-            this.changePrecodesToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.changePrecodesToolStripMenuItem.Text = "Change Precodes";
+            this.changePrecodesToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.changePrecodesToolStripMenuItem.Text = "Change Pre-Codes";
             this.changePrecodesToolStripMenuItem.Click += new System.EventHandler(this.changePrecodesToolStripMenuItem_Click);
             // 
             // toolStripSeparator14
@@ -1993,18 +2011,19 @@
             this.toolStripSeparator16.Name = "toolStripSeparator16";
             this.toolStripSeparator16.Size = new System.Drawing.Size(6, 25);
             // 
-            // panel2
+            // filenamePanel
             // 
-            this.panel2.Controls.Add(this.fileNameLabel);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(1);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(616, 35);
-            this.panel2.TabIndex = 0;
+            this.filenamePanel.Controls.Add(this.fileNameLabel);
+            this.filenamePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.filenamePanel.Location = new System.Drawing.Point(0, 0);
+            this.filenamePanel.Margin = new System.Windows.Forms.Padding(1);
+            this.filenamePanel.Name = "filenamePanel";
+            this.filenamePanel.Size = new System.Drawing.Size(616, 35);
+            this.filenamePanel.TabIndex = 0;
             // 
             // fileNameLabel
             // 
+            this.fileNameLabel.BackColor = System.Drawing.Color.Transparent;
             this.fileNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fileNameLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fileNameLabel.ForeColor = System.Drawing.Color.Navy;
@@ -2016,26 +2035,6 @@
             this.fileNameLabel.TabIndex = 2;
             this.fileNameLabel.Text = "No Opened File";
             this.fileNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.loadDefaultInput); 
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(1, 243);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(606, 30);
-            this.panel4.TabIndex = 3;
-            // 
-            // loadDefaultInput
-            // 
-            this.loadDefaultInput.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.loadDefaultInput.Location = new System.Drawing.Point(3, 1);
-            this.loadDefaultInput.Name = "loadDefaultInput";
-            this.loadDefaultInput.Size = new System.Drawing.Size(150, 28);
-            this.loadDefaultInput.TabIndex = 1;
-            this.loadDefaultInput.Text = "Load Default";
-            this.loadDefaultInput.UseVisualStyleBackColor = true;
-            this.loadDefaultInput.Click += new System.EventHandler(this.loadDefaultInput_Click); 
             // 
             // CODES
             // 
@@ -2061,7 +2060,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.problemListContainer.ResumeLayout(false);
             this.problemListContainer.PerformLayout();
-            this.panel1.ResumeLayout(false);
+            this.plistPanel.ResumeLayout(false);
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
             this.compilerSplitContainer1.Panel1.ResumeLayout(false);
@@ -2090,6 +2089,7 @@
             this.outputContext.ResumeLayout(false);
             this.ouputToolBar.ResumeLayout(false);
             this.ouputToolBar.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.compareTAB.ResumeLayout(false);
             this.compareContainer.Panel1.ResumeLayout(false);
             this.compareContainer.Panel2.ResumeLayout(false);
@@ -2117,8 +2117,7 @@
             this.toolStrip1.PerformLayout();
             this.BottomToolbar.ResumeLayout(false);
             this.BottomToolbar.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
+            this.filenamePanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2128,7 +2127,7 @@
         private System.Windows.Forms.CustomSplitContainer splitContainer1;
         private System.Windows.Forms.TableLayoutPanel problemListContainer;
         private Custom.SearchBox searchBox1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel plistPanel;
         private System.Windows.Forms.Label plistLabel;
         private System.Windows.Forms.ContextMenuStrip folderTreeContext;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
@@ -2136,7 +2135,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button cancelBrowseButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel filenamePanel;
         private System.Windows.Forms.Label fileNameLabel;
         private System.Windows.Forms.CustomSplitContainer IOContainer1;
         private System.Windows.Forms.ToolStrip TopToolBar;
@@ -2205,7 +2204,6 @@
         public System.Windows.Forms.Button browseFolderButton;
         public FastColoredTextBoxNS.FastColoredTextBox codeTextBox;
         private System.Windows.Forms.CustomSplitContainer compilerSplitContainer1;
-        private FastColoredTextBoxNS.FastColoredTextBox compilerOutput;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripButton showHideOutput;
@@ -2281,7 +2279,8 @@
         private System.Windows.Forms.ToolStripStatusLabel status1;
         private System.Windows.Forms.ToolStripProgressBar progress1;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Button loadDefaultInput; 
+        private System.Windows.Forms.Button loadDefaultInput;
+        public FastColoredTextBoxNS.FastColoredTextBox compilerOutput; 
 
     }
 }

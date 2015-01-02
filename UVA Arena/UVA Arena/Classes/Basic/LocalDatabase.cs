@@ -16,7 +16,6 @@ namespace UVA_Arena
         public static Dictionary<long, List<ProblemInfo>> problem_vol;
         public static Dictionary<string, List<ProblemInfo>> problem_cat;
         public static Dictionary<string, string> usernames;
-        public static List<ProblemInfo> favorite_list;
 
         #region Loader Functions
 
@@ -41,31 +40,33 @@ namespace UVA_Arena
                 //load new problem list
                 string text = File.ReadAllText(LocalDirectory.GetProblemDataFile());
                 List<List<string>> data = JsonConvert.DeserializeObject<List<List<string>>>(text);
-                if (data == null || data.Count == 0) throw new Exception("Problem database was empty");
+                if (data == null || data.Count == 0)
+                    throw new NullReferenceException("Problem database was empty");
 
                 LoadList(data);
                 LoadOthers();
                 data.Clear();
 
                 IsReady = true;
-                LoadDefaultUser();                 
+                LoadDefaultUser();
             }
             catch (Exception ex)
             {
-                Logger.Add(ex.Message, "Problem Database");
+                Logger.Add(ex.Message, "Problem Database|RunLoadAsync()");
             }
 
             IsReady = true;
             Interactivity.ProblemDatabaseUpdated();
-            System.GC.Collect();
         }
 
         private static void LoadList(List<List<string>> datalist)
         {
             //set values 
             problem_list = new List<ProblemInfo>();
-            List<long> DacuAll = new List<long>();
-            Dictionary<int, long> MaxDacu = new Dictionary<int, long>();
+            problem_id = new Dictionary<long, long>();
+            problem_num = new Dictionary<long, ProblemInfo>();
+            problem_vol = new Dictionary<long, List<ProblemInfo>>();
+            problem_cat = new Dictionary<string, List<ProblemInfo>>();
 
             //Load problem from list
             foreach (List<string> lst in datalist)
@@ -73,36 +74,6 @@ namespace UVA_Arena
                 ProblemInfo plist = new ProblemInfo(lst);
                 problem_list.Add(plist);
 
-                if (!DacuAll.Contains(plist.dacu)) DacuAll.Add(plist.dacu);
-                if (!MaxDacu.ContainsKey(plist.volume)) MaxDacu.Add(plist.volume, 0);
-                MaxDacu[plist.volume] = Math.Max(MaxDacu[plist.volume], plist.dacu);
-            }
-
-            //set problem level
-            DacuAll.Sort();
-            const double r = 0.4;
-            double N = DacuAll.Count;
-            foreach (ProblemInfo plist in problem_list)
-            {
-                double d = DacuAll.IndexOf(plist.dacu);
-                double m = DacuAll.IndexOf(MaxDacu[plist.volume]);
-                double rank = r * (1 - d / N) + (1 - r) * (m - d) / N;
-                plist.level = 1 + (int)(rank * 10);
-                if (plist.level > 10) plist.level = 10;
-            }
-
-            DacuAll.Clear();
-            MaxDacu.Clear();
-        }
-
-        private static void LoadOthers()
-        {
-            problem_id = new Dictionary<long, long>();
-            problem_num = new Dictionary<long, ProblemInfo>();
-            problem_vol = new Dictionary<long, List<ProblemInfo>>();
-            problem_cat = new Dictionary<string, List<ProblemInfo>>();
-            foreach (ProblemInfo plist in problem_list)
-            {
                 SetProblem(plist.pnum, plist);
                 SetNumber(plist.pid, plist.pnum);
                 GetVolume(plist.volume).Add(plist);
@@ -111,17 +82,57 @@ namespace UVA_Arena
                     GetCategory(cat).Add(plist);
                 }
             }
-            
-            favorite_list = new List<ProblemInfo>();
-            foreach(long pnum in RegistryAccess.FavoriteProblems)
+        }
+
+        private static void LoadOthers()
+        {
+            if (problem_list.Count <= 10) return;
+
+            //set favorites
+            foreach (long pnum in RegistryAccess.FavoriteProblems)
             {
-                if(HasProblem(pnum))
+                if (HasProblem(pnum))
                 {
-                    ProblemInfo prob = GetProblem(pnum);
-                    prob.marked = true;
-                    favorite_list.Add(prob);
+                    GetProblem(pnum).marked = true;
                 }
             }
+
+            //get all dacu
+            SortedList<long, int> AllDacu = new SortedList<long, int>();
+            foreach (ProblemInfo plist in problem_list)
+            {
+                if (AllDacu.ContainsKey(plist.dacu))
+                    AllDacu[plist.dacu] += 1;
+                else
+                    AllDacu.Add(plist.dacu, 1);
+            }
+
+            //cumulative sum of all dacu
+            int last = 0;
+            Dictionary<long, int> position = new Dictionary<long, int>();
+            foreach (long key in AllDacu.Keys)
+            {
+                last += AllDacu[key];
+                position.Add(key, last);
+            }
+            AllDacu.Clear();
+
+            //set problem level 
+            int product = problem_list.Count / 10;
+            foreach (ProblemInfo plist in problem_list)
+            {
+                double rank = 10 * (1 - (double)position[plist.dacu] / problem_list.Count);
+                if (position[plist.dacu] + 50 > problem_list.Count) rank -= 1;
+                else if (position[plist.dacu] + 100 > problem_list.Count) rank -= 0.5;
+
+                double ac = plist.total <= 0 ? 0 : (double)plist.ac / plist.total;
+                if (ac > 0.6) rank -= 1;
+                else if (ac > 0.4) rank -= 0.5;
+                if (2 * ac < 1 && position[plist.dacu] + 100 < problem_list.Count)
+                    rank += 2 * (1 - 2 * ac);                
+                plist.level = 2 + rank;
+            }
+            position.Clear();
         }
 
         public static void LoadDefaultUser()
@@ -182,7 +193,7 @@ namespace UVA_Arena
         {
             if (!HasProblem(pnum)) return null;
             return problem_num[pnum];
-        } 
+        }
 
         /// <summary> Get problem title for given problem number </summary>
         public static string GetTitle(long pnum)

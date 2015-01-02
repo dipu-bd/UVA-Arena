@@ -31,9 +31,11 @@ namespace UVA_Arena
             string title = "Input Form",
             int width = 450, int height = 130)
         {
-            InputForm inf = new InputForm(description, deftext, title, width, height);
-            if (inf.ShowDialog() == DialogResult.OK) return inf.Text;
-            return deftext;
+            using (InputForm inf = new InputForm(description, deftext, title, width, height))
+            {
+                if (inf.ShowDialog() == DialogResult.OK) return inf.Text;
+                return deftext;
+            }
         }
 
         public override string Text

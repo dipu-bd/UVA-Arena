@@ -1,5 +1,5 @@
-G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\Ionic.Zip.dll
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\Ionic.BZip2.dll
+G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\Ionic.Zip.dll
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\Ionic.Zlib.dll
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\License.txt
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\unzip\Readme.txt
@@ -24,6 +24,7 @@ G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Elements.ST
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Elements.UserProgTracker.resources
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Elements.USER_STAT.resources
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Elements.UTILITIES.resources
+G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.CategoryChange.resources
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.CodeFileCreator.resources
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.DownloadAllForm.resources
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.HelpAbout.resources
@@ -41,4 +42,4 @@ G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.application
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.exe
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.pdb
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csprojResolveAssemblyReference.cache
-G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.CategoryChange.resources
+G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.Elements.CompareUsers.resources

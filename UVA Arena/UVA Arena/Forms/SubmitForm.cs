@@ -28,15 +28,15 @@ namespace UVA_Arena
         private Language lang;
         private const string QUICK = "http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=25";
 
-        public void LoadSubmit(long pnum, string code = null, Language lang = Language.CPP)
+        public void LoadSubmit(long prob_num, string source_code = null, Language language = Language.CPP)
         {
-            this.pnum = pnum;
-            this.code = code;
-            this.lang = lang;
+            this.pnum = prob_num;
+            this.code = source_code;
+            this.lang = language;
 
             //submit problem
-            if(!ProcessPage())
-                webBrowser1.Navigate(QUICK); 
+            if (!ProcessPage())
+                webBrowser1.Navigate(QUICK);
         }
 
         private bool ProcessPage()
@@ -115,7 +115,7 @@ namespace UVA_Arena
 
             //check if a submission occured            
             string msg = "mosmsg=Submission+received+with+ID+";
-            if(url.Contains(msg))
+            if (url.Contains(msg))
             {
                 int tmp;
                 url = url.Substring(url.IndexOf(msg) + msg.Length);
@@ -126,7 +126,7 @@ namespace UVA_Arena
                 }
                 else
                 {
-                    MessageBox.Show("Submission Error", "Submit Problem", 
+                    MessageBox.Show("Submission Error", "Submit Problem",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }

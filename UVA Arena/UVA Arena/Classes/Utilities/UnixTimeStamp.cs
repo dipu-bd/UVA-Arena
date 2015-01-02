@@ -14,7 +14,7 @@ namespace UVA_Arena
         /// returns difference between current and given unix-time 
         /// </summary>
         public static TimeSpan GetTimeSpan(long unix_time)
-        { 
+        {
             long diff = CurrentTime - (unix_time + UnixTimeError);
             if (diff < 0)
             {
@@ -27,12 +27,16 @@ namespace UVA_Arena
         public static string FormatUnixTime(long unix_time)
         {
             TimeSpan span = GetTimeSpan(unix_time);
-            string msg = Functions.FormatTimeSpan(span) + " ago";
-            if (span.Days > 10)
+            if (span.TotalHours < 12)
             {
-                msg = string.Format("{0} ({1})", FromUnixTime(unix_time), msg);
+                return Functions.FormatTimeSpan(span) + " ago";
             }
-            return msg;
+            else
+            {
+                return string.Format("{0} ago ({1:dd-MMM-yyyy hh:mm tt})",
+                    Functions.FormatTimeSpan(span),
+                    FromUnixTime(unix_time));
+            }
         }
 
         /// <summary>
@@ -40,7 +44,7 @@ namespace UVA_Arena
         /// </summary>
         public static DateTime FromUnixTime(long unix, bool err_fixed = true)
         {
-            if (err_fixed) unix += UnixTimeError;            
+            if (err_fixed) unix += UnixTimeError;
             return EPOCH.AddSeconds(unix).ToLocalTime();
         }
 
@@ -56,7 +60,6 @@ namespace UVA_Arena
         public static long CurrentTime
         {
             get { return ToUnixTime(DateTime.UtcNow); }
-            private set { }
         }
     }
 }

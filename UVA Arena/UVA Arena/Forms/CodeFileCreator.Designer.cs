@@ -192,7 +192,7 @@
             this.MinimizeBox = false;
             this.Name = "CodeFileCreator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Select a Langauge";
+            this.Text = "Select a language";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

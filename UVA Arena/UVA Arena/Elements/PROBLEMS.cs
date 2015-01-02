@@ -21,9 +21,10 @@ namespace UVA_Arena.Elements
         {
             InitializeComponent();
 
-            //initialize aspect values of problem list
+            //other initial codes
             SetAspectValues();
-            CustomStatusButton.Initialize(updateToolButton);
+            problemListView.MakeColumnSelectMenu(problemContextMenu);
+            mainSplitContainer.SplitterDistance = 7 * mainSplitContainer.Width / 20;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -31,11 +32,13 @@ namespace UVA_Arena.Elements
             base.OnLoad(e);
 
             //load volume and problems data at once
-            Interactivity.ProblemDatabaseUpdated();
-            problemListView.MakeColumnSelectMenu(problemContextMenu);
+            if (LocalDatabase.IsReady)
+                Interactivity.ProblemDatabaseUpdated();
+
+            CustomStatusButton.Initialize(updateToolButton);
 
             Stylish.SetGradientBackground(plistLabel,
-                new Stylish.GradientStyle(Color.LightBlue, Color.LightCyan, 45F));
+                new Stylish.GradientStyle(Color.LightBlue, Color.LightCyan, 60F));
         }
 
         public bool ExpandCollapseView()
@@ -55,48 +58,27 @@ namespace UVA_Arena.Elements
             return val;
         }
 
-        private void SetAspectValues()
+        public void RefreshProblemList()
         {
-            pnumProb.GroupKeyGetter = delegate(object row)
+            if (plistLabel.Tag == null)
             {
-                return ((ProblemInfo)row).volume;
-            };
-            pnumProb.GroupKeyToTitleConverter = delegate(object key)
+                if (favoriteButton.Checked)
+                {
+                    if (hideAccepted.Checked)
+                        hideAccepted.Checked = false;
+                }
+                else
+                {
+                    ShowAllProblems();
+                }
+            }
+            else
             {
-                return string.Format("Volume {0:000}", key);
-            };
-
-            levelProb.AspectGetter = delegate(object row)
-            {
-                ProblemInfo pl = (ProblemInfo)row;
-                return string.Format("{0:00}{1}", pl.level, pl.levelstar);
-            };
-            levelProb.AspectToStringConverter = delegate(object key)
-            {
-                string txt = (string)key;
-                if (txt[0] == '0') txt = txt.Remove(0, 1);
-                return txt;
-            };
-            levelProb.GroupKeyToTitleConverter = delegate(object key)
-            {
-                string txt = levelProb.AspectToStringConverter(key);
-                return string.Format("Level {0}", txt);
-            };
-
-            rtlProb.AspectToStringConverter = delegate(object key)
-            {
-                return Functions.FormatRuntime((long)key);
-            };
-            runProb.AspectToStringConverter = delegate(object key)
-            {
-                if ((long)key < 0) return "(?)";
-                else return Functions.FormatRuntime((long)key);
-            };
-            memProb.AspectToStringConverter = delegate(object key)
-            {
-                if ((long)key < 0) return "(512MB)";
-                else return Functions.FormatMemory((long)key);
-            };
+                if (plistLabel.Tag.GetType() == typeof(long))
+                    ShowVolume((long)plistLabel.Tag);
+                else
+                    ShowCategory((string)plistLabel.Tag);
+            }
         }
 
         #endregion
@@ -147,7 +129,7 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Problem List Loader
+        #region Problem Loader
 
         //
         // Loaders
@@ -172,8 +154,11 @@ namespace UVA_Arena.Elements
                 volumes.Add(cl);
             }
 
+
             categoryListView.SetObjects(volumes);
             categoryListView.Sort(0);
+
+            countVol.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         public void LoadCategory()
@@ -195,32 +180,50 @@ namespace UVA_Arena.Elements
                 cl.count = it.Current.Value.Count;
                 category.Add(cl);
             }
+            it.Dispose();
 
             categoryListView.SetObjects(category);
             categoryListView.Sort(0);
         }
 
-        public void LoadProblems()
+        #endregion
+
+        #region Show Problem List
+
+        //
+        // Show List of problems
+        //
+
+        public void ShowAllProblems()
         {
             searchBox1.SearchText = "";
             allProbButton.Checked = true;
             favoriteButton.Checked = false;
             plistLabel.Text = "All Problems";
+            plistLabel.Tag = null;
 
             if (LocalDatabase.problem_list == null) return;
 
-            problemListView.SetObjects(LocalDatabase.problem_list);
-            problemListView.Sort(0); //sort by volume when showing all problems
+            _SetObjects(LocalDatabase.problem_list, true);
         }
 
-        public void LoadFavorites()
+        public void ShowFavorites()
         {
             searchBox1.SearchText = "";
             allProbButton.Checked = false;
             favoriteButton.Checked = true;
             plistLabel.Text = "Marked Problems";
-             
-            problemListView.SetObjects(LocalDatabase.favorite_list);            
+            plistLabel.Tag = null;
+
+            List<ProblemInfo> favorite = new List<ProblemInfo>();
+            foreach (long pnum in RegistryAccess.FavoriteProblems)
+            {
+                if (LocalDatabase.HasProblem(pnum))
+                    favorite.Add(LocalDatabase.GetProblem(pnum));
+            }
+
+            hideAccepted.Checked = false;
+            problemListView.SetObjects(favorite);
         }
 
         public void ShowVolume(long vol)
@@ -228,13 +231,10 @@ namespace UVA_Arena.Elements
             searchBox1.SearchText = "";
             allProbButton.Checked = false;
             favoriteButton.Checked = false;
+            plistLabel.Tag = vol;
             plistLabel.Text = string.Format("Volume {0:000}", vol);
 
-            if (LocalDatabase.problem_vol == null) return;
-
-            problemListView.SetObjects(LocalDatabase.GetVolume(vol));
-            countVol.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
-            problemListView.Sort();
+            _SetObjects(LocalDatabase.GetVolume(vol));
         }
 
         public void ShowCategory(string cat)
@@ -244,14 +244,41 @@ namespace UVA_Arena.Elements
             searchBox1.SearchText = "";
             allProbButton.Checked = false;
             favoriteButton.Checked = false;
+            plistLabel.Tag = cat;
             plistLabel.Text = cat;
 
-            if (LocalDatabase.problem_cat == null) return;
-
-            problemListView.SetObjects(LocalDatabase.GetCategory(cat));
-            countVol.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
-            problemListView.Sort();
+            _SetObjects(LocalDatabase.GetCategory(cat));
         }
+
+        private void _SetObjects(List<ProblemInfo> list, bool regroup = false)
+        {
+            List<ProblemInfo> display = new List<ProblemInfo>();
+            problemListView.SetObjects(display);
+
+            if (list == null) return;
+
+            if (LocalDatabase.DefaultUser == null || !hideAccepted.Checked)
+            {
+                problemListView.SetObjects(list);
+            }
+            else
+            {
+                foreach (ProblemInfo prob in list)
+                {
+                    if (!LocalDatabase.DefaultUser.IsSolved(prob.pnum))
+                        display.Add(prob);
+                }
+                problemListView.SetObjects(display);
+            }
+
+            if (regroup) problemListView.Sort(0);
+            else problemListView.Sort();
+        }
+
+        #endregion
+
+        #region View Problem Events
+
 
         //
         // Radio Buttons
@@ -268,17 +295,25 @@ namespace UVA_Arena.Elements
 
         private void favoriteButton_Click(object sender, EventArgs e)
         {
-            if (!favoriteButton.Checked) LoadFavorites();
+            if (!favoriteButton.Checked) ShowFavorites();
         }
 
         private void allProbButton_Click(object sender, EventArgs e)
         {
-            if (!allProbButton.Checked) LoadProblems();
+            if (!allProbButton.Checked) ShowAllProblems();
         }
 
-        #endregion
+        private void hideAccepted_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshProblemList();
 
-        #region List View Events
+            //set text
+            int indx = hideAccepted.Checked?1:0;
+            string txt = (string)hideAccepted.Tag;
+            hideAccepted.Text = txt.Split(new char[] { '|' })[indx];
+        }
+
+
 
         //
         // Volume List Events
@@ -294,6 +329,10 @@ namespace UVA_Arena.Elements
                 ShowCategory((string)((CategoryList)sel).tag);
         }
 
+        #endregion
+
+        #region Problem and Catagory List View
+
         //
         // Problem List Events
         //
@@ -308,7 +347,9 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                if (e.ColumnToSort == pnumProb || e.ColumnToSort == levelProb)
+                if (e.ColumnToSort == pnumProb ||
+                    e.ColumnToSort == levelProb ||
+                    e.ColumnToSort == priorityProb)
                 {
                     problemListView.ShowGroups = true;
                 }
@@ -321,52 +362,36 @@ namespace UVA_Arena.Elements
         }
 
         //
-        // Filter Problem List
-        //
-        private void searchBox1_SearchTextChanged(object sender, EventArgs e)
-        {
-            if (searchBox1.SearchText.Length == 0)
-            {
-                problemListView.DefaultRenderer = null;
-                problemListView.AdditionalFilter = null;
-                allProbButton.Checked = true;
-                if (problemListView.Groups.Count > 0)
-                    problemListView.ShowGroups = true;
-            }
-            else
-            {
-                TextMatchFilter filter = new TextMatchFilter(problemListView,
-                    searchBox1.SearchText, StringComparison.OrdinalIgnoreCase);
-                allProbButton.Checked = false;
-                problemListView.ShowGroups = false;
-                problemListView.DefaultRenderer = new HighlightTextRenderer(filter);
-                if (!deepSearchCheckBox.Checked)
-                    problemListView.AdditionalFilter = filter;
-            }
-        }
-
-        //
-        // Filter Category and Volume list
-        //
-        private void searchBox2_SearchTextChanged(object sender, EventArgs e)
-        {
-            if (filterBox1.SearchText.Length == 0)
-            {
-                categoryListView.DefaultRenderer = null;
-                categoryListView.AdditionalFilter = null;
-            }
-            else
-            {
-                TextMatchFilter filter = new TextMatchFilter(categoryListView,
-                    filterBox1.SearchText, StringComparison.OrdinalIgnoreCase);
-                categoryListView.DefaultRenderer = new HighlightTextRenderer(filter);
-                categoryListView.AdditionalFilter = filter;
-            }
-        }
-
-        //
         // Listview formatter
         //
+
+        private void SetAspectValues()
+        {
+            pnumProb.GroupKeyGetter = delegate(object row)
+            {
+                return ((ProblemInfo)row).volume;
+            };
+            levelProb.GroupKeyGetter = delegate(object row)
+            {
+                return Math.Round(((ProblemInfo)row).level);
+            };
+            rtlProb.AspectToStringConverter = delegate(object key)
+            {
+                return Functions.FormatRuntime((long)key);
+            };
+            runProb.AspectToStringConverter = delegate(object key)
+            {
+                if ((long)key < 0) return "(?)";
+                else return Functions.FormatRuntime((long)key);
+            };
+            memProb.AspectToStringConverter = delegate(object key)
+            {
+                if ((long)key < 0) return "(512MB)";
+                else return Functions.FormatMemory((long)key);
+            };
+        }
+
+
         private void ListView_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
         {
             float size = 8.5F;
@@ -442,7 +467,7 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Problem List Context
+        #region  Context Menu
 
         private void problemContextMenu_Opening(object sender, CancelEventArgs e)
         {
@@ -452,8 +477,8 @@ namespace UVA_Arena.Elements
                 ProblemInfo pinfo = (ProblemInfo)problemListView.SelectedObject;
                 marked = pinfo.marked;
             }
-            if (marked) markAsFavoriteToolStripMenuItem.Text = "Remove From Favorite";
-            else markAsFavoriteToolStripMenuItem.Text = "Mark As Favorite";
+            if (marked) markAsFavorite.Text = "Remove From Favorite";
+            else markAsFavorite.Text = "Mark As Favorite";
         }
 
         //
@@ -500,7 +525,6 @@ namespace UVA_Arena.Elements
         private void markAsFavoriteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Interactivity.problemViewer.markButton.PerformClick();
-            markAsFavoriteToolStripMenuItem.Checked = Interactivity.problemViewer.markButton.Checked;
         }
 
         private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -515,7 +539,57 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Deep Search
+        #region Search and Filter
+
+
+        //
+        // Filter Problem List
+        //
+        private void searchBox1_SearchTextChanged(object sender, EventArgs e)
+        {
+            if (searchBox1.SearchText.Length == 0)
+            {
+                problemListView.DefaultRenderer = null;
+                problemListView.AdditionalFilter = null;
+                allProbButton.Checked = true;
+                if (problemListView.Groups.Count > 0)
+                    problemListView.ShowGroups = true;
+            }
+            else
+            {
+                TextMatchFilter filter = new TextMatchFilter(problemListView,
+                    searchBox1.SearchText, StringComparison.OrdinalIgnoreCase);
+                allProbButton.Checked = false;
+                problemListView.ShowGroups = false;
+                problemListView.DefaultRenderer = new HighlightTextRenderer(filter);
+                if (!deepSearchCheckBox.Checked)
+                    problemListView.AdditionalFilter = filter;
+            }
+        }
+
+        //
+        // Filter Category and Volume list
+        //
+        private void searchBox2_SearchTextChanged(object sender, EventArgs e)
+        {
+            if (filterBox1.SearchText.Length == 0)
+            {
+                categoryListView.DefaultRenderer = null;
+                categoryListView.AdditionalFilter = null;
+            }
+            else
+            {
+                TextMatchFilter filter = new TextMatchFilter(categoryListView,
+                    filterBox1.SearchText, StringComparison.OrdinalIgnoreCase);
+                categoryListView.DefaultRenderer = new HighlightTextRenderer(filter);
+                categoryListView.AdditionalFilter = filter;
+            }
+        }
+
+
+        //
+        // Deep Saerch
+        //
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {

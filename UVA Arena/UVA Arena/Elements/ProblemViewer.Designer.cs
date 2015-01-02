@@ -124,11 +124,11 @@
             this.tabControl1.Controls.Add(this.discussTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(0, 83);
+            this.tabControl1.Location = new System.Drawing.Point(0, 81);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(35, 6);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(800, 367);
+            this.tabControl1.Size = new System.Drawing.Size(800, 369);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -139,7 +139,7 @@
             this.descriptionTab.Controls.Add(this.toolStrip1);
             this.descriptionTab.Location = new System.Drawing.Point(4, 4);
             this.descriptionTab.Name = "descriptionTab";
-            this.descriptionTab.Size = new System.Drawing.Size(792, 333);
+            this.descriptionTab.Size = new System.Drawing.Size(792, 335);
             this.descriptionTab.TabIndex = 0;
             this.descriptionTab.Text = "Description";
             // 
@@ -150,7 +150,7 @@
             this.problemWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.problemWebBrowser.Name = "problemWebBrowser";
             this.problemWebBrowser.ScriptErrorsSuppressed = true;
-            this.problemWebBrowser.Size = new System.Drawing.Size(792, 295);
+            this.problemWebBrowser.Size = new System.Drawing.Size(792, 297);
             this.problemWebBrowser.TabIndex = 1;
             // 
             // toolStrip1
@@ -490,7 +490,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(192, 23);
             this.label5.TabIndex = 1;
-            this.label5.Text = "User Comparision";
+            this.label5.Text = "User Comparison";
             this.label5.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // compareUserButton
@@ -501,7 +501,7 @@
             this.compareUserButton.Name = "compareUserButton";
             this.compareUserButton.Size = new System.Drawing.Size(150, 26);
             this.compareUserButton.TabIndex = 14;
-            this.compareUserButton.Text = "Comapre Users";
+            this.compareUserButton.Text = "Compare Users";
             this.compareUserButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.compareUserButton.UseVisualStyleBackColor = true;
             this.compareUserButton.Click += new System.EventHandler(this.compareUserButton_Click);
@@ -853,7 +853,7 @@
             this.tableLayoutPanel1.Controls.Add(this.problemMessage, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.panel8, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(31, 2);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(31, 1);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -941,7 +941,7 @@
             // 
             this.expandCollapseButton.Dock = System.Windows.Forms.DockStyle.Left;
             this.expandCollapseButton.Image = global::UVA_Arena.Properties.Resources.prev;
-            this.expandCollapseButton.Location = new System.Drawing.Point(1, 2);
+            this.expandCollapseButton.Location = new System.Drawing.Point(1, 1);
             this.expandCollapseButton.Margin = new System.Windows.Forms.Padding(0);
             this.expandCollapseButton.Name = "expandCollapseButton";
             this.expandCollapseButton.Size = new System.Drawing.Size(30, 79);
@@ -969,8 +969,8 @@
             this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.TopPanel.Location = new System.Drawing.Point(0, 0);
             this.TopPanel.Name = "TopPanel";
-            this.TopPanel.Padding = new System.Windows.Forms.Padding(1, 2, 1, 2);
-            this.TopPanel.Size = new System.Drawing.Size(800, 83);
+            this.TopPanel.Padding = new System.Windows.Forms.Padding(1);
+            this.TopPanel.Size = new System.Drawing.Size(800, 81);
             this.TopPanel.TabIndex = 4;
             // 
             // ProblemViewer

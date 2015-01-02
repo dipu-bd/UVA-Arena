@@ -26,8 +26,8 @@ namespace UVA_Arena.Structures
         public string uid { get; set; }
         public long LastSID { get; set; }
 
-        public Dictionary<long, bool> TryList;
         public List<UserSubmission> submissions;
+        public Dictionary<long, UserSubmission> TryList;
         public Dictionary<long, UserSubmission> sidToSub;
 
         public string GetJSONData()
@@ -36,14 +36,14 @@ namespace UVA_Arena.Structures
             format += JsonConvert.SerializeObject(subs) + "}";
             return format;
         }
-         
+
         public void Process()
         {
             LastSID = 0;
             uid = LocalDatabase.GetUserid(uname);
 
-            TryList = new Dictionary<long, bool>();
             submissions = new List<UserSubmission>();
+            TryList = new Dictionary<long, UserSubmission>();
             sidToSub = new Dictionary<long, UserSubmission>();
 
             ProcessListData(subs);
@@ -59,7 +59,7 @@ namespace UVA_Arena.Structures
             uname = ui.uname;
             ProcessListData(ui.subs, true);
         }
-        
+
         public bool IsTried(long pnum)
         {
             return TryList.ContainsKey(pnum);
@@ -67,34 +67,41 @@ namespace UVA_Arena.Structures
 
         public bool IsSolved(long pnum)
         {
-            return IsTried(pnum) && TryList[pnum];
+            return IsTried(pnum) && TryList[pnum].IsAccepted();
         }
 
         public bool IsTriedButUnsolved(long pnum)
         {
-            return IsTried(pnum) && !TryList[pnum];
+            return IsTried(pnum) && !TryList[pnum].IsAccepted();
         }
 
-        private void SetTried(long pnum, bool acc = false)
+        private void SetTried(UserSubmission usub)
         {
-            if (IsTried(pnum)) 
-                TryList[pnum] = acc;
-            else
-                TryList.Add(pnum, acc);
+            if (!IsTried(usub.pnum))
+            {
+                TryList.Add(usub.pnum, usub);
+                return;
+            }
+
+            if (usub.IsInQueue()) return;
+            if (TryList[usub.pnum].rank <= 0 || TryList[usub.pnum].rank > usub.rank)
+            {
+                TryList[usub.pnum] = usub;
+            }
         }
-        
+
         private void ProcessListData(List<List<long>> allsub, bool addToDef = false)
         {
             if (subs == null) subs = new List<List<long>>();
 
-            bool sortneed = false;
+            bool needToSort = false;
             bool isdef = (this.uname == RegistryAccess.DefaultUsername);
             foreach (List<long> lst in allsub)
             {
                 UserSubmission usub = new UserSubmission(lst);
                 if (sidToSub.ContainsKey(usub.sid))
                 {
-                    if (usub.isInQueue()) continue;
+                    if (usub.IsInQueue()) continue;
                     submissions.Remove(sidToSub[usub.sid]);
                     sidToSub.Remove(usub.sid);
                 }
@@ -103,16 +110,16 @@ namespace UVA_Arena.Structures
                 usub.uname = uname;
                 submissions.Add(usub);
                 sidToSub.Add(usub.sid, usub);
-                sortneed = true;
+                needToSort = true;
 
-                if (!usub.isInQueue())
+                if (!usub.IsInQueue())
                 {
                     if (addToDef) subs.Add(lst);
                     if (this.LastSID < usub.sid) this.LastSID = usub.sid;
                 }
-                 
-                SetTried(usub.pnum, usub.IsAccepted());
-                if (isdef && usub.IsAccepted() && IsSolved(usub.pnum))
+
+                SetTried(usub);
+                if (isdef && IsSolved(usub.pnum))
                 {
                     ProblemInfo prob = LocalDatabase.GetProblem(usub.pnum);
                     if (prob != null) prob.solved = true;
@@ -120,7 +127,7 @@ namespace UVA_Arena.Structures
             }
 
             //sort by sid
-            if (sortneed)
+            if (needToSort)
             {
                 submissions.Sort((Comparison<UserSubmission>)
                    delegate(UserSubmission a, UserSubmission b)

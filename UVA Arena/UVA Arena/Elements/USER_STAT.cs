@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Data;
 using System.Text;
+using System.Net;
 using System.Windows.Forms;
 using UVA_Arena.Structures;
 using UVA_Arena.Internet;
@@ -14,12 +15,18 @@ namespace UVA_Arena.Elements
 {
     public partial class USER_STAT : UserControl
     {
+
         #region Top Level
+
+        private WebClient webClient1 = new WebClient();
 
         public USER_STAT()
         {
             InitializeComponent();
+            webClient1.DownloadProgressChanged += webClient1_DownloadProgressChanged;
+            webClient1.DownloadDataCompleted += webClient1_DownloadDataCompleted;
         }
+
 
         protected override void OnLoad(EventArgs e)
         {
@@ -203,7 +210,7 @@ namespace UVA_Arena.Elements
             {
                 Internet.Downloader.DownloadUserid(user, username_completed);
                 usernameButton.UseWaitCursor = true;
-                usernameStatus.Text = "Getting userid...";
+                usernameStatus.Text = "Getting user-id...";
             }
         }
 
@@ -284,12 +291,7 @@ namespace UVA_Arena.Elements
 
             if (tabControl1.SelectedTab == submissionTab)
             {
-                if ((string)submissionTab.Tag != currentUser.uid ||
-                    lastSubmissions1.Items.Count == 0)
-                {
-                    SetSubmissionToListView();
-                    submissionTab.Tag = currentUser.uid;
-                }
+                SetSubmissionToListView();
             }
             else if (tabControl1.SelectedTab == progtrackerTab)
             {
@@ -297,12 +299,7 @@ namespace UVA_Arena.Elements
             }
             else if (tabControl1.SelectedTab == worldrankTab)
             {
-                if ((string)worldrankTab.Tag != currentUser.uid
-                    || worldRanklist.Items.Count == 0)
-                {
-                    ShowWorldRank();
-                    worldrankTab.Tag = currentUser.uid;
-                }
+                ShowWorldRank();
             }
             else if (tabControl1.SelectedTab == compareTab)
             {
@@ -382,70 +379,74 @@ namespace UVA_Arena.Elements
 
         public void DownloadUserSubs(string user)
         {
-            if (currentUser == null || currentUser.uname != user) return;
-            Updating = true;
+            if (webClient1.IsBusy || currentUser == null || currentUser.uname != user) return;
             string format = "http://uhunt.felix-halim.net/api/subs-user/{0}/{1}";
             string url = string.Format(format, currentUser.uid, currentUser.LastSID);
             SetStatus("Downloading " + user + "'s submissions...");
-            Internet.Downloader.DownloadStringAsync(url, user, Priority.Normal, dt_progress, dt_completed);
+            webClient1.DownloadDataAsync(new Uri(url), currentUser.uname);
         }
 
-        void dt_progress(DownloadTask Task)
+
+        void webClient1_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            if (this.IsDisposed) return;
-            Progress1.Value = Task.ProgressPercentage;
-            SetStatus(string.Format("Downloading {0}'s submissions... [{1} out of {2}]",
-                Task.Token, Functions.FormatMemory(Task.Received), Functions.FormatMemory(Task.Total)), true);
-        }
-
-        void dt_completed(DownloadTask Task)
-        {
-            Updating = false;
-            LastUpdate = DateTime.Now;
-
-            if (this.IsDisposed) return;
-            Progress1.Value = 0;
-
-            if (Task.Status != ProgressStatus.Completed)
+            try
             {
-                if (Task.Error != null)
+                if (this.IsDisposed) return;
+                Progress1.Value = e.ProgressPercentage;
+                SetStatus(string.Format("Downloading {0}'s submissions... [{1} out of {2}]",
+                    e.UserState, Functions.FormatMemory(e.BytesReceived),
+                    Functions.FormatMemory(e.TotalBytesToReceive), true));
+            }
+            catch { }
+        }
+
+        void webClient1_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
+        {
+            if (this.IsDisposed) return;
+            try
+            {
+                Progress1.Value = 0;
+                if (e.Cancelled) throw new OperationCanceledException();
+                if (e.Error != null) throw e.Error;
+
+                string result = System.Text.Encoding.UTF8.GetString(e.Result);
+
+                if (currentUser != null)
                 {
-                    SetStatus("Error : " + Task.Error.Message);
-                    //Logger.Add(Task.Error.Message, "User Statistics | dt_completed(DownloadTask Task)");
+                    if (currentUser.uname != (string)e.UserState) return;
+                    currentUser.AddSubmissions(result);
                 }
-                return;
-            }
+                else
+                {
+                    currentUser = JsonConvert.DeserializeObject<UserInfo>(result);
+                    currentUser.Process();
+                }
 
-            if (currentUser != null)
+                string file = LocalDirectory.GetUserSubPath(currentUser.uname);
+                string data = currentUser.GetJSONData();
+                File.WriteAllText(file, data);
+
+                ShowDataByTab();
+
+                string msg = string.Format("Downloaded {0}'s submissions", e.UserState);
+                SetStatus(msg);
+                if (currentUser.LastSID == 0)
+                    Logger.Add(msg, "User Statistics");
+            }
+            catch (Exception ex)
             {
-                if (currentUser.uname != Task.Token.ToString()) return;
-                currentUser.AddSubmissions(Task.Result);
+                SetStatus("Error : " + ex.Message);
             }
-            else
+            finally
             {
-                currentUser = JsonConvert.DeserializeObject<UserInfo>(Task.Result);
-                currentUser.Process();
+                LastUpdate = DateTime.Now;
             }
-
-            string file = LocalDirectory.GetUserSubPath(currentUser.uname);
-            string data = currentUser.GetJSONData();
-            File.WriteAllText(file, data);
-
-            ShowDataByTab();
-
-            SetStatus("Downloaded " + Task.Token.ToString() + "'s submissions");
-            if (currentUser.LastSID == 0)
-            {
-                Logger.Add("Downloaded " + currentUser.uname + "'s submissions", "User Statistics");
-            }
-
         }
 
         #endregion
 
         #region Auto Update Timer
 
-        private bool Updating = false;
         private DateTime LastUpdate = DateTime.Now;
 
         //
@@ -459,7 +460,7 @@ namespace UVA_Arena.Elements
                 != Interactivity.mainForm.profileTab) return;
 
             //check if update needed
-            if (Updating || !AutoUpdateStatus || currentUser == null) return;
+            if (webClient1.IsBusy || !AutoUpdateStatus || currentUser == null) return;
 
             //update
             TimeSpan span = DateTime.Now.Subtract(LastUpdate);
@@ -742,14 +743,14 @@ namespace UVA_Arena.Elements
                 //get current user's ranklist
                 string format = "http://uhunt.felix-halim.net/api/ranklist/{0}/{1}/{2}";
                 url = string.Format(format, currentUser.uid, 100, 100);
-                SetStatus("Downloading " + currentUser.uname + "'s ranklist...");
+                SetStatus("Downloading " + currentUser.uname + "'s rank-list...");
             }
             else
             {
                 //get ranklist from a specific rank
                 string format = "http://uhunt.felix-halim.net/api/rank/{0}/{1}";
                 url = string.Format(format, from, 200);
-                SetStatus("Downloading ranklist from " + from.ToString() + "...");
+                SetStatus("Downloading rank-list from " + from.ToString() + "...");
             }
 
             Downloader.DownloadStringAsync(url, from, Priority.Normal, worldRankProgress, worldRankCompleted);
@@ -759,7 +760,7 @@ namespace UVA_Arena.Elements
         {
             if (this.IsDisposed) return;
             Progress1.Value = task.ProgressPercentage;
-            SetStatus(string.Format("Downloading ranklist... [{0} out of {1}]",
+            SetStatus(string.Format("Downloading rank-list... [{0} out of {1}]",
                 Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total)), true);
         }
 
@@ -770,7 +771,7 @@ namespace UVA_Arena.Elements
             {
                 if (task.Error != null)
                 {
-                    SetStatus("Ranklist download failed due to an error. Please retry.");
+                    SetStatus("Rank-list download failed due to an error. Please try again.");
                     Logger.Add(task.Error.Message, "World Rank | worldRankCompleted(DownloadTask task)");
                 }
                 return;
@@ -803,9 +804,8 @@ namespace UVA_Arena.Elements
                 worldRanklist.EnsureVisible(pos);
             }
 
-            SetStatus(currentUser.uname + "'s ranklist downloaded.");
+            SetStatus(currentUser.uname + "'s rank-list downloaded.");
             Logger.Add("World rank downloaded - " + currentUser.uname, "World Rank | worldRankCompleted(DownloadTask task)");
-            System.GC.Collect();
         }
 
         private void worldRanklist_HyperlinkClicked(object sender, BrightIdeasSoftware.HyperlinkClickedEventArgs e)

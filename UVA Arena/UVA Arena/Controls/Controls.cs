@@ -78,7 +78,6 @@ namespace System.Windows.Forms
             {
                 _moving = false;
                 IsSplitterFixed = false;
-                System.GC.Collect();
             }
             base.OnMouseUp(e);
         }
@@ -111,7 +110,8 @@ namespace System.Windows.Forms
         protected override void CreateHandle()
         {
             base.CreateHandle();
-            NativeMethods.SetWindowTheme(this.Handle, "explorer", null);
+            IntPtr lparam = Marshal.StringToBSTR("explorer");
+            NativeMethods.SetWindowTheme(this.Handle, lparam, IntPtr.Zero);
         }
     }
 
@@ -124,7 +124,8 @@ namespace System.Windows.Forms
         protected override void CreateHandle()
         {
             base.CreateHandle();
-            NativeMethods.SetWindowTheme(this.Handle, "explorer", null);
+            IntPtr lparam = Marshal.StringToBSTR("explorer");
+            NativeMethods.SetWindowTheme(this.Handle, lparam, IntPtr.Zero);
         }
     }
 
@@ -186,6 +187,7 @@ namespace System.Windows.Forms
             //draw on buffer image first to recudce flickering
             Bitmap BufferImage = new Bitmap(this.Width, this.Height);
             Graphics graphics = Graphics.FromImage(BufferImage);
+
             graphics.SmoothingMode = SmoothingMode.HighQuality;
 
             //paint background with backcolor
@@ -213,10 +215,9 @@ namespace System.Windows.Forms
             graphics.Flush();
             e.Graphics.DrawImageUnscaled(BufferImage, 0, 0);
 
-            //dispose the used variables
+            //dispose
             graphics.Dispose();
             BufferImage.Dispose();
-            System.GC.Collect();
         }
 
         //
@@ -234,7 +235,6 @@ namespace System.Windows.Forms
                 Color back = Color.FromArgb(242, 246, 252);
                 Stylish.GradientStyle style = new Stylish.GradientStyle(HatchStyle.Shingle, fore, back);
                 fillbrush = style.GetBrush();
-                style.Dispose();
             }
             else
             {
@@ -244,7 +244,6 @@ namespace System.Windows.Forms
                 Stylish.GradientStyle style = new Stylish.GradientStyle(up, down, LinearGradientMode.Vertical);
                 Rectangle tabBounds = GetTabRectAdjusted(index);
                 fillbrush = style.GetBrush(tabBounds.Width, tabBounds.Height + 1);
-                style.Dispose();
             }
 
             //draw tab button back color
@@ -360,10 +359,10 @@ namespace System.Windows.Forms
     public static class CustomStatusButton
     {
         public static void Initialize(StatusStrip statusbar)
-        { 
-            foreach(ToolStripItem ti in statusbar.Items)
+        {
+            foreach (ToolStripItem ti in statusbar.Items)
             {
-                if(ti.GetType() == typeof(ToolStripStatusLabel) 
+                if (ti.GetType() == typeof(ToolStripStatusLabel)
                     && ti.Name.ToLower().EndsWith("button"))
                 {
                     Initialize((ToolStripStatusLabel)ti);
@@ -393,19 +392,19 @@ namespace System.Windows.Forms
         public static void StatusButton_MouseUp(object sender, MouseEventArgs e)
         {
             ToolStripStatusLabel tsi = (ToolStripStatusLabel)sender;
-            tsi.BorderStyle = Border3DStyle.Raised; 
+            tsi.BorderStyle = Border3DStyle.Raised;
         }
         public static void StatusButton_MouseEnter(object sender, EventArgs e)
         {
             ToolStripStatusLabel tsi = (ToolStripStatusLabel)sender;
-            tsi.BorderStyle = Border3DStyle.Raised; 
+            tsi.BorderStyle = Border3DStyle.Raised;
         }
         public static void StatusButton_MouseLeave(object sender, EventArgs e)
         {
             ToolStripStatusLabel tsi = (ToolStripStatusLabel)sender;
-            tsi.BorderStyle = Border3DStyle.Etched; 
+            tsi.BorderStyle = Border3DStyle.Etched;
         }
-     
+
     }
 
     #endregion

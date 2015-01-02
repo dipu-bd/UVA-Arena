@@ -105,8 +105,7 @@ namespace UVA_Arena
         {
             problem.tags = RegistryAccess.GetTags(problem.pnum);
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Close();
-            System.GC.Collect();
+            this.Close(); 
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -135,8 +134,7 @@ namespace UVA_Arena
                 this.DialogResult = System.Windows.Forms.DialogResult.Abort;
             }
 
-            this.Close();
-            System.GC.Collect();
+            this.Close(); 
         }
 
     }

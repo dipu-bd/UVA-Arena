@@ -8,6 +8,10 @@ namespace UVA_Arena
 {
     public partial class MainForm : Form
     {
+        private ActiveButton log = new ActiveButton();
+        private ActiveButton settings = new ActiveButton();
+        private ActiveButton help = new ActiveButton();
+
         public MainForm()
         {
             InitializeComponent();
@@ -94,7 +98,7 @@ namespace UVA_Arena
                 //add controls
                 problemTab.Controls.Add(Interactivity.problems);
                 codesTab.Controls.Add(Interactivity.codes);
-                submissionTab.Controls.Add(Interactivity.status);
+                judgeStatusTab.Controls.Add(Interactivity.status);
                 profileTab.Controls.Add(Interactivity.userstat);
                 utilitiesTab.Controls.Add(Interactivity.utilities);
 
@@ -118,31 +122,28 @@ namespace UVA_Arena
                             delegate(Internet.DownloadTask task) { LocalDatabase.LoadDatabase(); };
                         Internet.Downloader.DownloadProblemDatabase(complete, null);
                     });
-            }
-
-            System.GC.Collect();
+            } 
         }
+
+
 
         private void AddActiveButtons()
         {
             IActiveMenu menu = ActiveMenu.GetInstance(this);
 
             //settings
-            ActiveButton settings = new ActiveButton();
             settings.Image = Resources.tools;
             settings.ImageAlign = ContentAlignment.MiddleCenter;
             menu.ToolTip.SetToolTip(settings, "Settings");
             settings.Click += delegate(object sender, EventArgs e) { Interactivity.ShowSettings(); };
 
             //log
-            ActiveButton log = new ActiveButton();
             log.Image = Resources.log;
             log.ImageAlign = ContentAlignment.MiddleCenter;
             menu.ToolTip.SetToolTip(log, "View Logs");
             log.Click += delegate(object sender, EventArgs e) { Interactivity.ShowLogger(); };
 
             //help
-            ActiveButton help = new ActiveButton();
             help.Image = Resources.help;
             help.ImageAlign = ContentAlignment.MiddleCenter;
             menu.ToolTip.SetToolTip(help, "Help");

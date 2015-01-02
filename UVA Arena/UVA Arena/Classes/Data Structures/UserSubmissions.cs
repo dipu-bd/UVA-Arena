@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 namespace UVA_Arena.Structures
 {
+
     public class UserSubmission
     {
         public UserSubmission() { }
@@ -32,24 +33,24 @@ namespace UVA_Arena.Structures
         public string name { get; set; }
         public long pnum { get; set; }
         public string ptitle { get; set; }
-        public List<long> data { get; set; }
+        public List<long> data { get; private set; }
 
         public bool IsAccepted()
         {
             return (ver == 90);
         }
 
-        public bool isInQueue()
+        public bool IsInQueue()
         {
             switch ((Verdict)ver)
             {
-                case Structures.Verdict.SubError: 
-                case Structures.Verdict.CantBeJudge: 
-                case Structures.Verdict.CompileError: 
-                case Structures.Verdict.RestrictedFunction: 
+                case Structures.Verdict.SubError:
+                case Structures.Verdict.CannotBeJudge:
+                case Structures.Verdict.CompileError:
+                case Structures.Verdict.RestrictedFunction:
                 case Structures.Verdict.RuntimeError:
-                case Structures.Verdict.OutputLimit: 
-                case Structures.Verdict.TimLimit: 
+                case Structures.Verdict.OutputLimit:
+                case Structures.Verdict.TimLimit:
                 case Structures.Verdict.MemoryLimit:
                 case Structures.Verdict.WrongAnswer:
                 case Structures.Verdict.PresentationError:
@@ -57,7 +58,7 @@ namespace UVA_Arena.Structures
                     return false;
                 default:
                     return true;
-            }       
+            }
         }
 
         public void LoadData(List<long> data)
@@ -74,5 +75,7 @@ namespace UVA_Arena.Structures
             pnum = LocalDatabase.GetNumber(pid);
             ptitle = LocalDatabase.GetTitle(pnum);
         }
-    }     
+    }
+     
+
 }

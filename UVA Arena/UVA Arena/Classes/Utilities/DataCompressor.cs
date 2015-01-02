@@ -23,9 +23,9 @@ namespace UVA_Arena
             }
 
             memoryStream.Position = 0;
-
             var compressedData = new byte[memoryStream.Length];
             memoryStream.Read(compressedData, 0, compressedData.Length);
+            memoryStream.Dispose();
 
             var gZipBuffer = new byte[compressedData.Length + 4];
             Buffer.BlockCopy(compressedData, 0, gZipBuffer, 4, compressedData.Length);
@@ -44,21 +44,20 @@ namespace UVA_Arena
             else compressedText = compressedText.Remove(0, 8);
 
             byte[] gZipBuffer = Convert.FromBase64String(compressedText);
-            using (var memoryStream = new MemoryStream())
+            var memoryStream = new MemoryStream();
+            int dataLength = BitConverter.ToInt32(gZipBuffer, 0);
+            memoryStream.Write(gZipBuffer, 4, gZipBuffer.Length - 4);
+
+            var buffer = new byte[dataLength];
+
+            memoryStream.Position = 0;
+            using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
             {
-                int dataLength = BitConverter.ToInt32(gZipBuffer, 0);
-                memoryStream.Write(gZipBuffer, 4, gZipBuffer.Length - 4);
-
-                var buffer = new byte[dataLength];
-
-                memoryStream.Position = 0;
-                using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
-                {
-                    gZipStream.Read(buffer, 0, buffer.Length);
-                }
-
-                return Encoding.UTF8.GetString(buffer);
+                gZipStream.Read(buffer, 0, buffer.Length);
             }
+
+            memoryStream.Dispose();
+            return Encoding.UTF8.GetString(buffer);
         }
     }
 }

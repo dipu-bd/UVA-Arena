@@ -18,7 +18,7 @@ namespace UVA_Arena.Elements
 
         protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);
+            base.OnLoad(e);            
             Stylish.SetGradientBackground(basicInfoTab,
                 new Stylish.GradientStyle(Color.LightCyan, Color.LightBlue, 90));
         }
@@ -28,40 +28,23 @@ namespace UVA_Arena.Elements
         public void ShowUserInfo(UserInfo uinfo)
         {
             currentUser = uinfo;
-            LoadCurrentUser();
+            LoadCurrentUser(true);
         }
 
-        public void LoadCurrentUser()
+        private void prevTabButton_Click(object sender, EventArgs e)
         {
-            ProcessList();
-
-            //normal text
-            useridLabel.Text = currentUser.uid;
-            usernameLabel.Text = currentUser.uname;
-            fullnameLabel.Text = currentUser.name;
-            totalsubLabel.Text = _totalSubmission.ToString();
-            acceptedLabel.Text = _solvedCount.ToString();
-            triednacLabel.Text = _unsolvedCount.ToString();
-            totalTriedLabel.Text = _tryCount.ToString();
-
-            //account age
-            if (_firstSub == long.MaxValue) accountAge.Text = "[-]";
-            else accountAge.Text = Functions.FormatTimeSpan(UnixTimestamp.GetTimeSpan(_firstSub));
-
-            //user rank
-            worldRankLabel.Text = userRank.rank.ToString();
-            last2DaysLabel.Text = userRank.day2.ToString();
-            last7Dayslabel.Text = userRank.day7.ToString();
-            lastMonthLabel.Text = userRank.day31.ToString();
-            last3MonthLabel.Text = userRank.month3.ToString();
-
-            //draw graphs
-            BuildSubPerLangGraph();
-            BuildSubPerDateGraph();
-            BuildSubPerVerGraph();
-            BuildRankCloud();
+            int indx = (tabControl1.SelectedIndex - 1 + tabControl1.TabCount) % tabControl1.TabCount;
+            tabControl1.SelectedIndex = indx;
         }
-        
+
+        private void nextTabButton_Click(object sender, EventArgs e)
+        {
+            int indx = (tabControl1.SelectedIndex + 1) % tabControl1.TabCount;
+            tabControl1.SelectedIndex = indx;
+        }
+
+        #region Process List
+
         private long _firstSub;
         private UserRanklist userRank;
         private int _solvedCount, _unsolvedCount, _tryCount, _totalSubmission;
@@ -82,7 +65,7 @@ namespace UVA_Arena.Elements
             }
 
             userRank = RegistryAccess.GetUserRank(currentUser.uname);
-            if(userRank == null)
+            if (userRank == null)
             {
                 userRank = new UserRanklist();
                 userRank.username = currentUser.uname;
@@ -93,23 +76,25 @@ namespace UVA_Arena.Elements
 
             _acOverTime.Clear();
             _subOverTime.Clear();
-            _RankCount.Clear(); 
+            _RankCount.Clear();
 
             _firstSub = long.MaxValue;
-            _solvedCount = _unsolvedCount = _tryCount =  _totalSubmission = 0;
+            _solvedCount = _unsolvedCount = _tryCount = _totalSubmission = 0;
             _subInAnsiC = _subInCPP = _subInCPP11 = _subInJava = _subInPascal = 0;
-            _acCount = _waCount = _tleCount = _reCount = _peCount = _ceCount = _oleCount = _subeCount = _mleCount = 0;
+            _acCount = _waCount = _tleCount = _reCount = _peCount = 0;
+            _ceCount = _oleCount = _subeCount = _mleCount = 0;
 
             _tryCount = currentUser.TryList.Count;
             var it = currentUser.TryList.GetEnumerator();
             while (it.MoveNext())
             {
-                if (it.Current.Value)
+                if (it.Current.Value.IsAccepted())
                     _solvedCount++;
                 else
                     _unsolvedCount++;
             }
-            
+            it.Dispose();
+
             foreach (UserSubmission usub in currentUser.submissions)
             {
                 //total submission count
@@ -124,7 +109,7 @@ namespace UVA_Arena.Elements
                 {
                     _RankCount.Add(usub.rank, usub.pid);
                 }
-                                
+
                 //language
                 switch ((Language)usub.lan)
                 {
@@ -154,12 +139,56 @@ namespace UVA_Arena.Elements
                     case Structures.Verdict.Accepted: _acCount++; break;
                 }
             }
-            
-                //finalize
-             _subOverTime.Add(new ZedGraph.XDate(DateTime.Now), _totalSubmission);
+
+            //finalize
+            _subOverTime.Add(new ZedGraph.XDate(DateTime.Now), _totalSubmission);
             _acOverTime.Add(new ZedGraph.XDate(DateTime.Now), _solvedCount);
         }
+#endregion
 
+        #region Load Processed Data
+
+        public void LoadCurrentUser(object background)
+        {
+            if ((bool)background)
+            {
+                System.Threading.ThreadPool.QueueUserWorkItem(LoadCurrentUser, false);
+                return;
+            }
+
+            //process data
+            ProcessList();
+
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                //normal text
+                useridLabel.Text = currentUser.uid;
+                usernameLabel.Text = currentUser.uname;
+                fullnameLabel.Text = currentUser.name;
+                totalsubLabel.Text = _totalSubmission.ToString();
+                acceptedLabel.Text = _solvedCount.ToString();
+                triednacLabel.Text = _unsolvedCount.ToString();
+                totalTriedLabel.Text = _tryCount.ToString();
+
+                //account age
+                if (_firstSub == long.MaxValue) accountAge.Text = "[-]";
+                else accountAge.Text = Functions.FormatTimeSpan(UnixTimestamp.GetTimeSpan(_firstSub));
+
+                //user rank
+                worldRankLabel.Text = userRank.rank.ToString();
+                last2DaysLabel.Text = userRank.day2.ToString();
+                last7Dayslabel.Text = userRank.day7.ToString();
+                lastMonthLabel.Text = userRank.day31.ToString();
+                last3MonthLabel.Text = userRank.month3.ToString();
+
+                //draw graphs
+                BuildSubPerLangGraph();
+                BuildSubPerDateGraph();
+                BuildSubPerVerGraph();
+                BuildRankCloud();
+            });
+        }
+        
         private void BuildSubPerLangGraph()
         {
             ZedGraph.ZedGraphControl zg1 = new ZedGraph.ZedGraphControl();
@@ -199,8 +228,7 @@ namespace UVA_Arena.Elements
             pane.AxisChange();
 
             this.subPerLanTab.Controls.Clear();
-            this.subPerLanTab.Controls.Add(zg1);
-            System.GC.Collect();
+            this.subPerLanTab.Controls.Add(zg1); 
         }
 
         private void BuildSubPerDateGraph()
@@ -243,8 +271,7 @@ namespace UVA_Arena.Elements
             pane.AxisChange();
 
             this.subPerDateTab.Controls.Clear();
-            this.subPerDateTab.Controls.Add(zg1);
-            System.GC.Collect();
+            this.subPerDateTab.Controls.Add(zg1); 
         }
 
         private void BuildSubPerVerGraph()
@@ -286,8 +313,7 @@ namespace UVA_Arena.Elements
             pane.AxisChange();
 
             this.subPerVerTab.Controls.Clear();
-            this.subPerVerTab.Controls.Add(zg1);
-            System.GC.Collect();
+            this.subPerVerTab.Controls.Add(zg1); 
         }
 
         private void BuildRankCloud()
@@ -329,21 +355,10 @@ namespace UVA_Arena.Elements
             pane.AxisChange();
 
             this.rankCloudTab.Controls.Clear();
-            this.rankCloudTab.Controls.Add(zg1);
-            System.GC.Collect();
+            this.rankCloudTab.Controls.Add(zg1); 
         }
 
+        #endregion
 
-        private void prevTabButton_Click(object sender, EventArgs e)
-        {
-            int indx = (tabControl1.SelectedIndex - 1 + tabControl1.TabCount) % tabControl1.TabCount;
-            tabControl1.SelectedIndex = indx;
-        }
-
-        private void nextTabButton_Click(object sender, EventArgs e)
-        {
-            int indx = (tabControl1.SelectedIndex + 1) % tabControl1.TabCount;
-            tabControl1.SelectedIndex = indx;
-        }
     }
 }

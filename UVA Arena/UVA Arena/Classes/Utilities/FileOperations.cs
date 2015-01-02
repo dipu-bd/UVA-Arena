@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace UVA_Arena.Elements
 {
-    internal sealed class SHOptionsAPI
+    public static class SHOptionsAPI
     {
         /// <summary>
         /// Possible flags for the SHFileOperation method.
@@ -84,9 +84,7 @@ namespace UVA_Arena.Elements
         private static extern int SHFileOperation(ref SHFILEOPSTRUCT FileOp);
 
         public static void CallSH(FileOperationType type, string[] from, string to, FileOperationFlags flags)
-        {
-            try
-            {
+        { 
                 var fs = new SHFILEOPSTRUCT
                 {
                     wFunc = type,
@@ -94,12 +92,7 @@ namespace UVA_Arena.Elements
                     pTo = to + "\0\0",
                     fFlags = flags
                 };
-                SHFileOperation(ref fs);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                SHFileOperation(ref fs); 
         }
 
         public static void Rename(string from, string to)

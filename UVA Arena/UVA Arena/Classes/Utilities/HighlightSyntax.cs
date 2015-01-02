@@ -21,8 +21,7 @@ namespace UVA_Arena
         public static TextStyle WarningStyle = new TextStyle(Brushes.Blue, null, FontStyle.Italic);
         //code editor styles
         public static TextStyle NumberStyle = new TextStyle(Brushes.Magenta, null, FontStyle.Regular);
-        public static TextStyle KeywordStyle = new TextStyle(Brushes.Blue, null, FontStyle.Bold);
-        public static TextStyle FunctionStyle = new TextStyle(Brushes.Blue, null, FontStyle.Regular);
+        public static TextStyle KeywordStyle = new TextStyle(Brushes.Blue, null, FontStyle.Bold);        
         public static TextStyle ClassNameStyle = new TextStyle(Brushes.Teal, null, FontStyle.Bold);
         public static TextStyle AttributeStyle = new TextStyle(Brushes.Teal, null, FontStyle.Regular);
         public static TextStyle StringStyle = new TextStyle(Brushes.Brown, null, FontStyle.Regular);

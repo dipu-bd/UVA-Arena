@@ -3,17 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Net;
 using UVA_Arena.Structures;
 
 namespace UVA_Arena.Elements
 {
     public partial class STATUS : UserControl
     {
+        private WebClient webClient1 = new WebClient();
         public STATUS()
         {
             InitializeComponent();
             CustomStatusButton.Initialize(refreshToolButton);
+            webClient1.DownloadDataCompleted += webClient1_DownloadDataCompleted;
+            webClient1.DownloadProgressChanged += webClient1_DownloadProgressChanged;
         }
+
 
         protected override void OnLoad(EventArgs e)
         {
@@ -62,30 +67,26 @@ namespace UVA_Arena.Elements
         //
         // Public functions
         //  
-        private long LastSubID = 0;
-        private bool Updating = false;
+        private long LastSubID = 0; 
         private DateTime LastUpdate = DateTime.Now;
         public List<JudgeStatus> StatusList = new List<JudgeStatus>();
-        public Dictionary<long, JudgeStatus> SIDtoStatus = new Dictionary<long, JudgeStatus>();
-        public Internet.DownloadTask LastTask;
+        public Dictionary<long, JudgeStatus> SIDtoStatus = new Dictionary<long, JudgeStatus>(); 
 
-        public bool Contains(long sid)
+        public void SetStatus(JudgeStatus status)
         {
-            return SIDtoStatus.ContainsKey(sid);
-        }
-
-        public bool SetStatus(JudgeStatus status)
-        {
-            if (Contains(status.sid))
+            if (SIDtoStatus.ContainsKey(status.sid))
             {
-                SIDtoStatus[status.sid] = status;
-                return false;
+                if (status.id > SIDtoStatus[status.sid].id)
+                {
+                    StatusList.Remove(SIDtoStatus[status.sid]);
+                    SIDtoStatus[status.sid] = status;
+                    StatusList.Add(status);
+                }
             }
             else
             {
                 StatusList.Add(status);
                 SIDtoStatus.Add(status.sid, status);
-                return true;
             }
         }
 
@@ -103,54 +104,46 @@ namespace UVA_Arena.Elements
 
         public void UpdateSubmissions()
         {
-            if (Updating)
-            {
-                if (LastTask.TimeElapsed.TotalSeconds > 6
-                    && LastTask.ProgressPercentage == 0)
-                    LastTask.Cancel();
-                return;
-            }
+            if (webClient1.IsBusy) return;
 
             ClearSome();
-            Updating = true;
             Status1.Text = "Update started...";
-
             string url = string.Format("http://uhunt.felix-halim.net/api/poll/{0}.", LastSubID);
-            LastTask = Internet.Downloader.DownloadStringAsync(url, null, Internet.Priority.Low, null, DownloadComplete);
+            webClient1.DownloadDataAsync(new Uri(url));
         }
 
-        public void DownloadComplete(Internet.DownloadTask task)
+        void webClient1_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+        }
+
+        void webClient1_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
             try
             {
-                bool updated = false;
+                string result = System.Text.Encoding.UTF8.GetString(e.Result);
+
                 //update or add last submission id
-                JudgeStatus[] statuslist = JsonConvert.DeserializeObject<JudgeStatus[]>(task.Result);
+                JudgeStatus[] statuslist = JsonConvert.DeserializeObject<JudgeStatus[]>(result);
                 foreach (JudgeStatus status in statuslist)
                 {
-                    updated = SetStatus(status);
-                    if (status.id > LastSubID) LastSubID = status.id;                    
+                    SetStatus(status);
+                    if (status.id > LastSubID) LastSubID = status.id;
                 }
 
-                if (updated)
-                {
-                    //reload submisstion status
-                    submissionStatus.SetObjects(StatusList, true);
-                    //sort submission status
-                    submissionStatus.Sort(sidSUB, SortOrder.Descending);
-                    //make first item visible
-                    submissionStatus.EnsureVisible(0);
-                }
+                Status1.Text = "Update finished.";
+
+                //set submisstion status
+                submissionStatus.SetObjects(StatusList);
+                submissionStatus.Sort(sidSUB, SortOrder.Descending);
             }
             catch (Exception ex)
             {
-                Logger.Add(ex.Message, "Judge Status");
+                Status1.Text = "Update failed.";
+                Logger.Add(ex.Message, "Judge Status | webClient1_DownloadDataCompleted");
             }
             finally
             {
-                Status1.Text = "Update finished.";
                 LastUpdate = DateTime.Now;
-                Updating = false;
             }
         }
 
@@ -161,20 +154,29 @@ namespace UVA_Arena.Elements
         {
             //check if this is focused
             if (Interactivity.mainForm.customTabControl1.SelectedTab
-                    != Interactivity.mainForm.submissionTab) return;
+                    != Interactivity.mainForm.judgeStatusTab) return;
 
             //refresh items
-            submissionStatus.Refresh();
+            submissionStatus.SetObjects(StatusList);
 
             //check if update needed
-            if (Updating || !AutoUpdateStatus) return;
+            if (!AutoUpdateStatus) return;
 
             //update
             TimeSpan span = DateTime.Now.Subtract(LastUpdate);
             long diff = (long)span.TotalMilliseconds;
+
             if (diff >= UpdateInterval)
             {
-                UpdateSubmissions();
+                if (webClient1.IsBusy)
+                {
+                    if (diff > 15000)
+                        webClient1.CancelAsync();
+                }
+                else
+                {
+                    UpdateSubmissions();
+                }
             }
             else
             {

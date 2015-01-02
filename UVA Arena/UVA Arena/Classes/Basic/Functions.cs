@@ -45,46 +45,44 @@ namespace UVA_Arena
             {
                 space = true;
                 txt += string.Format("{0} Year", year);
-                if (year > 1) txt += "s";
+                if (year > 1) txt += "s"; //plural
             }
-
             if (month > 0)
             {
                 if (space) txt += " "; space = true;
                 txt += string.Format(" {0} Month", month);
-                if (month > 1) txt += "s";
+                if (month > 1) txt += "s"; //plural
             }
-
             if (span.TotalDays < 30)
             {
                 if (days > 0)
                 {
                     if (space) txt += " "; space = true;
                     txt += string.Format("{0} Day", days);
-                    if (days > 1) txt += "s";
+                    if (days > 1) txt += "s"; //plural
                 }
-            }
-
+            }            
             if (span.TotalDays < 1)
             {
                 if (span.Hours > 0)
                 {
                     if (space) txt += " "; space = true;
                     txt += string.Format("{0} Hour", span.Hours);
-                    if (span.Hours > 1) txt += "s";
+                    if (span.Hours > 1) txt += "s"; //plural
                 }
                 if (span.Minutes > 0)
                 {
                     if (space) txt += " "; space = true;
                     txt += string.Format("{0} Minute", span.Minutes);
-                    if (span.Minutes > 1) txt += "s";
-                }
-                if (span.TotalMinutes < 2)
-                {
-                    if (space) txt += " "; space = true;
-                    txt += string.Format("{0} Second", span.Seconds);
-                    if (span.Seconds > 1) txt += "s";
-                }
+                    if (span.Minutes > 1) txt += "s"; //plural
+                }               
+            }
+
+            if (span.TotalMinutes < 1)
+            {
+                if (space) txt += " "; space = true;
+                txt += string.Format("{0} Second", span.TotalSeconds);
+                if (span.Seconds > 1) txt += "s"; //plural
             }
 
             return txt;
@@ -116,18 +114,18 @@ namespace UVA_Arena
         {
             switch (ver)
             {
-                case Structures.Verdict.SubError: return "Submission error";
-                case Structures.Verdict.CantBeJudge: return "Can't be judged";
-                case Structures.Verdict.CompileError: return "Compile error";
-                case Structures.Verdict.RestrictedFunction: return "Restricted function";
-                case Structures.Verdict.RuntimeError: return "Runtime error";
-                case Structures.Verdict.OutputLimit: return "Output limit";
-                case Structures.Verdict.TimLimit: return "Time limit";
-                case Structures.Verdict.MemoryLimit: return "Memory limit";
-                case Structures.Verdict.WrongAnswer: return "Wrong answer";
-                case Structures.Verdict.PresentationError: return "PresentationE";
+                case Structures.Verdict.SubError: return "Submission Error";
+                case Structures.Verdict.CannotBeJudge: return "Can't Be Judged";
+                case Structures.Verdict.CompileError: return "Compile Error";
+                case Structures.Verdict.RestrictedFunction: return "Restricted Function";
+                case Structures.Verdict.RuntimeError: return "Runtime Error";
+                case Structures.Verdict.OutputLimit: return "Output Limit Exceeded";
+                case Structures.Verdict.TimLimit: return "Time Limit Exceeded";
+                case Structures.Verdict.MemoryLimit: return "Memory Limit Exceeded";
+                case Structures.Verdict.WrongAnswer: return "Wrong Answer";
+                case Structures.Verdict.PresentationError: return "Presentation Error";
                 case Structures.Verdict.Accepted: return "Accepted";
-                default: return "- In queue -";
+                default: return "- In Queue -";
             }
         }
 
@@ -147,16 +145,16 @@ namespace UVA_Arena
         {
             switch (ver)
             {
-                case Structures.Verdict.SubError: return System.Drawing.Color.DarkKhaki;
-                case Structures.Verdict.CantBeJudge: return System.Drawing.Color.DarkGray;
+                case Structures.Verdict.SubError: return System.Drawing.Color.DarkGoldenrod;
+                case Structures.Verdict.CannotBeJudge: return System.Drawing.Color.DarkGray;
                 case Structures.Verdict.CompileError: return System.Drawing.Color.Red;
                 case Structures.Verdict.RestrictedFunction: return System.Drawing.Color.SlateBlue;
-                case Structures.Verdict.RuntimeError: return System.Drawing.Color.DarkGreen;
-                case Structures.Verdict.OutputLimit: return System.Drawing.Color.DeepPink;
-                case Structures.Verdict.TimLimit: return System.Drawing.Color.DarkViolet;
+                case Structures.Verdict.RuntimeError: return System.Drawing.Color.Green;
+                case Structures.Verdict.OutputLimit: return System.Drawing.Color.Brown;
+                case Structures.Verdict.TimLimit: return System.Drawing.Color.Teal;
                 case Structures.Verdict.MemoryLimit: return System.Drawing.Color.SlateGray;
                 case Structures.Verdict.WrongAnswer: return System.Drawing.Color.Maroon;
-                case Structures.Verdict.PresentationError: return System.Drawing.Color.Navy;
+                case Structures.Verdict.PresentationError: return System.Drawing.Color.RoyalBlue;
                 case Structures.Verdict.Accepted: return System.Drawing.Color.Blue;
                 default: return System.Drawing.Color.Black;
             }
@@ -180,8 +178,7 @@ namespace UVA_Arena
 
                 string filepath = LocalDirectory.GetProblemHtml(pnum);
                 if (!File.Exists(filepath)) return new List<DownloadTask>();
-
-                string html = File.ReadAllText(filepath);
+                 
                 List<string> urls = new List<string>();
                 List<DownloadTask> tasks = new List<DownloadTask>();
 

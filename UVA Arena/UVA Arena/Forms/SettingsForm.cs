@@ -85,8 +85,7 @@ namespace UVA_Arena
 
         private void username_button1_Click(object sender, EventArgs e)
         {
-            UsernameForm uf = new UsernameForm();
-            uf.Show();
+            using(var uf = new UsernameForm()) uf.Show();
         }
 
         private void downloadAll_Click(object sender, EventArgs e)
@@ -161,17 +160,19 @@ namespace UVA_Arena
                 }
                 catch { }
             }
+            fd.Dispose();
         }
 
         private void changeShortcuts_Click(object sender, EventArgs e)
         {
             try
             {
-                FastColoredTextBoxNS.HotkeysEditorForm hotkey = new FastColoredTextBoxNS.HotkeysEditorForm(Interactivity.codes.codeTextBox.HotkeysMapping);
+                var hotkey = new FastColoredTextBoxNS.HotkeysEditorForm(Interactivity.codes.codeTextBox.HotkeysMapping);
                 if (hotkey.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     Interactivity.codes.codeTextBox.HotkeysMapping = hotkey.GetHotkeys();
                 }
+                hotkey.Dispose();
             }
             catch { }
         }
@@ -202,43 +203,47 @@ namespace UVA_Arena
 
         private void minGW_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.Description = "Select the path where MinGW is installed.";
-            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
-                //check validity
-                string path = Path.Combine(fbd.SelectedPath, "bin");
-                string gcc = Path.Combine(path, @"mingw32-gcc.exe");
-                string gpp = Path.Combine(path, @"mingw32-g++.exe");
-                if (!(File.Exists(gcc) && File.Exists(gpp)))
+                fbd.Description = "Select the path where MinGW is installed.";
+                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    MessageBox.Show("Selected path doesn't seems to be valid.");
-                    return;
+                    //check validity
+                    string path = Path.Combine(fbd.SelectedPath, "bin");
+                    string gcc = Path.Combine(path, @"mingw32-gcc.exe");
+                    string gpp = Path.Combine(path, @"mingw32-g++.exe");
+                    if (!(File.Exists(gcc) && File.Exists(gpp)))
+                    {
+                        MessageBox.Show("Selected path doesn't seems to be valid.");
+                        return;
+                    }
+                    //set data
+                    minGWLocation.Text = fbd.SelectedPath;
+                    Elements.CODES.MinGWLocation = fbd.SelectedPath;
                 }
-                //set data
-                minGWLocation.Text = fbd.SelectedPath;
-                Elements.CODES.MinGWLocation = fbd.SelectedPath;
             }
         }
 
         private void jdkLOC_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.Description = "Select the path where JDK is installed.";
-            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
-                //check validity
-                string path = Path.Combine(fbd.SelectedPath, "bin");
-                string javac = Path.Combine(path, @"javac.exe");
-                string java = Path.Combine(path, @"java.exe");
-                if (!(File.Exists(javac) && File.Exists(java)))
+                fbd.Description = "Select the path where JDK is installed.";
+                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    MessageBox.Show("Selected path doesn't seems to be valid.");
-                    return;
+                    //check validity
+                    string path = Path.Combine(fbd.SelectedPath, "bin");
+                    string javac = Path.Combine(path, @"javac.exe");
+                    string java = Path.Combine(path, @"java.exe");
+                    if (!(File.Exists(javac) && File.Exists(java)))
+                    {
+                        MessageBox.Show("Selected path doesn't seems to be valid.");
+                        return;
+                    }
+                    //set data
+                    jdkLocation.Text = fbd.SelectedPath;
+                    Elements.CODES.JDKLocation = fbd.SelectedPath;
                 }
-                //set data
-                jdkLocation.Text = fbd.SelectedPath;
-                Elements.CODES.JDKLocation = fbd.SelectedPath;
             }
         }
 

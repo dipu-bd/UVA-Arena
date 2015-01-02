@@ -52,7 +52,7 @@ namespace UVA_Arena.Elements.DiffMergeStuffs
 
             for (int i = 0; i < _preSkip; i++)
             {
-                FireLineUpdate(DiffType.None, i, -1);
+                FireLineUpdate(DiffTypes.None, i, -1);
             }
 
             int totalSkip = _preSkip + _postSkip;
@@ -61,7 +61,7 @@ namespace UVA_Arena.Elements.DiffMergeStuffs
             int leftLen = _left.Count;
             for (int i = _postSkip; i > 0; i--)
             {
-                FireLineUpdate(DiffType.None, leftLen - i, -1);
+                FireLineUpdate(DiffTypes.None, leftLen - i, -1);
             }
         }
 
@@ -114,7 +114,7 @@ namespace UVA_Arena.Elements.DiffMergeStuffs
                 _compareFunc(_left[_preSkip + leftIndex - 1], _right[_preSkip + rightIndex - 1]))
             {
                 ShowDiff(leftIndex - 1, rightIndex - 1);
-                FireLineUpdate(DiffType.None, _preSkip + leftIndex - 1, -1);
+                FireLineUpdate(DiffTypes.None, _preSkip + leftIndex - 1, -1);
             }
             else
             {
@@ -123,14 +123,14 @@ namespace UVA_Arena.Elements.DiffMergeStuffs
                      _matrix[leftIndex, rightIndex - 1] >= _matrix[leftIndex - 1, rightIndex]))
                 {
                     ShowDiff(leftIndex, rightIndex - 1);
-                    FireLineUpdate(DiffType.Inserted, -1, _preSkip + rightIndex - 1);
+                    FireLineUpdate(DiffTypes.Inserted, -1, _preSkip + rightIndex - 1);
                 }
                 else if (leftIndex > 0 &&
                          (rightIndex == 0 ||
                           _matrix[leftIndex, rightIndex - 1] < _matrix[leftIndex - 1, rightIndex]))
                 {
                     ShowDiff(leftIndex - 1, rightIndex);
-                    FireLineUpdate(DiffType.Deleted, _preSkip + leftIndex - 1, -1);
+                    FireLineUpdate(DiffTypes.Deleted, _preSkip + leftIndex - 1, -1);
                 }
             }
 
@@ -173,7 +173,7 @@ namespace UVA_Arena.Elements.DiffMergeStuffs
             _matrixCreated = true;
         }
 
-        private void FireLineUpdate(DiffType diffType, int leftIndex, int rightIndex)
+        private void FireLineUpdate(DiffTypes diffType, int leftIndex, int rightIndex)
         {
             var local = this.LineUpdate;
 
@@ -218,7 +218,7 @@ namespace UVA_Arena.Elements.DiffMergeStuffs
     }
 
     [Flags]
-    public enum DiffType
+    public enum DiffTypes
     {
         None = 0,
         Inserted = 1,
@@ -227,13 +227,13 @@ namespace UVA_Arena.Elements.DiffMergeStuffs
 
     public class DiffEventArgs<T> : EventArgs
     {
-        public DiffType DiffType { get; set; }
+        public DiffTypes DiffType { get; set; }
 
         public T LineValue { get; private set; }
         public int LeftIndex { get; private set; }
         public int RightIndex { get; private set; }
 
-        public DiffEventArgs(DiffType diffType, T lineValue, int leftIndex, int rightIndex)
+        public DiffEventArgs(DiffTypes diffType, T lineValue, int leftIndex, int rightIndex)
         {
             this.DiffType = diffType;
             this.LineValue = lineValue;
@@ -260,40 +260,12 @@ namespace UVA_Arena.Elements.DiffMergeStuffs
         /// <summary>
         /// Line state
         /// </summary>
-        public DiffType state;
+        public DiffTypes state;
 
         public Line(string line)
         {
             this.line = line;
-        }
-
-        /// <summary>
-        /// Equals
-        /// </summary>
-        public override bool Equals(object obj)
-        {
-            return Object.Equals(line, ((Line)obj).line);
-        }
-
-        public static bool operator ==(Line line1, Line line2)
-        {
-            return Object.Equals(line1.line, line2.line);
-        }
-
-        public static bool operator !=(Line line1, Line line2)
-        {
-            return !Object.Equals(line1.line, line2.line);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return line;
-        }
+        } 
     }
 
     /// <summary>
@@ -302,17 +274,12 @@ namespace UVA_Arena.Elements.DiffMergeStuffs
     public class Lines : List<Line>, IEquatable<Lines>
     {
         //эта строка нужна для хранения строк, вставленных в самом начале, до первой строки исходного файла
-        private Line fictiveLine = new Line("===fictive line===") { state = DiffType.Deleted };
+        //private Line fictiveLine = new Line("===fictive line===") { state = DiffType.Deleted };
 
-        public Lines()
-        {
-        }
+        public Lines() { }
 
 
-        public Lines(int capacity)
-            : base(capacity)
-        {
-        }
+        public Lines(int capacity) : base(capacity) { }
 
       
         /// <summary>
@@ -338,11 +305,11 @@ namespace UVA_Arena.Elements.DiffMergeStuffs
 
             diff.LineUpdate += (o, e) =>
             {
-                if (e.DiffType == DiffType.Inserted)
+                if (e.DiffType == DiffTypes.Inserted)
                 {
                     if (this[iLine].subLines == null)
                         this[iLine].subLines = new Lines();
-                    e.LineValue.state = DiffType.Inserted;
+                    e.LineValue.state = DiffTypes.Inserted;
                     this[iLine].subLines.Add(e.LineValue);
                 }
                 else
@@ -350,9 +317,9 @@ namespace UVA_Arena.Elements.DiffMergeStuffs
                     iLine++;
                     this[iLine].state = e.DiffType;
                     if (iLine > 0 &&
-                        this[iLine - 1].state == DiffType.Deleted &&
+                        this[iLine - 1].state == DiffTypes.Deleted &&
                         this[iLine - 1].subLines == null &&
-                        e.DiffType == DiffType.None)
+                        e.DiffType == DiffTypes.None)
                         this[iLine - 1].subLines = new Lines();
                 }
             };
@@ -401,7 +368,7 @@ namespace UVA_Arena.Elements.DiffMergeStuffs
             Lines result = new Lines();
             for (int i = from; i <= to; i++)
             {
-                if (this[i].state != DiffType.Deleted)
+                if (this[i].state != DiffTypes.Deleted)
                     result.Add(this[i]);
                 if (this[i].subLines != null)
                     result.AddRange(this[i].subLines.Expand());
@@ -416,8 +383,8 @@ namespace UVA_Arena.Elements.DiffMergeStuffs
     /// </summary>
     public class ConflictedLine : Line
     {
-        public readonly Lines version1;
-        public readonly Lines version2;
+        public Lines version1;
+        public Lines version2;
 
         public ConflictedLine(Lines version1, Lines version2)
             : base("?")

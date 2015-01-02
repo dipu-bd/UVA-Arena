@@ -24,7 +24,7 @@ namespace UVA_Arena.Internet
         Disposed
     }
 
-    public delegate void DownloadTaskHandler(DownloadTask Task);
+    public delegate void DownloadTaskHandler(DownloadTask sender);
 
     public class DownloadTask : IComparer<DownloadTask>, IDisposable
     {
@@ -68,12 +68,13 @@ namespace UVA_Arena.Internet
         }
 
         public void Dispose()
-        {
+        {            
             try
             {
-                if (webClient != null) webClient.Dispose();
                 File.Delete(TempFileName);
                 Status = ProgressStatus.Disposed;
+                webClient.Dispose();
+                GC.SuppressFinalize(this);
             }
             catch { }
         }
@@ -144,6 +145,10 @@ namespace UVA_Arena.Internet
             this.ProgressPercentage = e.ProgressPercentage;
             if (ProgressChangedEvent != null)
                 ProgressChangedEvent(this);
+
+            //cancel if it is running for long time
+            if (this.TimeElapsed.TotalSeconds > 8 && ProgressPercentage == 0) 
+                this.Cancel();
         }
 
         #endregion
@@ -269,9 +274,7 @@ namespace UVA_Arena.Internet
             }
 
             //run task         
-            CurrentTask.Download();
-
-            System.GC.Collect();
+            CurrentTask.Download();             
         }
 
         #endregion
@@ -296,7 +299,7 @@ namespace UVA_Arena.Internet
             DownloadTask task = new DownloadTask(url, null, token);
             task.ProgressChangedEvent += progress;
             task.DownloadCompletedEvent += completed;
-            return DownloadAsync(task, priority);
+            return DownloadAsync(task, priority);            
         }
 
         public static DownloadTask DownloadFileAsync(
@@ -358,6 +361,7 @@ namespace UVA_Arena.Internet
         #region Problem Database and Category Downloader
 
         public static bool _DownloadingProblemDatabase = false;
+
         public static void DownloadProblemDatabase(DownloadTaskHandler completed, DownloadTaskHandler progress)
         {
             if (_DownloadingProblemDatabase) return;
@@ -384,7 +388,7 @@ namespace UVA_Arena.Internet
             if (task.Status == ProgressStatus.Completed)
             {
                 LocalDatabase.LoadDatabase();
-                Logger.Add("Downloaded problem databse file", "Downloader | __DownloadProblemDatabaseCompleted(DownloadTask task)");
+                Logger.Add("Downloaded problem database file", "Downloader | __DownloadProblemDatabaseCompleted(DownloadTask task)");
             }
             else if (task.Error != null)
             {
@@ -397,7 +401,7 @@ namespace UVA_Arena.Internet
             if (task.Status == ProgressStatus.Completed)
             {
                 LocalDatabase.LoadCatagories();
-                Logger.Add("Downloaded context book 3 catagories", "Downloader | __DownloadProblemCategoryCompleted(DownloadTask task)");
+                Logger.Add("Downloaded context book 3 categories", "Downloader | __DownloadProblemCategoryCompleted(DownloadTask task)");
             }
             else if (task.Error != null)
             {

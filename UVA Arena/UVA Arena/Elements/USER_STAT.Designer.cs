@@ -42,8 +42,8 @@
             this.twoMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fiveMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tenMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.updateRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -53,8 +53,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.acceptedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notAcceptedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.noneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,8 +62,8 @@
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verdictToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.problemNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.groupByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -114,6 +114,7 @@
             this.subtimeSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.refreshSubmission = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.progtrackerTab = new System.Windows.Forms.TabPage();
             this.userProgTracker1 = new UVA_Arena.Elements.UserProgTracker();
             this.worldrankTab = new System.Windows.Forms.TabPage();
@@ -134,12 +135,12 @@
             this.rankSelector = new System.Windows.Forms.NumericUpDown();
             this.showRankButton = new System.Windows.Forms.Button();
             this.compareTab = new System.Windows.Forms.TabPage();
+            this.compareUsers1 = new UVA_Arena.Elements.CompareUsers();
             this.panel2 = new System.Windows.Forms.Panel();
             this.userNameTitle = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.Status1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.Progress1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.updateContextMenu.SuspendLayout();
             this.viewContextMenu.SuspendLayout();
             this.groupContextMenu.SuspendLayout();
@@ -161,6 +162,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.worldRanklist)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rankSelector)).BeginInit();
+            this.compareTab.SuspendLayout();
             this.panel2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -180,7 +182,7 @@
             this.fiveMinutesToolItem,
             this.tenMinutesToolItem});
             this.updateContextMenu.Name = "updateContextMenu";
-            this.updateContextMenu.OwnerItem = this.toolStripSplitButton1;
+            this.updateContextMenu.OwnerItem = this.updateRateToolStripMenuItem;
             this.updateContextMenu.Size = new System.Drawing.Size(142, 230);
             // 
             // autoUpdateToolMenu
@@ -236,7 +238,7 @@
             this.thirtySecodsToolItem.Name = "thirtySecodsToolItem";
             this.thirtySecodsToolItem.Size = new System.Drawing.Size(141, 22);
             this.thirtySecodsToolItem.Tag = "30000";
-            this.thirtySecodsToolItem.Text = "30 secods";
+            this.thirtySecodsToolItem.Text = "30 seconds";
             this.thirtySecodsToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
             // 
             // oneMinutesToolItem
@@ -271,13 +273,6 @@
             this.tenMinutesToolItem.Text = "10 minutes";
             this.tenMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
             // 
-            // updateRateToolStripMenuItem
-            // 
-            this.updateRateToolStripMenuItem.DropDown = this.updateContextMenu;
-            this.updateRateToolStripMenuItem.Name = "updateRateToolStripMenuItem";
-            this.updateRateToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.updateRateToolStripMenuItem.Text = "Auto Update";
-            // 
             // toolStripSplitButton1
             // 
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -287,6 +282,13 @@
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
             this.toolStripSplitButton1.Size = new System.Drawing.Size(84, 20);
             this.toolStripSplitButton1.Text = "Update Rate";
+            // 
+            // updateRateToolStripMenuItem
+            // 
+            this.updateRateToolStripMenuItem.DropDown = this.updateContextMenu;
+            this.updateRateToolStripMenuItem.Name = "updateRateToolStripMenuItem";
+            this.updateRateToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.updateRateToolStripMenuItem.Text = "Auto Update";
             // 
             // viewContextMenu
             // 
@@ -300,7 +302,7 @@
             this.acceptedToolStripMenuItem,
             this.notAcceptedToolStripMenuItem});
             this.viewContextMenu.Name = "viewContextMenu";
-            this.viewContextMenu.OwnerItem = this.toolStripSplitButton2;
+            this.viewContextMenu.OwnerItem = this.viewToolStripMenuItem;
             this.viewContextMenu.Size = new System.Drawing.Size(148, 148);
             // 
             // allToolStripMenuItem
@@ -363,13 +365,6 @@
             this.notAcceptedToolStripMenuItem.Text = "Not Accepted";
             this.notAcceptedToolStripMenuItem.Click += new System.EventHandler(this.viewMenuItem_Click);
             // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.DropDown = this.viewContextMenu;
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
             // toolStripSplitButton2
             // 
             this.toolStripSplitButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -379,6 +374,13 @@
             this.toolStripSplitButton2.Name = "toolStripSplitButton2";
             this.toolStripSplitButton2.Size = new System.Drawing.Size(45, 20);
             this.toolStripSplitButton2.Text = "View";
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDown = this.viewContextMenu;
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.viewToolStripMenuItem.Text = "View";
             // 
             // timer1
             // 
@@ -394,6 +396,7 @@
             this.verdictToolStripMenuItem,
             this.problemNameToolStripMenuItem});
             this.groupContextMenu.Name = "contextMenuStrip1";
+            this.groupContextMenu.OwnerItem = this.groupByToolStripMenuItem;
             this.groupContextMenu.Size = new System.Drawing.Size(155, 98);
             // 
             // noneToolStripMenuItem
@@ -431,13 +434,6 @@
             this.problemNameToolStripMenuItem.Text = "Problem Name";
             this.problemNameToolStripMenuItem.Click += new System.EventHandler(this.groupMenuItem_Click);
             // 
-            // groupByToolStripMenuItem
-            // 
-            this.groupByToolStripMenuItem.DropDown = this.groupContextMenu;
-            this.groupByToolStripMenuItem.Name = "groupByToolStripMenuItem";
-            this.groupByToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.groupByToolStripMenuItem.Text = "Group By";
-            // 
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -447,6 +443,13 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(69, 20);
             this.toolStripButton1.Text = "Group By";
+            // 
+            // groupByToolStripMenuItem
+            // 
+            this.groupByToolStripMenuItem.DropDown = this.groupContextMenu;
+            this.groupByToolStripMenuItem.Name = "groupByToolStripMenuItem";
+            this.groupByToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.groupByToolStripMenuItem.Text = "Group By";
             // 
             // MainContextMenu
             // 
@@ -571,7 +574,7 @@
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
             this.toolStripMenuItem12.Size = new System.Drawing.Size(141, 22);
             this.toolStripMenuItem12.Tag = "30000";
-            this.toolStripMenuItem12.Text = "30 secods";
+            this.toolStripMenuItem12.Text = "30 seconds";
             this.toolStripMenuItem12.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
             // 
             // toolStripMenuItem13
@@ -844,7 +847,7 @@
             this.lastSubmissions1.CopySelectionOnControlC = false;
             this.lastSubmissions1.Cursor = System.Windows.Forms.Cursors.Default;
             this.lastSubmissions1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lastSubmissions1.EmptyListMsg = "Select an user and click here to view ranklist";
+            this.lastSubmissions1.EmptyListMsg = "Select an user and click here to view rank-list";
             this.lastSubmissions1.ForeColor = System.Drawing.Color.Black;
             this.lastSubmissions1.FullRowSelect = true;
             this.lastSubmissions1.HasCollapsibleGroups = false;
@@ -854,7 +857,6 @@
             this.lastSubmissions1.ShowCommandMenuOnRightClick = true;
             this.lastSubmissions1.ShowGroups = false;
             this.lastSubmissions1.ShowItemCountOnGroups = true;
-            this.lastSubmissions1.ShowItemToolTips = true;
             this.lastSubmissions1.Size = new System.Drawing.Size(588, 275);
             this.lastSubmissions1.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.lastSubmissions1.TabIndex = 2;
@@ -915,7 +917,7 @@
             this.verSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.verSUB.Text = "Verdict";
             this.verSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.verSUB.Width = 120;
+            this.verSUB.Width = 150;
             // 
             // runSUB
             // 
@@ -969,9 +971,14 @@
             this.refreshSubmission.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.refreshSubmission.Name = "refreshSubmission";
             this.refreshSubmission.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.refreshSubmission.Size = new System.Drawing.Size(76, 20);
-            this.refreshSubmission.Text = "Refresh";
+            this.refreshSubmission.Size = new System.Drawing.Size(103, 20);
+            this.refreshSubmission.Text = "Redownload";
             this.refreshSubmission.Click += new System.EventHandler(this.refreshToolButton_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 23);
             // 
             // progtrackerTab
             // 
@@ -1037,7 +1044,7 @@
             this.worldRanklist.CopySelectionOnControlC = false;
             this.worldRanklist.Cursor = System.Windows.Forms.Cursors.Default;
             this.worldRanklist.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.worldRanklist.EmptyListMsg = "Select an user and click to view ranklist";
+            this.worldRanklist.EmptyListMsg = "Select an user and click to view rank-list";
             this.worldRanklist.ForeColor = System.Drawing.Color.Black;
             this.worldRanklist.FullRowSelect = true;
             this.worldRanklist.HasCollapsibleGroups = false;
@@ -1268,12 +1275,21 @@
             // 
             // compareTab
             // 
+            this.compareTab.Controls.Add(this.compareUsers1);
             this.compareTab.Location = new System.Drawing.Point(4, 30);
             this.compareTab.Name = "compareTab";
             this.compareTab.Size = new System.Drawing.Size(588, 300);
             this.compareTab.TabIndex = 3;
             this.compareTab.Text = "Compare";
             this.compareTab.UseVisualStyleBackColor = true;
+            // 
+            // compareUsers1
+            // 
+            this.compareUsers1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.compareUsers1.Location = new System.Drawing.Point(0, 0);
+            this.compareUsers1.Name = "compareUsers1";
+            this.compareUsers1.Size = new System.Drawing.Size(588, 300);
+            this.compareUsers1.TabIndex = 0;
             // 
             // panel2
             // 
@@ -1291,10 +1307,10 @@
             this.userNameTitle.ForeColor = System.Drawing.Color.Navy;
             this.userNameTitle.Location = new System.Drawing.Point(5, 4);
             this.userNameTitle.Name = "userNameTitle";
-            this.userNameTitle.Size = new System.Drawing.Size(148, 30);
+            this.userNameTitle.Size = new System.Drawing.Size(139, 30);
             this.userNameTitle.TabIndex = 0;
             this.userNameTitle.Tag = "{0}";
-            this.userNameTitle.Text = "Users\'s Profile";
+            this.userNameTitle.Text = "User\'s Profile";
             // 
             // statusStrip1
             // 
@@ -1321,11 +1337,6 @@
             // 
             this.Progress1.Name = "Progress1";
             this.Progress1.Size = new System.Drawing.Size(100, 22);
-            // 
-            // toolStripSeparator10
-            // 
-            this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 23);
             // 
             // USER_STAT
             // 
@@ -1364,6 +1375,7 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rankSelector)).EndInit();
+            this.compareTab.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -1484,5 +1496,6 @@
         private System.Windows.Forms.NumericUpDown rankSelector;
         private System.Windows.Forms.Button showRankButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private CompareUsers compareUsers1;
     }
 }

@@ -43,7 +43,7 @@ namespace UVA_Arena
         {
             if (timer1 != null) return;
             timer1 = new Timer();
-            timer1.Interval = 10;
+            timer1.Interval = 50;
             timer1.Tick += timer1_Tick;
             timer1.Enabled = true;
         }

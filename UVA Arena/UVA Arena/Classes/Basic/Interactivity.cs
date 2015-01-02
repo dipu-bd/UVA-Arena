@@ -96,10 +96,10 @@ namespace UVA_Arena
         public static void ShowJudgeStatus()
         {
             try
-            {                                                
+            {
                 mainForm.BeginInvoke((MethodInvoker)delegate
                 {
-                    mainForm.customTabControl1.SelectedTab = mainForm.submissionTab;
+                    mainForm.customTabControl1.SelectedTab = mainForm.judgeStatusTab;
                     mainForm.BringToFront();
                 });
             }
@@ -115,7 +115,7 @@ namespace UVA_Arena
 
                 problems.BeginInvoke((MethodInvoker)delegate
                 {
-                    problems.LoadProblems();
+                    problems.ShowAllProblems();
                     problems.problemListView.SelectObject(pinfo, true);
                     problems.problemListView.EnsureVisible(problems.problemListView.SelectedIndex);
                 });
@@ -151,7 +151,6 @@ namespace UVA_Arena
 
         public static void ProblemDatabaseUpdated()
         {
-            if (!LocalDatabase.IsReady) return;
             if (problems == null || problems.IsDisposed) return;
 
             try
@@ -171,11 +170,11 @@ namespace UVA_Arena
                     //load problems or refresh
                     if (problems.problemListView.Items.Count == 0)
                     {
-                        problems.LoadProblems();
+                        problems.ShowAllProblems();
                     }
                     else
                     {
-                        problems.problemListView.Refresh();
+                        problems.RefreshProblemList();
                     }
                 });
             }

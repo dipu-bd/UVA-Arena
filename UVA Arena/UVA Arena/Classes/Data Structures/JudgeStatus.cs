@@ -13,7 +13,7 @@
     public enum Verdict
     {
         SubError = 10,
-        CantBeJudge = 15,
+        CannotBeJudge = 15,
         InQueue = 20,
         CompileError = 30,
         RestrictedFunction = 35,

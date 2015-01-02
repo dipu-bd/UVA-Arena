@@ -66,7 +66,7 @@ namespace UVA_Arena
                 if (activityList.SelectedIndex == 0) //gotoend enabled                
                     activityList.GetLastItemInDisplayOrder().EnsureVisible();                               
 
-                Status1.Text = "Logcount : " + Logger.LOG.Count.ToString();
+                Status1.Text = "Log size : " + Logger.LOG.Count.ToString();
             }
 
             if (tabControl1.SelectedIndex == 1 && Downloader.DownloadQueue != null)
@@ -78,7 +78,7 @@ namespace UVA_Arena
                 downloadQueue1.Sort(statINT);
 
                 if (Downloader.IsBusy()) Status1.Text = "Downloading...";
-                else Status1.Text = "Stoppped";
+                else Status1.Text = "Stopped";
             }
 
             if (tabControl1.SelectedIndex == 2 && TaskQueue.queue != null)

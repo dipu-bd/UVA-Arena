@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -22,12 +23,14 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <SupportUrl>https://github.com/dipu-bd/UVA-Arena</SupportUrl>
+    <ProductName>UVA Arena</ProductName>
+    <PublisherName>Sudipto Chandra</PublisherName>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,6 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,27 +66,39 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ManifestCertificateThumbprint>D51084874C605B3694536694C190E955125E0E47</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>299CCA3FD8980E50CF4749F40A73999100020EE6</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>UVA Arena_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\Data Structures\ContextBook.cs" />
     <Compile Include="Classes\Data Structures\UserInfo.cs" />
     <Compile Include="Classes\Data Structures\UserRanklist.cs" />
+    <Compile Include="Classes\Utilities\CodeCompiler.cs" />
     <Compile Include="Classes\Utilities\Internet.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Data Structures\UserSubmissions.cs" />
     <Compile Include="Classes\Utilities\DataCompressor.cs" />
+    <Compile Include="Elements\CompareUsers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Elements\CompareUsers.Designer.cs">
+      <DependentUpon>CompareUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Elements\STATUS.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -217,6 +233,9 @@
     <EmbeddedResource Include="Elements\CODES.resx">
       <DependentUpon>CODES.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Elements\CompareUsers.resx">
+      <DependentUpon>CompareUsers.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Elements\PROBLEMS.resx">
       <DependentUpon>PROBLEMS.cs</DependentUpon>
     </EmbeddedResource>
@@ -276,6 +295,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -285,6 +305,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="UVA Arena_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />

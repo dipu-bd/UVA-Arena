@@ -74,8 +74,7 @@ namespace UVA_Arena.Structures
         public ProblemStatus status { get; set; }
         public int volume { get; set; }
         public long total { get; set; }
-        public int level { get; set; }
-        public string levelstar { get; set; }
+        public double level { get; set; } 
         public bool stared { get; set; }
         public bool solved { get; set; }        
         public bool marked { get; set; }
@@ -113,12 +112,7 @@ namespace UVA_Arena.Structures
             if (stat == 0) status = ProblemStatus.Unavailable;
             else if (stat == 1) status = ProblemStatus.Normal;
             else status = ProblemStatus.Special_Judge;
-
-            levelstar = "";
-            double urank = (total == 0) ? 0 : (double)ac / total;
-            if (urank < 0.35) levelstar += '*';
-            if (urank <= 0.15) levelstar += '*';
-
+            
             tags = RegistryAccess.GetTags(pnum);
         }
     }

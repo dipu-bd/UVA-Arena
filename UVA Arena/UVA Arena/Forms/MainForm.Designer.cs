@@ -34,7 +34,7 @@
             this.customTabControl1 = new System.Windows.Forms.CustomTabControl();
             this.problemTab = new System.Windows.Forms.TabPage();
             this.codesTab = new System.Windows.Forms.TabPage();
-            this.submissionTab = new System.Windows.Forms.TabPage();
+            this.judgeStatusTab = new System.Windows.Forms.TabPage();
             this.profileTab = new System.Windows.Forms.TabPage();
             this.utilitiesTab = new System.Windows.Forms.TabPage();
             this.customTabControl1.SuspendLayout();
@@ -54,7 +54,7 @@
             // 
             this.customTabControl1.Controls.Add(this.problemTab);
             this.customTabControl1.Controls.Add(this.codesTab);
-            this.customTabControl1.Controls.Add(this.submissionTab);
+            this.customTabControl1.Controls.Add(this.judgeStatusTab);
             this.customTabControl1.Controls.Add(this.profileTab);
             this.customTabControl1.Controls.Add(this.utilitiesTab);
             this.customTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -91,13 +91,13 @@
             // 
             // submissionTab
             // 
-            this.submissionTab.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.submissionTab.ImageKey = "live_submission";
-            this.submissionTab.Location = new System.Drawing.Point(4, 33);
-            this.submissionTab.Name = "submissionTab";
-            this.submissionTab.Size = new System.Drawing.Size(836, 405);
-            this.submissionTab.TabIndex = 6;
-            this.submissionTab.Text = "STATUS";
+            this.judgeStatusTab.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.judgeStatusTab.ImageKey = "live_submission";
+            this.judgeStatusTab.Location = new System.Drawing.Point(4, 33);
+            this.judgeStatusTab.Name = "submissionTab";
+            this.judgeStatusTab.Size = new System.Drawing.Size(836, 405);
+            this.judgeStatusTab.TabIndex = 6;
+            this.judgeStatusTab.Text = "STATUS";
             // 
             // profileTab
             // 
@@ -146,7 +146,7 @@
         public System.Windows.Forms.TabPage profileTab;
         public System.Windows.Forms.TabPage codesTab;
         public System.Windows.Forms.TabPage utilitiesTab;
-        public System.Windows.Forms.TabPage submissionTab;
+        public System.Windows.Forms.TabPage judgeStatusTab;
           
     }
 }

@@ -35,6 +35,12 @@ namespace UVA_Arena.Elements
                 try { LoadCodeFolder(true); }
                 catch (Exception ex) { Logger.Add(ex.Message, "Codes"); }
             }
+
+            Stylish.SetGradientBackground(filenamePanel,
+                new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 90F));
+
+            Stylish.SetGradientBackground(toolStrip1,
+                new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightBlue, -90F));
         }
 
         public void ShowCode(object pnum)
@@ -47,11 +53,13 @@ namespace UVA_Arena.Elements
                 {
                     this.BeginInvoke((MethodInvoker)delegate
                     {
-                        CodeFileCreator cfc = new CodeFileCreator();
-                        if (cfc.ShowDialog() == DialogResult.OK)
+                        using (CodeFileCreator cfc = new CodeFileCreator())
                         {
-                            AddProblem((long)pnum, cfc.Language);
-                            return;
+                            if (cfc.ShowDialog() == DialogResult.OK)
+                            {
+                                AddProblem((long)pnum, cfc.Language);
+                                return;
+                            }
                         }
                     });
                 }
@@ -252,7 +260,6 @@ namespace UVA_Arena.Elements
             });
 
             IsReady = true;
-            System.GC.Collect();
         }
 
         public void AddChildNodes(TreeNode parent)
@@ -337,22 +344,24 @@ namespace UVA_Arena.Elements
 
         private void browseFolderButton_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.Description = "Select a folder that stores code files.";
-            if (fbd.ShowDialog() == DialogResult.OK)
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
-                CodesPath = fbd.SelectedPath;
-                try
+                fbd.Description = "Select a folder that stores code files.";
+                if (fbd.ShowDialog() == DialogResult.OK)
                 {
-                    FormatCodeDirectory(true);
-                    LoadCodeFolder(true);
-                    fileSystemWatcher1.Path = fbd.SelectedPath;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    CodesPath = null;
-                    selectDirectoryPanel.Visible = true;
+                    CodesPath = fbd.SelectedPath;
+                    try
+                    {
+                        FormatCodeDirectory(true);
+                        LoadCodeFolder(true);
+                        fileSystemWatcher1.Path = fbd.SelectedPath;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        CodesPath = null;
+                        selectDirectoryPanel.Visible = true;
+                    }
                 }
             }
         }
@@ -381,7 +390,7 @@ namespace UVA_Arena.Elements
 
         #region Seach Text Box
 
-        private TreeNode SelectNextNode(TreeNode node)
+        private static TreeNode SelectNextNode(TreeNode node)
         {
             bool next = true;
             if (node.Nodes.Count > 0)
@@ -407,7 +416,7 @@ namespace UVA_Arena.Elements
             return node;
         }
 
-        public bool SearchProblem(string pat, long pnum = -1)
+        public bool SearchProblem(string pat)
         {
             try
             {
@@ -518,38 +527,16 @@ namespace UVA_Arena.Elements
             catch { return null; }
         }
 
-        public void ExpandToNode(TreeNode node)
+        private string GetSelectedPath()
         {
-            if (node == null) return;
-            TreeNode par = node.Parent;
-            while (par != null)
-            {
-                par.Expand();
-                par = par.Parent;
-            }
-            node.EnsureVisible();
-        }
+            TreeNode tn = folderTreeView.SelectedNode;
+            if (tn == null) return null;
 
-        public enum ExpandSelectType
-        {
-            ExpandToNode,
-            ExpandWithNode,
-            SelecFirstChild
-        }
+            string dir = ((FileSystemInfo)tn.Tag).FullName;
+            if (tn.Tag.GetType() == typeof(FileInfo))
+                dir = ((FileInfo)tn.Tag).DirectoryName;
 
-        public void ExpandAndSelect(TreeNode node, ExpandSelectType type = ExpandSelectType.ExpandToNode)
-        {
-            if (node == null) return;
-
-            ExpandToNode(node);
-            folderTreeView.SelectedNode = node;
-
-            if (type != ExpandSelectType.ExpandToNode) node.Expand();
-            if (type == ExpandSelectType.SelecFirstChild)
-            {
-                if (node.Nodes.Count > 0)
-                    folderTreeView.SelectedNode = node.Nodes[0];
-            }
+            return dir;
         }
 
         public TreeNode LocateProblem(long pnum)
@@ -590,7 +577,7 @@ namespace UVA_Arena.Elements
             });
         }
 
-        private bool ParseInputOutput(long pnum, string inpfile, string outfile, bool replace = false)
+        private static bool ParseInputOutput(long pnum, string inpfile, string outfile, bool replace = false)
         {
             try
             {
@@ -655,60 +642,6 @@ namespace UVA_Arena.Elements
                 return false;
             }
         }
-
-        private long GetProblemNumber(string name)
-        {
-            long res = -1;
-            Match m = Regex.Match(name, @"\d+");
-            if (m.Success)
-            {
-                string num = name.Substring(m.Index, m.Length);
-                long.TryParse(num, out res);
-                if (!LocalDatabase.HasProblem(res)) res = -1;
-            }
-            return res;
-        }
-
-        private string GetSelectedPath()
-        {
-            TreeNode tn = folderTreeView.SelectedNode;
-            if (tn == null) return null;
-
-            string dir = ((FileSystemInfo)tn.Tag).FullName;
-            if (tn.Tag.GetType() == typeof(FileInfo))
-                dir = ((FileInfo)tn.Tag).DirectoryName;
-
-            return dir;
-        }
-
-        private void CreateFile(string par, string name, string ext, bool trial = true)
-        {
-            if (par == null) return;
-
-            int tcount = 1;
-            string path = Path.Combine(par, name + ext);
-            while (trial && File.Exists(path))
-            {
-                path = Path.Combine(par, string.Format("{0} ({1}){2}", name, tcount, ext));
-                ++tcount;
-            }
-            LocalDirectory.CreateFile(path);
-        }
-
-        private void CreateDirectory(string par, string name, bool trial = true)
-        {
-            if (par == null) par = CodesPath;
-
-            int tcount = 1;
-            string path = Path.Combine(par, name);
-            while (trial && Directory.Exists(path))
-            {
-                path = Path.Combine(par, string.Format("{0} ({1})", name, tcount));
-                ++tcount;
-            }
-            LocalDirectory.CreateDirectory(path);
-        }
-
         #endregion
 
         #region Folder Tree Context Menu Items
@@ -895,8 +828,8 @@ namespace UVA_Arena.Elements
         #region Open File And History Keeping
 
         public long SelectedPNUM = -1;
-        private Structures.Language CustomLang = Structures.Language.CPP;
-        private FileInfo CurrentProblem = null;
+        public FileInfo CurrentProblem = null;
+        public Structures.Language CustomLang = Structures.Language.CPP;
 
         private void ClearPrevOpenedFiles()
         {
@@ -1056,7 +989,7 @@ namespace UVA_Arena.Elements
         //
         // History Keeping
         //
-        private ToolStripItem GetToolItem(FileInfo file)
+        private static ToolStripItem GetToolItem(FileInfo file)
         {
             ToolStripMenuItem tmi = new ToolStripMenuItem();
             tmi.Text = file.Name;
@@ -1579,6 +1512,7 @@ namespace UVA_Arena.Elements
                 {
                     OpenInputFile(ofd.FileName);
                 }
+                ofd.Dispose();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -1638,6 +1572,7 @@ namespace UVA_Arena.Elements
                 {
                     File.WriteAllText(sfd.FileName, outputTextBox.Text);
                 }
+                sfd.Dispose();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -1684,6 +1619,7 @@ namespace UVA_Arena.Elements
                 {
                     OpenCorrectFile(ofd.FileName);
                 }
+                ofd.Dispose();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -1824,7 +1760,7 @@ namespace UVA_Arena.Elements
                 }
                 else if ((string)correctOutputTextBox.Tag == e.FullPath)
                 {
-                    OpenCorrectFile(e.FullPath); 
+                    OpenCorrectFile(e.FullPath);
                 }
             }
             catch { }
@@ -1838,6 +1774,54 @@ namespace UVA_Arena.Elements
         // Compile and Run
         //
         private double RunTimeLimit = 3.000;
+
+        private void BuildAndRun(object state)
+        {
+            //if no file opened
+            if (Interactivity.codes.CurrentProblem == null) return;
+
+            //clear and initiate
+            Interactivity.codes.BeginInvoke((MethodInvoker)delegate
+            {
+                ClearOutputFile(); //clear output file
+                saveInputTool.PerformClick(); //save input
+                saveToolButton.PerformClick(); //save code
+                codeTextBox.ClearHints(); //clear hints                
+                compilerOutput.Clear(); //clear prev compiler report
+                compileToolButton.Enabled = false;
+                buildRunToolButton.Enabled = false;
+                runtestToolButton.Enabled = false;
+                //show compiler output
+                if (compilerOutputIsHidden) ToggleCompilerOutput();
+            });
+
+            //run task
+            bool ok = CodeCompiler.BuildAndRun((BuildRunType)state,
+                CurrentProblem, SelectedPNUM, RunTimeLimit);
+
+
+            //re-enable all data
+            Interactivity.codes.BeginInvoke((MethodInvoker)delegate
+            {
+                //enable the build and run buttons
+                compileToolButton.Enabled = true;
+                buildRunToolButton.Enabled = true;
+                //if no problem is selected do not enable runtest button
+                runtestToolButton.Enabled = (SelectedPNUM != -1);
+                //go to end of output
+                compilerOutput.GoEnd();
+                //wait a little before processing message data                
+                Thread.Sleep(100);
+                this.BeginInvoke((MethodInvoker)delegate { ProcessErrorData(); });
+                //if no error and runtest
+                if (ok) tabControl1.SelectedTab = compareTAB;
+            });
+        }
+
+        //
+        // Events in compilation toolbar
+        //
+
         private void timeLimitCombo_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -1984,420 +1968,7 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Compile and Run
-
-        public enum BuildRunType
-        {
-            BuildOnly,
-            RunTest,
-            BuildAndRun
-        }
-
-        private void BuildAndRun(object state)
-        {
-            //if no file opened
-            if (CurrentProblem == null) return;
-
-            //type of task to be done
-            bool buildonly = ((BuildRunType)state == BuildRunType.BuildOnly);
-            bool runtest = ((BuildRunType)state == BuildRunType.RunTest);
-
-            try
-            {
-                BeforeBuildRunTask();
-
-                //compile task
-                RunBuildTask();
-
-                //run builded file
-                if (!buildonly) RunRunTask(runtest);
-            }
-            catch (Exception ex)
-            {
-                runtest = false;
-                Logger.Add(ex.Message, "Codes");
-                this.BeginInvoke((MethodInvoker)delegate
-                {
-                    compilerOutput.AppendText(ex.Message + "\n", HighlightSyntax.CommentStyle);
-                });
-            }
-            finally
-            {
-                AfterBuildRunTask(runtest);
-            }
-        }
-
-        private void BeforeBuildRunTask()
-        {
-            //clear and initiate
-            this.BeginInvoke((MethodInvoker)delegate
-            {
-                ClearOutputFile(); //clear output file
-                saveInputTool.PerformClick(); //save input
-                saveToolButton.PerformClick(); //save code
-                codeTextBox.ClearHints(); //clear hints                
-                compilerOutput.Clear(); //clear prev compiler report
-                compileToolButton.Enabled = false;
-                buildRunToolButton.Enabled = false;
-                runtestToolButton.Enabled = false;
-                //show compiler output
-                if (compilerOutputIsHidden) ToggleCompilerOutput();
-            });
-        }
-
-        public void AfterBuildRunTask(bool runtest)
-        {
-            //re-enable all data
-            this.BeginInvoke((MethodInvoker)delegate
-            {
-                //enable the build and run buttons
-                compileToolButton.Enabled = true;
-                buildRunToolButton.Enabled = true;
-                //if no problem is selected do not enable runtest button
-                runtestToolButton.Enabled = (SelectedPNUM != -1);
-                //go to end of output
-                compilerOutput.GoEnd();
-                //wait a little before processing message data                
-                Thread.Sleep(100);
-                this.BeginInvoke((MethodInvoker)delegate { ProcessErrorData(); });
-                //if no error and runtest
-                if (runtest) tabControl1.SelectedTab = compareTAB;
-            });
-
-        }
-
-        private void RunBuildTask()
-        {
-            //get extension of opened file                
-            string ext = CurrentProblem.Extension.ToLower();
-
-            //show building messege
-            this.BeginInvoke((MethodInvoker)delegate
-            {
-                compilerOutput.AppendText("Building...\n\n", HighlightSyntax.CommentStyle);
-            });
-
-            bool success = false;
-            if (ext == ".c") success = C_Compile();
-            else if (ext == ".cpp") success = CPP_Compile();
-            else if (ext == ".java") success = Java_Compile();
-            else throw new Exception("Language is not supported.");
-
-            //show compilation result
-            if (!success)
-            {
-                throw new Exception("Compilation Failed " + CurrentProblem.FullName);
-            }
-
-            this.BeginInvoke((MethodInvoker)delegate
-            {
-                compilerOutput.AppendText("Successfully Compiled.\n", HighlightSyntax.CommentStyle);
-            });
-        }
-
-        private void RunRunTask(bool runtest)
-        {
-            //get extension of opened file                
-            string ext = CurrentProblem.Extension.ToLower();
-
-            //show running message
-            this.BeginInvoke((MethodInvoker)delegate
-            {
-                compilerOutput.AppendText("Running...\n", HighlightSyntax.CommentStyle);
-            });
-
-            //run compiled code
-            bool success = false;
-            if (ext == ".c" || ext == ".cpp") success = C_CPP_Run(runtest);
-            else if (ext == ".java") success = Java_Run(runtest);
-
-            //show run result
-            if (!success) throw new Exception("Process Failed.\n");
-
-            this.BeginInvoke((MethodInvoker)delegate
-            {
-                compilerOutput.AppendText("Process Completed.\n", HighlightSyntax.CommentStyle);
-            });
-        }
-
-        #endregion
-
-        #region Task Executors
-
-        //
-        // Execution Process
-        //
-
-        void proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            string data = e.Data;
-            if (data == null) return;
-            this.BeginInvoke((MethodInvoker)delegate
-            {
-                //remove current file name at the beginning                
-                if (CurrentProblem != null) data = data.Replace(CurrentProblem.FullName + ":", "");
-                //add message to compiler output
-                compilerOutput.AppendText(data.Trim() + "\n");
-            });
-        }
-
-        private bool ExecuteProcess(string args, int timelim = -1, string procname = null)
-        {
-            //command prompt
-            string cmd = Path.Combine(Environment.SystemDirectory, "cmd.exe");
-
-            //prepare process
-            Process proc = new Process();
-            proc.ErrorDataReceived += proc_OutputDataReceived;
-            proc.OutputDataReceived += proc_OutputDataReceived;
-            proc.StartInfo = new ProcessStartInfo()
-            {
-                FileName = cmd,
-                CreateNoWindow = true,
-                UseShellExecute = false,
-                RedirectStandardError = true,
-                RedirectStandardOutput = true,
-                WindowStyle = ProcessWindowStyle.Hidden,
-                Arguments = "/c \"" + args + "\""
-            };
-
-            //start process
-            proc.Start();
-            proc.BeginErrorReadLine();
-            proc.BeginOutputReadLine();
-            if (timelim == -1) proc.WaitForExit();
-            else proc.WaitForExit(timelim);
-
-            //generate ending report
-            bool tle = !proc.HasExited; //check if time limit has exceeded
-            if (tle) ForceKill(procname); //force kill tle tasks by process-name
-            int exitcode = tle ? -1 : proc.ExitCode; //get exitcode
-            double total = tle ? (timelim / 1000.0) : proc.TotalProcessorTime.TotalSeconds;
-            string runtime = string.Format("Runtime = {0:0.000} sec.", total);
-            string verdict = string.Format("Exit Code = {0} ({1}).", exitcode,
-                (exitcode == -1 ? "tle" : (exitcode == 0 ? "Successfull" : "Error")));
-
-            //show output
-            this.BeginInvoke((MethodInvoker)delegate
-            {
-                compilerOutput.AppendText("\n" + runtime + "\n", HighlightSyntax.CommentStyle);
-                compilerOutput.AppendText(verdict + "\n", HighlightSyntax.CommentStyle);
-            });
-
-            //return result
-            return (exitcode == 0);
-        }
-
-        private void ForceKill(string procname)
-        {
-            if (procname == null) return;
-
-            //command prompt
-            string cmd = Path.Combine(Environment.SystemDirectory, "cmd.exe");
-
-            Process killer = new Process();
-            //command prompt arguments                
-            string taskkill = string.Format("/c \"taskkill /IM \"{0}\"\" /T /F", procname);
-            killer.StartInfo = new ProcessStartInfo(cmd, taskkill)
-            {
-                //command prompt will be hidden
-                WindowStyle = ProcessWindowStyle.Hidden,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            killer.Start();
-            killer.WaitForExit();
-        }
-
-        private bool RunInBatch(string args, string title)
-        {
-            //get bat file
-            string file = Path.GetTempFileName();
-            string bat = file + ".bat";
-            File.Move(file, bat);
-
-            string commands =
-                  "@cls\n"
-                + "@title " + title + "\n"
-                + "@" + args + "\n"
-                + "@echo.\n"
-                + "@set /p exit=Press Enter to exit...%=%\n"
-                + "@exit";
-
-            //write commands to batch file
-            File.WriteAllText(bat, commands);
-
-            //start batch file
-            Process p = System.Diagnostics.Process.Start(bat);
-            p.WaitForExit(); //wait till finish
-
-            //delete batch file
-            File.Delete(bat);
-
-            //always task is completed
-            return true;
-        }
-
-        #endregion
-
-        #region Compilers
-
-        //
-        // C Compiler
-        // 
-        private bool C_Compile()
-        {
-            //file to compile
-            string filename = CurrentProblem.FullName;
-
-            //get compiler
-            string compiler = MinGWLocation;
-            compiler = Path.Combine(compiler, "bin");
-            compiler = Path.Combine(compiler, "mingw32-gcc.exe");
-            if (!File.Exists(compiler)) throw new Exception("Invalid MinGW path. Select one from settings.");
-
-            //filename
-            string name = Path.GetFileNameWithoutExtension(filename);
-            string exec = Path.Combine(Path.GetDirectoryName(filename), name + ".exe");
-
-            //options
-            string options = CCompilerOptions;
-
-            //run process
-            string arguments = string.Format("\"{0}\" \"{1}\" {2} -o \"{3}", compiler, filename, options, exec);
-            return ExecuteProcess(arguments);
-        }
-
-        //
-        // C++ Compiler
-        // 
-        private bool CPP_Compile()
-        {
-            //file to compile
-            string filename = CurrentProblem.FullName;
-
-            //get compiler
-            string compiler = MinGWLocation;
-            compiler = Path.Combine(compiler, "bin");
-            compiler = Path.Combine(compiler, "mingw32-g++.exe");
-            if (!File.Exists(compiler)) throw new Exception("Invlaid MinGW path. Select one from settings.");
-
-            //filename
-            string name = Path.GetFileNameWithoutExtension(filename);
-            string exec = Path.Combine(Path.GetDirectoryName(filename), name + ".exe");
-
-            //options
-            string options = CPPCompilerOptions;
-
-            //run process
-            string arguments = string.Format("\"{0}\" \"{1}\" {2} -o \"{3}", compiler, filename, options, exec);
-            return ExecuteProcess(arguments);
-        }
-
-        //
-        // Java Compiler
-        //
-        private bool Java_Compile()
-        {
-            //file to compile
-            string filename = CurrentProblem.FullName;
-
-            //get compiler
-            string compiler = JDKLocation;
-            compiler = Path.Combine(compiler, "bin");
-            compiler = Path.Combine(compiler, "javac.exe");
-            if (!File.Exists(compiler)) throw new Exception("Invalid JDK path. Select one from settings.");
-
-            //filename
-            string dir = Path.GetDirectoryName(filename);
-
-            //options
-            string options = JavaCompilerOptions;
-
-            //run process
-            string arguments = string.Format("\"{0}\" {1} -d \"{2}\" \"{3}\"", compiler, options, dir, filename);
-            return ExecuteProcess(arguments);
-        }
-
-        #endregion
-
-        #region Run builded file
-
-        //
-        // C and C++ Run
-        //
-        private bool C_CPP_Run(bool runtest)
-        {
-            //determine if custom input output is needed
-            if (SelectedPNUM == -1) runtest = false;
-            if (runtest && SelectedPNUM == -1) return false;
-
-            //get exe file name
-            string filename = Path.GetFileNameWithoutExtension(CurrentProblem.Name);
-            string exec = Path.Combine(CurrentProblem.DirectoryName, filename + ".exe");
-
-            //get argument parameters
-            int runtime = (int)(RunTimeLimit * 1000);
-            string input = Path.Combine(CurrentProblem.DirectoryName, "input.txt");
-            string output = Path.Combine(CurrentProblem.DirectoryName, "output.txt");
-
-            if (runtest)
-            {
-                //run process with predefined input
-                string format = "\"{0}\" < \"{1}\" > \"{2}\"";
-                string arguments = string.Format(format, exec, input, output);
-                return ExecuteProcess(arguments, runtime, Path.GetFileName(exec));
-            }
-            else
-            {
-                //run process from a batch file
-                string arguments = "\"" + exec + "\"";
-                return RunInBatch(arguments, Path.GetFileNameWithoutExtension(exec));
-            }
-        }
-
-        //
-        // Java Run
-        //
-        private bool Java_Run(bool runtest)
-        {
-            //determine if custom input output is needed
-            if (runtest && SelectedPNUM == -1) return false;
-            if (SelectedPNUM == -1) runtest = false;
-
-            //get compiler
-            int runtime = (int)(RunTimeLimit * 1000);
-            string exec = JDKLocation;
-            exec = Path.Combine(exec, "bin");
-            exec = Path.Combine(exec, "java.exe");
-            if (!File.Exists(exec)) throw new Exception("Invalid JDK path. Select one from settings.");
-
-            //file names and directories
-            string dir = CurrentProblem.DirectoryName;
-            string input = Path.Combine(CurrentProblem.DirectoryName, "input.txt");
-            string output = Path.Combine(CurrentProblem.DirectoryName, "output.txt");
-
-            //format of the arguments 
-            string format = "\"{0}\" -classpath \"{1}\" Main < \"{2}\" > \"{3}\" ";
-            if (!runtest) format = "\"{0}\" -classpath \"{1}\" Main";
-            string arguments = string.Format(format, exec, dir, input, output);
-
-            if (runtest)
-            {
-                //run process with predefined input-output
-                return ExecuteProcess(arguments, runtime, Path.GetFileName(exec));
-            }
-            {
-                //run from a batch file
-                return RunInBatch(arguments, Path.GetFileNameWithoutExtension(CurrentProblem.Name));
-            }
-
-        }
-
-        #endregion
-
-        #region Compare Tool
+        #region Compare Outputs
 
         private void compareOutputButton_Click(object sender, EventArgs e)
         {
@@ -2436,7 +2007,7 @@ namespace UVA_Arena.Elements
             __updating++;
 
             //add lines
-            bool res = _Process(source1, correctOutputTextBox, progOutputTextBox);
+            bool res = _ProcessDiff(source1, correctOutputTextBox, progOutputTextBox);
 
             //end update
             __updating--;
@@ -2445,41 +2016,14 @@ namespace UVA_Arena.Elements
             return res;
         }
 
-        private bool _Process(DiffMergeStuffs.Lines lines, FastColoredTextBox fctb1, FastColoredTextBox fctb2)
-        {
-            bool match = true;
-            foreach (var line in lines)
-            {
-                switch (line.state)
-                {
-                    case DiffMergeStuffs.DiffType.None:
-                        fctb1.AppendText(line.line + Environment.NewLine);
-                        fctb2.AppendText(line.line + Environment.NewLine);
-                        break;
-                    case DiffMergeStuffs.DiffType.Inserted:
-                        fctb1.AppendText(Environment.NewLine);
-                        fctb2.AppendText(line.line + Environment.NewLine, HighlightSyntax.GreenLineStyle);
-                        match = false;
-                        break;
-                    case DiffMergeStuffs.DiffType.Deleted:
-                        fctb1.AppendText(line.line + Environment.NewLine, HighlightSyntax.RedLineStyle);
-                        fctb2.AppendText(Environment.NewLine);
-                        match = false;
-                        break;
-                }
-                if (line.subLines != null)
-                    match = match && _Process(line.subLines, fctb1, fctb2);
-            }
-            return match;
-        }
-
-        void tb_VisibleRangeChanged(object sender, EventArgs e)
+        private void tb_VisibleRangeChanged(object sender, EventArgs e)
         {
             if (__updating > 0) return;
 
-            var vPos = (sender as FastColoredTextBox).VerticalScroll.Value;
-            var curLine = (sender as FastColoredTextBox).Selection.Start.iLine;
-            var curChar = (sender as FastColoredTextBox).Selection.Start.iChar;
+            var fctb = (FastColoredTextBox)sender;
+            var vPos = fctb.VerticalScroll.Value;
+            var curLine = fctb.Selection.Start.iLine;
+            var curChar = fctb.Selection.Start.iChar;
 
             CurLnLabel.Text = string.Format((string)CurLnLabel.Tag, curLine);
             CurColLabel.Text = string.Format((string)CurColLabel.Tag, curChar);
@@ -2493,7 +2037,7 @@ namespace UVA_Arena.Elements
             correctOutputTextBox.Refresh();
         }
 
-        void _UpdateScroll(FastColoredTextBox tb, int vPos, int curLine)
+        private void _UpdateScroll(FastColoredTextBox tb, int vPos, int curLine)
         {
             if (__updating > 0) return;
 
@@ -2514,7 +2058,7 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region udebug
+        #region uDebug
 
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -2560,5 +2104,110 @@ namespace UVA_Arena.Elements
 
         #endregion
 
+        #region STATIC FUNCTIONS
+
+        public enum ExpandSelectType
+        {
+            ExpandToNode,
+            ExpandWithNode,
+            SelecFirstChild
+        }
+
+        public static void ExpandAndSelect(TreeNode node, ExpandSelectType type = ExpandSelectType.ExpandToNode)
+        {
+            if (node == null) return;
+
+            ExpandToNode(node);
+            node.TreeView.SelectedNode = node;
+
+            if (type != ExpandSelectType.ExpandToNode) node.Expand();
+            if (type == ExpandSelectType.SelecFirstChild)
+            {
+                if (node.Nodes.Count > 0)
+                    node.TreeView.SelectedNode = node.Nodes[0];
+            }
+        }
+        public static void ExpandToNode(TreeNode node)
+        {
+            if (node == null) return;
+            TreeNode par = node.Parent;
+            while (par != null)
+            {
+                par.Expand();
+                par = par.Parent;
+            }
+            node.EnsureVisible();
+        }
+
+        private static long GetProblemNumber(string name)
+        {
+            long res = -1;
+            Match m = Regex.Match(name, @"\d+");
+            if (m.Success)
+            {
+                string num = name.Substring(m.Index, m.Length);
+                long.TryParse(num, out res);
+                if (!LocalDatabase.HasProblem(res)) res = -1;
+            }
+            return res;
+        }
+
+        private static void CreateFile(string par, string name, string ext, bool trial = true)
+        {
+            if (par == null) return;
+
+            int tcount = 1;
+            string path = Path.Combine(par, name + ext);
+            while (trial && File.Exists(path))
+            {
+                path = Path.Combine(par, string.Format("{0} ({1}){2}", name, tcount, ext));
+                ++tcount;
+            }
+            LocalDirectory.CreateFile(path);
+        }
+
+        private static void CreateDirectory(string par, string name, bool trial = true)
+        {
+            if (par == null) par = CodesPath;
+
+            int tcount = 1;
+            string path = Path.Combine(par, name);
+            while (trial && Directory.Exists(path))
+            {
+                path = Path.Combine(par, string.Format("{0} ({1})", name, tcount));
+                ++tcount;
+            }
+            LocalDirectory.CreateDirectory(path);
+        }
+
+        private static bool _ProcessDiff(DiffMergeStuffs.Lines lines, FastColoredTextBox fctb1, FastColoredTextBox fctb2)
+        {
+            bool match = true;
+            foreach (var line in lines)
+            {
+                switch (line.state)
+                {
+                    case DiffMergeStuffs.DiffTypes.None:
+                        fctb1.AppendText(line.line + Environment.NewLine);
+                        fctb2.AppendText(line.line + Environment.NewLine);
+                        break;
+                    case DiffMergeStuffs.DiffTypes.Inserted:
+                        fctb1.AppendText(Environment.NewLine);
+                        fctb2.AppendText(line.line + Environment.NewLine, HighlightSyntax.GreenLineStyle);
+                        match = false;
+                        break;
+                    case DiffMergeStuffs.DiffTypes.Deleted:
+                        fctb1.AppendText(line.line + Environment.NewLine, HighlightSyntax.RedLineStyle);
+                        fctb2.AppendText(Environment.NewLine);
+                        match = false;
+                        break;
+                }
+                if (line.subLines != null)
+                    match = match && _ProcessDiff(line.subLines, fctb1, fctb2);
+            }
+            return match;
+        }
+
+        #endregion
     }
 }

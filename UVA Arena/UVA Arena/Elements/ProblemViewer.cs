@@ -32,7 +32,7 @@ namespace UVA_Arena.Elements
             AssignAspectToSubList();
             usernameList1.SetObjects(LocalDatabase.usernames);
             dateTimePicker1.Value = DateTime.Now.Subtract(new TimeSpan(7, 0, 0, 0));
-            
+
             Stylish.SetGradientBackground(titleBox1,
                 new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 90F));
 
@@ -48,7 +48,7 @@ namespace UVA_Arena.Elements
         {
             if (tabControl1.SelectedTab == discussTab)
             {
-                ShowDiscuss();                    
+                ShowDiscuss();
             }
             else if (tabControl1.SelectedTab == submissionTab)
             {
@@ -93,7 +93,7 @@ namespace UVA_Arena.Elements
         {
             current = null;
             titleBox1.Text = "No problem selected";
-            categoryInfo.Text = ""; 
+            categoryInfo.Text = "";
             problemMessage.Text = (string)problemMessage.Tag;
             problemWebBrowser.GoHome();
         }
@@ -102,7 +102,7 @@ namespace UVA_Arena.Elements
         {
             if (current == null) return;
 
-            LoadTopBar(); 
+            LoadTopBar();
             markButton.Checked = current.marked;
             tabControl1.SelectedTab = descriptionTab;
 
@@ -177,7 +177,8 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                string url = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.pdf", pnum / 100, pnum);
+                string format = "http://uva.onlinejudge.org/external/{0}/{1}.pdf"; // 0 = vol; 1 = pnum
+                string url = string.Format(format, pnum / 100, pnum);
                 string file = LocalDirectory.GetProblemPdf(pnum);
                 if (!reloadButton.Enabled || LocalDirectory.GetFileSize(file) < 200)
                     Downloader.DownloadFileAsync(url, file, pnum,
@@ -193,10 +194,12 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                string url = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.html", pnum / 100, pnum);
+                string format = "http://uva.onlinejudge.org/external/{0}/{1}.html"; // 0 = vol; 1 = pnum
+                string url = string.Format(format, pnum / 100, pnum);
                 string file = LocalDirectory.GetProblemHtml(pnum);
                 if (!reloadButton.Enabled || LocalDirectory.GetFileSize(file) < 100)
-                    Downloader.DownloadStringAsync(url, pnum, Internet.Priority.Normal, ProgressChanged, DownloadFinished);
+                    Downloader.DownloadFileAsync(url, file, pnum, 
+                        Internet.Priority.Normal, ProgressChanged, DownloadFinished);
             }
             catch (Exception ex)
             {
@@ -226,9 +229,14 @@ namespace UVA_Arena.Elements
 
         private void DownloadFinished(DownloadTask task)
         {
+            if (task.Error != null)
+            {
+                Interactivity.problems.Status1.Text = task.Error.Message;
+                return;
+            }
+
             bool finish = false;
-            long pnum = (long)task.Token;
-            if (task.Status != ProgressStatus.Completed) finish = true;
+            long pnum = (long)task.Token; 
             if (current == null || current.pnum != pnum) finish = true;
 
             if (!finish) //if no error occured
@@ -242,14 +250,10 @@ namespace UVA_Arena.Elements
                 }
                 else if (ext == ".html")
                 {
-                    string file = LocalDirectory.GetProblemHtml(pnum);
-                    if (LocalDirectory.GetFileSize(task.TempFileName) > 100)
-                    {
-                        File.Copy(task.TempFileName, file, true);
-                    }
-                    problemWebBrowser.Navigate(file);
-                    int cnt = DownloadContents(pnum);
-                    if (cnt == 0) finish = true;
+                        string file = LocalDirectory.GetProblemHtml(pnum);  
+                        problemWebBrowser.Navigate(file);
+                        int cnt = DownloadContents(pnum);
+                        if (cnt == 0) finish = true;
                 }
                 else
                 {
@@ -378,7 +382,7 @@ namespace UVA_Arena.Elements
         {
             markButton.Text = markButton.Checked ? "Unmark" : "Mark";
         }
-        
+
         private void up_downButton_Click(object sender, EventArgs e)
         {
             bool val = !categoryInfo.Visible;
@@ -614,7 +618,7 @@ namespace UVA_Arena.Elements
                     break;
             }
         }
-#endregion
+        #endregion
 
         #region Cell formatter
 
@@ -668,7 +672,7 @@ namespace UVA_Arena.Elements
                 }
             }
         }
-         
+
 
         private void submissionStatus_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
         {
@@ -794,13 +798,13 @@ namespace UVA_Arena.Elements
         }
 
         private void customWebBrowser1_StatusChanged(object sender, ExtendedControls.CustomWebBrowser.StatusChangedEventArgs e)
-        {               
-            Interactivity.problems.Status1.Text = e.Status;            
+        {
+            Interactivity.problems.Status1.Text = e.Status;
         }
 
         private void customWebBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
-        {            
-            Interactivity.problems.Progress1.Value = 
+        {
+            Interactivity.problems.Progress1.Value =
                 (int)(100 * e.CurrentProgress / e.MaximumProgress);
         }
 

@@ -392,12 +392,12 @@ namespace UVA_Arena.Internet
             {
                 LocalDatabase.LoadDatabase();
                 Logger.Add("Downloaded problem database file", 
-                    "Downloader | __DownloadProblemDatabaseCompleted(DownloadTask task)");
+                    "Downloader | __DownloadProblemDatabaseCompleted()");
             }
             else if (task.Error != null)
             {
                 Logger.Add(task.Error.Message, 
-                    "Downloader | __DownloadProblemDatabaseCompleted(DownloadTask task)");
+                    "Downloader | __DownloadProblemDatabaseCompleted()");
             }            
         }
 
@@ -405,14 +405,14 @@ namespace UVA_Arena.Internet
         {
             if (task.Status == ProgressStatus.Completed)
             {
-                LocalDatabase.LoadCatagories();
+                LocalDatabase.LoadCategories(true);
                 Logger.Add("Downloaded context book 3 categories", 
-                    "Downloader | __DownloadProblemCategoryCompleted(DownloadTask task)");
+                    "Downloader | __DownloadProblemCategoryCompleted()");
             }
             else if (task.Error != null)
             {
                 Logger.Add(task.Error.Message,
-                    "Downloader | __DownloadProblemCategoryCompleted(DownloadTask task)");
+                    "Downloader | __DownloadProblemCategoryCompleted()");
             }
         }
 

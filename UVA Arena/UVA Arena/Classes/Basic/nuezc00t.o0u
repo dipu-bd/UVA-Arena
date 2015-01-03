@@ -43,40 +43,35 @@ namespace UVA_Arena
             {
                 IsReady = false;
 
-                //initialize global values
-                problem_list = new List<ProblemInfo>();
-                problem_id = new Dictionary<long, long>();
-                problem_num = new Dictionary<long, ProblemInfo>();
-                problem_vol = new Dictionary<long, List<ProblemInfo>>();
-                problem_cat = new Dictionary<string, List<ProblemInfo>>();
-                DefaultUser = new UserInfo(RegistryAccess.DefaultUsername);
-
-                //get object data from json data
+                //load new problem list
                 string text = File.ReadAllText(LocalDirectory.GetProblemDataFile());
-                var data = JsonConvert.DeserializeObject<List<List<object>>>(text);
+                List<List<object>> data = JsonConvert.DeserializeObject<List<List<object>>>(text);
                 if (data == null || data.Count == 0)
                     throw new NullReferenceException("Problem database was empty");
 
-                //load all lists from object data
                 LoadList(data);
                 LoadOthers();
-
                 data.Clear();
             }
             catch (Exception ex)
             {
                 Logger.Add(ex.Message, "Problem Database|RunLoadAsync()");
             }
-            
-            //load default user after database updated
-            LoadDefaultUser();
 
             IsReady = true;
+            LoadDefaultUser();
             Interactivity.ProblemDatabaseUpdated();
         }
 
         private static void LoadList(List<List<object>> datalist)
         {
+            //set values 
+            problem_list = new List<ProblemInfo>();
+            problem_id = new Dictionary<long, long>();
+            problem_num = new Dictionary<long, ProblemInfo>();
+            problem_vol = new Dictionary<long, List<ProblemInfo>>();
+            problem_cat = new Dictionary<string, List<ProblemInfo>>();
+
             //Load problem from list
             foreach (List<object> lst in datalist)
             {
@@ -92,20 +87,18 @@ namespace UVA_Arena
                     GetCategory(cat).Add(plist);
                 }
             }
-
-            //set favorites
-            foreach (long pnum in RegistryAccess.FavoriteProblems)
-            {
-                if (HasProblem(pnum))
-                {
-                    GetProblem(pnum).marked = true;
-                }
-            }
         }
 
         private static void LoadOthers()
         {
             if (problem_list.Count < 10) return;
+
+            //set favorites
+            foreach (long pnum in RegistryAccess.FavoriteProblems)
+            {
+                if (HasProblem(pnum))
+                    GetProblem(pnum).marked = true;
+            }
 
             //get all dacu
             SortedDictionary<long, int> AllDacu = new SortedDictionary<long, int>();
@@ -156,9 +149,11 @@ namespace UVA_Arena
                 DefaultUser = JsonConvert.DeserializeObject<UserInfo>(data);
                 DefaultUser.Process();
             }
-            catch (Exception ex)
+            catch
             {
-                Logger.Add(ex.Message, "LocalDatabase|LoadDefaultUser()");
+                DefaultUser = new UserInfo();
+                DefaultUser.name = "";
+                DefaultUser.uname = "";
             }
         }
 
@@ -186,7 +181,7 @@ namespace UVA_Arena
             }
             catch (Exception ex)
             {
-                Logger.Add(ex.Message, "LocalDatabase|LoadCategory()");
+                Logger.Add(ex.Message, "LocalDatabase|LoadCategory");
             }
         }
 

@@ -62,7 +62,7 @@ namespace UVA_Arena.Structures
 
         public bool HasTried(long pnum)
         {
-            return TryList.ContainsKey(pnum);
+            return TryList != null && TryList.ContainsKey(pnum);
         }
 
         public bool IsSolved(long pnum)

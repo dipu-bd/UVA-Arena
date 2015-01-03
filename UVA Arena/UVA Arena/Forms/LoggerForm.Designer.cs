@@ -72,15 +72,15 @@
             // activityList
             // 
             this.activityList.AllColumns.Add(this.dateTime);
-            this.activityList.AllColumns.Add(this.source);
             this.activityList.AllColumns.Add(this.status);
+            this.activityList.AllColumns.Add(this.source);
             this.activityList.AlternateRowBackColor = System.Drawing.Color.SeaShell;
             this.activityList.BackColor = System.Drawing.Color.Azure;
             this.activityList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.activityList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.dateTime,
-            this.source,
-            this.status});
+            this.status,
+            this.source});
             this.activityList.Cursor = System.Windows.Forms.Cursors.Default;
             this.activityList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.activityList.EmptyListMsg = "No Log Yet";
@@ -110,7 +110,6 @@
             // 
             this.dateTime.AspectName = "time";
             this.dateTime.AspectToStringFormat = "{0:dd-MMM-yyyy, hh:mm:ss tt}";
-            this.dateTime.CellPadding = null;
             this.dateTime.Groupable = false;
             this.dateTime.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dateTime.Text = "Time";
@@ -120,7 +119,7 @@
             // source
             // 
             this.source.AspectName = "source";
-            this.source.CellPadding = null;
+            this.source.DisplayIndex = 1;
             this.source.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.source.Sortable = false;
             this.source.Text = "Source";
@@ -130,7 +129,7 @@
             // status
             // 
             this.status.AspectName = "status";
-            this.status.CellPadding = null;
+            this.status.DisplayIndex = 2;
             this.status.Sortable = false;
             this.status.Text = "Log Status";
             this.status.Width = 400;
@@ -281,21 +280,18 @@
             // nameINT
             // 
             this.nameINT.AspectName = "name";
-            this.nameINT.CellPadding = null;
             this.nameINT.Text = "Name";
             this.nameINT.Width = 100;
             // 
             // uriINT
             // 
             this.uriINT.AspectName = "Url";
-            this.uriINT.CellPadding = null;
             this.uriINT.Text = "Download From";
             this.uriINT.Width = 200;
             // 
             // fileINT
             // 
             this.fileINT.AspectName = "FileName";
-            this.fileINT.CellPadding = null;
             this.fileINT.Text = "Save To";
             this.fileINT.Width = 200;
             // 
@@ -303,34 +299,29 @@
             // 
             this.percentINT.AspectName = "ProgressPercentage";
             this.percentINT.AspectToStringFormat = "{0}%";
-            this.percentINT.CellPadding = null;
             this.percentINT.Text = "Progress";
             this.percentINT.Width = 100;
             // 
             // receiveINT
             // 
             this.receiveINT.AspectName = "Received";
-            this.receiveINT.CellPadding = null;
             this.receiveINT.Text = "Received";
             this.receiveINT.Width = 70;
             // 
             // totalINT
             // 
             this.totalINT.AspectName = "Total";
-            this.totalINT.CellPadding = null;
             this.totalINT.Text = "Total";
             this.totalINT.Width = 70;
             // 
             // priorityINT
             // 
             this.priorityINT.AspectName = "TaskPriority";
-            this.priorityINT.CellPadding = null;
             this.priorityINT.Text = "Priority";
             // 
             // statINT
             // 
             this.statINT.AspectName = "Status";
-            this.statINT.CellPadding = null;
             this.statINT.Text = "Status";
             this.statINT.Width = 80;
             // 
@@ -380,7 +371,6 @@
             // funcTask
             // 
             this.funcTask.AspectName = "func";
-            this.funcTask.CellPadding = null;
             this.funcTask.Text = "Function";
             this.funcTask.Width = 300;
             // 

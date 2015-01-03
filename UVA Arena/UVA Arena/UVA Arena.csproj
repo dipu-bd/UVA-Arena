@@ -186,11 +186,11 @@
     <Compile Include="Forms\CatagoryChange.Designer.cs">
       <DependentUpon>CatagoryChange.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CodeFileCreator.cs">
+    <Compile Include="Forms\SelectALanguage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\CodeFileCreator.Designer.cs">
-      <DependentUpon>CodeFileCreator.cs</DependentUpon>
+    <Compile Include="Forms\SelectALanguage.Designer.cs">
+      <DependentUpon>SelectALanguage.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DownloadAllForm.cs">
       <SubType>Form</SubType>
@@ -287,8 +287,8 @@
     <EmbeddedResource Include="Forms\CatagoryChange.resx">
       <DependentUpon>CatagoryChange.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CodeFileCreator.resx">
-      <DependentUpon>CodeFileCreator.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\SelectALanguage.resx">
+      <DependentUpon>SelectALanguage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DownloadAllForm.resx">
       <DependentUpon>DownloadAllForm.cs</DependentUpon>

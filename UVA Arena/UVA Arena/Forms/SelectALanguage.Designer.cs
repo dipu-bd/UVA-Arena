@@ -177,8 +177,7 @@
             this.AcceptButton = this.ok_button;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.BackgroundImage = global::UVA_Arena.Properties.Resources.backimg;
+            this.BackColor = System.Drawing.Color.Snow;
             this.CancelButton = this.cancel_button;
             this.ClientSize = new System.Drawing.Size(200, 217);
             this.Controls.Add(this.cancel_button);

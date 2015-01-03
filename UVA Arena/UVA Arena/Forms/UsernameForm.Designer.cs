@@ -41,7 +41,7 @@
             // 
             this.set_button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.set_button1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.set_button1.Location = new System.Drawing.Point(169, 245);
+            this.set_button1.Location = new System.Drawing.Point(169, 319);
             this.set_button1.Name = "set_button1";
             this.set_button1.Size = new System.Drawing.Size(100, 28);
             this.set_button1.TabIndex = 2;
@@ -56,7 +56,7 @@
             this.Status.BackColor = System.Drawing.Color.Transparent;
             this.Status.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Status.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.Status.Location = new System.Drawing.Point(13, 212);
+            this.Status.Location = new System.Drawing.Point(13, 286);
             this.Status.Name = "Status";
             this.Status.Size = new System.Drawing.Size(256, 18);
             this.Status.TabIndex = 3;
@@ -66,7 +66,7 @@
             // 
             this.cancel_button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancel_button2.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancel_button2.Location = new System.Drawing.Point(63, 245);
+            this.cancel_button2.Location = new System.Drawing.Point(63, 319);
             this.cancel_button2.Name = "cancel_button2";
             this.cancel_button2.Size = new System.Drawing.Size(100, 28);
             this.cancel_button2.TabIndex = 4;
@@ -81,7 +81,7 @@
             this.username1.BackColor = System.Drawing.Color.Snow;
             this.username1.CueText = "Write your UVA username here...";
             this.username1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.username1.Location = new System.Drawing.Point(16, 183);
+            this.username1.Location = new System.Drawing.Point(16, 257);
             this.username1.Name = "username1";
             this.username1.Size = new System.Drawing.Size(253, 25);
             this.username1.TabIndex = 0;
@@ -92,11 +92,11 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panel1.BackgroundImage = global::UVA_Arena.Properties.Resources.Main;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel1.Location = new System.Drawing.Point(16, 37);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(253, 138);
+            this.panel1.Size = new System.Drawing.Size(253, 214);
             this.panel1.TabIndex = 5;
             // 
             // label2
@@ -104,11 +104,11 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Consolas", 14.5F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(16, 12);
+            this.label2.Font = new System.Drawing.Font("Calibri", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.DarkSlateBlue;
+            this.label2.Location = new System.Drawing.Point(16, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(253, 25);
+            this.label2.Size = new System.Drawing.Size(253, 28);
             this.label2.TabIndex = 6;
             this.label2.Text = "UVA Arena";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -119,7 +119,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UVA_Arena.Properties.Resources.backimg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(284, 287);
+            this.ClientSize = new System.Drawing.Size(284, 361);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.cancel_button2);

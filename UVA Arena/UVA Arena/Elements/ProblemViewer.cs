@@ -48,8 +48,7 @@ namespace UVA_Arena.Elements
         {
             if (tabControl1.SelectedTab == discussTab)
             {
-                if (discussWebBrowser.Tag == null || (long)discussWebBrowser.Tag != current.pnum)
-                    homeDiscussButton.PerformClick();
+                ShowDiscuss();                    
             }
             else if (tabControl1.SelectedTab == submissionTab)
             {
@@ -397,47 +396,6 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Discuss Tab
-
-        private void goDiscussButton_Click(object sender, EventArgs e)
-        {
-            discussWebBrowser.Stop();
-            discussWebBrowser.Navigate(discussUrlBox.Text);
-        }
-
-        private void webBrowser2_Navigated(object sender, WebBrowserNavigatedEventArgs e)
-        {
-            discussUrlBox.Text = discussWebBrowser.Url.ToString();
-            Interactivity.problems.Status1.Text = discussWebBrowser.StatusText;
-        }
-
-        private void prevDiscussButton_Click(object sender, EventArgs e)
-        {
-            discussWebBrowser.GoBack();
-        }
-
-        private void nextDiscussButton_Click(object sender, EventArgs e)
-        {
-            discussWebBrowser.GoForward();
-        }
-        private void homeDiscussButton_Click(object sender, EventArgs e)
-        {
-            string query = "";
-            if (current != null) query = string.Format("search.php?keywords={0}", current.pnum);
-            string discuss = string.Format("http://acm.uva.es/board/{0}", query);
-            discussWebBrowser.Navigate(discuss);
-            discussUrlBox.Text = discuss;
-            discussWebBrowser.Tag = current.pnum;
-        }
-
-        private void webBrowser2_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
-        {
-            Interactivity.problems.Status1.Text = discussWebBrowser.StatusText;
-            Interactivity.problems.Progress1.Value = (int)(100 * e.CurrentProgress / e.MaximumProgress);
-        }
-
-        #endregion
-
         #region Submission Tab
 
         enum SubViewType
@@ -450,6 +408,8 @@ namespace UVA_Arena.Elements
         }
 
         private SubViewType _curSubType = SubViewType.LastSubmission;
+
+        #region  View type selection
 
         private void submissionReloadButton_Click(object sender, EventArgs e)
         {
@@ -503,6 +463,10 @@ namespace UVA_Arena.Elements
             _curSubType = SubViewType.UsersSub;
             LoadSubmission();
         }
+
+        #endregion
+
+        #region Download Submission
 
         private void LoadSubmission()
         {
@@ -650,10 +614,10 @@ namespace UVA_Arena.Elements
                     break;
             }
         }
+#endregion
 
-        //
-        //Submission Status Listview
-        //
+        #region Cell formatter
+
         private void AssignAspectToSubList()
         {
             subtimeSUB.AspectToStringConverter = delegate(object dat)
@@ -704,6 +668,7 @@ namespace UVA_Arena.Elements
                 }
             }
         }
+         
 
         private void submissionStatus_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
         {
@@ -814,6 +779,30 @@ namespace UVA_Arena.Elements
             }
         }
 
+        #endregion
+
+        #endregion
+
+        #region Discuss Tab
+
+        private void ShowDiscuss()
+        {
+            string query = "";
+            if (current != null) query = string.Format("search.php?keywords={0}", current.pnum);
+            string discuss = string.Format("http://acm.uva.es/board/{0}", query);
+            customWebBrowser1.Navigate(discuss);
+        }
+
+        private void customWebBrowser1_StatusChanged(object sender, ExtendedControls.CustomWebBrowser.StatusChangedEventArgs e)
+        {               
+            Interactivity.problems.Status1.Text = e.Status;            
+        }
+
+        private void customWebBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
+        {            
+            Interactivity.problems.Progress1.Value = 
+                (int)(100 * e.CurrentProgress / e.MaximumProgress);
+        }
 
         #endregion
 

@@ -14,7 +14,7 @@ namespace System.Windows.Forms
         //
         public CustomTabControl()
         {
-            components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container(); 
 
             this.SetStyle(ControlStyles.Opaque, true);
             this.SetStyle(ControlStyles.UserPaint, true);
@@ -40,8 +40,7 @@ namespace System.Windows.Forms
 
         [Category("Appearance"), DefaultValue(typeof(Color), "PaleTurquoise"), EditorBrowsable(EditorBrowsableState.Always)]
         new public Color BackColor { get; set; }
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-
+         
         //
         // Events
         //
@@ -54,11 +53,11 @@ namespace System.Windows.Forms
                 NativeMethods.MoveWithMouse(Interactivity.mainForm.Handle);
             }
         }
-
-        protected override void OnSelectedIndexChanged(EventArgs e)
+        
+        protected override void OnSelected(TabControlEventArgs e)
         {
+            base.OnSelected(e);
             this.Invalidate();
-            base.OnSelectedIndexChanged(e);
         }
 
         protected override void WndProc(ref Message m)
@@ -203,7 +202,7 @@ namespace System.Windows.Forms
             tabBounds.X += 16 + this.Padding.X;
             tabBounds.Width -= 16 + this.Padding.X;
             tabBounds.Y += (int)(tabBounds.Height - this.Font.Height) / 2;
-            
+
             if (this.ImageList != null && (this.TabPages[index].ImageIndex != -1
                 || !String.IsNullOrEmpty(this.TabPages[index].ImageKey)))
             {

@@ -889,6 +889,10 @@ namespace UVA_Arena.Elements
                 font = "Consolas";
                 fore = Color.Teal;
             }
+            else if (e.Column == usernameRANK)
+            {
+                fore = Color.Blue;
+            }
             else if (e.Column == nameRANK)
             {
                 font = "Segoe UI Semibold";

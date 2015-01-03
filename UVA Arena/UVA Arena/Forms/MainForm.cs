@@ -16,30 +16,24 @@ namespace UVA_Arena
         public MainForm()
         {
             InitializeComponent();
-            Application.AddMessageFilter(this);
+
+            //to enable lower level mouse
+            Application.AddMessageFilter(this); 
 
             //make background trasparent
-            bool set = false; // NativeMethods.ExtendWindowsFrame(this, 3, 2, 58, 2);
-            //if it works set a color
-            if (set)
-            {
-                menuStrip1.BackColor = Color.Black;
-                menuStrip1.ForeColor = Color.NavajoWhite;
-            }
-            else
-            {
-                customTabControl1.BackColor = Color.PaleTurquoise;
-
-                Stylish.SetGradientBackground(menuStrip1,
-                    new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
-            }
+            // bool set = NativeMethods.ExtendWindowsFrame(this, 3, 2, 58, 2);   //true if works
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
             Logger.Add("UVA Arena started", "Main Form");
 
+            customTabControl1.BackColor = Color.PaleTurquoise;
+            Stylish.SetGradientBackground(menuStrip1,
+                new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
+            
             //set some properties to the form
             SetFormProperties();
                        
@@ -144,41 +138,28 @@ namespace UVA_Arena
             //load problems
             Interactivity.problems = new Elements.PROBLEMS();
             Interactivity.problems.Dock = DockStyle.Fill;
-            Interactivity.problems.Visible = false;
             problemTab.Controls.Add(Interactivity.problems);
 
             //load codes 
             Interactivity.codes = new Elements.CODES();
             Interactivity.codes.Dock = DockStyle.Fill;
-            Interactivity.codes.Visible = false;
             codesTab.Controls.Add(Interactivity.codes);
-
-
+            
             //load status 
             Interactivity.status = new Elements.STATUS();
             Interactivity.status.Dock = DockStyle.Fill;
-            Interactivity.status.Visible = false;
             judgeStatusTab.Controls.Add(Interactivity.status);
 
             //load user stat 
             Interactivity.userstat = new Elements.USER_STAT();
             Interactivity.userstat.Dock = DockStyle.Fill;
-            Interactivity.userstat.Visible = false;
             profileTab.Controls.Add(Interactivity.userstat);
 
             //load utilities 
             //Interactivity.utilities = new Elements.UTILITIES();
             //Interactivity.utilities.Dock = DockStyle.Fill; 
-            //Interactivity.utilities.Visible = false; 
             //utilitiesTab.Controls.Add(Interactivity.utilities); 
-
-            //turn on visibility     
-            Interactivity.problems.Visible = true;
-            Interactivity.codes.Visible = true;
-            Interactivity.status.Visible = true;
-            Interactivity.userstat.Visible = true;
-            //Interactivity.utilities.Visible = true;
-
+            
             //set up context menu
             statusToolStripMenuItem.DropDown = Interactivity.status.updateContextMenu;
             submissionsToolStripMenuItem.DropDown = Interactivity.userstat.MainContextMenu;

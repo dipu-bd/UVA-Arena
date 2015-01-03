@@ -26,7 +26,7 @@ namespace UVA_Arena
         private long pnum;
         private string code;
         private Language lang;
-        private const string QUICK = @"http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=25";
+        private string QUICK = "http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=25";
 
         public void LoadSubmit(long prob_num, string source_code = null, Language language = Language.CPP)
         {
@@ -36,7 +36,9 @@ namespace UVA_Arena
 
             //submit problem
             if (!ProcessPage())
-                webBrowser1.Navigate(QUICK);
+            {
+                customWebBrowser1.Navigate(QUICK);
+            }
         }
 
         private bool ProcessPage()
@@ -45,7 +47,7 @@ namespace UVA_Arena
 
             try
             {
-                HtmlDocument hdoc = webBrowser1.Document;
+                HtmlDocument hdoc = customWebBrowser1.Document;
                 if (hdoc == null) return false;
                 foreach (HtmlElement helem in hdoc.Forms)
                 {
@@ -97,23 +99,14 @@ namespace UVA_Arena
 
             return result;
         }
-
-        private void webBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
-        {
-            status1.Text = webBrowser1.StatusText;
-            progress1.Value = (int)(100 * e.CurrentProgress / e.MaximumProgress);
-        }
-
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+                  
+         
+        private void customWebBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             ProcessPage();
-
-            //set new data
-            string url = e.Url.ToString();
-            status1.Text = webBrowser1.StatusText;
-            discussUrlBox.Text = webBrowser1.Url.ToString();
-
+        
             //check if a submission occured            
+            string url = customWebBrowser1.Url.ToString();
             string msg = "mosmsg=Submission+received+with+ID+";
             if (url.Contains(msg))
             {
@@ -124,28 +117,7 @@ namespace UVA_Arena
                     Interactivity.ShowJudgeStatus();
                     this.Hide();
                 }
-                else
-                {
-                    MessageBox.Show("Submission Error", "Submit Problem",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
-        }
-
-        private void goDiscussButton_Click(object sender, EventArgs e)
-        {
-            webBrowser1.Navigate(discussUrlBox.Text);
-        }
-
-        private void homeDiscussButton_Click(object sender, EventArgs e)
-        {
-            discussUrlBox.Text = QUICK;
-            webBrowser1.Navigate(QUICK);
-        }
-
-        private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
-        {
-            discussUrlBox.Text = webBrowser1.Url.ToString();
         }
     }
 }

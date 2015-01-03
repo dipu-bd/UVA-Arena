@@ -270,7 +270,6 @@ namespace UVA_Arena
         private void saveCodeButton_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.CheckFileExists = true;
             sfd.FileName = "Precode";
             sfd.Filter = "All Files|*.*";
             if (cppRadioButton.Checked) sfd.Filter = "CPP Files|*.cpp|Header Files|*.h*|All Files|*.*";

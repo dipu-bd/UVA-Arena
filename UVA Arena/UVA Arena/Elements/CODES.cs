@@ -238,7 +238,6 @@ namespace UVA_Arena.Elements
         public void AddChildNodes(TreeNode parent)
         {
             parent.Nodes.Clear();
-
             DirectoryInfo dir = (DirectoryInfo)parent.Tag;
             foreach (DirectoryInfo d in dir.GetDirectories())
             {
@@ -667,14 +666,6 @@ namespace UVA_Arena.Elements
                 }
                 else
                 {
-                    //check if current problem is changed
-                    if (CurrentProblem != null &&
-                        CurrentProblem.FullName == e.OldFullPath)
-                    {
-                        OpenFile(new FileInfo(e.FullPath));
-                        return;
-                    }
-
                     //get file sustem info
                     FileSystemInfo dir = null;
                     FileSystemInfo cur = null;
@@ -689,19 +680,17 @@ namespace UVA_Arena.Elements
                         cur = new DirectoryInfo(e.FullPath);
                     }
 
-                    //update all child properties
-                    TreeNode child = AddTreeNode(cur);
-                    AddChildNodes(child);
+                    //update current node and its childs
                     TreeNode tn = GetNode(dir);
-                    if (tn == null || tn.Parent == null)
+                    if (tn != null)
                     {
-                        folderTreeView.Nodes.Add(child);
+                        tn.Name = cur.Name;
+                        tn.Text = cur.Name;
+                        tn.Tag = cur;
+                        tn.ImageKey = GetKey(cur);
+                        tn.SelectedImageKey = tn.ImageKey;
+                        AddChildNodes(tn);
                     }
-                    else
-                    {
-                        tn.Parent.Nodes.Add(child);
-                    }
-                    if (tn != null) tn.Remove();
                 }
             }
             catch { }
@@ -938,6 +927,8 @@ namespace UVA_Arena.Elements
 
         private void ClearPrevOpenedFiles()
         {
+            tabControl1.SelectedTab = codeTAB;
+
             SelectedPNUM = -1;
             CurrentProblem = null;
             fileNameLabel.Text = "No Opened File";
@@ -945,7 +936,6 @@ namespace UVA_Arena.Elements
 
             compilerOutput.Clear();
             runtestToolButton.Enabled = false;
-            tabControl1.SelectedTab = codeTAB;
 
             codeTextBox.Clear();
             codeTextBox.ReadOnly = true;
@@ -1398,11 +1388,27 @@ namespace UVA_Arena.Elements
 
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            e.Cancel = (!LocalDatabase.HasProblem(SelectedPNUM));
-            if (e.Cancel)
+            e.Cancel = (!LocalDatabase.HasProblem(SelectedPNUM) && e.TabPage != codeTAB);
+            if (e.Cancel && CurrentProblem != null)
             {
                 MessageBox.Show("Select a problem's code to enable this feature.");
             }
+        }
+
+        private void undoToolButton_Click(object sender, EventArgs e)
+        {
+            codeTextBox.Undo();
+        }
+
+        private void redoToolButton_Click(object sender, EventArgs e)
+        {
+            codeTextBox.Redo();
+        }
+
+        private void codeTextBox_UndoRedoStateChanged(object sender, EventArgs e)
+        {
+            undoToolButton.Enabled = codeTextBox.UndoEnabled;
+            redoToolButton.Enabled = codeTextBox.RedoEnabled;
         }
 
         private void saveToolButton_Click(object sender, EventArgs e)
@@ -1522,8 +1528,8 @@ namespace UVA_Arena.Elements
 
         private void _ShowMaxExceedMessage(FastColoredTextBox fctb)
         {
-            fctb.Text = "Error : Too large to open. " +
-                    string.Format("( > {0})", Functions.FormatMemory(MaxFileSIZ));
+            string msg = "Error : Too large to open. ( > {0})";
+            fctb.Text = string.Format(msg, Functions.FormatMemory(MaxFileSIZ));
         }
 
         //
@@ -1532,6 +1538,8 @@ namespace UVA_Arena.Elements
         private void OpenCodeFile(string file)
         {
             FileInfo fi = new FileInfo(file);
+            if (!fi.Exists) return;
+
             //do not open any file larger than 10MB
             if (fi.Length > MaxFileSIZ)
             {
@@ -1550,6 +1558,8 @@ namespace UVA_Arena.Elements
         {
             inputTextBox.Clear();
             FileInfo fi = new FileInfo(file);
+            if (!fi.Exists) return;
+
             //do not open any file larger than 10MB
             if (fi.Length > MaxFileSIZ)
             {
@@ -1565,6 +1575,8 @@ namespace UVA_Arena.Elements
         {
             outputTextBox.Clear();
             FileInfo fi = new FileInfo(file);
+            if (!fi.Exists) return;
+
             //do not open any file larger than 10MB
             if (fi.Length > MaxFileSIZ)
             {
@@ -1590,6 +1602,8 @@ namespace UVA_Arena.Elements
         {
             correctOutputTextBox.Clear();
             FileInfo fi = new FileInfo(file);
+            if (!fi.Exists) return;
+
             //do not open any file larger than 10MB
             if (fi.Length > MaxFileSIZ)
             {
@@ -1960,14 +1974,16 @@ namespace UVA_Arena.Elements
 
         private void compareOutputButton_Click(object sender, EventArgs e)
         {
-            if (CompareOutputTexts())
+            saveCorrectToolButton.PerformClick();
+            bool res = CompareOutputTexts();
+            if (res)
             {
-                MessageBox.Show("Files matched.",
+                MessageBox.Show("File matched.",
                     Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             else
             {
-                MessageBox.Show("Files did not match.",
+                MessageBox.Show("File did not match.",
                     Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
@@ -1976,8 +1992,8 @@ namespace UVA_Arena.Elements
         private bool CompareOutputTexts()
         {
             //get file names
-            string file1 = (string)correctOutputTextBox.Tag;
             string file2 = (string)outputTextBox.Tag;
+            string file1 = (string)correctOutputTextBox.Tag;
             if (file1 == null || !File.Exists(file1)) return false;
             if (file2 == null || !File.Exists(file2)) return false;
 
@@ -1994,7 +2010,7 @@ namespace UVA_Arena.Elements
             //begin update
             __updating++;
 
-            //add lines
+            //show lines
             bool res = _ProcessDiff(source1, correctOutputTextBox, progOutputTextBox);
 
             //end update
@@ -2011,23 +2027,26 @@ namespace UVA_Arena.Elements
             {
                 switch (line.state)
                 {
-                    case DiffMergeStuffs.DiffTypes.None:
+                    case DiffMergeStuffs.DiffType.None:
                         fctb1.AppendText(line.line + Environment.NewLine);
                         fctb2.AppendText(line.line + Environment.NewLine);
                         break;
-                    case DiffMergeStuffs.DiffTypes.Inserted:
+                    case DiffMergeStuffs.DiffType.Inserted:
                         fctb1.AppendText(Environment.NewLine);
                         fctb2.AppendText(line.line + Environment.NewLine, HighlightSyntax.GreenLineStyle);
                         match = false;
                         break;
-                    case DiffMergeStuffs.DiffTypes.Deleted:
+                    case DiffMergeStuffs.DiffType.Deleted:
                         fctb1.AppendText(line.line + Environment.NewLine, HighlightSyntax.RedLineStyle);
                         fctb2.AppendText(Environment.NewLine);
                         match = false;
                         break;
                 }
                 if (line.subLines != null)
-                    match = match && _ProcessDiff(line.subLines, fctb1, fctb2);
+                {
+                    bool res = _ProcessDiff(line.subLines, fctb1, fctb2);
+                    match = match && res;
+                }
             }
             return match;
         }
@@ -2075,48 +2094,23 @@ namespace UVA_Arena.Elements
         #endregion
 
         #region uDebug
-
-
+         
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == uDebugTab)
             {
-                if (webBrowser1.Tag == null ||
-                    (long)webBrowser1.Tag != SelectedPNUM)
-                    homeDiscussButton.PerformClick();
-
-                if (!compilerOutputIsHidden)
-                    ToggleCompilerOutput();
+                if (customWebBrowser1.Tag == null ||
+                    (long)customWebBrowser1.Tag != SelectedPNUM)
+                {
+                    string url = string.Format(@"http://www.udebug.com/UVa/{0}", SelectedPNUM); 
+                    customWebBrowser1.Navigate(url);
+                    customWebBrowser1.Tag = SelectedPNUM;
+                    if (!compilerOutputIsHidden)
+                        ToggleCompilerOutput();
+                }
             }
         }
 
-        private void homeDiscussButton_Click(object sender, EventArgs e)
-        {
-            string url = "http://www.udebug.com";
-            if (LocalDatabase.HasProblem(SelectedPNUM))
-                url += "/UVa/" + SelectedPNUM;
-            discussUrlBox.Text = url;
-            webBrowser1.Tag = SelectedPNUM;
-            webBrowser1.Navigate(url);
-        }
-
-        private void goDiscussButton_Click(object sender, EventArgs e)
-        {
-            webBrowser1.Tag = SelectedPNUM;
-            webBrowser1.Navigate(discussUrlBox.Text);
-        }
-
-        private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
-        {
-            discussUrlBox.Text = webBrowser1.Url.ToString();
-            status1.Text = webBrowser1.StatusText;
-        }
-
-        private void webBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
-        {
-            status1.Text = webBrowser1.StatusText;
-            progress1.Value = (int)(100 * e.CurrentProgress / e.MaximumProgress);
-        }
 
         #endregion
 
@@ -2200,6 +2194,7 @@ namespace UVA_Arena.Elements
 
 
         #endregion
+
 
     }
 }

@@ -49,6 +49,7 @@
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.inputFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.changeDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formatDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,7 +100,6 @@
             this.plistLabel = new System.Windows.Forms.Label();
             this.folderTreeView = new System.Windows.Forms.NativeTreeView();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.refreshTool = new System.Windows.Forms.ToolStripButton();
             this.compilerSplitContainer1 = new System.Windows.Forms.CustomSplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -108,15 +108,18 @@
             this.TopToolBar = new System.Windows.Forms.ToolStrip();
             this.prevToolMenu = new System.Windows.Forms.ToolStripSplitButton();
             this.nextToolMenu = new System.Windows.Forms.ToolStripSplitButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.undoToolButton = new System.Windows.Forms.ToolStripButton();
+            this.redoToolButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolButton = new System.Windows.Forms.ToolStripButton();
             this.copyToolButton = new System.Windows.Forms.ToolStripButton();
             this.pasteToolButton = new System.Windows.Forms.ToolStripButton();
             this.findToolButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.reloadToolButton = new System.Windows.Forms.ToolStripButton();
             this.exploreToolButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.externalToolButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.problemToolButton = new System.Windows.Forms.ToolStripButton();
             this.submitToolButton = new System.Windows.Forms.ToolStripButton();
@@ -157,14 +160,7 @@
             this.refreshCompareButton = new System.Windows.Forms.Button();
             this.compareOutputButton = new System.Windows.Forms.Button();
             this.uDebugTab = new System.Windows.Forms.TabPage();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.goDiscussButton = new System.Windows.Forms.Button();
-            this.discussUrlBox = new System.Windows.Forms.TextBox();
-            this.homeDiscussButton = new System.Windows.Forms.Button();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.status1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.progress1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.customWebBrowser1 = new UVA_Arena.ExtendedControls.CustomWebBrowser();
             this.compilerOutput = new FastColoredTextBoxNS.FastColoredTextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
@@ -231,8 +227,6 @@
             this.toolStrip4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.uDebugTab.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.compilerOutput)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.BottomToolbar.SuspendLayout();
@@ -401,6 +395,15 @@
             this.outputFileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.outputFileToolStripMenuItem.Text = "Output File";
             this.outputFileToolStripMenuItem.Click += new System.EventHandler(this.outputFileToolStripMenuItem_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DropDown = this.newContextMenu;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(60, 22);
+            this.toolStripButton2.Text = "New";
             // 
             // toolStripSeparator7
             // 
@@ -886,15 +889,6 @@
             this.toolStrip3.TabIndex = 6;
             this.toolStrip3.Text = "toolStrip3";
             // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DropDown = this.newContextMenu;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(60, 22);
-            this.toolStripButton2.Text = "New";
-            // 
             // refreshTool
             // 
             this.refreshTool.Image = global::UVA_Arena.Properties.Resources.reload;
@@ -1012,6 +1006,7 @@
             this.codeTextBox.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.codeTextBox_TextChangedDelayed);
             this.codeTextBox.SelectionChangedDelayed += new System.EventHandler(this.codeTextBox_SelectionChangedDelayed);
             this.codeTextBox.AutoIndentNeeded += new System.EventHandler<FastColoredTextBoxNS.AutoIndentEventArgs>(this.fctb1_AutoIndentNeeded);
+            this.codeTextBox.UndoRedoStateChanged += new System.EventHandler<System.EventArgs>(this.codeTextBox_UndoRedoStateChanged);
             this.codeTextBox.CustomAction += new System.EventHandler<FastColoredTextBoxNS.CustomActionEventArgs>(this.codeTextBox_CustomAction);
             // 
             // TopToolBar
@@ -1020,15 +1015,18 @@
             this.TopToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.prevToolMenu,
             this.nextToolMenu,
+            this.toolStripSeparator1,
+            this.undoToolButton,
+            this.redoToolButton,
             this.toolStripSeparator5,
             this.saveToolButton,
             this.copyToolButton,
             this.pasteToolButton,
             this.findToolButton,
-            this.toolStripSeparator1,
+            this.toolStripSeparator18,
             this.reloadToolButton,
             this.exploreToolButton,
-            this.toolStripButton1,
+            this.externalToolButton,
             this.toolStripSeparator3,
             this.problemToolButton,
             this.submitToolButton,
@@ -1061,6 +1059,33 @@
             this.nextToolMenu.Text = "Next";
             this.nextToolMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.nextToolMenu.ButtonClick += new System.EventHandler(this.nextToolMenu_ButtonClick);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 38);
+            // 
+            // undoToolButton
+            // 
+            this.undoToolButton.Enabled = false;
+            this.undoToolButton.Image = ((System.Drawing.Image)(resources.GetObject("undoToolButton.Image")));
+            this.undoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.undoToolButton.Name = "undoToolButton";
+            this.undoToolButton.Size = new System.Drawing.Size(40, 35);
+            this.undoToolButton.Text = "Undo";
+            this.undoToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.undoToolButton.Click += new System.EventHandler(this.undoToolButton_Click);
+            // 
+            // redoToolButton
+            // 
+            this.redoToolButton.Enabled = false;
+            this.redoToolButton.Image = ((System.Drawing.Image)(resources.GetObject("redoToolButton.Image")));
+            this.redoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.redoToolButton.Name = "redoToolButton";
+            this.redoToolButton.Size = new System.Drawing.Size(38, 35);
+            this.redoToolButton.Text = "Redo";
+            this.redoToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.redoToolButton.Click += new System.EventHandler(this.redoToolButton_Click);
             // 
             // toolStripSeparator5
             // 
@@ -1109,10 +1134,10 @@
             this.findToolButton.ToolTipText = "Find and Replace";
             this.findToolButton.Click += new System.EventHandler(this.findToolButton_Click);
             // 
-            // toolStripSeparator1
+            // toolStripSeparator18
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 38);
+            this.toolStripSeparator18.Name = "toolStripSeparator18";
+            this.toolStripSeparator18.Size = new System.Drawing.Size(6, 38);
             // 
             // reloadToolButton
             // 
@@ -1134,15 +1159,15 @@
             this.exploreToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.exploreToolButton.Click += new System.EventHandler(this.exploreToolButton_Click);
             // 
-            // toolStripButton1
+            // externalToolButton
             // 
-            this.toolStripButton1.Image = global::UVA_Arena.Properties.Resources.external;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(52, 35);
-            this.toolStripButton1.Text = "External";
-            this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.externalToolButton.Image = global::UVA_Arena.Properties.Resources.external;
+            this.externalToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.externalToolButton.Name = "externalToolButton";
+            this.externalToolButton.Size = new System.Drawing.Size(52, 35);
+            this.externalToolButton.Text = "External";
+            this.externalToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.externalToolButton.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripSeparator3
             // 
@@ -1711,105 +1736,29 @@
             // 
             // uDebugTab
             // 
-            this.uDebugTab.BackColor = System.Drawing.Color.Aquamarine;
-            this.uDebugTab.Controls.Add(this.webBrowser1);
-            this.uDebugTab.Controls.Add(this.tableLayoutPanel6);
-            this.uDebugTab.Controls.Add(this.statusStrip1);
+            this.uDebugTab.BackColor = System.Drawing.Color.Transparent;
+            this.uDebugTab.Controls.Add(this.customWebBrowser1);
             this.uDebugTab.Location = new System.Drawing.Point(4, 26);
             this.uDebugTab.Name = "uDebugTab";
             this.uDebugTab.Size = new System.Drawing.Size(612, 275);
             this.uDebugTab.TabIndex = 3;
             this.uDebugTab.Text = "uDebug";
             // 
-            // webBrowser1
+            // customWebBrowser1
             // 
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 28);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(612, 219);
-            this.webBrowser1.TabIndex = 5;
-            this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated);
-            this.webBrowser1.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.webBrowser1_ProgressChanged);
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.ColumnCount = 3;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Controls.Add(this.goDiscussButton, 2, 0);
-            this.tableLayoutPanel6.Controls.Add(this.discussUrlBox, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.homeDiscussButton, 0, 0);
-            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(612, 28);
-            this.tableLayoutPanel6.TabIndex = 7;
-            // 
-            // goDiscussButton
-            // 
-            this.goDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.goDiscussButton.Location = new System.Drawing.Point(515, 2);
-            this.goDiscussButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.goDiscussButton.Name = "goDiscussButton";
-            this.goDiscussButton.Size = new System.Drawing.Size(94, 24);
-            this.goDiscussButton.TabIndex = 1;
-            this.goDiscussButton.Text = "GO";
-            this.goDiscussButton.UseVisualStyleBackColor = true;
-            this.goDiscussButton.Click += new System.EventHandler(this.goDiscussButton_Click);
-            // 
-            // discussUrlBox
-            // 
-            this.discussUrlBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.discussUrlBox.BackColor = System.Drawing.Color.White;
-            this.discussUrlBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.discussUrlBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.discussUrlBox.Location = new System.Drawing.Point(43, 4);
-            this.discussUrlBox.Name = "discussUrlBox";
-            this.discussUrlBox.Size = new System.Drawing.Size(466, 20);
-            this.discussUrlBox.TabIndex = 3;
-            // 
-            // homeDiscussButton
-            // 
-            this.homeDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.homeDiscussButton.Image = global::UVA_Arena.Properties.Resources.home;
-            this.homeDiscussButton.Location = new System.Drawing.Point(2, 2);
-            this.homeDiscussButton.Margin = new System.Windows.Forms.Padding(2);
-            this.homeDiscussButton.Name = "homeDiscussButton";
-            this.homeDiscussButton.Size = new System.Drawing.Size(36, 24);
-            this.homeDiscussButton.TabIndex = 6;
-            this.homeDiscussButton.UseVisualStyleBackColor = true;
-            this.homeDiscussButton.Click += new System.EventHandler(this.homeDiscussButton_Click);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.status1,
-            this.progress1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 247);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(612, 28);
-            this.statusStrip1.TabIndex = 6;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // status1
-            // 
-            this.status1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.status1.Name = "status1";
-            this.status1.Size = new System.Drawing.Size(495, 23);
-            this.status1.Spring = true;
-            this.status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // progress1
-            // 
-            this.progress1.Name = "progress1";
-            this.progress1.Size = new System.Drawing.Size(100, 22);
+            this.customWebBrowser1.BackColor = System.Drawing.Color.Ivory;
+            this.customWebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customWebBrowser1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customWebBrowser1.ForeColor = System.Drawing.Color.Black;
+            this.customWebBrowser1.HomeUrl = null;
+            this.customWebBrowser1.KeepHistory = false;
+            this.customWebBrowser1.Location = new System.Drawing.Point(0, 0);
+            this.customWebBrowser1.Name = "customWebBrowser1";
+            this.customWebBrowser1.Size = new System.Drawing.Size(612, 275);
+            this.customWebBrowser1.TabIndex = 0;
+            this.customWebBrowser1.TopBarColor = System.Drawing.Color.Tan;
+            this.customWebBrowser1.Url = new System.Uri("about:blank", System.UriKind.Absolute);
+            this.customWebBrowser1.UrlBoxFont = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 
             // compilerOutput
             // 
@@ -2055,6 +2004,7 @@
             this.BackColor = System.Drawing.Color.PaleTurquoise;
             this.Controls.Add(this.splitContainer1);
             this.DoubleBuffered = true;
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "CODES";
@@ -2118,11 +2068,6 @@
             this.toolStrip4.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.uDebugTab.ResumeLayout(false);
-            this.uDebugTab.PerformLayout();
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.compilerOutput)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -2196,7 +2141,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openExternallyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton externalToolButton;
         private System.Windows.Forms.ToolStripMenuItem folderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem textFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
@@ -2276,21 +2221,17 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.Button refreshCompareButton;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
-        public System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.Button goDiscussButton;
-        private System.Windows.Forms.TextBox discussUrlBox;
-        private System.Windows.Forms.Button homeDiscussButton;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel status1;
-        private System.Windows.Forms.ToolStripProgressBar progress1;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button loadDefaultInput;
         public FastColoredTextBoxNS.FastColoredTextBox compilerOutput;
         public System.Windows.Forms.TabControl tabControl1;
         public System.Windows.Forms.TabPage uDebugTab;
         public System.Windows.Forms.ContextMenuStrip newContextMenu;
-        public System.Windows.Forms.ToolStripButton submitToolButton; 
+        public System.Windows.Forms.ToolStripButton submitToolButton;
+        private ExtendedControls.CustomWebBrowser customWebBrowser1;
+        private System.Windows.Forms.ToolStripButton undoToolButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
+        private System.Windows.Forms.ToolStripButton redoToolButton; 
 
     }
 }

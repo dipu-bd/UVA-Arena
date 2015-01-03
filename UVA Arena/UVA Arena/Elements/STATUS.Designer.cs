@@ -453,6 +453,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "STATUS";
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Size = new System.Drawing.Size(790, 434);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

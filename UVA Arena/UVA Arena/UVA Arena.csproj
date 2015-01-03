@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>G:\Projects\GitHub\UVA-Arena\Setup\Files\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -41,7 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <DocumentationFile>
     </DocumentationFile>
@@ -93,6 +93,7 @@
     <Compile Include="Classes\Data Structures\ContextBook.cs" />
     <Compile Include="Classes\Data Structures\UserInfo.cs" />
     <Compile Include="Classes\Data Structures\UserRanklist.cs" />
+    <Compile Include="Classes\Utilities\WebBrowserHelper.cs" />
     <Compile Include="Elements\CodeCompiler.cs" />
     <Compile Include="Classes\Utilities\Internet.cs">
       <SubType>Code</SubType>
@@ -105,13 +106,19 @@
     <Compile Include="Elements\CompareUsers.Designer.cs">
       <DependentUpon>CompareUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extended Controls\CustomWebBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Extended Controls\CustomWebBrowser.Designer.cs">
+      <DependentUpon>CustomWebBrowser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Elements\STATUS.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Elements\STATUS.Designer.cs">
       <DependentUpon>STATUS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Utilities\CodeFileMerger.cs" />
+    <Compile Include="Classes\Utilities\DiffFileMerger.cs" />
     <Compile Include="Classes\Utilities\FileOperations.cs" />
     <Compile Include="Classes\Utilities\HighlightSyntax.cs" />
     <Compile Include="Classes\Utilities\NativeMethods.cs" />
@@ -247,6 +254,9 @@
     <Compile Include="Classes\Utilities\TaskQueue.cs" />
     <Compile Include="Classes\Utilities\UnixTimeStamp.cs" />
     <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="Extended Controls\CustomWebBrowser.resx">
+      <DependentUpon>CustomWebBrowser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Extended Controls\SearchBox.resx">
       <DependentUpon>SearchBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -329,36 +339,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />
-    <None Include="Resources\show.png" />
-    <None Include="Resources\hide.png" />
-    <None Include="Resources\moveup.PNG" />
-    <None Include="Resources\movedown.PNG" />
-    <None Include="Resources\bottomline.bmp" />
-    <None Include="Resources\web.png" />
-    <None Include="Resources\tools.png" />
-    <None Include="Resources\submit.png" />
-    <None Include="Resources\search.png" />
-    <None Include="Resources\save.png" />
-    <None Include="Resources\reload.png" />
-    <None Include="Resources\prev.png" />
-    <None Include="Resources\pdf.png" />
-    <None Include="Resources\paste.png" />
-    <None Include="Resources\open.png" />
-    <None Include="Resources\next.png" />
-    <None Include="Resources\log.png" />
-    <None Include="Resources\home.png" />
-    <None Include="Resources\help.png" />
-    <None Include="Resources\folder.png" />
-    <None Include="Resources\favorite.png" />
-    <None Include="Resources\external.png" />
-    <None Include="Resources\export.png" />
-    <None Include="Resources\explorer.png" />
-    <None Include="Resources\expand.png" />
-    <None Include="Resources\download.png" />
-    <None Include="Resources\copy.png" />
-    <None Include="Resources\code.png" />
-    <None Include="Resources\clear.png" />
-    <None Include="Resources\backimg.gif" />
     <None Include="unzip\Ionic.BZip2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

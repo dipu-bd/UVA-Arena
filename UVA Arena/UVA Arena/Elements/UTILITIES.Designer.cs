@@ -35,6 +35,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "UTILITIES";
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Size = new System.Drawing.Size(663, 408);
             this.ResumeLayout(false);
 

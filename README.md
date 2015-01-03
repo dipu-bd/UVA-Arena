@@ -1,8 +1,8 @@
 # UVA-Arena
 
-![UVA Arena Icon](Images/Main.ico)
+[![UVA Arena Icon](Images/Main.ico)]
 
-**UVA Arena** (c) 2014, is a free, windows based, open source software to help you with your programming practice. It is based on popular [UVA Online Judge](http://uva.onlinejudge.org/) and uses APIs from [uHunt](http://uhunt.felix-halim.net/). 
+**UVA Arena** (c) 2014, is a windows based, non-commercial, open source utility application to make problem solving easier for the programmers. It is based on popular [UVA Online Judge](http://uva.onlinejudge.org/) and uses APIs from [uHunt](http://uhunt.felix-halim.net/). 
 
 Main target of this software is to provide a useful and informative tool to the users to help them with their programming practice. Today programming has become a very competitive field. You need to keep track of your progress daily, learn new things, and of-course solve new problems as fast as you can. Problem picking and managing your codes is a time consuming process. You can minimize this wasting of time as much as possible using **UVA Arena**. 
 
@@ -55,6 +55,14 @@ Here is a brief list of the features that this software provides:
 * World Rank-list: Your position in the world, or users staring from a specific position.
 * Compare submissions between two users.  
 
+###Licence Information
+
+    This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along with this program. If no see <http://www.gnu.org/licenses/>
+
 ### Dependent Projects  
 This software uses controls from the following sources-  
 * [uHunt API](http://uhunt.felix-halim.net/api) for user's information and problem database and latest judge status. 
@@ -65,7 +73,8 @@ This software uses controls from the following sources-
 * Second most used is [Fast Colored Text Box](https://github.com/PavelTorgashov/FastColoredTextBox) for Syntax Highlighting and Code Editing.  
 * To plot graphs in user progress tracker [ZedGraph](http://sourceforge.net/projects/zedgraph/) was used. 
 * To Compress and Decompress Problems data pack [Don Net Zip](https://github.com/eropple/dotnetzip) was used. 
-* Icon resources are mostly open-source. But I couldn't look up the licences for all icons. Please inform me if any icon here is under copyright protection.
+* Main icon is a licenced as "Free for non-commercial use". Downloaded from [here](http://www.iconarchive.com/show/stark-icons-by-fruityth1ng/Applications-icon.html)  
+* Icon resources are mostly open-source and many of them are downloaded from [IconArchive](http://www.iconarchive.com/). I couldn't look up the licences for all icons. Please inform me if any icon here is under strict copyright protection.
 
 ## Developer  
 > __Sudipto Chandra Dipu__  

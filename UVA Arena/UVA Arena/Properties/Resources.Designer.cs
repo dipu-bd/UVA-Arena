@@ -81,6 +81,15 @@ namespace UVA_Arena.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to javascript:void((function() { var a, b, c, e, f; f=0; a=document.cookie.split(&apos;; &apos;); for(e=0; e&lt;a.length &amp;&amp; a[e]; e++) { f++; for(b=&apos;.&apos;+location.host; b ; b=b.replace(/^(?:%5C.|[^%5C.]+)/,&apos;&apos;)) { for( c = location.pathname; c; c=c.replace(/.$/,&apos;&apos;)) { document.cookie=(a[e]+&apos;; domain=&apos;+b+&apos;; path=&apos;+c+&apos;; expires=&apos;+new Date((new Date()).getTime()-1e11).toGMTString());}}}})()).
+        /// </summary>
+        internal static string ClearCookies {
+            get {
+                return ResourceManager.GetString("ClearCookies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap code {
@@ -231,6 +240,16 @@ namespace UVA_Arena.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Main {
+            get {
+                object obj = ResourceManager.GetObject("Main", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap maximize {
             get {
                 object obj = ResourceManager.GetObject("maximize", resourceCulture);
@@ -345,6 +364,19 @@ namespace UVA_Arena.Properties {
             get {
                 object obj = ResourceManager.GetObject("search", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UVA Arena is a windows based, non-commercial, open source utility application to make problem solving easier for the programmers. It is based on popular UVA Online Judge and uses APIs from uHunt. Copyright (C) 2014, Sudipto Chandra.
+        ///
+        ///This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+        ///
+        ///This program is distributed in th [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ShortLicence {
+            get {
+                return ResourceManager.GetString("ShortLicence", resourceCulture);
             }
         }
         

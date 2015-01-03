@@ -139,8 +139,8 @@
             // setDefaultUserToolStripMenuItem
             // 
             this.setDefaultUserToolStripMenuItem.Name = "setDefaultUserToolStripMenuItem";
-            this.setDefaultUserToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.setDefaultUserToolStripMenuItem.Text = "Set Default User";
+            this.setDefaultUserToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.setDefaultUserToolStripMenuItem.Text = "Change Default User";
             this.setDefaultUserToolStripMenuItem.Click += new System.EventHandler(this.setDefaultUserToolStripMenuItem_Click);
             // 
             // submitFormToolStripMenuItem

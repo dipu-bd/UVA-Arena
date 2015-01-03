@@ -1,1 +1,0 @@
-UVA Arena is a windows based free software that will support you in your programming practice. You can view and submit problems from UVA Online Judge. As it is mainly based on uHunt, you can also view many more useful informations. So If you want a desktop version of uHunt with lot more features, try this software.

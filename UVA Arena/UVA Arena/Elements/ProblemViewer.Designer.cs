@@ -78,13 +78,7 @@
             this.showUsersRankButton = new System.Windows.Forms.Button();
             this.showUserSubButton = new System.Windows.Forms.Button();
             this.discussTab = new System.Windows.Forms.TabPage();
-            this.discussWebBrowser = new System.Windows.Forms.WebBrowser();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.goDiscussButton = new System.Windows.Forms.Button();
-            this.discussUrlBox = new System.Windows.Forms.TextBox();
-            this.prevDiscussButton = new System.Windows.Forms.Button();
-            this.nextDiscussButton = new System.Windows.Forms.Button();
-            this.homeDiscussButton = new System.Windows.Forms.Button();
+            this.customWebBrowser1 = new UVA_Arena.ExtendedControls.CustomWebBrowser();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.up_downButton = new System.Windows.Forms.Button();
             this.categoryInfo = new System.Windows.Forms.CueTextBox();
@@ -109,7 +103,6 @@
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.discussTab.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
@@ -726,8 +719,7 @@
             // 
             // discussTab
             // 
-            this.discussTab.Controls.Add(this.discussWebBrowser);
-            this.discussTab.Controls.Add(this.tableLayoutPanel2);
+            this.discussTab.Controls.Add(this.customWebBrowser1);
             this.discussTab.Location = new System.Drawing.Point(4, 30);
             this.discussTab.Name = "discussTab";
             this.discussTab.Size = new System.Drawing.Size(792, 342);
@@ -735,100 +727,23 @@
             this.discussTab.Text = "Discuss";
             this.discussTab.UseVisualStyleBackColor = true;
             // 
-            // discussWebBrowser
+            // customWebBrowser1
             // 
-            this.discussWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.discussWebBrowser.Location = new System.Drawing.Point(0, 32);
-            this.discussWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.discussWebBrowser.Name = "discussWebBrowser";
-            this.discussWebBrowser.ScriptErrorsSuppressed = true;
-            this.discussWebBrowser.Size = new System.Drawing.Size(792, 310);
-            this.discussWebBrowser.TabIndex = 2;
-            this.discussWebBrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser2_Navigated);
-            this.discussWebBrowser.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.webBrowser2_ProgressChanged);
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.tableLayoutPanel2.ColumnCount = 5;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.goDiscussButton, 4, 0);
-            this.tableLayoutPanel2.Controls.Add(this.discussUrlBox, 3, 0);
-            this.tableLayoutPanel2.Controls.Add(this.prevDiscussButton, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.nextDiscussButton, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.homeDiscussButton, 2, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.Padding = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(792, 32);
-            this.tableLayoutPanel2.TabIndex = 3;
-            // 
-            // goDiscussButton
-            // 
-            this.goDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.goDiscussButton.Location = new System.Drawing.Point(691, 3);
-            this.goDiscussButton.Margin = new System.Windows.Forms.Padding(1);
-            this.goDiscussButton.Name = "goDiscussButton";
-            this.goDiscussButton.Size = new System.Drawing.Size(98, 26);
-            this.goDiscussButton.TabIndex = 1;
-            this.goDiscussButton.Text = "GO";
-            this.goDiscussButton.UseVisualStyleBackColor = true;
-            this.goDiscussButton.Click += new System.EventHandler(this.goDiscussButton_Click);
-            // 
-            // discussUrlBox
-            // 
-            this.discussUrlBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.discussUrlBox.BackColor = System.Drawing.Color.White;
-            this.discussUrlBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.discussUrlBox.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.discussUrlBox.ForeColor = System.Drawing.Color.Black;
-            this.discussUrlBox.Location = new System.Drawing.Point(125, 5);
-            this.discussUrlBox.Name = "discussUrlBox";
-            this.discussUrlBox.Size = new System.Drawing.Size(562, 23);
-            this.discussUrlBox.TabIndex = 3;
-            // 
-            // prevDiscussButton
-            // 
-            this.prevDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.prevDiscussButton.Image = global::UVA_Arena.Properties.Resources.prev;
-            this.prevDiscussButton.Location = new System.Drawing.Point(3, 3);
-            this.prevDiscussButton.Margin = new System.Windows.Forms.Padding(1);
-            this.prevDiscussButton.Name = "prevDiscussButton";
-            this.prevDiscussButton.Size = new System.Drawing.Size(38, 26);
-            this.prevDiscussButton.TabIndex = 4;
-            this.prevDiscussButton.UseVisualStyleBackColor = true;
-            this.prevDiscussButton.Click += new System.EventHandler(this.prevDiscussButton_Click);
-            // 
-            // nextDiscussButton
-            // 
-            this.nextDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nextDiscussButton.Image = global::UVA_Arena.Properties.Resources.next;
-            this.nextDiscussButton.Location = new System.Drawing.Point(43, 3);
-            this.nextDiscussButton.Margin = new System.Windows.Forms.Padding(1);
-            this.nextDiscussButton.Name = "nextDiscussButton";
-            this.nextDiscussButton.Size = new System.Drawing.Size(38, 26);
-            this.nextDiscussButton.TabIndex = 5;
-            this.nextDiscussButton.UseVisualStyleBackColor = true;
-            this.nextDiscussButton.Click += new System.EventHandler(this.nextDiscussButton_Click);
-            // 
-            // homeDiscussButton
-            // 
-            this.homeDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.homeDiscussButton.Image = global::UVA_Arena.Properties.Resources.home;
-            this.homeDiscussButton.Location = new System.Drawing.Point(83, 3);
-            this.homeDiscussButton.Margin = new System.Windows.Forms.Padding(1);
-            this.homeDiscussButton.Name = "homeDiscussButton";
-            this.homeDiscussButton.Size = new System.Drawing.Size(38, 26);
-            this.homeDiscussButton.TabIndex = 6;
-            this.homeDiscussButton.UseVisualStyleBackColor = true;
-            this.homeDiscussButton.Click += new System.EventHandler(this.homeDiscussButton_Click);
+            this.customWebBrowser1.BackColor = System.Drawing.Color.PowderBlue;
+            this.customWebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customWebBrowser1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customWebBrowser1.ForeColor = System.Drawing.Color.Black;
+            this.customWebBrowser1.HomeUrl = null;
+            this.customWebBrowser1.Location = new System.Drawing.Point(0, 0);
+            this.customWebBrowser1.Name = "customWebBrowser1";
+            this.customWebBrowser1.Size = new System.Drawing.Size(792, 342);
+            this.customWebBrowser1.StatusBarVisible = false;
+            this.customWebBrowser1.TabIndex = 0;
+            this.customWebBrowser1.TopBarColor = System.Drawing.Color.LightBlue;
+            this.customWebBrowser1.Url = new System.Uri("about:blank", System.UriKind.Absolute);
+            this.customWebBrowser1.UrlBoxFont = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customWebBrowser1.StatusChanged += new UVA_Arena.ExtendedControls.CustomWebBrowser.StatusChangedEventHandler(this.customWebBrowser1_StatusChanged);
+            this.customWebBrowser1.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.customWebBrowser1_ProgressChanged);
             // 
             // tableLayoutPanel1
             // 
@@ -981,8 +896,6 @@
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.discussTab.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.TopPanel.ResumeLayout(false);
@@ -1015,13 +928,6 @@
         public System.Windows.Forms.CueTextBox categoryInfo;
         public System.Windows.Forms.WebBrowser problemWebBrowser;
         public System.Windows.Forms.TabControl tabControl1;
-        public System.Windows.Forms.WebBrowser discussWebBrowser;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Button goDiscussButton;
-        private System.Windows.Forms.TextBox discussUrlBox;
-        private System.Windows.Forms.Button nextDiscussButton;
-        private System.Windows.Forms.Button prevDiscussButton;
-        private System.Windows.Forms.Button homeDiscussButton;
         public BrightIdeasSoftware.FastObjectListView submissionStatus;
         private BrightIdeasSoftware.OLVColumn sidSUB;
         private BrightIdeasSoftware.OLVColumn unameSUB;
@@ -1059,5 +965,6 @@
         private System.Windows.Forms.Label problemMessage;
         public System.Windows.Forms.TabPage discussTab;
         public System.Windows.Forms.Button up_downButton;
+        private ExtendedControls.CustomWebBrowser customWebBrowser1;
     }
 }

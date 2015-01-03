@@ -9,7 +9,6 @@ Main target of this software is to provide a useful and informative tool to the 
 Almost every features of [uHunt](http://uhunt.felix-halim.net/) has been included in this software. It also has many other useful features.  
 
 This is a software for heavy users and serious programmers. It might seem too much to take at first glance. But once you get used to it, I think you will find it very easy and helpful.
-  
 
 ### List of features 
 
@@ -57,11 +56,17 @@ Here is a brief list of the features that this software provides:
 
 ###Licence Information
 
-    This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+`This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+`This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.`
 
-    You should have received a copy of the GNU General Public License along with this program. If no see <http://www.gnu.org/licenses/>
+You should have received a copy of the GNU General Public License along with this program. If no see <http://www.gnu.org/licenses/> 
+
+#### Screen Shots 
+![Problems](https://github.com/dipu-bd/UVA-Arena/blob/master/Images/wiki/problems.png) 
+![Codes](https://github.com/dipu-bd/UVA-Arena/blob/master/Images/wiki/codes.PNG) 
+![Judge Status](https://github.com/dipu-bd/UVA-Arena/blob/master/Images/wiki/judge_status.png) 
+
 
 ### Dependent Projects  
 This software uses controls from the following sources-  

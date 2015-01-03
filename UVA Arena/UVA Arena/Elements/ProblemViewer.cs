@@ -804,8 +804,7 @@ namespace UVA_Arena.Elements
 
         private void customWebBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
         {
-            Interactivity.problems.Progress1.Value =
-                (int)(100 * e.CurrentProgress / e.MaximumProgress);
+            Interactivity.problems.Progress1.Value = (int)e.CurrentProgress;
         }
 
         #endregion

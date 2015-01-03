@@ -21,6 +21,11 @@ namespace UVA_Arena
         /// <remarks> initialized in the main function </remarks>
         public static Dictionary<string, string> usernames;
 
+        /// <summary>
+        /// True if local database is successfully loaded once
+        /// </summary>
+        public static bool IsAvailable { get; private set; }
+
         #region Loader Functions
 
         /// <summary> Load the database from downloaded data </summary>
@@ -60,14 +65,16 @@ namespace UVA_Arena
                 //load all lists from object data
                 LoadList(data);
                 LoadOthers();
-
+                
                 data.Clear();
+                IsAvailable = true;
             }
             catch (Exception ex)
             {
                 Logger.Add(ex.Message, "Problem Database|RunLoadAsync()");
+                if (!IsAvailable) Internet.Downloader.DownloadProblemDatabase();
             }
-            
+
             //load default user after database updated
             LoadDefaultUser();
 
@@ -166,23 +173,18 @@ namespace UVA_Arena
         /// Load downloaded categories
         /// </summary>
         /// <param name="wait">True to wait until problem databse is not ready</param>
-        public static void LoadCategories(object wait)
+        public static void LoadCategories()
         {
-            if(!IsReady && (bool)wait)
-            {
-                TaskQueue.AddTask(LoadCategories, true, 500);
-                return;
-            }
-
             try
             {
                 string file = LocalDirectory.GetCategoryPath();
                 string data = File.ReadAllText(file);
-                List<ContextBook> catlist = JsonConvert.DeserializeObject<List<ContextBook>>(data);                
+                List<ContextBook> catlist = JsonConvert.DeserializeObject<List<ContextBook>>(data);
                 foreach (ContextBook book in catlist)
                 {
                     book.Process();
                 }
+                Logger.Add("Category updated", "LocalDatabase|LoadCategory()");
             }
             catch (Exception ex)
             {

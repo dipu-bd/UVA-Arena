@@ -68,7 +68,7 @@ namespace UVA_Arena.Internet
         }
 
         public void Dispose()
-        {            
+        {
             try
             {
                 File.Delete(TempFileName);
@@ -116,7 +116,7 @@ namespace UVA_Arena.Internet
 
             webClient.DownloadFileAsync(Url, TempFileName);
             Status = ProgressStatus.Running;
-            StartedAt = DateTime.Now; 
+            StartedAt = DateTime.Now;
         }
 
         void webClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
@@ -147,7 +147,7 @@ namespace UVA_Arena.Internet
                 ProgressChangedEvent(this);
 
             //cancel if it is running for long time
-            if (this.TimeElapsed.TotalSeconds > 8 && ProgressPercentage == 0) 
+            if (this.TimeElapsed.TotalSeconds > 8 && ProgressPercentage == 0)
                 this.Cancel();
         }
 
@@ -158,19 +158,7 @@ namespace UVA_Arena.Internet
     public static class Downloader
     {
         #region General Properties and Functions
-
-        public static bool IsConnected()
-        {
-            try
-            {
-                return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
+         
         public static bool IsBusy()
         {
             if (CurrentTask == null) return false;
@@ -257,8 +245,7 @@ namespace UVA_Arena.Internet
 
         public static void DownloadNext()
         {
-            if (!__ContinueDownload) return;
-            if (!IsConnected() || IsBusy()) return;
+            if (!__ContinueDownload || IsBusy()) return;
 
             //get next task
             Dequeue();
@@ -274,7 +261,7 @@ namespace UVA_Arena.Internet
             }
 
             //run task         
-            CurrentTask.Download();             
+            CurrentTask.Download();
         }
 
         #endregion
@@ -299,7 +286,7 @@ namespace UVA_Arena.Internet
             DownloadTask task = new DownloadTask(url, null, token);
             task.ProgressChangedEvent += progress;
             task.DownloadCompletedEvent += completed;
-            return DownloadAsync(task, priority);            
+            return DownloadAsync(task, priority);
         }
 
         public static DownloadTask DownloadFileAsync(
@@ -344,12 +331,12 @@ namespace UVA_Arena.Internet
             string uid = (string)task.Result;
             string name = (string)task.Token;
 
-            task.Status = ProgressStatus.Failed;            
+            task.Status = ProgressStatus.Failed;
             if (string.IsNullOrEmpty(uid))
                 task.Error = new Exception("Connection error. Retry please.");
             else if (uid.Trim() == "0")
                 task.Error = new Exception(name + " doesn't exist.");
-            else  if(task.Error == null)
+            else if (task.Error == null)
                 task.Status = ProgressStatus.Completed;
 
             if (task.Status == ProgressStatus.Completed)
@@ -366,20 +353,28 @@ namespace UVA_Arena.Internet
         {
             if (_DownloadingProblemDatabase) return;
 
-            Interactivity.problems.Status1.Text = "Updating problem database...";
-            DownloadTaskHandler progress = Interactivity.problems.problemWorkerProgress;
-            DownloadTaskHandler completed = Interactivity.problems.problemWorkerCompleted;
-                
+            DownloadTaskHandler progress = null;
+            DownloadTaskHandler completed = null;
+            if (Interactivity.problems != null && !Interactivity.problems.IsDisposed)
+            {
+                progress = Interactivity.problems.problemWorkerProgress;
+                completed = Interactivity.problems.problemWorkerCompleted;
+                Interactivity.problems.BeginInvoke((System.Windows.Forms.MethodInvoker)delegate
+                {
+                    Interactivity.problems.Status1.Text = "Updating problem database...";
+                });
+            }
+
             _DownloadingProblemDatabase = true;
 
             //problem database
             string url = "http://uhunt.felix-halim.net/api/p";
             string file = LocalDirectory.GetProblemDataFile();
             DownloadFileAsync(url, file, null, Priority.High, progress, __DownloadProblemDatabaseCompleted);
-                        
+
             //problem catagories
             url = "http://uhunt.felix-halim.net/api/cpbook/3";
-            file = LocalDirectory.GetCategoryPath(); 
+            file = LocalDirectory.GetCategoryPath();
             DownloadTask task = DownloadFileAsync(url, file, null, Priority.High, progress, completed);
             task.DownloadCompletedEvent += __DownloadProblemCategoryCompleted;
         }
@@ -391,22 +386,22 @@ namespace UVA_Arena.Internet
             if (task.Status == ProgressStatus.Completed)
             {
                 LocalDatabase.LoadDatabase();
-                Logger.Add("Downloaded problem database file", 
+                Logger.Add("Downloaded problem database file",
                     "Downloader | __DownloadProblemDatabaseCompleted()");
             }
             else if (task.Error != null)
             {
-                Logger.Add(task.Error.Message, 
+                Logger.Add(task.Error.Message,
                     "Downloader | __DownloadProblemDatabaseCompleted()");
-            }            
+            }
         }
 
         private static void __DownloadProblemCategoryCompleted(DownloadTask task)
         {
             if (task.Status == ProgressStatus.Completed)
             {
-                LocalDatabase.LoadCategories(true);
-                Logger.Add("Downloaded context book 3 categories", 
+                LocalDatabase.LoadCategories();
+                Logger.Add("Downloaded context book 3 categories",
                     "Downloader | __DownloadProblemCategoryCompleted()");
             }
             else if (task.Error != null)

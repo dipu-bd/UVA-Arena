@@ -57,14 +57,13 @@ namespace UVA_Arena.Elements
                 {
                     this.BeginInvoke((MethodInvoker)delegate
                     {
-                        using (CodeFileCreator cfc = new CodeFileCreator())
+                        CodeFileCreator cfc = new CodeFileCreator();
+                        if (cfc.ShowDialog() == DialogResult.OK)
                         {
-                            if (cfc.ShowDialog() == DialogResult.OK)
-                            {
-                                AddProblem((long)pnum, cfc.Language);
-                                return;
-                            }
+                            AddProblem((long)pnum, cfc.Language);
+                            return;
                         }
+                        cfc.Dispose();
                     });
                 }
 
@@ -338,26 +337,25 @@ namespace UVA_Arena.Elements
 
         public void ChangeCodeDirectory()
         {
-            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "Select a folder that stores code files.";
+            if (fbd.ShowDialog() == DialogResult.OK)
             {
-                fbd.Description = "Select a folder that stores code files.";
-                if (fbd.ShowDialog() == DialogResult.OK)
+                CodesPath = fbd.SelectedPath;
+                try
                 {
-                    CodesPath = fbd.SelectedPath;
-                    try
-                    {
-                        FormatCodeDirectory(true);
-                        LoadCodeFolder(true);
-                        fileSystemWatcher1.Path = fbd.SelectedPath;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                        CodesPath = null;
-                        selectDirectoryPanel.Visible = true;
-                    }
+                    FormatCodeDirectory(true);
+                    LoadCodeFolder(true);
+                    fileSystemWatcher1.Path = fbd.SelectedPath;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    CodesPath = null;
+                    selectDirectoryPanel.Visible = true;
                 }
             }
+            fbd.Dispose();
         }
 
         private void browseFolderButton_Click(object sender, EventArgs e)
@@ -2094,7 +2092,7 @@ namespace UVA_Arena.Elements
         #endregion
 
         #region uDebug
-         
+
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == uDebugTab)
@@ -2102,7 +2100,7 @@ namespace UVA_Arena.Elements
                 if (customWebBrowser1.Tag == null ||
                     (long)customWebBrowser1.Tag != SelectedPNUM)
                 {
-                    string url = string.Format(@"http://www.udebug.com/UVa/{0}", SelectedPNUM); 
+                    string url = string.Format(@"http://www.udebug.com/UVa/{0}", SelectedPNUM);
                     customWebBrowser1.Navigate(url);
                     customWebBrowser1.Tag = SelectedPNUM;
                     if (!compilerOutputIsHidden)

@@ -45,13 +45,17 @@ namespace UVA_Arena
         /// </summary>
         public static void CloseAllOpenedForms()
         {
-            CloseForm(mainForm);
-            CloseForm(settingsForm);
-            CloseForm(loggerForm);
-            CloseForm(helpaboutForm);
-            CloseForm(submitForm);
-            CloseForm(downloadAllForm);
-            CloseForm(usernameForm);
+            try
+            {
+                CloseForm(mainForm);
+                CloseForm(settingsForm);
+                CloseForm(loggerForm);
+                CloseForm(helpaboutForm);
+                CloseForm(submitForm);
+                CloseForm(downloadAllForm);
+                CloseForm(usernameForm);
+            }
+            catch { }
         }
 
         /// <summary>

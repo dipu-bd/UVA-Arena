@@ -133,8 +133,8 @@
             this.toolStripSeparator2,
             this.closeToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.fileToolStripMenuItem.Text = "UVA Arena";
             // 
             // setDefaultUserToolStripMenuItem
             // 
@@ -147,39 +147,39 @@
             // 
             this.submitFormToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.submit;
             this.submitFormToolStripMenuItem.Name = "submitFormToolStripMenuItem";
-            this.submitFormToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.submitFormToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.submitFormToolStripMenuItem.Text = "Submit Form";
             this.submitFormToolStripMenuItem.Click += new System.EventHandler(this.submitFormToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(154, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(179, 6);
             // 
             // uDebugToolStripMenuItem
             // 
             this.uDebugToolStripMenuItem.Name = "uDebugToolStripMenuItem";
-            this.uDebugToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.uDebugToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.uDebugToolStripMenuItem.Text = "uDebug";
             this.uDebugToolStripMenuItem.Click += new System.EventHandler(this.uDebugToolStripMenuItem_Click);
             // 
             // discussForumToolStripMenuItem
             // 
             this.discussForumToolStripMenuItem.Name = "discussForumToolStripMenuItem";
-            this.discussForumToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.discussForumToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.discussForumToolStripMenuItem.Text = "Discuss Forum";
             this.discussForumToolStripMenuItem.Click += new System.EventHandler(this.discussForumToolStripMenuItem_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(154, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(179, 6);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.tools;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
@@ -187,20 +187,20 @@
             // 
             this.loggerToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.log;
             this.loggerToolStripMenuItem.Name = "loggerToolStripMenuItem";
-            this.loggerToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.loggerToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.loggerToolStripMenuItem.Text = "Logger";
             this.loggerToolStripMenuItem.Click += new System.EventHandler(this.loggerToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(154, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(179, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.closeToolStripMenuItem.Text = "Exit";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // problemsToolStripMenuItem

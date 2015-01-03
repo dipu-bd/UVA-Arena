@@ -46,6 +46,7 @@
             this.customWebBrowser1.TabIndex = 0;
             this.customWebBrowser1.TopBarColor = System.Drawing.Color.LightBlue;
             this.customWebBrowser1.Url = new System.Uri("about:blank", System.UriKind.Absolute);
+            this.customWebBrowser1.UrlBoxFont = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customWebBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.customWebBrowser1_DocumentCompleted);
             // 
             // SubmitForm

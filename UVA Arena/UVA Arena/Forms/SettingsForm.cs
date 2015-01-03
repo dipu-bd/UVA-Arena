@@ -144,7 +144,8 @@ namespace UVA_Arena
         {
             try
             {
-                var hotkey = new FastColoredTextBoxNS.HotkeysEditorForm(Interactivity.codes.codeTextBox.HotkeysMapping);
+                var hotkey = new FastColoredTextBoxNS.HotkeysEditorForm(
+                    Interactivity.codes.codeTextBox.HotkeysMapping);
                 if (hotkey.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     Interactivity.codes.codeTextBox.HotkeysMapping = hotkey.GetHotkeys();
@@ -169,46 +170,44 @@ namespace UVA_Arena
         //
         private void minGW_Click(object sender, EventArgs e)
         {
-            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "Select the path where MinGW is installed.";
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                fbd.Description = "Select the path where MinGW is installed.";
-                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                //check validity
+                string path = Path.Combine(fbd.SelectedPath, "bin");
+                string gcc = Path.Combine(path, @"mingw32-gcc.exe");
+                string gpp = Path.Combine(path, @"mingw32-g++.exe");
+                if (!(File.Exists(gcc) && File.Exists(gpp)))
                 {
-                    //check validity
-                    string path = Path.Combine(fbd.SelectedPath, "bin");
-                    string gcc = Path.Combine(path, @"mingw32-gcc.exe");
-                    string gpp = Path.Combine(path, @"mingw32-g++.exe");
-                    if (!(File.Exists(gcc) && File.Exists(gpp)))
-                    {
-                        MessageBox.Show("Selected path doesn't seem to be valid.");
-                        return;
-                    }
-                    //set data 
-                    RegistryAccess.MinGWCompilerPath = fbd.SelectedPath;
+                    MessageBox.Show("Selected path doesn't seem to be valid.");
+                    return;
                 }
+                //set data 
+                RegistryAccess.MinGWCompilerPath = fbd.SelectedPath;
             }
+            fbd.Dispose();
         }
 
         private void jdkLOC_Click(object sender, EventArgs e)
         {
-            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "Select the path where JDK is installed.";
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                fbd.Description = "Select the path where JDK is installed.";
-                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                //check validity
+                string path = Path.Combine(fbd.SelectedPath, "bin");
+                string javac = Path.Combine(path, @"javac.exe");
+                string java = Path.Combine(path, @"java.exe");
+                if (!(File.Exists(javac) && File.Exists(java)))
                 {
-                    //check validity
-                    string path = Path.Combine(fbd.SelectedPath, "bin");
-                    string javac = Path.Combine(path, @"javac.exe");
-                    string java = Path.Combine(path, @"java.exe");
-                    if (!(File.Exists(javac) && File.Exists(java)))
-                    {
-                        MessageBox.Show("Selected path doesn't seem to be valid.");
-                        return;
-                    }
-                    //set data 
-                    RegistryAccess.JDKCompilerPath = fbd.SelectedPath;
+                    MessageBox.Show("Selected path doesn't seem to be valid.");
+                    return;
                 }
+                //set data 
+                RegistryAccess.JDKCompilerPath = fbd.SelectedPath;
             }
+            fbd.Dispose();
         }
 
         //
@@ -303,6 +302,6 @@ namespace UVA_Arena
                 }
             }
         }
-         
+
     }
 }

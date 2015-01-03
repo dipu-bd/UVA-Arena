@@ -14,7 +14,7 @@ namespace UVA_Arena.ExtendedControls
     {
         public CustomWebBrowser()
         {
-            InitializeComponent();            
+            InitializeComponent();
             webBrowser1.DocumentTitleChanged += webBrowser1_DocumentTitleChanged;
         }
 
@@ -104,7 +104,7 @@ namespace UVA_Arena.ExtendedControls
                 backButton.Visible = value;
             }
         }
-        
+
         /// <summary>
         /// Gets or Sets whethere status bar will be available
         /// </summary>
@@ -197,16 +197,23 @@ namespace UVA_Arena.ExtendedControls
 
         private void webBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
         {
-            progress1.Value = (int)(100 * e.CurrentProgress / e.MaximumProgress);
-            if (ProgressChanged != null)
-                ProgressChanged(sender, e);
+            try
+            {
+                progress1.Value = (int)e.CurrentProgress;
+                if (ProgressChanged != null) ProgressChanged(sender, e);
+            }
+            catch { }
         }
 
         void webBrowser1_StatusTextChanged(object sender, EventArgs e)
-        {            
-            status1.Text = webBrowser1.StatusText;
-            if (StatusChanged != null)
-                StatusChanged(sender, new StatusChangedEventArgs(status1.Text));
+        {
+            try
+            {
+                status1.Text = webBrowser1.StatusText;
+                if (StatusChanged != null)
+                    StatusChanged(sender, new StatusChangedEventArgs(status1.Text));
+            }
+            catch { }
         }
 
         void webBrowser1_CanGoForwardChanged(object sender, EventArgs e)
@@ -244,7 +251,7 @@ namespace UVA_Arena.ExtendedControls
         private void topBox_Enter(object sender, EventArgs e)
         {
             urlBox.Text = webBrowser1.Url.ToString();
-            if(urlBox.Focused)
+            if (urlBox.Focused)
                 urlBox.ForeColor = Color.Black;
             else
                 urlBox.ForeColor = Color.DarkSlateGray;
@@ -263,12 +270,12 @@ namespace UVA_Arena.ExtendedControls
         {
             if (!urlBox.Focused)
             {
-                SetUrlBox(); 
+                SetUrlBox();
             }
         }
 
         private void SetUrlBox()
-        {            
+        {
             if (webBrowser1.DocumentTitle == "")
                 urlBox.Text = webBrowser1.Url.ToString();
             else

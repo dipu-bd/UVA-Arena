@@ -66,13 +66,12 @@ namespace UVA_Arena
             {
                 if (width < 10 || height < 5) return null;
                 Image img = new Bitmap(width, height);
-                Graphics g = Graphics.FromImage(img);
-                Brush brush = GetBrush(width, height);
-
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.FillRectangle(brush, 0, 0, width, height);
-
-                g.Dispose();
+                using (Graphics g = Graphics.FromImage(img))
+                {
+                    Brush brush = GetBrush(width, height);
+                    g.SmoothingMode = SmoothingMode.AntiAlias;
+                    g.FillRectangle(brush, 0, 0, width, height);
+                }
                 return img;
             }
             public Image GetImage(Size size)

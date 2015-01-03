@@ -24,14 +24,14 @@ namespace UVA_Arena.Elements
             //other initial codes
             SetAspectValues();
             problemListView.MakeColumnSelectMenu(problemContextMenu);
-            mainSplitContainer.SplitterDistance = 
+            mainSplitContainer.SplitterDistance =
                 (int)(mainSplitContainer.Width * Properties.Settings.Default.ProblemMainSplitterDistance);
             problemViewSplitContainer.SplitterDistance = Properties.Settings.Default.ProblemSubSplitterDistance;
 
             //add problem viewer
             Interactivity.problemViewer = new Elements.ProblemViewer();
             Interactivity.problemViewer.Dock = DockStyle.Fill;
-            mainSplitContainer.Panel2.Controls.Add(Interactivity.problemViewer);             
+            mainSplitContainer.Panel2.Controls.Add(Interactivity.problemViewer);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -42,9 +42,9 @@ namespace UVA_Arena.Elements
             if (LocalDatabase.IsReady)
                 Interactivity.ProblemDatabaseUpdated();
 
-            CustomStatusButton.Initialize(updateToolButton); 
+            CustomStatusButton.Initialize(updateToolButton);
 
-            Stylish.SetGradientBackground(plistPanel, 
+            Stylish.SetGradientBackground(plistPanel,
                 new Stylish.GradientStyle(Color.LightSteelBlue, Color.PowderBlue, 90F));
         }
         #endregion
@@ -81,7 +81,7 @@ namespace UVA_Arena.Elements
                     ShowAllProblems();
                 }
             }
-            else 
+            else
             {
                 if (plistLabel.Tag.GetType() == typeof(long))
                     ShowVolume((long)plistLabel.Tag);
@@ -129,9 +129,12 @@ namespace UVA_Arena.Elements
         public void problemWorkerProgress(DownloadTask task)
         {
             if (this.IsDisposed) return;
-            Status1.Text = string.Format("Downloading problem database... ({0}/{1} completed)",
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                Status1.Text = string.Format("Downloading problem database... ({0}/{1} completed)",
                 Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
-            Progress1.Value = task.ProgressPercentage;
+                Progress1.Value = task.ProgressPercentage;
+            });
         }
 
         public void problemWorkerCompleted(DownloadTask task)
@@ -142,7 +145,7 @@ namespace UVA_Arena.Elements
             else
                 msg = "Failed to update problem database. See log for details.";
 
-            SetStatus(msg);
+            this.BeginInvoke((MethodInvoker)(() => SetStatus(msg)));
             Logger.Add(msg, "Problems|problemWorkerCompleted");
         }
 
@@ -240,7 +243,7 @@ namespace UVA_Arena.Elements
                 if (LocalDatabase.HasProblem(pnum))
                     favorite.Add(LocalDatabase.GetProblem(pnum));
             }
-             
+
             _SetObjects(favorite);
         }
 
@@ -270,7 +273,7 @@ namespace UVA_Arena.Elements
 
         private void _SetObjects(List<ProblemInfo> list, bool regroup = false)
         {
-            problemListView.ClearObjects();           
+            problemListView.ClearObjects();
             if (list == null) return;
 
             if (LocalDatabase.DefaultUser == null || !hideAccepted.Checked)
@@ -374,12 +377,12 @@ namespace UVA_Arena.Elements
                     {
                         e.SecondaryColumnToSort = dacuProb;
                         e.SecondarySortOrder = SortOrder.Descending;
-                    }    
+                    }
                 }
-                else 
+                else
                 {
                     problemListView.ShowGroups = false;
-                }            
+                }
             }
             catch { }
         }

@@ -42,10 +42,7 @@ namespace UVA_Arena
 
             //set some properties to the form
             SetFormProperties();
-
-            //add buttons to the top right beside control buttons
-            AddActiveButtons();
-
+                       
             //initialize controls and add them
             DelayInitialize(true);
         }
@@ -71,7 +68,6 @@ namespace UVA_Arena
 
         #endregion
 
-
         public void SetFormProperties()
         {
             this.Text = string.Format(this.Tag.ToString(),
@@ -95,47 +91,11 @@ namespace UVA_Arena
             //load controls
             this.BeginInvoke((MethodInvoker)delegate
             {
-                //load problems
-                Interactivity.problems = new Elements.PROBLEMS();
-                Interactivity.problems.Dock = DockStyle.Fill;
-                Interactivity.problems.Visible = false;
-                problemTab.Controls.Add(Interactivity.problems);
-
-                //load codes 
-                Interactivity.codes = new Elements.CODES();
-                Interactivity.codes.Dock = DockStyle.Fill;
-                Interactivity.codes.Visible = false;
-                codesTab.Controls.Add(Interactivity.codes);
-
-
-                //load status 
-                Interactivity.status = new Elements.STATUS();
-                Interactivity.status.Dock = DockStyle.Fill;
-                Interactivity.status.Visible = false;
-                judgeStatusTab.Controls.Add(Interactivity.status);
-
-                //load user stat 
-                Interactivity.userstat = new Elements.USER_STAT();
-                Interactivity.userstat.Dock = DockStyle.Fill;
-                Interactivity.userstat.Visible = false;
-                profileTab.Controls.Add(Interactivity.userstat);
-
-                //load utilities 
-                //Interactivity.utilities = new Elements.UTILITIES();
-                //Interactivity.utilities.Dock = DockStyle.Fill; 
-                //Interactivity.utilities.Visible = false; 
-                //utilitiesTab.Controls.Add(Interactivity.utilities); 
-
-                //turn on visibility     
-                Interactivity.problems.Visible = true;
-                Interactivity.codes.Visible = true;
-                Interactivity.status.Visible = true;
-                Interactivity.userstat.Visible = true;
-                //Interactivity.utilities.Visible = true;
-
-                //set up context menu
-                statusToolStripMenuItem.DropDown = Interactivity.status.updateContextMenu;
-                submissionsToolStripMenuItem.DropDown = Interactivity.userstat.MainContextMenu;
+                //add controls
+                AddControls();
+               
+                //add buttons to the top right beside control buttons
+                AddActiveButtons();
 
                 this.Cursor = Cursors.Default;
                 Logger.Add("Initialized all controls", "Main Form");
@@ -177,6 +137,51 @@ namespace UVA_Arena
             menu.Items.Add(settings);
             menu.Items.Add(log);
             menu.Items.Add(help);
+        }
+
+        private void AddControls()
+        {
+            //load problems
+            Interactivity.problems = new Elements.PROBLEMS();
+            Interactivity.problems.Dock = DockStyle.Fill;
+            Interactivity.problems.Visible = false;
+            problemTab.Controls.Add(Interactivity.problems);
+
+            //load codes 
+            Interactivity.codes = new Elements.CODES();
+            Interactivity.codes.Dock = DockStyle.Fill;
+            Interactivity.codes.Visible = false;
+            codesTab.Controls.Add(Interactivity.codes);
+
+
+            //load status 
+            Interactivity.status = new Elements.STATUS();
+            Interactivity.status.Dock = DockStyle.Fill;
+            Interactivity.status.Visible = false;
+            judgeStatusTab.Controls.Add(Interactivity.status);
+
+            //load user stat 
+            Interactivity.userstat = new Elements.USER_STAT();
+            Interactivity.userstat.Dock = DockStyle.Fill;
+            Interactivity.userstat.Visible = false;
+            profileTab.Controls.Add(Interactivity.userstat);
+
+            //load utilities 
+            //Interactivity.utilities = new Elements.UTILITIES();
+            //Interactivity.utilities.Dock = DockStyle.Fill; 
+            //Interactivity.utilities.Visible = false; 
+            //utilitiesTab.Controls.Add(Interactivity.utilities); 
+
+            //turn on visibility     
+            Interactivity.problems.Visible = true;
+            Interactivity.codes.Visible = true;
+            Interactivity.status.Visible = true;
+            Interactivity.userstat.Visible = true;
+            //Interactivity.utilities.Visible = true;
+
+            //set up context menu
+            statusToolStripMenuItem.DropDown = Interactivity.status.updateContextMenu;
+            submissionsToolStripMenuItem.DropDown = Interactivity.userstat.MainContextMenu;
         }
 
         #region Menubar Actions
@@ -241,7 +246,7 @@ namespace UVA_Arena
         {
             try
             {
-                System.Diagnostics.Process.Start(LocalDirectory.ProblemsPath);
+                System.Diagnostics.Process.Start(LocalDirectory.GetProblemPath());
             }
             catch (Exception ex)
             {

@@ -33,7 +33,6 @@
             this.current_username = new System.Windows.Forms.Label();
             this.username_button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.restoreButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.generalTab = new System.Windows.Forms.TabPage();
@@ -88,6 +87,7 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label26 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button4 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.PascalRadioButton = new System.Windows.Forms.RadioButton();
             this.JavaRadioButton = new System.Windows.Forms.RadioButton();
@@ -148,26 +148,14 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel3.Controls.Add(this.restoreButton, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.closeButton, 2, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 478);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 477);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(384, 34);
             this.tableLayoutPanel3.TabIndex = 2;
-            // 
-            // restoreButton
-            // 
-            this.restoreButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.restoreButton.Location = new System.Drawing.Point(3, 3);
-            this.restoreButton.Name = "restoreButton";
-            this.restoreButton.Size = new System.Drawing.Size(114, 28);
-            this.restoreButton.TabIndex = 2;
-            this.restoreButton.Text = "Restore";
-            this.restoreButton.UseVisualStyleBackColor = true;
-            this.restoreButton.Visible = false;
             // 
             // closeButton
             // 
@@ -176,7 +164,7 @@
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(114, 28);
             this.closeButton.TabIndex = 1;
-            this.closeButton.Text = "OK";
+            this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
@@ -192,9 +180,8 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(20, 5);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(384, 478);
+            this.tabControl1.Size = new System.Drawing.Size(384, 477);
             this.tabControl1.TabIndex = 3;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // generalTab
             // 
@@ -205,7 +192,7 @@
             this.generalTab.Location = new System.Drawing.Point(4, 26);
             this.generalTab.Name = "generalTab";
             this.generalTab.Padding = new System.Windows.Forms.Padding(3);
-            this.generalTab.Size = new System.Drawing.Size(376, 448);
+            this.generalTab.Size = new System.Drawing.Size(376, 447);
             this.generalTab.TabIndex = 0;
             this.generalTab.Text = "General";
             // 
@@ -370,7 +357,7 @@
             this.editorTab.Location = new System.Drawing.Point(4, 26);
             this.editorTab.Name = "editorTab";
             this.editorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.editorTab.Size = new System.Drawing.Size(376, 448);
+            this.editorTab.Size = new System.Drawing.Size(376, 447);
             this.editorTab.TabIndex = 1;
             this.editorTab.Text = "Editor";
             // 
@@ -599,7 +586,7 @@
             this.compilerTab.Location = new System.Drawing.Point(4, 26);
             this.compilerTab.Name = "compilerTab";
             this.compilerTab.Padding = new System.Windows.Forms.Padding(3);
-            this.compilerTab.Size = new System.Drawing.Size(376, 448);
+            this.compilerTab.Size = new System.Drawing.Size(376, 447);
             this.compilerTab.TabIndex = 2;
             this.compilerTab.Text = "Compiler";
             // 
@@ -723,7 +710,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.jdkLocation.BackColor = System.Drawing.Color.White;
             this.jdkLocation.CueText = "Click browse to select location...";
-            this.jdkLocation.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UVA_Arena.Properties.Settings.Default, "JDKLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.jdkLocation.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.jdkLocation.ForeColor = System.Drawing.Color.Black;
             this.jdkLocation.Location = new System.Drawing.Point(16, 127);
@@ -731,7 +717,7 @@
             this.jdkLocation.ReadOnly = true;
             this.jdkLocation.Size = new System.Drawing.Size(255, 25);
             this.jdkLocation.TabIndex = 20;
-            this.jdkLocation.Text = global::UVA_Arena.Properties.Settings.Default.JDKLocation;
+            this.jdkLocation.Text = "C:\\Program Files\\Java\\jdk~";
             // 
             // minGWLocation
             // 
@@ -739,7 +725,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.minGWLocation.BackColor = System.Drawing.Color.White;
             this.minGWLocation.CueText = "Click browse to select location...";
-            this.minGWLocation.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UVA_Arena.Properties.Settings.Default, "MinGWLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.minGWLocation.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.minGWLocation.ForeColor = System.Drawing.Color.Black;
             this.minGWLocation.Location = new System.Drawing.Point(16, 28);
@@ -747,7 +732,7 @@
             this.minGWLocation.ReadOnly = true;
             this.minGWLocation.Size = new System.Drawing.Size(255, 25);
             this.minGWLocation.TabIndex = 19;
-            this.minGWLocation.Text = global::UVA_Arena.Properties.Settings.Default.MinGWLocation;
+            this.minGWLocation.Text = "C:\\Program Files\\CodeBlocks\\MinGW";
             // 
             // button2
             // 
@@ -817,6 +802,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button4);
             this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.saveCodeButton);
             this.tabPage1.Controls.Add(this.cancelCodeButton);
@@ -824,13 +810,26 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(376, 448);
+            this.tabPage1.Size = new System.Drawing.Size(376, 447);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Pre-Codes";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button4.Location = new System.Drawing.Point(8, 413);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(105, 25);
+            this.button4.TabIndex = 10;
+            this.button4.Text = "Open";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.openCodeFile_Click);
+            // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.PascalRadioButton);
             this.panel2.Controls.Add(this.JavaRadioButton);
@@ -904,7 +903,8 @@
             // 
             // saveCodeButton
             // 
-            this.saveCodeButton.Location = new System.Drawing.Point(152, 414);
+            this.saveCodeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.saveCodeButton.Location = new System.Drawing.Point(119, 413);
             this.saveCodeButton.Name = "saveCodeButton";
             this.saveCodeButton.Size = new System.Drawing.Size(105, 25);
             this.saveCodeButton.TabIndex = 4;
@@ -914,16 +914,20 @@
             // 
             // cancelCodeButton
             // 
-            this.cancelCodeButton.Location = new System.Drawing.Point(263, 414);
+            this.cancelCodeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancelCodeButton.Location = new System.Drawing.Point(263, 413);
             this.cancelCodeButton.Name = "cancelCodeButton";
             this.cancelCodeButton.Size = new System.Drawing.Size(105, 25);
             this.cancelCodeButton.TabIndex = 3;
-            this.cancelCodeButton.Text = "Cancel";
+            this.cancelCodeButton.Text = "Restore";
             this.cancelCodeButton.UseVisualStyleBackColor = true;
             this.cancelCodeButton.Click += new System.EventHandler(this.cancelCodeButton_Click);
             // 
             // codeTextBox
             // 
+            this.codeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.codeTextBox.AutoCompleteBrackets = true;
             this.codeTextBox.AutoCompleteBracketsList = new char[] {
         '(',
@@ -956,19 +960,19 @@
             this.codeTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.codeTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("codeTextBox.ServiceColors")));
             this.codeTextBox.ShowFoldingLines = true;
-            this.codeTextBox.Size = new System.Drawing.Size(360, 353);
+            this.codeTextBox.Size = new System.Drawing.Size(360, 352);
             this.codeTextBox.SourceTextBox = this.codeTextBox;
             this.codeTextBox.TabIndex = 2;
             this.codeTextBox.ToolTipDelay = 300;
             this.codeTextBox.Zoom = 100;
-            this.codeTextBox.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.codeTextBox_TextChanged);
+            this.codeTextBox.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.codeTextBox_TextChangedDelayed);
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(384, 512);
+            this.ClientSize = new System.Drawing.Size(384, 511);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1045,7 +1049,6 @@
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Button changeShortcuts;
         private System.Windows.Forms.LinkLabel currentCodeDir;
-        private System.Windows.Forms.Button restoreButton;
         public System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label5;
@@ -1083,5 +1086,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button currentLineColor;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button4;
     }
 }

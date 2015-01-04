@@ -2,14 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="UVA_Arena.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="HideAcceptedChecked" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="HideAcceptedText" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Hide Accepted Problems</Value>
-    </Setting>
     <Setting Name="EditorFont" Type="System.Drawing.Font" Scope="User">
-      <Value Profile="(Default)">Courier New, 9.75pt</Value>
+      <Value Profile="(Default)">Consolas, 10pt</Value>
     </Setting>
     <Setting Name="EditorAutoCompleteBrackets" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -41,24 +35,6 @@
     <Setting Name="EditorShowHints" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CPPPrecode" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="CPrecode" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="JavaPrecode" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="PascalPrecode" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="MinGWLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\MinGW</Value>
-    </Setting>
-    <Setting Name="JDKLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Program Files\Java\jdk~</Value>
-    </Setting>
     <Setting Name="CCompilerOptions" Type="System.String" Scope="User">
       <Value Profile="(Default)">-ansi -Wall</Value>
     </Setting>
@@ -67,6 +43,15 @@
     </Setting>
     <Setting Name="JavaCompilerOptions" Type="System.String" Scope="User">
       <Value Profile="(Default)">-g</Value>
+    </Setting>
+    <Setting Name="ProblemMainSplitterDistance" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.3</Value>
+    </Setting>
+    <Setting Name="ProblemSubSplitterDistance" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">125</Value>
+    </Setting>
+    <Setting Name="HideAcceptedChecked" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -1013,7 +1013,6 @@
             this.day31RANK,
             this.month3RANK,
             this.year1RANK});
-            this.worldRanklist.ContextMenuStrip = this.MainContextMenu;
             this.worldRanklist.CopySelectionOnControlC = false;
             this.worldRanklist.Cursor = System.Windows.Forms.Cursors.Default;
             this.worldRanklist.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1089,9 +1088,9 @@
             this.nosRANK.FillsFreeSpace = true;
             this.nosRANK.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nosRANK.MinimumWidth = 60;
-            this.nosRANK.Text = "Unsolved";
+            this.nosRANK.Text = "Total";
             this.nosRANK.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nosRANK.ToolTipText = "Number of unsolved problem";
+            this.nosRANK.ToolTipText = "Number of total submissions";
             this.nosRANK.Width = 70;
             // 
             // day2RANK

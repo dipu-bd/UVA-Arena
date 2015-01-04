@@ -325,7 +325,7 @@ namespace UVA_Arena.Internet
             string url = "http://uhunt.felix-halim.net/api/uname2uid/" + name;
             DownloadTask dt = new DownloadTask(url, null, name);
 
-            if (LocalDatabase.ContainsUsers(name))
+            if (LocalDatabase.ContainsUser(name))
             {
                 dt.Result = LocalDatabase.GetUserid(name);
                 dt.Status = ProgressStatus.Completed;

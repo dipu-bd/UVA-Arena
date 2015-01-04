@@ -24,7 +24,7 @@ namespace UVA_Arena.Elements
             codeTextBox.Font = Properties.Settings.Default.EditorFont;
             folderTreeView.PathSeparator = Path.DirectorySeparatorChar.ToString();
         }
-         
+
 
         protected override void OnLoad(EventArgs e)
         {
@@ -79,7 +79,7 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
-        
+
         #region Registry Entry
 
         /// <summary> default user name </summary>
@@ -95,7 +95,7 @@ namespace UVA_Arena.Elements
             {
                 RegistryAccess.SetValue("Codes Path", value);
             }
-        } 
+        }
 
         #endregion
 
@@ -149,11 +149,16 @@ namespace UVA_Arena.Elements
 
         #region Load Folder Tree
 
-        public bool IsReady = false;
+        public bool IsReady = true;
 
+        /// <summary>
+        /// Create a list of tree nodes to display in the folderTreeView  
+        /// It recursive track all files and folders stored in CodesPath
+        /// </summary>
+        /// <param name="background">True to run the loading process as a separate thread</param>
         public void LoadCodeFolder(object background)
         {
-            IsReady = false;
+            if (!IsReady) return;
 
             //get code path
             string path = CodesPath;
@@ -161,28 +166,41 @@ namespace UVA_Arena.Elements
 
             if ((bool)background)
             {
-                selectDirectoryPanel.Visible = false;
-                folderTreeView.UseWaitCursor = true;
                 System.Threading.ThreadPool.QueueUserWorkItem(LoadCodeFolder, false);
                 return;
             }
 
-            //recursively add all folders and files
-            System.Threading.Thread.Sleep(20);
+            //fist turn off some values
+            IsReady = false;
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                selectDirectoryPanel.Visible = false;
+                folderTreeView.UseWaitCursor = false;
+            });
+
+            //list of new tree nodes
             List<TreeNode> parent = new List<TreeNode>();
+
+            //top level folders
             foreach (string folder in Directory.GetDirectories(path))
             {
-                TreeNode nod = AddTreeNode(new DirectoryInfo(folder));
+                DirectoryInfo difo = new DirectoryInfo(folder);
+                //if (difo.Name.StartsWith(".")) continue;
+                TreeNode nod = AddTreeNode(difo);
                 AddChildNodes(nod);
                 parent.Add(nod);
             }
-            foreach (string folder in Directory.GetFiles(path))
+
+            //top level files
+            foreach (string file in Directory.GetFiles(path))
             {
-                parent.Add(AddTreeNode(new FileInfo(folder)));
+                FileInfo fifo = new FileInfo(file);
+                //if (fifo.Name.StartsWith(".")) continue;
+                parent.Add(AddTreeNode(fifo));
             }
 
             //add codes
-            if (folderTreeView == null || folderTreeView.IsDisposed) return;
+            if (this.IsDisposed || folderTreeView.IsDisposed) return;
             this.BeginInvoke((MethodInvoker)delegate
             {
                 FileSystemInfo last = null;
@@ -191,15 +209,18 @@ namespace UVA_Arena.Elements
                     last = (FileSystemInfo)folderTreeView.SelectedNode.Tag;
                 }
 
+                folderTreeView.BeginUpdate();
                 folderTreeView.Sort();
                 folderTreeView.Nodes.Clear();
                 folderTreeView.Nodes.AddRange(parent.ToArray());
+                folderTreeView.EndUpdate();
 
                 folderTreeView.UseWaitCursor = false;
-                selectDirectoryPanel.Visible = false;
 
-                if (last != null)
+                if (last != null) //restore last selection
+                {
                     ExpandAndSelect(GetNode(last));
+                }
                 else if (parent.Count > 0)
                 {
                     folderTreeView.Nodes[0].Expand();
@@ -210,19 +231,53 @@ namespace UVA_Arena.Elements
             IsReady = true;
         }
 
+        /// <summary>
+        /// Recursively add child-nodes ignoring files and folders
+        /// </summary>
+        /// <param name="parent">Parent tree-node to add childs</param>
         public void AddChildNodes(TreeNode parent)
         {
+            parent.Nodes.Clear();
+
             DirectoryInfo dir = (DirectoryInfo)parent.Tag;
             foreach (DirectoryInfo d in dir.GetDirectories())
             {
-                AddChildNodes(AddTreeNode(d, parent));
+                //if (d.Name.StartsWith(".")) continue;
+                TreeNode child = AddTreeNode(d, parent);
+                AddChildNodes(child);
             }
             foreach (FileInfo f in dir.GetFiles())
             {
+                //if (f.Name.StartsWith(".")) continue;
                 AddTreeNode(f, parent);
             }
         }
 
+        /// <summary>
+        /// Create and add a new tree node 
+        /// (If parent any parent node is given, add tree node to the parent)
+        /// </summary>
+        /// <param name="info">FileInfo for file and DirectoryInfo for folder to create treenode upon</param>
+        /// <param name="parent">Parent to add the TreeNode. If it is NULL</param>
+        /// <returns>A reference to the creatd TreeNode.</returns>
+        private TreeNode AddTreeNode(FileSystemInfo info, TreeNode parent = null)
+        {
+            if (info == null) return null;
+            TreeNode tn = new TreeNode();
+            tn.Name = info.Name;
+            tn.Text = info.Name;
+            tn.Tag = info;
+            tn.ImageKey = GetKey(info);
+            tn.SelectedImageKey = tn.ImageKey;
+            if (parent != null) parent.Nodes.Add(tn);
+            return tn;
+        }
+
+        /// <summary>
+        /// Get image key for given folder of file
+        /// </summary>
+        /// <param name="info">FileInfo for a file or DirectoryInfo for directory</param>
+        /// <returns>Image keys from imagelist1</returns>
         private string GetKey(FileSystemInfo info)
         {
             string key = info.Name.ToLower() + ".png";
@@ -245,20 +300,6 @@ namespace UVA_Arena.Elements
             if (name.Contains(Path.DirectorySeparatorChar.ToString())) return "problem.png";
             return "volume.png";
         }
-
-        private TreeNode AddTreeNode(FileSystemInfo info, TreeNode parent = null)
-        {
-            if (info == null) return null;
-            TreeNode tn = new TreeNode();
-            tn.Name = info.Name;
-            tn.Text = info.Name;
-            tn.Tag = info;
-            tn.ImageKey = GetKey(info);
-            tn.SelectedImageKey = tn.ImageKey;
-            if (parent != null) parent.Nodes.Add(tn);
-            return tn;
-        }
-
 
         #endregion
 
@@ -288,6 +329,12 @@ namespace UVA_Arena.Elements
             {
                 LocalDirectory.GetCodesPath(prob.pnum);
             }
+
+            //now create files for precodes
+            LocalDirectory.GetPrecode(Structures.Language.C);
+            LocalDirectory.GetPrecode(Structures.Language.CPP);
+            LocalDirectory.GetPrecode(Structures.Language.Java);
+            LocalDirectory.GetPrecode(Structures.Language.Pascal);
         }
 
         public void ChangeCodeDirectory()
@@ -417,6 +464,11 @@ namespace UVA_Arena.Elements
 
         #region Useful functions for Folder Tree
 
+        /// <summary>
+        /// Try to get respective tree node from FileSystemInfo
+        /// </summary>
+        /// <param name="finfo">FileInfo for file and DirectoryInfo for folder tree node</param>
+        /// <returns>If error occured a null value if returned</returns>
         public TreeNode GetNode(FileSystemInfo finfo)
         {
             try
@@ -615,25 +667,41 @@ namespace UVA_Arena.Elements
                 }
                 else
                 {
-                    FileSystemInfo dir = null;
-                    if (File.Exists(e.FullPath))
-                        dir = new FileInfo(e.OldFullPath);
-                    else
-                        dir = new DirectoryInfo(e.OldFullPath);
-
-                    TreeNode tn = GetNode(dir);
-                    if (tn != null)
-                    {
-                        FileInfo f = new FileInfo(e.FullPath);
-                        tn.Name = f.Name;
-                        tn.Text = f.Name;
-                        tn.Tag = f;
-                    }
+                    //check if current problem is changed
                     if (CurrentProblem != null &&
                         CurrentProblem.FullName == e.OldFullPath)
                     {
                         OpenFile(new FileInfo(e.FullPath));
+                        return;
                     }
+
+                    //get file sustem info
+                    FileSystemInfo dir = null;
+                    FileSystemInfo cur = null;
+                    if (File.Exists(e.FullPath))
+                    {
+                        dir = new FileInfo(e.OldFullPath);
+                        cur = new FileInfo(e.FullPath);
+                    }
+                    else
+                    {
+                        dir = new DirectoryInfo(e.OldFullPath);
+                        cur = new DirectoryInfo(e.FullPath);
+                    }
+
+                    //update all child properties
+                    TreeNode child = AddTreeNode(cur);
+                    AddChildNodes(child);
+                    TreeNode tn = GetNode(dir);
+                    if (tn == null || tn.Parent == null)
+                    {
+                        folderTreeView.Nodes.Add(child);
+                    }
+                    else
+                    {
+                        tn.Parent.Nodes.Add(child);
+                    }
+                    if (tn != null) tn.Remove();
                 }
             }
             catch { }
@@ -753,35 +821,45 @@ namespace UVA_Arena.Elements
             }
         }
 
-        private void folderTreeView_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
+        private void folderTreeView_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
             try
             {
-                folderTreeView.LabelEdit = false;
+                //check for name validity
+                if (!LocalDirectory.IsValidFileName(e.Label))
+                {
+                    throw new InvalidDataException("File/Folder name is not valid.");
+                }
+
+                //get new path
                 FileSystemInfo fsi = (FileSystemInfo)e.Node.Tag;
                 string directory = Path.GetDirectoryName(fsi.FullName);
                 string newpath = Path.Combine(directory, e.Label);
+
+                //check extension change
                 string ext = Path.GetExtension(newpath);
                 if (ext.ToLower() != fsi.Extension.ToLower())
                 {
-                    if (MessageBox.Show("Change extension from " + fsi.Extension + " to " + ext + "?",
-                            "Renaming File", MessageBoxButtons.YesNo) == DialogResult.No)
+                    string msg = "Change the extension from {0} to {1}?";
+                    if (MessageBox.Show(string.Format(msg, fsi.Extension, ext),
+                        Application.ProductName, MessageBoxButtons.YesNo) == DialogResult.No)
                     {
                         e.CancelEdit = true;
                         return;
                     }
                 }
 
-                File.Move(fsi.FullName, newpath);
-                e.Node.Name = e.Label;
-                if (e.Node.Tag.GetType() == typeof(FileInfo))
-                    e.Node.Tag = new FileInfo(newpath);
-                else e.Node.Tag = new DirectoryInfo(newpath);
+                //rename operatior
+                LocalDirectory.RenameFileOrFolder(fsi.FullName, newpath);
             }
             catch (Exception ex)
             {
                 e.CancelEdit = true;
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                folderTreeView.LabelEdit = false;
             }
         }
 
@@ -1316,7 +1394,16 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Code Toolbar and Context Menu
+        #region Code Toolbar / Context Menu / Tab Control
+
+        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            e.Cancel = (!LocalDatabase.HasProblem(SelectedPNUM));
+            if (e.Cancel)
+            {
+                MessageBox.Show("Select a problem's code to enable this feature.");
+            }
+        }
 
         private void saveToolButton_Click(object sender, EventArgs e)
         {
@@ -1625,26 +1712,13 @@ namespace UVA_Arena.Elements
         //
         private void precodeToolButton_ButtonClick(object sender, EventArgs e)
         {
-            if (!LocalDatabase.HasProblem(SelectedPNUM))
+            if (CurrentProblem == null)
             {
                 MessageBox.Show("Create a code file first.");
-                return;
             }
-
-            switch (CustomLang)
+            else
             {
-                case Structures.Language.C:
-                    codeTextBox.Text = Properties.Settings.Default.CPrecode;
-                    break;
-                case Structures.Language.CPP:
-                    codeTextBox.Text = Properties.Settings.Default.CPPPrecode;
-                    break;
-                case Structures.Language.Java:
-                    codeTextBox.Text = Properties.Settings.Default.JavaPrecode;
-                    break;
-                default:
-                    codeTextBox.Text = "";
-                    break;
+                codeTextBox.OpenFile(LocalDirectory.GetPrecode(CustomLang));
             }
         }
 
@@ -1663,14 +1737,14 @@ namespace UVA_Arena.Elements
             if (compilerOutputIsHidden)
             {
                 compilerOutputIsHidden = false;
-                showHideOutput.Image = Properties.Resources.hide;
+                showHideOutput.Image = Properties.Resources.minimize;
                 compilerSplitContainer1.FixedPanel = FixedPanel.None;
                 compilerSplitContainer1.SplitterDistance = 7 * compilerSplitContainer1.Height / 10;
             }
             else
             {
                 compilerOutputIsHidden = true;
-                showHideOutput.Image = Properties.Resources.show;
+                showHideOutput.Image = Properties.Resources.maximize;
                 compilerSplitContainer1.FixedPanel = FixedPanel.Panel2;
                 compilerSplitContainer1.SplitterDistance = compilerSplitContainer1.Height - compilerSplitContainer1.Panel2MinSize;
             }
@@ -1688,7 +1762,7 @@ namespace UVA_Arena.Elements
                 if (compilerOutputIsHidden)
                 {
                     compilerOutputIsHidden = false;
-                    showHideOutput.Image = Properties.Resources.hide;
+                    showHideOutput.Image = Properties.Resources.minimize;
                     compilerSplitContainer1.FixedPanel = FixedPanel.None;
                 }
             }
@@ -1697,7 +1771,7 @@ namespace UVA_Arena.Elements
                 if (!compilerOutputIsHidden)
                 {
                     compilerOutputIsHidden = true;
-                    showHideOutput.Image = Properties.Resources.show;
+                    showHideOutput.Image = Properties.Resources.maximize;
                     compilerSplitContainer1.FixedPanel = FixedPanel.Panel2;
                 }
             }
@@ -2126,5 +2200,6 @@ namespace UVA_Arena.Elements
 
 
         #endregion
+
     }
 }

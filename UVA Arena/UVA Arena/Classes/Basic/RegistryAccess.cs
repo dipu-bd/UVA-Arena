@@ -4,8 +4,14 @@ using System.Collections.Generic;
 
 namespace UVA_Arena
 {
+    /// <summary>
+    /// Interactive functions to get or set data into system's registry
+    /// </summary>
     internal static class RegistryAccess
     {
+        /// <summary>
+        /// Default registry key used for this application
+        /// </summary>
         public static RegistryKey DEFAULT
         {
             get
@@ -14,6 +20,13 @@ namespace UVA_Arena
             }
         }
 
+        /// <summary>
+        /// Get a registry value by it's name and given key
+        /// </summary>
+        /// <param name="name">Name of the value</param>
+        /// <param name="def">Default value</param>
+        /// <param name="key">Path to look after default registry key</param>
+        /// <returns>Registry entry value as an object</returns>
         public static object GetValue(string name, object def = null, string key = null)
         {
             RegistryKey regkey = DEFAULT;
@@ -27,6 +40,13 @@ namespace UVA_Arena
             return def;
         }
 
+        /// <summary>
+        /// Set a value into given registry entry
+        /// </summary>
+        /// <param name="name">Name of the value</param>
+        /// <param name="val">Value to set</param>
+        /// <param name="key">Path to look after default registry key</param>
+        /// <param name="kind">Registry value kind of the object to save</param>
         public static void SetValue(string name, object val, string key = null,
             RegistryValueKind kind = RegistryValueKind.String)
         {
@@ -36,7 +56,9 @@ namespace UVA_Arena
         }
 
 
-        /// <summary> default user name </summary>
+        /// <summary>
+        /// Get of set default username
+        /// </summary>
         public static string DefaultUsername
         {
             get
@@ -52,7 +74,12 @@ namespace UVA_Arena
         //
         // UserID
         //
-        /// <summary> set user id of given name </summary>
+        
+        /// <summary>
+        /// Set the userid of a username
+        /// </summary>
+        /// <param name="name">Username</param>
+        /// <param name="uid">Userid</param>
         public static void SetUserid(string name, string uid)
         {
             SetValue(name, uid, "UserID", RegistryValueKind.String);
@@ -60,7 +87,10 @@ namespace UVA_Arena
                 LocalDatabase.usernames.Add(name, uid);
         }
 
-        /// <summary> delete a user id </summary>
+        /// <summary>
+        /// Delete a username from registry entry
+        /// </summary>
+        /// <param name="name">Username to delete</param>
         public static void DeleteUserid(string name)
         {
             if (!LocalDatabase.usernames.ContainsKey(name)) return;
@@ -69,7 +99,10 @@ namespace UVA_Arena
             key.DeleteValue(name, false);
         }
 
-        /// <summary> Get a list of all stored usernames and userids </summary>
+        /// <summary> 
+        /// Get a list of all stored usernames and userids 
+        /// </summary>
+        /// <returns>A dictory of [username]->[userid] values</returns>
         public static Dictionary<string, string> GetAllUsers()
         {
             RegistryKey key = DEFAULT.CreateSubKey("UserID");
@@ -84,13 +117,21 @@ namespace UVA_Arena
         //
         // User Rank
         //
-        /// <summary> set user rank of given name </summary>
+        /// <summary>
+        /// Set ranklist of a user 
+        /// </summary>
+        /// <param name="urank">User rank to save</param>
         public static void SetUserRank(Structures.UserRanklist urank)
         {
             string data = JsonConvert.SerializeObject(urank);
             SetValue(urank.username, data, "User Rank", RegistryValueKind.String);            
         }
-
+        
+        /// <summary>
+        /// Get ranklist of a user
+        /// </summary>
+        /// <param name="name">Username to get rankling</param>
+        /// <returns>Null reference if not found</returns>
         public static Structures.UserRanklist GetUserRank(string name)
         {
             string data = (string)GetValue(name, "", "User Rank");
@@ -101,6 +142,9 @@ namespace UVA_Arena
         //
         // Problem Database
         //
+        /// <summary>
+        /// Get or set the list of favorite problem numbers
+        /// </summary>
         public static List<long> FavoriteProblems
         {
             get
@@ -117,18 +161,66 @@ namespace UVA_Arena
             }
         }
 
+        /// <summary>
+        /// Set category tags of a problem
+        /// </summary>
+        /// <param name="pnum">Problem number</param>
+        /// <param name="category">Category tags to store</param>
         public static void SetTags(long pnum, List<string> category)
         {
             string data = JsonConvert.SerializeObject(category);
             SetValue(pnum.ToString(), data, "Problem Database", RegistryValueKind.String);
         }
 
+        /// <summary>
+        /// Get category tags to a problem
+        /// </summary>
+        /// <param name="pnum">Problem number</param>
+        /// <returns>A list of category. Empty list if none found.</returns>
         public static List<string> GetTags(long pnum)
         {
             string data = (string)GetValue(pnum.ToString(), "[]", "Problem Database");
             List<string> tags = JsonConvert.DeserializeObject<List<string>>(data);
             if (tags == null) tags = new List<string>();
             return tags;
+        } 
+
+        public static string MinGWCompilerPath
+        {
+            get
+            {
+                string dat = (string)GetValue("MinGW Compiler Path");
+                if (string.IsNullOrEmpty(dat))
+                    dat = @"C:\Program Files\CodeBlocks\MinGW";
+                return dat;
+            }
+            set
+            {
+                SetValue("MinGW Compiler Path", value);
+            }
+        }
+        public static string JDKCompilerPath
+        {
+            get
+            {
+                string dat = (string)GetValue("JDK Compiler Path");
+                if (string.IsNullOrEmpty(dat))
+                {
+                    dat = @"C:\Program Files\Java";
+                    if (!System.IO.Directory.Exists(dat)) return dat;
+                    {
+                        var all = System.IO.Directory.GetDirectories(dat, "jdk*");
+                        if (all.Length == 0) return dat;
+                        dat = all[0];
+                    }
+                    JDKCompilerPath = dat;
+                }
+                return dat;
+            }
+            set
+            {
+                SetValue("JDK Compiler Path", value);
+            }
         }
     }
 }

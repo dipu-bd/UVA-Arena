@@ -38,7 +38,7 @@ namespace UVA_Arena
             try
             {
                 IsReady = false;
-                
+
                 //load new problem list
                 string text = File.ReadAllText(LocalDirectory.GetProblemDataFile());
                 List<List<object>> data = JsonConvert.DeserializeObject<List<List<object>>>(text);
@@ -48,9 +48,6 @@ namespace UVA_Arena
                 LoadList(data);
                 LoadOthers();
                 data.Clear();
-
-                IsReady = true;
-                LoadDefaultUser();
             }
             catch (Exception ex)
             {
@@ -58,6 +55,7 @@ namespace UVA_Arena
             }
 
             IsReady = true;
+            LoadDefaultUser();
             Interactivity.ProblemDatabaseUpdated();
         }
 
@@ -139,11 +137,10 @@ namespace UVA_Arena
 
         public static void LoadDefaultUser()
         {
-            string user = RegistryAccess.DefaultUsername;
-            string file = LocalDirectory.GetUserSubPath(user);
-
             try
             {
+                string user = RegistryAccess.DefaultUsername;
+                string file = LocalDirectory.GetUserSubPath(user);
                 string data = File.ReadAllText(file);
                 DefaultUser = JsonConvert.DeserializeObject<UserInfo>(data);
                 DefaultUser.Process();
@@ -151,8 +148,8 @@ namespace UVA_Arena
             catch
             {
                 DefaultUser = new UserInfo();
-                DefaultUser.name = user;
-                DefaultUser.uname = user;
+                DefaultUser.name = "";
+                DefaultUser.uname = "";
             }
         }
 
@@ -238,14 +235,14 @@ namespace UVA_Arena
         }
 
         /// <summary> check if this user contains in the list </summary>
-        public static bool ContainsUsers(string user)
+        public static bool ContainsUser(string user)
         {
-            return usernames.ContainsKey(user);
+            return (usernames != null && usernames.ContainsKey(user));
         }
         /// <summary> get user id from name </summary>
         public static string GetUserid(string name)
         {
-            if (!ContainsUsers(name)) return "";
+            if (!ContainsUser(name)) return "-";
             return usernames[name];
         }
 

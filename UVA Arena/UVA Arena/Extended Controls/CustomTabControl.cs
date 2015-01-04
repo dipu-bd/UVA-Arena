@@ -1,145 +1,21 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Runtime.InteropServices;
 using UVA_Arena;
 
 namespace System.Windows.Forms
 {
-    #region CueTextBox : Show a message cue when textbox text is empty
-
-    public class CueTextBox : TextBox
-    {
-        public CueTextBox() { }
-
-        private string _cueText;
-        public string CueText
-        {
-            get { return _cueText; }
-            set
-            {
-                _cueText = value;
-
-                IntPtr lparam = new IntPtr(1);
-                IntPtr wparam = Marshal.StringToBSTR(value);
-                NativeMethods.SendMessage(this.Handle, NativeMethods.EM_SETCUEBANNER, lparam, wparam);
-                Marshal.FreeCoTaskMem(lparam);
-                Marshal.FreeBSTR(wparam);
-            }
-        }
-    }
-
-    #endregion
-
-    #region CustomSplitContainer : Supports contents movement on splitter move
-
-    public class CustomSplitContainer : SplitContainer
-    {
-        public CustomSplitContainer()
-        {
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            this.SetStyle(ControlStyles.UserPaint, true);
-        }
-
-        private Point _initial;
-        private DateTime _lastMove;
-        private bool _moving = false; 
-
-        private bool _MoveSplitter(int diff, int maxsiz)
-        {
-            if ((DateTime.Now - _lastMove).TotalMilliseconds < 100) return false;
-            if (Math.Abs(diff) == 2) return false;
-
-            int newdis = SplitterDistance + diff;
-            if (newdis < 0 || newdis > maxsiz) return false;
-
-            SplitterDistance = newdis;
-            _lastMove = DateTime.Now;
-
-            return true;
-        }
-
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            if (!IsSplitterFixed)
-            {
-                _moving = true;
-                _lastMove = DateTime.Now;
-                _initial = e.Location;
-                IsSplitterFixed = true;
-            }
-            base.OnMouseDown(e);
-        }
-
-        protected override void OnMouseUp(MouseEventArgs e)
-        {
-            if (_moving)
-            {
-                _moving = false;
-                IsSplitterFixed = false; 
-            }
-            base.OnMouseUp(e);
-        }
-
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            if (_moving)
-            {
-                if (Orientation == Forms.Orientation.Vertical)
-                {
-                    if (_MoveSplitter(e.X - _initial.X, Width))
-                        _initial = e.Location;
-                }
-                else
-                {
-                    if (_MoveSplitter(e.Y - _initial.Y, Height))
-                        _initial = e.Location;
-                }
-            }
-            base.OnMouseMove(e);
-        }
-    }
-
-    #endregion
-
-    #region NativeTreeView : Use windows style on TreeView
-
-    public class NativeTreeView : TreeView
-    {
-        protected override void CreateHandle()
-        {
-            base.CreateHandle();
-            IntPtr lparam = Marshal.StringToBSTR("explorer");
-            NativeMethods.SetWindowTheme(this.Handle, lparam, IntPtr.Zero);
-        }
-    }
-
-    #endregion
-
-    #region NativeListView : Use windows style on TreeView
-
-    public class NativeListView : ListView
-    {
-        protected override void CreateHandle()
-        {
-            base.CreateHandle();
-            IntPtr lparam = Marshal.StringToBSTR("explorer");
-            NativeMethods.SetWindowTheme(this.Handle, lparam, IntPtr.Zero);
-        }
-    }
-
-    #endregion
-
-    #region CustomTabControl : Nice looking, custom painted tab control
-
     public class CustomTabControl : TabControl
     {
+        private System.ComponentModel.IContainer components = null;
+
         //
         // Contructor and Properties
         //
         public CustomTabControl()
         {
+            components = new System.ComponentModel.Container();
+
             this.SetStyle(ControlStyles.Opaque, true);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.EnableNotifyMessage, true);
@@ -147,6 +23,16 @@ namespace System.Windows.Forms
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             this.BackColor = Color.PaleTurquoise;
+
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         [Category("Appearance"), DefaultValue(0)]
@@ -154,6 +40,7 @@ namespace System.Windows.Forms
 
         [Category("Appearance"), DefaultValue(typeof(Color), "PaleTurquoise"), EditorBrowsable(EditorBrowsableState.Always)]
         new public Color BackColor { get; set; }
+        [TypeConverter(typeof(ExpandableObjectConverter))]
 
         //
         // Events
@@ -231,9 +118,9 @@ namespace System.Windows.Forms
             if (this.SelectedIndex == index)
             {
                 borderPen = new Pen(Color.FromArgb(147, 177, 205));
-                Color fore = Color.FromArgb(217, 220, 235);
-                Color back = Color.FromArgb(242, 246, 252);
-                Stylish.GradientStyle style = new Stylish.GradientStyle(HatchStyle.Shingle, fore, back);
+                Color fore = Color.FromArgb(215, 210, 230);
+                Color back = Color.FromArgb(235, 220, 240);
+                Stylish.GradientStyle style = new Stylish.GradientStyle(HatchStyle.DottedGrid, fore, back);
                 fillbrush = style.GetBrush();
             }
             else
@@ -241,7 +128,7 @@ namespace System.Windows.Forms
                 borderPen = new Pen(Color.FromArgb(167, 197, 235));
                 Color up = Color.FromArgb(215, 208, 230);
                 Color down = Color.FromArgb(246, 242, 252);
-                Stylish.GradientStyle style = new Stylish.GradientStyle(up, down, LinearGradientMode.Vertical);
+                Stylish.GradientStyle style = new Stylish.GradientStyle(up, down, 90F);
                 Rectangle tabBounds = GetTabRectAdjusted(index);
                 fillbrush = style.GetBrush(tabBounds.Width, tabBounds.Height + 1);
             }
@@ -316,7 +203,7 @@ namespace System.Windows.Forms
             tabBounds.X += 16 + this.Padding.X;
             tabBounds.Width -= 16 + this.Padding.X;
             tabBounds.Y += (int)(tabBounds.Height - this.Font.Height) / 2;
-
+            
             if (this.ImageList != null && (this.TabPages[index].ImageIndex != -1
                 || !String.IsNullOrEmpty(this.TabPages[index].ImageKey)))
             {
@@ -325,7 +212,17 @@ namespace System.Windows.Forms
                 tabBounds.Width -= extra;
             }
 
-            graphics.DrawString(this.TabPages[index].Text, this.Font, Brushes.Black, tabBounds);
+            Rectangle tabBounds2 = tabBounds;
+            tabBounds2.X += 1;
+            tabBounds2.Y += 1;
+
+            Rectangle tabBounds3 = tabBounds;
+            tabBounds3.X -= 1;
+            tabBounds3.Y -= 1;
+
+            graphics.DrawString(this.TabPages[index].Text, this.Font, Brushes.LightBlue, tabBounds2); //shadow
+            graphics.DrawString(this.TabPages[index].Text, this.Font, Brushes.LightBlue, tabBounds3); //shadow
+            graphics.DrawString(this.TabPages[index].Text, this.Font, Brushes.Black, tabBounds); //main
         }
 
         private void DrawTabImage(int index, Graphics graphics)
@@ -351,62 +248,4 @@ namespace System.Windows.Forms
             tabImage.Dispose();
         }
     }
-
-    #endregion
-
-    #region CustomStatusButton : Function to make status button looks cool
-
-    public static class CustomStatusButton
-    {
-        public static void Initialize(StatusStrip statusbar)
-        {
-            foreach (ToolStripItem ti in statusbar.Items)
-            {
-                if (ti.GetType() == typeof(ToolStripStatusLabel)
-                    && ti.Name.ToLower().EndsWith("button"))
-                {
-                    Initialize((ToolStripStatusLabel)ti);
-                }
-            }
-        }
-
-        public static void Initialize(ToolStripStatusLabel tsi)
-        {
-            tsi.BorderSides = ToolStripStatusLabelBorderSides.All;
-            tsi.BorderStyle = Border3DStyle.Etched;
-
-            tsi.MouseDown += StatusButton_MouseDown;
-            tsi.MouseUp += StatusButton_MouseUp;
-            tsi.MouseEnter += StatusButton_MouseEnter;
-            tsi.MouseLeave += StatusButton_MouseLeave;
-        }
-
-        //
-        // Tool Button
-        //
-        public static void StatusButton_MouseDown(object sender, MouseEventArgs e)
-        {
-            ToolStripStatusLabel tsi = (ToolStripStatusLabel)sender;
-            tsi.BorderStyle = Border3DStyle.Sunken;
-        }
-        public static void StatusButton_MouseUp(object sender, MouseEventArgs e)
-        {
-            ToolStripStatusLabel tsi = (ToolStripStatusLabel)sender;
-            tsi.BorderStyle = Border3DStyle.Raised;
-        }
-        public static void StatusButton_MouseEnter(object sender, EventArgs e)
-        {
-            ToolStripStatusLabel tsi = (ToolStripStatusLabel)sender;
-            tsi.BorderStyle = Border3DStyle.Raised;
-        }
-        public static void StatusButton_MouseLeave(object sender, EventArgs e)
-        {
-            ToolStripStatusLabel tsi = (ToolStripStatusLabel)sender;
-            tsi.BorderStyle = Border3DStyle.Etched;
-        }
-
-    }
-
-    #endregion
-
 }

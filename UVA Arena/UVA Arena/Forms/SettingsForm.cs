@@ -35,22 +35,22 @@ namespace UVA_Arena
             this.Close();
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            restoreButton.Visible = (tabControl1.SelectedTab == editorTab);
-        }
         public void InitializeAll()
         {
             //general settings
             SetCurrentUsername();
             currentCodeDir.Text = Elements.CODES.CodesPath;
-             
+
             //editor
             LoadEditorSettings();
 
+            //compiler
+            minGWLocation.Text = RegistryAccess.MinGWCompilerPath;
+            jdkLocation.Text = RegistryAccess.JDKCompilerPath;
+
             //precode
             LoadPrecode();
-        } 
+        }
 
         //
         // General Settings
@@ -130,7 +130,7 @@ namespace UVA_Arena
                 fontname.Tag = fd.Font;
                 fontname.Text = fd.Font.ToString();
                 fontname.Font = new Font(fd.Font.FontFamily, 8.5F, fd.Font.Style);
-                Properties.Settings.Default.EditorFont = fd.Font;                
+                Properties.Settings.Default.EditorFont = fd.Font;
             }
             fd.Dispose();
         }
@@ -162,8 +162,8 @@ namespace UVA_Arena
             {
                 currentLineColor.BackColor = cd.Color;
             }
-        } 
-        
+        }
+
         //
         // Compiler Settings
         //
@@ -184,7 +184,7 @@ namespace UVA_Arena
                         return;
                     }
                     //set data 
-                    Properties.Settings.Default.MinGWLocation = fbd.SelectedPath;
+                    RegistryAccess.MinGWCompilerPath = fbd.SelectedPath;
                 }
             }
         }
@@ -206,47 +206,54 @@ namespace UVA_Arena
                         return;
                     }
                     //set data 
-                    Properties.Settings.Default.JDKLocation = fbd.SelectedPath;
+                    RegistryAccess.JDKCompilerPath = fbd.SelectedPath;
                 }
             }
         }
-         
+
         //
         // Precode Settings
         //
-        private void codeTextBox_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
+        private void SavePrecode()
         {
-            if (ansiCradioButton.Checked || cppRadioButton.Checked)
-                HighlightSyntax.HighlightCPPSyntax(e.ChangedRange);
-            else if (JavaRadioButton.Checked)
-                HighlightSyntax.HighlightJavaSyntax(e.ChangedRange);
-        }
-
-        private void saveCodeButton_Click(object sender, EventArgs e)
-        {
-            string text = codeTextBox.Text;
+            Structures.Language lang = Language.CPP;
             if (ansiCradioButton.Checked)
-                Properties.Settings.Default.CPrecode = text;
-            else if (cppRadioButton.Checked)
-                Properties.Settings.Default.CPPPrecode = text;
+                lang = Language.C;
             else if (JavaRadioButton.Checked)
-                Properties.Settings.Default.JavaPrecode = text;
+                lang = Language.Java;
             else if (PascalRadioButton.Checked)
-                Properties.Settings.Default.PascalPrecode = text;
+                lang = Language.Pascal;
+            else
+                lang = Language.CPP;
+
+            string file = LocalDirectory.GetPrecode(lang);
+            codeTextBox.SaveToFile(file, Encoding.UTF8);
         }
 
         private void LoadPrecode()
         {
-            string text = "";
+            Structures.Language lang = Language.CPP;
             if (ansiCradioButton.Checked)
-                text = Properties.Settings.Default.CPrecode;
-            else if (cppRadioButton.Checked)
-                text = Properties.Settings.Default.CPPPrecode;
+                lang = Language.C;
             else if (JavaRadioButton.Checked)
-                text = Properties.Settings.Default.JavaPrecode;
+                lang = Language.Java;
             else if (PascalRadioButton.Checked)
-                text = Properties.Settings.Default.PascalPrecode;
-            codeTextBox.Text = text;
+                lang = Language.Pascal;
+            else
+                lang = Language.CPP;
+
+            string file = LocalDirectory.GetPrecode(lang);
+            codeTextBox.OpenFile(file);
+            codeTextBox.Tag = codeTextBox.Text;
+        }
+
+        private void codeTextBox_TextChangedDelayed(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
+        {
+            SavePrecode();
+            if (ansiCradioButton.Checked || cppRadioButton.Checked)
+                HighlightSyntax.HighlightCPPSyntax(codeTextBox.Range);
+            else if (JavaRadioButton.Checked)
+                HighlightSyntax.HighlightJavaSyntax(codeTextBox.Range);
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
@@ -256,9 +263,47 @@ namespace UVA_Arena
 
         private void cancelCodeButton_Click(object sender, EventArgs e)
         {
-            LoadPrecode();
+            if (codeTextBox.Tag == null) codeTextBox.Tag = "";
+            codeTextBox.Text = (string)codeTextBox.Tag;
         }
 
+        private void saveCodeButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.CheckFileExists = true;
+            sfd.FileName = "Precode";
+            sfd.Filter = "All Files|*.*";
+            if (cppRadioButton.Checked) sfd.Filter = "CPP Files|*.cpp|Header Files|*.h*|All Files|*.*";
+            if (ansiCradioButton.Checked) sfd.Filter = "C Files|*.c|Header Files|*.h*|All Files|*.*";
+            if (JavaRadioButton.Checked) sfd.Filter = "Java Files|*.java|All Files|*.*";
+            if (PascalRadioButton.Checked) sfd.Filter = "Pascal Files|*.pascal|All Files|*.*";
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                codeTextBox.SaveToFile(sfd.FileName, Encoding.UTF8);
+            }
+        }
 
+        private void openCodeFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.CheckFileExists = true;
+            ofd.Filter = "All Files|*.*";
+            if (cppRadioButton.Checked) ofd.Filter = "CPP Files|*.cpp|Header Files|*.h*|All Files|*.*";
+            if (ansiCradioButton.Checked) ofd.Filter = "C Files|*.c|Header Files|*.h*|All Files|*.*";
+            if (JavaRadioButton.Checked) ofd.Filter = "Java Files|*.java|All Files|*.*";
+            if (PascalRadioButton.Checked) ofd.Filter = "Pascal Files|*.pascal|All Files|*.*";
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (LocalDirectory.GetFileSize(ofd.FileName) < 1024 * 512)
+                {
+                    codeTextBox.OpenFile(ofd.FileName);
+                }
+                else
+                {
+                    MessageBox.Show("File is too big. Please select a valid file");
+                }
+            }
+        }
+         
     }
 }

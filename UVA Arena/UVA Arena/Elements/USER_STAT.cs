@@ -53,6 +53,8 @@ namespace UVA_Arena.Elements
             autoUpdateToolMenu.Checked = AutoUpdateStatus;
             lastSubmissions1.MakeColumnSelectMenu(MainContextMenu);
 
+            ShowUserSub(RegistryAccess.DefaultUsername);
+
             Stylish.SetGradientBackground(titleBackPanel,
                 new Stylish.GradientStyle(Color.PowderBlue, Color.PaleTurquoise, 90F));
         }
@@ -219,7 +221,7 @@ namespace UVA_Arena.Elements
         private void usernameButton_Click(object sender, EventArgs e)
         {
             string user = usernameBox.Text;
-            if (LocalDatabase.ContainsUsers(user))
+            if (LocalDatabase.ContainsUser(user))
             {
                 usernameStatus.Text = "Already added.";
             }
@@ -334,12 +336,13 @@ namespace UVA_Arena.Elements
 
         #region Load User's Submissions
 
-        private UserInfo currentUser = null;
+        public UserInfo currentUser = null;
 
         public void LoadUserSub(string user)
         {
             //if 'user' is already loaded then do nothing
             if (currentUser != null && currentUser.uname == user) return;
+            if (!LocalDatabase.ContainsUser(user)) return;
 
             worldRanklist.ClearObjects();
             lastSubmissions1.ClearObjects();
@@ -811,7 +814,7 @@ namespace UVA_Arena.Elements
 
                 foreach (UserRanklist usub in worldRanks)
                 {
-                    if (LocalDatabase.ContainsUsers(usub.username))
+                    if (LocalDatabase.ContainsUser(usub.username))
                     {
                         RegistryAccess.SetUserRank(usub);
                         if (usub.username == currentUser.uname)
@@ -870,7 +873,7 @@ namespace UVA_Arena.Elements
                 for (int i = 0; i < e.Item.SubItems.Count; ++i)
                     e.Item.SubItems[i].BackColor = Color.Turquoise;
             }
-            else if (LocalDatabase.ContainsUsers(js.username))
+            else if (LocalDatabase.ContainsUser(js.username))
             {
                 for (int i = 0; i < e.Item.SubItems.Count; ++i)
                     e.Item.SubItems[i].BackColor = Color.LightBlue;

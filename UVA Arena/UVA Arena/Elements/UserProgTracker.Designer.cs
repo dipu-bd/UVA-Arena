@@ -27,7 +27,8 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
-        {            
+        {             
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserProgTracker));
             this.subCounterPanel = new System.Windows.Forms.TableLayoutPanel();
             this.totalTriedLabel = new System.Windows.Forms.Label();
             this.triednacLabel = new System.Windows.Forms.Label();
@@ -393,7 +394,7 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;         
             this.tabControl1.Controls.Add(this.basicInfoTab);
             this.tabControl1.Controls.Add(this.subPerDateTab);
             this.tabControl1.Controls.Add(this.subPerVerTab);

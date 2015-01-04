@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PROBLEMS));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.hideAccepted = new System.Windows.Forms.CheckBox();
+            this.deepSearchCheckBox = new System.Windows.Forms.CheckBox();
             this.memProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.mleProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -72,7 +74,6 @@
             this.nameVol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.countVol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.problemListContainer = new System.Windows.Forms.TableLayoutPanel();
-            this.hideAccepted = new System.Windows.Forms.CheckBox();
             this.problemListView = new BrightIdeasSoftware.FastObjectListView();
             this.pnumProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.ptitleProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -88,7 +89,6 @@
             this.plistLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.searchBox1 = new UVA_Arena.Custom.SearchBox();
-            this.deepSearchCheckBox = new System.Windows.Forms.CheckBox();
             this.cancelDeepSearchButton = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.problemContextMenu.SuspendLayout();
@@ -104,6 +104,39 @@
             this.plistPanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // hideAccepted
+            // 
+            this.hideAccepted.Appearance = System.Windows.Forms.Appearance.Button;
+            this.hideAccepted.AutoCheck = false;
+            this.hideAccepted.AutoSize = true;
+            this.hideAccepted.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hideAccepted.Location = new System.Drawing.Point(1, 349);
+            this.hideAccepted.Margin = new System.Windows.Forms.Padding(1);
+            this.hideAccepted.Name = "hideAccepted";
+            this.hideAccepted.Size = new System.Drawing.Size(159, 22);
+            this.hideAccepted.TabIndex = 6;
+            this.hideAccepted.Tag = "Hide Accepted Problems|Show Accepted Problems";
+            this.hideAccepted.Text = "Hide Accepted Problems";
+            this.hideAccepted.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.hideAccepted, "Also search in tags and problem description. \r\nHit enter or press search button t" +
+        "o make it effective.");
+            this.hideAccepted.UseVisualStyleBackColor = true;
+            this.hideAccepted.Click += new System.EventHandler(this.hideAccepted_Click);
+            // 
+            // deepSearchCheckBox
+            // 
+            this.deepSearchCheckBox.AutoSize = true;
+            this.deepSearchCheckBox.Location = new System.Drawing.Point(6, 29);
+            this.deepSearchCheckBox.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.deepSearchCheckBox.Name = "deepSearchCheckBox";
+            this.deepSearchCheckBox.Size = new System.Drawing.Size(87, 17);
+            this.deepSearchCheckBox.TabIndex = 5;
+            this.deepSearchCheckBox.Text = "Deep Search";
+            this.toolTip1.SetToolTip(this.deepSearchCheckBox, "Also search in tags and problem description. \r\nHit enter or press search button t" +
+        "o make it effective.");
+            this.deepSearchCheckBox.UseVisualStyleBackColor = true;
+            this.deepSearchCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // memProb
             // 
@@ -420,6 +453,7 @@
             this.mainSplitContainer.SplitterDistance = 290;
             this.mainSplitContainer.SplitterWidth = 5;
             this.mainSplitContainer.TabIndex = 0;
+            this.mainSplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.mainSplitContainer_SplitterMoved);
             // 
             // problemViewSplitContainer
             // 
@@ -441,6 +475,7 @@
             this.problemViewSplitContainer.Size = new System.Drawing.Size(290, 422);
             this.problemViewSplitContainer.SplitterDistance = 125;
             this.problemViewSplitContainer.TabIndex = 0;
+            this.problemViewSplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.problemViewSplitContainer_SplitterMoved);
             // 
             // tableLayoutPanel1
             // 
@@ -563,7 +598,7 @@
             this.categoryListView.AllColumns.Add(this.nameVol);
             this.categoryListView.AllColumns.Add(this.countVol);
             this.categoryListView.AlternateRowBackColor = System.Drawing.Color.LightCyan;
-            this.categoryListView.BackColor = System.Drawing.Color.Azure;
+            this.categoryListView.BackColor = System.Drawing.Color.AliceBlue;
             this.categoryListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.categoryListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameVol,
@@ -628,27 +663,6 @@
             this.problemListContainer.Size = new System.Drawing.Size(161, 372);
             this.problemListContainer.TabIndex = 1;
             this.problemListContainer.Tag = "115";
-            // 
-            // hideAccepted
-            // 
-            this.hideAccepted.Appearance = System.Windows.Forms.Appearance.Button;
-            this.hideAccepted.AutoSize = true;
-            this.hideAccepted.Checked = global::UVA_Arena.Properties.Settings.Default.HideAcceptedChecked;
-            this.hideAccepted.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "HideAcceptedChecked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.hideAccepted.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UVA_Arena.Properties.Settings.Default, "HideAcceptedText", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.hideAccepted.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hideAccepted.Location = new System.Drawing.Point(1, 349);
-            this.hideAccepted.Margin = new System.Windows.Forms.Padding(1);
-            this.hideAccepted.Name = "hideAccepted";
-            this.hideAccepted.Size = new System.Drawing.Size(159, 22);
-            this.hideAccepted.TabIndex = 6;
-            this.hideAccepted.Tag = "Hide Accepted Problems|Show Accepted Problems";
-            this.hideAccepted.Text = global::UVA_Arena.Properties.Settings.Default.HideAcceptedText;
-            this.hideAccepted.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.hideAccepted, "Also search in tags and problem description. \r\nHit enter or press search button t" +
-        "o make it effective.");
-            this.hideAccepted.UseVisualStyleBackColor = true;
-            this.hideAccepted.CheckedChanged += new System.EventHandler(this.hideAccepted_CheckedChanged);
             // 
             // problemListView
             // 
@@ -821,9 +835,11 @@
             this.priorityProb.GroupWithItemCountFormat = "Problems with {0} matches [{1} items]";
             this.priorityProb.GroupWithItemCountSingularFormat = "Problem with {0} matches";
             this.priorityProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.priorityProb.Searchable = false;
             this.priorityProb.Text = "Priority";
             this.priorityProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.priorityProb.ToolTipText = "Match count used in deep search";
+            this.priorityProb.UseFiltering = false;
             // 
             // plistPanel
             // 
@@ -885,20 +901,6 @@
             this.searchBox1.SearchTextChanged += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchTextChanged);
             this.searchBox1.SearchButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchButtonClicked);
             this.searchBox1.ClearButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_ClearButtonClicked);
-            // 
-            // deepSearchCheckBox
-            // 
-            this.deepSearchCheckBox.AutoSize = true;
-            this.deepSearchCheckBox.Location = new System.Drawing.Point(6, 29);
-            this.deepSearchCheckBox.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
-            this.deepSearchCheckBox.Name = "deepSearchCheckBox";
-            this.deepSearchCheckBox.Size = new System.Drawing.Size(87, 17);
-            this.deepSearchCheckBox.TabIndex = 5;
-            this.deepSearchCheckBox.Text = "Deep Search";
-            this.toolTip1.SetToolTip(this.deepSearchCheckBox, "Also search in tags and problem description. \r\nHit enter or press search button t" +
-        "o make it effective.");
-            this.deepSearchCheckBox.UseVisualStyleBackColor = true;
-            this.deepSearchCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // cancelDeepSearchButton
             // 

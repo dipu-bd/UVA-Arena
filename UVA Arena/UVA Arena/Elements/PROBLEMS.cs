@@ -23,12 +23,15 @@ namespace UVA_Arena.Elements
 
             //other initial codes
             SetAspectValues();
-            problemListView.MakeColumnSelectMenu(problemContextMenu);             
+            problemListView.MakeColumnSelectMenu(problemContextMenu);
+            mainSplitContainer.SplitterDistance = 
+                (int)(mainSplitContainer.Width * Properties.Settings.Default.ProblemMainSplitterDistance);
+            problemViewSplitContainer.SplitterDistance = Properties.Settings.Default.ProblemSubSplitterDistance;
 
             //add problem viewer
             Interactivity.problemViewer = new Elements.ProblemViewer();
             Interactivity.problemViewer.Dock = DockStyle.Fill;
-            mainSplitContainer.Panel2.Controls.Add(Interactivity.problemViewer);            
+            mainSplitContainer.Panel2.Controls.Add(Interactivity.problemViewer);             
         }
 
         protected override void OnLoad(EventArgs e)
@@ -44,6 +47,9 @@ namespace UVA_Arena.Elements
             Stylish.SetGradientBackground(plistPanel, 
                 new Stylish.GradientStyle(Color.LightSteelBlue, Color.PowderBlue, 90F));
         }
+        #endregion
+
+        #region Global Task
 
         public bool ExpandCollapseView()
         {
@@ -51,12 +57,12 @@ namespace UVA_Arena.Elements
             if (val)
             {
                 Interactivity.problemViewer.expandCollapseButton.Image
-                            = UVA_Arena.Properties.Resources.next;
+                            = UVA_Arena.Properties.Resources.show;
             }
             else
             {
                 Interactivity.problemViewer.expandCollapseButton.Image
-                            = UVA_Arena.Properties.Resources.prev;
+                            = UVA_Arena.Properties.Resources.hide;
             }
             mainSplitContainer.Panel1Collapsed = val;
             return val;
@@ -68,21 +74,31 @@ namespace UVA_Arena.Elements
             {
                 if (favoriteButton.Checked)
                 {
-                    if (hideAccepted.Checked)
-                        hideAccepted.Checked = false;
+                    ShowFavorites();
                 }
                 else
                 {
                     ShowAllProblems();
                 }
             }
-            else
+            else 
             {
                 if (plistLabel.Tag.GetType() == typeof(long))
                     ShowVolume((long)plistLabel.Tag);
                 else
                     ShowCategory((string)plistLabel.Tag);
             }
+        }
+
+        private void mainSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            Properties.Settings.Default.ProblemMainSplitterDistance =
+                (double)mainSplitContainer.SplitterDistance / mainSplitContainer.Width;
+        }
+
+        private void problemViewSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            Properties.Settings.Default.ProblemSubSplitterDistance = problemViewSplitContainer.SplitterDistance;
         }
 
         #endregion
@@ -224,9 +240,8 @@ namespace UVA_Arena.Elements
                 if (LocalDatabase.HasProblem(pnum))
                     favorite.Add(LocalDatabase.GetProblem(pnum));
             }
-
-            hideAccepted.Checked = false;
-            problemListView.SetObjects(favorite);
+             
+            _SetObjects(favorite);
         }
 
         public void ShowVolume(long vol)
@@ -255,9 +270,7 @@ namespace UVA_Arena.Elements
 
         private void _SetObjects(List<ProblemInfo> list, bool regroup = false)
         {
-            List<ProblemInfo> display = new List<ProblemInfo>();
-            problemListView.SetObjects(display);
-
+            problemListView.ClearObjects();           
             if (list == null) return;
 
             if (LocalDatabase.DefaultUser == null || !hideAccepted.Checked)
@@ -266,6 +279,7 @@ namespace UVA_Arena.Elements
             }
             else
             {
+                List<ProblemInfo> display = new List<ProblemInfo>();
                 foreach (ProblemInfo prob in list)
                 {
                     if (!LocalDatabase.DefaultUser.IsSolved(prob.pnum))
@@ -306,8 +320,9 @@ namespace UVA_Arena.Elements
             if (!allProbButton.Checked) ShowAllProblems();
         }
 
-        private void hideAccepted_CheckedChanged(object sender, EventArgs e)
+        private void hideAccepted_Click(object sender, EventArgs e)
         {
+            hideAccepted.Checked = !hideAccepted.Checked;
             RefreshProblemList();
 
             //set text
@@ -355,11 +370,16 @@ namespace UVA_Arena.Elements
                     e.ColumnToSort == priorityProb)
                 {
                     problemListView.ShowGroups = true;
+                    if (e.ColumnToSort == levelProb)
+                    {
+                        e.SecondaryColumnToSort = dacuProb;
+                        e.SecondarySortOrder = SortOrder.Descending;
+                    }    
                 }
-                else
+                else 
                 {
                     problemListView.ShowGroups = false;
-                }
+                }            
             }
             catch { }
         }
@@ -717,10 +737,6 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
-
-        private void mainSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
-        {            
-        }
 
     }
 }

@@ -159,7 +159,7 @@ namespace UVA_Arena.Elements
 
             //get compiler
             int runtime = (int)(RunTimeLimit * 1000);
-            string exec = Properties.Settings.Default.JDKLocation;
+            string exec = RegistryAccess.JDKCompilerPath;
             exec = Path.Combine(exec, "bin");
             exec = Path.Combine(exec, "java.exe");
             if (!File.Exists(exec))
@@ -196,7 +196,7 @@ namespace UVA_Arena.Elements
             string filename = CurrentProblem.FullName;
 
             //get compiler
-            string compiler = Properties.Settings.Default.MinGWLocation;
+            string compiler = RegistryAccess.MinGWCompilerPath;
             compiler = Path.Combine(compiler, "bin");
             compiler = Path.Combine(compiler, "mingw32-gcc.exe");
             if (!File.Exists(compiler))
@@ -223,7 +223,7 @@ namespace UVA_Arena.Elements
             string filename = CurrentProblem.FullName;
 
             //get compiler
-            string compiler = Properties.Settings.Default.MinGWLocation;
+            string compiler = RegistryAccess.MinGWCompilerPath;
             compiler = Path.Combine(compiler, "bin");
             compiler = Path.Combine(compiler, "mingw32-g++.exe");
             if (!File.Exists(compiler))
@@ -250,7 +250,7 @@ namespace UVA_Arena.Elements
             string filename = CurrentProblem.FullName;
 
             //get compiler
-            string compiler = Properties.Settings.Default.JDKLocation;
+            string compiler = RegistryAccess.JDKCompilerPath;
             compiler = Path.Combine(compiler, "bin");
             compiler = Path.Combine(compiler, "javac.exe");
             if (!File.Exists(compiler))
@@ -358,12 +358,12 @@ namespace UVA_Arena.Elements
             File.Move(file, bat);
 
             string commands =
-                  "@cls\n"
-                + "@title " + title + "\n"
-                + "@" + args + "\n"
-                + "@echo.\n"
-                + "@set /p exit=Press Enter to exit...%=%\n"
-                + "@exit";
+                  "@cls\n" +
+                  "@title " + title + "\n" +
+                  "@" + args + "\n" +
+                  "@echo.\n" +
+                  "@set /p exit=Press Enter to exit...%=%\n" +
+                  "@exit";
 
             //write commands to batch file
             File.WriteAllText(bat, commands);

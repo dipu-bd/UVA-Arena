@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace UVA_Arena.Elements
+namespace UVA_Arena
 {
     public static class SHOptionsAPI
     {
@@ -67,11 +67,10 @@ namespace UVA_Arena.Elements
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 1)]
         private struct SHFILEOPSTRUCT
         {
-
             public IntPtr hwnd;
             [MarshalAs(UnmanagedType.U4)]
-            public FileOperationType wFunc;
-            public string pFrom;
+            public FileOperationType wFunc;            
+            public string pFrom;            
             public string pTo;
             public FileOperationFlags fFlags;
             [MarshalAs(UnmanagedType.Bool)]
@@ -84,15 +83,15 @@ namespace UVA_Arena.Elements
         private static extern int SHFileOperation(ref SHFILEOPSTRUCT FileOp);
 
         public static void CallSH(FileOperationType type, string[] from, string to, FileOperationFlags flags)
-        { 
-                var fs = new SHFILEOPSTRUCT
-                {
-                    wFunc = type,
-                    pFrom = string.Join("\0", from) + "\0\0",
-                    pTo = to + "\0\0",
-                    fFlags = flags
-                };
-                SHFileOperation(ref fs); 
+        {
+            var fs = new SHFILEOPSTRUCT();
+            fs.wFunc = type;
+            if (from.Length > 0)
+                fs.pFrom = string.Join("\0", from) + "\0\0";
+            if (to.Length > 0)
+                fs.pTo = to + "\0\0";
+            fs.fFlags = flags;
+            SHFileOperation(ref fs);
         }
 
         public static void Rename(string from, string to)

@@ -379,6 +379,21 @@ namespace UVA_Arena.Elements
         {
             markButton.Text = markButton.Checked ? "Unmark" : "Mark";
         }
+        
+        private void up_downButton_Click(object sender, EventArgs e)
+        {
+            bool val = !categoryInfo.Visible;
+            categoryInfo.Visible = val;
+            problemMessage.Visible = val;
+            if (val)
+            {
+                up_downButton.Image = Properties.Resources.moveup;
+            }
+            else
+            {
+                up_downButton.Image = Properties.Resources.movedown;
+            }
+        }
 
         #endregion
 
@@ -676,7 +691,7 @@ namespace UVA_Arena.Elements
             SubmissionMessage list = (SubmissionMessage)e.Model;
             if (e.Column == unameSUB)
             {
-                if (LocalDatabase.ContainsUsers(list.uname))
+                if (LocalDatabase.ContainsUser(list.uname))
                 {
                     Interactivity.ShowUserStat(list.uname);
                 }
@@ -718,7 +733,7 @@ namespace UVA_Arena.Elements
                     for (int i = 0; i < e.Item.SubItems.Count; ++i)
                         e.Item.SubItems[i].BackColor = Color.Turquoise;
                 }
-                else if (LocalDatabase.ContainsUsers(uname))
+                else if (LocalDatabase.ContainsUser(uname))
                 {
                     for (int i = 0; i < e.Item.SubItems.Count; ++i)
                         e.Item.SubItems[i].BackColor = Color.LightBlue;

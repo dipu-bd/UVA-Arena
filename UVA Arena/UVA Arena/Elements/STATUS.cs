@@ -280,7 +280,7 @@ namespace UVA_Arena.Elements
                 for (int i = 0; i < e.Item.SubItems.Count; ++i)
                     e.Item.SubItems[i].BackColor = Color.Turquoise;
             }
-            else if (LocalDatabase.ContainsUsers(js.uname))
+            else if (LocalDatabase.ContainsUser(js.uname))
             {
                 for (int i = 0; i < e.Item.SubItems.Count; ++i)
                     e.Item.SubItems[i].BackColor = Color.LightBlue;
@@ -358,7 +358,7 @@ namespace UVA_Arena.Elements
             }
             else if (e.Column == unameSUB)
             {
-                if (LocalDatabase.ContainsUsers(list.uname))
+                if (LocalDatabase.ContainsUser(list.uname))
                 {
                     Interactivity.ShowUserStat(list.uname);
                 }

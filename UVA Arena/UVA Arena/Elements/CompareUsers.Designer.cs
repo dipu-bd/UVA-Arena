@@ -46,14 +46,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.subCounterPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.totalTriedLabel = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.acceptedLabel = new System.Windows.Forms.Label();
             this.triednacLabel = new System.Windows.Forms.Label();
             this.totalsubLabel = new System.Windows.Forms.Label();
+            this.probInListLabel = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.lastSubmissions1 = new BrightIdeasSoftware.FastObjectListView();
             this.sidSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pnumSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -208,7 +208,7 @@
             this.secondsRank.Location = new System.Drawing.Point(4, 124);
             this.secondsRank.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.secondsRank.Name = "secondsRank";
-            this.secondsRank.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.secondsRank.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.secondsRank.Size = new System.Drawing.Size(172, 58);
             this.secondsRank.TabIndex = 3;
             this.secondsRank.Tag = "{1} has better rank than {0}.";
@@ -224,7 +224,7 @@
             this.secondsSubs.Location = new System.Drawing.Point(4, 63);
             this.secondsSubs.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.secondsSubs.Name = "secondsSubs";
-            this.secondsSubs.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.secondsSubs.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.secondsSubs.Size = new System.Drawing.Size(172, 58);
             this.secondsSubs.TabIndex = 2;
             this.secondsSubs.TabStop = true;
@@ -240,7 +240,7 @@
             this.commonSubs.Location = new System.Drawing.Point(4, 2);
             this.commonSubs.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.commonSubs.Name = "commonSubs";
-            this.commonSubs.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.commonSubs.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.commonSubs.Size = new System.Drawing.Size(172, 58);
             this.commonSubs.TabIndex = 1;
             this.commonSubs.Tag = "Both {0} and {1} have in common.";
@@ -327,14 +327,14 @@
             this.subCounterPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.subCounterPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.subCounterPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.subCounterPanel.Controls.Add(this.label6, 0, 1);
             this.subCounterPanel.Controls.Add(this.label8, 1, 1);
-            this.subCounterPanel.Controls.Add(this.totalTriedLabel, 3, 0);
-            this.subCounterPanel.Controls.Add(this.label7, 3, 1);
             this.subCounterPanel.Controls.Add(this.label11, 2, 1);
             this.subCounterPanel.Controls.Add(this.acceptedLabel, 1, 0);
             this.subCounterPanel.Controls.Add(this.triednacLabel, 2, 0);
-            this.subCounterPanel.Controls.Add(this.totalsubLabel, 0, 0);
+            this.subCounterPanel.Controls.Add(this.totalsubLabel, 3, 0);
+            this.subCounterPanel.Controls.Add(this.probInListLabel, 0, 0);
+            this.subCounterPanel.Controls.Add(this.label7, 0, 1);
+            this.subCounterPanel.Controls.Add(this.label6, 3, 1);
             this.subCounterPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.subCounterPanel.Location = new System.Drawing.Point(0, 358);
             this.subCounterPanel.Name = "subCounterPanel";
@@ -343,19 +343,6 @@
             this.subCounterPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.subCounterPanel.Size = new System.Drawing.Size(537, 80);
             this.subCounterPanel.TabIndex = 2;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(9, 56);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(116, 19);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Total Submission";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label8
             // 
@@ -369,33 +356,6 @@
             this.label8.TabIndex = 4;
             this.label8.Text = "Accepted";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // totalTriedLabel
-            // 
-            this.totalTriedLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.totalTriedLabel.AutoSize = true;
-            this.totalTriedLabel.BackColor = System.Drawing.Color.Transparent;
-            this.totalTriedLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalTriedLabel.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.totalTriedLabel.Location = new System.Drawing.Point(415, 8);
-            this.totalTriedLabel.Name = "totalTriedLabel";
-            this.totalTriedLabel.Size = new System.Drawing.Size(107, 37);
-            this.totalTriedLabel.TabIndex = 2;
-            this.totalTriedLabel.Tag = "{0}/{1}";
-            this.totalTriedLabel.Text = "[0/0]";
-            // 
-            // label7
-            // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(431, 56);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(75, 19);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Total Tried";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label11
             // 
@@ -421,8 +381,8 @@
             this.acceptedLabel.Name = "acceptedLabel";
             this.acceptedLabel.Size = new System.Drawing.Size(107, 37);
             this.acceptedLabel.TabIndex = 6;
-            this.acceptedLabel.Tag = "{0}/{1}";
-            this.acceptedLabel.Text = "[0/0]";
+            this.acceptedLabel.Tag = "{0}|{1}";
+            this.acceptedLabel.Text = "[0|0]";
             // 
             // triednacLabel
             // 
@@ -435,8 +395,8 @@
             this.triednacLabel.Name = "triednacLabel";
             this.triednacLabel.Size = new System.Drawing.Size(107, 37);
             this.triednacLabel.TabIndex = 3;
-            this.triednacLabel.Tag = "{0}/{1}";
-            this.triednacLabel.Text = "[0/0]";
+            this.triednacLabel.Tag = "{0}|{1}";
+            this.triednacLabel.Text = "[0|0]";
             // 
             // totalsubLabel
             // 
@@ -445,12 +405,52 @@
             this.totalsubLabel.BackColor = System.Drawing.Color.Transparent;
             this.totalsubLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalsubLabel.ForeColor = System.Drawing.Color.Maroon;
-            this.totalsubLabel.Location = new System.Drawing.Point(13, 8);
+            this.totalsubLabel.Location = new System.Drawing.Point(415, 8);
             this.totalsubLabel.Name = "totalsubLabel";
             this.totalsubLabel.Size = new System.Drawing.Size(107, 37);
             this.totalsubLabel.TabIndex = 1;
-            this.totalsubLabel.Tag = "{0}/{1}";
-            this.totalsubLabel.Text = "[0/0]";
+            this.totalsubLabel.Tag = "{0}|{1}";
+            this.totalsubLabel.Text = "[0|0]";
+            // 
+            // probInListLabel
+            // 
+            this.probInListLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.probInListLabel.AutoSize = true;
+            this.probInListLabel.BackColor = System.Drawing.Color.Transparent;
+            this.probInListLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.probInListLabel.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.probInListLabel.Location = new System.Drawing.Point(31, 8);
+            this.probInListLabel.Name = "probInListLabel";
+            this.probInListLabel.Size = new System.Drawing.Size(71, 37);
+            this.probInListLabel.TabIndex = 2;
+            this.probInListLabel.Tag = "{0}";
+            this.probInListLabel.Text = "[0]";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(15, 56);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(103, 19);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Problem In List";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(411, 56);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(116, 19);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Total Submission";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lastSubmissions1
             // 
@@ -504,7 +504,6 @@
             // sidSUB
             // 
             this.sidSUB.AspectName = "sid";
-            this.sidSUB.CellPadding = null;
             this.sidSUB.IsVisible = false;
             this.sidSUB.Text = "SID";
             this.sidSUB.Width = 0;
@@ -512,7 +511,6 @@
             // pnumSUB
             // 
             this.pnumSUB.AspectName = "pnum";
-            this.pnumSUB.CellPadding = null;
             this.pnumSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pnumSUB.Text = "Number";
             this.pnumSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -521,7 +519,6 @@
             // ptitleSUB
             // 
             this.ptitleSUB.AspectName = "ptitle";
-            this.ptitleSUB.CellPadding = null;
             this.ptitleSUB.Hyperlink = true;
             this.ptitleSUB.MinimumWidth = 150;
             this.ptitleSUB.Text = "Problem Name";
@@ -530,7 +527,6 @@
             // unameSUB
             // 
             this.unameSUB.AspectName = "uname";
-            this.unameSUB.CellPadding = null;
             this.unameSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.unameSUB.MinimumWidth = 80;
             this.unameSUB.Text = "Username";
@@ -540,7 +536,6 @@
             // nameSUB
             // 
             this.nameSUB.AspectName = "name";
-            this.nameSUB.CellPadding = null;
             this.nameSUB.DisplayIndex = 2;
             this.nameSUB.IsVisible = false;
             this.nameSUB.MinimumWidth = 120;
@@ -550,7 +545,6 @@
             // lanSUB
             // 
             this.lanSUB.AspectName = "lan";
-            this.lanSUB.CellPadding = null;
             this.lanSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lanSUB.Text = "Language";
             this.lanSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -559,7 +553,6 @@
             // verSUB
             // 
             this.verSUB.AspectName = "ver";
-            this.verSUB.CellPadding = null;
             this.verSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.verSUB.Text = "Verdict";
             this.verSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -568,7 +561,6 @@
             // runSUB
             // 
             this.runSUB.AspectName = "run";
-            this.runSUB.CellPadding = null;
             this.runSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.runSUB.Text = "Runtime";
             this.runSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -577,7 +569,6 @@
             // rankSUB
             // 
             this.rankSUB.AspectName = "rank";
-            this.rankSUB.CellPadding = null;
             this.rankSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.rankSUB.Text = "Rank";
             this.rankSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -586,7 +577,6 @@
             // subtimeSUB
             // 
             this.subtimeSUB.AspectName = "sbt";
-            this.subtimeSUB.CellPadding = null;
             this.subtimeSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.subtimeSUB.MinimumWidth = 140;
             this.subtimeSUB.Text = "Submission Time";
@@ -642,7 +632,7 @@
         private System.Windows.Forms.TableLayoutPanel subCounterPanel;
         private System.Windows.Forms.Label acceptedLabel;
         private System.Windows.Forms.Label triednacLabel;
-        private System.Windows.Forms.Label totalTriedLabel;
+        private System.Windows.Forms.Label probInListLabel;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label totalsubLabel;
         private System.Windows.Forms.Label label11;

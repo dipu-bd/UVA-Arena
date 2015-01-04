@@ -86,6 +86,7 @@
             this.nextDiscussButton = new System.Windows.Forms.Button();
             this.homeDiscussButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.up_downButton = new System.Windows.Forms.Button();
             this.categoryInfo = new System.Windows.Forms.CueTextBox();
             this.titleBox1 = new System.Windows.Forms.Label();
             this.problemMessage = new System.Windows.Forms.Label();
@@ -833,8 +834,10 @@
             // 
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel1.Controls.Add(this.up_downButton, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.categoryInfo, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.problemMessage, 0, 2);
@@ -848,10 +851,27 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 72);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // up_downButton
+            // 
+            this.up_downButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.up_downButton.FlatAppearance.BorderSize = 0;
+            this.up_downButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise;
+            this.up_downButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PowderBlue;
+            this.up_downButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.up_downButton.Image = global::UVA_Arena.Properties.Resources.moveup;
+            this.up_downButton.Location = new System.Drawing.Point(736, 0);
+            this.up_downButton.Margin = new System.Windows.Forms.Padding(0);
+            this.up_downButton.Name = "up_downButton";
+            this.up_downButton.Size = new System.Drawing.Size(32, 29);
+            this.up_downButton.TabIndex = 4;
+            this.up_downButton.UseVisualStyleBackColor = true;
+            this.up_downButton.Click += new System.EventHandler(this.up_downButton_Click);
+            // 
             // categoryInfo
             // 
             this.categoryInfo.BackColor = System.Drawing.Color.LightBlue;
             this.categoryInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tableLayoutPanel1.SetColumnSpan(this.categoryInfo, 2);
             this.categoryInfo.CueText = "Set tags to identify the type of the problem...";
             this.categoryInfo.Cursor = System.Windows.Forms.Cursors.Default;
             this.categoryInfo.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -876,13 +896,14 @@
             this.titleBox1.Margin = new System.Windows.Forms.Padding(0);
             this.titleBox1.Name = "titleBox1";
             this.titleBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.titleBox1.Size = new System.Drawing.Size(768, 29);
+            this.titleBox1.Size = new System.Drawing.Size(736, 29);
             this.titleBox1.TabIndex = 0;
             this.titleBox1.Text = "No problem selected";
             // 
             // problemMessage
             // 
             this.problemMessage.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.problemMessage, 2);
             this.problemMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.problemMessage.Font = new System.Drawing.Font("Cambria", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.problemMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(64)))), ((int)(((byte)(16)))));
@@ -899,14 +920,13 @@
             // expandCollapseButton
             // 
             this.expandCollapseButton.Dock = System.Windows.Forms.DockStyle.Left;
-            this.expandCollapseButton.Image = global::UVA_Arena.Properties.Resources.prev;
+            this.expandCollapseButton.Image = global::UVA_Arena.Properties.Resources.hide;
             this.expandCollapseButton.Location = new System.Drawing.Point(1, 1);
             this.expandCollapseButton.Margin = new System.Windows.Forms.Padding(0);
             this.expandCollapseButton.Name = "expandCollapseButton";
             this.expandCollapseButton.Size = new System.Drawing.Size(30, 72);
             this.expandCollapseButton.TabIndex = 3;
             this.expandCollapseButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.expandCollapseButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.expandCollapseButton.UseVisualStyleBackColor = true;
             this.expandCollapseButton.Click += new System.EventHandler(this.expandViewButton1_Click);
             // 
@@ -1038,5 +1058,6 @@
         public System.Windows.Forms.Button expandCollapseButton;
         private System.Windows.Forms.Label problemMessage;
         public System.Windows.Forms.TabPage discussTab;
+        public System.Windows.Forms.Button up_downButton;
     }
 }

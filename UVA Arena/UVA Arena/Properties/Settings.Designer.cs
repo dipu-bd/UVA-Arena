@@ -25,31 +25,7 @@ namespace UVA_Arena.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool HideAcceptedChecked {
-            get {
-                return ((bool)(this["HideAcceptedChecked"]));
-            }
-            set {
-                this["HideAcceptedChecked"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Hide Accepted Problems")]
-        public string HideAcceptedText {
-            get {
-                return ((string)(this["HideAcceptedText"]));
-            }
-            set {
-                this["HideAcceptedText"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Courier New, 9.75pt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Consolas, 10pt")]
         public global::System.Drawing.Font EditorFont {
             get {
                 return ((global::System.Drawing.Font)(this["EditorFont"]));
@@ -203,78 +179,6 @@ namespace UVA_Arena.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string CPPPrecode {
-            get {
-                return ((string)(this["CPPPrecode"]));
-            }
-            set {
-                this["CPPPrecode"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string CPrecode {
-            get {
-                return ((string)(this["CPrecode"]));
-            }
-            set {
-                this["CPrecode"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string JavaPrecode {
-            get {
-                return ((string)(this["JavaPrecode"]));
-            }
-            set {
-                this["JavaPrecode"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string PascalPrecode {
-            get {
-                return ((string)(this["PascalPrecode"]));
-            }
-            set {
-                this["PascalPrecode"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\MinGW")]
-        public string MinGWLocation {
-            get {
-                return ((string)(this["MinGWLocation"]));
-            }
-            set {
-                this["MinGWLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\Java\\jdk~")]
-        public string JDKLocation {
-            get {
-                return ((string)(this["JDKLocation"]));
-            }
-            set {
-                this["JDKLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("-ansi -Wall")]
         public string CCompilerOptions {
             get {
@@ -306,6 +210,42 @@ namespace UVA_Arena.Properties {
             }
             set {
                 this["JavaCompilerOptions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.3")]
+        public double ProblemMainSplitterDistance {
+            get {
+                return ((double)(this["ProblemMainSplitterDistance"]));
+            }
+            set {
+                this["ProblemMainSplitterDistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("125")]
+        public int ProblemSubSplitterDistance {
+            get {
+                return ((int)(this["ProblemSubSplitterDistance"]));
+            }
+            set {
+                this["ProblemSubSplitterDistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HideAcceptedChecked {
+            get {
+                return ((bool)(this["HideAcceptedChecked"]));
+            }
+            set {
+                this["HideAcceptedChecked"] = value;
             }
         }
     }

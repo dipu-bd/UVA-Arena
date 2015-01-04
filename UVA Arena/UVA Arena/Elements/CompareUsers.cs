@@ -101,7 +101,6 @@ namespace UVA_Arena.Elements
                 second.Process();
 
                 ShowCompareResult(first, second);
-                ShowComparedList(first, second);
             }
             catch (Exception ex)
             {
@@ -122,17 +121,14 @@ namespace UVA_Arena.Elements
                 if (val.IsAccepted()) secondac++;
             }
 
+            //set some labels
             acceptedLabel.Text = string.Format((string)acceptedLabel.Tag, firstac, secondac);
             triednacLabel.Text = string.Format((string)triednacLabel.Tag,
                first.TryList.Count - firstac, second.TryList.Count - secondac);
-            totalTriedLabel.Text = string.Format((string)totalTriedLabel.Tag,
-               first.TryList.Count, second.TryList.Count);
             totalsubLabel.Text = string.Format((string)totalsubLabel.Tag,
                 first.submissions.Count, second.submissions.Count);
-        }
-
-        private void ShowComparedList(UserInfo first, UserInfo second)
-        {
+             
+            //build up list
             List<UserSubmission> usub = new List<UserSubmission>();
 
             //enumerate all seconds submissions
@@ -180,6 +176,9 @@ namespace UVA_Arena.Elements
             lastSubmissions1.ClearObjects();
             lastSubmissions1.SetObjects(usub);
             lastSubmissions1.BuildGroups(pnumSUB, SortOrder.Ascending);
+            lastSubmissions1.ShowGroups = !secondsSubs.Checked;
+
+            probInListLabel.Text = string.Format((string)probInListLabel.Tag, lastSubmissions1.OLVGroups.Count);            
         }
 
         private void SetAspectValues()
@@ -199,11 +198,16 @@ namespace UVA_Arena.Elements
             runSUB.AspectToStringConverter = delegate(object dat)
             {
                 return Functions.FormatRuntime((long)dat);
-            }; 
+            };
             rankSUB.AspectToStringConverter = delegate(object dat)
             {
                 if ((long)dat == -1) return "-";
                 return ((long)dat).ToString();
+            };
+            pnumSUB.GroupKeyGetter = delegate(object row)
+            {
+                UserSubmission usub = (UserSubmission)row;
+                return string.Format("{0} - {1}", usub.pnum, usub.ptitle);
             };
         }
 
@@ -213,8 +217,8 @@ namespace UVA_Arena.Elements
             float size = 9.0F;
             FontStyle style = FontStyle.Regular;
             Color fore = Color.Black;
-            
-            
+
+
             //highlight other
             if (e.Column == sidSUB)
             {
@@ -245,7 +249,7 @@ namespace UVA_Arena.Elements
             else if (e.Column == runSUB)
             {
                 fore = Color.SlateBlue;
-            } 
+            }
             else if (e.Column == subtimeSUB)
             {
                 fore = Color.Maroon;
@@ -273,11 +277,11 @@ namespace UVA_Arena.Elements
         }
 
         private void lastSubmissions1_HyperlinkClicked(object sender, BrightIdeasSoftware.HyperlinkClickedEventArgs e)
-        { 
+        {
             if (e.Column == pnumSUB || e.Column == ptitleSUB)
             {
                 Interactivity.ShowProblem(((UserSubmission)e.Model).pnum);
-            } 
+            }
         }
     }
 }

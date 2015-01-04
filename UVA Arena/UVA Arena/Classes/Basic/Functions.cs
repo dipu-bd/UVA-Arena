@@ -8,15 +8,27 @@ using UVA_Arena.Internet;
 
 namespace UVA_Arena
 {
+    /// <summary>
+    /// Basic functions that are called frequently over this project
+    /// </summary>
     internal static class Functions
     {
         #region Formatter Functions
 
+        /// <summary>
+        /// Apply this format : "{0:0.000}s" to (run / 1000.0)
+        /// </summary>
+        /// <param name="run">Number to format</param>
         public static string FormatRuntime(long run)
         {
             return String.Format("{0:0.000}s", (run / 1000.0));
         }
 
+        /// <summary>
+        /// Format byte memory size into "B", "KB", "MB", "GB", "TB"
+        /// </summary>
+        /// <param name="mem">Memory unit in byte</param>
+        /// <returns>"{0:0.00}{1}" 0 = memory size and 1 = suffix</returns>
         public static string FormatMemory(long mem)
         {
             string[] suf = { "B", "KB", "MB", "GB", "TB" };
@@ -32,6 +44,11 @@ namespace UVA_Arena
             return String.Format("{0:0.00}{1}", res, suf[ind]);
         }
 
+        /// <summary>
+        /// Format a Time Span and returns a human readable string.
+        /// </summary>
+        /// <param name="span">TimeSpan to format</param>
+        /// <returns>Returns the timespan in string</returns>
         public static string FormatTimeSpan(TimeSpan span)
         {
             int year = (int)(span.TotalDays / 365);
@@ -88,6 +105,11 @@ namespace UVA_Arena
             return txt;
         }
 
+        /// <summary>
+        /// Format seconds into human readable time-span string.
+        /// </summary>
+        /// <param name="span">Time span in seconds</param>
+        /// <returns>Returns the timespan in string</returns>
         public static string FormatTimeSpan(long span)
         {
             return FormatTimeSpan(new TimeSpan(span * 10000000));
@@ -97,6 +119,11 @@ namespace UVA_Arena
 
         #region Color and String getter
 
+        /// <summary>
+        /// Get language name from given language number
+        /// </summary>
+        /// <param name="lan">Language to get name</param>
+        /// <returns>Language name</returns>
         public static string GetLanguage(Structures.Language lan)
         {
             switch (lan)
@@ -110,6 +137,11 @@ namespace UVA_Arena
             }
         }
 
+        /// <summary>
+        /// Get verdict name form given verdict number
+        /// </summary>
+        /// <param name="ver">Verdict number</param>
+        /// <returns>Verdict name</returns>
         public static string GetVerdict(Structures.Verdict ver)
         {
             switch (ver)
@@ -129,6 +161,11 @@ namespace UVA_Arena
             }
         }
 
+        /// <summary>
+        /// Get color for given problem title
+        /// </summary>
+        /// <param name="pnum">Problem number to get color</param>
+        /// <returns>A color object for problem title</returns>
         public static System.Drawing.Color GetProblemTitleColor(long pnum)
         {
             if (LocalDatabase.DefaultUser == null)
@@ -141,6 +178,11 @@ namespace UVA_Arena
                 return System.Drawing.Color.Black;
         }
 
+        /// <summary>
+        /// Get color for given verdict
+        /// </summary>
+        /// <param name="ver">Verdict number to get color</param>
+        /// <returns>Color for the fiven verdict </returns>
         public static System.Drawing.Color GetVerdictColor(Structures.Verdict ver)
         {
             switch (ver)
@@ -169,7 +211,7 @@ namespace UVA_Arena
         /// </summary>
         /// <param name="pnum">Problem number</param>
         /// <param name="replace">True, if you want to replace old files.</param>
-        /// <returns></returns>
+        /// <returns>List of files to download</returns>
         public static List<DownloadTask> ProcessHtmlContent(long pnum, bool replace)
         {
             try
@@ -210,6 +252,11 @@ namespace UVA_Arena
         }
 
 
+        /// <summary>
+        /// Recursive Depth First Search to find all image files
+        /// </summary>
+        /// <param name="nod">Current node to search</param>
+        /// <param name="urls">Reference to the list of all gathered urls</param>
         private static void DFS(HtmlAgilityPack.HtmlNode nod, List<string> urls)
         {
             //process current node
@@ -247,6 +294,10 @@ namespace UVA_Arena
 
         #region Backup and Restore
 
+        /// <summary>
+        /// Backup current user's settings and problem description into a .uapak file.
+        /// Depends on external program "unzip\unzip.exe"
+        /// </summary>
         public static void BackupData()
         {
             string file = @"unzip\unzip.exe";
@@ -267,6 +318,10 @@ namespace UVA_Arena
             sfd.Dispose();
         }
 
+        /// <summary>
+        /// Restore current user's settings and problem description from a .uapak file.
+        /// Depends on external program "unzip\zipit.exe"
+        /// </summary>
         public static void RestoreData()
         {
             string file = @"unzip\zipit.exe";
@@ -285,6 +340,10 @@ namespace UVA_Arena
 
         }
 
+        /// <summary>
+        /// Background process form backuping data
+        /// </summary>
+        /// <param name="state">File name to save data</param>
         private static void Backup(object state)
         {
             string zipit = @"unzip\zipit.exe";
@@ -292,7 +351,7 @@ namespace UVA_Arena
 
             //get reg
             string path = LocalDirectory.DefaultPath;
-            string data = BackupRegistryData();
+            string data = GetRegistryData();
             string regfile = Path.Combine(path, "regkey.reg");
             File.WriteAllText(regfile, data);
 
@@ -301,6 +360,10 @@ namespace UVA_Arena
             System.Diagnostics.Process.Start(zipit, arg);
         }
 
+        /// <summary>
+        /// Background process form restoring data
+        /// </summary>
+        /// <param name="state">File name to get data</param>
         private static void Restore(object state)
         {
             string unzip = @"unzip\unzip.exe";
@@ -320,7 +383,12 @@ namespace UVA_Arena
             Application.Restart();
         }
 
-        private static string BackupRegistryData(RegistryKey key = null)
+        /// <summary>
+        /// Get registry entries in Windows Registry Editor Version 5.00 format
+        /// </summary>
+        /// <param name="key">This should be initially null to start from RegistryAccess.DEFAULT key</param>
+        /// <returns>A string that can be opened by system's Registry Editor written in .reg file</returns>
+        private static string GetRegistryData(RegistryKey key = null)
         {
             string dat = "";
             string NL = Environment.NewLine;
@@ -344,7 +412,7 @@ namespace UVA_Arena
             //get sub keys            
             foreach (string subkey in key.GetSubKeyNames())
             {
-                dat += BackupRegistryData(key.OpenSubKey(subkey)) + NL;                
+                dat += GetRegistryData(key.OpenSubKey(subkey)) + NL;                
             }
 
             return dat;

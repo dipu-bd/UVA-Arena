@@ -13,6 +13,11 @@ namespace UVA_Arena
 {
     public partial class SettingsForm : Form
     {
+
+        //
+        // Load Settings
+        //
+
         public SettingsForm()
         {
             InitializeComponent();
@@ -34,47 +39,22 @@ namespace UVA_Arena
         {
             restoreButton.Visible = (tabControl1.SelectedTab == editorTab);
         }
-
-        #region Load Settings
-
         public void InitializeAll()
         {
             //general settings
             SetCurrentUsername();
             currentCodeDir.Text = Elements.CODES.CodesPath;
-
-            //compiler settings
-            minGWLocation.Text = Elements.CODES.MinGWLocation;
-            jdkLocation.Text = Elements.CODES.JDKLocation;
-            cCompilerOptions.Text = Elements.CODES.CCompilerOptions;
-            cppCompilerOptions.Text = Elements.CODES.CPPCompilerOptions;
-            javaCompilerOptions.Text = Elements.CODES.JavaCompilerOptions;
-
+             
             //editor
-            if (Interactivity.codes != null && !Interactivity.codes.IsDisposed)
-            {
-                Font font = Interactivity.codes.codeTextBox.Font;
-                fontname.Text = font.ToString();
-                fontname.Tag = font;
-                fontname.Font = new Font(font.FontFamily, 8.5F, font.Style);
-                autoCompleteBrackets.Checked = Interactivity.codes.codeTextBox.AutoCompleteBrackets;
-                autoIndent.Checked = Interactivity.codes.codeTextBox.AutoIndent;
-                autoIndentChars.Checked = Interactivity.codes.codeTextBox.AutoIndentChars;
-                showLineNumbers.Checked = Interactivity.codes.codeTextBox.ShowLineNumbers;
-                showFoldingLines.Checked = Interactivity.codes.codeTextBox.ShowFoldingLines;
-                wordWraps.Checked = Interactivity.codes.codeTextBox.WordWrap;
-                highlightFoldingIndicator.Checked = Interactivity.codes.codeTextBox.HighlightFoldingIndicator;
-                showHints.Checked = Elements.CODES.ShowHints;
-                autoIndentChars.Enabled = autoIndent.Checked;
-            }
+            LoadEditorSettings();
 
             //precode
             LoadPrecode();
-        }
-        #endregion
+        } 
 
-        #region General Settings
-
+        //
+        // General Settings
+        //
         public void SetCurrentUsername()
         {
             //general settings
@@ -85,7 +65,7 @@ namespace UVA_Arena
 
         private void username_button1_Click(object sender, EventArgs e)
         {
-            using(var uf = new UsernameForm()) uf.Show();
+            Interactivity.ShowUserNameForm();
         }
 
         private void downloadAll_Click(object sender, EventArgs e)
@@ -124,43 +104,40 @@ namespace UVA_Arena
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        #endregion
-
-        #region Editor Settings
-
-        private FontStyle[] StyleIndex = { 
-                    FontStyle.Regular, FontStyle.Italic, FontStyle.Bold, FontStyle.Underline, 
-                    FontStyle.Bold | FontStyle.Italic, FontStyle.Underline | FontStyle.Italic,
-                    FontStyle.Underline | FontStyle.Bold, FontStyle.Underline | FontStyle.Bold | FontStyle.Italic };
-
-        private int ConvertFromStyle(FontStyle fs)
+        //
+        // Editor Settings
+        //
+        private void LoadEditorSettings()
         {
-            for (int i = 7; i >= 0; --i) if (fs == StyleIndex[i]) return i;
-            return 0;
-        }
+            if (Interactivity.codes == null) return;
+            if (Interactivity.codes.IsDisposed) return;
 
-        private FontStyle ConvertToStyle(int i)
-        {
-            return StyleIndex[i];
+            Font font = Interactivity.codes.codeTextBox.Font;
+            fontname.Tag = font;
+            fontname.Text = font.ToString();
+            fontname.Font = new Font(font.FontFamily, 8.5F, font.Style);
+            showHints.Checked = Properties.Settings.Default.EditorShowHints;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             FontDialog fd = new FontDialog();
-            fd.Font = (Font)fontname.Tag;
             fd.FontMustExist = true;
+            fd.Font = fontname.Font;
             if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                try
-                {
-                    Interactivity.codes.codeTextBox.Font = fd.Font;
-                    fontname.Text = fd.Font.ToString();
-                    fontname.Tag = fd.Font;
-                    fontname.Font = new Font(fd.Font.FontFamily, 8.5F, fd.Font.Style);
-                }
-                catch { }
+                Interactivity.codes.codeTextBox.Font = fd.Font;
+                fontname.Tag = fd.Font;
+                fontname.Text = fd.Font.ToString();
+                fontname.Font = new Font(fd.Font.FontFamily, 8.5F, fd.Font.Style);
+                Properties.Settings.Default.EditorFont = fd.Font;                
             }
             fd.Dispose();
+        }
+
+        private void showHints_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.EditorShowHints = showHints.Checked;
         }
 
         private void changeShortcuts_Click(object sender, EventArgs e)
@@ -177,30 +154,19 @@ namespace UVA_Arena
             catch { }
         }
 
-        private void CheckValue_Click(object sender, EventArgs e)
+        private void currentLineColor_Click(object sender, EventArgs e)
         {
-            try
+            ColorDialog cd = new ColorDialog();
+            cd.Color = currentLineColor.BackColor;
+            if (cd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                CheckBox cb = (CheckBox)sender;
-                cb.Checked = !cb.Checked;
-                bool check = cb.Checked;
-                if (cb == autoCompleteBrackets) Interactivity.codes.codeTextBox.AutoCompleteBrackets = check;
-                else if (cb == autoIndent) Interactivity.codes.codeTextBox.AutoIndent = check;
-                else if (cb == autoIndentChars) Interactivity.codes.codeTextBox.AutoIndentChars = check;
-                else if (cb == showLineNumbers) Interactivity.codes.codeTextBox.ShowLineNumbers = check;
-                else if (cb == showFoldingLines) Interactivity.codes.codeTextBox.ShowFoldingLines = check;
-                else if (cb == wordWraps) Interactivity.codes.codeTextBox.WordWrap = check;
-                else if (cb == highlightFoldingIndicator) Interactivity.codes.codeTextBox.HighlightFoldingIndicator = check;
-                else if (cb == showHints) Elements.CODES.ShowHints = check;
-                autoIndentChars.Enabled = autoIndent.Checked;
+                currentLineColor.BackColor = cd.Color;
             }
-            catch { }
-        }
-
-        #endregion
-
-        #region Compiler Settings
-
+        } 
+        
+        //
+        // Compiler Settings
+        //
         private void minGW_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
@@ -214,12 +180,11 @@ namespace UVA_Arena
                     string gpp = Path.Combine(path, @"mingw32-g++.exe");
                     if (!(File.Exists(gcc) && File.Exists(gpp)))
                     {
-                        MessageBox.Show("Selected path doesn't seems to be valid.");
+                        MessageBox.Show("Selected path doesn't seem to be valid.");
                         return;
                     }
-                    //set data
-                    minGWLocation.Text = fbd.SelectedPath;
-                    Elements.CODES.MinGWLocation = fbd.SelectedPath;
+                    //set data 
+                    Properties.Settings.Default.MinGWLocation = fbd.SelectedPath;
                 }
             }
         }
@@ -237,35 +202,18 @@ namespace UVA_Arena
                     string java = Path.Combine(path, @"java.exe");
                     if (!(File.Exists(javac) && File.Exists(java)))
                     {
-                        MessageBox.Show("Selected path doesn't seems to be valid.");
+                        MessageBox.Show("Selected path doesn't seem to be valid.");
                         return;
                     }
-                    //set data
-                    jdkLocation.Text = fbd.SelectedPath;
-                    Elements.CODES.JDKLocation = fbd.SelectedPath;
+                    //set data 
+                    Properties.Settings.Default.JDKLocation = fbd.SelectedPath;
                 }
             }
         }
-
-        private void cCompilerOptions_TextChanged(object sender, EventArgs e)
-        {
-            Elements.CODES.CCompilerOptions = cCompilerOptions.Text;
-        }
-
-        private void cppCompilerOptions_TextChanged(object sender, EventArgs e)
-        {
-            Elements.CODES.CPPCompilerOptions = cppCompilerOptions.Text;
-        }
-
-        private void javaCompilerOptions_TextChanged(object sender, EventArgs e)
-        {
-            Elements.CODES.JavaCompilerOptions = javaCompilerOptions.Text;
-        }
-
-        #endregion
-
-        #region Precode
-        
+         
+        //
+        // Precode Settings
+        //
         private void codeTextBox_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
         {
             if (ansiCradioButton.Checked || cppRadioButton.Checked)
@@ -276,28 +224,28 @@ namespace UVA_Arena
 
         private void saveCodeButton_Click(object sender, EventArgs e)
         {
-            string text = codeTextBox.Text; 
+            string text = codeTextBox.Text;
             if (ansiCradioButton.Checked)
-                RegistryAccess.CPrecode = text;
+                Properties.Settings.Default.CPrecode = text;
             else if (cppRadioButton.Checked)
-                RegistryAccess.CPPPrecode = text;
+                Properties.Settings.Default.CPPPrecode = text;
             else if (JavaRadioButton.Checked)
-                RegistryAccess.JavaPrecode = text;
+                Properties.Settings.Default.JavaPrecode = text;
             else if (PascalRadioButton.Checked)
-                RegistryAccess.PascalPrecode = text;
+                Properties.Settings.Default.PascalPrecode = text;
         }
 
         private void LoadPrecode()
         {
             string text = "";
             if (ansiCradioButton.Checked)
-                text = RegistryAccess.CPrecode;
+                text = Properties.Settings.Default.CPrecode;
             else if (cppRadioButton.Checked)
-                text = RegistryAccess.CPPPrecode;
+                text = Properties.Settings.Default.CPPPrecode;
             else if (JavaRadioButton.Checked)
-                text = RegistryAccess.JavaPrecode;
+                text = Properties.Settings.Default.JavaPrecode;
             else if (PascalRadioButton.Checked)
-                text = RegistryAccess.PascalPrecode; 
+                text = Properties.Settings.Default.PascalPrecode;
             codeTextBox.Text = text;
         }
 
@@ -310,8 +258,6 @@ namespace UVA_Arena
         {
             LoadPrecode();
         }
-
-        #endregion
 
 
     }

@@ -19,12 +19,26 @@ namespace UVA_Arena.Elements
         #region Top Level
 
         private WebClient webClient1 = new WebClient();
+        private WebClient webClient2 = new WebClient();
 
         public USER_STAT()
         {
             InitializeComponent();
+
+            //add progress tracker
+            Interactivity.progTracker = new UserProgTracker();
+            Interactivity.progTracker.Dock = DockStyle.Fill;
+            progtrackerTab.Controls.Add(Interactivity.progTracker);
+
+            //add compate user
+            Interactivity.compareUser = new CompareUsers();
+            Interactivity.compareUser.Dock = DockStyle.Fill;
+            compareTab.Controls.Add(Interactivity.compareUser);
+
             webClient1.DownloadProgressChanged += webClient1_DownloadProgressChanged;
             webClient1.DownloadDataCompleted += webClient1_DownloadDataCompleted;
+            webClient2.DownloadProgressChanged += webClient2_DownloadProgressChanged;
+            webClient2.DownloadDataCompleted += webClient2_DownloadDataCompleted;
         }
 
 
@@ -38,6 +52,9 @@ namespace UVA_Arena.Elements
             SelectUpdateRateMenu();
             autoUpdateToolMenu.Checked = AutoUpdateStatus;
             lastSubmissions1.MakeColumnSelectMenu(MainContextMenu);
+
+            Stylish.SetGradientBackground(titleBackPanel,
+                new Stylish.GradientStyle(Color.PowderBlue, Color.PaleTurquoise, 90F));
         }
 
         //
@@ -295,7 +312,7 @@ namespace UVA_Arena.Elements
             }
             else if (tabControl1.SelectedTab == progtrackerTab)
             {
-                userProgTracker1.ShowUserInfo(currentUser);
+                Interactivity.progTracker.ShowUserInfo(currentUser);
             }
             else if (tabControl1.SelectedTab == worldrankTab)
             {
@@ -326,7 +343,7 @@ namespace UVA_Arena.Elements
 
             worldRanklist.ClearObjects();
             lastSubmissions1.ClearObjects();
-            userProgTracker1.ShowUserInfo(null);
+            Interactivity.progTracker.ShowUserInfo(null);
 
             try
             {
@@ -582,7 +599,7 @@ namespace UVA_Arena.Elements
                 case -20: //not acc submission
                     foreach (UserSubmission usub in currentUser.submissions)
                     {
-                        if (currentUser.IsTriedButUnsolved(usub.pnum))
+                        if (currentUser.TriedButUnsolved(usub.pnum))
                             list.Add(usub);
                     }
                     break;
@@ -737,6 +754,12 @@ namespace UVA_Arena.Elements
         {
             if (currentUser == null) return;
 
+            if (webClient2.IsBusy)
+            {
+                webClient2.CancelAsync();
+                return;
+            }
+
             string url;
             if (from <= 0)
             {
@@ -753,59 +776,77 @@ namespace UVA_Arena.Elements
                 SetStatus("Downloading rank-list from " + from.ToString() + "...");
             }
 
-            Downloader.DownloadStringAsync(url, from, Priority.Normal, worldRankProgress, worldRankCompleted);
+            webClient2.DownloadDataAsync(new Uri(url), from);
         }
 
-        private void worldRankProgress(DownloadTask task)
+        void webClient2_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            if (this.IsDisposed) return;
-            Progress1.Value = task.ProgressPercentage;
-            SetStatus(string.Format("Downloading rank-list... [{0} out of {1}]",
-                Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total)), true);
+            try
+            {
+                if (this.IsDisposed) return;
+                Progress1.Value = e.ProgressPercentage;
+                SetStatus(string.Format("Downloading rank-list... [{0} out of {1}]",
+                    Functions.FormatMemory(e.BytesReceived), Functions.FormatMemory(e.TotalBytesToReceive)), true);
+            }
+            catch { }
         }
 
-        private void worldRankCompleted(DownloadTask task)
+        List<UserRanklist> worldRanks;
+
+        void webClient2_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
             if (this.IsDisposed) return;
-            if (task.Status != ProgressStatus.Completed)
+            if (e.Cancelled) return;
+
+            UserRanklist currentRank = null;
+
+            try
             {
-                if (task.Error != null)
+                if (e.Error != null) throw e.Error;
+
+                string result = System.Text.Encoding.UTF8.GetString(e.Result);
+
+                if (worldRanks != null) worldRanks.Clear();
+                worldRanks = JsonConvert.DeserializeObject<List<UserRanklist>>(result);
+
+                foreach (UserRanklist usub in worldRanks)
                 {
-                    SetStatus("Rank-list download failed due to an error. Please try again.");
-                    Logger.Add(task.Error.Message, "World Rank | worldRankCompleted(DownloadTask task)");
+                    if (LocalDatabase.ContainsUsers(usub.username))
+                    {
+                        RegistryAccess.SetUserRank(usub);
+                        if (usub.username == currentUser.uname)
+                            currentRank = usub;
+                    }
                 }
-                return;
-            }
 
-            List<UserRanklist> ranks = JsonConvert.DeserializeObject<List<UserRanklist>>(task.Result);
-            if (ranks == null)
+                worldRanklist.SetObjects(worldRanks);
+                worldRanklist.Sort(rankRANK, SortOrder.Ascending);
+
+
+                SetStatus(currentUser.uname + "'s rank-list downloaded.");
+                Logger.Add("World rank downloaded - " + currentUser.uname, "World Rank | webClient2_DownloadDataCompleted");
+            }
+            catch (Exception ex)
             {
-                SetStatus("Boo! No data found! Please retry.");
-                return;
+                SetStatus("Rank-list download failed due to an error. Please try again.");
+                Logger.Add(ex.Message, "World Rank | webClient2_DownloadDataCompleted");
             }
 
-            foreach (UserRanklist urank in ranks)
+            if ((int)e.UserState == -1) BringUserToMiddle(currentRank);
+        }
+
+        private void BringUserToMiddle(UserRanklist usub)
+        {
+            if (usub == null) return;
+
+            int midpt = worldRanklist.Height / 2;
+            int item = worldRanklist.GetItemAt(1, midpt).Index;
+            int indx = worldRanklist.IndexOf(usub);
+            for (int i = indx; i < worldRanklist.GetItemCount() && indx > item; ++i)
             {
-                if (LocalDatabase.ContainsUsers(urank.username))
-                {
-                    RegistryAccess.SetUserRank(urank);
-                }
+                worldRanklist.EnsureVisible(i);
+                item = worldRanklist.GetItemAt(1, midpt).Index;
             }
-
-            worldRanklist.ClearObjects();
-            worldRanklist.SetObjects(ranks);
-            worldRanklist.Sort(rankRANK, SortOrder.Ascending);
-
-            if ((int)task.Token < 0)
-            {
-                int pos = ranks.Count / 2;
-                pos += worldRanklist.Height / (2 * worldRanklist.RowHeightEffective) - 2;
-                if (pos < 0 || pos >= ranks.Count) pos = ranks.Count / 2;
-                worldRanklist.EnsureVisible(pos);
-            }
-
-            SetStatus(currentUser.uname + "'s rank-list downloaded.");
-            Logger.Add("World rank downloaded - " + currentUser.uname, "World Rank | worldRankCompleted(DownloadTask task)");
         }
 
         private void worldRanklist_HyperlinkClicked(object sender, BrightIdeasSoftware.HyperlinkClickedEventArgs e)

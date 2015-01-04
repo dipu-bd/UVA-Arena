@@ -8,7 +8,7 @@ namespace UVA_Arena
 {
     internal static class LocalDatabase
     {
-        public static bool IsReady = false;
+        public static bool IsReady = true;
         public static UserInfo DefaultUser;
         public static List<ProblemInfo> problem_list;
         public static Dictionary<long, long> problem_id;
@@ -27,6 +27,8 @@ namespace UVA_Arena
 
         public static void RunLoadAsync(object background)
         {
+            if (!IsReady) return;
+
             if ((bool)background)
             {
                 bool back = System.Threading.ThreadPool.QueueUserWorkItem(RunLoadAsync, false);
@@ -36,10 +38,10 @@ namespace UVA_Arena
             try
             {
                 IsReady = false;
-
+                
                 //load new problem list
                 string text = File.ReadAllText(LocalDirectory.GetProblemDataFile());
-                List<List<string>> data = JsonConvert.DeserializeObject<List<List<string>>>(text);
+                List<List<object>> data = JsonConvert.DeserializeObject<List<List<object>>>(text);
                 if (data == null || data.Count == 0)
                     throw new NullReferenceException("Problem database was empty");
 
@@ -59,7 +61,7 @@ namespace UVA_Arena
             Interactivity.ProblemDatabaseUpdated();
         }
 
-        private static void LoadList(List<List<string>> datalist)
+        private static void LoadList(List<List<object>> datalist)
         {
             //set values 
             problem_list = new List<ProblemInfo>();
@@ -69,9 +71,10 @@ namespace UVA_Arena
             problem_cat = new Dictionary<string, List<ProblemInfo>>();
 
             //Load problem from list
-            foreach (List<string> lst in datalist)
+            foreach (List<object> lst in datalist)
             {
-                ProblemInfo plist = new ProblemInfo(lst);
+                ProblemInfo plist = new ProblemInfo();
+                plist.SetData(lst);
                 problem_list.Add(plist);
 
                 SetProblem(plist.pnum, plist);
@@ -86,62 +89,71 @@ namespace UVA_Arena
 
         private static void LoadOthers()
         {
-            if (problem_list.Count <= 10) return;
+            if (problem_list.Count < 10) return;
 
             //set favorites
             foreach (long pnum in RegistryAccess.FavoriteProblems)
             {
                 if (HasProblem(pnum))
-                {
                     GetProblem(pnum).marked = true;
-                }
             }
 
             //get all dacu
-            SortedList<long, int> AllDacu = new SortedList<long, int>();
+            SortedDictionary<long, int> AllDacu = new SortedDictionary<long, int>();
             foreach (ProblemInfo plist in problem_list)
             {
                 if (AllDacu.ContainsKey(plist.dacu))
-                    AllDacu[plist.dacu] += 1;
+                    AllDacu[plist.dacu]++;
                 else
                     AllDacu.Add(plist.dacu, 1);
             }
 
-            //cumulative sum of all dacu
+            //cumulative sum of all dacu            
             int last = 0;
-            Dictionary<long, int> position = new Dictionary<long, int>();
-            foreach (long key in AllDacu.Keys)
+            var it = AllDacu.GetEnumerator();
+            Dictionary<long, int> sum = new Dictionary<long, int>();
+            while (it.MoveNext())
             {
-                last += AllDacu[key];
-                position.Add(key, last);
+                last += it.Current.Value;
+                sum.Add(it.Current.Key, last);
             }
-            AllDacu.Clear();
+            it.Dispose();
 
             //set problem level 
             int product = problem_list.Count / 10;
             foreach (ProblemInfo plist in problem_list)
             {
-                double rank = 10 * (1 - (double)position[plist.dacu] / problem_list.Count);
-                if (position[plist.dacu] + 50 > problem_list.Count) rank -= 1;
-                else if (position[plist.dacu] + 100 > problem_list.Count) rank -= 0.5;
+                int pos = sum[plist.dacu];
+                double rank = 10 * (1 - (double)pos / problem_list.Count);
+                if (pos + 50 > problem_list.Count) rank -= 1; //among top 50
+                else if (pos + 100 > problem_list.Count) rank -= 0.5; //among top 100
 
                 double ac = plist.total <= 0 ? 0 : (double)plist.ac / plist.total;
                 if (ac > 0.6) rank -= 1;
                 else if (ac > 0.4) rank -= 0.5;
-                if (2 * ac < 1 && position[plist.dacu] + 100 < problem_list.Count)
-                    rank += 2 * (1 - 2 * ac);                
+                if (2 * ac < 1 && pos + 100 < problem_list.Count)
+                    rank += 2 * (1 - 2 * ac);
                 plist.level = 2 + rank;
             }
-            position.Clear();
         }
 
         public static void LoadDefaultUser()
         {
             string user = RegistryAccess.DefaultUsername;
             string file = LocalDirectory.GetUserSubPath(user);
-            string data = File.ReadAllText(file);
-            DefaultUser = JsonConvert.DeserializeObject<UserInfo>(data);
-            if (DefaultUser != null) DefaultUser.Process();
+
+            try
+            {
+                string data = File.ReadAllText(file);
+                DefaultUser = JsonConvert.DeserializeObject<UserInfo>(data);
+                DefaultUser.Process();
+            }
+            catch
+            {
+                DefaultUser = new UserInfo();
+                DefaultUser.name = user;
+                DefaultUser.uname = user;
+            }
         }
 
         public static void LoadCatagories()

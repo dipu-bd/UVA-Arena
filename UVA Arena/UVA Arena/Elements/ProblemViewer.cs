@@ -32,15 +32,12 @@ namespace UVA_Arena.Elements
             AssignAspectToSubList();
             usernameList1.SetObjects(LocalDatabase.usernames);
             dateTimePicker1.Value = DateTime.Now.Subtract(new TimeSpan(7, 0, 0, 0));
-
-            Stylish.SetGradientBackground(categoryButton,
-                new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 90F));
-
+            
             Stylish.SetGradientBackground(titleBox1,
                 new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 90F));
 
             Stylish.SetGradientBackground(toolStrip1,
-                new Stylish.GradientStyle(Color.Azure, Color.LightCyan, 90F)); 
+                new Stylish.GradientStyle(Color.Azure, Color.LightCyan, 90F));
         }
 
         #endregion
@@ -97,8 +94,7 @@ namespace UVA_Arena.Elements
         {
             current = null;
             titleBox1.Text = "No problem selected";
-            categoryInfo.Text = "";
-            categoryButton.Visible = false;
+            categoryInfo.Text = ""; 
             problemMessage.Text = (string)problemMessage.Tag;
             problemWebBrowser.GoHome();
         }
@@ -107,12 +103,11 @@ namespace UVA_Arena.Elements
         {
             if (current == null) return;
 
-            LoadTopBar();
-            categoryButton.Visible = true;
+            LoadTopBar(); 
             markButton.Checked = current.marked;
             tabControl1.SelectedTab = descriptionTab;
 
-            string path = LocalDirectory.GetProblemHtml(current.pnum);            
+            string path = LocalDirectory.GetProblemHtml(current.pnum);
             if (LocalDirectory.GetFileSize(path) < 100)
             {
                 DownloadHtml(current.pnum);
@@ -127,11 +122,18 @@ namespace UVA_Arena.Elements
 
         private void ShowTags()
         {
-
+            if (current == null) return;
+            string data = string.Join("; ", current.tags.ToArray());
+            if (data.Length > 2)
+                categoryInfo.Text = string.Format("Tags: {0}", data);
+            else
+                categoryInfo.Clear();
         }
 
         private void LoadTopBar()
         {
+            if (current == null) return;
+
             //title
             titleBox1.Text = string.Format("{0} - {1}", current.pnum, current.ptitle);
 
@@ -143,7 +145,7 @@ namespace UVA_Arena.Elements
             if (LocalDatabase.DefaultUser != null)
             {
                 solved = LocalDatabase.DefaultUser.IsSolved(current.pnum);
-                tried = LocalDatabase.DefaultUser.IsTriedButUnsolved(current.pnum);
+                tried = LocalDatabase.DefaultUser.TriedButUnsolved(current.pnum);
             }
 
             //level star
@@ -287,15 +289,18 @@ namespace UVA_Arena.Elements
 
         private void categoryInfo_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter) categoryButton.PerformClick();
             e.SuppressKeyPress = true;
+            if (e.KeyCode == Keys.Enter)
+            {
+                categoryButton_Click(sender, EventArgs.Empty);
+            }
         }
 
         private void categoryButton_Click(object sender, EventArgs e)
         {
             if (current == null) return;
             CategoryChange cc = new CategoryChange(current);
-            if (cc.ShowDialog() == DialogResult.OK) LoadTopBar();
+            if (cc.ShowDialog() == DialogResult.OK) ShowTags();
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -770,6 +775,30 @@ namespace UVA_Arena.Elements
             e.SubItem.ForeColor = fore;
             e.SubItem.Font = new Font(font, size, style);
         }
+
+        //
+        // Username List view
+
+        private void usernameList1_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
+        {
+            if (RegistryAccess.DefaultUsername == ((KeyValuePair<string, string>)e.Model).Key)
+            {
+                for (int i = 0; i < e.Item.SubItems.Count; ++i)
+                    e.Item.SubItems[i].BackColor = Color.LightBlue;
+            }
+
+            if (e.Column == unameCol)
+            {
+                e.SubItem.Font = new Font("Segoe UI Semibold", 9.5F, FontStyle.Regular);
+                e.SubItem.ForeColor = Color.Navy;
+            }
+            else if (e.Column == uidCol)
+            {
+                e.SubItem.Font = new Font("Consolas", 9.0F, FontStyle.Italic);
+                e.SubItem.ForeColor = Color.DarkSlateGray;
+            }
+        }
+
 
         #endregion
 

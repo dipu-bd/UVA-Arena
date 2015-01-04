@@ -61,7 +61,7 @@ namespace UVA_Arena
                     txt += string.Format("{0} Day", days);
                     if (days > 1) txt += "s"; //plural
                 }
-            }            
+            }
             if (span.TotalDays < 1)
             {
                 if (span.Hours > 0)
@@ -75,7 +75,7 @@ namespace UVA_Arena
                     if (space) txt += " "; space = true;
                     txt += string.Format("{0} Minute", span.Minutes);
                     if (span.Minutes > 1) txt += "s"; //plural
-                }               
+                }
             }
 
             if (span.TotalMinutes < 1)
@@ -135,7 +135,7 @@ namespace UVA_Arena
                 return System.Drawing.Color.Black;
             if (LocalDatabase.DefaultUser.IsSolved(pnum))
                 return System.Drawing.Color.Blue;
-            else if (LocalDatabase.DefaultUser.IsTriedButUnsolved(pnum))
+            else if (LocalDatabase.DefaultUser.TriedButUnsolved(pnum))
                 return System.Drawing.Color.Brown;
             else
                 return System.Drawing.Color.Black;
@@ -178,7 +178,7 @@ namespace UVA_Arena
 
                 string filepath = LocalDirectory.GetProblemHtml(pnum);
                 if (!File.Exists(filepath)) return new List<DownloadTask>();
-                 
+
                 List<string> urls = new List<string>();
                 List<DownloadTask> tasks = new List<DownloadTask>();
 
@@ -293,12 +293,12 @@ namespace UVA_Arena
             //get reg
             string path = LocalDirectory.DefaultPath;
             string data = BackupRegistryData();
-            string regfile = Path.Combine(path, "regkey.dat");
+            string regfile = Path.Combine(path, "regkey.reg");
             File.WriteAllText(regfile, data);
 
             //save data
             string arg = string.Format("\"{0}\" \"{1}\"", file, path);
-            System.Diagnostics.Process.Start(zipit, arg).WaitForExit();
+            System.Diagnostics.Process.Start(zipit, arg);
         }
 
         private static void Restore(object state)
@@ -315,62 +315,39 @@ namespace UVA_Arena
             System.Diagnostics.Process.Start(unzip, arg).WaitForExit();
 
             //restore reg
-            string regfile = Path.Combine(path, "regkey.dat");
-            string regdat = File.ReadAllText(regfile);
-            RestoreRegistryData(regdat);
+            string regfile = Path.Combine(path, "regkey.reg");
+            System.Diagnostics.Process.Start(regfile);
+            Application.Restart();
         }
 
         private static string BackupRegistryData(RegistryKey key = null)
         {
-            if (key == null) key = RegistryAccess.DEFAULT;
-
-            //get values
-            List<string> values = new List<string>();
-            foreach (string sub in key.GetValueNames())
+            string dat = "";
+            string NL = Environment.NewLine;
+            
+            if(key == null)
             {
-                values.Add(JsonConvert.SerializeObject(new string[] { sub, 
-                    JsonConvert.SerializeObject(key.GetValue(sub)), 
-                    ((int)key.GetValueKind(sub)).ToString() }));
+                key = RegistryAccess.DEFAULT;
+                dat = "Windows Registry Editor Version 5.00" + NL + NL;                
             }
 
-            //get keys
-            List<string> keydat = new List<string>();
-            foreach (string sub in key.GetSubKeyNames())
+            //key path
+            dat += string.Format("[{0}]", key) + NL;
+                        
+            //get values            
+            foreach (string name in key.GetValueNames())
             {
-                string v = BackupRegistryData(key.OpenSubKey(sub));
-                if (!string.IsNullOrEmpty(v)) keydat.Add(JsonConvert.SerializeObject(new string[] { sub, v }));
+                string value = JsonConvert.SerializeObject(key.GetValue(name));  
+                dat += string.Format("\"{0}\"={1}", name, value) + NL;
             }
 
-            string val1 = JsonConvert.SerializeObject(values);
-            string val2 = JsonConvert.SerializeObject(keydat);
-            string[] fdat = new string[] { val1, val2 };
-            return JsonConvert.SerializeObject(fdat);
-        }
-
-        private static void RestoreRegistryData(string data, RegistryKey key = null)
-        {
-            if (key == null) key = RegistryAccess.DEFAULT;
-
-            string[] fdat = JsonConvert.DeserializeObject<string[]>(data);
-            if (fdat == null) return;
-
-            List<string> values = JsonConvert.DeserializeObject<List<string>>(fdat[0]);
-            List<string> keydat = JsonConvert.DeserializeObject<List<string>>(fdat[1]);
-
-            foreach (string dat in values)
+            //get sub keys            
+            foreach (string subkey in key.GetSubKeyNames())
             {
-                string[] val = JsonConvert.DeserializeObject<string[]>(dat);
-                key.SetValue((string)val[0],
-                    JsonConvert.DeserializeObject((string)val[1]),
-                    (RegistryValueKind)int.Parse(val[2]));
+                dat += BackupRegistryData(key.OpenSubKey(subkey)) + NL;                
             }
 
-            foreach (string dat in keydat)
-            {
-                string[] val = JsonConvert.DeserializeObject<string[]>(dat);
-                RegistryKey sub = key.CreateSubKey(val[0]);
-                RestoreRegistryData(val[1], sub);
-            }
+            return dat;
         }
 
         #endregion

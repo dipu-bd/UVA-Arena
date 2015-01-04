@@ -33,13 +33,23 @@
   <dependency>
     <dependentOS>
       <osVersionInfo>
-        <os majorVersion="4" minorVersion="10" buildNumber="0" servicePackMajor="0" />
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
       </osVersionInfo>
     </dependentOS>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
       <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="2.0.50727.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="System.Core" version="3.5.0.0" publicKeyToken="b77a5c561934e089" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="WindowsBase" version="3.0.0.0" publicKeyToken="31bf3856ad364e35" language="neutral" processorArchitecture="msil" />
     </dependentAssembly>
   </dependency>
   <dependency>
@@ -55,14 +65,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FastColoredTextBox.DLL" size="328704">
-      <assemblyIdentity name="FastColoredTextBox" version="2.15.0.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FastColoredTextBox.DLL" size="333824">
+      <assemblyIdentity name="FastColoredTextBox" version="2.16.2.0" publicKeyToken="FB8AA12B994EF61B" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>SswrV2jBZrXS7jiOLwvAha58mzE=</dsig:DigestValue>
+        <dsig:DigestValue>iDuMYIkjLB0+PdP2tVYQn8aQ2cA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -79,38 +89,38 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="488448">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="438272">
       <assemblyIdentity name="Newtonsoft.Json" version="6.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>7DziJXRKB62aL7GncFMYCEqt4to=</dsig:DigestValue>
+        <dsig:DigestValue>SNoBaqBcGl5Ir251CjunZjFGWcM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ObjectListView.DLL" size="454144">
-      <assemblyIdentity name="ObjectListView" version="2.5.1.35993" publicKeyToken="B1C5BF581481BCD4" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ObjectListView.DLL" size="478720">
+      <assemblyIdentity name="ObjectListView" version="2.8.0.5451" publicKeyToken="B1C5BF581481BCD4" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>bM99NnvSp65pkW7MOEgTy4Y5vkE=</dsig:DigestValue>
+        <dsig:DigestValue>XtXFc+tV7PM+LBY1tlQzBAyI8mA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UVA Arena.exe" size="2150400">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UVA Arena.exe" size="2173952">
       <assemblyIdentity name="UVA Arena" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Cy1PqEnB2bHJ5dCQOJLy/NDg4rg=</dsig:DigestValue>
+        <dsig:DigestValue>YemlqdQOYXeF4OkAd/8sFD7zQr8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -135,13 +145,13 @@
       <dsig:DigestValue>ABuU9qNQ4osclgr3WV9Wqb/BKcQ=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="UVA Arena.exe.config" size="174">
+  <file name="UVA Arena.exe.config" size="5393">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>1kpKWpHsn1uNrIg2RdNtmSl9mtM=</dsig:DigestValue>
+      <dsig:DigestValue>KYn3DW7ontuioUoUyMD5QhWtBgo=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

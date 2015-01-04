@@ -7,18 +7,42 @@ namespace UVA_Arena
 {
     internal static class Interactivity
     {
+        //forms
         public static MainForm mainForm;
         public static SettingsForm settingsForm;
         public static LoggerForm loggerForm;
         public static HelpAbout helpaboutForm;
         public static SubmitForm submitForm;
         public static DownloadAllForm downloadAllForm;
+        public static UsernameForm usernameForm;
+        //controls
         public static PROBLEMS problems;
         public static ProblemViewer problemViewer;
         public static CODES codes;
         public static STATUS status;
         public static USER_STAT userstat;
         public static UTILITIES utilities;
+        public static UserProgTracker progTracker;
+        public static CompareUsers compareUser;
+
+        public static void CloseForm(Form form)
+        {
+            if (form != null && !form.IsDisposed)
+            {
+                form.Close();
+                form.Dispose();
+            }
+        }
+        public static void CloseAllOpenedForms()
+        {
+            CloseForm(mainForm);
+            CloseForm(settingsForm);
+            CloseForm(loggerForm);
+            CloseForm(helpaboutForm);
+            CloseForm(submitForm);
+            CloseForm(downloadAllForm);
+            CloseForm(usernameForm);
+        }
 
         public static void SubmitCode(long pnum, string code = null, Language lang = Language.CPP)
         {
@@ -60,6 +84,14 @@ namespace UVA_Arena
                 downloadAllForm = new DownloadAllForm();
             downloadAllForm.BringToFront();
             downloadAllForm.Show();
+        }
+
+        public static void ShowUserNameForm()
+        {
+            if (usernameForm == null || usernameForm.IsDisposed)
+                usernameForm = new UsernameForm();
+            usernameForm.BringToFront();
+            usernameForm.Show();
         }
 
         public static void DefaultUsernameChanged()

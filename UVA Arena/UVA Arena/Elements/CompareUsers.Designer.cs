@@ -202,6 +202,7 @@
             // 
             // secondsRank
             // 
+            this.secondsRank.BackColor = System.Drawing.Color.Transparent;
             this.secondsRank.Dock = System.Windows.Forms.DockStyle.Fill;
             this.secondsRank.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.secondsRank.Location = new System.Drawing.Point(4, 124);
@@ -212,10 +213,11 @@
             this.secondsRank.TabIndex = 3;
             this.secondsRank.Tag = "{1} has better rank than {0}.";
             this.secondsRank.Text = "Second user has better rank than first user";
-            this.secondsRank.UseVisualStyleBackColor = true;
+            this.secondsRank.UseVisualStyleBackColor = false;
             // 
             // secondsSubs
             // 
+            this.secondsSubs.BackColor = System.Drawing.Color.Transparent;
             this.secondsSubs.Checked = true;
             this.secondsSubs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.secondsSubs.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -228,10 +230,11 @@
             this.secondsSubs.TabStop = true;
             this.secondsSubs.Tag = "{1} has but {0} do not.";
             this.secondsSubs.Text = "Second user has but first user do not.";
-            this.secondsSubs.UseVisualStyleBackColor = true;
+            this.secondsSubs.UseVisualStyleBackColor = false;
             // 
             // commonSubs
             // 
+            this.commonSubs.BackColor = System.Drawing.Color.Transparent;
             this.commonSubs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.commonSubs.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.commonSubs.Location = new System.Drawing.Point(4, 2);
@@ -242,7 +245,7 @@
             this.commonSubs.TabIndex = 1;
             this.commonSubs.Tag = "Both {0} and {1} have in common.";
             this.commonSubs.Text = "Both first and second user have in common.";
-            this.commonSubs.UseVisualStyleBackColor = true;
+            this.commonSubs.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel1
             // 
@@ -264,6 +267,7 @@
             // allsubRadio
             // 
             this.allsubRadio.AutoSize = true;
+            this.allsubRadio.BackColor = System.Drawing.Color.Transparent;
             this.allsubRadio.Dock = System.Windows.Forms.DockStyle.Fill;
             this.allsubRadio.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.allsubRadio.Location = new System.Drawing.Point(4, 33);
@@ -273,11 +277,12 @@
             this.allsubRadio.Size = new System.Drawing.Size(172, 28);
             this.allsubRadio.TabIndex = 2;
             this.allsubRadio.Text = "All Submissions";
-            this.allsubRadio.UseVisualStyleBackColor = true;
+            this.allsubRadio.UseVisualStyleBackColor = false;
             // 
             // acceptedRadio
             // 
             this.acceptedRadio.AutoSize = true;
+            this.acceptedRadio.BackColor = System.Drawing.Color.Transparent;
             this.acceptedRadio.Checked = true;
             this.acceptedRadio.Dock = System.Windows.Forms.DockStyle.Fill;
             this.acceptedRadio.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -289,7 +294,7 @@
             this.acceptedRadio.TabIndex = 1;
             this.acceptedRadio.TabStop = true;
             this.acceptedRadio.Text = "Accepted Problems";
-            this.acceptedRadio.UseVisualStyleBackColor = true;
+            this.acceptedRadio.UseVisualStyleBackColor = false;
             // 
             // label4
             // 

@@ -24,8 +24,7 @@ namespace UVA_Arena.Structures
     [StructLayout(LayoutKind.Sequential)]
     public class ProblemInfo
     {
-        public ProblemInfo() { }
-        public ProblemInfo(List<string> data) { ParseData(data); }
+        public ProblemInfo() { } 
 
         /// <summary>Problem ID</summary>
         public long pid { get; set; }
@@ -88,25 +87,20 @@ namespace UVA_Arena.Structures
                     string.Join(" ", tags.ToArray()), status);
         }
 
-        public void ParseData(List<string> data)
-        {
-            //[36,100,"The 3n + 1 problem",61026,0,1000000000,0,6473,0,0,93803,0,50329,49,48954,5209,215870,3957,157711,3000,1]
-
+        public void SetData(List<object> data)
+        {            
             Type t = typeof(ProblemInfo);
             PropertyInfo[] pcol = t.GetProperties();
             for (int i = 0; i < data.Count; ++i)
             {
-                object val = null;
-                if (pcol[i].Name == "ptitle") val = data[i];
-                else val = long.Parse(data[i]);
-                pcol[i].SetValue(this, val, null);
+                pcol[i].SetValue(this, data[i], null);
             }
 
             solved = false; //default is false
             volume = (int)(pnum / 100);
             if (run >= 1000000000) run = -1;
             if (mem >= 1000000000) mem = -1;
-
+            
             total = ac + wa + cbj + ce + mle + tle + ole + nver + pe + re + resf + sube;
 
             if (stat == 0) status = ProblemStatus.Unavailable;

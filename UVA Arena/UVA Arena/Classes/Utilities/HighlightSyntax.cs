@@ -261,7 +261,7 @@ namespace UVA_Arena
                 }
 
                 // add hints                
-                if (Elements.CODES.ShowHints && error)
+                if (Properties.Settings.Default.EditorShowHints && error)
                 {
                     Hint hdat = code.AddHint(range, data, focus, true, true);
                     hdat.Tag = message;
@@ -315,7 +315,7 @@ namespace UVA_Arena
                 }
 
                 // add hints                
-                if (Elements.CODES.ShowHints)
+                if (Properties.Settings.Default.EditorShowHints)
                 {
                     Hint hdat = code.AddHint(range, data, focus, true, true);
                     hdat.Tag = message;

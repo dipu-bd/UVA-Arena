@@ -334,7 +334,7 @@
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.BackColor = System.Drawing.Color.LightCyan;
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.PaleTurquoise;
             this.tableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -409,7 +409,7 @@
             // 
             // basicInfoTab
             // 
-            this.basicInfoTab.BackColor = System.Drawing.Color.White;
+            this.basicInfoTab.BackColor = System.Drawing.Color.LightBlue;
             this.basicInfoTab.Controls.Add(this.tableLayoutPanel1);
             this.basicInfoTab.Controls.Add(this.namePanel);
             this.basicInfoTab.Controls.Add(this.subCounterPanel);
@@ -684,12 +684,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Button nextTabButton;
         private System.Windows.Forms.Button prevTabButton;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage subPerLanTab;
-        private System.Windows.Forms.TabPage subPerDateTab;
-        private System.Windows.Forms.TabPage subPerVerTab;
-        private System.Windows.Forms.TabPage rankCloudTab;
-        private System.Windows.Forms.TabPage basicInfoTab;
         private System.Windows.Forms.Label accountAge;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -706,6 +700,12 @@
         private System.Windows.Forms.Label last3MonthLabel;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label totalTriedLabel;
-        private System.Windows.Forms.Label label11; 
+        private System.Windows.Forms.Label label11;
+        public System.Windows.Forms.TabControl tabControl1;
+        public System.Windows.Forms.TabPage subPerLanTab;
+        public System.Windows.Forms.TabPage subPerDateTab;
+        public System.Windows.Forms.TabPage subPerVerTab;
+        public System.Windows.Forms.TabPage rankCloudTab;
+        public System.Windows.Forms.TabPage basicInfoTab; 
     }
 }

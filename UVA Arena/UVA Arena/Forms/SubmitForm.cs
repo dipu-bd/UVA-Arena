@@ -26,7 +26,7 @@ namespace UVA_Arena
         private long pnum;
         private string code;
         private Language lang;
-        private const string QUICK = "http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=25";
+        private const string QUICK = @"http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=25";
 
         public void LoadSubmit(long prob_num, string source_code = null, Language language = Language.CPP)
         {
@@ -110,8 +110,8 @@ namespace UVA_Arena
 
             //set new data
             string url = e.Url.ToString();
-            discussUrlBox.Text = url;
             status1.Text = webBrowser1.StatusText;
+            discussUrlBox.Text = webBrowser1.Url.ToString();
 
             //check if a submission occured            
             string msg = "mosmsg=Submission+received+with+ID+";
@@ -141,6 +141,11 @@ namespace UVA_Arena
         {
             discussUrlBox.Text = QUICK;
             webBrowser1.Navigate(QUICK);
+        }
+
+        private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+        {
+            discussUrlBox.Text = webBrowser1.Url.ToString();
         }
     }
 }

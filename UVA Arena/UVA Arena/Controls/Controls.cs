@@ -44,12 +44,12 @@ namespace System.Windows.Forms
 
         private Point _initial;
         private DateTime _lastMove;
-        private bool _moving = false;
+        private bool _moving = false; 
 
         private bool _MoveSplitter(int diff, int maxsiz)
         {
-            if (Math.Abs(diff) == 0) return false;
-            if ((DateTime.Now - _lastMove).TotalMilliseconds < 50) return false;
+            if ((DateTime.Now - _lastMove).TotalMilliseconds < 100) return false;
+            if (Math.Abs(diff) == 2) return false;
 
             int newdis = SplitterDistance + diff;
             if (newdis < 0 || newdis > maxsiz) return false;
@@ -77,7 +77,7 @@ namespace System.Windows.Forms
             if (_moving)
             {
                 _moving = false;
-                IsSplitterFixed = false;
+                IsSplitterFixed = false; 
             }
             base.OnMouseUp(e);
         }
@@ -131,7 +131,7 @@ namespace System.Windows.Forms
 
     #endregion
 
-    #region CustomTabControl : Nice looking, user painted tab control
+    #region CustomTabControl : Nice looking, custom painted tab control
 
     public class CustomTabControl : TabControl
     {
@@ -146,13 +146,13 @@ namespace System.Windows.Forms
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            this.BackColor = Color.Transparent;
+            this.BackColor = Color.PaleTurquoise;
         }
 
         [Category("Appearance"), DefaultValue(0)]
         public int Overlap { get; set; }
 
-        [Category("Appearance"), DefaultValue(typeof(Color), "Transparent")]
+        [Category("Appearance"), DefaultValue(typeof(Color), "PaleTurquoise"), EditorBrowsable(EditorBrowsableState.Always)]
         new public Color BackColor { get; set; }
 
         //

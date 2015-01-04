@@ -32,14 +32,21 @@ namespace UVA_Arena.Elements
 
         public void LoadUsersList()
         {
-            string[] unames = new string[LocalDatabase.usernames.Count];
-            LocalDatabase.usernames.Keys.CopyTo(unames, 0);
+            try
+            {
+                string[] unames = new string[LocalDatabase.usernames.Count];
+                LocalDatabase.usernames.Keys.CopyTo(unames, 0);
 
-            firstUser.Items.Clear();
-            firstUser.Items.AddRange(unames);
+                firstUser.Items.Clear();
+                firstUser.Items.AddRange(unames);
 
-            secondUser.Items.Clear();
-            secondUser.Items.AddRange(unames);
+                secondUser.Items.Clear();
+                secondUser.Items.AddRange(unames);
+            }
+            catch (Exception ex)
+            {
+                Logger.Add(ex.Message, "CompareUsers|LoadUserList()");
+            }
         }
 
         private void user_SelectedIndexChanged(object sender, EventArgs e)
@@ -140,7 +147,7 @@ namespace UVA_Arena.Elements
                 if (commonSubs.Checked) //show problems that are common in both user.
                 {
                     //if first does't have this, 
-                    if (!first.IsTried(sub.pnum)) continue;
+                    if (!first.HasTried(sub.pnum)) continue;
                     //if only accepted need to be shown and first did not solve this,
                     if (acceptedRadio.Checked && !first.IsSolved(sub.pnum)) continue;
                 }
@@ -149,7 +156,7 @@ namespace UVA_Arena.Elements
                     //if first solved this problem,
                     if (first.IsSolved(sub.pnum)) continue;
                     //if compare between all submission, and first tried it,
-                    if (allsubRadio.Checked && first.IsTried(sub.pnum)) continue;
+                    if (allsubRadio.Checked && first.HasTried(sub.pnum)) continue;
                 }
                 else if (secondsRank.Checked) //second is better in rank than first
                 {
@@ -161,7 +168,7 @@ namespace UVA_Arena.Elements
 
                 //--- take seond user's submisison ----
                 usub.Add(sub);
-                if (!secondsSubs.Checked && first.IsTried(sub.pnum))
+                if (!secondsSubs.Checked && first.HasTried(sub.pnum))
                 {
                     //take seond user's submisison
                     usub.Add(first.TryList[sub.pnum]);

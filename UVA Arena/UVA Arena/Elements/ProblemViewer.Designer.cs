@@ -86,11 +86,9 @@
             this.nextDiscussButton = new System.Windows.Forms.Button();
             this.homeDiscussButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.categoryInfo = new System.Windows.Forms.CueTextBox();
             this.titleBox1 = new System.Windows.Forms.Label();
             this.problemMessage = new System.Windows.Forms.Label();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.categoryButton = new System.Windows.Forms.Button();
-            this.categoryInfo = new System.Windows.Forms.CueTextBox();
             this.expandCollapseButton = new System.Windows.Forms.Button();
             this.prevContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.nextContext = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -112,23 +110,21 @@
             this.discussTab.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel8.SuspendLayout();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this.tabControl1.Controls.Add(this.descriptionTab);
             this.tabControl1.Controls.Add(this.submissionTab);
             this.tabControl1.Controls.Add(this.discussTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(0, 81);
+            this.tabControl1.Location = new System.Drawing.Point(0, 74);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(35, 6);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(800, 369);
+            this.tabControl1.Size = new System.Drawing.Size(800, 376);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -137,9 +133,9 @@
             this.descriptionTab.BackColor = System.Drawing.Color.AliceBlue;
             this.descriptionTab.Controls.Add(this.problemWebBrowser);
             this.descriptionTab.Controls.Add(this.toolStrip1);
-            this.descriptionTab.Location = new System.Drawing.Point(4, 4);
+            this.descriptionTab.Location = new System.Drawing.Point(4, 30);
             this.descriptionTab.Name = "descriptionTab";
-            this.descriptionTab.Size = new System.Drawing.Size(792, 335);
+            this.descriptionTab.Size = new System.Drawing.Size(792, 342);
             this.descriptionTab.TabIndex = 0;
             this.descriptionTab.Text = "Description";
             // 
@@ -150,7 +146,7 @@
             this.problemWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.problemWebBrowser.Name = "problemWebBrowser";
             this.problemWebBrowser.ScriptErrorsSuppressed = true;
-            this.problemWebBrowser.Size = new System.Drawing.Size(792, 297);
+            this.problemWebBrowser.Size = new System.Drawing.Size(792, 304);
             this.problemWebBrowser.TabIndex = 1;
             // 
             // toolStrip1
@@ -275,15 +271,15 @@
             // 
             // submissionTab
             // 
+            this.submissionTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.submissionTab.Controls.Add(this.submissionStatus);
             this.submissionTab.Controls.Add(this.panel7);
             this.submissionTab.Controls.Add(this.tableLayoutPanel4);
-            this.submissionTab.Location = new System.Drawing.Point(4, 4);
+            this.submissionTab.Location = new System.Drawing.Point(4, 30);
             this.submissionTab.Name = "submissionTab";
-            this.submissionTab.Size = new System.Drawing.Size(792, 333);
+            this.submissionTab.Size = new System.Drawing.Size(792, 342);
             this.submissionTab.TabIndex = 1;
             this.submissionTab.Text = "Submissions";
-            this.submissionTab.UseVisualStyleBackColor = true;
             // 
             // submissionStatus
             // 
@@ -319,7 +315,7 @@
             this.submissionStatus.ShowGroups = false;
             this.submissionStatus.ShowItemCountOnGroups = true;
             this.submissionStatus.ShowItemToolTips = true;
-            this.submissionStatus.Size = new System.Drawing.Size(598, 302);
+            this.submissionStatus.Size = new System.Drawing.Size(592, 311);
             this.submissionStatus.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.submissionStatus.TabIndex = 2;
             this.submissionStatus.UseCellFormatEvents = true;
@@ -336,7 +332,6 @@
             // sidSUB
             // 
             this.sidSUB.AspectName = "sid";
-            this.sidSUB.CellPadding = null;
             this.sidSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.sidSUB.Text = "SID";
             this.sidSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -345,7 +340,6 @@
             // unameSUB
             // 
             this.unameSUB.AspectName = "uname";
-            this.unameSUB.CellPadding = null;
             this.unameSUB.GroupWithItemCountFormat = "\"{0}\" has following {1} submissions";
             this.unameSUB.GroupWithItemCountSingularFormat = "\"{0}\" has following submission";
             this.unameSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -358,7 +352,6 @@
             // fullnameSUB
             // 
             this.fullnameSUB.AspectName = "name";
-            this.fullnameSUB.CellPadding = null;
             this.fullnameSUB.MinimumWidth = 150;
             this.fullnameSUB.Text = "Full Name";
             this.fullnameSUB.Width = 160;
@@ -366,7 +359,6 @@
             // lanSUB
             // 
             this.lanSUB.AspectName = "lan";
-            this.lanSUB.CellPadding = null;
             this.lanSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lanSUB.Text = "Language";
             this.lanSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -375,7 +367,6 @@
             // verSUB
             // 
             this.verSUB.AspectName = "ver";
-            this.verSUB.CellPadding = null;
             this.verSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.verSUB.Text = "Verdict";
             this.verSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -384,7 +375,6 @@
             // runSUB
             // 
             this.runSUB.AspectName = "run";
-            this.runSUB.CellPadding = null;
             this.runSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.runSUB.Text = "Runtime";
             this.runSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -393,7 +383,6 @@
             // rankSUB
             // 
             this.rankSUB.AspectName = "rank";
-            this.rankSUB.CellPadding = null;
             this.rankSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.rankSUB.Text = "Rank";
             this.rankSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -402,7 +391,6 @@
             // subtimeSUB
             // 
             this.subtimeSUB.AspectName = "sbt";
-            this.subtimeSUB.CellPadding = null;
             this.subtimeSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.subtimeSUB.MinimumWidth = 140;
             this.subtimeSUB.Text = "Submission Time";
@@ -411,12 +399,11 @@
             // 
             // panel7
             // 
-            this.panel7.BackColor = System.Drawing.Color.DarkTurquoise;
             this.panel7.Controls.Add(this.subListLabel);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(0, 0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(598, 31);
+            this.panel7.Size = new System.Drawing.Size(592, 31);
             this.panel7.TabIndex = 6;
             // 
             // subListLabel
@@ -428,7 +415,7 @@
             this.subListLabel.Location = new System.Drawing.Point(0, 0);
             this.subListLabel.Margin = new System.Windows.Forms.Padding(3, 1, 1, 1);
             this.subListLabel.Name = "subListLabel";
-            this.subListLabel.Size = new System.Drawing.Size(598, 31);
+            this.subListLabel.Size = new System.Drawing.Size(592, 31);
             this.subListLabel.TabIndex = 2;
             this.subListLabel.Text = "Last submissions on this problem";
             this.subListLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -451,7 +438,7 @@
             this.tableLayoutPanel4.Controls.Add(this.showUsersRankButton, 0, 9);
             this.tableLayoutPanel4.Controls.Add(this.showUserSubButton, 0, 8);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(598, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(592, 0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 11;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -467,7 +454,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(194, 333);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(200, 342);
             this.tableLayoutPanel4.TabIndex = 5;
             // 
             // panel3
@@ -475,10 +462,10 @@
             this.panel3.BackColor = System.Drawing.Color.MediumTurquoise;
             this.panel3.Controls.Add(this.label5);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(1, 281);
+            this.panel3.Location = new System.Drawing.Point(1, 290);
             this.panel3.Margin = new System.Windows.Forms.Padding(1);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(192, 23);
+            this.panel3.Size = new System.Drawing.Size(198, 23);
             this.panel3.TabIndex = 15;
             // 
             // label5
@@ -488,18 +475,18 @@
             this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(192, 23);
+            this.label5.Size = new System.Drawing.Size(198, 23);
             this.label5.TabIndex = 1;
             this.label5.Text = "User Comparison";
             this.label5.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // compareUserButton
             // 
-            this.compareUserButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.compareUserButton.Location = new System.Drawing.Point(22, 306);
+            this.compareUserButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.compareUserButton.Location = new System.Drawing.Point(1, 315);
             this.compareUserButton.Margin = new System.Windows.Forms.Padding(1);
             this.compareUserButton.Name = "compareUserButton";
-            this.compareUserButton.Size = new System.Drawing.Size(150, 26);
+            this.compareUserButton.Size = new System.Drawing.Size(198, 26);
             this.compareUserButton.TabIndex = 14;
             this.compareUserButton.Text = "Compare Users";
             this.compareUserButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -508,7 +495,6 @@
             // 
             // usernameList1
             // 
-            this.usernameList1.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.usernameList1.AllColumns.Add(this.unameCol);
             this.usernameList1.AllColumns.Add(this.uidCol);
             this.usernameList1.BackColor = System.Drawing.Color.Azure;
@@ -519,12 +505,13 @@
             this.usernameList1.Cursor = System.Windows.Forms.Cursors.Default;
             this.usernameList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usernameList1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usernameList1.ForeColor = System.Drawing.Color.Black;
             this.usernameList1.FullRowSelect = true;
             this.usernameList1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.usernameList1.Location = new System.Drawing.Point(3, 185);
             this.usernameList1.Name = "usernameList1";
             this.usernameList1.ShowGroups = false;
-            this.usernameList1.Size = new System.Drawing.Size(188, 36);
+            this.usernameList1.Size = new System.Drawing.Size(194, 45);
             this.usernameList1.TabIndex = 12;
             this.usernameList1.UseCellFormatEvents = true;
             this.usernameList1.UseCompatibleStateImageBehavior = false;
@@ -534,12 +521,12 @@
             this.usernameList1.UseTranslucentSelection = true;
             this.usernameList1.View = System.Windows.Forms.View.Details;
             this.usernameList1.VirtualMode = true;
+            this.usernameList1.FormatCell += new System.EventHandler<BrightIdeasSoftware.FormatCellEventArgs>(this.usernameList1_FormatCell);
             this.usernameList1.SelectedIndexChanged += new System.EventHandler(this.usernameList1_SelectedIndexChanged);
             // 
             // unameCol
             // 
             this.unameCol.AspectName = "Key";
-            this.unameCol.CellPadding = null;
             this.unameCol.FillsFreeSpace = true;
             this.unameCol.MinimumWidth = 80;
             this.unameCol.Text = "Username";
@@ -548,7 +535,6 @@
             // uidCol
             // 
             this.uidCol.AspectName = "Value";
-            this.uidCol.CellPadding = null;
             this.uidCol.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.uidCol.MinimumWidth = 60;
             this.uidCol.Text = "User ID";
@@ -563,7 +549,7 @@
             this.panel6.Location = new System.Drawing.Point(1, 158);
             this.panel6.Margin = new System.Windows.Forms.Padding(1);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(192, 23);
+            this.panel6.Size = new System.Drawing.Size(198, 23);
             this.panel6.TabIndex = 7;
             // 
             // label4
@@ -574,18 +560,18 @@
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Margin = new System.Windows.Forms.Padding(3, 1, 1, 1);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(192, 23);
+            this.label4.Size = new System.Drawing.Size(198, 23);
             this.label4.TabIndex = 1;
             this.label4.Text = "Favorite Users";
             this.label4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // showSubmissionButton
             // 
-            this.showSubmissionButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.showSubmissionButton.Location = new System.Drawing.Point(22, 51);
+            this.showSubmissionButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.showSubmissionButton.Location = new System.Drawing.Point(1, 51);
             this.showSubmissionButton.Margin = new System.Windows.Forms.Padding(1);
             this.showSubmissionButton.Name = "showSubmissionButton";
-            this.showSubmissionButton.Size = new System.Drawing.Size(150, 26);
+            this.showSubmissionButton.Size = new System.Drawing.Size(198, 26);
             this.showSubmissionButton.TabIndex = 4;
             this.showSubmissionButton.Text = "Show Submissions";
             this.showSubmissionButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -594,10 +580,13 @@
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.CustomFormat = "dd MMM yyyy, hh:mm tt";
+            this.dateTimePicker1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(3, 26);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(188, 23);
+            this.dateTimePicker1.Size = new System.Drawing.Size(194, 23);
             this.dateTimePicker1.TabIndex = 1;
             // 
             // panel1
@@ -608,7 +597,7 @@
             this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Margin = new System.Windows.Forms.Padding(1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(192, 23);
+            this.panel1.Size = new System.Drawing.Size(198, 23);
             this.panel1.TabIndex = 5;
             // 
             // label2
@@ -618,7 +607,7 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(192, 23);
+            this.label2.Size = new System.Drawing.Size(198, 23);
             this.label2.TabIndex = 1;
             this.label2.Text = "Submissions From";
             this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -631,7 +620,7 @@
             this.panel2.Location = new System.Drawing.Point(1, 79);
             this.panel2.Margin = new System.Windows.Forms.Padding(1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(192, 23);
+            this.panel2.Size = new System.Drawing.Size(198, 23);
             this.panel2.TabIndex = 6;
             // 
             // label1
@@ -641,18 +630,18 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(192, 23);
+            this.label1.Size = new System.Drawing.Size(198, 23);
             this.label1.TabIndex = 1;
             this.label1.Text = "Ranks";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // showRanksButton
             // 
-            this.showRanksButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.showRanksButton.Location = new System.Drawing.Point(22, 130);
+            this.showRanksButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.showRanksButton.Location = new System.Drawing.Point(1, 130);
             this.showRanksButton.Margin = new System.Windows.Forms.Padding(1);
             this.showRanksButton.Name = "showRanksButton";
-            this.showRanksButton.Size = new System.Drawing.Size(150, 26);
+            this.showRanksButton.Size = new System.Drawing.Size(198, 26);
             this.showRanksButton.TabIndex = 7;
             this.showRanksButton.Text = "Show Ranks";
             this.showRanksButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -667,7 +656,7 @@
             this.panel4.Location = new System.Drawing.Point(0, 103);
             this.panel4.Margin = new System.Windows.Forms.Padding(0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(194, 26);
+            this.panel4.Size = new System.Drawing.Size(200, 26);
             this.panel4.TabIndex = 9;
             // 
             // label3
@@ -698,7 +687,7 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(137, 21);
+            this.numericUpDown1.Size = new System.Drawing.Size(143, 21);
             this.numericUpDown1.TabIndex = 10;
             this.numericUpDown1.Value = new decimal(new int[] {
             100,
@@ -708,13 +697,11 @@
             // 
             // showUsersRankButton
             // 
-            this.showUsersRankButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.showUsersRankButton.Location = new System.Drawing.Point(1, 253);
+            this.showUsersRankButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.showUsersRankButton.Location = new System.Drawing.Point(1, 262);
             this.showUsersRankButton.Margin = new System.Windows.Forms.Padding(1);
             this.showUsersRankButton.Name = "showUsersRankButton";
-            this.showUsersRankButton.Size = new System.Drawing.Size(192, 26);
+            this.showUsersRankButton.Size = new System.Drawing.Size(198, 26);
             this.showUsersRankButton.TabIndex = 11;
             this.showUsersRankButton.Tag = "Rank of {0}";
             this.showUsersRankButton.Text = "Show Rank of User";
@@ -724,13 +711,11 @@
             // 
             // showUserSubButton
             // 
-            this.showUserSubButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.showUserSubButton.Location = new System.Drawing.Point(1, 225);
+            this.showUserSubButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.showUserSubButton.Location = new System.Drawing.Point(1, 234);
             this.showUserSubButton.Margin = new System.Windows.Forms.Padding(1);
             this.showUserSubButton.Name = "showUserSubButton";
-            this.showUserSubButton.Size = new System.Drawing.Size(192, 26);
+            this.showUserSubButton.Size = new System.Drawing.Size(198, 26);
             this.showUserSubButton.TabIndex = 13;
             this.showUserSubButton.Tag = "Submissions of {0}";
             this.showUserSubButton.Text = "Submissions of User";
@@ -742,9 +727,9 @@
             // 
             this.discussTab.Controls.Add(this.discussWebBrowser);
             this.discussTab.Controls.Add(this.tableLayoutPanel2);
-            this.discussTab.Location = new System.Drawing.Point(4, 4);
+            this.discussTab.Location = new System.Drawing.Point(4, 30);
             this.discussTab.Name = "discussTab";
-            this.discussTab.Size = new System.Drawing.Size(792, 333);
+            this.discussTab.Size = new System.Drawing.Size(792, 342);
             this.discussTab.TabIndex = 4;
             this.discussTab.Text = "Discuss";
             this.discussTab.UseVisualStyleBackColor = true;
@@ -752,18 +737,18 @@
             // discussWebBrowser
             // 
             this.discussWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.discussWebBrowser.Location = new System.Drawing.Point(0, 28);
+            this.discussWebBrowser.Location = new System.Drawing.Point(0, 32);
             this.discussWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.discussWebBrowser.Name = "discussWebBrowser";
             this.discussWebBrowser.ScriptErrorsSuppressed = true;
-            this.discussWebBrowser.Size = new System.Drawing.Size(792, 305);
+            this.discussWebBrowser.Size = new System.Drawing.Size(792, 310);
             this.discussWebBrowser.TabIndex = 2;
             this.discussWebBrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser2_Navigated);
             this.discussWebBrowser.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.webBrowser2_ProgressChanged);
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.BackColor = System.Drawing.Color.LightCyan;
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.DarkTurquoise;
             this.tableLayoutPanel2.ColumnCount = 5;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
@@ -778,18 +763,19 @@
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.Padding = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(792, 28);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(792, 32);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // goDiscussButton
             // 
             this.goDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.goDiscussButton.Location = new System.Drawing.Point(695, 2);
-            this.goDiscussButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.goDiscussButton.Location = new System.Drawing.Point(691, 3);
+            this.goDiscussButton.Margin = new System.Windows.Forms.Padding(1);
             this.goDiscussButton.Name = "goDiscussButton";
-            this.goDiscussButton.Size = new System.Drawing.Size(94, 24);
+            this.goDiscussButton.Size = new System.Drawing.Size(98, 26);
             this.goDiscussButton.TabIndex = 1;
             this.goDiscussButton.Text = "GO";
             this.goDiscussButton.UseVisualStyleBackColor = true;
@@ -800,20 +786,21 @@
             this.discussUrlBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.discussUrlBox.BackColor = System.Drawing.Color.White;
             this.discussUrlBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.discussUrlBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.discussUrlBox.Location = new System.Drawing.Point(123, 4);
+            this.discussUrlBox.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.discussUrlBox.ForeColor = System.Drawing.Color.Black;
+            this.discussUrlBox.Location = new System.Drawing.Point(125, 5);
             this.discussUrlBox.Name = "discussUrlBox";
-            this.discussUrlBox.Size = new System.Drawing.Size(566, 20);
+            this.discussUrlBox.Size = new System.Drawing.Size(562, 23);
             this.discussUrlBox.TabIndex = 3;
             // 
             // prevDiscussButton
             // 
             this.prevDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.prevDiscussButton.Image = global::UVA_Arena.Properties.Resources.prev;
-            this.prevDiscussButton.Location = new System.Drawing.Point(2, 2);
-            this.prevDiscussButton.Margin = new System.Windows.Forms.Padding(2);
+            this.prevDiscussButton.Location = new System.Drawing.Point(3, 3);
+            this.prevDiscussButton.Margin = new System.Windows.Forms.Padding(1);
             this.prevDiscussButton.Name = "prevDiscussButton";
-            this.prevDiscussButton.Size = new System.Drawing.Size(36, 24);
+            this.prevDiscussButton.Size = new System.Drawing.Size(38, 26);
             this.prevDiscussButton.TabIndex = 4;
             this.prevDiscussButton.UseVisualStyleBackColor = true;
             this.prevDiscussButton.Click += new System.EventHandler(this.prevDiscussButton_Click);
@@ -822,10 +809,10 @@
             // 
             this.nextDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nextDiscussButton.Image = global::UVA_Arena.Properties.Resources.next;
-            this.nextDiscussButton.Location = new System.Drawing.Point(42, 2);
-            this.nextDiscussButton.Margin = new System.Windows.Forms.Padding(2);
+            this.nextDiscussButton.Location = new System.Drawing.Point(43, 3);
+            this.nextDiscussButton.Margin = new System.Windows.Forms.Padding(1);
             this.nextDiscussButton.Name = "nextDiscussButton";
-            this.nextDiscussButton.Size = new System.Drawing.Size(36, 24);
+            this.nextDiscussButton.Size = new System.Drawing.Size(38, 26);
             this.nextDiscussButton.TabIndex = 5;
             this.nextDiscussButton.UseVisualStyleBackColor = true;
             this.nextDiscussButton.Click += new System.EventHandler(this.nextDiscussButton_Click);
@@ -834,10 +821,10 @@
             // 
             this.homeDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.homeDiscussButton.Image = global::UVA_Arena.Properties.Resources.home;
-            this.homeDiscussButton.Location = new System.Drawing.Point(82, 2);
-            this.homeDiscussButton.Margin = new System.Windows.Forms.Padding(2);
+            this.homeDiscussButton.Location = new System.Drawing.Point(83, 3);
+            this.homeDiscussButton.Margin = new System.Windows.Forms.Padding(1);
             this.homeDiscussButton.Name = "homeDiscussButton";
-            this.homeDiscussButton.Size = new System.Drawing.Size(36, 24);
+            this.homeDiscussButton.Size = new System.Drawing.Size(38, 26);
             this.homeDiscussButton.TabIndex = 6;
             this.homeDiscussButton.UseVisualStyleBackColor = true;
             this.homeDiscussButton.Click += new System.EventHandler(this.homeDiscussButton_Click);
@@ -846,21 +833,38 @@
             // 
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.categoryInfo, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.problemMessage, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.panel8, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(31, 1);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 79);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 72);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // categoryInfo
+            // 
+            this.categoryInfo.BackColor = System.Drawing.Color.LightBlue;
+            this.categoryInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.categoryInfo.CueText = "Set tags to identify the type of the problem...";
+            this.categoryInfo.Cursor = System.Windows.Forms.Cursors.Default;
+            this.categoryInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.categoryInfo.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.categoryInfo.ForeColor = System.Drawing.Color.Maroon;
+            this.categoryInfo.Location = new System.Drawing.Point(6, 32);
+            this.categoryInfo.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.categoryInfo.Name = "categoryInfo";
+            this.categoryInfo.Size = new System.Drawing.Size(759, 16);
+            this.categoryInfo.TabIndex = 1;
+            this.categoryInfo.TabStop = false;
+            this.categoryInfo.Click += new System.EventHandler(this.categoryButton_Click);
+            this.categoryInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.categoryInfo_KeyDown);
             // 
             // titleBox1
             // 
@@ -868,11 +872,11 @@
             this.titleBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.titleBox1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleBox1.ForeColor = System.Drawing.Color.Indigo;
-            this.titleBox1.Location = new System.Drawing.Point(1, 1);
+            this.titleBox1.Location = new System.Drawing.Point(0, 0);
             this.titleBox1.Margin = new System.Windows.Forms.Padding(0);
             this.titleBox1.Name = "titleBox1";
             this.titleBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.titleBox1.Size = new System.Drawing.Size(766, 29);
+            this.titleBox1.Size = new System.Drawing.Size(768, 29);
             this.titleBox1.TabIndex = 0;
             this.titleBox1.Text = "No problem selected";
             // 
@@ -882,60 +886,15 @@
             this.problemMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.problemMessage.Font = new System.Drawing.Font("Cambria", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.problemMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(64)))), ((int)(((byte)(16)))));
-            this.problemMessage.Location = new System.Drawing.Point(1, 58);
-            this.problemMessage.Margin = new System.Windows.Forms.Padding(0);
+            this.problemMessage.Location = new System.Drawing.Point(1, 52);
+            this.problemMessage.Margin = new System.Windows.Forms.Padding(1);
             this.problemMessage.Name = "problemMessage";
-            this.problemMessage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.problemMessage.Size = new System.Drawing.Size(766, 20);
+            this.problemMessage.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.problemMessage.Size = new System.Drawing.Size(766, 19);
             this.problemMessage.TabIndex = 4;
             this.problemMessage.Tag = "You DID NOT TRY this problem.";
             this.problemMessage.Text = "You DID NOT TRY this problem.";
             this.problemMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panel8
-            // 
-            this.panel8.AutoSize = true;
-            this.panel8.Controls.Add(this.categoryButton);
-            this.panel8.Controls.Add(this.categoryInfo);
-            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(1, 31);
-            this.panel8.Margin = new System.Windows.Forms.Padding(0);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(766, 26);
-            this.panel8.TabIndex = 5;
-            // 
-            // categoryButton
-            // 
-            this.categoryButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.categoryButton.BackColor = System.Drawing.Color.PowderBlue;
-            this.categoryButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkTurquoise;
-            this.categoryButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightSeaGreen;
-            this.categoryButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
-            this.categoryButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.categoryButton.Location = new System.Drawing.Point(635, 0);
-            this.categoryButton.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.categoryButton.Name = "categoryButton";
-            this.categoryButton.Size = new System.Drawing.Size(130, 26);
-            this.categoryButton.TabIndex = 2;
-            this.categoryButton.Text = "Change";
-            this.categoryButton.UseVisualStyleBackColor = false;
-            this.categoryButton.Visible = false;
-            this.categoryButton.Click += new System.EventHandler(this.categoryButton_Click);
-            // 
-            // categoryInfo
-            // 
-            this.categoryInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.categoryInfo.BackColor = System.Drawing.Color.LightBlue;
-            this.categoryInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.categoryInfo.CueText = "Set tags to identify the type of the problem...";
-            this.categoryInfo.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.categoryInfo.ForeColor = System.Drawing.Color.Maroon;
-            this.categoryInfo.Location = new System.Drawing.Point(7, 5);
-            this.categoryInfo.Name = "categoryInfo";
-            this.categoryInfo.Size = new System.Drawing.Size(754, 16);
-            this.categoryInfo.TabIndex = 1;
-            this.categoryInfo.TabStop = false;
-            this.categoryInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.categoryInfo_KeyDown);
             // 
             // expandCollapseButton
             // 
@@ -944,7 +903,7 @@
             this.expandCollapseButton.Location = new System.Drawing.Point(1, 1);
             this.expandCollapseButton.Margin = new System.Windows.Forms.Padding(0);
             this.expandCollapseButton.Name = "expandCollapseButton";
-            this.expandCollapseButton.Size = new System.Drawing.Size(30, 79);
+            this.expandCollapseButton.Size = new System.Drawing.Size(30, 72);
             this.expandCollapseButton.TabIndex = 3;
             this.expandCollapseButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.expandCollapseButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -970,7 +929,7 @@
             this.TopPanel.Location = new System.Drawing.Point(0, 0);
             this.TopPanel.Name = "TopPanel";
             this.TopPanel.Padding = new System.Windows.Forms.Padding(1);
-            this.TopPanel.Size = new System.Drawing.Size(800, 81);
+            this.TopPanel.Size = new System.Drawing.Size(800, 74);
             this.TopPanel.TabIndex = 4;
             // 
             // ProblemViewer
@@ -1006,8 +965,6 @@
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.panel8.ResumeLayout(false);
-            this.panel8.PerformLayout();
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -1035,11 +992,9 @@
         public System.Windows.Forms.ToolStripButton nextButton;
         public System.Windows.Forms.ToolStripButton reloadButton;
         public System.Windows.Forms.Label titleBox1;
-        public System.Windows.Forms.Button categoryButton;
         public System.Windows.Forms.CueTextBox categoryInfo;
         public System.Windows.Forms.WebBrowser problemWebBrowser;
         public System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage discussTab;
         public System.Windows.Forms.WebBrowser discussWebBrowser;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button goDiscussButton;
@@ -1081,7 +1036,7 @@
         private System.Windows.Forms.Button compareUserButton;
         private System.Windows.Forms.Panel TopPanel;
         public System.Windows.Forms.Button expandCollapseButton;
-        private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label problemMessage;
+        public System.Windows.Forms.TabPage discussTab;
     }
 }

@@ -83,17 +83,8 @@ namespace UVA_Arena.Elements
             _subInAnsiC = _subInCPP = _subInCPP11 = _subInJava = _subInPascal = 0;
             _acCount = _waCount = _tleCount = _reCount = _peCount = 0;
             _ceCount = _oleCount = _subeCount = _mleCount = 0;
-
-            _tryCount = currentUser.TryList.Count;
-            var it = currentUser.TryList.GetEnumerator();
-            while (it.MoveNext())
-            {
-                if (it.Current.Value.IsAccepted())
-                    _solvedCount++;
-                else
-                    _unsolvedCount++;
-            }
-            it.Dispose();
+             
+            List<long> solved = new List<long>();
 
             foreach (UserSubmission usub in currentUser.submissions)
             {
@@ -108,7 +99,15 @@ namespace UVA_Arena.Elements
                 if (usub.IsAccepted())
                 {
                     _RankCount.Add(usub.rank, usub.pid);
+
+                    //solve count
+                    if (!solved.Contains(usub.pnum))
+                    {
+                        _solvedCount++;
+                        solved.Add(usub.pnum);
+                    }
                 }
+
 
                 //language
                 switch ((Language)usub.lan)
@@ -141,9 +140,12 @@ namespace UVA_Arena.Elements
             }
 
             //finalize
+            _tryCount = currentUser.TryList.Count;
+            _unsolvedCount = _tryCount - _solvedCount;
             _subOverTime.Add(new ZedGraph.XDate(DateTime.Now), _totalSubmission);
             _acOverTime.Add(new ZedGraph.XDate(DateTime.Now), _solvedCount);
         }
+
 #endregion
 
         #region Load Processed Data

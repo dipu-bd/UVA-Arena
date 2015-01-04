@@ -44,13 +44,14 @@
             // webBrowser1
             // 
             this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 28);
+            this.webBrowser1.Location = new System.Drawing.Point(0, 32);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(684, 306);
+            this.webBrowser1.Size = new System.Drawing.Size(684, 302);
             this.webBrowser1.TabIndex = 0;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
+            this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated);
             this.webBrowser1.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.webBrowser1_ProgressChanged);
             // 
             // statusStrip1
@@ -79,7 +80,7 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.BackColor = System.Drawing.Color.LightCyan;
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.LightBlue;
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -92,15 +93,16 @@
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.Padding = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(684, 28);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(684, 32);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
             // goDiscussButton
             // 
             this.goDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.goDiscussButton.Location = new System.Drawing.Point(587, 2);
+            this.goDiscussButton.Location = new System.Drawing.Point(585, 4);
             this.goDiscussButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.goDiscussButton.Name = "goDiscussButton";
             this.goDiscussButton.Size = new System.Drawing.Size(94, 24);
@@ -112,19 +114,22 @@
             // discussUrlBox
             // 
             this.discussUrlBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.discussUrlBox.BackColor = System.Drawing.Color.White;
+            this.discussUrlBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.discussUrlBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllUrl;
+            this.discussUrlBox.BackColor = System.Drawing.Color.MintCream;
             this.discussUrlBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.discussUrlBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.discussUrlBox.Location = new System.Drawing.Point(43, 4);
+            this.discussUrlBox.ForeColor = System.Drawing.Color.Black;
+            this.discussUrlBox.Location = new System.Drawing.Point(45, 6);
             this.discussUrlBox.Name = "discussUrlBox";
-            this.discussUrlBox.Size = new System.Drawing.Size(538, 20);
+            this.discussUrlBox.Size = new System.Drawing.Size(534, 20);
             this.discussUrlBox.TabIndex = 3;
             // 
             // homeDiscussButton
             // 
             this.homeDiscussButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.homeDiscussButton.Image = global::UVA_Arena.Properties.Resources.home;
-            this.homeDiscussButton.Location = new System.Drawing.Point(2, 2);
+            this.homeDiscussButton.Location = new System.Drawing.Point(4, 4);
             this.homeDiscussButton.Margin = new System.Windows.Forms.Padding(2);
             this.homeDiscussButton.Name = "homeDiscussButton";
             this.homeDiscussButton.Size = new System.Drawing.Size(36, 24);

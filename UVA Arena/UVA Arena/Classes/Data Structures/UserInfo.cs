@@ -60,24 +60,24 @@ namespace UVA_Arena.Structures
             ProcessListData(ui.subs, true);
         }
 
-        public bool IsTried(long pnum)
+        public bool HasTried(long pnum)
         {
             return TryList.ContainsKey(pnum);
         }
 
         public bool IsSolved(long pnum)
         {
-            return IsTried(pnum) && TryList[pnum].IsAccepted();
+            return HasTried(pnum) && TryList[pnum].IsAccepted();
         }
 
-        public bool IsTriedButUnsolved(long pnum)
+        public bool TriedButUnsolved(long pnum)
         {
-            return IsTried(pnum) && !TryList[pnum].IsAccepted();
+            return HasTried(pnum) && !TryList[pnum].IsAccepted();
         }
 
         private void SetTried(UserSubmission usub)
         {
-            if (!IsTried(usub.pnum))
+            if (!HasTried(usub.pnum))
             {
                 TryList.Add(usub.pnum, usub);
                 return;

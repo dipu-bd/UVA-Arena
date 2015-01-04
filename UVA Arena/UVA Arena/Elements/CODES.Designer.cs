@@ -84,7 +84,6 @@
             this.folderTreeView = new System.Windows.Forms.NativeTreeView();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.refreshTool = new System.Windows.Forms.ToolStripButton();
-            this.changeDirTool = new System.Windows.Forms.ToolStripButton();
             this.compilerSplitContainer1 = new System.Windows.Forms.CustomSplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.codeTAB = new System.Windows.Forms.TabPage();
@@ -423,6 +422,7 @@
             this.changeDirectoryToolStripMenuItem.Name = "changeDirectoryToolStripMenuItem";
             this.changeDirectoryToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.changeDirectoryToolStripMenuItem.Text = "Change Directory";
+            this.changeDirectoryToolStripMenuItem.Click += new System.EventHandler(this.browseFolderButton_Click);
             // 
             // formatDirectoryToolStripMenuItem
             // 
@@ -732,7 +732,7 @@
             // 
             // folderTreeView
             // 
-            this.folderTreeView.BackColor = System.Drawing.Color.White;
+            this.folderTreeView.BackColor = System.Drawing.Color.Azure;
             this.folderTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.folderTreeView.ContextMenuStrip = this.folderTreeContext;
             this.folderTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -749,7 +749,7 @@
             this.folderTreeView.ShowNodeToolTips = true;
             this.folderTreeView.Size = new System.Drawing.Size(194, 363);
             this.folderTreeView.TabIndex = 5;
-            this.folderTreeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.folderTreeView_AfterLabelEdit);
+            this.folderTreeView.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.folderTreeView_BeforeLabelEdit);
             this.folderTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.folderTreeView_AfterSelect);
             this.folderTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.folderTreeView_NodeMouseClick);
             this.folderTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.folderTreeView_NodeMouseDoubleClick);
@@ -761,8 +761,7 @@
             this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton2,
-            this.refreshTool,
-            this.changeDirTool});
+            this.refreshTool});
             this.toolStrip3.Location = new System.Drawing.Point(3, 28);
             this.toolStrip3.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.toolStrip3.Name = "toolStrip3";
@@ -778,16 +777,6 @@
             this.refreshTool.Size = new System.Drawing.Size(66, 22);
             this.refreshTool.Text = "Refresh";
             this.refreshTool.Click += new System.EventHandler(this.refreshTool_Click);
-            // 
-            // changeDirTool
-            // 
-            this.changeDirTool.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.changeDirTool.Image = global::UVA_Arena.Properties.Resources.folder;
-            this.changeDirTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.changeDirTool.Name = "changeDirTool";
-            this.changeDirTool.Size = new System.Drawing.Size(119, 20);
-            this.changeDirTool.Text = "Change Directory";
-            this.changeDirTool.Click += new System.EventHandler(this.browseFolderButton_Click);
             // 
             // compilerSplitContainer1
             // 
@@ -838,6 +827,7 @@
             // 
             // codeTextBox
             // 
+            this.codeTextBox.AutoCompleteBrackets = global::UVA_Arena.Properties.Settings.Default.EditorAutoCompleteBrackets;
             this.codeTextBox.AutoCompleteBracketsList = new char[] {
         '(',
         ')',
@@ -849,19 +839,31 @@
         '\"',
         '\'',
         '\''};
-            this.codeTextBox.AutoIndentChars = false;
+            this.codeTextBox.AutoIndentChars = global::UVA_Arena.Properties.Settings.Default.EditorAutoIndentChars;
             this.codeTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 15);
             this.codeTextBox.BackBrush = null;
+            this.codeTextBox.CaretBlinking = global::UVA_Arena.Properties.Settings.Default.EditorCaretBlinking;
             this.codeTextBox.CharHeight = 15;
             this.codeTextBox.CharWidth = 8;
             this.codeTextBox.ContextMenuStrip = this.codeboxContext;
+            this.codeTextBox.CurrentLineColor = global::UVA_Arena.Properties.Settings.Default.EditorCurrentLineColor;
             this.codeTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.codeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("AutoCompleteBrackets", global::UVA_Arena.Properties.Settings.Default, "EditorAutoCompleteBrackets", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.codeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("AutoIndentChars", global::UVA_Arena.Properties.Settings.Default, "EditorAutoIndentChars", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.codeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("CaretBlinking", global::UVA_Arena.Properties.Settings.Default, "EditorCaretBlinking", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.codeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("CurrentLineColor", global::UVA_Arena.Properties.Settings.Default, "EditorCurrentLineColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.codeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Hotkeys", global::UVA_Arena.Properties.Settings.Default, "EditorHotKeys", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.codeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("ShowFoldingLines", global::UVA_Arena.Properties.Settings.Default, "EditorShowFoldingLines", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.codeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("ShowLineNumbers", global::UVA_Arena.Properties.Settings.Default, "EditorShowLineNumbers", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.codeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("WordWrap", global::UVA_Arena.Properties.Settings.Default, "EditorWordWrap", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.codeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("HighlightFoldingIndicator", global::UVA_Arena.Properties.Settings.Default, "EditorHighlightFolding", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.codeTextBox.DelayedEventsInterval = 500;
             this.codeTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.codeTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.codeTextBox.Font = new System.Drawing.Font("Consolas", 10F);
             this.codeTextBox.ForeColor = System.Drawing.Color.Black;
-            this.codeTextBox.Hotkeys = resources.GetString("codeTextBox.Hotkeys");
+            this.codeTextBox.HighlightFoldingIndicator = global::UVA_Arena.Properties.Settings.Default.EditorHighlightFolding;
+            this.codeTextBox.Hotkeys = global::UVA_Arena.Properties.Settings.Default.EditorHotKeys;
             this.codeTextBox.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(238)))), ((int)(((byte)(248)))));
             this.codeTextBox.IsReplaceMode = false;
             this.codeTextBox.Location = new System.Drawing.Point(3, 41);
@@ -869,9 +871,13 @@
             this.codeTextBox.Paddings = new System.Windows.Forms.Padding(0);
             this.codeTextBox.ReadOnly = true;
             this.codeTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.codeTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("codeTextBox.ServiceColors")));
+            this.codeTextBox.ShowFoldingLines = global::UVA_Arena.Properties.Settings.Default.EditorShowFoldingLines;
+            this.codeTextBox.ShowLineNumbers = global::UVA_Arena.Properties.Settings.Default.EditorShowLineNumbers;
             this.codeTextBox.Size = new System.Drawing.Size(602, 230);
             this.codeTextBox.SourceTextBox = this.codeTextBox;
             this.codeTextBox.TabIndex = 0;
+            this.codeTextBox.WordWrap = global::UVA_Arena.Properties.Settings.Default.EditorWordWrap;
             this.codeTextBox.Zoom = 100;
             this.codeTextBox.ToolTipNeeded += new System.EventHandler<FastColoredTextBoxNS.ToolTipNeededEventArgs>(this.codeTextBox_ToolTipNeeded);
             this.codeTextBox.HintClick += new System.EventHandler<FastColoredTextBoxNS.HintClickEventArgs>(this.codeTextBox_HintClick);
@@ -1180,6 +1186,7 @@
             this.inputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.inputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.inputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.inputTextBox.Hotkeys = resources.GetString("inputTextBox.Hotkeys");
             this.inputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.inputTextBox.IsReplaceMode = false;
@@ -1188,6 +1195,7 @@
             this.inputTextBox.Paddings = new System.Windows.Forms.Padding(0);
             this.inputTextBox.ReadOnly = true;
             this.inputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.inputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("inputTextBox.ServiceColors")));
             this.inputTextBox.Size = new System.Drawing.Size(279, 214);
             this.inputTextBox.TabIndex = 3;
             this.inputTextBox.Zoom = 100;
@@ -1288,6 +1296,7 @@
             this.outputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.outputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.outputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.outputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.outputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.outputTextBox.IsReplaceMode = false;
             this.outputTextBox.Location = new System.Drawing.Point(3, 25);
@@ -1295,6 +1304,7 @@
             this.outputTextBox.Paddings = new System.Windows.Forms.Padding(0);
             this.outputTextBox.ReadOnly = true;
             this.outputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.outputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("outputTextBox.ServiceColors")));
             this.outputTextBox.Size = new System.Drawing.Size(311, 214);
             this.outputTextBox.TabIndex = 4;
             this.outputTextBox.Zoom = 100;
@@ -1514,6 +1524,7 @@
             this.correctOutputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.correctOutputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.correctOutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.correctOutputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.correctOutputTextBox.Hotkeys = resources.GetString("correctOutputTextBox.Hotkeys");
             this.correctOutputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.correctOutputTextBox.IsReplaceMode = false;
@@ -1522,6 +1533,7 @@
             this.correctOutputTextBox.Paddings = new System.Windows.Forms.Padding(0);
             this.correctOutputTextBox.ReadOnly = true;
             this.correctOutputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.correctOutputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("correctOutputTextBox.ServiceColors")));
             this.correctOutputTextBox.Size = new System.Drawing.Size(280, 216);
             this.correctOutputTextBox.TabIndex = 3;
             this.correctOutputTextBox.Zoom = 100;
@@ -1622,6 +1634,7 @@
             this.progOutputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.progOutputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.progOutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.progOutputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.progOutputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.progOutputTextBox.IsReplaceMode = false;
             this.progOutputTextBox.Location = new System.Drawing.Point(3, 25);
@@ -1629,6 +1642,7 @@
             this.progOutputTextBox.Paddings = new System.Windows.Forms.Padding(0);
             this.progOutputTextBox.ReadOnly = true;
             this.progOutputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.progOutputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("progOutputTextBox.ServiceColors")));
             this.progOutputTextBox.Size = new System.Drawing.Size(312, 216);
             this.progOutputTextBox.TabIndex = 4;
             this.progOutputTextBox.Zoom = 100;
@@ -1834,6 +1848,7 @@
             this.compilerOutput.Paddings = new System.Windows.Forms.Padding(0);
             this.compilerOutput.ReadOnly = true;
             this.compilerOutput.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.compilerOutput.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("compilerOutput.ServiceColors")));
             this.compilerOutput.Size = new System.Drawing.Size(616, 57);
             this.compilerOutput.TabIndex = 0;
             this.compilerOutput.Zoom = 100;
@@ -2143,7 +2158,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.ToolStripButton reloadToolButton;
         private System.Windows.Forms.ToolStripButton findToolButton;
-        private System.Windows.Forms.ToolStripButton submitToolButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton exploreToolButton;
         private System.Windows.Forms.ToolStripButton saveToolButton;
@@ -2174,8 +2188,7 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.ToolStrip toolStrip3;
-        private System.Windows.Forms.ToolStripButton refreshTool;
-        private System.Windows.Forms.ToolStripButton changeDirTool; 
+        private System.Windows.Forms.ToolStripButton refreshTool; 
         private System.Windows.Forms.ToolStripMenuItem changeDirectoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem formatDirectoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
@@ -2188,7 +2201,6 @@
         private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openExternallyToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ContextMenuStrip newContextMenu;
         private System.Windows.Forms.ToolStripMenuItem folderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem textFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
@@ -2242,7 +2254,6 @@
         private System.Windows.Forms.ToolStripMenuItem openFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem saveToFileToolStripMenuItem;
-        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage codeTAB;
         private System.Windows.Forms.TabPage ioTAB;
         private System.Windows.Forms.TabPage compareTAB;
@@ -2269,7 +2280,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.Button refreshCompareButton;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
-        private System.Windows.Forms.TabPage uDebugTab;
         public System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.Button goDiscussButton;
@@ -2280,7 +2290,11 @@
         private System.Windows.Forms.ToolStripProgressBar progress1;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button loadDefaultInput;
-        public FastColoredTextBoxNS.FastColoredTextBox compilerOutput; 
+        public FastColoredTextBoxNS.FastColoredTextBox compilerOutput;
+        public System.Windows.Forms.TabControl tabControl1;
+        public System.Windows.Forms.TabPage uDebugTab;
+        public System.Windows.Forms.ContextMenuStrip newContextMenu;
+        public System.Windows.Forms.ToolStripButton submitToolButton; 
 
     }
 }

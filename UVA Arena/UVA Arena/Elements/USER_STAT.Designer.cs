@@ -42,8 +42,8 @@
             this.twoMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fiveMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tenMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.updateRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.viewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -53,8 +53,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.acceptedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notAcceptedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.noneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,8 +62,8 @@
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verdictToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.problemNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.groupByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.MainContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -116,7 +116,6 @@
             this.refreshSubmission = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.progtrackerTab = new System.Windows.Forms.TabPage();
-            this.userProgTracker1 = new UVA_Arena.Elements.UserProgTracker();
             this.worldrankTab = new System.Windows.Forms.TabPage();
             this.worldRanklist = new BrightIdeasSoftware.FastObjectListView();
             this.rankRANK = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -135,8 +134,7 @@
             this.rankSelector = new System.Windows.Forms.NumericUpDown();
             this.showRankButton = new System.Windows.Forms.Button();
             this.compareTab = new System.Windows.Forms.TabPage();
-            this.compareUsers1 = new UVA_Arena.Elements.CompareUsers();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.titleBackPanel = new System.Windows.Forms.Panel();
             this.userNameTitle = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.Status1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -157,13 +155,11 @@
             this.submissionTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lastSubmissions1)).BeginInit();
             this.toolStrip1.SuspendLayout();
-            this.progtrackerTab.SuspendLayout();
             this.worldrankTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.worldRanklist)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rankSelector)).BeginInit();
-            this.compareTab.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.titleBackPanel.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -182,7 +178,7 @@
             this.fiveMinutesToolItem,
             this.tenMinutesToolItem});
             this.updateContextMenu.Name = "updateContextMenu";
-            this.updateContextMenu.OwnerItem = this.updateRateToolStripMenuItem;
+            this.updateContextMenu.OwnerItem = this.toolStripSplitButton1;
             this.updateContextMenu.Size = new System.Drawing.Size(142, 230);
             // 
             // autoUpdateToolMenu
@@ -273,6 +269,13 @@
             this.tenMinutesToolItem.Text = "10 minutes";
             this.tenMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
             // 
+            // updateRateToolStripMenuItem
+            // 
+            this.updateRateToolStripMenuItem.DropDown = this.updateContextMenu;
+            this.updateRateToolStripMenuItem.Name = "updateRateToolStripMenuItem";
+            this.updateRateToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.updateRateToolStripMenuItem.Text = "Auto Update";
+            // 
             // toolStripSplitButton1
             // 
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -282,13 +285,6 @@
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
             this.toolStripSplitButton1.Size = new System.Drawing.Size(84, 20);
             this.toolStripSplitButton1.Text = "Update Rate";
-            // 
-            // updateRateToolStripMenuItem
-            // 
-            this.updateRateToolStripMenuItem.DropDown = this.updateContextMenu;
-            this.updateRateToolStripMenuItem.Name = "updateRateToolStripMenuItem";
-            this.updateRateToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.updateRateToolStripMenuItem.Text = "Auto Update";
             // 
             // viewContextMenu
             // 
@@ -302,7 +298,7 @@
             this.acceptedToolStripMenuItem,
             this.notAcceptedToolStripMenuItem});
             this.viewContextMenu.Name = "viewContextMenu";
-            this.viewContextMenu.OwnerItem = this.viewToolStripMenuItem;
+            this.viewContextMenu.OwnerItem = this.toolStripSplitButton2;
             this.viewContextMenu.Size = new System.Drawing.Size(148, 148);
             // 
             // allToolStripMenuItem
@@ -365,6 +361,13 @@
             this.notAcceptedToolStripMenuItem.Text = "Not Accepted";
             this.notAcceptedToolStripMenuItem.Click += new System.EventHandler(this.viewMenuItem_Click);
             // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDown = this.viewContextMenu;
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
             // toolStripSplitButton2
             // 
             this.toolStripSplitButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -374,13 +377,6 @@
             this.toolStripSplitButton2.Name = "toolStripSplitButton2";
             this.toolStripSplitButton2.Size = new System.Drawing.Size(45, 20);
             this.toolStripSplitButton2.Text = "View";
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.DropDown = this.viewContextMenu;
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.viewToolStripMenuItem.Text = "View";
             // 
             // timer1
             // 
@@ -396,7 +392,7 @@
             this.verdictToolStripMenuItem,
             this.problemNameToolStripMenuItem});
             this.groupContextMenu.Name = "contextMenuStrip1";
-            this.groupContextMenu.OwnerItem = this.groupByToolStripMenuItem;
+            this.groupContextMenu.OwnerItem = this.toolStripButton1;
             this.groupContextMenu.Size = new System.Drawing.Size(155, 98);
             // 
             // noneToolStripMenuItem
@@ -434,6 +430,13 @@
             this.problemNameToolStripMenuItem.Text = "Problem Name";
             this.problemNameToolStripMenuItem.Click += new System.EventHandler(this.groupMenuItem_Click);
             // 
+            // groupByToolStripMenuItem
+            // 
+            this.groupByToolStripMenuItem.DropDown = this.groupContextMenu;
+            this.groupByToolStripMenuItem.Name = "groupByToolStripMenuItem";
+            this.groupByToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.groupByToolStripMenuItem.Text = "Group By";
+            // 
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -443,13 +446,6 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(69, 20);
             this.toolStripButton1.Text = "Group By";
-            // 
-            // groupByToolStripMenuItem
-            // 
-            this.groupByToolStripMenuItem.DropDown = this.groupContextMenu;
-            this.groupByToolStripMenuItem.Name = "groupByToolStripMenuItem";
-            this.groupByToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.groupByToolStripMenuItem.Text = "Group By";
             // 
             // MainContextMenu
             // 
@@ -654,7 +650,7 @@
             // 
             this.customSplitContainer1.Panel2.BackColor = System.Drawing.Color.PowderBlue;
             this.customSplitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.customSplitContainer1.Panel2.Controls.Add(this.panel2);
+            this.customSplitContainer1.Panel2.Controls.Add(this.titleBackPanel);
             this.customSplitContainer1.Panel2.Controls.Add(this.statusStrip1);
             this.customSplitContainer1.Size = new System.Drawing.Size(750, 400);
             this.customSplitContainer1.SplitterDistance = 150;
@@ -693,7 +689,6 @@
             // unameCol
             // 
             this.unameCol.AspectName = "Key";
-            this.unameCol.CellPadding = null;
             this.unameCol.FillsFreeSpace = true;
             this.unameCol.MinimumWidth = 100;
             this.unameCol.Text = "Username";
@@ -702,7 +697,6 @@
             // uidCol
             // 
             this.uidCol.AspectName = "Value";
-            this.uidCol.CellPadding = null;
             this.uidCol.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.uidCol.Text = "User ID";
             this.uidCol.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -720,6 +714,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Navy;
             this.label1.Location = new System.Drawing.Point(5, 5);
@@ -812,7 +807,7 @@
             // 
             // submissionTab
             // 
-            this.submissionTab.BackColor = System.Drawing.Color.PowderBlue;
+            this.submissionTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.submissionTab.Controls.Add(this.lastSubmissions1);
             this.submissionTab.Controls.Add(this.toolStrip1);
             this.submissionTab.Location = new System.Drawing.Point(4, 30);
@@ -875,7 +870,6 @@
             // sidSUB
             // 
             this.sidSUB.AspectName = "sid";
-            this.sidSUB.CellPadding = null;
             this.sidSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.sidSUB.Text = "SID";
             this.sidSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -884,7 +878,6 @@
             // pnumSUB
             // 
             this.pnumSUB.AspectName = "pnum";
-            this.pnumSUB.CellPadding = null;
             this.pnumSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pnumSUB.Hyperlink = true;
             this.pnumSUB.Text = "Number";
@@ -894,7 +887,6 @@
             // ptitleSUB
             // 
             this.ptitleSUB.AspectName = "ptitle";
-            this.ptitleSUB.CellPadding = null;
             this.ptitleSUB.FillsFreeSpace = true;
             this.ptitleSUB.Hyperlink = true;
             this.ptitleSUB.MinimumWidth = 150;
@@ -904,7 +896,6 @@
             // lanSUB
             // 
             this.lanSUB.AspectName = "lan";
-            this.lanSUB.CellPadding = null;
             this.lanSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lanSUB.Text = "Language";
             this.lanSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -913,7 +904,6 @@
             // verSUB
             // 
             this.verSUB.AspectName = "ver";
-            this.verSUB.CellPadding = null;
             this.verSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.verSUB.Text = "Verdict";
             this.verSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -922,7 +912,6 @@
             // runSUB
             // 
             this.runSUB.AspectName = "run";
-            this.runSUB.CellPadding = null;
             this.runSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.runSUB.Text = "Runtime";
             this.runSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -931,7 +920,6 @@
             // rankSUB
             // 
             this.rankSUB.AspectName = "rank";
-            this.rankSUB.CellPadding = null;
             this.rankSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.rankSUB.Text = "Rank";
             this.rankSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -940,7 +928,6 @@
             // subtimeSUB
             // 
             this.subtimeSUB.AspectName = "sbt";
-            this.subtimeSUB.CellPadding = null;
             this.subtimeSUB.FillsFreeSpace = true;
             this.subtimeSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.subtimeSUB.MinimumWidth = 140;
@@ -982,29 +969,16 @@
             // 
             // progtrackerTab
             // 
-            this.progtrackerTab.Controls.Add(this.userProgTracker1);
+            this.progtrackerTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.progtrackerTab.Location = new System.Drawing.Point(4, 30);
             this.progtrackerTab.Name = "progtrackerTab";
             this.progtrackerTab.Size = new System.Drawing.Size(588, 300);
             this.progtrackerTab.TabIndex = 1;
             this.progtrackerTab.Text = "Progress Tracker";
-            this.progtrackerTab.UseVisualStyleBackColor = true;
-            // 
-            // userProgTracker1
-            // 
-            this.userProgTracker1.AutoScroll = true;
-            this.userProgTracker1.BackColor = System.Drawing.Color.Lavender;
-            this.userProgTracker1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.userProgTracker1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userProgTracker1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userProgTracker1.ForeColor = System.Drawing.Color.Black;
-            this.userProgTracker1.Location = new System.Drawing.Point(0, 0);
-            this.userProgTracker1.Name = "userProgTracker1";
-            this.userProgTracker1.Size = new System.Drawing.Size(588, 300);
-            this.userProgTracker1.TabIndex = 0;
             // 
             // worldrankTab
             // 
+            this.worldrankTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.worldrankTab.Controls.Add(this.worldRanklist);
             this.worldrankTab.Controls.Add(this.tableLayoutPanel2);
             this.worldrankTab.Location = new System.Drawing.Point(4, 30);
@@ -1012,7 +986,6 @@
             this.worldrankTab.Size = new System.Drawing.Size(588, 300);
             this.worldrankTab.TabIndex = 2;
             this.worldrankTab.Text = "World Rank";
-            this.worldrankTab.UseVisualStyleBackColor = true;
             // 
             // worldRanklist
             // 
@@ -1073,7 +1046,6 @@
             // rankRANK
             // 
             this.rankRANK.AspectName = "rank";
-            this.rankRANK.CellPadding = null;
             this.rankRANK.MinimumWidth = 60;
             this.rankRANK.Text = "Rank";
             this.rankRANK.ToolTipText = "Current rank among everyone";
@@ -1082,7 +1054,6 @@
             // usernameRANK
             // 
             this.usernameRANK.AspectName = "username";
-            this.usernameRANK.CellPadding = null;
             this.usernameRANK.FillsFreeSpace = true;
             this.usernameRANK.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.usernameRANK.Hyperlink = true;
@@ -1095,7 +1066,6 @@
             // nameRANK
             // 
             this.nameRANK.AspectName = "name";
-            this.nameRANK.CellPadding = null;
             this.nameRANK.FillsFreeSpace = true;
             this.nameRANK.MinimumWidth = 200;
             this.nameRANK.Text = "Full Name";
@@ -1105,7 +1075,6 @@
             // acRANK
             // 
             this.acRANK.AspectName = "ac";
-            this.acRANK.CellPadding = null;
             this.acRANK.FillsFreeSpace = true;
             this.acRANK.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.acRANK.MinimumWidth = 60;
@@ -1117,7 +1086,6 @@
             // nosRANK
             // 
             this.nosRANK.AspectName = "nos";
-            this.nosRANK.CellPadding = null;
             this.nosRANK.FillsFreeSpace = true;
             this.nosRANK.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nosRANK.MinimumWidth = 60;
@@ -1129,7 +1097,6 @@
             // day2RANK
             // 
             this.day2RANK.AspectName = "day2";
-            this.day2RANK.CellPadding = null;
             this.day2RANK.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.day2RANK.MinimumWidth = 60;
             this.day2RANK.Text = "2 days";
@@ -1140,7 +1107,6 @@
             // day7RANK
             // 
             this.day7RANK.AspectName = "day7";
-            this.day7RANK.CellPadding = null;
             this.day7RANK.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.day7RANK.MinimumWidth = 60;
             this.day7RANK.Text = "7 days";
@@ -1151,7 +1117,6 @@
             // day31RANK
             // 
             this.day31RANK.AspectName = "day31";
-            this.day31RANK.CellPadding = null;
             this.day31RANK.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.day31RANK.MinimumWidth = 60;
             this.day31RANK.Text = "31 days";
@@ -1162,7 +1127,6 @@
             // month3RANK
             // 
             this.month3RANK.AspectName = "month3";
-            this.month3RANK.CellPadding = null;
             this.month3RANK.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.month3RANK.MinimumWidth = 60;
             this.month3RANK.Text = "3 months";
@@ -1173,7 +1137,6 @@
             // year1RANK
             // 
             this.year1RANK.AspectName = "year1";
-            this.year1RANK.CellPadding = null;
             this.year1RANK.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.year1RANK.MinimumWidth = 60;
             this.year1RANK.Text = "1 year";
@@ -1275,34 +1238,27 @@
             // 
             // compareTab
             // 
-            this.compareTab.Controls.Add(this.compareUsers1);
+            this.compareTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.compareTab.Location = new System.Drawing.Point(4, 30);
             this.compareTab.Name = "compareTab";
             this.compareTab.Size = new System.Drawing.Size(588, 300);
             this.compareTab.TabIndex = 3;
             this.compareTab.Text = "Compare";
-            this.compareTab.UseVisualStyleBackColor = true;
             // 
-            // compareUsers1
+            // titleBackPanel
             // 
-            this.compareUsers1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.compareUsers1.Location = new System.Drawing.Point(0, 0);
-            this.compareUsers1.Name = "compareUsers1";
-            this.compareUsers1.Size = new System.Drawing.Size(588, 300);
-            this.compareUsers1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.userNameTitle);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(596, 38);
-            this.panel2.TabIndex = 4;
+            this.titleBackPanel.Controls.Add(this.userNameTitle);
+            this.titleBackPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.titleBackPanel.Location = new System.Drawing.Point(0, 0);
+            this.titleBackPanel.Name = "titleBackPanel";
+            this.titleBackPanel.Size = new System.Drawing.Size(596, 38);
+            this.titleBackPanel.TabIndex = 4;
             // 
             // userNameTitle
             // 
             this.userNameTitle.AutoSize = true;
+            this.userNameTitle.BackColor = System.Drawing.Color.Transparent;
+            this.userNameTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.userNameTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userNameTitle.ForeColor = System.Drawing.Color.Navy;
             this.userNameTitle.Location = new System.Drawing.Point(5, 4);
@@ -1369,15 +1325,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.lastSubmissions1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.progtrackerTab.ResumeLayout(false);
             this.worldrankTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.worldRanklist)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rankSelector)).EndInit();
-            this.compareTab.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.titleBackPanel.ResumeLayout(false);
+            this.titleBackPanel.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -1389,16 +1343,11 @@
         private System.Windows.Forms.CustomSplitContainer customSplitContainer1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage submissionTab;
-        private System.Windows.Forms.TabPage progtrackerTab;
-        private System.Windows.Forms.TabPage worldrankTab;
-        private System.Windows.Forms.TabPage compareTab;
         private BrightIdeasSoftware.OLVColumn unameCol;
         private BrightIdeasSoftware.OLVColumn uidCol;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.CueTextBox usernameBox;
         private System.Windows.Forms.Button usernameButton;
         private System.Windows.Forms.Label usernameStatus;
         public BrightIdeasSoftware.FastObjectListView lastSubmissions1;
@@ -1413,7 +1362,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel Status1;
         private System.Windows.Forms.ToolStripProgressBar Progress1;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel titleBackPanel;
         private System.Windows.Forms.Label userNameTitle;
         public BrightIdeasSoftware.FastObjectListView usernameList;
         private System.Windows.Forms.Timer timer1;
@@ -1443,7 +1392,6 @@
         private System.Windows.Forms.ToolStripMenuItem verdictToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem problemNameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem updateRateToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip MainContextMenu;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
@@ -1474,7 +1422,6 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton refreshSubmission;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-        private UserProgTracker userProgTracker1;
         private System.Windows.Forms.ContextMenuStrip uernameContextMenu;
         private System.Windows.Forms.ToolStripMenuItem deleteUserToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
@@ -1496,6 +1443,11 @@
         private System.Windows.Forms.NumericUpDown rankSelector;
         private System.Windows.Forms.Button showRankButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
-        private CompareUsers compareUsers1;
+        public System.Windows.Forms.ContextMenuStrip MainContextMenu;
+        public System.Windows.Forms.CueTextBox usernameBox;
+        public System.Windows.Forms.TabControl tabControl1;
+        public System.Windows.Forms.TabPage progtrackerTab;
+        public System.Windows.Forms.TabPage worldrankTab;
+        public System.Windows.Forms.TabPage compareTab;
     }
 }

@@ -51,6 +51,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.editorTab = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.currentLineColor = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.fontname = new System.Windows.Forms.Label();
@@ -61,7 +64,7 @@
             this.showFoldingLines = new System.Windows.Forms.CheckBox();
             this.wordWraps = new System.Windows.Forms.CheckBox();
             this.showLineNumbers = new System.Windows.Forms.CheckBox();
-            this.autoIndent = new System.Windows.Forms.CheckBox();
+            this.caretBlinking = new System.Windows.Forms.CheckBox();
             this.autoIndentChars = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.changeShortcuts = new System.Windows.Forms.Button();
@@ -101,6 +104,7 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.editorTab.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -359,6 +363,7 @@
             // editorTab
             // 
             this.editorTab.BackColor = System.Drawing.Color.AliceBlue;
+            this.editorTab.Controls.Add(this.groupBox3);
             this.editorTab.Controls.Add(this.groupBox2);
             this.editorTab.Controls.Add(this.groupBox1);
             this.editorTab.Controls.Add(this.groupBox7);
@@ -369,15 +374,48 @@
             this.editorTab.TabIndex = 1;
             this.editorTab.Text = "Editor";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.currentLineColor);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Location = new System.Drawing.Point(8, 253);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(360, 50);
+            this.groupBox3.TabIndex = 64;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Colors :";
+            // 
+            // currentLineColor
+            // 
+            this.currentLineColor.BackColor = global::UVA_Arena.Properties.Settings.Default.EditorCurrentLineColor;
+            this.currentLineColor.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::UVA_Arena.Properties.Settings.Default, "EditorCurrentLineColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.currentLineColor.Location = new System.Drawing.Point(168, 15);
+            this.currentLineColor.Name = "currentLineColor";
+            this.currentLineColor.Size = new System.Drawing.Size(186, 29);
+            this.currentLineColor.TabIndex = 1;
+            this.currentLineColor.UseVisualStyleBackColor = false;
+            this.currentLineColor.Click += new System.EventHandler(this.currentLineColor_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 23);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(150, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Change Current Line Color :";
+            // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.fontname);
-            this.groupBox2.Location = new System.Drawing.Point(8, 6);
+            this.groupBox2.Location = new System.Drawing.Point(8, 14);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(360, 79);
+            this.groupBox2.Size = new System.Drawing.Size(360, 90);
             this.groupBox2.TabIndex = 61;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Font :";
@@ -385,7 +423,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(273, 49);
+            this.button1.Location = new System.Drawing.Point(273, 60);
             this.button1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(84, 26);
@@ -397,11 +435,13 @@
             // fontname
             // 
             this.fontname.Dock = System.Windows.Forms.DockStyle.Left;
+            this.fontname.Font = new System.Drawing.Font("Consolas", 10F);
             this.fontname.Location = new System.Drawing.Point(3, 18);
             this.fontname.Name = "fontname";
-            this.fontname.Size = new System.Drawing.Size(265, 58);
+            this.fontname.Size = new System.Drawing.Size(265, 69);
             this.fontname.TabIndex = 1;
             this.fontname.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fontname.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox1
             // 
@@ -413,117 +453,119 @@
             this.groupBox1.Controls.Add(this.showFoldingLines);
             this.groupBox1.Controls.Add(this.wordWraps);
             this.groupBox1.Controls.Add(this.showLineNumbers);
-            this.groupBox1.Controls.Add(this.autoIndent);
+            this.groupBox1.Controls.Add(this.caretBlinking);
             this.groupBox1.Controls.Add(this.autoIndentChars);
-            this.groupBox1.Location = new System.Drawing.Point(10, 89);
+            this.groupBox1.Location = new System.Drawing.Point(10, 117);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(358, 119);
+            this.groupBox1.Size = new System.Drawing.Size(358, 120);
             this.groupBox1.TabIndex = 56;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Check Values :";
             // 
             // showHints
             // 
-            this.showHints.AutoCheck = false;
             this.showHints.AutoSize = true;
             this.showHints.Location = new System.Drawing.Point(205, 93);
             this.showHints.Name = "showHints";
-            this.showHints.Size = new System.Drawing.Size(85, 17);
+            this.showHints.Size = new System.Drawing.Size(130, 17);
             this.showHints.TabIndex = 10;
-            this.showHints.Text = "Show Hints";
+            this.showHints.Text = "Show Compile Hints";
             this.showHints.UseVisualStyleBackColor = true;
-            this.showHints.Click += new System.EventHandler(this.CheckValue_Click);
+            this.showHints.CheckedChanged += new System.EventHandler(this.showHints_CheckedChanged);
             // 
             // highlightFoldingIndicator
             // 
-            this.highlightFoldingIndicator.AutoCheck = false;
             this.highlightFoldingIndicator.AutoSize = true;
+            this.highlightFoldingIndicator.Checked = global::UVA_Arena.Properties.Settings.Default.EditorHighlightFolding;
+            this.highlightFoldingIndicator.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.highlightFoldingIndicator.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "EditorHighlightFolding", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.highlightFoldingIndicator.Location = new System.Drawing.Point(12, 93);
             this.highlightFoldingIndicator.Name = "highlightFoldingIndicator";
             this.highlightFoldingIndicator.Size = new System.Drawing.Size(167, 17);
             this.highlightFoldingIndicator.TabIndex = 9;
             this.highlightFoldingIndicator.Text = "Highlight Folding Indicator";
             this.highlightFoldingIndicator.UseVisualStyleBackColor = true;
-            this.highlightFoldingIndicator.Click += new System.EventHandler(this.CheckValue_Click);
             // 
             // autoCompleteBrackets
             // 
-            this.autoCompleteBrackets.AutoCheck = false;
             this.autoCompleteBrackets.AutoSize = true;
+            this.autoCompleteBrackets.Checked = global::UVA_Arena.Properties.Settings.Default.EditorAutoCompleteBrackets;
+            this.autoCompleteBrackets.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "EditorAutoCompleteBrackets", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.autoCompleteBrackets.Location = new System.Drawing.Point(12, 24);
             this.autoCompleteBrackets.Name = "autoCompleteBrackets";
             this.autoCompleteBrackets.Size = new System.Drawing.Size(149, 17);
             this.autoCompleteBrackets.TabIndex = 3;
             this.autoCompleteBrackets.Text = "Auto Complete Brackets";
             this.autoCompleteBrackets.UseVisualStyleBackColor = true;
-            this.autoCompleteBrackets.Click += new System.EventHandler(this.CheckValue_Click);
             // 
             // showFoldingLines
             // 
-            this.showFoldingLines.AutoCheck = false;
             this.showFoldingLines.AutoSize = true;
+            this.showFoldingLines.Checked = global::UVA_Arena.Properties.Settings.Default.EditorShowFoldingLines;
+            this.showFoldingLines.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "EditorShowFoldingLines", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.showFoldingLines.Location = new System.Drawing.Point(12, 47);
             this.showFoldingLines.Name = "showFoldingLines";
             this.showFoldingLines.Size = new System.Drawing.Size(127, 17);
             this.showFoldingLines.TabIndex = 4;
             this.showFoldingLines.Text = "Show Folding Lines";
             this.showFoldingLines.UseVisualStyleBackColor = true;
-            this.showFoldingLines.Click += new System.EventHandler(this.CheckValue_Click);
             // 
             // wordWraps
             // 
-            this.wordWraps.AutoCheck = false;
             this.wordWraps.AutoSize = true;
+            this.wordWraps.Checked = global::UVA_Arena.Properties.Settings.Default.EditorWordWrap;
+            this.wordWraps.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "EditorWordWrap", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.wordWraps.Location = new System.Drawing.Point(205, 24);
             this.wordWraps.Name = "wordWraps";
             this.wordWraps.Size = new System.Drawing.Size(86, 17);
             this.wordWraps.TabIndex = 5;
             this.wordWraps.Text = "Word Wrap";
             this.wordWraps.UseVisualStyleBackColor = true;
-            this.wordWraps.Click += new System.EventHandler(this.CheckValue_Click);
             // 
             // showLineNumbers
             // 
-            this.showLineNumbers.AutoCheck = false;
             this.showLineNumbers.AutoSize = true;
+            this.showLineNumbers.Checked = global::UVA_Arena.Properties.Settings.Default.EditorShowLineNumbers;
+            this.showLineNumbers.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showLineNumbers.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "EditorShowLineNumbers", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.showLineNumbers.Location = new System.Drawing.Point(12, 70);
             this.showLineNumbers.Name = "showLineNumbers";
             this.showLineNumbers.Size = new System.Drawing.Size(128, 17);
             this.showLineNumbers.TabIndex = 6;
             this.showLineNumbers.Text = "Show Line Numbers";
             this.showLineNumbers.UseVisualStyleBackColor = true;
-            this.showLineNumbers.Click += new System.EventHandler(this.CheckValue_Click);
             // 
-            // autoIndent
+            // caretBlinking
             // 
-            this.autoIndent.AutoCheck = false;
-            this.autoIndent.AutoSize = true;
-            this.autoIndent.Location = new System.Drawing.Point(205, 47);
-            this.autoIndent.Name = "autoIndent";
-            this.autoIndent.Size = new System.Drawing.Size(88, 17);
-            this.autoIndent.TabIndex = 7;
-            this.autoIndent.Text = "Auto Indent";
-            this.autoIndent.UseVisualStyleBackColor = true;
-            this.autoIndent.Click += new System.EventHandler(this.CheckValue_Click);
+            this.caretBlinking.AutoSize = true;
+            this.caretBlinking.Checked = global::UVA_Arena.Properties.Settings.Default.EditorCaretBlinking;
+            this.caretBlinking.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.caretBlinking.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "EditorCaretBlinking", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.caretBlinking.Location = new System.Drawing.Point(205, 47);
+            this.caretBlinking.Name = "caretBlinking";
+            this.caretBlinking.Size = new System.Drawing.Size(99, 17);
+            this.caretBlinking.TabIndex = 7;
+            this.caretBlinking.Text = "Caret Blinking";
+            this.caretBlinking.UseVisualStyleBackColor = true;
             // 
             // autoIndentChars
             // 
-            this.autoIndentChars.AutoCheck = false;
             this.autoIndentChars.AutoSize = true;
+            this.autoIndentChars.Checked = global::UVA_Arena.Properties.Settings.Default.EditorAutoIndentChars;
+            this.autoIndentChars.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "EditorAutoIndentChars", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.autoIndentChars.Location = new System.Drawing.Point(205, 70);
             this.autoIndentChars.Name = "autoIndentChars";
             this.autoIndentChars.Size = new System.Drawing.Size(120, 17);
             this.autoIndentChars.TabIndex = 8;
             this.autoIndentChars.Text = "Auto Indent Chars";
             this.autoIndentChars.UseVisualStyleBackColor = true;
-            this.autoIndentChars.Click += new System.EventHandler(this.CheckValue_Click);
             // 
             // groupBox7
             // 
             this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox7.Controls.Add(this.changeShortcuts);
-            this.groupBox7.Location = new System.Drawing.Point(8, 392);
+            this.groupBox7.Location = new System.Drawing.Point(8, 321);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(360, 50);
             this.groupBox7.TabIndex = 63;
@@ -574,6 +616,7 @@
             // javaCompilerOptions
             // 
             this.javaCompilerOptions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.javaCompilerOptions.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UVA_Arena.Properties.Settings.Default, "JavaCompilerOptions", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.javaCompilerOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.javaCompilerOptions.Location = new System.Drawing.Point(3, 18);
             this.javaCompilerOptions.Multiline = true;
@@ -581,7 +624,7 @@
             this.javaCompilerOptions.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.javaCompilerOptions.Size = new System.Drawing.Size(344, 54);
             this.javaCompilerOptions.TabIndex = 0;
-            this.javaCompilerOptions.TextChanged += new System.EventHandler(this.javaCompilerOptions_TextChanged);
+            this.javaCompilerOptions.Text = global::UVA_Arena.Properties.Settings.Default.JavaCompilerOptions;
             // 
             // groupBox9
             // 
@@ -596,6 +639,7 @@
             // cppCompilerOptions
             // 
             this.cppCompilerOptions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.cppCompilerOptions.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UVA_Arena.Properties.Settings.Default, "CPPCompilerOptions", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cppCompilerOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cppCompilerOptions.Location = new System.Drawing.Point(3, 18);
             this.cppCompilerOptions.Multiline = true;
@@ -603,7 +647,7 @@
             this.cppCompilerOptions.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.cppCompilerOptions.Size = new System.Drawing.Size(344, 54);
             this.cppCompilerOptions.TabIndex = 0;
-            this.cppCompilerOptions.TextChanged += new System.EventHandler(this.cppCompilerOptions_TextChanged);
+            this.cppCompilerOptions.Text = global::UVA_Arena.Properties.Settings.Default.CPPCompilerOptions;
             // 
             // groupBox8
             // 
@@ -618,6 +662,7 @@
             // cCompilerOptions
             // 
             this.cCompilerOptions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.cCompilerOptions.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UVA_Arena.Properties.Settings.Default, "CCompilerOptions", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cCompilerOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cCompilerOptions.Location = new System.Drawing.Point(3, 18);
             this.cCompilerOptions.Multiline = true;
@@ -625,7 +670,7 @@
             this.cCompilerOptions.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.cCompilerOptions.Size = new System.Drawing.Size(344, 54);
             this.cCompilerOptions.TabIndex = 0;
-            this.cCompilerOptions.TextChanged += new System.EventHandler(this.cCompilerOptions_TextChanged);
+            this.cCompilerOptions.Text = global::UVA_Arena.Properties.Settings.Default.CCompilerOptions;
             // 
             // panel3
             // 
@@ -678,6 +723,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.jdkLocation.BackColor = System.Drawing.Color.White;
             this.jdkLocation.CueText = "Click browse to select location...";
+            this.jdkLocation.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UVA_Arena.Properties.Settings.Default, "JDKLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.jdkLocation.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.jdkLocation.ForeColor = System.Drawing.Color.Black;
             this.jdkLocation.Location = new System.Drawing.Point(16, 127);
@@ -685,6 +731,7 @@
             this.jdkLocation.ReadOnly = true;
             this.jdkLocation.Size = new System.Drawing.Size(255, 25);
             this.jdkLocation.TabIndex = 20;
+            this.jdkLocation.Text = global::UVA_Arena.Properties.Settings.Default.JDKLocation;
             // 
             // minGWLocation
             // 
@@ -692,6 +739,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.minGWLocation.BackColor = System.Drawing.Color.White;
             this.minGWLocation.CueText = "Click browse to select location...";
+            this.minGWLocation.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UVA_Arena.Properties.Settings.Default, "MinGWLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.minGWLocation.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.minGWLocation.ForeColor = System.Drawing.Color.Black;
             this.minGWLocation.Location = new System.Drawing.Point(16, 28);
@@ -699,6 +747,7 @@
             this.minGWLocation.ReadOnly = true;
             this.minGWLocation.Size = new System.Drawing.Size(255, 25);
             this.minGWLocation.TabIndex = 19;
+            this.minGWLocation.Text = global::UVA_Arena.Properties.Settings.Default.MinGWLocation;
             // 
             // button2
             // 
@@ -887,7 +936,7 @@
         '\"',
         '\'',
         '\''};
-            this.codeTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 15);
+            this.codeTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 15);
             this.codeTextBox.BackBrush = null;
             this.codeTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.codeTextBox.CharHeight = 15;
@@ -905,6 +954,7 @@
             this.codeTextBox.Name = "codeTextBox";
             this.codeTextBox.Paddings = new System.Windows.Forms.Padding(0);
             this.codeTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.codeTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("codeTextBox.ServiceColors")));
             this.codeTextBox.ShowFoldingLines = true;
             this.codeTextBox.Size = new System.Drawing.Size(360, 353);
             this.codeTextBox.SourceTextBox = this.codeTextBox;
@@ -938,6 +988,8 @@
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.editorTab.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -985,7 +1037,7 @@
         private System.Windows.Forms.CheckBox wordWraps;
         private System.Windows.Forms.CheckBox showLineNumbers;
         private System.Windows.Forms.CheckBox autoIndentChars;
-        private System.Windows.Forms.CheckBox autoIndent;
+        private System.Windows.Forms.CheckBox caretBlinking;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox6;
@@ -1022,11 +1074,14 @@
         private System.Windows.Forms.Label fontname;
         private System.Windows.Forms.CheckBox showHints;
         private System.Windows.Forms.CheckBox highlightFoldingIndicator;
-        private System.Windows.Forms.Button saveCodeButton;
         private System.Windows.Forms.RadioButton PascalRadioButton;
         private System.Windows.Forms.RadioButton JavaRadioButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton cppRadioButton;
         private System.Windows.Forms.RadioButton ansiCradioButton;
+        private System.Windows.Forms.Button saveCodeButton;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button currentLineColor;
+        private System.Windows.Forms.Label label7;
     }
 }

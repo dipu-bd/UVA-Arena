@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UVA_Arena</RootNamespace>
     <AssemblyName>UVA Arena</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
@@ -227,6 +227,7 @@
     <Compile Include="Classes\Data Structures\JudgeStatus.cs" />
     <Compile Include="Classes\Utilities\TaskQueue.cs" />
     <Compile Include="Classes\Utilities\UnixTimeStamp.cs" />
+    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="Controls\SearchBox.resx">
       <DependentUpon>SearchBox.cs</DependentUpon>
     </EmbeddedResource>

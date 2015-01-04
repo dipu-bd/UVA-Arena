@@ -159,7 +159,7 @@ namespace UVA_Arena.Elements
 
             //get compiler
             int runtime = (int)(RunTimeLimit * 1000);
-            string exec = CODES.JDKLocation;
+            string exec = Properties.Settings.Default.JDKLocation;
             exec = Path.Combine(exec, "bin");
             exec = Path.Combine(exec, "java.exe");
             if (!File.Exists(exec))
@@ -196,7 +196,7 @@ namespace UVA_Arena.Elements
             string filename = CurrentProblem.FullName;
 
             //get compiler
-            string compiler = CODES.MinGWLocation;
+            string compiler = Properties.Settings.Default.MinGWLocation;
             compiler = Path.Combine(compiler, "bin");
             compiler = Path.Combine(compiler, "mingw32-gcc.exe");
             if (!File.Exists(compiler))
@@ -207,7 +207,7 @@ namespace UVA_Arena.Elements
             string exec = Path.Combine(Path.GetDirectoryName(filename), name + ".exe");
 
             //options
-            string options = CODES.CCompilerOptions;
+            string options = Properties.Settings.Default.CCompilerOptions;
 
             //run process
             string arguments = string.Format("\"{0}\" \"{1}\" {2} -o \"{3}", compiler, filename, options, exec);
@@ -223,7 +223,7 @@ namespace UVA_Arena.Elements
             string filename = CurrentProblem.FullName;
 
             //get compiler
-            string compiler = CODES.MinGWLocation;
+            string compiler = Properties.Settings.Default.MinGWLocation;
             compiler = Path.Combine(compiler, "bin");
             compiler = Path.Combine(compiler, "mingw32-g++.exe");
             if (!File.Exists(compiler))
@@ -234,7 +234,7 @@ namespace UVA_Arena.Elements
             string exec = Path.Combine(Path.GetDirectoryName(filename), name + ".exe");
 
             //options
-            string options = CODES.CPPCompilerOptions;
+            string options = Properties.Settings.Default.CPPCompilerOptions;
 
             //run process
             string arguments = string.Format("\"{0}\" \"{1}\" {2} -o \"{3}", compiler, filename, options, exec);
@@ -250,7 +250,7 @@ namespace UVA_Arena.Elements
             string filename = CurrentProblem.FullName;
 
             //get compiler
-            string compiler = CODES.JDKLocation;
+            string compiler = Properties.Settings.Default.JDKLocation;
             compiler = Path.Combine(compiler, "bin");
             compiler = Path.Combine(compiler, "javac.exe");
             if (!File.Exists(compiler))
@@ -260,7 +260,7 @@ namespace UVA_Arena.Elements
             string dir = Path.GetDirectoryName(filename);
 
             //options
-            string options = CODES.JavaCompilerOptions;
+            string options = Properties.Settings.Default.JavaCompilerOptions;
 
             //run process
             string arguments = string.Format("\"{0}\" {1} -d \"{2}\" \"{3}\"", compiler, options, dir, filename);

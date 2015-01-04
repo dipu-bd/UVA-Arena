@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using TheCodeKing.ActiveButtons.Controls;
 using UVA_Arena.Properties;
 
 namespace UVA_Arena
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IMessageFilter
     {
         private ActiveButton log = new ActiveButton();
         private ActiveButton settings = new ActiveButton();
@@ -15,11 +16,23 @@ namespace UVA_Arena
         public MainForm()
         {
             InitializeComponent();
+            Application.AddMessageFilter(this);
 
             //make background trasparent
-            bool set = NativeMethods.ExtendWindowsFrame(this, 3, 2, 34, 2);
-            //if it doesn't work set a color
-            if (!set) customTabControl1.BackColor = Color.PowderBlue;
+            bool set = false; // NativeMethods.ExtendWindowsFrame(this, 3, 2, 58, 2);
+            //if it works set a color
+            if (set)
+            {
+                menuStrip1.BackColor = Color.Black;
+                menuStrip1.ForeColor = Color.NavajoWhite;
+            }
+            else
+            {
+                customTabControl1.BackColor = Color.PaleTurquoise;
+
+                Stylish.SetGradientBackground(menuStrip1,
+                    new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
+            }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -37,6 +50,28 @@ namespace UVA_Arena
             DelayInitialize(true);
         }
 
+        #region mouse wheel without focus
+
+        public bool PreFilterMessage(ref Message m)
+        {
+            if (m.Msg == NativeMethods.WM_MOUSEWHEEL)
+            {
+                //find the control at screen position m.LParam
+                Point pos = new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16);
+                IntPtr hWnd = NativeMethods.WindowFromPoint(pos);
+                if (hWnd != IntPtr.Zero && hWnd != m.HWnd &&
+                    System.Windows.Forms.Control.FromHandle(hWnd) != null)
+                {
+                    NativeMethods.SendMessage(hWnd, (uint)m.Msg, m.WParam, m.LParam);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        #endregion
+
+
         public void SetFormProperties()
         {
             this.Text = string.Format(this.Tag.ToString(),
@@ -49,83 +84,73 @@ namespace UVA_Arena
             //run in background
             if ((bool)background)
             {
+                this.Cursor = Cursors.AppStarting;
                 System.Threading.ThreadPool.QueueUserWorkItem(DelayInitialize, false);
                 return;
             }
-
-            //first load problem database
-            LocalDatabase.RunLoadAsync(false);
-             
+              
+            //load problem database
+            LocalDatabase.RunLoadAsync(false); 
+            
             //load controls
             this.BeginInvoke((MethodInvoker)delegate
             {
                 //load problems
                 Interactivity.problems = new Elements.PROBLEMS();
                 Interactivity.problems.Dock = DockStyle.Fill;
-                Interactivity.problems.BorderStyle = BorderStyle.FixedSingle;
-                
-                //load problem viewer            
-                Interactivity.problemViewer = new Elements.ProblemViewer();
-                Interactivity.problemViewer.Dock = DockStyle.Fill;
-                Interactivity.problemViewer.BorderStyle = BorderStyle.None;
-                Interactivity.problems.mainSplitContainer.Panel2.Controls.Add(Interactivity.problemViewer);
+                Interactivity.problems.Visible = false;
+                problemTab.Controls.Add(Interactivity.problems);
 
-                //load codes
+                //load codes 
                 Interactivity.codes = new Elements.CODES();
                 Interactivity.codes.Dock = DockStyle.Fill;
-                Interactivity.codes.BorderStyle = BorderStyle.FixedSingle;
-                
-                //load status
+                Interactivity.codes.Visible = false;
+                codesTab.Controls.Add(Interactivity.codes);
+
+
+                //load status 
                 Interactivity.status = new Elements.STATUS();
                 Interactivity.status.Dock = DockStyle.Fill;
-                Interactivity.status.BorderStyle = BorderStyle.FixedSingle;
+                Interactivity.status.Visible = false;
+                judgeStatusTab.Controls.Add(Interactivity.status);
 
-                //load user stat
+                //load user stat 
                 Interactivity.userstat = new Elements.USER_STAT();
                 Interactivity.userstat.Dock = DockStyle.Fill;
-
-                //load utilities
-                Interactivity.utilities = new Elements.UTILITIES();
-                Interactivity.utilities.Dock = DockStyle.Fill;
-
-                //turn off visibility
-                Interactivity.problems.Visible = false;
-                Interactivity.status.Visible = false;
-                Interactivity.codes.Visible = false;
                 Interactivity.userstat.Visible = false;
-                Interactivity.utilities.Visible = false;
-
-                //add controls
-                problemTab.Controls.Add(Interactivity.problems);
-                codesTab.Controls.Add(Interactivity.codes);
-                judgeStatusTab.Controls.Add(Interactivity.status);
                 profileTab.Controls.Add(Interactivity.userstat);
-                utilitiesTab.Controls.Add(Interactivity.utilities);
 
-                //turn on visibility      
+                //load utilities 
+                //Interactivity.utilities = new Elements.UTILITIES();
+                //Interactivity.utilities.Dock = DockStyle.Fill; 
+                //Interactivity.utilities.Visible = false; 
+                //utilitiesTab.Controls.Add(Interactivity.utilities); 
+
+                //turn on visibility     
                 Interactivity.problems.Visible = true;
                 Interactivity.codes.Visible = true;
                 Interactivity.status.Visible = true;
                 Interactivity.userstat.Visible = true;
-                Interactivity.utilities.Visible = true;
+                //Interactivity.utilities.Visible = true;
 
+                //set up context menu
+                statusToolStripMenuItem.DropDown = Interactivity.status.updateContextMenu;
+                submissionsToolStripMenuItem.DropDown = Interactivity.userstat.MainContextMenu;
+
+                this.Cursor = Cursors.Default;
                 Logger.Add("Initialized all controls", "Main Form");
             });
 
             //fetch problem database from internet if not available            
-            System.Threading.Thread.Sleep(3000);            
+            System.Threading.Thread.Sleep(3000);
             if (LocalDirectory.GetFileSize(LocalDirectory.GetProblemDataFile()) < 100)
             {
                 this.BeginInvoke((MethodInvoker)delegate
-                    {
-                        Internet.DownloadTaskHandler complete =
-                            delegate(Internet.DownloadTask task) { LocalDatabase.LoadDatabase(); };
-                        Internet.Downloader.DownloadProblemDatabase(complete, null);
-                    });
-            } 
+                {
+                    UVA_Arena.Internet.Downloader.DownloadProblemDatabase();
+                });
+            }
         }
-
-
 
         private void AddActiveButtons()
         {
@@ -153,5 +178,216 @@ namespace UVA_Arena
             menu.Items.Add(log);
             menu.Items.Add(help);
         }
+
+        #region Menubar Actions
+
+
+        //File Menu
+        private void setDefaultUserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowUserNameForm();
+        }
+
+        private void submitFormToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.SubmitCode(0);
+        }
+
+        private void uDebugToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.codes.tabControl1.SelectedTab = Interactivity.codes.uDebugTab;
+            customTabControl1.SelectedTab = codesTab;
+        }
+
+        private void discussForumToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.problemViewer.tabControl1.SelectedTab = Interactivity.problemViewer.discussTab;
+            customTabControl1.SelectedTab = problemTab;
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowSettings();
+        }
+
+        private void loggerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowLogger();
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        //problems
+        private void refreshDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LocalDatabase.LoadDatabase();
+        }
+
+        private void downloadDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UVA_Arena.Internet.Downloader.DownloadProblemDatabase();
+        }
+
+        private void descriptionDownloaderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            customTabControl1.SelectedTab = problemTab;
+            Interactivity.ShowDownloadAllForm();
+        }
+
+        private void descriptionFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(LocalDirectory.ProblemsPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void backupDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Functions.BackupData();
+        }
+
+        private void restoreDatabseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Functions.RestoreData();
+        }
+
+        private void expandViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            customTabControl1.SelectedTab = problemTab;
+            Interactivity.problems.ExpandCollapseView();
+        }
+
+        private void viewCodeFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.problemViewer.codeButton.PerformClick();
+        }
+
+        //codes
+        private void changeDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            customTabControl1.SelectedTab = codesTab;
+            Interactivity.codes.ChangeCodeDirectory();
+        }
+
+        private void formatDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            customTabControl1.SelectedTab = codesTab;
+            Interactivity.codes.FormatCodeDirectory(true);
+        }
+
+        private void refreshViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            customTabControl1.SelectedTab = codesTab;
+            Interactivity.codes.LoadCodeFolder(true);
+        }
+
+        private void editorSettingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowSettings(1);
+        }
+
+        private void setUpCompilerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowSettings(2);
+        }
+
+        private void changePrecodesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowSettings(3);
+        }
+
+        private void submitCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.codes.submitToolButton.PerformClick();
+        }
+
+        //user status
+        private void addUserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.userstat.usernameBox.Focus();
+            customTabControl1.SelectedTab = profileTab;
+        }
+
+        private void worldRankToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.userstat.tabControl1.SelectedTab = Interactivity.userstat.worldrankTab;
+            customTabControl1.SelectedTab = profileTab;
+        }
+
+        private void compareToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.userstat.tabControl1.SelectedTab = Interactivity.userstat.compareTab;
+            customTabControl1.SelectedTab = profileTab;
+        }
+
+        private void basicInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.progTracker.tabControl1.SelectedTab = Interactivity.progTracker.basicInfoTab;
+            Interactivity.userstat.tabControl1.SelectedTab = Interactivity.userstat.progtrackerTab;
+            customTabControl1.SelectedTab = profileTab;
+        }
+
+        private void submissionOverTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.progTracker.tabControl1.SelectedTab = Interactivity.progTracker.subPerDateTab;
+            Interactivity.userstat.tabControl1.SelectedTab = Interactivity.userstat.progtrackerTab;
+            customTabControl1.SelectedTab = profileTab;
+        }
+
+        private void submissionPerVerdictrToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.progTracker.tabControl1.SelectedTab = Interactivity.progTracker.subPerVerTab;
+            Interactivity.userstat.tabControl1.SelectedTab = Interactivity.userstat.progtrackerTab;
+            customTabControl1.SelectedTab = profileTab;
+        }
+
+        private void submissionLanguagesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.progTracker.tabControl1.SelectedTab = Interactivity.progTracker.subPerLanTab;
+            Interactivity.userstat.tabControl1.SelectedTab = Interactivity.userstat.progtrackerTab;
+            customTabControl1.SelectedTab = profileTab;
+        }
+
+        private void rankCloudToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.progTracker.tabControl1.SelectedTab = Interactivity.progTracker.rankCloudTab;
+            Interactivity.userstat.tabControl1.SelectedTab = Interactivity.userstat.progtrackerTab;
+            customTabControl1.SelectedTab = profileTab;
+        }
+
+        // help menu
+        private void onlineHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string url = "https://github.com/dipu-bd/UVA-Arena/wiki";
+                System.Diagnostics.Process.Start(url);
+            }
+            catch (Exception ex)
+            {
+                Logger.Add(ex.Message, "MainForm|onlineHelpToolStripMenuItem_Click");
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowHelpAbout();
+        }
+
+        private void licenceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowHelpAbout();
+        }
+
+        #endregion
+
     }
 }

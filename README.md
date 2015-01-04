@@ -1,19 +1,72 @@
-UVA-Arena
-=========
+# UVA-Arena
 
 ![UVA Arena Icon](Images/Main.ico)
- 
+
 **UVA Arena** (c) 2014, is a free, windows based, open source software to help you with your programming practice. It is based on popular [UVA Online Judge](http://uva.onlinejudge.org/) and uses APIs from [uHunt](http://uhunt.felix-halim.net/). 
 
-Almost every features of [uHunt](http://uhunt.felix-halim.net/) has been included in this software. It also has many other useful features like, coding and compiling code under the same window, auto-generating output from input file, matching your program's output with correct input files, attractive and informative user profile viewer, etc. etc.
+Main target of this software is to provide a useful and informative tool to the users to help them with their programming practice. Today programming has become a very competitive field. You need to keep track of your progress daily, learn new things, and of-course solve new problems as fast as you can. Problem picking and managing your codes is a time consuming process. You can minimize this wasting of time as much as possible using **UVA Arena**. 
 
-Main target of this software was to provide a useful and informative tool to the users to help them with their programming practice. Today programming has become a very competitive field. You need to keep track of your progress daily, learn new things, and of-course solve new problems as fast as you can and as many as you can. Problem picking and managing your codes neatly is a time wasting process. You can minimize this wasting of time as much as possible using **UVA Arena**. 
+Almost every features of [uHunt](http://uhunt.felix-halim.net/) has been included in this software. It also has many other useful features.  
 
-The most attractive feature of **UVA Arena** might be its user profile section. You can view all of your submissions in any order and fashion you want. You can also view your overall progress with different types of graphs and plots and your rank among all users. You can compare yourself with other users to find out how far you have managed to develop yourself.  Also its has many options to pick the next problem to solve easily.
+This is a software for heavy users and serious programmers. It might seem too much to take at first glance. But once you get used to it, I think you will find it very easy and helpful.
+  
 
-Overall, this is a software to use for heavy users and serious programmers. At a first glance, it might seem too much for any beginners, but once you get used to it you will find it very useful and easy. This is a good tool for lazy programmers who don't want to repeat same actions over and over again and wants to eat the ready-made food.
+### List of features 
 
-Developer
-=========
-> Sudipto Chandra Dipu  
-> [dipu.sudipta@gmail.com](dipu.sudipta@gmail.com)
+Here is a brief list of the features that this software provides:   
+
+##### Problem Viewer 
+* View list of all problems of UVA Online Judge
+* Download and store problem descriptions. (Both html and pdf versions are available) 
+* View last submissions made on a problem.
+* View specific user's rank and submissions on a problem
+* Compare between favourite user's submissions on a problem
+* Discussion on problem on UVA forum.
+* Sort or group problem list according to volume, title, level or DACU.
+* Mark a problem favourite to view it later.
+* View your accepted problems or hide them from the list.
+* Problems are initially categorized using competitive programming book.
+* You can change category of problems as you like.
+* Backup downloaded problem descriptions
+* Restore previously downloaded problem descriptions
+* Search problem list as well as problem description using Deep Search option. 
+
+##### Code Editor
+* Edit and compile code.
+* Available compilers are C, C++, and Java. 
+* Auto management of problem's codes.
+* Auto recognize problem from code file name.
+* Automatically create code file for selected problem.
+* Generate output from input file and compare between program's output and correct output for code of any problem.
+* Generate sample input and output file from problem description. (Works with 60-70% problems) 
+* Pre-Code feature: Save default code to use it in new files, so that you don't have to write codes from scratch each time.
+* Browse uDebug from a tab page.
+* Submit problem: You don't have to copy-paste codes. Everything is automated. 
+
+##### Judge Status
+* View latest submissions at [UVA Online Judge](http://uva.onlinejudge.org/) here.
+* Add selected user to your favourite list.
+* Control auto update option as you like. 
+
+##### User Statistics
+* Download all of your submissions offline.
+* Sort and group your user's submissions according to your wish.
+* Graph to represent submissions and accepted over time, verdict of submissions, language used, and rank cloud for different ranks on accepted problems.
+* World Rank-list: Your position in the world, or users staring from a specific position.
+* Compare submissions between two users.  
+
+### Dependent Projects  
+This software uses controls from the following sources-  
+* [uHunt API](http://uhunt.felix-halim.net/api) for user's information and problem database and latest judge status. 
+* [ActiveButtons.NET](https://github.com/TheCodeKing/ActiveButtons.Net), for title bar buttons.
+* For parsing and editing HTML files, [HTML Agility Pack](http://htmlagilitypack.codeplex.com/). 
+* [NewtonSoft.JSON](http://james.newtonking.com/json) to parse [JSON](http://en.wikipedia.org/wiki/JSON) data file. 
+* [Object List View](http://objectlistview.sourceforge.net/cs/index.html) is the _most used and notable control_. 
+* Second most used is [Fast Colored Text Box](https://github.com/PavelTorgashov/FastColoredTextBox) for Syntax Highlighting and Code Editing.  
+* To plot graphs in user progress tracker [ZedGraph](http://sourceforge.net/projects/zedgraph/) was used. 
+* To Compress and Decompress Problems data pack [Don Net Zip](https://github.com/eropple/dotnetzip) was used. 
+* Icon resources are mostly open-source. But I couldn't look up the licences for all icons. Please inform me if any icon here is under copyright protection.
+
+## Developer  
+> __Sudipto Chandra Dipu__  
+> <dipu.sudipta@gmail.com> 

@@ -23,6 +23,8 @@ namespace UVA_Arena
         public const int TCM_HITTEST = 0x130D;
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
+        /// <summary> When Mouse Wheel scrolling occurs </summary
+        public const int WM_MOUSEWHEEL = 0x20A;
         /// <summary> When horizontal scrolling occurs </summary>
         public const int WM_HSCROLL = 0x114;
         /// <summary> The left mouse button is down </summary>
@@ -105,9 +107,14 @@ namespace UVA_Arena
         //
         [DllImport("user32.dll"), SecurityPermission(SecurityAction.Demand)]
         public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam);         
+        
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
-          
+
+        // P/Invoke declarations
+        [DllImport("user32.dll")]
+        public static extern IntPtr WindowFromPoint(Point pt);
+
         //
         // UXTheme
         //

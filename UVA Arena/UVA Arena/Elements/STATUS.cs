@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Net;
+using System.Windows.Forms;
 using UVA_Arena.Structures;
 
 namespace UVA_Arena.Elements
@@ -11,6 +11,7 @@ namespace UVA_Arena.Elements
     public partial class STATUS : UserControl
     {
         private WebClient webClient1 = new WebClient();
+
         public STATUS()
         {
             InitializeComponent();
@@ -28,6 +29,9 @@ namespace UVA_Arena.Elements
             SelectUpdateRateMenu();
             timer1.Enabled = AutoUpdateStatus;
             autoUpdateToolMenu.Checked = AutoUpdateStatus;
+
+            Stylish.SetGradientBackground(panel1,
+                new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 90F));
         }
 
         //

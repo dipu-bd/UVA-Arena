@@ -14,18 +14,22 @@ namespace UVA_Arena.Elements
 {
     public partial class CODES : UserControl
     {
-        #region Loader Functions
+
+        #region Startup Functions
 
         public CODES()
         {
             InitializeComponent();
+
+            codeTextBox.Font = Properties.Settings.Default.EditorFont;
+            folderTreeView.PathSeparator = Path.DirectorySeparatorChar.ToString();
         }
+         
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            folderTreeView.PathSeparator = Path.DirectorySeparatorChar.ToString();
 
             string path = CodesPath;
             if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
@@ -75,7 +79,7 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
-
+        
         #region Registry Entry
 
         /// <summary> default user name </summary>
@@ -91,110 +95,53 @@ namespace UVA_Arena.Elements
             {
                 RegistryAccess.SetValue("Codes Path", value);
             }
+        } 
+
+        #endregion
+
+        #region Folder Tree List
+
+        private void folderTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            try
+            {
+                TreeNode tn = folderTreeView.SelectedNode;
+                if (tn != null && tn.Tag.GetType() == typeof(FileInfo))
+                    System.Diagnostics.Process.Start(((FileInfo)tn.Tag).FullName);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        /// <summary> MinGW Path </summary>
-        public static string MinGWLocation
+        private void folderTreeView_KeyDown(object sender, KeyEventArgs e)
         {
-            get
+            if (e.KeyCode == Keys.Enter && !e.Shift && !e.Control)
             {
-                string dat = (string)RegistryAccess.GetValue("MinGW Compiler", null);
-                if (dat != null && Directory.Exists(dat)) return dat;
-
-                string path = @"C:\MinGW";
-                string gcc = Path.Combine(path, @"bin\mingw32-gcc.exe");
-                string gpp = Path.Combine(path, @"bin\mingw32-g++.exe");
-                if (!(File.Exists(gcc) && File.Exists(gpp))) return "";
-
-                RegistryAccess.SetValue("MinGW Compiler", path);
-                return path;
-            }
-            set
-            {
-                RegistryAccess.SetValue("MinGW Compiler", value);
-            }
-        }
-
-        /// <summary> JDK Path </summary>
-        public static string JDKLocation
-        {
-            get
-            {
-                string dat = (string)RegistryAccess.GetValue("JDK Compiler", null);
-                if (dat != null && Directory.Exists(dat)) return dat;
-
-                string key = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\TypedPaths";
-                string path = (string)Microsoft.Win32.Registry.GetValue(key, "url1", "");
-                if (path == null) return "";
-                string javac = Path.Combine(path, @"javac.exe");
-                string java = Path.Combine(path, @"java.exe");
-                if (!(File.Exists(javac) && File.Exists(java))) return "";
-
-                path = Path.GetDirectoryName(path);
-                RegistryAccess.SetValue("JDK Compiler", path);
-                return path;
-            }
-            set
-            {
-                RegistryAccess.SetValue("JDK Compiler", value);
+                TreeNode tn = folderTreeView.SelectedNode;
+                if (tn == null || !(e.Alt || CurrentProblem != tn.Tag)) return;
+                if (tn.Tag.GetType() == typeof(FileInfo))
+                {
+                    try { System.Diagnostics.Process.Start(((FileInfo)tn.Tag).FullName); }
+                    catch (Exception ex) { MessageBox.Show(ex.Message); }
+                }
             }
         }
 
-        /// <summary> C Compiler Options </summary>
-        public static string CCompilerOptions
+        private void folderTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            get
+            if (folderTreeView.SelectedNode == null) OpenFile(null);
+            if (folderTreeView.SelectedNode.Tag.GetType() == typeof(FileInfo))
             {
-                string dat = (string)RegistryAccess.GetValue("C Compiler Options", null);
-                if (string.IsNullOrEmpty(dat)) return "-ansi -std=c89 -Wall";
-                return dat;
+                OpenFile((FileInfo)folderTreeView.SelectedNode.Tag);
             }
-            set
-            {
-                RegistryAccess.SetValue("C Compiler Options", value);
-            }
-        }
-        /// <summary> C++ Compiler Options </summary>
-        public static string CPPCompilerOptions
-        {
-            get
-            {
-                string dat = (string)RegistryAccess.GetValue("C++ Compiler Options", null);
-                if (string.IsNullOrEmpty(dat)) return "";
-                return dat;
-            }
-            set
-            {
-                RegistryAccess.SetValue("C++ Compiler Options", value);
-            }
-        }
-        /// <summary> Java Compiler Options </summary>
-        public static string JavaCompilerOptions
-        {
-            get
-            {
-                string dat = (string)RegistryAccess.GetValue("Java Compiler Options", null);
-                if (string.IsNullOrEmpty(dat)) return "-g";
-                return dat;
-            }
-            set
-            {
-                RegistryAccess.SetValue("Java Compiler Options", value);
-            }
+            else OpenFile(null);
         }
 
-        /// <summary> Show Hints </summary>
-        public static bool ShowHints
+        private void folderTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            get
+            if (e.Clicks != 1) return;
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                object dat = RegistryAccess.GetValue("Show Hints", null);
-                if (dat == null || dat.GetType() != typeof(int)) return false;
-                return ((int)dat == 1);
-            }
-            set
-            {
-                RegistryAccess.SetValue("Show Hints", (value ? 1 : 0), null, Microsoft.Win32.RegistryValueKind.DWord);
+                folderTreeView.SelectedNode = e.Node;
             }
         }
 
@@ -236,7 +183,7 @@ namespace UVA_Arena.Elements
 
             //add codes
             if (folderTreeView == null || folderTreeView.IsDisposed) return;
-            folderTreeView.BeginInvoke((MethodInvoker)delegate
+            this.BeginInvoke((MethodInvoker)delegate
             {
                 FileSystemInfo last = null;
                 if (folderTreeView.SelectedNode != null)
@@ -251,11 +198,12 @@ namespace UVA_Arena.Elements
                 folderTreeView.UseWaitCursor = false;
                 selectDirectoryPanel.Visible = false;
 
-                if (last != null) ExpandAndSelect(GetNode(last));
-                else
+                if (last != null)
+                    ExpandAndSelect(GetNode(last));
+                else if (parent.Count > 0)
                 {
-                    int cnt = folderTreeView.Nodes.Count;
-                    if (cnt > 0) folderTreeView.Nodes[0].Expand();
+                    folderTreeView.Nodes[0].Expand();
+                    folderTreeView.Nodes[0].Collapse();
                 }
             });
 
@@ -318,15 +266,15 @@ namespace UVA_Arena.Elements
 
         public void FormatCodeDirectory(object background)
         {
+            //gather all files
+            string path = CodesPath;
+            if (!Directory.Exists(path)) return;
+
             if ((bool)background)
             {
                 System.Threading.ThreadPool.QueueUserWorkItem(FormatCodeDirectory, false);
                 return;
             }
-
-            //gather all files
-            string path = CodesPath;
-            if (!Directory.Exists(path)) return;
 
             //create codespath and check them
             if (!LocalDatabase.IsReady)
@@ -342,7 +290,7 @@ namespace UVA_Arena.Elements
             }
         }
 
-        private void browseFolderButton_Click(object sender, EventArgs e)
+        public void ChangeCodeDirectory()
         {
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
@@ -364,6 +312,11 @@ namespace UVA_Arena.Elements
                     }
                 }
             }
+        }
+
+        private void browseFolderButton_Click(object sender, EventArgs e)
+        {
+            ChangeCodeDirectory();
         }
 
         private void cancelBrowseButton_Click(object sender, EventArgs e)
@@ -461,53 +414,6 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Folder Tree List
-
-        private void folderTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            try
-            {
-                TreeNode tn = folderTreeView.SelectedNode;
-                if (tn != null && tn.Tag.GetType() == typeof(FileInfo))
-                    System.Diagnostics.Process.Start(((FileInfo)tn.Tag).FullName);
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-        }
-
-        private void folderTreeView_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter && !e.Shift && !e.Control)
-            {
-                TreeNode tn = folderTreeView.SelectedNode;
-                if (tn == null || !(e.Alt || CurrentProblem != tn.Tag)) return;
-                if (tn.Tag.GetType() == typeof(FileInfo))
-                {
-                    try { System.Diagnostics.Process.Start(((FileInfo)tn.Tag).FullName); }
-                    catch (Exception ex) { MessageBox.Show(ex.Message); }
-                }
-            }
-        }
-
-        private void folderTreeView_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            if (folderTreeView.SelectedNode == null) OpenFile(null);
-            if (folderTreeView.SelectedNode.Tag.GetType() == typeof(FileInfo))
-            {
-                OpenFile((FileInfo)folderTreeView.SelectedNode.Tag);
-            }
-            else OpenFile(null);
-        }
-
-        private void folderTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            if (e.Clicks != 1) return;
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                folderTreeView.SelectedNode = e.Node;
-            }
-        }
-
-        #endregion
 
         #region Useful functions for Folder Tree
 
@@ -644,6 +550,122 @@ namespace UVA_Arena.Elements
         }
         #endregion
 
+        #region FileSystemWatcher
+
+        private void fileSystemWatcher1_Created(object sender, FileSystemEventArgs e)
+        {
+            if (!IsReady) return;
+
+            try
+            {
+                string path = Path.GetDirectoryName(e.FullPath);
+
+                TreeNode tn = null;
+                if (File.Exists(e.FullPath))
+                    tn = AddTreeNode(new FileInfo(e.FullPath));
+                else
+                    tn = AddTreeNode(new DirectoryInfo(e.FullPath));
+
+                if (path == CodesPath)
+                {
+                    folderTreeView.Nodes.Add(tn);
+                }
+                else
+                {
+                    TreeNode par = GetNode(new DirectoryInfo(path));
+                    if (par != null) par.Nodes.Add(tn);
+                }
+            }
+            catch { }
+        }
+
+        private void fileSystemWatcher1_Deleted(object sender, FileSystemEventArgs e)
+        {
+            if (!IsReady) return;
+
+            try
+            {
+                if (CodesPath == e.FullPath)
+                {
+                    folderTreeView.Nodes.Clear();
+                    selectDirectoryPanel.Visible = true;
+                    return;
+                }
+                else
+                {
+                    DirectoryInfo dir = new DirectoryInfo(e.FullPath);
+                    TreeNode tn = GetNode(dir);
+                    if (tn != null) tn.Remove();
+                    if (CurrentProblem == null) return;
+                    if (CurrentProblem.FullName == e.FullPath) OpenFile(null);
+                }
+            }
+            catch { }
+        }
+
+        private void fileSystemWatcher1_Renamed(object sender, RenamedEventArgs e)
+        {
+            if (!IsReady) return;
+
+            try
+            {
+                if (CodesPath == e.FullPath)
+                {
+                    CodesPath = e.FullPath;
+                }
+                else
+                {
+                    FileSystemInfo dir = null;
+                    if (File.Exists(e.FullPath))
+                        dir = new FileInfo(e.OldFullPath);
+                    else
+                        dir = new DirectoryInfo(e.OldFullPath);
+
+                    TreeNode tn = GetNode(dir);
+                    if (tn != null)
+                    {
+                        FileInfo f = new FileInfo(e.FullPath);
+                        tn.Name = f.Name;
+                        tn.Text = f.Name;
+                        tn.Tag = f;
+                    }
+                    if (CurrentProblem != null &&
+                        CurrentProblem.FullName == e.OldFullPath)
+                    {
+                        OpenFile(new FileInfo(e.FullPath));
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private void fileSystemWatcher1_Changed(object sender, FileSystemEventArgs e)
+        {
+            try
+            {
+                if (CurrentProblem == null) return;
+                if (CurrentProblem.FullName == e.FullPath)
+                {
+                    OpenCodeFile(e.FullPath);
+                }
+                else if ((string)inputTextBox.Tag == e.FullPath)
+                {
+                    OpenInputFile(e.FullPath);
+                }
+                else if ((string)outputTextBox.Tag == e.FullPath)
+                {
+                    OpenOutputFile(e.FullPath);
+                }
+                else if ((string)correctOutputTextBox.Tag == e.FullPath)
+                {
+                    OpenCorrectFile(e.FullPath);
+                }
+            }
+            catch { }
+        }
+
+        #endregion
+
         #region Folder Tree Context Menu Items
 
         private void collapseAllToolStripMenuItem_Click(object sender, EventArgs e)
@@ -731,7 +753,7 @@ namespace UVA_Arena.Elements
             }
         }
 
-        private void folderTreeView_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
+        private void folderTreeView_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
             try
             {
@@ -782,6 +804,7 @@ namespace UVA_Arena.Elements
         private void cFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string dir = GetSelectedPath();
+            if (dir == null) return;
             long pnum = GetProblemNumber(Path.GetFileName(dir));
             if (pnum == -1) CreateFile(dir, "New Program", ".c");
             else AddProblem(pnum, Structures.Language.C);
@@ -790,6 +813,7 @@ namespace UVA_Arena.Elements
         private void cPPFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string dir = GetSelectedPath();
+            if (dir == null) return;
             long pnum = GetProblemNumber(Path.GetFileName(dir));
             if (pnum == -1) CreateFile(dir, "New Program", ".cpp");
             else AddProblem(pnum, Structures.Language.CPP);
@@ -798,6 +822,7 @@ namespace UVA_Arena.Elements
         private void javaFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string dir = GetSelectedPath();
+            if (dir == null) return;
             long pnum = GetProblemNumber(Path.GetFileName(dir));
             if (pnum == -1) CreateFile(dir, "New Program", ".java");
             else AddProblem(pnum, Structures.Language.Java);
@@ -806,6 +831,7 @@ namespace UVA_Arena.Elements
         private void pascalFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string dir = GetSelectedPath();
+            if (dir == null) return;
             long pnum = GetProblemNumber(Path.GetFileName(dir));
             if (pnum == -1) CreateFile(dir, "New Program", ".pascal");
             else AddProblem(pnum, Structures.Language.Pascal);
@@ -824,6 +850,7 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
+
 
         #region Open File And History Keeping
 
@@ -1489,6 +1516,209 @@ namespace UVA_Arena.Elements
 
         #endregion
 
+
+        #region Compilation Tool Bar
+
+        //
+        // Compile and Run
+        //
+        private double RunTimeLimit = 3.000;
+
+        private void BuildAndRun(object state)
+        {
+            //if no file opened
+            if (Interactivity.codes.CurrentProblem == null) return;
+
+            //clear and initiate
+            Interactivity.codes.BeginInvoke((MethodInvoker)delegate
+            {
+                ClearOutputFile(); //clear output file
+                saveInputTool.PerformClick(); //save input
+                saveToolButton.PerformClick(); //save code
+                codeTextBox.ClearHints(); //clear hints                
+                compilerOutput.Clear(); //clear prev compiler report
+                compileToolButton.Enabled = false;
+                buildRunToolButton.Enabled = false;
+                runtestToolButton.Enabled = false;
+                //show compiler output
+                if (compilerOutputIsHidden) ToggleCompilerOutput();
+            });
+
+            //run task
+            bool ok = CodeCompiler.BuildAndRun((BuildRunType)state,
+                CurrentProblem, SelectedPNUM, RunTimeLimit);
+
+
+            //re-enable all data
+            Interactivity.codes.BeginInvoke((MethodInvoker)delegate
+            {
+                //enable the build and run buttons
+                compileToolButton.Enabled = true;
+                buildRunToolButton.Enabled = true;
+                //if no problem is selected do not enable runtest button
+                runtestToolButton.Enabled = (SelectedPNUM != -1);
+                //go to end of output
+                compilerOutput.GoEnd();
+                //wait a little before processing message data                
+                Thread.Sleep(100);
+                this.BeginInvoke((MethodInvoker)delegate { ProcessErrorData(); });
+                //if no error and runtest
+                if ((BuildRunType)state == BuildRunType.RunTest && ok)
+                    tabControl1.SelectedTab = compareTAB;
+            });
+        }
+
+        //
+        // Events in compilation toolbar
+        //
+
+        private void timeLimitCombo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                timeLimitCombo_Leave(null, EventArgs.Empty);
+            }
+        }
+
+        private void timeLimitCombo_Leave(object sender, EventArgs e)
+        {
+            double val = 0;
+            string txt = timeLimitCombo.Text;
+            if (!double.TryParse(txt, out val)) val = RunTimeLimit;
+            if (val > 300) val = 300;
+            if (val <= 0) val = 1;
+            timeLimitCombo.Text = val.ToString("F2");
+            RunTimeLimit = val;
+        }
+
+        private void buildRunToolButton_Click(object sender, EventArgs e)
+        {
+            if (!buildRunToolButton.Enabled) return;
+            ThreadPool.QueueUserWorkItem(BuildAndRun, BuildRunType.BuildAndRun);
+        }
+
+        private void compileToolButton_Click(object sender, EventArgs e)
+        {
+            if (!compileToolButton.Enabled) return;
+            ThreadPool.QueueUserWorkItem(BuildAndRun, BuildRunType.BuildOnly);
+        }
+
+        private void runtestToolButton_Click(object sender, EventArgs e)
+        {
+            if (!runtestToolButton.Enabled) return;
+            if (SelectedPNUM == -1)
+            {
+                MessageBox.Show("Run test is only available for problems' code.");
+                return;
+            }
+            ThreadPool.QueueUserWorkItem(BuildAndRun, BuildRunType.RunTest);
+        }
+
+        //show hints
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            ProcessErrorData();
+        }
+
+        //
+        // Precode
+        //
+        private void precodeToolButton_ButtonClick(object sender, EventArgs e)
+        {
+            if (!LocalDatabase.HasProblem(SelectedPNUM))
+            {
+                MessageBox.Show("Create a code file first.");
+                return;
+            }
+
+            switch (CustomLang)
+            {
+                case Structures.Language.C:
+                    codeTextBox.Text = Properties.Settings.Default.CPrecode;
+                    break;
+                case Structures.Language.CPP:
+                    codeTextBox.Text = Properties.Settings.Default.CPPPrecode;
+                    break;
+                case Structures.Language.Java:
+                    codeTextBox.Text = Properties.Settings.Default.JavaPrecode;
+                    break;
+                default:
+                    codeTextBox.Text = "";
+                    break;
+            }
+        }
+
+        private void changePrecodesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowSettings(3);
+        }
+
+        #endregion
+
+        #region Compiler Output
+
+        private bool compilerOutputIsHidden = false;
+        private void ToggleCompilerOutput()
+        {
+            if (compilerOutputIsHidden)
+            {
+                compilerOutputIsHidden = false;
+                showHideOutput.Image = Properties.Resources.hide;
+                compilerSplitContainer1.FixedPanel = FixedPanel.None;
+                compilerSplitContainer1.SplitterDistance = 7 * compilerSplitContainer1.Height / 10;
+            }
+            else
+            {
+                compilerOutputIsHidden = true;
+                showHideOutput.Image = Properties.Resources.show;
+                compilerSplitContainer1.FixedPanel = FixedPanel.Panel2;
+                compilerSplitContainer1.SplitterDistance = compilerSplitContainer1.Height - compilerSplitContainer1.Panel2MinSize;
+            }
+        }
+
+        private void showOrHideOutput_Click(object sender, EventArgs e)
+        {
+            ToggleCompilerOutput();
+        }
+
+        private void compilerSplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            if (compilerSplitContainer1.Panel2.Height > compilerSplitContainer1.Panel2MinSize)
+            {
+                if (compilerOutputIsHidden)
+                {
+                    compilerOutputIsHidden = false;
+                    showHideOutput.Image = Properties.Resources.hide;
+                    compilerSplitContainer1.FixedPanel = FixedPanel.None;
+                }
+            }
+            else
+            {
+                if (!compilerOutputIsHidden)
+                {
+                    compilerOutputIsHidden = true;
+                    showHideOutput.Image = Properties.Resources.show;
+                    compilerSplitContainer1.FixedPanel = FixedPanel.Panel2;
+                }
+            }
+        }
+
+        private void compilerOutput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            HighlightSyntax.HighlightCompilerOutput(e.ChangedRange);
+        }
+
+        private void compilerOutput_Click(object sender, EventArgs e)
+        {
+            codeTextBox.ClearHints();
+            Place cur = compilerOutput.Selection.Start;
+            tabControl1.SelectedTab = codeTAB;
+            SetCodeError(cur.iLine, true);
+        }
+
+        #endregion
+
+
         #region Input Output
 
         // 
@@ -1652,322 +1882,6 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region FileSystemWatcher
-
-        private void fileSystemWatcher1_Created(object sender, FileSystemEventArgs e)
-        {
-            if (!IsReady) return;
-
-            try
-            {
-                string path = Path.GetDirectoryName(e.FullPath);
-
-                TreeNode tn = null;
-                if (File.Exists(e.FullPath))
-                    tn = AddTreeNode(new FileInfo(e.FullPath));
-                else
-                    tn = AddTreeNode(new DirectoryInfo(e.FullPath));
-
-                if (path == CodesPath)
-                {
-                    folderTreeView.Nodes.Add(tn);
-                }
-                else
-                {
-                    TreeNode par = GetNode(new DirectoryInfo(path));
-                    if (par != null) par.Nodes.Add(tn);
-                }
-            }
-            catch { }
-        }
-
-        private void fileSystemWatcher1_Deleted(object sender, FileSystemEventArgs e)
-        {
-            if (!IsReady) return;
-
-            try
-            {
-                if (CodesPath == e.FullPath)
-                {
-                    folderTreeView.Nodes.Clear();
-                    selectDirectoryPanel.Visible = true;
-                    return;
-                }
-                else
-                {
-                    DirectoryInfo dir = new DirectoryInfo(e.FullPath);
-                    TreeNode tn = GetNode(dir);
-                    if (tn != null) tn.Remove();
-                    if (CurrentProblem == null) return;
-                    if (CurrentProblem.FullName == e.FullPath) OpenFile(null);
-                }
-            }
-            catch { }
-        }
-
-        private void fileSystemWatcher1_Renamed(object sender, RenamedEventArgs e)
-        {
-            if (!IsReady) return;
-
-            try
-            {
-                if (CodesPath == e.FullPath)
-                {
-                    CodesPath = e.FullPath;
-                }
-                else
-                {
-                    FileSystemInfo dir = null;
-                    if (File.Exists(e.FullPath))
-                        dir = new FileInfo(e.OldFullPath);
-                    else
-                        dir = new DirectoryInfo(e.OldFullPath);
-
-                    TreeNode tn = GetNode(dir);
-                    if (tn != null)
-                    {
-                        FileInfo f = new FileInfo(e.FullPath);
-                        tn.Name = f.Name;
-                        tn.Text = f.Name;
-                        tn.Tag = f;
-                    }
-                    if (CurrentProblem != null &&
-                        CurrentProblem.FullName == e.OldFullPath)
-                    {
-                        OpenFile(new FileInfo(e.FullPath));
-                    }
-                }
-            }
-            catch { }
-        }
-
-        private void fileSystemWatcher1_Changed(object sender, FileSystemEventArgs e)
-        {
-            try
-            {
-                if (CurrentProblem == null) return;
-                if (CurrentProblem.FullName == e.FullPath)
-                {
-                    OpenCodeFile(e.FullPath);
-                }
-                else if ((string)inputTextBox.Tag == e.FullPath)
-                {
-                    OpenInputFile(e.FullPath);
-                }
-                else if ((string)outputTextBox.Tag == e.FullPath)
-                {
-                    OpenOutputFile(e.FullPath);
-                }
-                else if ((string)correctOutputTextBox.Tag == e.FullPath)
-                {
-                    OpenCorrectFile(e.FullPath);
-                }
-            }
-            catch { }
-        }
-
-        #endregion
-
-        #region Compilation Tool Bar
-
-        //
-        // Compile and Run
-        //
-        private double RunTimeLimit = 3.000;
-
-        private void BuildAndRun(object state)
-        {
-            //if no file opened
-            if (Interactivity.codes.CurrentProblem == null) return;
-
-            //clear and initiate
-            Interactivity.codes.BeginInvoke((MethodInvoker)delegate
-            {
-                ClearOutputFile(); //clear output file
-                saveInputTool.PerformClick(); //save input
-                saveToolButton.PerformClick(); //save code
-                codeTextBox.ClearHints(); //clear hints                
-                compilerOutput.Clear(); //clear prev compiler report
-                compileToolButton.Enabled = false;
-                buildRunToolButton.Enabled = false;
-                runtestToolButton.Enabled = false;
-                //show compiler output
-                if (compilerOutputIsHidden) ToggleCompilerOutput();
-            });
-
-            //run task
-            bool ok = CodeCompiler.BuildAndRun((BuildRunType)state,
-                CurrentProblem, SelectedPNUM, RunTimeLimit);
-
-
-            //re-enable all data
-            Interactivity.codes.BeginInvoke((MethodInvoker)delegate
-            {
-                //enable the build and run buttons
-                compileToolButton.Enabled = true;
-                buildRunToolButton.Enabled = true;
-                //if no problem is selected do not enable runtest button
-                runtestToolButton.Enabled = (SelectedPNUM != -1);
-                //go to end of output
-                compilerOutput.GoEnd();
-                //wait a little before processing message data                
-                Thread.Sleep(100);
-                this.BeginInvoke((MethodInvoker)delegate { ProcessErrorData(); });
-                //if no error and runtest
-                if (ok) tabControl1.SelectedTab = compareTAB;
-            });
-        }
-
-        //
-        // Events in compilation toolbar
-        //
-
-        private void timeLimitCombo_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                timeLimitCombo_Leave(null, EventArgs.Empty);
-            }
-        }
-
-        private void timeLimitCombo_Leave(object sender, EventArgs e)
-        {
-            double val = 0;
-            string txt = timeLimitCombo.Text;
-            if (!double.TryParse(txt, out val)) val = RunTimeLimit;
-            if (val > 300) val = 300;
-            if (val <= 0) val = 1;
-            timeLimitCombo.Text = val.ToString("F2");
-            RunTimeLimit = val;
-        }
-
-        private void buildRunToolButton_Click(object sender, EventArgs e)
-        {
-            if (!buildRunToolButton.Enabled) return;
-            ThreadPool.QueueUserWorkItem(BuildAndRun, BuildRunType.BuildAndRun);
-        }
-
-        private void compileToolButton_Click(object sender, EventArgs e)
-        {
-            if (!compileToolButton.Enabled) return;
-            ThreadPool.QueueUserWorkItem(BuildAndRun, BuildRunType.BuildOnly);
-        }
-
-        private void runtestToolButton_Click(object sender, EventArgs e)
-        {
-            if (!runtestToolButton.Enabled) return;
-            if (SelectedPNUM == -1)
-            {
-                MessageBox.Show("Run test is only available for problems' code.");
-                return;
-            }
-            ThreadPool.QueueUserWorkItem(BuildAndRun, BuildRunType.RunTest);
-        }
-
-        //show hints
-        private void toolStripButton3_Click(object sender, EventArgs e)
-        {
-            ProcessErrorData();
-        }
-
-        //
-        // Precode
-        //
-        private void precodeToolButton_ButtonClick(object sender, EventArgs e)
-        {
-            if (!LocalDatabase.HasProblem(SelectedPNUM))
-            {
-                MessageBox.Show("Create a code file first.");
-                return;
-            }
-
-            switch (CustomLang)
-            {
-                case Structures.Language.C:
-                    codeTextBox.Text = RegistryAccess.CPrecode;
-                    break;
-                case Structures.Language.CPP:
-                    codeTextBox.Text = RegistryAccess.CPPPrecode;
-                    break;
-                case Structures.Language.Java:
-                    codeTextBox.Text = RegistryAccess.JavaPrecode;
-                    break;
-                default:
-                    codeTextBox.Text = "";
-                    break;
-            }
-        }
-
-        private void changePrecodesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Interactivity.ShowSettings(3);
-        }
-
-        #endregion
-
-        #region Compiler Output
-
-        private bool compilerOutputIsHidden = false;
-        private void ToggleCompilerOutput()
-        {
-            if (compilerOutputIsHidden)
-            {
-                compilerOutputIsHidden = false;
-                showHideOutput.Image = Properties.Resources.hide;
-                compilerSplitContainer1.FixedPanel = FixedPanel.None;
-                compilerSplitContainer1.SplitterDistance = 4 * compilerSplitContainer1.Height / 5;
-            }
-            else
-            {
-                compilerOutputIsHidden = true;
-                showHideOutput.Image = Properties.Resources.show;
-                compilerSplitContainer1.FixedPanel = FixedPanel.Panel2;
-                compilerSplitContainer1.SplitterDistance = compilerSplitContainer1.Height - compilerSplitContainer1.Panel2MinSize;
-            }
-        }
-
-        private void showOrHideOutput_Click(object sender, EventArgs e)
-        {
-            ToggleCompilerOutput();
-        }
-
-        private void compilerSplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-            if (compilerSplitContainer1.Panel2.Height > compilerSplitContainer1.Panel2MinSize)
-            {
-                if (compilerOutputIsHidden)
-                {
-                    compilerOutputIsHidden = false;
-                    showHideOutput.Image = Properties.Resources.hide;
-                    compilerSplitContainer1.FixedPanel = FixedPanel.None;
-                }
-            }
-            else
-            {
-                if (!compilerOutputIsHidden)
-                {
-                    compilerOutputIsHidden = true;
-                    showHideOutput.Image = Properties.Resources.show;
-                    compilerSplitContainer1.FixedPanel = FixedPanel.Panel2;
-                }
-            }
-        }
-
-        private void compilerOutput_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            HighlightSyntax.HighlightCompilerOutput(e.ChangedRange);
-        }
-
-        private void compilerOutput_Click(object sender, EventArgs e)
-        {
-            codeTextBox.ClearHints();
-            Place cur = compilerOutput.Selection.Start;
-            tabControl1.SelectedTab = codeTAB;
-            SetCodeError(cur.iLine, true);
-        }
-
-        #endregion
-
         #region Compare Outputs
 
         private void compareOutputButton_Click(object sender, EventArgs e)
@@ -2014,6 +1928,34 @@ namespace UVA_Arena.Elements
 
             progOutputTextBox.Cursor = Cursors.Default;
             return res;
+        }
+
+        private bool _ProcessDiff(DiffMergeStuffs.Lines lines, FastColoredTextBox fctb1, FastColoredTextBox fctb2)
+        {
+            bool match = true;
+            foreach (var line in lines)
+            {
+                switch (line.state)
+                {
+                    case DiffMergeStuffs.DiffTypes.None:
+                        fctb1.AppendText(line.line + Environment.NewLine);
+                        fctb2.AppendText(line.line + Environment.NewLine);
+                        break;
+                    case DiffMergeStuffs.DiffTypes.Inserted:
+                        fctb1.AppendText(Environment.NewLine);
+                        fctb2.AppendText(line.line + Environment.NewLine, HighlightSyntax.GreenLineStyle);
+                        match = false;
+                        break;
+                    case DiffMergeStuffs.DiffTypes.Deleted:
+                        fctb1.AppendText(line.line + Environment.NewLine, HighlightSyntax.RedLineStyle);
+                        fctb2.AppendText(Environment.NewLine);
+                        match = false;
+                        break;
+                }
+                if (line.subLines != null)
+                    match = match && _ProcessDiff(line.subLines, fctb1, fctb2);
+            }
+            return match;
         }
 
         private void tb_VisibleRangeChanged(object sender, EventArgs e)
@@ -2104,6 +2046,7 @@ namespace UVA_Arena.Elements
 
         #endregion
 
+
         #region STATIC FUNCTIONS
 
         public enum ExpandSelectType
@@ -2141,6 +2084,7 @@ namespace UVA_Arena.Elements
 
         private static long GetProblemNumber(string name)
         {
+            if (string.IsNullOrEmpty(name)) return -1;
             long res = -1;
             Match m = Regex.Match(name, @"\d+");
             if (m.Success)
@@ -2180,33 +2124,6 @@ namespace UVA_Arena.Elements
             LocalDirectory.CreateDirectory(path);
         }
 
-        private static bool _ProcessDiff(DiffMergeStuffs.Lines lines, FastColoredTextBox fctb1, FastColoredTextBox fctb2)
-        {
-            bool match = true;
-            foreach (var line in lines)
-            {
-                switch (line.state)
-                {
-                    case DiffMergeStuffs.DiffTypes.None:
-                        fctb1.AppendText(line.line + Environment.NewLine);
-                        fctb2.AppendText(line.line + Environment.NewLine);
-                        break;
-                    case DiffMergeStuffs.DiffTypes.Inserted:
-                        fctb1.AppendText(Environment.NewLine);
-                        fctb2.AppendText(line.line + Environment.NewLine, HighlightSyntax.GreenLineStyle);
-                        match = false;
-                        break;
-                    case DiffMergeStuffs.DiffTypes.Deleted:
-                        fctb1.AppendText(line.line + Environment.NewLine, HighlightSyntax.RedLineStyle);
-                        fctb2.AppendText(Environment.NewLine);
-                        match = false;
-                        break;
-                }
-                if (line.subLines != null)
-                    match = match && _ProcessDiff(line.subLines, fctb1, fctb2);
-            }
-            return match;
-        }
 
         #endregion
     }

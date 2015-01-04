@@ -34,7 +34,9 @@
             this.refreshToolButton = new System.Windows.Forms.ToolStripStatusLabel();
             this.Status1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.updateToolMenu = new System.Windows.Forms.ToolStripDropDownButton();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.updateContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.autoUpdateToolMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.instantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.twoSecondsToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fiveSecondsToolItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,8 +47,6 @@
             this.twoMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fiveMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tenMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.autoUpdateToolMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.submissionStatus = new BrightIdeasSoftware.FastObjectListView();
             this.sidSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.uidSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -65,7 +65,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
+            this.updateContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -77,9 +77,9 @@
             this.refreshToolButton,
             this.Status1,
             this.updateToolMenu});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 409);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 407);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(790, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(790, 27);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
@@ -95,8 +95,8 @@
             this.refreshToolButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.refreshToolButton.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.refreshToolButton.Name = "refreshToolButton";
-            this.refreshToolButton.Padding = new System.Windows.Forms.Padding(25, 2, 25, 2);
-            this.refreshToolButton.Size = new System.Drawing.Size(116, 24);
+            this.refreshToolButton.Padding = new System.Windows.Forms.Padding(25, 3, 25, 3);
+            this.refreshToolButton.Size = new System.Drawing.Size(116, 26);
             this.refreshToolButton.Text = "Refresh";
             this.refreshToolButton.Click += new System.EventHandler(this.toolStripStatusLabel2_Click);
             // 
@@ -104,7 +104,7 @@
             // 
             this.Status1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.Status1.Name = "Status1";
-            this.Status1.Size = new System.Drawing.Size(599, 20);
+            this.Status1.Size = new System.Drawing.Size(599, 22);
             this.Status1.Spring = true;
             this.Status1.Text = "Status";
             this.Status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -112,16 +112,19 @@
             // updateToolMenu
             // 
             this.updateToolMenu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.updateToolMenu.DropDown = this.contextMenuStrip1;
+            this.updateToolMenu.DropDown = this.updateContextMenu;
             this.updateToolMenu.Image = ((System.Drawing.Image)(resources.GetObject("updateToolMenu.Image")));
             this.updateToolMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.updateToolMenu.Name = "updateToolMenu";
-            this.updateToolMenu.Size = new System.Drawing.Size(58, 23);
+            this.updateToolMenu.Size = new System.Drawing.Size(58, 25);
             this.updateToolMenu.Text = "Update";
             // 
-            // contextMenuStrip1
+            // updateContextMenu
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.updateContextMenu.BackColor = System.Drawing.Color.AliceBlue;
+            this.updateContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.autoUpdateToolMenu,
+            this.toolStripSeparator1,
             this.instantToolStripMenuItem,
             this.twoSecondsToolItem,
             this.fiveSecondsToolItem,
@@ -131,15 +134,30 @@
             this.oneMinutesToolItem,
             this.twoMinutesToolItem,
             this.fiveMinutesToolItem,
-            this.tenMinutesToolItem,
-            this.toolStripSeparator1,
-            this.autoUpdateToolMenu});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.OwnerItem = this.updateToolMenu;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(142, 252);
+            this.tenMinutesToolItem});
+            this.updateContextMenu.Name = "contextMenuStrip1";
+            this.updateContextMenu.OwnerItem = this.updateToolMenu;
+            this.updateContextMenu.Size = new System.Drawing.Size(142, 252);
+            // 
+            // autoUpdateToolMenu
+            // 
+            this.autoUpdateToolMenu.Checked = true;
+            this.autoUpdateToolMenu.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autoUpdateToolMenu.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
+            this.autoUpdateToolMenu.ForeColor = System.Drawing.Color.Navy;
+            this.autoUpdateToolMenu.Name = "autoUpdateToolMenu";
+            this.autoUpdateToolMenu.Size = new System.Drawing.Size(141, 22);
+            this.autoUpdateToolMenu.Text = "Auto Update";
+            this.autoUpdateToolMenu.Click += new System.EventHandler(this.autoUpdateToolMenu_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(138, 6);
             // 
             // instantToolStripMenuItem
             // 
+            this.instantToolStripMenuItem.ForeColor = System.Drawing.Color.Maroon;
             this.instantToolStripMenuItem.Name = "instantToolStripMenuItem";
             this.instantToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.instantToolStripMenuItem.Tag = "500";
@@ -148,6 +166,7 @@
             // 
             // twoSecondsToolItem
             // 
+            this.twoSecondsToolItem.ForeColor = System.Drawing.Color.Black;
             this.twoSecondsToolItem.Name = "twoSecondsToolItem";
             this.twoSecondsToolItem.Size = new System.Drawing.Size(141, 22);
             this.twoSecondsToolItem.Tag = "2000";
@@ -158,6 +177,7 @@
             // 
             this.fiveSecondsToolItem.Checked = true;
             this.fiveSecondsToolItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.fiveSecondsToolItem.ForeColor = System.Drawing.Color.Black;
             this.fiveSecondsToolItem.Name = "fiveSecondsToolItem";
             this.fiveSecondsToolItem.Size = new System.Drawing.Size(141, 22);
             this.fiveSecondsToolItem.Tag = "5000";
@@ -166,6 +186,7 @@
             // 
             // tenSecondsToolItem
             // 
+            this.tenSecondsToolItem.ForeColor = System.Drawing.Color.Black;
             this.tenSecondsToolItem.Name = "tenSecondsToolItem";
             this.tenSecondsToolItem.Size = new System.Drawing.Size(141, 22);
             this.tenSecondsToolItem.Tag = "10000";
@@ -174,6 +195,7 @@
             // 
             // fifteenSecondsToolItem
             // 
+            this.fifteenSecondsToolItem.ForeColor = System.Drawing.Color.Black;
             this.fifteenSecondsToolItem.Name = "fifteenSecondsToolItem";
             this.fifteenSecondsToolItem.Size = new System.Drawing.Size(141, 22);
             this.fifteenSecondsToolItem.Tag = "15000";
@@ -182,6 +204,7 @@
             // 
             // thirtySecodsToolItem
             // 
+            this.thirtySecodsToolItem.ForeColor = System.Drawing.Color.Black;
             this.thirtySecodsToolItem.Name = "thirtySecodsToolItem";
             this.thirtySecodsToolItem.Size = new System.Drawing.Size(141, 22);
             this.thirtySecodsToolItem.Tag = "30000";
@@ -190,6 +213,7 @@
             // 
             // oneMinutesToolItem
             // 
+            this.oneMinutesToolItem.ForeColor = System.Drawing.Color.Black;
             this.oneMinutesToolItem.Name = "oneMinutesToolItem";
             this.oneMinutesToolItem.Size = new System.Drawing.Size(141, 22);
             this.oneMinutesToolItem.Tag = "60000";
@@ -198,6 +222,7 @@
             // 
             // twoMinutesToolItem
             // 
+            this.twoMinutesToolItem.ForeColor = System.Drawing.Color.Black;
             this.twoMinutesToolItem.Name = "twoMinutesToolItem";
             this.twoMinutesToolItem.Size = new System.Drawing.Size(141, 22);
             this.twoMinutesToolItem.Tag = "120000";
@@ -206,6 +231,7 @@
             // 
             // fiveMinutesToolItem
             // 
+            this.fiveMinutesToolItem.ForeColor = System.Drawing.Color.Black;
             this.fiveMinutesToolItem.Name = "fiveMinutesToolItem";
             this.fiveMinutesToolItem.Size = new System.Drawing.Size(141, 22);
             this.fiveMinutesToolItem.Tag = "300000";
@@ -214,25 +240,12 @@
             // 
             // tenMinutesToolItem
             // 
+            this.tenMinutesToolItem.ForeColor = System.Drawing.Color.Black;
             this.tenMinutesToolItem.Name = "tenMinutesToolItem";
             this.tenMinutesToolItem.Size = new System.Drawing.Size(141, 22);
             this.tenMinutesToolItem.Tag = "600000";
             this.tenMinutesToolItem.Text = "10 minutes";
             this.tenMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(138, 6);
-            // 
-            // autoUpdateToolMenu
-            // 
-            this.autoUpdateToolMenu.Checked = true;
-            this.autoUpdateToolMenu.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoUpdateToolMenu.Name = "autoUpdateToolMenu";
-            this.autoUpdateToolMenu.Size = new System.Drawing.Size(141, 22);
-            this.autoUpdateToolMenu.Text = "Auto Update";
-            this.autoUpdateToolMenu.Click += new System.EventHandler(this.autoUpdateToolMenu_Click);
             // 
             // submissionStatus
             // 
@@ -275,7 +288,7 @@
             this.submissionStatus.Name = "submissionStatus";
             this.submissionStatus.ShowGroups = false;
             this.submissionStatus.ShowItemToolTips = true;
-            this.submissionStatus.Size = new System.Drawing.Size(790, 374);
+            this.submissionStatus.Size = new System.Drawing.Size(790, 372);
             this.submissionStatus.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.submissionStatus.TabIndex = 1;
             this.submissionStatus.UseCellFormatEvents = true;
@@ -291,7 +304,6 @@
             // sidSUB
             // 
             this.sidSUB.AspectName = "sid";
-            this.sidSUB.CellPadding = null;
             this.sidSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.sidSUB.Text = "SID";
             this.sidSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -300,7 +312,6 @@
             // uidSUB
             // 
             this.uidSUB.AspectName = "uid";
-            this.uidSUB.CellPadding = null;
             this.uidSUB.DisplayIndex = 1;
             this.uidSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.uidSUB.IsVisible = false;
@@ -310,7 +321,6 @@
             // unameSUB
             // 
             this.unameSUB.AspectName = "uname";
-            this.unameSUB.CellPadding = null;
             this.unameSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.unameSUB.Hyperlink = true;
             this.unameSUB.Text = "User";
@@ -320,7 +330,6 @@
             // fullnameSUB
             // 
             this.fullnameSUB.AspectName = "name";
-            this.fullnameSUB.CellPadding = null;
             this.fullnameSUB.FillsFreeSpace = true;
             this.fullnameSUB.MinimumWidth = 150;
             this.fullnameSUB.Text = "Full Name";
@@ -329,7 +338,6 @@
             // pidSUB
             // 
             this.pidSUB.AspectName = "pid";
-            this.pidSUB.CellPadding = null;
             this.pidSUB.DisplayIndex = 2;
             this.pidSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pidSUB.IsVisible = false;
@@ -340,7 +348,6 @@
             // pnumSUB
             // 
             this.pnumSUB.AspectName = "pnum";
-            this.pnumSUB.CellPadding = null;
             this.pnumSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pnumSUB.Text = "Number";
             this.pnumSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -349,7 +356,6 @@
             // ptitleSUB
             // 
             this.ptitleSUB.AspectName = "ptitle";
-            this.ptitleSUB.CellPadding = null;
             this.ptitleSUB.FillsFreeSpace = true;
             this.ptitleSUB.Hyperlink = true;
             this.ptitleSUB.MinimumWidth = 150;
@@ -359,7 +365,6 @@
             // lanSUB
             // 
             this.lanSUB.AspectName = "lan";
-            this.lanSUB.CellPadding = null;
             this.lanSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lanSUB.Text = "Language";
             this.lanSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -368,7 +373,6 @@
             // verSUB
             // 
             this.verSUB.AspectName = "ver";
-            this.verSUB.CellPadding = null;
             this.verSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.verSUB.MinimumWidth = 100;
             this.verSUB.Text = "Verdict";
@@ -378,7 +382,6 @@
             // runSUB
             // 
             this.runSUB.AspectName = "run";
-            this.runSUB.CellPadding = null;
             this.runSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.runSUB.Text = "Runtime";
             this.runSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -387,7 +390,6 @@
             // memSUB
             // 
             this.memSUB.AspectName = "mem";
-            this.memSUB.CellPadding = null;
             this.memSUB.DisplayIndex = 6;
             this.memSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.memSUB.IsVisible = false;
@@ -398,7 +400,6 @@
             // rankSUB
             // 
             this.rankSUB.AspectName = "rank";
-            this.rankSUB.CellPadding = null;
             this.rankSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.rankSUB.Text = "Rank";
             this.rankSUB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -407,7 +408,6 @@
             // subtimeSUB
             // 
             this.subtimeSUB.AspectName = "sbt";
-            this.subtimeSUB.CellPadding = null;
             this.subtimeSUB.FillsFreeSpace = true;
             this.subtimeSUB.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.subtimeSUB.MinimumWidth = 140;
@@ -427,6 +427,8 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Navy;
             this.label1.Location = new System.Drawing.Point(5, 5);
@@ -454,7 +456,7 @@
             this.Size = new System.Drawing.Size(790, 434);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.updateContextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -486,7 +488,6 @@
         private BrightIdeasSoftware.OLVColumn ptitleSUB;
         public BrightIdeasSoftware.FastObjectListView submissionStatus;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem instantToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem twoSecondsToolItem;
         private System.Windows.Forms.ToolStripMenuItem fiveSecondsToolItem;
@@ -499,5 +500,6 @@
         private System.Windows.Forms.ToolStripMenuItem tenMinutesToolItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem autoUpdateToolMenu;
+        public System.Windows.Forms.ContextMenuStrip updateContextMenu;
     }
 }

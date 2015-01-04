@@ -360,12 +360,16 @@ namespace UVA_Arena.Internet
 
         #region Problem Database and Category Downloader
 
-        public static bool _DownloadingProblemDatabase = false;
+        private static bool _DownloadingProblemDatabase = false;
 
-        public static void DownloadProblemDatabase(DownloadTaskHandler completed, DownloadTaskHandler progress)
+        public static void DownloadProblemDatabase()
         {
             if (_DownloadingProblemDatabase) return;
-            
+
+            Interactivity.problems.Status1.Text = "Updating problem database...";
+            DownloadTaskHandler progress = Interactivity.problems.problemWorkerProgress;
+            DownloadTaskHandler completed = Interactivity.problems.problemWorkerCompleted;
+                
             _DownloadingProblemDatabase = true;
 
             //problem database
@@ -375,8 +379,7 @@ namespace UVA_Arena.Internet
                         
             //problem catagories
             url = "http://uhunt.felix-halim.net/api/cpbook/3";
-            file = LocalDirectory.GetCategoryPath();
-            
+            file = LocalDirectory.GetCategoryPath(); 
             DownloadTask task = DownloadFileAsync(url, file, null, Priority.High, progress, completed);
             task.DownloadCompletedEvent += __DownloadProblemCategoryCompleted;
         }
@@ -388,11 +391,13 @@ namespace UVA_Arena.Internet
             if (task.Status == ProgressStatus.Completed)
             {
                 LocalDatabase.LoadDatabase();
-                Logger.Add("Downloaded problem database file", "Downloader | __DownloadProblemDatabaseCompleted(DownloadTask task)");
+                Logger.Add("Downloaded problem database file", 
+                    "Downloader | __DownloadProblemDatabaseCompleted(DownloadTask task)");
             }
             else if (task.Error != null)
             {
-                Logger.Add(task.Error.Message, "Downloader | __DownloadProblemDatabaseCompleted(DownloadTask task)");
+                Logger.Add(task.Error.Message, 
+                    "Downloader | __DownloadProblemDatabaseCompleted(DownloadTask task)");
             }            
         }
 
@@ -401,11 +406,13 @@ namespace UVA_Arena.Internet
             if (task.Status == ProgressStatus.Completed)
             {
                 LocalDatabase.LoadCatagories();
-                Logger.Add("Downloaded context book 3 categories", "Downloader | __DownloadProblemCategoryCompleted(DownloadTask task)");
+                Logger.Add("Downloaded context book 3 categories", 
+                    "Downloader | __DownloadProblemCategoryCompleted(DownloadTask task)");
             }
             else if (task.Error != null)
             {
-                Logger.Add(task.Error.Message, "Downloader | __DownloadProblemCategoryCompleted(DownloadTask task)");
+                Logger.Add(task.Error.Message,
+                    "Downloader | __DownloadProblemCategoryCompleted(DownloadTask task)");
             }
         }
 

@@ -23,8 +23,12 @@ namespace UVA_Arena.Elements
 
             //other initial codes
             SetAspectValues();
-            problemListView.MakeColumnSelectMenu(problemContextMenu);
-            mainSplitContainer.SplitterDistance = 7 * mainSplitContainer.Width / 20;
+            problemListView.MakeColumnSelectMenu(problemContextMenu);             
+
+            //add problem viewer
+            Interactivity.problemViewer = new Elements.ProblemViewer();
+            Interactivity.problemViewer.Dock = DockStyle.Fill;
+            mainSplitContainer.Panel2.Controls.Add(Interactivity.problemViewer);            
         }
 
         protected override void OnLoad(EventArgs e)
@@ -35,10 +39,10 @@ namespace UVA_Arena.Elements
             if (LocalDatabase.IsReady)
                 Interactivity.ProblemDatabaseUpdated();
 
-            CustomStatusButton.Initialize(updateToolButton);
+            CustomStatusButton.Initialize(updateToolButton); 
 
-            Stylish.SetGradientBackground(plistLabel,
-                new Stylish.GradientStyle(Color.LightBlue, Color.LightCyan, 60F));
+            Stylish.SetGradientBackground(plistPanel, 
+                new Stylish.GradientStyle(Color.LightSteelBlue, Color.PowderBlue, 90F));
         }
 
         public bool ExpandCollapseView()
@@ -103,19 +107,18 @@ namespace UVA_Arena.Elements
         //
         private void updateToolButton_Click(object sender, EventArgs e)
         {
-            if (Downloader._DownloadingProblemDatabase) return;
-            Status1.Text = "Updating problem database...";
-            Downloader.DownloadProblemDatabase(problemWorkerCompleted, problemWorkerProgress);
+            Downloader.DownloadProblemDatabase();
         }
 
-        private void problemWorkerProgress(DownloadTask task)
+        public void problemWorkerProgress(DownloadTask task)
         {
             if (this.IsDisposed) return;
             Status1.Text = string.Format("Downloading problem database... ({0}/{1} completed)",
                 Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
             Progress1.Value = task.ProgressPercentage;
         }
-        private void problemWorkerCompleted(DownloadTask task)
+
+        public void problemWorkerCompleted(DownloadTask task)
         {
             string msg = "";
             if (task.Status == ProgressStatus.Completed)
@@ -308,7 +311,7 @@ namespace UVA_Arena.Elements
             RefreshProblemList();
 
             //set text
-            int indx = hideAccepted.Checked?1:0;
+            int indx = hideAccepted.Checked ? 1 : 0;
             string txt = (string)hideAccepted.Tag;
             hideAccepted.Text = txt.Split(new char[] { '|' })[indx];
         }
@@ -487,16 +490,6 @@ namespace UVA_Arena.Elements
         private void downloadAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Interactivity.ShowDownloadAllForm();
-        }
-
-        private void exportDownloadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Functions.BackupData();
-        }
-
-        private void importDownloadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Functions.RestoreData();
         }
 
         //
@@ -724,6 +717,10 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
+
+        private void mainSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
+        {            
+        }
 
     }
 }

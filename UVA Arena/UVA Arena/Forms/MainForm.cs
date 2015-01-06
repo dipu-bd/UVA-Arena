@@ -382,7 +382,16 @@ namespace UVA_Arena
             UpdateCheck.CheckForUpdate(); 
         }
 
+        private void checkForUpdateToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            if (UpdateCheck.IsChecking)
+                checkForUpdateToolStripMenuItem.Text = "Checking for update...";
+            else
+                checkForUpdateToolStripMenuItem.Text = "Check for update";
+        }
+
         #endregion
+
 
     }
 }

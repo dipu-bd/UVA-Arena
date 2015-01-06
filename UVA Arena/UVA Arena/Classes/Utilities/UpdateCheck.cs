@@ -35,12 +35,11 @@ namespace UVA_Arena
 
         /// <summary>
         /// Check if any update is available for the current version
-        /// </summary> 
-        /// <param name="caller"> Function to call when any update found </param>        
-        public static void CheckForUpdate(UpdateFoundHandler caller = null)
+        /// </summary>       
+        public static void CheckForUpdate()
         {
             if (IsChecking) return;
-            ThreadPool.QueueUserWorkItem(downloadUpdateFile, caller);
+            ThreadPool.QueueUserWorkItem(downloadUpdateFile);
         }
 
         public static bool IsChecking = false;
@@ -49,20 +48,16 @@ namespace UVA_Arena
         {
             try
             {
-                IsChecking = true;
-
-                var caller = (UpdateFoundHandler)state;
-                string url = "https://github.com/dipu-bd/UVA-Arena/blob/master/VERSION";
+                IsChecking = true; 
+                string url = "https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/VERSION";
 
                 WebClient wc = new WebClient();
                 byte[] raw = wc.DownloadData(url);
                 string data = System.Text.Encoding.UTF8.GetString(raw);
                 UpdateMessage um = JsonConvert.DeserializeObject<UpdateMessage>(data);
                 
-                if (um != null && caller != null) caller(um);
-
                 //this applications functions
-                Interactivity.UpdateFound(um);
+                if(um != null) Interactivity.UpdateFound(um);
             }
             catch (Exception ex)
             {

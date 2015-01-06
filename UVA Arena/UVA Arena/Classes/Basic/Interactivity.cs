@@ -77,10 +77,13 @@ namespace UVA_Arena
         /// <param name="lang">Language the code is wrtten on</param>
         public static void SubmitCode(long pnum, string code = null, Language lang = Language.CPP)
         {
-            if (submitForm == null || submitForm.IsDisposed)
-                submitForm = new SubmitForm();
-            submitForm.LoadSubmit(pnum, code, lang);
-            OpenForm(submitForm);
+            Interactivity.mainForm.BeginInvoke((MethodInvoker)delegate
+            {
+                if (submitForm == null || submitForm.IsDisposed)
+                    submitForm = new SubmitForm();
+                submitForm.LoadSubmit(pnum, code, lang);
+                OpenForm(submitForm);
+            });
         }
 
         /// <summary>
@@ -88,9 +91,12 @@ namespace UVA_Arena
         /// </summary>
         public static void ShowLogger()
         {
-            if (loggerForm == null || loggerForm.IsDisposed)
-                loggerForm = new LoggerForm();
-            OpenForm(loggerForm);
+            Interactivity.mainForm.BeginInvoke((MethodInvoker)delegate
+            {
+                if (loggerForm == null || loggerForm.IsDisposed)
+                    loggerForm = new LoggerForm();
+                OpenForm(loggerForm);
+            });
         }
 
         /// <summary>
@@ -98,9 +104,12 @@ namespace UVA_Arena
         /// </summary>
         public static void ShowHelpAbout()
         {
-            if (helpaboutForm == null || helpaboutForm.IsDisposed)
-                helpaboutForm = new HelpAbout();
-            OpenForm(helpaboutForm);
+            Interactivity.mainForm.BeginInvoke((MethodInvoker)delegate
+            {
+                if (helpaboutForm == null || helpaboutForm.IsDisposed)
+                    helpaboutForm = new HelpAbout();
+                OpenForm(helpaboutForm);
+            });
         }
 
         /// <summary>
@@ -109,10 +118,13 @@ namespace UVA_Arena
         /// <param name="tabindex">Selected tab index in settings form</param>
         public static void ShowSettings(int tabindex = 0)
         {
-            if (settingsForm == null || settingsForm.IsDisposed)
-                settingsForm = new SettingsForm();            
-            settingsForm.tabControl1.SelectedIndex = tabindex;
-            OpenForm(settingsForm);
+            Interactivity.mainForm.BeginInvoke((MethodInvoker)delegate
+            {
+                if (settingsForm == null || settingsForm.IsDisposed)
+                    settingsForm = new SettingsForm();
+                settingsForm.tabControl1.SelectedIndex = tabindex;
+                OpenForm(settingsForm);
+            });
         }
 
 
@@ -121,9 +133,12 @@ namespace UVA_Arena
         /// </summary>
         public static void ShowDownloadAllForm()
         {
-            if (downloadAllForm == null || downloadAllForm.IsDisposed)
-                downloadAllForm = new DownloadAllForm();
-            OpenForm(downloadAllForm);
+            Interactivity.mainForm.BeginInvoke((MethodInvoker)delegate
+            {
+                if (downloadAllForm == null || downloadAllForm.IsDisposed)
+                    downloadAllForm = new DownloadAllForm();
+                OpenForm(downloadAllForm);
+            });
         }
 
 
@@ -132,9 +147,12 @@ namespace UVA_Arena
         /// </summary>
         public static void ShowUserNameForm()
         {
-            if (usernameForm == null || usernameForm.IsDisposed)
-                usernameForm = new UsernameForm();
-            OpenForm(usernameForm);
+            Interactivity.mainForm.BeginInvoke((MethodInvoker)delegate
+            {
+                if (usernameForm == null || usernameForm.IsDisposed)
+                    usernameForm = new UsernameForm();
+                OpenForm(usernameForm);
+            });
         }
 
 
@@ -143,9 +161,12 @@ namespace UVA_Arena
         /// </summary>
         public static void ShowCheckUpdateForm()
         {
-            if (checkUpdateForm == null || checkUpdateForm.IsDisposed)
-                checkUpdateForm = new CheckUpdateForm();
-            OpenForm(checkUpdateForm);
+            Interactivity.mainForm.BeginInvoke((MethodInvoker)delegate
+            {
+                if (checkUpdateForm == null || checkUpdateForm.IsDisposed)
+                    checkUpdateForm = new CheckUpdateForm();
+                OpenForm(checkUpdateForm);
+            });
         }
 
         /// <summary>
@@ -158,10 +179,13 @@ namespace UVA_Arena
                 update.version != Application.ProductVersion)
             {
                 ShowCheckUpdateForm();
-                checkUpdateForm.updateLink.Text = update.link;
-                checkUpdateForm.newVersion.Text = update.version;
-                checkUpdateForm.curVersion.Text = Application.ProductVersion;
-                checkUpdateForm.updateMessage.Text = update.message;
+                Interactivity.mainForm.BeginInvoke((MethodInvoker)delegate
+                {
+                    checkUpdateForm.updateLink.Text = update.link;
+                    checkUpdateForm.newVersion.Text = update.version;
+                    checkUpdateForm.curVersion.Text = Application.ProductVersion;
+                    checkUpdateForm.updateMessage.Text = update.message;
+                });
             }
         }
 
@@ -214,10 +238,10 @@ namespace UVA_Arena
             try
             {
                 if (!LocalDatabase.HasProblem(pnum)) return;
-                ProblemInfo pinfo = LocalDatabase.GetProblem(pnum);
 
                 problems.BeginInvoke((MethodInvoker)delegate
                 {
+                    ProblemInfo pinfo = LocalDatabase.GetProblem(pnum);
                     problems.ShowAllProblems();
                     problems.problemListView.SelectObject(pinfo, true);
                     problems.problemListView.EnsureVisible(problems.problemListView.SelectedIndex);

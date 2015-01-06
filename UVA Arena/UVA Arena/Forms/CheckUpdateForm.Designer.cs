@@ -166,10 +166,13 @@
             // 
             // updateMessage
             // 
+            this.updateMessage.BackColor = System.Drawing.Color.LightCyan;
             this.updateMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.updateMessage.ForeColor = System.Drawing.Color.Black;
             this.updateMessage.Location = new System.Drawing.Point(116, 78);
             this.updateMessage.Multiline = true;
             this.updateMessage.Name = "updateMessage";
+            this.updateMessage.ReadOnly = true;
             this.updateMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.updateMessage.Size = new System.Drawing.Size(348, 95);
             this.updateMessage.TabIndex = 7;

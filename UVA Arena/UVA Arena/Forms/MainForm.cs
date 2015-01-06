@@ -94,7 +94,7 @@ namespace UVA_Arena
                 this.Cursor = Cursors.Default;
                 Logger.Add("Initialized all controls", "Main Form");
             });
-
+            
             //fetch problem database from internet if not available            
             System.Threading.Thread.Sleep(3000);
             if (LocalDirectory.GetFileSize(LocalDirectory.GetProblemDataFile()) < 100)
@@ -104,6 +104,10 @@ namespace UVA_Arena
                     UVA_Arena.Internet.Downloader.DownloadProblemDatabase();
                 });
             }
+
+            //check for updates
+            System.Threading.Thread.Sleep(10000);
+            UpdateCheck.CheckForUpdate();
         }
 
         private void AddActiveButtons()
@@ -371,6 +375,11 @@ namespace UVA_Arena
         private void licenceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Interactivity.ShowHelpAbout();
+        }
+
+        private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateCheck.CheckForUpdate(); 
         }
 
         #endregion

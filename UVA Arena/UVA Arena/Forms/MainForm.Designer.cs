@@ -89,6 +89,8 @@
             this.codesTab = new System.Windows.Forms.TabPage();
             this.judgeStatusTab = new System.Windows.Forms.TabPage();
             this.profileTab = new System.Windows.Forms.TabPage();
+            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.customTabControl1.SuspendLayout();
             this.SuspendLayout();
@@ -486,7 +488,9 @@
             this.onlineHelpToolStripMenuItem,
             this.toolStripSeparator1,
             this.licenceToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.toolStripSeparator11,
+            this.checkForUpdateToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -495,19 +499,19 @@
             // 
             this.onlineHelpToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.web;
             this.onlineHelpToolStripMenuItem.Name = "onlineHelpToolStripMenuItem";
-            this.onlineHelpToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.onlineHelpToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.onlineHelpToolStripMenuItem.Text = "Online Help";
             this.onlineHelpToolStripMenuItem.Click += new System.EventHandler(this.onlineHelpToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(134, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(162, 6);
             // 
             // licenceToolStripMenuItem
             // 
             this.licenceToolStripMenuItem.Name = "licenceToolStripMenuItem";
-            this.licenceToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.licenceToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.licenceToolStripMenuItem.Text = "Licence";
             this.licenceToolStripMenuItem.Click += new System.EventHandler(this.licenceToolStripMenuItem_Click);
             // 
@@ -515,7 +519,7 @@
             // 
             this.aboutToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.help;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -576,6 +580,18 @@
             this.profileTab.Size = new System.Drawing.Size(836, 381);
             this.profileTab.TabIndex = 2;
             this.profileTab.Text = "PROFILES";
+            // 
+            // checkForUpdateToolStripMenuItem
+            // 
+            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
+            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.checkForUpdateToolStripMenuItem.Text = "Check for update";
+            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(162, 6);
             // 
             // MainForm
             // 
@@ -663,6 +679,8 @@
         private System.Windows.Forms.ToolStripMenuItem compareToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rankCloudToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editorSettingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
           
     }
 }

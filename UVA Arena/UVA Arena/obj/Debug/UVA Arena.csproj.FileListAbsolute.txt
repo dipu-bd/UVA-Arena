@@ -48,3 +48,4 @@ G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.exe.manifes
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.application
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.exe
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.pdb
+G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA_Arena.CheckUpdateForm.resources

@@ -17,6 +17,7 @@ namespace UVA_Arena
         public static SubmitForm submitForm;
         public static DownloadAllForm downloadAllForm;
         public static UsernameForm usernameForm;
+        public static CheckUpdateForm checkUpdateForm;
         //controls
         public static PROBLEMS problems;
         public static ProblemViewer problemViewer;
@@ -40,6 +41,15 @@ namespace UVA_Arena
             }
         }
 
+        public static void OpenForm(Form form)
+        {
+            if (form != null && !form.IsDisposed)
+            {
+                if (form.Visible) form.BringToFront();
+                else form.Show();
+            }
+        }
+
         /// <summary>
         /// Close all opened forms used by this application.
         /// </summary>
@@ -54,6 +64,7 @@ namespace UVA_Arena
                 CloseForm(submitForm);
                 CloseForm(downloadAllForm);
                 CloseForm(usernameForm);
+                CloseForm(checkUpdateForm);
             }
             catch { }
         }
@@ -69,8 +80,7 @@ namespace UVA_Arena
             if (submitForm == null || submitForm.IsDisposed)
                 submitForm = new SubmitForm();
             submitForm.LoadSubmit(pnum, code, lang);
-            submitForm.BringToFront();
-            submitForm.Show();
+            OpenForm(submitForm);
         }
 
         /// <summary>
@@ -80,8 +90,7 @@ namespace UVA_Arena
         {
             if (loggerForm == null || loggerForm.IsDisposed)
                 loggerForm = new LoggerForm();
-            loggerForm.BringToFront();
-            loggerForm.Show();
+            OpenForm(loggerForm);
         }
 
         /// <summary>
@@ -91,8 +100,7 @@ namespace UVA_Arena
         {
             if (helpaboutForm == null || helpaboutForm.IsDisposed)
                 helpaboutForm = new HelpAbout();
-            helpaboutForm.BringToFront();
-            helpaboutForm.Show();
+            OpenForm(helpaboutForm);
         }
 
         /// <summary>
@@ -102,10 +110,9 @@ namespace UVA_Arena
         public static void ShowSettings(int tabindex = 0)
         {
             if (settingsForm == null || settingsForm.IsDisposed)
-                settingsForm = new SettingsForm();
-            settingsForm.BringToFront();
-            settingsForm.Show();
+                settingsForm = new SettingsForm();            
             settingsForm.tabControl1.SelectedIndex = tabindex;
+            OpenForm(settingsForm);
         }
 
 
@@ -116,8 +123,7 @@ namespace UVA_Arena
         {
             if (downloadAllForm == null || downloadAllForm.IsDisposed)
                 downloadAllForm = new DownloadAllForm();
-            downloadAllForm.BringToFront();
-            downloadAllForm.Show();
+            OpenForm(downloadAllForm);
         }
 
 
@@ -128,8 +134,35 @@ namespace UVA_Arena
         {
             if (usernameForm == null || usernameForm.IsDisposed)
                 usernameForm = new UsernameForm();
-            usernameForm.BringToFront();
-            usernameForm.Show();
+            OpenForm(usernameForm);
+        }
+
+
+        /// <summary>
+        /// Show Check for updates form 
+        /// </summary>
+        public static void ShowCheckUpdateForm()
+        {
+            if (checkUpdateForm == null || checkUpdateForm.IsDisposed)
+                checkUpdateForm = new CheckUpdateForm();
+            OpenForm(checkUpdateForm);
+        }
+
+        /// <summary>
+        /// It get's called when an update is downloaded
+        /// </summary>
+        /// <param name="update">Update message that got downloaded</param>
+        public static void UpdateFound(UpdateCheck.UpdateMessage update)
+        {
+            if (update.version.Length > 2 &&
+                update.version != Application.ProductVersion)
+            {
+                ShowCheckUpdateForm();
+                checkUpdateForm.updateLink.Text = update.link;
+                checkUpdateForm.newVersion.Text = update.version;
+                checkUpdateForm.curVersion.Text = Application.ProductVersion;
+                checkUpdateForm.updateMessage.Text = update.message;
+            }
         }
 
         /// <summary>

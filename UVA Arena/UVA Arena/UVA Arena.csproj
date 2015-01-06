@@ -93,6 +93,7 @@
     <Compile Include="Classes\Data Structures\ContextBook.cs" />
     <Compile Include="Classes\Data Structures\UserInfo.cs" />
     <Compile Include="Classes\Data Structures\UserRanklist.cs" />
+    <Compile Include="Classes\Utilities\UpdateCheck.cs" />
     <Compile Include="Classes\Utilities\WebBrowserHelper.cs" />
     <Compile Include="Elements\CodeCompiler.cs" />
     <Compile Include="Classes\Utilities\Internet.cs">
@@ -180,11 +181,17 @@
     <Compile Include="Elements\UTILITIES.Designer.cs">
       <DependentUpon>UTILITIES.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CatagoryChange.cs">
+    <Compile Include="Forms\CategoryChange.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\CatagoryChange.Designer.cs">
-      <DependentUpon>CatagoryChange.cs</DependentUpon>
+    <Compile Include="Forms\CategoryChange.Designer.cs">
+      <DependentUpon>CategoryChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CheckUpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CheckUpdateForm.Designer.cs">
+      <DependentUpon>CheckUpdateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SelectALanguage.cs">
       <SubType>Form</SubType>
@@ -284,8 +291,11 @@
     <EmbeddedResource Include="Elements\UTILITIES.resx">
       <DependentUpon>UTILITIES.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CatagoryChange.resx">
-      <DependentUpon>CatagoryChange.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CategoryChange.resx">
+      <DependentUpon>CategoryChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CheckUpdateForm.resx">
+      <DependentUpon>CheckUpdateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SelectALanguage.resx">
       <DependentUpon>SelectALanguage.cs</DependentUpon>

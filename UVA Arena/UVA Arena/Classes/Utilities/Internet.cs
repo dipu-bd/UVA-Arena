@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
-using System.Text;
 
 namespace UVA_Arena.Internet
 {
@@ -369,7 +368,7 @@ namespace UVA_Arena.Internet
 
             //problem database
             string url = "http://uhunt.felix-halim.net/api/p";
-            string file = LocalDirectory.GetProblemDataFile();
+            string file = LocalDirectory.GetProblemInfoFile();
             DownloadFileAsync(url, file, null, Priority.High, progress, __DownloadProblemDatabaseCompleted);
 
             //problem catagories

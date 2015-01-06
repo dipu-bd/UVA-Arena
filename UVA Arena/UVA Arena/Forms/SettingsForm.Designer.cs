@@ -36,12 +36,15 @@
             this.closeButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.generalTab = new System.Windows.Forms.TabPage();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.currentCodeDir = new System.Windows.Forms.LinkLabel();
             this.changeCodeButton = new System.Windows.Forms.Button();
             this.formatCodeButton = new System.Windows.Forms.Button();
             this.label34 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.backupRegistryButton = new System.Windows.Forms.Button();
             this.downloadAll = new System.Windows.Forms.Button();
             this.restoreData = new System.Windows.Forms.Button();
             this.backupData = new System.Windows.Forms.Button();
@@ -100,6 +103,7 @@
             this.tableLayoutPanel3.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.generalTab.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -186,6 +190,7 @@
             // generalTab
             // 
             this.generalTab.BackColor = System.Drawing.Color.AliceBlue;
+            this.generalTab.Controls.Add(this.groupBox11);
             this.generalTab.Controls.Add(this.groupBox6);
             this.generalTab.Controls.Add(this.groupBox5);
             this.generalTab.Controls.Add(this.groupBox4);
@@ -196,15 +201,37 @@
             this.generalTab.TabIndex = 0;
             this.generalTab.Text = "General";
             // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.checkBox1);
+            this.groupBox11.Location = new System.Drawing.Point(8, 74);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(360, 56);
+            this.groupBox11.TabIndex = 17;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "General :";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = global::UVA_Arena.Properties.Settings.Default.ShowExitDialogue;
+            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "ShowExitDialogue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox1.Location = new System.Drawing.Point(25, 21);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(248, 17);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Don\'t prompt while closing the application";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.currentCodeDir);
             this.groupBox6.Controls.Add(this.changeCodeButton);
             this.groupBox6.Controls.Add(this.formatCodeButton);
             this.groupBox6.Controls.Add(this.label34);
-            this.groupBox6.Location = new System.Drawing.Point(8, 288);
+            this.groupBox6.Location = new System.Drawing.Point(8, 315);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(355, 139);
+            this.groupBox6.Size = new System.Drawing.Size(355, 125);
             this.groupBox6.TabIndex = 16;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Change Code Directory";
@@ -225,7 +252,7 @@
             // changeCodeButton
             // 
             this.changeCodeButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.changeCodeButton.Location = new System.Drawing.Point(53, 65);
+            this.changeCodeButton.Location = new System.Drawing.Point(53, 60);
             this.changeCodeButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.changeCodeButton.Name = "changeCodeButton";
             this.changeCodeButton.Size = new System.Drawing.Size(250, 28);
@@ -237,7 +264,7 @@
             // formatCodeButton
             // 
             this.formatCodeButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.formatCodeButton.Location = new System.Drawing.Point(53, 98);
+            this.formatCodeButton.Location = new System.Drawing.Point(53, 92);
             this.formatCodeButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.formatCodeButton.Name = "formatCodeButton";
             this.formatCodeButton.Size = new System.Drawing.Size(250, 28);
@@ -260,18 +287,31 @@
             // 
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.backupRegistryButton);
             this.groupBox5.Controls.Add(this.downloadAll);
             this.groupBox5.Controls.Add(this.restoreData);
             this.groupBox5.Controls.Add(this.backupData);
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.label3);
-            this.groupBox5.Location = new System.Drawing.Point(8, 83);
+            this.groupBox5.Location = new System.Drawing.Point(8, 136);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(355, 194);
+            this.groupBox5.Size = new System.Drawing.Size(355, 168);
             this.groupBox5.TabIndex = 15;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Problem Data :";
+            // 
+            // backupRegistryButton
+            // 
+            this.backupRegistryButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.backupRegistryButton.Location = new System.Drawing.Point(53, 134);
+            this.backupRegistryButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.backupRegistryButton.Name = "backupRegistryButton";
+            this.backupRegistryButton.Size = new System.Drawing.Size(250, 28);
+            this.backupRegistryButton.TabIndex = 9;
+            this.backupRegistryButton.Text = "Backup Registry Settings";
+            this.backupRegistryButton.UseVisualStyleBackColor = true;
+            this.backupRegistryButton.Click += new System.EventHandler(this.backupRegistryButton_Click);
             // 
             // downloadAll
             // 
@@ -288,24 +328,24 @@
             // restoreData
             // 
             this.restoreData.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.restoreData.Location = new System.Drawing.Point(53, 144);
+            this.restoreData.Location = new System.Drawing.Point(185, 85);
             this.restoreData.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.restoreData.Name = "restoreData";
-            this.restoreData.Size = new System.Drawing.Size(250, 28);
+            this.restoreData.Size = new System.Drawing.Size(150, 28);
             this.restoreData.TabIndex = 4;
-            this.restoreData.Text = "Restore Data";
+            this.restoreData.Text = "Restore Descriton";
             this.restoreData.UseVisualStyleBackColor = true;
             this.restoreData.Click += new System.EventHandler(this.restoreData_Click);
             // 
             // backupData
             // 
             this.backupData.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.backupData.Location = new System.Drawing.Point(53, 85);
+            this.backupData.Location = new System.Drawing.Point(25, 85);
             this.backupData.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.backupData.Name = "backupData";
-            this.backupData.Size = new System.Drawing.Size(250, 28);
+            this.backupData.Size = new System.Drawing.Size(150, 28);
             this.backupData.TabIndex = 5;
-            this.backupData.Text = "Backup All Data";
+            this.backupData.Text = "Backup Descrition";
             this.backupData.UseVisualStyleBackColor = true;
             this.backupData.Click += new System.EventHandler(this.backupData_Click);
             // 
@@ -321,20 +361,20 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 130);
+            this.label2.Location = new System.Drawing.Point(13, 119);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(174, 13);
+            this.label2.Size = new System.Drawing.Size(92, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Restore data from a backup file :";
+            this.label2.Text = "Backup registry :";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 71);
+            this.label3.Location = new System.Drawing.Point(13, 69);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(235, 13);
+            this.label3.Size = new System.Drawing.Size(328, 13);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Backup user settings and downloader data :";
+            this.label3.Text = "Backup and Restore user settings and downloader descrition :";
             // 
             // groupBox4
             // 
@@ -986,6 +1026,8 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.generalTab.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -1087,5 +1129,8 @@
         private System.Windows.Forms.Button currentLineColor;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.Button backupRegistryButton;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

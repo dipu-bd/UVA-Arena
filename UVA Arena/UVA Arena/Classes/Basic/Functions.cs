@@ -388,36 +388,39 @@ namespace UVA_Arena
         /// </summary>
         /// <param name="key">This should be initially null to start from RegistryAccess.DEFAULT key</param>
         /// <returns>A string that can be opened by system's Registry Editor written in .reg file</returns>
-        private static string GetRegistryData(RegistryKey key = null)
+        public static string GetRegistryData(RegistryKey key = null)
         {
             string dat = "";
             string NL = Environment.NewLine;
-            
-            if(key == null)
+
+            if (key == null)
             {
                 key = RegistryAccess.DEFAULT;
-                dat = "Windows Registry Editor Version 5.00" + NL + NL;                
+                dat = "Windows Registry Editor Version 5.00" + NL + NL;
             }
 
             //key path
             dat += string.Format("[{0}]", key) + NL;
-                        
+
             //get values            
             foreach (string name in key.GetValueNames())
             {
-                string value = JsonConvert.SerializeObject(key.GetValue(name));  
+                string value = JsonConvert.SerializeObject(key.GetValue(name));
                 dat += string.Format("\"{0}\"={1}", name, value) + NL;
             }
 
             //get sub keys            
             foreach (string subkey in key.GetSubKeyNames())
             {
-                dat += GetRegistryData(key.OpenSubKey(subkey)) + NL;                
+                dat += GetRegistryData(key.OpenSubKey(subkey)) + NL;
             }
 
             return dat;
         }
 
         #endregion
+
+
+
     }
 }

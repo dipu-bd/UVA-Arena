@@ -113,14 +113,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UVA Arena.exe" size="2361856">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UVA Arena.exe" size="2367488">
       <assemblyIdentity name="UVA Arena" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>15PNQtTkI8nFLe2JXm7+W64VBv0=</dsig:DigestValue>
+        <dsig:DigestValue>SbR7IHyVr0d6qo6zpqYAqYK7nuQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -145,13 +145,13 @@
       <dsig:DigestValue>qLK7Iuatx0ucVfQf8NZcxctAq2M=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="UVA Arena.exe.config" size="6155">
+  <file name="UVA Arena.exe.config" size="4918">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>geU6b536/KX6+2WnRoknNqDOVgE=</dsig:DigestValue>
+      <dsig:DigestValue>RdhZuQB+WphZQkXXOd0OUYPAtGU=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

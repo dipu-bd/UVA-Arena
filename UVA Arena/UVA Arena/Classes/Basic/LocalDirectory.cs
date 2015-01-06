@@ -90,7 +90,7 @@ namespace UVA_Arena
         }
 
         //
-        // Copy and Delete
+        // SH-File-Operation
         //
         /// <summary>
         /// Copy files and folders to the destination directory
@@ -99,26 +99,9 @@ namespace UVA_Arena
         /// <param name="dest">Destination folder for the given files and folders</param>
         public static void CopyFilesOrFolders(string[] from, string dest)
         {
-            //try { 
-                SHOptionsAPI.Copy(from, dest); 
-            //}
-            //catch
-            //{
-            //    foreach (string file in from)
-            //    {
-            //        string npath = Path.Combine(dest, Path.GetFileName(file));
-            //        if (File.Exists(file))
-            //        {
-            //            File.Copy(file, npath, true);
-            //        }
-            //        else if (Directory.Exists(file))
-            //        {
-            //            CopyFilesOrFolders(Directory.GetFiles(file), npath);
-            //            CopyFilesOrFolders(Directory.GetDirectories(file), npath);
-            //        }
-            //    }
-            //}
+            SHOperations.Copy(from, dest);
         }
+
         /// <summary>
         /// Change the name of a file or folder
         /// </summary>
@@ -126,54 +109,17 @@ namespace UVA_Arena
         /// <param name="dest">Destination name</param>
         public static void RenameFileOrFolder(string from, string dest)
         {
-            //try { 
-            SHOptionsAPI.Rename(from, dest);
-            //}
-            //catch
-            //{
-            //    foreach (string file in from)
-            //    {
-            //        string npath = Path.Combine(dest, Path.GetFileName(file));
-            //        if (File.Exists(file))
-            //        {
-            //            File.Copy(file, npath, true);
-            //        }
-            //        else if (Directory.Exists(file))
-            //        {
-            //            CopyFilesOrFolders(Directory.GetFiles(file), npath);
-            //            CopyFilesOrFolders(Directory.GetDirectories(file), npath);
-            //        }
-            //    }
-            //}
+            SHOperations.Rename(from, dest);
         }
 
         /// <summary>
-        /// Delete files and folders permanantly
+        /// Send files and folders to recycle-bin
         /// </summary>
         /// <param name="files">List of files and folders to delete</param>
         public static void DeleteFilesOrFolders(string[] files)
         {
-            //try { 
-                SHOptionsAPI.SendToRecycleBin(files); 
-            //}
-            //catch
-            //{                
-            //    string delfolder = GetRecycleFolder();
-            //    foreach (string file in files)
-            //    {
-            //        if (File.Exists(file))
-            //        {
-            //            File.Move(file, delfolder);
-            //        }
-            //        else
-            //        {
-            //            Directory.Move(file, delfolder);
-            //        }
-            //    }
-            //}
+            SHOperations.SendToRecycleBin(files);
         }
-
-
 
         //
         // Needed in project
@@ -198,7 +144,7 @@ namespace UVA_Arena
         /// Get the path where downloaded problems info should be saved 
         /// </summary>
         /// <returns>Valid filename with .json extension</returns>
-        public static string GetProblemDataFile()
+        public static string GetProblemInfoFile()
         {
             string path = Path.Combine(DefaultPath, "problems.json");
             CreateFile(path);
@@ -219,11 +165,11 @@ namespace UVA_Arena
         /// <summary> 
         /// Get the folder where all problem's description is saved.
         /// </summary>
-        public static string GetProblemPath()
+        public static string GetProblemDescritionPath()
         {
-                string path = Path.Combine(DefaultPath, "Problems");
-                CreateDirectory(path);
-                return path;
+            string path = Path.Combine(DefaultPath, "Problems");
+            CreateDirectory(path);
+            return path;
         }
 
         /// <summary> 
@@ -234,7 +180,7 @@ namespace UVA_Arena
         public static string GetVolumePath(long pnum)
         {
             string volname = string.Format("Volume {0:000}", pnum / 100);
-            string path = Path.Combine(GetProblemPath(), volname);
+            string path = Path.Combine(GetProblemDescritionPath(), volname);
             CreateDirectory(path);
             return path;
         }
@@ -262,7 +208,7 @@ namespace UVA_Arena
         {
             if (!LocalDatabase.IsReady) return null;
 
-            string path = Elements.CODES.CodesPath;
+            string path = RegistryAccess.CodesPath;
             if (string.IsNullOrEmpty(path) || !Directory.Exists(path)) return null;
 
             string title = LocalDatabase.GetTitle(pnum);
@@ -286,19 +232,19 @@ namespace UVA_Arena
         /// </returns>
         public static string GetPrecode(Structures.Language lang = Structures.Language.CPP)
         {
-            string path = Elements.CODES.CodesPath;
+            string path = RegistryAccess.CodesPath;
             if (!Directory.Exists(path)) path = DefaultCodesPath();
-            
+
             string ext = ".cpp";
             switch (lang)
             {
                 case Structures.Language.C: ext = ".c"; break;
-                case Structures.Language.Java: ext = ".java";break;
+                case Structures.Language.Java: ext = ".java"; break;
                 case Structures.Language.Pascal: ext = ".pascal"; break;
                 default: ext = ".cpp"; break;
             }
 
-            path = Path.Combine(path, "Precodes");                        
+            path = Path.Combine(path, "Precodes");
             string file = Path.Combine(path, "Precode" + ext);
             CreateFile(file);
 
@@ -342,12 +288,14 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// Get path where user's submissions are stored
+        /// Get path where user's submissions are stored. 
+        /// If user id doesn't found an empty string is returned.
         /// </summary>
         /// <param name="username">Username of the user</param>
         /// <returns>Valid file with .json extension</returns>
         public static string GetUserSubPath(string username)
         {
+            if (!LocalDatabase.ContainsUser(username)) return "";
             string uid = LocalDatabase.GetUserid(username);
             string name = uid.ToString() + ".json";
             string file = Path.Combine("Users", name);
@@ -355,7 +303,7 @@ namespace UVA_Arena
             CreateFile(file);
             return file;
         }
-         
+
 
         /// <summary>
         /// File to store program's logs. 
@@ -384,10 +332,10 @@ namespace UVA_Arena
         /// <returns>Valid directory that is hidden</returns>
         public static string GetRecycleFolder()
         {
-            string path = Elements.CODES.CodesPath;
-            if(!Directory.Exists(path)) path = DefaultCodesPath();
+            string path = RegistryAccess.CodesPath;
+            if (!Directory.Exists(path)) path = DefaultCodesPath();
             path = Path.Combine(path, ".deleted");
-            if(Directory.Exists(path)) return path;
+            if (Directory.Exists(path)) return path;
             Directory.CreateDirectory(path);
             DirectoryInfo dir = new DirectoryInfo(path);
             dir.Attributes = FileAttributes.Hidden;

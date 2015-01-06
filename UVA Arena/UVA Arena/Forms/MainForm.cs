@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using TheCodeKing.ActiveButtons.Controls;
 using UVA_Arena.Properties;
 
@@ -18,7 +17,7 @@ namespace UVA_Arena
             InitializeComponent();
 
             //to enable lower level mouse
-            Application.AddMessageFilter(this); 
+            Application.AddMessageFilter(this);
 
             //make background trasparent
             // bool set = NativeMethods.ExtendWindowsFrame(this, 3, 2, 58, 2);   //true if works
@@ -27,18 +26,51 @@ namespace UVA_Arena
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
             Logger.Add("UVA Arena started", "Main Form");
 
+            //set styles
             customTabControl1.BackColor = Color.PaleTurquoise;
             Stylish.SetGradientBackground(menuStrip1,
                 new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
-            
+
             //set some properties to the form
             SetFormProperties();
-                       
+
             //initialize controls and add them
             DelayInitialize(true);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if(!Properties.Settings.Default.ShowExitDialogue)
+            {
+                ClosingDialogueForm cdf = new ClosingDialogueForm();
+                if(cdf.ShowDialog() == System.Windows.Forms.DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        public void SetFormProperties()
+        {
+            string user = RegistryAccess.DefaultUsername;
+            if (LocalDatabase.ContainsUser(user))
+            {
+                this.Text = string.Format(this.Tag.ToString(), user, LocalDatabase.GetUserid(user));
+            }
+            else
+            {
+                string msg = "Looks like you didn't set a default username." + Environment.NewLine;
+                msg += "It is extremely important to set a default username to enable many features." + Environment.NewLine;
+                msg += "Press OK to set it now. Or, you can set it later from the menubar options.";
+                if(MessageBox.Show(msg, Application.ProductName, MessageBoxButtons.OKCancel)
+                    == System.Windows.Forms.DialogResult.OK)
+                {
+                    Interactivity.ShowUserNameForm();
+                }
+            }
         }
 
         #region mouse wheel without focus
@@ -62,12 +94,6 @@ namespace UVA_Arena
 
         #endregion
 
-        public void SetFormProperties()
-        {
-            this.Text = string.Format(this.Tag.ToString(),
-                    RegistryAccess.DefaultUsername,
-                    LocalDatabase.GetUserid(RegistryAccess.DefaultUsername));
-        }
 
         private void DelayInitialize(object background)
         {
@@ -78,31 +104,48 @@ namespace UVA_Arena
                 System.Threading.ThreadPool.QueueUserWorkItem(DelayInitialize, false);
                 return;
             }
-              
+
             //load problem database
-            LocalDatabase.RunLoadAsync(false); 
-            
+            LocalDatabase.RunLoadAsync(false);
+
             //load controls
+             bool _initialized = false;
             this.BeginInvoke((MethodInvoker)delegate
             {
                 //add controls
                 AddControls();
-               
+
                 //add buttons to the top right beside control buttons
                 AddActiveButtons();
 
+                _initialized = true;
                 this.Cursor = Cursors.Default;
                 Logger.Add("Initialized all controls", "Main Form");
             });
-            
-            //fetch problem database from internet if not available            
-            System.Threading.Thread.Sleep(3000);
-            if (LocalDirectory.GetFileSize(LocalDirectory.GetProblemDataFile()) < 100)
+
+            //update problem database if not available
+            if (LocalDirectory.GetFileSize(LocalDirectory.GetProblemInfoFile()) < 100)
             {
+                while (!_initialized) System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(2000);
                 this.BeginInvoke((MethodInvoker)delegate
                 {
                     UVA_Arena.Internet.Downloader.DownloadProblemDatabase();
                 });
+            }
+
+            //update user submissions if not available
+            if (LocalDatabase.ContainsUser(RegistryAccess.DefaultUsername))
+            {
+                string file = LocalDirectory.GetUserSubPath(RegistryAccess.DefaultUsername);
+                if (LocalDirectory.GetFileSize(file) < 50)
+                {
+                System.Threading.Thread.Sleep(1000);
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        Interactivity.userstat.DownloadUserSubs(RegistryAccess.DefaultUsername);
+                    });
+                }
             }
 
             //check for updates
@@ -148,7 +191,7 @@ namespace UVA_Arena
             Interactivity.codes = new Elements.CODES();
             Interactivity.codes.Dock = DockStyle.Fill;
             codesTab.Controls.Add(Interactivity.codes);
-            
+
             //load status 
             Interactivity.status = new Elements.STATUS();
             Interactivity.status.Dock = DockStyle.Fill;
@@ -163,10 +206,18 @@ namespace UVA_Arena
             //Interactivity.utilities = new Elements.UTILITIES();
             //Interactivity.utilities.Dock = DockStyle.Fill; 
             //utilitiesTab.Controls.Add(Interactivity.utilities); 
-            
+
             //set up context menu
             statusToolStripMenuItem.DropDown = Interactivity.status.updateContextMenu;
             submissionsToolStripMenuItem.DropDown = Interactivity.userstat.MainContextMenu;
+        }
+
+        private void customTabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (customTabControl1.SelectedTab == profileTab)
+            {
+                Interactivity.userstat.LoadUsernames();
+            }
         }
 
         #region Menubar Actions
@@ -231,7 +282,7 @@ namespace UVA_Arena
         {
             try
             {
-                System.Diagnostics.Process.Start(LocalDirectory.GetProblemPath());
+                System.Diagnostics.Process.Start(LocalDirectory.GetProblemDescritionPath());
             }
             catch (Exception ex)
             {
@@ -264,19 +315,19 @@ namespace UVA_Arena
         private void changeDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             customTabControl1.SelectedTab = codesTab;
-            Interactivity.codes.ChangeCodeDirectory();
+            Interactivity.codesBrowser.ChangeCodeDirectory();
         }
 
         private void formatDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             customTabControl1.SelectedTab = codesTab;
-            Interactivity.codes.FormatCodeDirectory(true);
+            Interactivity.codesBrowser.FormatCodeDirectory(true);
         }
 
         private void refreshViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             customTabControl1.SelectedTab = codesTab;
-            Interactivity.codes.LoadCodeFolder(true);
+            Interactivity.codesBrowser.LoadCodeFolder(true);
         }
 
         private void editorSettingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -379,7 +430,7 @@ namespace UVA_Arena
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            UpdateCheck.CheckForUpdate(); 
+            UpdateCheck.CheckForUpdate();
         }
 
         private void checkForUpdateToolStripMenuItem_DropDownOpening(object sender, EventArgs e)

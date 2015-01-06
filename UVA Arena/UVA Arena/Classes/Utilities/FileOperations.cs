@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace UVA_Arena
 {
-    public static class SHOptionsAPI
+    public static class SHOperations
     {
         /// <summary>
         /// Possible flags for the SHFileOperation method.

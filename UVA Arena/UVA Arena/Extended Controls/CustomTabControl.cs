@@ -21,7 +21,7 @@ namespace System.Windows.Forms
             this.SetStyle(ControlStyles.EnableNotifyMessage, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);            
             this.BackColor = Color.PaleTurquoise;
 
         }

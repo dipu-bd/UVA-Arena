@@ -26,7 +26,7 @@
     <SupportUrl>https://github.com/dipu-bd/UVA-Arena</SupportUrl>
     <ProductName>UVA Arena</ProductName>
     <PublisherName>Sudipto Chandra</PublisherName>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -101,6 +101,12 @@
     </Compile>
     <Compile Include="Classes\Data Structures\UserSubmissions.cs" />
     <Compile Include="Classes\Utilities\DataCompressor.cs" />
+    <Compile Include="Elements\CodesBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Elements\CodesBrowser.Designer.cs">
+      <DependentUpon>CodesBrowser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Elements\CompareUsers.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -193,6 +199,12 @@
     <Compile Include="Forms\CheckUpdateForm.Designer.cs">
       <DependentUpon>CheckUpdateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ClosingDialogueForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ClosingDialogueForm.Designer.cs">
+      <DependentUpon>ClosingDialogueForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SelectALanguage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -261,6 +273,9 @@
     <Compile Include="Classes\Utilities\TaskQueue.cs" />
     <Compile Include="Classes\Utilities\UnixTimeStamp.cs" />
     <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="Elements\CodesBrowser.resx">
+      <DependentUpon>CodesBrowser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Extended Controls\CustomWebBrowser.resx">
       <DependentUpon>CustomWebBrowser.cs</DependentUpon>
     </EmbeddedResource>
@@ -296,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CheckUpdateForm.resx">
       <DependentUpon>CheckUpdateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ClosingDialogueForm.resx">
+      <DependentUpon>ClosingDialogueForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SelectALanguage.resx">
       <DependentUpon>SelectALanguage.cs</DependentUpon>

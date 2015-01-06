@@ -32,8 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoggerForm));
             this.activityList = new BrightIdeasSoftware.FastObjectListView();
             this.dateTime = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.source = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.status = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.source = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cancelTaskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -116,23 +116,21 @@
             this.dateTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dateTime.Width = 150;
             // 
+            // status
+            // 
+            this.status.AspectName = "status";
+            this.status.Sortable = false;
+            this.status.Text = "Log Status";
+            this.status.Width = 400;
+            // 
             // source
             // 
             this.source.AspectName = "source";
-            this.source.DisplayIndex = 1;
             this.source.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.source.Sortable = false;
             this.source.Text = "Source";
             this.source.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.source.Width = 120;
-            // 
-            // status
-            // 
-            this.status.AspectName = "status";
-            this.status.DisplayIndex = 2;
-            this.status.Sortable = false;
-            this.status.Text = "Log Status";
-            this.status.Width = 400;
             // 
             // contextMenuStrip1
             // 

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using UVA_Arena.Structures;
@@ -39,7 +36,7 @@ namespace UVA_Arena
         {
             //general settings
             SetCurrentUsername();
-            currentCodeDir.Text = Elements.CODES.CodesPath;
+            currentCodeDir.Text = RegistryAccess.CodesPath;
 
             //editor
             LoadEditorSettings();
@@ -83,19 +80,40 @@ namespace UVA_Arena
             Functions.RestoreData();
         }
 
+        private void backupRegistryButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.FileName = "UVA_Arena_backup.reg";
+                sfd.Filter = "Registry File|*.reg";
+                if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string regdata = Functions.GetRegistryData();
+                    File.WriteAllText(sfd.FileName, regdata, Encoding.UTF8);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void changeCodeButton_Click(object sender, EventArgs e)
         {
-            if (Interactivity.codes != null && !Interactivity.codes.IsDisposed)
+            if (Interactivity.codesBrowser != null &&
+                !Interactivity.codesBrowser.IsDisposed)
             {
-                Interactivity.codes.browseFolderButton.PerformClick();
-                currentCodeDir.Text = Elements.CODES.CodesPath;
+                Interactivity.codesBrowser.ChangeCodeDirectory();
+                currentCodeDir.Text = RegistryAccess.CodesPath;
             }
         }
 
         private void formatCodeButton_Click(object sender, EventArgs e)
         {
-            if (Interactivity.codes != null && !Interactivity.codes.IsDisposed)
-                Interactivity.codes.FormatCodeDirectory(true);
+            if (Interactivity.codesBrowser != null &&
+                !Interactivity.codesBrowser.IsDisposed)
+                Interactivity.codesBrowser.FormatCodeDirectory(true);
         }
 
         private void linklabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -302,6 +320,7 @@ namespace UVA_Arena
                 }
             }
         }
+
 
     }
 }

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using UVA_Arena.Structures;
 using UVA_Arena.Internet;
+using UVA_Arena.Structures;
 
 namespace UVA_Arena.Elements
 {

@@ -54,10 +54,9 @@ namespace UVA_Arena
                 problem_num = new Dictionary<long, ProblemInfo>();
                 problem_vol = new Dictionary<long, List<ProblemInfo>>();
                 problem_cat = new Dictionary<string, List<ProblemInfo>>();
-                DefaultUser = new UserInfo(RegistryAccess.DefaultUsername);
 
                 //get object data from json data
-                string text = File.ReadAllText(LocalDirectory.GetProblemDataFile());
+                string text = File.ReadAllText(LocalDirectory.GetProblemInfoFile());
                 var data = JsonConvert.DeserializeObject<List<List<object>>>(text);
                 if (data == null || data.Count == 0)
                     throw new NullReferenceException("Problem database was empty");
@@ -65,7 +64,7 @@ namespace UVA_Arena
                 //load all lists from object data
                 LoadList(data);
                 LoadOthers();
-                
+
                 data.Clear();
                 IsAvailable = true;
             }
@@ -158,13 +157,16 @@ namespace UVA_Arena
             try
             {
                 string user = RegistryAccess.DefaultUsername;
+                if (!ContainsUser(user)) throw new KeyNotFoundException();
                 string file = LocalDirectory.GetUserSubPath(user);
                 string data = File.ReadAllText(file);
                 DefaultUser = JsonConvert.DeserializeObject<UserInfo>(data);
-                DefaultUser.Process();
+                if (DefaultUser != null) DefaultUser.Process();
+                else DefaultUser = new UserInfo(RegistryAccess.DefaultUsername);
             }
             catch (Exception ex)
             {
+                DefaultUser = new UserInfo(RegistryAccess.DefaultUsername);
                 Logger.Add(ex.Message, "LocalDatabase|LoadDefaultUser()");
             }
         }
@@ -271,6 +273,26 @@ namespace UVA_Arena
         {
             if (!ContainsUser(name)) return "-";
             return usernames[name];
+        }
+
+
+        /// <summary>
+        /// Get problem number from file name
+        /// </summary>
+        /// <param name="name">Name of the file</param>
+        /// <returns> -1 if problem name is not recognized</returns>
+        public static long GetProblemNumber(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return -1;
+            long res = -1;
+            var m = System.Text.RegularExpressions.Regex.Match(name, @"\d+");
+            if (m.Success)
+            {
+                string num = name.Substring(m.Index, m.Length);
+                long.TryParse(num, out res);
+                if (!HasProblem(res)) res = -1;
+            }
+            return res;
         }
 
         #endregion

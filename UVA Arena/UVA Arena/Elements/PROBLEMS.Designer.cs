@@ -111,10 +111,10 @@
             this.hideAccepted.AutoCheck = false;
             this.hideAccepted.AutoSize = true;
             this.hideAccepted.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hideAccepted.Location = new System.Drawing.Point(1, 349);
+            this.hideAccepted.Location = new System.Drawing.Point(1, 409);
             this.hideAccepted.Margin = new System.Windows.Forms.Padding(1);
             this.hideAccepted.Name = "hideAccepted";
-            this.hideAccepted.Size = new System.Drawing.Size(159, 22);
+            this.hideAccepted.Size = new System.Drawing.Size(164, 22);
             this.hideAccepted.TabIndex = 6;
             this.hideAccepted.Tag = "Hide Accepted Problems|Show Accepted Problems";
             this.hideAccepted.Text = "Hide Accepted Problems";
@@ -130,13 +130,13 @@
             this.deepSearchCheckBox.Location = new System.Drawing.Point(6, 29);
             this.deepSearchCheckBox.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.deepSearchCheckBox.Name = "deepSearchCheckBox";
-            this.deepSearchCheckBox.Size = new System.Drawing.Size(87, 17);
+            this.deepSearchCheckBox.Size = new System.Drawing.Size(90, 17);
             this.deepSearchCheckBox.TabIndex = 5;
             this.deepSearchCheckBox.Text = "Deep Search";
-            this.toolTip1.SetToolTip(this.deepSearchCheckBox, "Also search in tags and problem description. \r\nHit enter or press search button t" +
-        "o make it effective.");
+            this.toolTip1.SetToolTip(this.deepSearchCheckBox, "Search including problem descritions.\r\n(It requires offline copy of all problem d" +
+        "escription)");
             this.deepSearchCheckBox.UseVisualStyleBackColor = true;
-            this.deepSearchCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.deepSearchCheckBox.CheckedChanged += new System.EventHandler(this.deepSearchCheckBox_CheckedChanged);
             // 
             // memProb
             // 
@@ -171,9 +171,9 @@
             this.updateToolButton,
             this.Status1,
             this.Progress1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 422);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 482);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 28);
+            this.statusStrip1.Size = new System.Drawing.Size(838, 28);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
@@ -193,7 +193,7 @@
             // 
             this.Status1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
             this.Status1.Name = "Status1";
-            this.Status1.Size = new System.Drawing.Size(522, 23);
+            this.Status1.Size = new System.Drawing.Size(560, 23);
             this.Status1.Spring = true;
             this.Status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -449,8 +449,8 @@
             // mainSplitContainer.Panel1
             // 
             this.mainSplitContainer.Panel1.Controls.Add(this.problemViewSplitContainer);
-            this.mainSplitContainer.Size = new System.Drawing.Size(800, 422);
-            this.mainSplitContainer.SplitterDistance = 290;
+            this.mainSplitContainer.Size = new System.Drawing.Size(838, 482);
+            this.mainSplitContainer.SplitterDistance = 300;
             this.mainSplitContainer.SplitterWidth = 5;
             this.mainSplitContainer.TabIndex = 0;
             this.mainSplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.mainSplitContainer_SplitterMoved);
@@ -472,8 +472,8 @@
             this.problemViewSplitContainer.Panel2.BackColor = System.Drawing.Color.LightBlue;
             this.problemViewSplitContainer.Panel2.Controls.Add(this.problemListContainer);
             this.problemViewSplitContainer.Panel2.Controls.Add(this.tableLayoutPanel2);
-            this.problemViewSplitContainer.Size = new System.Drawing.Size(290, 422);
-            this.problemViewSplitContainer.SplitterDistance = 125;
+            this.problemViewSplitContainer.Size = new System.Drawing.Size(300, 482);
+            this.problemViewSplitContainer.SplitterDistance = 130;
             this.problemViewSplitContainer.TabIndex = 0;
             this.problemViewSplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.problemViewSplitContainer_SplitterMoved);
             // 
@@ -497,7 +497,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(125, 422);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(130, 482);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // filterBox1
@@ -507,12 +507,12 @@
             this.filterBox1.CueText = "Filter...";
             this.filterBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filterBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filterBox1.Location = new System.Drawing.Point(3, 339);
+            this.filterBox1.Location = new System.Drawing.Point(3, 399);
             this.filterBox1.Margin = new System.Windows.Forms.Padding(3, 1, 1, 1);
             this.filterBox1.Name = "filterBox1";
             this.filterBox1.SearchButtonVisible = false;
             this.filterBox1.SearchText = "";
-            this.filterBox1.Size = new System.Drawing.Size(121, 22);
+            this.filterBox1.Size = new System.Drawing.Size(126, 22);
             this.filterBox1.TabIndex = 9;
             this.filterBox1.SearchTextChanged += new System.EventHandler<System.EventArgs>(this.searchBox2_SearchTextChanged);
             // 
@@ -527,7 +527,7 @@
             this.categoryButton.Location = new System.Drawing.Point(1, 31);
             this.categoryButton.Margin = new System.Windows.Forms.Padding(1);
             this.categoryButton.Name = "categoryButton";
-            this.categoryButton.Size = new System.Drawing.Size(123, 28);
+            this.categoryButton.Size = new System.Drawing.Size(128, 28);
             this.categoryButton.TabIndex = 8;
             this.categoryButton.TabStop = true;
             this.categoryButton.Text = "Categories";
@@ -547,7 +547,7 @@
             this.volumesButton.Location = new System.Drawing.Point(1, 1);
             this.volumesButton.Margin = new System.Windows.Forms.Padding(1);
             this.volumesButton.Name = "volumesButton";
-            this.volumesButton.Size = new System.Drawing.Size(123, 28);
+            this.volumesButton.Size = new System.Drawing.Size(128, 28);
             this.volumesButton.TabIndex = 7;
             this.volumesButton.TabStop = true;
             this.volumesButton.Text = "Volumes";
@@ -564,10 +564,10 @@
             this.favoriteButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.favoriteButton.ForeColor = System.Drawing.Color.Purple;
             this.favoriteButton.Image = global::UVA_Arena.Properties.Resources.favorite;
-            this.favoriteButton.Location = new System.Drawing.Point(1, 363);
+            this.favoriteButton.Location = new System.Drawing.Point(1, 423);
             this.favoriteButton.Margin = new System.Windows.Forms.Padding(1);
             this.favoriteButton.Name = "favoriteButton";
-            this.favoriteButton.Size = new System.Drawing.Size(123, 28);
+            this.favoriteButton.Size = new System.Drawing.Size(128, 28);
             this.favoriteButton.TabIndex = 6;
             this.favoriteButton.TabStop = true;
             this.favoriteButton.Text = "Marked";
@@ -582,10 +582,10 @@
             this.allProbButton.AutoCheck = false;
             this.allProbButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.allProbButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.allProbButton.Location = new System.Drawing.Point(1, 393);
+            this.allProbButton.Location = new System.Drawing.Point(1, 453);
             this.allProbButton.Margin = new System.Windows.Forms.Padding(1);
             this.allProbButton.Name = "allProbButton";
-            this.allProbButton.Size = new System.Drawing.Size(123, 28);
+            this.allProbButton.Size = new System.Drawing.Size(128, 28);
             this.allProbButton.TabIndex = 5;
             this.allProbButton.TabStop = true;
             this.allProbButton.Text = "All Problems";
@@ -615,7 +615,7 @@
             this.categoryListView.SelectAllOnControlA = false;
             this.categoryListView.ShowGroups = false;
             this.categoryListView.ShowItemToolTips = true;
-            this.categoryListView.Size = new System.Drawing.Size(123, 276);
+            this.categoryListView.Size = new System.Drawing.Size(128, 336);
             this.categoryListView.TabIndex = 4;
             this.categoryListView.UseAlternatingBackColors = true;
             this.categoryListView.UseCellFormatEvents = true;
@@ -660,7 +660,7 @@
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.problemListContainer.Size = new System.Drawing.Size(161, 372);
+            this.problemListContainer.Size = new System.Drawing.Size(166, 432);
             this.problemListContainer.TabIndex = 1;
             this.problemListContainer.Tag = "115";
             // 
@@ -720,7 +720,7 @@
             this.problemListView.ShowGroups = false;
             this.problemListView.ShowItemCountOnGroups = true;
             this.problemListView.ShowItemToolTips = true;
-            this.problemListView.Size = new System.Drawing.Size(161, 313);
+            this.problemListView.Size = new System.Drawing.Size(166, 373);
             this.problemListView.TabIndex = 3;
             this.problemListView.UseAlternatingBackColors = true;
             this.problemListView.UseCellFormatEvents = true;
@@ -849,7 +849,7 @@
             this.plistPanel.Location = new System.Drawing.Point(0, 0);
             this.plistPanel.Margin = new System.Windows.Forms.Padding(0);
             this.plistPanel.Name = "plistPanel";
-            this.plistPanel.Size = new System.Drawing.Size(161, 35);
+            this.plistPanel.Size = new System.Drawing.Size(166, 35);
             this.plistPanel.TabIndex = 4;
             // 
             // plistLabel
@@ -861,7 +861,7 @@
             this.plistLabel.ForeColor = System.Drawing.Color.Navy;
             this.plistLabel.Location = new System.Drawing.Point(0, 0);
             this.plistLabel.Name = "plistLabel";
-            this.plistLabel.Size = new System.Drawing.Size(161, 35);
+            this.plistLabel.Size = new System.Drawing.Size(166, 35);
             this.plistLabel.TabIndex = 2;
             this.plistLabel.Text = "Problems";
             this.plistLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -875,12 +875,12 @@
             this.tableLayoutPanel2.Controls.Add(this.deepSearchCheckBox, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.cancelDeepSearchButton, 1, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 372);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 432);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(161, 50);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(166, 50);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // searchBox1
@@ -896,7 +896,7 @@
             this.searchBox1.Name = "searchBox1";
             this.searchBox1.SearchButtonVisible = false;
             this.searchBox1.SearchText = "";
-            this.searchBox1.Size = new System.Drawing.Size(159, 24);
+            this.searchBox1.Size = new System.Drawing.Size(164, 24);
             this.searchBox1.TabIndex = 0;
             this.searchBox1.SearchTextChanged += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchTextChanged);
             this.searchBox1.SearchButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchButtonClicked);
@@ -905,10 +905,10 @@
             // cancelDeepSearchButton
             // 
             this.cancelDeepSearchButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cancelDeepSearchButton.Location = new System.Drawing.Point(99, 26);
+            this.cancelDeepSearchButton.Location = new System.Drawing.Point(102, 26);
             this.cancelDeepSearchButton.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.cancelDeepSearchButton.Name = "cancelDeepSearchButton";
-            this.cancelDeepSearchButton.Size = new System.Drawing.Size(59, 24);
+            this.cancelDeepSearchButton.Size = new System.Drawing.Size(61, 24);
             this.cancelDeepSearchButton.TabIndex = 6;
             this.cancelDeepSearchButton.Text = "Cancel";
             this.cancelDeepSearchButton.UseVisualStyleBackColor = true;
@@ -925,8 +925,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "PROBLEMS";
-            this.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Size = new System.Drawing.Size(800, 450);
+            this.Size = new System.Drawing.Size(838, 510);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.problemContextMenu.ResumeLayout(false);

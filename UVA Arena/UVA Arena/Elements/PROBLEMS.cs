@@ -1,15 +1,11 @@
-﻿using System;
+﻿using BrightIdeasSoftware;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Net;
 using System.Windows.Forms;
-using UVA_Arena.Structures;
 using UVA_Arena.Internet;
-using Microsoft.Win32;
-using BrightIdeasSoftware;
+using UVA_Arena.Structures;
 
 namespace UVA_Arena.Elements
 {
@@ -70,16 +66,21 @@ namespace UVA_Arena.Elements
 
         public void RefreshProblemList()
         {
+            if(deepSearchCheckBox.Checked)
+            {
+                if (_deepSearchRes != null)
+                {
+                    _SetObjects(_deepSearchRes);
+                    problemListView.Sort(priorityProb, SortOrder.Descending);
+                }
+                return;
+            }
             if (plistLabel.Tag == null)
             {
-                if (favoriteButton.Checked)
-                {
-                    ShowFavorites();
-                }
-                else
-                {
-                    ShowAllProblems();
-                }
+                if (favoriteButton.Checked)                
+                    ShowFavorites();                
+                else                
+                    ShowAllProblems();                
             }
             else
             {
@@ -218,6 +219,7 @@ namespace UVA_Arena.Elements
 
         public void ShowAllProblems()
         {
+            deepSearchCheckBox.Checked = false;
             searchBox1.SearchText = "";
             allProbButton.Checked = true;
             favoriteButton.Checked = false;
@@ -231,7 +233,8 @@ namespace UVA_Arena.Elements
 
         public void ShowFavorites()
         {
-            searchBox1.SearchText = "";
+            deepSearchCheckBox.Checked = false;
+            searchBox1.SearchText = "";            
             allProbButton.Checked = false;
             favoriteButton.Checked = true;
             plistLabel.Text = "Marked Problems";
@@ -291,15 +294,15 @@ namespace UVA_Arena.Elements
                 problemListView.SetObjects(display);
             }
 
-            if (regroup) problemListView.Sort(0);
+            if (regroup)
+                problemListView.Sort(pnumProb, SortOrder.Ascending);
             else problemListView.Sort();
         }
 
         #endregion
 
         #region View Problem Events
-
-
+        
         //
         // Radio Buttons
         //
@@ -368,16 +371,20 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                if (e.ColumnToSort == pnumProb ||
-                    e.ColumnToSort == levelProb ||
-                    e.ColumnToSort == priorityProb)
+                if (e.ColumnToSort == pnumProb)
                 {
                     problemListView.ShowGroups = true;
-                    if (e.ColumnToSort == levelProb)
-                    {
-                        e.SecondaryColumnToSort = dacuProb;
-                        e.SecondarySortOrder = SortOrder.Descending;
-                    }
+                }
+                else if (e.ColumnToSort == priorityProb)
+                {
+                    problemListView.ShowGroups = true;
+                    e.SecondaryColumnToSort = pnumProb;
+                    e.SecondarySortOrder = SortOrder.Ascending;
+                }
+                else if (e.ColumnToSort == levelProb)
+                {
+                    e.SecondaryColumnToSort = pnumProb;
+                    e.SecondarySortOrder = SortOrder.Descending;
                 }
                 else
                 {
@@ -557,32 +564,6 @@ namespace UVA_Arena.Elements
 
         #region Search and Filter
 
-
-        //
-        // Filter Problem List
-        //
-        private void searchBox1_SearchTextChanged(object sender, EventArgs e)
-        {
-            if (searchBox1.SearchText.Length == 0)
-            {
-                problemListView.DefaultRenderer = null;
-                problemListView.AdditionalFilter = null;
-                allProbButton.Checked = true;
-                if (problemListView.Groups.Count > 0)
-                    problemListView.ShowGroups = true;
-            }
-            else
-            {
-                TextMatchFilter filter = new TextMatchFilter(problemListView,
-                    searchBox1.SearchText, StringComparison.OrdinalIgnoreCase);
-                allProbButton.Checked = false;
-                problemListView.ShowGroups = false;
-                problemListView.DefaultRenderer = new HighlightTextRenderer(filter);
-                if (!deepSearchCheckBox.Checked)
-                    problemListView.AdditionalFilter = filter;
-            }
-        }
-
         //
         // Filter Category and Volume list
         //
@@ -602,12 +583,57 @@ namespace UVA_Arena.Elements
             }
         }
 
+        //
+        // Filter Problem List
+        //
+        private void searchBox1_SearchTextChanged(object sender, EventArgs e)
+        {
+            if (deepSearchCheckBox.Checked)
+            {
+                return;
+            }
+
+            if (searchBox1.SearchText.Length == 0)
+            {
+                ClearSearch();
+            }
+            else
+            {
+                problemListView.ShowGroups = false;
+
+                TextMatchFilter filter = new TextMatchFilter(problemListView,
+                   searchBox1.SearchText, StringComparison.OrdinalIgnoreCase);    
+                problemListView.DefaultRenderer = new HighlightTextRenderer(filter);
+                problemListView.AdditionalFilter = filter;
+            }
+        }
+
+        private void searchBox1_ClearButtonClicked(object sender, EventArgs e)
+        {
+           ClearSearch();
+        }
+
+        public void ClearSearch()
+        {
+            problemListView.DefaultRenderer = null;
+            problemListView.AdditionalFilter = null;
+            if (problemListView.Groups.Count > 0)
+                problemListView.ShowGroups = true;
+
+            if (deepSearchCheckBox.Checked)
+            { 
+                if (_InDeepSearch)
+                    _CancelSearch = true;
+                else
+                    ShowAllProblems(); 
+            }
+        }
 
         //
         // Deep Saerch
         //
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void deepSearchCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             searchBox1.SearchButtonVisible = deepSearchCheckBox.Checked;
         }
@@ -618,62 +644,63 @@ namespace UVA_Arena.Elements
             if (_InDeepSearch) return;
 
             string src = searchBox1.SearchText;
-            if (src.Length < 3) return;
-            if (!src.StartsWith("*")) src = "\\b" + src;
-            if (!src.EndsWith("*")) src += "\\b";
+            if (src.Length < 2) return;
 
             //run new thread
             _InDeepSearch = true;
             _CancelSearch = false;
-            ShowDeepSearchStatus();
-            cancelDeepSearchButton.Visible = true;
+            ShowDeepSearchStatus(); 
             System.Threading.ThreadPool.QueueUserWorkItem(LoadDeepSearch, src);
         }
+
         private void cancelDeepSearchButton_Click(object sender, EventArgs e)
         {
-            if (_InDeepSearch) _CancelSearch = true;
-        }
-
-        private void searchBox1_ClearButtonClicked(object sender, EventArgs e)
-        {
-            _CancelSearch = true;
+            ClearSearch();
         }
 
         private bool _InDeepSearch = false;
         private bool _CancelSearch = false;
         private long _DeepSearchProgress = 0;
-        List<ProblemInfo> _deepSearchList = new List<ProblemInfo>();
+        List<ProblemInfo> _deepSearchRes = new List<ProblemInfo>();
 
         public void LoadDeepSearch(object state)
         {
-            _InDeepSearch = true;
-
             if (LocalDatabase.problem_list == null) return;
 
-            //search string
-            string src = (string)state;
-            var regex = new System.Text.RegularExpressions.Regex(src,
-                            System.Text.RegularExpressions.RegexOptions.Compiled |
-                            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            _InDeepSearch = true;
 
             //clear data
+            _deepSearchRes.Clear();
             _DeepSearchProgress = 0;
-            _deepSearchList.Clear();
 
             //set data
             this.BeginInvoke((MethodInvoker)delegate
             {
-                allProbButton.Checked = false;
+                allProbButton.Checked = true;
                 favoriteButton.Checked = false;
                 plistLabel.Text = "Deep Search Result";
+                problemListView.AdditionalFilter = null;
 
-                problemListView.SetObjects(_deepSearchList);
+                searchBox1.search_text.ReadOnly = true;
+                cancelDeepSearchButton.Visible = true;
+                problemViewSplitContainer.Panel1.Enabled = false;
+
+                _SetObjects(_deepSearchRes);
                 problemListView.Sort(priorityProb, SortOrder.Descending);
             });
+
+            //search string
+            string src = (string)state;
+            if (!src.StartsWith("*")) src = "\\b" + src;
+            if (!src.EndsWith("*")) src += "\\b";
+            var regex = new System.Text.RegularExpressions.Regex(src,
+                            System.Text.RegularExpressions.RegexOptions.Compiled |
+                            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
             //search
             foreach (ProblemInfo prob in LocalDatabase.problem_list)
             {
+                if (_CancelSearch) break;
                 prob.priority = 0;
 
                 //search in problem data
@@ -687,7 +714,7 @@ namespace UVA_Arena.Elements
                     {
                         var hdoc = new HtmlAgilityPack.HtmlDocument();
                         hdoc.Load(file);
-                        string dat = hdoc.DocumentNode.InnerText;
+                        string dat = hdoc.DocumentNode.Element("body").InnerText;
                         //string dat = System.IO.File.ReadAllText(file);
                         prob.priority += regex.Matches(dat).Count;
                     }
@@ -696,20 +723,25 @@ namespace UVA_Arena.Elements
 
                 //add to list
                 if (prob.priority > 0)
-                    _deepSearchList.Add(prob);
-
-                //complete
+                    _deepSearchRes.Add(prob);
                 _DeepSearchProgress++;
-                if (_CancelSearch) break;
             }
 
+            //complete
+            _InDeepSearch = false;
             this.BeginInvoke((MethodInvoker)delegate
             {
-                problemListView.SetObjects(_deepSearchList);
-                cancelDeepSearchButton.Visible = false;
-            });
+                _SetObjects(_deepSearchRes);
 
-            _InDeepSearch = false;
+                searchBox1.search_text.ReadOnly = false;
+                cancelDeepSearchButton.Visible = false;
+                problemViewSplitContainer.Panel1.Enabled = true;
+
+                if (_CancelSearch) //if cancelled
+                {
+                    ClearSearch();
+                }
+            });
         }
 
         private void ShowDeepSearchStatus()
@@ -723,7 +755,7 @@ namespace UVA_Arena.Elements
                 Status1.Text = "Searching... ";
                 Status1.Text += string.Format("[{0} of {1} problems completed.]", _DeepSearchProgress, total);
 
-                problemListView.SetObjects(_deepSearchList);
+                _SetObjects(_deepSearchRes);
                 problemListView.Sort(priorityProb, SortOrder.Descending);
 
                 TaskQueue.AddTask(ShowDeepSearchStatus, 1000);
@@ -740,6 +772,6 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
-
+         
     }
 }

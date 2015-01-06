@@ -71,6 +71,23 @@ namespace UVA_Arena
             }
         }
 
+        /// <summary>
+        /// Selected codes path by the user
+        /// </summary>
+        public static string CodesPath
+        {
+            get
+            {
+                string dat = (string)RegistryAccess.GetValue("Codes Path", null);
+                if (dat != null && System.IO.Directory.Exists(dat)) return dat;
+                return null;
+            }
+            set
+            {
+                RegistryAccess.SetValue("Codes Path", value);
+            }
+        }
+
         //
         // UserID
         //

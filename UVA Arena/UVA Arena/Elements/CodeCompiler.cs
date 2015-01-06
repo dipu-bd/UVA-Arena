@@ -1,14 +1,8 @@
-﻿using System;
-using System.Threading;
-using System.Collections.Generic;
+﻿using FastColoredTextBoxNS;
+using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Collections.Specialized;
-using System.Text;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using FastColoredTextBoxNS;
 
 namespace UVA_Arena.Elements
 {

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace UVA_Arena.ExtendedControls
@@ -15,7 +11,6 @@ namespace UVA_Arena.ExtendedControls
         public CustomWebBrowser()
         {
             InitializeComponent();
-            webBrowser1.DocumentTitleChanged += webBrowser1_DocumentTitleChanged;
         }
 
 
@@ -266,7 +261,7 @@ namespace UVA_Arena.ExtendedControls
                 urlBox.ForeColor = Color.DarkSlateGray;
         }
 
-        void webBrowser1_DocumentTitleChanged(object sender, EventArgs e)
+        private void webBrowser1_DocumentTitleChanged(object sender, EventArgs e)
         {
             if (!urlBox.Focused)
             {

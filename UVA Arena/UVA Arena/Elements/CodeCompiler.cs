@@ -15,9 +15,13 @@ namespace UVA_Arena.Elements
 
     public static class CodeCompiler
     {
+        public static bool IsRunning = false;
         public static FileInfo CurrentProblem = null;
         public static long SelectedPNUM = -1;
         public static double RunTimeLimit = 3000;
+
+
+        #region Build And Run Task leader
 
         //
         // Report Progress
@@ -33,12 +37,14 @@ namespace UVA_Arena.Elements
             });
         }
 
-
         //
         // Build And Run Code
         //
         public static bool BuildAndRun(BuildRunType state, FileInfo currentProblem, long pnum = -1, double timelimit = 3000)
         {
+            if (IsRunning) return false;
+
+            IsRunning = true;
             CurrentProblem = currentProblem;
             SelectedPNUM = pnum;
             RunTimeLimit = timelimit;
@@ -60,10 +66,19 @@ namespace UVA_Arena.Elements
             }
             catch (Exception ex)
             {
-                Logger.Add(ex.Message, "Codes");
+                Logger.Add(ex.Message, "Codes|BuildAndRun()");
                 ReportCompileStatus(ex.Message + "\n", HighlightSyntax.CommentStyle);
                 return false;
             }
+            finally
+            {
+                IsRunning = false;
+            }
+        }
+
+        public static void ForceStopTask()
+        {
+            IsRunning = false;
         }
 
         private static void StartBuildTask()
@@ -71,7 +86,7 @@ namespace UVA_Arena.Elements
             //get extension of opened file                
             string ext = CurrentProblem.Extension.ToLower();
 
-            //show building messege
+            //show building message
             ReportCompileStatus("Building...\n\n", HighlightSyntax.CommentStyle);
 
             bool success = false;
@@ -86,7 +101,7 @@ namespace UVA_Arena.Elements
                 throw new ApplicationException("Compilation Failed " + CurrentProblem.FullName);
             }
 
-            ReportCompileStatus("Successfully Compiled.\n", HighlightSyntax.CommentStyle);
+            ReportCompileStatus("Successfully Compiled.\n\n", HighlightSyntax.CommentStyle);
         }
 
         private static void StartRunTask(bool runtest)
@@ -105,83 +120,13 @@ namespace UVA_Arena.Elements
             //show run result
             if (!success) throw new Exception("Process Failed.\n");
 
-            ReportCompileStatus("Process Completed.\n", HighlightSyntax.CommentStyle);
+            ReportCompileStatus("Process Completed.\n\n", HighlightSyntax.CommentStyle);
         }
 
+        #endregion
 
-        //
-        // C and C++ Run
-        //
-        private static bool C_CPP_Run(bool runtest)
-        {
-            //determine if custom input output is needed
-            if (SelectedPNUM == -1) runtest = false;
-            if (runtest && SelectedPNUM == -1) return false;
 
-            //get exe file name
-            string filename = Path.GetFileNameWithoutExtension(CurrentProblem.Name);
-            string exec = Path.Combine(CurrentProblem.DirectoryName, filename + ".exe");
-
-            //get argument parameters
-            int runtime = (int)(RunTimeLimit * 1000);
-            string input = Path.Combine(CurrentProblem.DirectoryName, "input.txt");
-            string output = Path.Combine(CurrentProblem.DirectoryName, "output.txt");
-
-            if (runtest)
-            {
-                //run process with predefined input
-                string format = "\"{0}\" < \"{1}\" > \"{2}\"";
-                string arguments = string.Format(format, exec, input, output);
-                return ExecuteProcess(arguments, runtime, Path.GetFileName(exec));
-            }
-            else
-            {
-                //run process from a batch file
-                string arguments = "\"" + exec + "\"";
-                string title = Path.GetFileNameWithoutExtension(exec);
-                return RunInBatch(arguments, title);
-            }
-        }
-
-        //
-        // Java Run
-        //
-        private static bool Java_Run(bool runtest)
-        {
-            //determine if custom input output is needed
-            if (runtest && SelectedPNUM == -1) return false;
-            if (SelectedPNUM == -1) runtest = false;
-
-            //get compiler
-            int runtime = (int)(RunTimeLimit * 1000);
-            string exec = RegistryAccess.JDKCompilerPath;
-            exec = Path.Combine(exec, "bin");
-            exec = Path.Combine(exec, "java.exe");
-            if (!File.Exists(exec))
-                throw new FileNotFoundException("Invalid JDK path. Select one from settings.");
-
-            //file names and directories
-            string dir = CurrentProblem.DirectoryName;
-            string input = Path.Combine(CurrentProblem.DirectoryName, "input.txt");
-            string output = Path.Combine(CurrentProblem.DirectoryName, "output.txt");
-
-            //format of the arguments 
-            string format = "\"{0}\" -classpath \"{1}\" Main < \"{2}\" > \"{3}\" ";
-            if (!runtest) format = "\"{0}\" -classpath \"{1}\" Main";
-            string arguments = string.Format(format, exec, dir, input, output);
-
-            if (runtest)
-            {
-                //run process with predefined input-output
-                return ExecuteProcess(arguments, runtime, Path.GetFileName(exec));
-            }
-            {
-                //run from a batch file
-                string title = Path.GetFileNameWithoutExtension(CurrentProblem.Name);
-                return RunInBatch(arguments, title);
-            }
-        }
-
+        #region Code Compiler
 
         //
         // C Compiler
@@ -263,9 +208,93 @@ namespace UVA_Arena.Elements
             return ExecuteProcess(arguments);
         }
 
+        #endregion
+
+        #region Code Runner
+
         //
-        // Execution Process
+        // C and C++ Run
         //
+        private static bool C_CPP_Run(bool runtest)
+        {
+            //determine if custom input output is needed
+            if (SelectedPNUM == -1) runtest = false;
+            if (runtest && SelectedPNUM == -1) return false;
+
+            //get exe file name
+            string filename = Path.GetFileNameWithoutExtension(CurrentProblem.Name);
+            string exec = Path.Combine(CurrentProblem.DirectoryName, filename + ".exe");
+
+            //get argument parameters
+            int runtime = (int)(RunTimeLimit * 1000);
+            string input = Path.Combine(CurrentProblem.DirectoryName, "input.txt");
+            string output = Path.Combine(CurrentProblem.DirectoryName, "output.txt");
+
+            ReportCompileStatus("Input file  : " + input + "\n", HighlightSyntax.GreenLineStyle);
+            ReportCompileStatus("Output file : " + output + "\n\n", HighlightSyntax.RedLineStyle);
+
+            if (runtest)
+            {
+                //run process with predefined input
+                string format = "\"{0}\" < \"{1}\" > \"{2}\"";
+                string arguments = string.Format(format, exec, input, output);
+                return ExecuteProcess(arguments, runtime, Path.GetFileName(exec));
+            }
+            else
+            {
+                //run process from a batch file
+                string arguments = "\"" + exec + "\"";
+                string title = Path.GetFileNameWithoutExtension(exec);
+                return RunInBatch(arguments, title);
+            }
+        }
+
+        //
+        // Java Run
+        //
+        private static bool Java_Run(bool runtest)
+        {
+            //determine if custom input output is needed
+            if (runtest && SelectedPNUM == -1) return false;
+            if (SelectedPNUM == -1) runtest = false;
+
+            //get compiler
+            int runtime = (int)(RunTimeLimit * 1000);
+            string exec = RegistryAccess.JDKCompilerPath;
+            exec = Path.Combine(exec, "bin");
+            exec = Path.Combine(exec, "java.exe");
+            if (!File.Exists(exec))
+                throw new FileNotFoundException("Invalid JDK path. Select one from settings.");
+
+            //file names and directories
+            string dir = CurrentProblem.DirectoryName;
+            string input = Path.Combine(CurrentProblem.DirectoryName, "input.txt");
+            string output = Path.Combine(CurrentProblem.DirectoryName, "output.txt");
+
+            ReportCompileStatus("Input file  : " + input + "\n", HighlightSyntax.GreenLineStyle);
+            ReportCompileStatus("Output file : " + output + "\n\n", HighlightSyntax.RedLineStyle);
+
+            //format of the arguments 
+            string format = "\"{0}\" -classpath \"{1}\" Main < \"{2}\" > \"{3}\" ";
+            if (!runtest) format = "\"{0}\" -classpath \"{1}\" Main";
+            string arguments = string.Format(format, exec, dir, input, output);
+
+            if (runtest)
+            {
+                //run process with predefined input-output
+                return ExecuteProcess(arguments, runtime, Path.GetFileName(exec));
+            }
+            {
+                //run from a batch file
+                string title = Path.GetFileNameWithoutExtension(CurrentProblem.Name);
+                return RunInBatch(arguments, title);
+            }
+        }
+
+        #endregion
+
+
+        #region Execution Process
 
         private static void proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
@@ -297,29 +326,38 @@ namespace UVA_Arena.Elements
                 Arguments = "/c \"" + args + "\""
             };
 
-            //start process
+            //start process            
             proc.Start();
             proc.BeginErrorReadLine();
             proc.BeginOutputReadLine();
-            if (timelim == -1) proc.WaitForExit();
-            else proc.WaitForExit(timelim);
+
+            double timepass = 0;
+            while (IsRunning && !proc.HasExited)
+            {
+                proc.WaitForExit(10);
+                timepass = DateTime.Now.Subtract(proc.StartTime).TotalMilliseconds;                
+                if (timelim >= 0 && timepass > timelim) break;
+            }
 
             //generate ending report
             bool tle = !proc.HasExited; //check if time limit has exceeded
             if (tle) ForceKill(procname); //force kill tle tasks by process-name
-            int exitcode = tle ? -1 : proc.ExitCode; //get exitcode
-            double total = tle ? (timelim / 1000.0) : proc.TotalProcessorTime.TotalSeconds;
-            string runtime = string.Format("Runtime = {0:0.000} sec.", total);
-            string verdict = string.Format("Exit Code = {0} ({1}).", exitcode,
-                (exitcode == -1 ? "tle" : (exitcode == 0 ? "Successfull" : "Error")));
+
+            string runtime = string.Format("Runtime = {0:0.000} sec.", timepass / 1000);
+            string verdict = "Successful";
+            if (tle) verdict = "Time Limit Exceeded";
+            if (!IsRunning) verdict = "Stopped";
+
+            int exitcode = tle ? -1 : proc.ExitCode;
+            string msg = string.Format("Exit Code = {0} ({1}).\n", exitcode, verdict);
 
             //show output 
             ReportCompileStatus("\n" + runtime + "\n", HighlightSyntax.CommentStyle);
-            ReportCompileStatus(verdict + "\n", HighlightSyntax.CommentStyle);
+            ReportCompileStatus(msg, HighlightSyntax.CommentStyle);
 
             //return result
             proc.Dispose();
-            return (exitcode == 0);
+            return (!tle);
         }
 
         private static void ForceKill(string procname)
@@ -349,7 +387,7 @@ namespace UVA_Arena.Elements
         private static bool RunInBatch(string args, string title)
         {
             //batch program
-            string commands = 
+            string commands =
                   "@{0}\n" +            //root                
                   "@cd \"{1}\"\n" +     //path
                   "@cls\n" +
@@ -360,19 +398,25 @@ namespace UVA_Arena.Elements
                   "@exit";
 
             //get bat file
-            string file = Path.GetTempFileName();            
+            string file = Path.GetTempFileName();
             string bat = file + ".bat";
             File.Move(file, bat);
 
             string path = CurrentProblem.DirectoryName;
             string root = Path.GetPathRoot(path).Replace("\\", "");
-   
+
             //write batch program to temporary file 
             File.WriteAllText(bat, string.Format(commands, root, path, title, args));
 
             //start batch file
             Process p = System.Diagnostics.Process.Start(bat);
-            p.WaitForExit(); //wait till finish
+            while (IsRunning && !p.HasExited)
+            {
+                p.WaitForExit(50);
+            }
+
+            p.Kill();
+            p.WaitForExit();
 
             //delete batch file
             File.Delete(bat);
@@ -380,6 +424,8 @@ namespace UVA_Arena.Elements
             //always task is completed
             return true;
         }
+
+        #endregion
 
     }
 }

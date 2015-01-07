@@ -57,7 +57,7 @@ namespace UVA_Arena
 
 
         /// <summary>
-        /// Get of set default username
+        /// Get of set default user-name
         /// </summary>
         public static string DefaultUsername
         {
@@ -135,7 +135,7 @@ namespace UVA_Arena
         // User Rank
         //
         /// <summary>
-        /// Set ranklist of a user 
+        /// Set rank-list of a user 
         /// </summary>
         /// <param name="urank">User rank to save</param>
         public static void SetUserRank(Structures.UserRanklist urank)
@@ -145,7 +145,7 @@ namespace UVA_Arena
         }
         
         /// <summary>
-        /// Get ranklist of a user
+        /// Get rank-list of a user
         /// </summary>
         /// <param name="name">Username to get rankling</param>
         /// <returns>Null reference if not found</returns>

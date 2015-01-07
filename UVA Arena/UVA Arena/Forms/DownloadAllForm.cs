@@ -343,7 +343,7 @@ namespace UVA_Arena
             string pdf = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.pdf", vol, current);
             string html = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.html", vol, current);
 
-            //download html file
+            //download HTML file
             if (ReplaceOldFiles == 0 || ReplaceOldFiles == 1 ||
                 !htmlfile.Exists || htmlfile.Length < 100)
             {
@@ -356,7 +356,7 @@ namespace UVA_Arena
 
             if (CurrentState != State.Running) return;
 
-            //download pdf file                
+            //download PDF file                
             if (ReplaceOldFiles == 0 || ReplaceOldFiles == 2
                 || !pdffile.Exists || pdffile.Length < 200)
             {
@@ -369,7 +369,7 @@ namespace UVA_Arena
 
             if (CurrentState != State.Running) return;
 
-            //download html contents
+            //download HTML contents
             var list = Functions.ProcessHtmlContent(current,
                 ReplaceOldFiles == 0 || ReplaceOldFiles == 3);
             finished = 0;

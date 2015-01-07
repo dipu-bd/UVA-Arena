@@ -58,7 +58,7 @@ namespace UVA_Arena
                 activityList.Sort(dateTime, SortOrder.Ascending);
                 source.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
                 status.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
-                if (activityList.SelectedIndex == 0) //gotoend enabled                
+                if (activityList.SelectedIndex == 0) //goto end enabled                
                     activityList.GetLastItemInDisplayOrder().EnsureVisible();                               
 
                 Status1.Text = "Log size : " + Logger.LOG.Count.ToString();

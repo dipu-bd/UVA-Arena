@@ -20,9 +20,12 @@ namespace UVA_Arena.Elements
             //other initial codes
             SetAspectValues();
             problemListView.MakeColumnSelectMenu(problemContextMenu);
+
+            problemViewSplitContainer.SplitterDistance = 
+                Properties.Settings.Default.ProblemSubSplitterDistance;
+
             mainSplitContainer.SplitterDistance =
-                (int)(mainSplitContainer.Width * Properties.Settings.Default.ProblemMainSplitterDistance);
-            problemViewSplitContainer.SplitterDistance = Properties.Settings.Default.ProblemSubSplitterDistance;
+                (int)Math.Round(mainSplitContainer.Width * Properties.Settings.Default.ProblemMainSplitterDistance);
 
             //add problem viewer
             Interactivity.problemViewer = new Elements.ProblemViewer();
@@ -41,6 +44,7 @@ namespace UVA_Arena.Elements
             Stylish.SetGradientBackground(plistPanel,
                 new Stylish.GradientStyle(Color.LightSteelBlue, Color.PowderBlue, 90F));
         }
+
         #endregion
 
         #region Global Task
@@ -304,7 +308,7 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Problem and Catagory List View
+        #region Problem and Category List View
 
         //
         // Problem List Events
@@ -584,7 +588,7 @@ namespace UVA_Arena.Elements
         }
 
         //
-        // Deep Saerch
+        // Deep Search
         //
 
         private void deepSearchCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -691,7 +695,7 @@ namespace UVA_Arena.Elements
                 cancelDeepSearchButton.Visible = false;
                 problemViewSplitContainer.Panel1.Enabled = true;
 
-                if (_CancelSearch) //if cancelled
+                if (_CancelSearch) //if canceled
                 {
                     ClearSearch();
                 }

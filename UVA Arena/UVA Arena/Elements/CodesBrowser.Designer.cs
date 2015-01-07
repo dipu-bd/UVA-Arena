@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CodesBrowser));
             this.problemListContainer = new System.Windows.Forms.TableLayoutPanel();
+            this.searchBox1 = new UVA_Arena.Custom.SearchBox();
             this.plistPanel = new System.Windows.Forms.Panel();
             this.plistLabel = new System.Windows.Forms.Label();
+            this.folderTreeView = new System.Windows.Forms.NativeTreeView();
             this.folderTreeContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openExternallyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
@@ -52,14 +53,16 @@
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.inputFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.correctOutputFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.changeDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formatDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.collapseAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.refreshTool = new System.Windows.Forms.ToolStripButton();
             this.selectDirectoryPanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -67,9 +70,6 @@
             this.browseFolderButton = new System.Windows.Forms.Button();
             this.cancelBrowseButton = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.searchBox1 = new UVA_Arena.Custom.SearchBox();
-            this.folderTreeView = new System.Windows.Forms.NativeTreeView();
             this.problemListContainer.SuspendLayout();
             this.plistPanel.SuspendLayout();
             this.folderTreeContext.SuspendLayout();
@@ -100,6 +100,23 @@
             this.problemListContainer.TabIndex = 3;
             this.problemListContainer.Tag = "115";
             // 
+            // searchBox1
+            // 
+            this.searchBox1.BackColor = System.Drawing.Color.LightCyan;
+            this.searchBox1.ClearButtonVisible = true;
+            this.searchBox1.CueText = "Search...";
+            this.searchBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchBox1.Location = new System.Drawing.Point(1, 392);
+            this.searchBox1.Margin = new System.Windows.Forms.Padding(1);
+            this.searchBox1.Name = "searchBox1";
+            this.searchBox1.SearchButtonVisible = true;
+            this.searchBox1.SearchText = "";
+            this.searchBox1.Size = new System.Drawing.Size(302, 26);
+            this.searchBox1.TabIndex = 0;
+            this.searchBox1.SearchButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchButtonClicked);
+            this.searchBox1.ClearButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_ClearButtonClicked);
+            // 
             // plistPanel
             // 
             this.plistPanel.Controls.Add(this.plistLabel);
@@ -123,6 +140,31 @@
             this.plistLabel.TabIndex = 2;
             this.plistLabel.Text = "Codes";
             this.plistLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // folderTreeView
+            // 
+            this.folderTreeView.BackColor = System.Drawing.Color.Azure;
+            this.folderTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.folderTreeView.ContextMenuStrip = this.folderTreeContext;
+            this.folderTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.folderTreeView.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.folderTreeView.ForeColor = System.Drawing.Color.Black;
+            this.folderTreeView.HideSelection = false;
+            this.folderTreeView.ImageIndex = 0;
+            this.folderTreeView.ImageList = this.imageList1;
+            this.folderTreeView.ItemHeight = 25;
+            this.folderTreeView.Location = new System.Drawing.Point(3, 56);
+            this.folderTreeView.Name = "folderTreeView";
+            this.folderTreeView.SelectedImageIndex = 0;
+            this.folderTreeView.ShowLines = false;
+            this.folderTreeView.ShowNodeToolTips = true;
+            this.folderTreeView.Size = new System.Drawing.Size(298, 332);
+            this.folderTreeView.TabIndex = 5;
+            this.folderTreeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.folderTreeView_AfterLabelEdit);
+            this.folderTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.folderTreeView_AfterSelect);
+            this.folderTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.folderTreeView_NodeMouseClick);
+            this.folderTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.folderTreeView_NodeMouseDoubleClick);
+            this.folderTreeView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.folderTreeView_KeyDown);
             // 
             // folderTreeContext
             // 
@@ -207,84 +249,102 @@
             this.pascalFileToolStripMenuItem,
             this.toolStripSeparator8,
             this.inputFileToolStripMenuItem,
-            this.outputFileToolStripMenuItem});
+            this.outputFileToolStripMenuItem,
+            this.correctOutputFileToolStripMenuItem});
             this.newContextMenu.Name = "newContextMenu";
-            this.newContextMenu.Size = new System.Drawing.Size(151, 192);
+            this.newContextMenu.Size = new System.Drawing.Size(155, 236);
             // 
             // folderToolStripMenuItem
             // 
-            this.folderToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("folderToolStripMenuItem.Image")));
+            this.folderToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.folder;
             this.folderToolStripMenuItem.Name = "folderToolStripMenuItem";
             this.folderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.folderToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.folderToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.folderToolStripMenuItem.Text = "Folder";
             this.folderToolStripMenuItem.Click += new System.EventHandler(this.folderToolStripMenuItem_Click);
             // 
             // textFileToolStripMenuItem
             // 
-            this.textFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("textFileToolStripMenuItem.Image")));
+            this.textFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.file;
             this.textFileToolStripMenuItem.Name = "textFileToolStripMenuItem";
-            this.textFileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.textFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.textFileToolStripMenuItem.Text = "Text File";
             this.textFileToolStripMenuItem.Click += new System.EventHandler(this.textFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(151, 6);
             // 
             // cFileToolStripMenuItem
             // 
-            this.cFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cFileToolStripMenuItem.Image")));
+            this.cFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.ansi_c;
             this.cFileToolStripMenuItem.Name = "cFileToolStripMenuItem";
-            this.cFileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.cFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.cFileToolStripMenuItem.Text = "C File";
             this.cFileToolStripMenuItem.Click += new System.EventHandler(this.cFileToolStripMenuItem_Click);
             // 
             // cPPFileToolStripMenuItem
             // 
-            this.cPPFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cPPFileToolStripMenuItem.Image")));
+            this.cPPFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.cpp;
             this.cPPFileToolStripMenuItem.Name = "cPPFileToolStripMenuItem";
-            this.cPPFileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.cPPFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.cPPFileToolStripMenuItem.Text = "CPP File";
             this.cPPFileToolStripMenuItem.Click += new System.EventHandler(this.cPPFileToolStripMenuItem_Click);
             // 
             // javaFileToolStripMenuItem
             // 
-            this.javaFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("javaFileToolStripMenuItem.Image")));
+            this.javaFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.java;
             this.javaFileToolStripMenuItem.Name = "javaFileToolStripMenuItem";
-            this.javaFileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.javaFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.javaFileToolStripMenuItem.Text = "Java File";
             this.javaFileToolStripMenuItem.Click += new System.EventHandler(this.javaFileToolStripMenuItem_Click);
             // 
             // pascalFileToolStripMenuItem
             // 
-            this.pascalFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("pascalFileToolStripMenuItem.Image")));
+            this.pascalFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.pascal;
             this.pascalFileToolStripMenuItem.Name = "pascalFileToolStripMenuItem";
-            this.pascalFileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.pascalFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.pascalFileToolStripMenuItem.Text = "Pascal File";
             this.pascalFileToolStripMenuItem.Click += new System.EventHandler(this.pascalFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(151, 6);
             // 
             // inputFileToolStripMenuItem
             // 
-            this.inputFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("inputFileToolStripMenuItem.Image")));
+            this.inputFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.input;
             this.inputFileToolStripMenuItem.Name = "inputFileToolStripMenuItem";
-            this.inputFileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.inputFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.inputFileToolStripMenuItem.Text = "Input File";
             this.inputFileToolStripMenuItem.Click += new System.EventHandler(this.inputFileToolStripMenuItem_Click);
             // 
             // outputFileToolStripMenuItem
             // 
-            this.outputFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("outputFileToolStripMenuItem.Image")));
+            this.outputFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.output;
             this.outputFileToolStripMenuItem.Name = "outputFileToolStripMenuItem";
-            this.outputFileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.outputFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.outputFileToolStripMenuItem.Text = "Output File";
             this.outputFileToolStripMenuItem.Click += new System.EventHandler(this.outputFileToolStripMenuItem_Click);
+            // 
+            // correctOutputFileToolStripMenuItem
+            // 
+            this.correctOutputFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.correct;
+            this.correctOutputFileToolStripMenuItem.Name = "correctOutputFileToolStripMenuItem";
+            this.correctOutputFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.correctOutputFileToolStripMenuItem.Text = "Correct Output";
+            this.correctOutputFileToolStripMenuItem.Click += new System.EventHandler(this.correctOutputFileToolStripMenuItem_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DropDown = this.newContextMenu;
+            this.toolStripButton2.Image = global::UVA_Arena.Properties.Resources.add;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(60, 22);
+            this.toolStripButton2.Text = "New";
             // 
             // toolStripSeparator7
             // 
@@ -293,7 +353,7 @@
             // 
             // changeDirectoryToolStripMenuItem
             // 
-            this.changeDirectoryToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.folder;
+            this.changeDirectoryToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.root;
             this.changeDirectoryToolStripMenuItem.Name = "changeDirectoryToolStripMenuItem";
             this.changeDirectoryToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.changeDirectoryToolStripMenuItem.Text = "Change Directory";
@@ -327,6 +387,12 @@
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshTool_Click);
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // toolStrip3
             // 
             this.toolStrip3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(235)))), ((int)(((byte)(240)))));
@@ -340,15 +406,6 @@
             this.toolStrip3.Size = new System.Drawing.Size(298, 25);
             this.toolStrip3.TabIndex = 6;
             this.toolStrip3.Text = "toolStrip3";
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DropDown = this.newContextMenu;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(60, 22);
-            this.toolStripButton2.Text = "New";
             // 
             // refreshTool
             // 
@@ -383,9 +440,9 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(216, 158);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Click Browse to select a directory for code files. \r\nClick Cancel to store codes " +
-    "in default directory.\r\n\r\nNote : This will automatically <FORMAT> the selected di" +
-    "rectory.";
+            this.label1.Text = "Click [Browse] to select a directory for code files. \r\nClick [Cancel] to store co" +
+    "des in default directory.\r\n\r\nNote : This will automatically <FORMAT> the selecte" +
+    "d directory.";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel1
@@ -438,63 +495,6 @@
             this.fileSystemWatcher1.Created += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Created);
             this.fileSystemWatcher1.Deleted += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Deleted);
             this.fileSystemWatcher1.Renamed += new System.IO.RenamedEventHandler(this.fileSystemWatcher1_Renamed);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, ".c.png");
-            this.imageList1.Images.SetKeyName(1, ".cpp.png");
-            this.imageList1.Images.SetKeyName(2, ".java.png");
-            this.imageList1.Images.SetKeyName(3, ".pascal.png");
-            this.imageList1.Images.SetKeyName(4, "folder.png");
-            this.imageList1.Images.SetKeyName(5, "input.txt.png");
-            this.imageList1.Images.SetKeyName(6, "output.txt.png");
-            this.imageList1.Images.SetKeyName(7, "problem.png");
-            this.imageList1.Images.SetKeyName(8, "root.png");
-            this.imageList1.Images.SetKeyName(9, "volume.png");
-            // 
-            // searchBox1
-            // 
-            this.searchBox1.BackColor = System.Drawing.Color.LightCyan;
-            this.searchBox1.ClearButtonVisible = true;
-            this.searchBox1.CueText = "Search...";
-            this.searchBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.searchBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBox1.Location = new System.Drawing.Point(1, 392);
-            this.searchBox1.Margin = new System.Windows.Forms.Padding(1);
-            this.searchBox1.Name = "searchBox1";
-            this.searchBox1.SearchButtonVisible = true;
-            this.searchBox1.SearchText = "";
-            this.searchBox1.Size = new System.Drawing.Size(302, 26);
-            this.searchBox1.TabIndex = 0;
-            this.searchBox1.SearchButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchButtonClicked);
-            this.searchBox1.ClearButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_ClearButtonClicked);
-            // 
-            // folderTreeView
-            // 
-            this.folderTreeView.BackColor = System.Drawing.Color.Azure;
-            this.folderTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.folderTreeView.ContextMenuStrip = this.folderTreeContext;
-            this.folderTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.folderTreeView.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.folderTreeView.ForeColor = System.Drawing.Color.Black;
-            this.folderTreeView.HideSelection = false;
-            this.folderTreeView.ImageIndex = 0;
-            this.folderTreeView.ImageList = this.imageList1;
-            this.folderTreeView.ItemHeight = 25;
-            this.folderTreeView.Location = new System.Drawing.Point(3, 56);
-            this.folderTreeView.Name = "folderTreeView";
-            this.folderTreeView.SelectedImageIndex = 0;
-            this.folderTreeView.ShowLines = false;
-            this.folderTreeView.ShowNodeToolTips = true;
-            this.folderTreeView.Size = new System.Drawing.Size(298, 332);
-            this.folderTreeView.TabIndex = 5;
-            this.folderTreeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.folderTreeView_AfterLabelEdit);
-            this.folderTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.folderTreeView_AfterSelect);
-            this.folderTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.folderTreeView_NodeMouseClick);
-            this.folderTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.folderTreeView_NodeMouseDoubleClick);
-            this.folderTreeView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.folderTreeView_KeyDown);
             // 
             // CodesBrowser
             // 
@@ -560,5 +560,6 @@
         private System.Windows.Forms.ToolStripMenuItem collapseAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ToolStripMenuItem correctOutputFileToolStripMenuItem;
     }
 }

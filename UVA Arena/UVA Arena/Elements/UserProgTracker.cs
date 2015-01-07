@@ -209,7 +209,7 @@ namespace UVA_Arena.Elements
             pane.Legend.Position = ZedGraph.LegendPos.TopCenter;
 
             double[] value = { _subInCPP, _subInJava, _subInAnsiC, _subInCPP11, _subInPascal };
-            string[] label = { "C++", "Java", "Ansi C", "C++11", "Pascal" };
+            string[] label = { "C++", "Java", "ANSI C", "C++11", "Pascal" };
             Color[] color1 = { Color.Lime, Color.Blue, Color.Red, Color.Green, Color.Yellow };
             Color[] color2 = { Color.DarkOrange, Color.DarkBlue, Color.DarkRed, Color.DarkGreen, Color.YellowGreen };
 

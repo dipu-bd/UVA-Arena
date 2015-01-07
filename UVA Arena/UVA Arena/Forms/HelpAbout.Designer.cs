@@ -146,7 +146,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(332, 353);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Licence";
+            this.tabPage2.Text = "License";
             // 
             // panel2
             // 
@@ -250,12 +250,12 @@
             // 
             // label9
             // 
-            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.BackColor = System.Drawing.Color.PaleTurquoise;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Indigo;
-            this.label9.Location = new System.Drawing.Point(6, 306);
+            this.label9.Location = new System.Drawing.Point(12, 306);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(320, 26);
+            this.label9.Size = new System.Drawing.Size(304, 26);
             this.label9.TabIndex = 6;
             this.label9.Text = "Wish you all the Accepted! Happy Coding!!!";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -263,12 +263,14 @@
             // label7
             // 
             this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(12, 147);
+            this.label7.Location = new System.Drawing.Point(12, 150);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(304, 46);
+            this.label7.Size = new System.Drawing.Size(304, 101);
             this.label7.TabIndex = 4;
-            this.label7.Text = "For Updates, check the website from where you downloaded this software.";
+            this.label7.Text = "To check for update click Check For Update under Help menu. \r\n\r\nIt will notify yo" +
+    "u if any update found, otherwise it won\'t bother you.";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // linkLabel3
@@ -302,6 +304,7 @@
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 20);
             this.label1.Name = "label1";
@@ -313,12 +316,13 @@
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(12, 82);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(304, 46);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Report any problems, bugs, suggesstions or ask questions here -";
+            this.label2.Text = "Report any problems, bugs, suggestions or ask questions here -";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // button1

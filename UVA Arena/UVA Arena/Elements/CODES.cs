@@ -19,6 +19,12 @@ namespace UVA_Arena.Elements
         {
             InitializeComponent();
 
+            compilerSplitContainer1.SplitterDistance =
+                    (int)Math.Round(Properties.Settings.Default.CompilerSplitterRatio * compilerSplitContainer1.Height);
+
+            splitContainer1.SplitterDistance =
+                (int)Math.Round(Properties.Settings.Default.CodesSplitterRatio * splitContainer1.Width);
+
             Interactivity.codesBrowser = new CodesBrowser();
             Interactivity.codesBrowser.Dock = DockStyle.Fill;
             splitContainer1.Panel1.Controls.Add(Interactivity.codesBrowser);
@@ -40,6 +46,11 @@ namespace UVA_Arena.Elements
                 new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightBlue, -90F));
         }
 
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            Properties.Settings.Default.CodesSplitterRatio =
+                (double)splitContainer1.SplitterDistance / splitContainer1.Width;
+        }
 
         #endregion
 
@@ -96,13 +107,17 @@ namespace UVA_Arena.Elements
             //open input-output for valid problem number
             if (SelectedPNUM == -1) return;
 
-            //change file name label text to include problem numbre and title
+            //change file name label text to include problem number and title
             fileNameLabel.Text = string.Format("Problem {0} - {1} ({2})",
                   SelectedPNUM, LocalDatabase.GetTitle(SelectedPNUM), fileNameLabel.Text);
             //as there are IO files we can run tests
             runtestToolButton.Enabled = true;
             //make input output files
             MakeInputOutput(file.DirectoryName);
+
+            //set runtime limit
+            long timelim = LocalDatabase.GetProblem(SelectedPNUM).rtl;
+            timeLimitCombo.Text = (timelim / 1000.0).ToString("F2");
         }
 
         private bool PrecheckOpenFile(FileInfo file, bool history = true)
@@ -118,7 +133,7 @@ namespace UVA_Arena.Elements
                 nextToolMenu.DropDownItems.Clear();
             }
 
-            //clear prev values
+            //clear previous values
             ClearPrevOpenedFiles();
 
             //check file validity
@@ -225,7 +240,7 @@ namespace UVA_Arena.Elements
 
         private bool CanHaveIOFiles(Language lang)
         {
-            //detemine whether input-output file need to be created.
+            //determine whether input-output file need to be created.
             switch (lang)
             {
                 case Language.CSharp:
@@ -365,11 +380,11 @@ namespace UVA_Arena.Elements
         //
         public void OpenCodeFile(string file)
         {
-            FileInfo fi = new FileInfo(file);
-            if (!fi.Exists) return;
+            long siz = LocalDirectory.GetFileSize(file);
+            if (siz <= 1) return;
 
             //do not open very large files
-            if (fi.Length > MaxFileSIZ)
+            if (siz > MaxFileSIZ)
             {
                 _ShowMaxExceedMessage(codeTextBox);
             }
@@ -391,12 +406,13 @@ namespace UVA_Arena.Elements
 
         public void OpenInputFile(string file)
         {
-            inputTextBox.Clear();
-            FileInfo fi = new FileInfo(file);
-            if (!fi.Exists) return;
+            long siz = LocalDirectory.GetFileSize(file);
+            if (siz <= 1) return;
+
+            if (OpenedInput != file) inputTextBox.Clear();
 
             //do not open very large files
-            if (fi.Length > MaxFileSIZ)
+            if (siz > MaxFileSIZ)
             {
                 _ShowMaxExceedMessage(inputTextBox);
             }
@@ -408,12 +424,17 @@ namespace UVA_Arena.Elements
 
         public void OpenOutputFile(string file)
         {
-            outputTextBox.Clear();
-            FileInfo fi = new FileInfo(file);
-            if (!fi.Exists) return;
+            long siz = LocalDirectory.GetFileSize(file);
+            if (siz <= 1) return;
+
+            if (OpenedOutput != file)
+            {
+                outputTextBox.Clear();
+                progOutputTextBox.Clear();
+            }
 
             //do not open very large files
-            if (fi.Length > MaxFileSIZ)
+            if (siz > MaxFileSIZ)
             {
                 _ShowMaxExceedMessage(outputTextBox);
             }
@@ -422,18 +443,18 @@ namespace UVA_Arena.Elements
                 outputTextBox.Text = File.ReadAllText(file);
             }
 
-            //show program's output
             progOutputTextBox.Text = outputTextBox.Text;
         }
 
         public void OpenCorrectFile(string file)
         {
-            correctOutputTextBox.Clear();
-            FileInfo fi = new FileInfo(file);
-            if (!fi.Exists) return;
+            long siz = LocalDirectory.GetFileSize(file);
+            if (siz <= 1) return;
+
+            if (OpenedCorrect != file) correctOutputTextBox.Clear();
 
             //do not open very large files
-            if (fi.Length > MaxFileSIZ)
+            if (siz > MaxFileSIZ)
             {
                 _ShowMaxExceedMessage(correctOutputTextBox);
             }
@@ -445,11 +466,9 @@ namespace UVA_Arena.Elements
 
         public void ClearOutputFile()
         {
-            outputTextBox.Clear();
-            string file = OpenedOutput;
-            if (!File.Exists(file)) return;
-            File.WriteAllText(file, "");
-            OpenOutputFile(file);
+            if (File.Exists(OpenedOutput))
+                File.WriteAllText(OpenedOutput, "");
+            OpenOutputFile(OpenedOutput);
         }
 
         #endregion
@@ -505,13 +524,13 @@ namespace UVA_Arena.Elements
         //
         private bool SetCodeError(int line, bool focus = false)
         {
-            //get range from linenumber
+            //get range from line-number
             int len = compilerOutput.GetLineLength(line);
             Place start = new Place(0, line); //start of the line
             Place stop = new Place(len, line); //end of the line
             Range range = compilerOutput.GetRange(start, stop);
 
-            //process if valid language is selectd
+            //process if valid language is selected
             if (CustomLang == Structures.Language.C
                 || CustomLang == Structures.Language.CPP)
             {
@@ -624,7 +643,7 @@ namespace UVA_Arena.Elements
             //selection start
             FastColoredTextBox tb = (FastColoredTextBox)sender;
             Place cur = tb.Selection.Start;
-            //show current line and coloumn position
+            //show current line and column position
             int line = cur.iLine + 1;
             int col = cur.iChar + 1;
             CurLnLabel.Text = string.Format((string)CurLnLabel.Tag, line);
@@ -665,7 +684,7 @@ namespace UVA_Arena.Elements
             if (codeTextBox.Language == Language.Custom)
             {
                 //currently indent indifferently for all languages 
-                // <-- need some extra work for indivisuals
+                // <-- need some extra work for individuals
                 HighlightSyntax.AutoIndent(sender, e);
             }
         }
@@ -762,7 +781,7 @@ namespace UVA_Arena.Elements
             }
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void externalToolButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -803,10 +822,6 @@ namespace UVA_Arena.Elements
             }
         }
 
-        private void settingsToolButton_Click(object sender, EventArgs e)
-        {
-            Interactivity.ShowSettings(1);
-        }
 
         #endregion
 
@@ -833,6 +848,7 @@ namespace UVA_Arena.Elements
                 compileToolButton.Enabled = false;
                 buildRunToolButton.Enabled = false;
                 runtestToolButton.Enabled = false;
+                forceStopToolButton.Enabled = true;
                 //show compiler output
                 if (compilerOutputIsHidden) ToggleCompilerOutput();
             });
@@ -848,6 +864,7 @@ namespace UVA_Arena.Elements
                 //enable the build and run buttons
                 compileToolButton.Enabled = true;
                 buildRunToolButton.Enabled = true;
+                forceStopToolButton.Enabled = false;
                 //if no problem is selected do not enable runtest button
                 runtestToolButton.Enabled = (SelectedPNUM != -1);
                 //go to end of output
@@ -907,6 +924,11 @@ namespace UVA_Arena.Elements
             ThreadPool.QueueUserWorkItem(BuildAndRun, BuildRunType.RunTest);
         }
 
+        private void forceStopToolButton_Click(object sender, EventArgs e)
+        {
+            CodeCompiler.ForceStopTask();
+        }
+
         //show hints
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
@@ -945,14 +967,16 @@ namespace UVA_Arena.Elements
                 compilerOutputIsHidden = false;
                 showHideOutput.Image = Properties.Resources.minimize;
                 compilerSplitContainer1.FixedPanel = FixedPanel.None;
-                compilerSplitContainer1.SplitterDistance = 7 * compilerSplitContainer1.Height / 10;
+                compilerSplitContainer1.SplitterDistance =
+                    (int)Math.Round(Properties.Settings.Default.CompilerSplitterRatio * compilerSplitContainer1.Height);
             }
             else
             {
                 compilerOutputIsHidden = true;
                 showHideOutput.Image = Properties.Resources.maximize;
                 compilerSplitContainer1.FixedPanel = FixedPanel.Panel2;
-                compilerSplitContainer1.SplitterDistance = compilerSplitContainer1.Height - compilerSplitContainer1.Panel2MinSize;
+                compilerSplitContainer1.SplitterDistance =
+                    compilerSplitContainer1.Height - compilerSplitContainer1.Panel2MinSize;
             }
         }
 
@@ -963,6 +987,12 @@ namespace UVA_Arena.Elements
 
         private void compilerSplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
+            if (!compilerOutputIsHidden)
+            {
+                Properties.Settings.Default.CompilerSplitterRatio =
+                   (double)compilerSplitContainer1.SplitterDistance / compilerSplitContainer1.Height;
+            }
+
             if (compilerSplitContainer1.Panel2.Height > compilerSplitContainer1.Panel2MinSize)
             {
                 if (compilerOutputIsHidden)
@@ -1190,11 +1220,6 @@ namespace UVA_Arena.Elements
             if (file1 == null || !File.Exists(file1)) return false;
             if (file2 == null || !File.Exists(file2)) return false;
 
-            //first clear prev result
-            progOutputTextBox.Clear();
-            correctOutputTextBox.Clear();
-            progOutputTextBox.Cursor = Cursors.WaitCursor;
-
             //load lines from file
             var source1 = DiffMergeStuffs.Lines.Load(file1);
             var source2 = DiffMergeStuffs.Lines.Load(file2);
@@ -1204,12 +1229,13 @@ namespace UVA_Arena.Elements
             __updating++;
 
             //show lines
+            progOutputTextBox.Clear();
+            correctOutputTextBox.Clear();
             bool res = _ProcessDiff(source1, correctOutputTextBox, progOutputTextBox);
 
             //end update
             __updating--;
 
-            progOutputTextBox.Cursor = Cursors.Default;
             return res;
         }
 
@@ -1316,5 +1342,7 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
+
+
     }
 }

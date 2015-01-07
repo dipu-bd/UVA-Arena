@@ -15,6 +15,20 @@ namespace UVA_Arena.Elements
         {
             InitializeComponent();
             folderTreeView.PathSeparator = Path.DirectorySeparatorChar.ToString();
+
+            //load images
+            imageList1.Images.Add("root", Properties.Resources.root);
+            imageList1.Images.Add("volume", Properties.Resources.volumes);
+            imageList1.Images.Add("problem", Properties.Resources.problem);
+            imageList1.Images.Add("folder", Properties.Resources.folder);
+            imageList1.Images.Add("file", Properties.Resources.file);    
+            imageList1.Images.Add(".c", Properties.Resources.ansi_c);
+            imageList1.Images.Add(".cpp", Properties.Resources.cpp);
+            imageList1.Images.Add(".java", Properties.Resources.java);
+            imageList1.Images.Add(".pascal", Properties.Resources.pascal);
+            imageList1.Images.Add("correct.txt", Properties.Resources.correct);
+            imageList1.Images.Add("input.txt", Properties.Resources.input);
+            imageList1.Images.Add("output.txt", Properties.Resources.output);        
         }
 
         protected override void OnLoad(EventArgs e)
@@ -29,6 +43,8 @@ namespace UVA_Arena.Elements
                 try { LoadCodeFolder(true); }
                 catch (Exception ex) { Logger.Add(ex.Message, "Codes"); }
             }
+
+
         }
 
         #endregion
@@ -47,7 +63,7 @@ namespace UVA_Arena.Elements
                 return;
             }
 
-            //create codespath and check them
+            //create codes-path and check them
             if (!LocalDatabase.IsReady)
             {
                 Logger.Add("Problem Database is not ready yet.", "Codes : FormatCodeDirectory()");
@@ -60,7 +76,7 @@ namespace UVA_Arena.Elements
                 LocalDirectory.GetCodesPath(prob.pnum);
             }
 
-            //now create files for precodes
+            //now create files for precode
             LocalDirectory.GetPrecode(Structures.Language.C);
             LocalDirectory.GetPrecode(Structures.Language.CPP);
             LocalDirectory.GetPrecode(Structures.Language.Java);
@@ -104,7 +120,7 @@ namespace UVA_Arena.Elements
                     IsReady = false;
                     FormatCodeDirectory(false);
                     IsReady = true;
-                    LoadCodeFolder(true);                    
+                    LoadCodeFolder(true);
                 }
                 LoadCodeFolder(true);
                 fileSystemWatcher1.Path = RegistryAccess.CodesPath;
@@ -193,7 +209,7 @@ namespace UVA_Arena.Elements
                     }
                 }
 
-                //rename operatior
+                //rename operation
                 LocalDirectory.RenameFileOrFolder(fsi.FullName, newpath);
             }
             catch (Exception ex)
@@ -297,7 +313,7 @@ namespace UVA_Arena.Elements
         /// <summary>
         /// Recursively add child-nodes ignoring files and folders
         /// </summary>
-        /// <param name="parent">Parent tree-node to add childs</param>
+        /// <param name="parent">Parent tree-node to add children</param>
         public void AddChildNodes(TreeNode parent)
         {
             parent.Nodes.Clear();
@@ -319,9 +335,9 @@ namespace UVA_Arena.Elements
         /// Create and add a new tree node 
         /// (If parent any parent node is given, add tree node to the parent)
         /// </summary>
-        /// <param name="info">FileInfo for file and DirectoryInfo for folder to create treenode upon</param>
+        /// <param name="info">FileInfo for file and DirectoryInfo for folder to create tree node upon</param>
         /// <param name="parent">Parent to add the TreeNode. If it is NULL</param>
-        /// <returns>A reference to the creatd TreeNode.</returns>
+        /// <returns>A reference to the created TreeNode.</returns>
         private TreeNode AddTreeNode(FileSystemInfo info, TreeNode parent = null)
         {
             if (info == null) return null;
@@ -342,25 +358,25 @@ namespace UVA_Arena.Elements
         /// <returns>Image keys from imagelist1</returns>
         private string GetKey(FileSystemInfo info)
         {
-            string key = info.Name.ToLower() + ".png";
+            string key = info.Name.ToLower();
             try { if (imageList1.Images.ContainsKey(key)) return key; }
             catch { }
 
-            key = info.Extension.ToLower() + ".png";
+            key = info.Extension.ToLower();
             try { if (imageList1.Images.ContainsKey(key)) return key; }
             catch { }
 
-            if (info.GetType() == typeof(FileInfo)) return "file.png";
+            if (info.GetType() == typeof(FileInfo)) return "file";
 
             string name = info.FullName.Substring(RegistryAccess.CodesPath.Length + 1);
             if (!name.StartsWith("Volume"))
             {
-                if (name.Contains(Path.DirectorySeparatorChar.ToString())) return key = "folder.png";
-                return "root.png";
+                if (name.Contains(Path.DirectorySeparatorChar.ToString())) return key = "folder";
+                return "root";
             }
 
-            if (name.Contains(Path.DirectorySeparatorChar.ToString())) return "problem.png";
-            return "volume.png";
+            if (name.Contains(Path.DirectorySeparatorChar.ToString())) return "problem";
+            return "volume";
         }
 
         #endregion
@@ -375,7 +391,7 @@ namespace UVA_Arena.Elements
         }
 
         /// <summary>
-        /// Expand upto path of given problem number and select top file inside that folder
+        /// Expand up to path of given problem number and select top file inside that folder
         /// Prompt for new file if none exist
         /// </summary>
         /// <param name="pnum">Problem number</param>
@@ -418,7 +434,7 @@ namespace UVA_Arena.Elements
         /// Try to get respective tree node from FileSystemInfo
         /// </summary>
         /// <param name="finfo">FileInfo for file and DirectoryInfo for folder tree node</param>
-        /// <returns>If error occured a null value if returned</returns>
+        /// <returns>If error occurred a null value if returned</returns>
         public TreeNode GetNode(FileSystemInfo finfo)
         {
             try
@@ -515,7 +531,7 @@ namespace UVA_Arena.Elements
             string path = LocalDirectory.GetCodesPath(pnum);
             if (string.IsNullOrEmpty(path)) return;
 
-            //get file extenstion
+            //get file extension
             string ext = ".cpp";
             if (lang == Structures.Language.C) ext = ".c";
             else if (lang == Structures.Language.Java) ext = ".java";
@@ -545,7 +561,7 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                //get html
+                //get HTML
                 string file = LocalDirectory.GetProblemHtml(pnum);
                 if (LocalDirectory.GetFileSize(file) < 100) return false;
 
@@ -674,7 +690,7 @@ namespace UVA_Arena.Elements
                 }
                 else
                 {
-                    //get file sustem info
+                    //get file system info
                     FileSystemInfo dir = null;
                     FileSystemInfo cur = null;
                     if (File.Exists(e.FullPath))
@@ -688,7 +704,7 @@ namespace UVA_Arena.Elements
                         cur = new DirectoryInfo(e.FullPath);
                     }
 
-                    //update current node and its childs
+                    //update current node and its children
                     TreeNode tn = GetNode(dir);
                     if (tn != null)
                     {
@@ -731,7 +747,7 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Cyclick Seach Box
+        #region Cyclic Search Box
 
         private void searchBox1_SearchButtonClicked(object sender, EventArgs e)
         {
@@ -882,6 +898,13 @@ namespace UVA_Arena.Elements
             CreateFile(path, "output", ".txt", false);
         }
 
+        private void correctOutputFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = GetSelectedPath();
+            if (path == null) return;
+            CreateFile(path, "correct", ".txt", false);
+        }
+
         //
         // Other context menu
         //
@@ -973,6 +996,7 @@ namespace UVA_Arena.Elements
 
 
         #endregion
+
 
     }
 }

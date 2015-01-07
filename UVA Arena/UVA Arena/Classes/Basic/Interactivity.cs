@@ -71,11 +71,11 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// Show Submit problem diaglogue.
+        /// Show Submit problem dialog.
         /// </summary>
         /// <param name="pnum">Problem Number</param>
         /// <param name="code">Problem's Code to submit</param>
-        /// <param name="lang">Language the code is wrtten on</param>
+        /// <param name="lang">Language the code is written on</param>
         public static void SubmitCode(long pnum, string code = null, Language lang = Language.CPP)
         {
             if (submitForm == null || submitForm.IsDisposed)
@@ -85,7 +85,7 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// Show Looger Form
+        /// Show Logger Form
         /// </summary>
         public static void ShowLogger()
         {
@@ -129,7 +129,7 @@ namespace UVA_Arena
 
 
         /// <summary>
-        /// Show UserName form to change default username
+        /// Show UserName form to change default user-name
         /// </summary>
         public static void ShowUserNameForm()
         {
@@ -174,7 +174,7 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// This method is called when default username is changed
+        /// This method is called when default user-name is changed
         /// </summary>
         public static void DefaultUsernameChanged()
         {
@@ -217,7 +217,7 @@ namespace UVA_Arena
         /// <summary>
         /// Select User Status tab page and show profile of the user
         /// </summary>
-        /// <param name="user">Username to show statistics </param>
+        /// <param name="user">User-name to show statistics </param>
         public static void ShowUserStat(string user)
         {
             try
@@ -239,7 +239,7 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// Select Judge Staus tabpage
+        /// Select Judge Status tab page
         /// </summary>
         public static void ShowJudgeStatus()
         {
@@ -255,7 +255,7 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// Select Problems tabpage and open a specific problem description
+        /// Select Problems tab page and open a specific problem description
         /// </summary>
         /// <param name="pnum">Problem Number</param>
         public static void ShowProblem(long pnum)
@@ -282,7 +282,7 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// Selecet Codes tab and open a specific problem
+        /// Select Codes tab and open a specific problem
         /// </summary>
         /// <param name="pnum">Problem Number</param>
         public static void ShowCode(long pnum)

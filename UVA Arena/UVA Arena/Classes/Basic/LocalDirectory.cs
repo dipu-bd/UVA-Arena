@@ -223,7 +223,7 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// Get a path for precodes of specific language
+        /// Get a path for precode of specific language
         /// </summary>
         /// <param name="lang">Language of precode</param>
         /// <returns>
@@ -244,7 +244,7 @@ namespace UVA_Arena
                 default: ext = ".cpp"; break;
             }
 
-            path = Path.Combine(path, "Precodes");
+            path = Path.Combine(path, "Precode");
             string file = Path.Combine(path, "Precode" + ext);
             CreateFile(file);
 
@@ -252,7 +252,7 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// Get the HTML file descrition of a problem
+        /// Get the HTML file description of a problem
         /// </summary>
         /// <param name="pnum">Problem number</param>
         /// <returns>File with valid path, file is not created</returns>
@@ -264,7 +264,7 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// Get the PDF file descrition of a problem
+        /// Get the PDF file description of a problem
         /// </summary>
         /// <param name="pnum">Problem number</param>
         /// <returns>File with valid path, file is not created</returns>
@@ -291,7 +291,7 @@ namespace UVA_Arena
         /// Get path where user's submissions are stored. 
         /// If user id doesn't found an empty string is returned.
         /// </summary>
-        /// <param name="username">Username of the user</param>
+        /// <param name="username">User-name of the user</param>
         /// <returns>Valid file with .json extension</returns>
         public static string GetUserSubPath(string username)
         {

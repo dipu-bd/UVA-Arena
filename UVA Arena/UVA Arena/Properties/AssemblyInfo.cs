@@ -6,9 +6,9 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("UVA Arena")]
-[assembly: AssemblyDescription("UVA Arena is a programming practice tool")]
+[assembly: AssemblyDescription("UVA Arena is a utility to practice problem solving")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Sand Soft Inc.")]
+[assembly: AssemblyCompany("Sand Soft")]
 [assembly: AssemblyProduct("UVA Arena")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]

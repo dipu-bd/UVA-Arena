@@ -4,14 +4,14 @@ namespace UVA_Arena
 {
     internal static class UnixTimestamp
     {
-        /// <summary> EPOCH time - used by the unix timestamp </summary>
+        /// <summary> EPOCH time - used by the UNIX time stamp </summary>
         public static readonly DateTime EPOCH = new DateTime(1970, 1, 1);
 
-        /// <summary> amount of error when converting from unix time  </summary>
+        /// <summary> amount of error when converting from UNIX time  </summary>
         internal static long UnixTimeError = 0;
 
         /// <summary>
-        /// returns difference between current and given unix-time 
+        /// returns difference between current and given UNIX-time 
         /// </summary>
         public static TimeSpan GetTimeSpan(long unix_time)
         {
@@ -40,7 +40,7 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// convert unix time to local datetime
+        /// convert UNIX time to local date-time
         /// </summary>
         public static DateTime FromUnixTime(long unix, bool err_fixed = true)
         {
@@ -49,14 +49,14 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// convert utc datetime to unix time
+        /// convert UTC date-time to UNIX time
         /// </summary>
         public static long ToUnixTime(DateTime time)
         {
             return (long)(time - EPOCH).TotalSeconds;
         }
 
-        /// <summary> current unix time of pc </summary>
+        /// <summary> current UNIX time of PC </summary>
         public static long CurrentTime
         {
             get { return ToUnixTime(DateTime.UtcNow); }

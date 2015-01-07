@@ -333,7 +333,7 @@
             this.restoreData.Name = "restoreData";
             this.restoreData.Size = new System.Drawing.Size(150, 28);
             this.restoreData.TabIndex = 4;
-            this.restoreData.Text = "Restore Descriton";
+            this.restoreData.Text = "Restore Description";
             this.restoreData.UseVisualStyleBackColor = true;
             this.restoreData.Click += new System.EventHandler(this.restoreData_Click);
             // 
@@ -345,7 +345,7 @@
             this.backupData.Name = "backupData";
             this.backupData.Size = new System.Drawing.Size(150, 28);
             this.backupData.TabIndex = 5;
-            this.backupData.Text = "Backup Descrition";
+            this.backupData.Text = "Backup Description";
             this.backupData.UseVisualStyleBackColor = true;
             this.backupData.Click += new System.EventHandler(this.backupData_Click);
             // 
@@ -354,9 +354,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(14, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(185, 13);
+            this.label1.Size = new System.Drawing.Size(189, 13);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Make offline copy of all problems :";
+            this.label1.Text = "Make off-line copy of all problems :";
             // 
             // label2
             // 
@@ -372,9 +372,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(13, 69);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(328, 13);
+            this.label3.Size = new System.Drawing.Size(335, 13);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Backup and Restore user settings and downloader descrition :";
+            this.label3.Text = "Backup and Restore user settings and downloader description :";
             // 
             // groupBox4
             // 
@@ -638,7 +638,7 @@
             this.groupBox10.Size = new System.Drawing.Size(350, 75);
             this.groupBox10.TabIndex = 22;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Java Comopiler Options";
+            this.groupBox10.Text = "Java Compiler Options";
             // 
             // javaCompilerOptions
             // 
@@ -684,7 +684,7 @@
             this.groupBox8.Size = new System.Drawing.Size(350, 75);
             this.groupBox8.TabIndex = 21;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "C Comopiler Options";
+            this.groupBox8.Text = "C Compiler Options";
             // 
             // cCompilerOptions
             // 
@@ -852,7 +852,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(376, 447);
             this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "Pre-Codes";
+            this.tabPage1.Text = "Precode";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // button4
@@ -934,10 +934,10 @@
             this.ansiCradioButton.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ansiCradioButton.Location = new System.Drawing.Point(85, 9);
             this.ansiCradioButton.Name = "ansiCradioButton";
-            this.ansiCradioButton.Size = new System.Drawing.Size(62, 21);
+            this.ansiCradioButton.Size = new System.Drawing.Size(66, 21);
             this.ansiCradioButton.TabIndex = 0;
             this.ansiCradioButton.TabStop = true;
-            this.ansiCradioButton.Text = "Ansi C";
+            this.ansiCradioButton.Text = "ANSI C";
             this.ansiCradioButton.UseVisualStyleBackColor = true;
             this.ansiCradioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 

@@ -15,9 +15,9 @@ namespace UVA_Arena
         public static Dictionary<long, List<ProblemInfo>> problem_vol;
         public static Dictionary<string, List<ProblemInfo>> problem_cat;
 
-        /// <summary> Userinfo of default user </summary>
+        /// <summary> User-info of default user </summary>
         public static UserInfo DefaultUser;
-        /// <summary> Dictionary of [Username -> Userid] values </summary>
+        /// <summary> Dictionary of [User-name -> User-id] values </summary>
         /// <remarks> initialized in the main function </remarks>
         public static Dictionary<string, string> usernames;
 
@@ -174,7 +174,7 @@ namespace UVA_Arena
         /// <summary>
         /// Load downloaded categories
         /// </summary>
-        /// <param name="wait">True to wait until problem databse is not ready</param>
+        /// <param name="wait">True to wait until problem database is not ready</param>
         public static void LoadCategories()
         {
             try

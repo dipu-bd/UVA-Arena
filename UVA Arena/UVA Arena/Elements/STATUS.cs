@@ -138,7 +138,7 @@ namespace UVA_Arena.Elements
                 Interactivity.SetProgress();
                 Interactivity.SetStatus("Judge status update finished.");
 
-                //set submisstion status
+                //set submission status
                 submissionStatus.SetObjects(StatusList, false);
                 submissionStatus.Sort(sidSUB, SortOrder.Descending);
                 submissionStatus.EnsureVisible(0);

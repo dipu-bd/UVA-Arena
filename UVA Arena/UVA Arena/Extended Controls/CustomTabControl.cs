@@ -10,20 +10,19 @@ namespace System.Windows.Forms
         private System.ComponentModel.IContainer components = null;
 
         //
-        // Contructor and Properties
+        // Constructor and Properties
         //
         public CustomTabControl()
         {
-            components = new System.ComponentModel.Container(); 
+            components = new System.ComponentModel.Container();
 
             this.SetStyle(ControlStyles.Opaque, true);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.EnableNotifyMessage, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);            
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             this.BackColor = Color.PaleTurquoise;
-
         }
 
         protected override void Dispose(bool disposing)
@@ -40,43 +39,28 @@ namespace System.Windows.Forms
 
         [Category("Appearance"), DefaultValue(typeof(Color), "PaleTurquoise"), EditorBrowsable(EditorBrowsableState.Always)]
         new public Color BackColor { get; set; }
-         
+
         //
         // Events
         //
 
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            base.OnMouseDown(e);
-            if (e.Button == Forms.MouseButtons.Left)
-            {
-                NativeMethods.MoveWithMouse(Interactivity.mainForm.Handle);
-            }
-        }
-        
         protected override void OnSelected(TabControlEventArgs e)
         {
             base.OnSelected(e);
             this.Invalidate();
         }
-
-        protected override void WndProc(ref Message m)
-        {
-            base.WndProc(ref m);
-            if (m.Msg == NativeMethods.WM_HSCROLL) this.Invalidate();
-        }
-
+        
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
-            //draw on buffer image first to recudce flickering
+            //draw on buffer image first to reduce flickering
             Bitmap BufferImage = new Bitmap(this.Width, this.Height);
             Graphics graphics = Graphics.FromImage(BufferImage);
 
             graphics.SmoothingMode = SmoothingMode.HighQuality;
 
-            //paint background with backcolor
+            //paint background with back color
             graphics.Clear(this.BackColor);
 
             //draw tab buttons
@@ -111,6 +95,14 @@ namespace System.Windows.Forms
         //
         private void DrawTabPage(int index, Graphics graphics)
         {
+            //gets if the current tab page has mouse focus
+            bool mouseFocus = false;
+            Rectangle mouse = new Rectangle(MousePosition.X, MousePosition.Y, 1, 1);
+            if (RectangleToScreen(GetTabRect(index)).IntersectsWith(mouse))
+            {
+                mouseFocus = true;
+            }
+
             //get brush for tab button 
             Pen borderPen = null;
             Brush fillbrush = null;
@@ -127,6 +119,11 @@ namespace System.Windows.Forms
                 borderPen = new Pen(Color.FromArgb(167, 197, 235));
                 Color up = Color.FromArgb(215, 208, 230);
                 Color down = Color.FromArgb(246, 242, 252);
+                if(mouseFocus)
+                {
+                    up = Color.FromArgb(225, 219, 242);
+                    down = Color.FromArgb(236, 238, 248);
+                }
                 Stylish.GradientStyle style = new Stylish.GradientStyle(up, down, 90F);
                 Rectangle tabBounds = GetTabRectAdjusted(index);
                 fillbrush = style.GetBrush(tabBounds.Width, tabBounds.Height + 1);

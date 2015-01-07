@@ -219,7 +219,7 @@ namespace UVA_Arena
         {
             try
             {
-                //split data in parts seprated by ':'
+                //split data in parts separated by ':'
                 string data = message.Text;
                 string[] part = data.Split(new char[] { ':' });
 
@@ -282,7 +282,7 @@ namespace UVA_Arena
         {
             try
             {
-                //split data in parts seprated by ':'
+                //split data in parts separated by ':'
                 string data = message.Text;
                 string[] part = data.Split(new char[] { ':' });
 
@@ -330,7 +330,7 @@ namespace UVA_Arena
         }
 
         //
-        // Seleect same words
+        // Select same words
         //
         public static void SelectSameWords(FastColoredTextBox tb)
         {

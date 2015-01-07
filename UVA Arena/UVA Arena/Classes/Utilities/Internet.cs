@@ -168,7 +168,7 @@ namespace UVA_Arena.Internet
 
         #endregion
 
-        #region Webclient and Download Queue
+        #region Web-client and Download Queue
 
         private static int _highend = 0;
         private static int _normalend = 0;
@@ -251,7 +251,7 @@ namespace UVA_Arena.Internet
             if (DownloadQueue.Count == 0) return;
             CurrentTask = DownloadQueue[0];
 
-            //if already cancelled, then skip it
+            //if already canceled, then skip it
             if (CurrentTask.Status == ProgressStatus.Cancelled)
             {
                 CurrentTask.ReportComplete();
@@ -364,7 +364,7 @@ namespace UVA_Arena.Internet
             DownloadFileAsync(url, file, false, Priority.High,
                 __DownloadProblemDatabaseProgress, __DownloadProblemDatabaseCompleted);
 
-            //problem catagories
+            //problem categories
             url = "http://uhunt.felix-halim.net/api/cpbook/3";
             file = LocalDirectory.GetCategoryPath();
             DownloadTask task = DownloadFileAsync(url, file, true, Priority.High,

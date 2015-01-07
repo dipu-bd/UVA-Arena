@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(USER_STAT));
             this.updateContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.autoUpdateToolMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -42,8 +41,8 @@
             this.twoMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fiveMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tenMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.updateRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -53,8 +52,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.acceptedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notAcceptedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.noneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,8 +61,8 @@
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verdictToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.problemNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.groupByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -175,26 +174,26 @@
             this.tenMinutesToolItem});
             this.updateContextMenu.Name = "updateContextMenu";
             this.updateContextMenu.OwnerItem = this.toolStripSplitButton1;
-            this.updateContextMenu.Size = new System.Drawing.Size(142, 230);
+            this.updateContextMenu.Size = new System.Drawing.Size(153, 252);
             // 
             // autoUpdateToolMenu
             // 
             this.autoUpdateToolMenu.Checked = true;
             this.autoUpdateToolMenu.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autoUpdateToolMenu.Name = "autoUpdateToolMenu";
-            this.autoUpdateToolMenu.Size = new System.Drawing.Size(141, 22);
+            this.autoUpdateToolMenu.Size = new System.Drawing.Size(152, 22);
             this.autoUpdateToolMenu.Text = "Auto Update";
             this.autoUpdateToolMenu.Click += new System.EventHandler(this.autoUpdateToolMenu_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // twoSecondsToolItem
             // 
             this.twoSecondsToolItem.Name = "twoSecondsToolItem";
-            this.twoSecondsToolItem.Size = new System.Drawing.Size(141, 22);
+            this.twoSecondsToolItem.Size = new System.Drawing.Size(152, 22);
             this.twoSecondsToolItem.Tag = "2000";
             this.twoSecondsToolItem.Text = "2 seconds";
             this.twoSecondsToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -204,7 +203,7 @@
             this.fiveSecondsToolItem.Checked = true;
             this.fiveSecondsToolItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.fiveSecondsToolItem.Name = "fiveSecondsToolItem";
-            this.fiveSecondsToolItem.Size = new System.Drawing.Size(141, 22);
+            this.fiveSecondsToolItem.Size = new System.Drawing.Size(152, 22);
             this.fiveSecondsToolItem.Tag = "5000";
             this.fiveSecondsToolItem.Text = "5 seconds";
             this.fiveSecondsToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -212,7 +211,7 @@
             // tenSecondsToolItem
             // 
             this.tenSecondsToolItem.Name = "tenSecondsToolItem";
-            this.tenSecondsToolItem.Size = new System.Drawing.Size(141, 22);
+            this.tenSecondsToolItem.Size = new System.Drawing.Size(152, 22);
             this.tenSecondsToolItem.Tag = "10000";
             this.tenSecondsToolItem.Text = "10 seconds";
             this.tenSecondsToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -220,7 +219,7 @@
             // fifteenSecondsToolItem
             // 
             this.fifteenSecondsToolItem.Name = "fifteenSecondsToolItem";
-            this.fifteenSecondsToolItem.Size = new System.Drawing.Size(141, 22);
+            this.fifteenSecondsToolItem.Size = new System.Drawing.Size(152, 22);
             this.fifteenSecondsToolItem.Tag = "15000";
             this.fifteenSecondsToolItem.Text = "15 seconds";
             this.fifteenSecondsToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -228,7 +227,7 @@
             // thirtySecodsToolItem
             // 
             this.thirtySecodsToolItem.Name = "thirtySecodsToolItem";
-            this.thirtySecodsToolItem.Size = new System.Drawing.Size(141, 22);
+            this.thirtySecodsToolItem.Size = new System.Drawing.Size(152, 22);
             this.thirtySecodsToolItem.Tag = "30000";
             this.thirtySecodsToolItem.Text = "30 seconds";
             this.thirtySecodsToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -236,7 +235,7 @@
             // oneMinutesToolItem
             // 
             this.oneMinutesToolItem.Name = "oneMinutesToolItem";
-            this.oneMinutesToolItem.Size = new System.Drawing.Size(141, 22);
+            this.oneMinutesToolItem.Size = new System.Drawing.Size(152, 22);
             this.oneMinutesToolItem.Tag = "60000";
             this.oneMinutesToolItem.Text = "1 minute";
             this.oneMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -244,7 +243,7 @@
             // twoMinutesToolItem
             // 
             this.twoMinutesToolItem.Name = "twoMinutesToolItem";
-            this.twoMinutesToolItem.Size = new System.Drawing.Size(141, 22);
+            this.twoMinutesToolItem.Size = new System.Drawing.Size(152, 22);
             this.twoMinutesToolItem.Tag = "120000";
             this.twoMinutesToolItem.Text = "2 minutes";
             this.twoMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -252,7 +251,7 @@
             // fiveMinutesToolItem
             // 
             this.fiveMinutesToolItem.Name = "fiveMinutesToolItem";
-            this.fiveMinutesToolItem.Size = new System.Drawing.Size(141, 22);
+            this.fiveMinutesToolItem.Size = new System.Drawing.Size(152, 22);
             this.fiveMinutesToolItem.Tag = "300000";
             this.fiveMinutesToolItem.Text = "5 minutes";
             this.fiveMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -260,10 +259,19 @@
             // tenMinutesToolItem
             // 
             this.tenMinutesToolItem.Name = "tenMinutesToolItem";
-            this.tenMinutesToolItem.Size = new System.Drawing.Size(141, 22);
+            this.tenMinutesToolItem.Size = new System.Drawing.Size(152, 22);
             this.tenMinutesToolItem.Tag = "600000";
             this.tenMinutesToolItem.Text = "10 minutes";
             this.tenMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
+            // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripSplitButton1.DropDown = this.updateContextMenu;
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(84, 20);
+            this.toolStripSplitButton1.Text = "Update Rate";
             // 
             // updateRateToolStripMenuItem
             // 
@@ -271,16 +279,6 @@
             this.updateRateToolStripMenuItem.Name = "updateRateToolStripMenuItem";
             this.updateRateToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.updateRateToolStripMenuItem.Text = "Auto Update";
-            // 
-            // toolStripSplitButton1
-            // 
-            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripSplitButton1.DropDown = this.updateContextMenu;
-            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
-            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(84, 20);
-            this.toolStripSplitButton1.Text = "Update Rate";
             // 
             // viewContextMenu
             // 
@@ -294,7 +292,6 @@
             this.acceptedToolStripMenuItem,
             this.notAcceptedToolStripMenuItem});
             this.viewContextMenu.Name = "viewContextMenu";
-            this.viewContextMenu.OwnerItem = this.toolStripSplitButton2;
             this.viewContextMenu.Size = new System.Drawing.Size(148, 148);
             // 
             // allToolStripMenuItem
@@ -357,22 +354,21 @@
             this.notAcceptedToolStripMenuItem.Text = "Not Accepted";
             this.notAcceptedToolStripMenuItem.Click += new System.EventHandler(this.viewMenuItem_Click);
             // 
+            // toolStripSplitButton2
+            // 
+            this.toolStripSplitButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripSplitButton2.DropDown = this.viewContextMenu;
+            this.toolStripSplitButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton2.Name = "toolStripSplitButton2";
+            this.toolStripSplitButton2.Size = new System.Drawing.Size(45, 20);
+            this.toolStripSplitButton2.Text = "View";
+            // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDown = this.viewContextMenu;
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.viewToolStripMenuItem.Text = "View";
-            // 
-            // toolStripSplitButton2
-            // 
-            this.toolStripSplitButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripSplitButton2.DropDown = this.viewContextMenu;
-            this.toolStripSplitButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton2.Image")));
-            this.toolStripSplitButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSplitButton2.Name = "toolStripSplitButton2";
-            this.toolStripSplitButton2.Size = new System.Drawing.Size(45, 20);
-            this.toolStripSplitButton2.Text = "View";
             // 
             // timer1
             // 
@@ -388,7 +384,6 @@
             this.verdictToolStripMenuItem,
             this.problemNameToolStripMenuItem});
             this.groupContextMenu.Name = "contextMenuStrip1";
-            this.groupContextMenu.OwnerItem = this.toolStripButton1;
             this.groupContextMenu.Size = new System.Drawing.Size(155, 98);
             // 
             // noneToolStripMenuItem
@@ -426,22 +421,21 @@
             this.problemNameToolStripMenuItem.Text = "Problem Name";
             this.problemNameToolStripMenuItem.Click += new System.EventHandler(this.groupMenuItem_Click);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.DropDown = this.groupContextMenu;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(69, 20);
+            this.toolStripButton1.Text = "Group By";
+            // 
             // groupByToolStripMenuItem
             // 
             this.groupByToolStripMenuItem.DropDown = this.groupContextMenu;
             this.groupByToolStripMenuItem.Name = "groupByToolStripMenuItem";
             this.groupByToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.groupByToolStripMenuItem.Text = "Group By";
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.DropDown = this.groupContextMenu;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(69, 20);
-            this.toolStripButton1.Text = "Group By";
             // 
             // MainContextMenu
             // 
@@ -1260,7 +1254,7 @@
             this.userNameTitle.Name = "userNameTitle";
             this.userNameTitle.Size = new System.Drawing.Size(139, 30);
             this.userNameTitle.TabIndex = 0;
-            this.userNameTitle.Tag = "{0}";
+            this.userNameTitle.Tag = "{0} [{1}]";
             this.userNameTitle.Text = "User\'s Profile";
             // 
             // USER_STAT

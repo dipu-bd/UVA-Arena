@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PROBLEMS));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.hideAccepted = new System.Windows.Forms.CheckBox();
             this.deepSearchCheckBox = new System.Windows.Forms.CheckBox();
@@ -132,8 +131,8 @@
             this.deepSearchCheckBox.Size = new System.Drawing.Size(90, 17);
             this.deepSearchCheckBox.TabIndex = 5;
             this.deepSearchCheckBox.Text = "Use Deep Search";
-            this.toolTip1.SetToolTip(this.deepSearchCheckBox, "Search including problem descritions. (Slower)\r\n(You need to have all description" +
-        "s downloaded to make it effective)");
+            this.toolTip1.SetToolTip(this.deepSearchCheckBox, "Search including problem descriptions. (Slower)\r\n(You need to have all descriptio" +
+        "ns downloaded to make it effective)");
             this.deepSearchCheckBox.UseVisualStyleBackColor = true;
             this.deepSearchCheckBox.CheckedChanged += new System.EventHandler(this.deepSearchCheckBox_CheckedChanged);
             // 
@@ -336,7 +335,7 @@
             // 
             // downloadAllToolStripMenuItem
             // 
-            this.downloadAllToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("downloadAllToolStripMenuItem.Image")));
+            this.downloadAllToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.download;
             this.downloadAllToolStripMenuItem.Name = "downloadAllToolStripMenuItem";
             this.downloadAllToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.downloadAllToolStripMenuItem.Text = "Download All";
@@ -484,7 +483,7 @@
             this.categoryButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.categoryButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.categoryButton.ForeColor = System.Drawing.Color.Maroon;
-            this.categoryButton.Image = ((System.Drawing.Image)(resources.GetObject("categoryButton.Image")));
+            this.categoryButton.Image = global::UVA_Arena.Properties.Resources.category;
             this.categoryButton.Location = new System.Drawing.Point(1, 31);
             this.categoryButton.Margin = new System.Windows.Forms.Padding(1);
             this.categoryButton.Name = "categoryButton";
@@ -504,7 +503,7 @@
             this.volumesButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.volumesButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.volumesButton.ForeColor = System.Drawing.Color.Navy;
-            this.volumesButton.Image = ((System.Drawing.Image)(resources.GetObject("volumesButton.Image")));
+            this.volumesButton.Image = global::UVA_Arena.Properties.Resources.volumes;
             this.volumesButton.Location = new System.Drawing.Point(1, 1);
             this.volumesButton.Margin = new System.Windows.Forms.Padding(1);
             this.volumesButton.Name = "volumesButton";

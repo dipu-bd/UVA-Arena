@@ -101,13 +101,9 @@
             // 
             // tabImageList
             // 
-            this.tabImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabImageList.ImageStream")));
+            this.tabImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.tabImageList.ImageSize = new System.Drawing.Size(16, 16);
             this.tabImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.tabImageList.Images.SetKeyName(0, "code");
-            this.tabImageList.Images.SetKeyName(1, "live_submission");
-            this.tabImageList.Images.SetKeyName(2, "problems");
-            this.tabImageList.Images.SetKeyName(3, "profile");
-            this.tabImageList.Images.SetKeyName(4, "utility");
             // 
             // menuStrip1
             // 
@@ -322,7 +318,7 @@
             // 
             // changeDirectoryToolStripMenuItem
             // 
-            this.changeDirectoryToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.folder;
+            this.changeDirectoryToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.root;
             this.changeDirectoryToolStripMenuItem.Name = "changeDirectoryToolStripMenuItem";
             this.changeDirectoryToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.changeDirectoryToolStripMenuItem.Text = "Change Directory";
@@ -372,7 +368,7 @@
             this.changePrecodesToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.code;
             this.changePrecodesToolStripMenuItem.Name = "changePrecodesToolStripMenuItem";
             this.changePrecodesToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.changePrecodesToolStripMenuItem.Text = "Change Precodes";
+            this.changePrecodesToolStripMenuItem.Text = "Change Precode";
             this.changePrecodesToolStripMenuItem.Click += new System.EventHandler(this.changePrecodesToolStripMenuItem_Click);
             // 
             // toolStripSeparator9
@@ -409,6 +405,7 @@
             // 
             // addUserToolStripMenuItem
             // 
+            this.addUserToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.add;
             this.addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
             this.addUserToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.addUserToolStripMenuItem.Text = "Add User";
@@ -516,7 +513,7 @@
             // 
             this.licenceToolStripMenuItem.Name = "licenceToolStripMenuItem";
             this.licenceToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.licenceToolStripMenuItem.Text = "Licence";
+            this.licenceToolStripMenuItem.Text = "License";
             this.licenceToolStripMenuItem.Click += new System.EventHandler(this.licenceToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
@@ -575,7 +572,7 @@
             this.codesTab.ImageKey = "code";
             this.codesTab.Location = new System.Drawing.Point(4, 33);
             this.codesTab.Name = "codesTab";
-            this.codesTab.Size = new System.Drawing.Size(836, 381);
+            this.codesTab.Size = new System.Drawing.Size(836, 353);
             this.codesTab.TabIndex = 3;
             this.codesTab.Text = "CODES";
             // 
@@ -585,7 +582,7 @@
             this.judgeStatusTab.ImageKey = "live_submission";
             this.judgeStatusTab.Location = new System.Drawing.Point(4, 33);
             this.judgeStatusTab.Name = "judgeStatusTab";
-            this.judgeStatusTab.Size = new System.Drawing.Size(836, 381);
+            this.judgeStatusTab.Size = new System.Drawing.Size(836, 353);
             this.judgeStatusTab.TabIndex = 6;
             this.judgeStatusTab.Text = "STATUS";
             // 
@@ -595,7 +592,7 @@
             this.profileTab.ImageKey = "profile";
             this.profileTab.Location = new System.Drawing.Point(4, 33);
             this.profileTab.Name = "profileTab";
-            this.profileTab.Size = new System.Drawing.Size(836, 381);
+            this.profileTab.Size = new System.Drawing.Size(836, 353);
             this.profileTab.TabIndex = 2;
             this.profileTab.Text = "PROFILES";
             // 
@@ -616,7 +613,7 @@
             // 
             this.Status1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
             this.Status1.Name = "Status1";
-            this.Status1.Size = new System.Drawing.Size(672, 23);
+            this.Status1.Size = new System.Drawing.Size(703, 23);
             this.Status1.Spring = true;
             this.Status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 

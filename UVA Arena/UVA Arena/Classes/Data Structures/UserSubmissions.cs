@@ -18,7 +18,7 @@ namespace UVA_Arena.Structures
         public long ver { get; set; }
         //Runtime
         public long run { get; set; }
-        //Submission Time (unix timestamp)
+        //Submission Time (UNIX time stamp)
         public long sbt { get; set; }
         //Language ID (1=ANSI C, 2=Java, 3=C++, 4=Pascal, 5=C++11)
         public long lan { get; set; }

@@ -55,7 +55,7 @@ namespace UVA_Arena.ExtendedControls
         }
 
         /// <summary>
-        /// Color of the top bar wher address box contains
+        /// Color of the top bar where address box contains
         /// </summary>
         [DefaultValue(typeof(SystemColors), "Control")]
         [Category("Custom Property")]
@@ -121,19 +121,7 @@ namespace UVA_Arena.ExtendedControls
             SetUrlBox();
         }
 
-
-        /// <summary>
-        /// Clear all previous cookies of internet explorer
-        /// </summary>          
-
-        public void ClearCookies()
-        {
-            WebBrowserHelper.ClearCache();
-            //webBrowser1.Navigate(Properties.Resources.ClearCookies);
-            MessageBox.Show("Cache and cookies cleared.");
-        }
-
-
+ 
         //
         // Event Handlers
         //
@@ -154,14 +142,14 @@ namespace UVA_Arena.ExtendedControls
         }
 
         /// <summary>
-        /// Handels Staus Changed event occured when web browser status is changed
+        /// Handles Status Changed event occurred when web browser status is changed
         /// </summary>
         /// <param name="sender">object parameter to source of the action</param>
         /// <param name="e">StatusChangedEventArgs</param>
         public delegate void StatusChangedEventHandler(object sender, StatusChangedEventArgs e);
 
         /// <summary>
-        /// Raises when a staus update occured
+        /// Raises when a status update occurred
         /// </summary>
         [Category("Custom Browser")]
         public event StatusChangedEventHandler StatusChanged;
@@ -292,13 +280,20 @@ namespace UVA_Arena.ExtendedControls
         {
             webBrowser1.GoForward();
         }
-        private void clearCookie_Click(object sender, EventArgs e)
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
         {
-            ClearCookies();
+            System.Threading.ThreadPool.QueueUserWorkItem(ClearCarche);
         }
 
+        private void ClearCarche(object state)
+        {
+            WebBrowserHelper.ClearCache();
+            MessageBox.Show("Temporary Internet files and cache cleared.");
+        }
 
         #endregion
+
 
     }
 }

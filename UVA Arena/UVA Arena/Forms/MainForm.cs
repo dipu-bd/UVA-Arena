@@ -19,8 +19,15 @@ namespace UVA_Arena
             //to enable lower level mouse
             Application.AddMessageFilter(this);
 
-            //make background trasparent
+            //make background transparent
             // bool set = NativeMethods.ExtendWindowsFrame(this, 3, 2, 58, 2);   //true if works
+
+            //load images
+            tabImageList.Images.Add("code", Properties.Resources.code);
+            tabImageList.Images.Add("live_submission", Properties.Resources.live_submission);
+            tabImageList.Images.Add("problems", Properties.Resources.problem);
+            tabImageList.Images.Add("profile", Properties.Resources.profile);
+            tabImageList.Images.Add("utilities", Properties.Resources.utility);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -33,7 +40,7 @@ namespace UVA_Arena
             Stylish.SetGradientBackground(menuStrip1,
                 new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
 
-            //start status clearear
+            //start status cleaner
             ClearStatus("");
 
             //set some properties to the form

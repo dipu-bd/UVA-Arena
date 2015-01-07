@@ -186,7 +186,7 @@ namespace UVA_Arena.Elements
             }
             catch (Exception ex)
             {
-                Logger.Add(ex.Message, "Problem Viewer | DownloadPdf(long pnum)");
+                Logger.Add(ex.Message, "Problem Viewer | DownloadPdf()");
             }
         }
 
@@ -203,7 +203,7 @@ namespace UVA_Arena.Elements
             }
             catch (Exception ex)
             {
-                Logger.Add(ex.Message, "Problem Viewer | DownloadHtml(long pnum)");
+                Logger.Add(ex.Message, "Problem Viewer | DownloadHtml()");
             }
         }
 
@@ -506,7 +506,7 @@ namespace UVA_Arena.Elements
                     if (string.IsNullOrEmpty(uid)) return;
                     format = "http://uhunt.felix-halim.net/api/p/ranklist/{0}/{1}/{2}/{3}"; //pid, uid, before_count, after_count
                     url = string.Format(format, current.pid, uid, start, stop);
-                    Interactivity.SetStatus("Downloading " + user + "'s rankdata on current problem...");
+                    Interactivity.SetStatus("Downloading " + user + "'s rank-data on current problem...");
                     break;
                 case SubViewType.UsersSub:
                     if (string.IsNullOrEmpty(uid)) return;
@@ -520,7 +520,7 @@ namespace UVA_Arena.Elements
                     if (uidcol.Count == 0) return;
                     format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/0"; //uids(sep = comma), pnum
                     url = string.Format(format, string.Join(",", uidcol.ToArray()), current.pnum);
-                    Interactivity.SetStatus("Comparing user's on curretn problem...");
+                    Interactivity.SetStatus("Comparing user's on current problem...");
                     break;
             }
 

@@ -260,5 +260,29 @@ namespace UVA_Arena.Properties {
                 this["ShowExitDialogue"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.7")]
+        public double CompilerSplitterRatio {
+            get {
+                return ((double)(this["CompilerSplitterRatio"]));
+            }
+            set {
+                this["CompilerSplitterRatio"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.25")]
+        public double CodesSplitterRatio {
+            get {
+                return ((double)(this["CodesSplitterRatio"]));
+            }
+            set {
+                this["CodesSplitterRatio"] = value;
+            }
+        }
     }
 }

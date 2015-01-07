@@ -26,7 +26,7 @@ namespace UVA_Arena.Elements
             Interactivity.progTracker.Dock = DockStyle.Fill;
             progtrackerTab.Controls.Add(Interactivity.progTracker);
 
-            //add compate user
+            //add compare user
             Interactivity.compareUser = new CompareUsers();
             Interactivity.compareUser.Dock = DockStyle.Fill;
             compareTab.Controls.Add(Interactivity.compareUser);
@@ -262,7 +262,8 @@ namespace UVA_Arena.Elements
             if (currentUser == null) return;
 
             //change view and looks
-            userNameTitle.Text = string.Format(userNameTitle.Tag.ToString(), currentUser.name);
+            userNameTitle.Text = string.Format(userNameTitle.Tag.ToString(),
+                            currentUser.name, currentUser.uname);
 
             if (tabControl1.SelectedTab == submissionTab)
             {
@@ -321,7 +322,7 @@ namespace UVA_Arena.Elements
                     currentUser = JsonConvert.DeserializeObject<UserInfo>(json);
                 }
 
-                //if no data could fould, create a new instance
+                //if no data could found, create a new instance
                 if (currentUser == null)
                 {
                     currentUser = new UserInfo(user);
@@ -471,7 +472,7 @@ namespace UVA_Arena.Elements
         }
 
         //
-        // Auto Upadte
+        // Auto Update
         //
         private void updateRateToolStripMenuItem2_Click(object sender, EventArgs e)
         {
@@ -807,7 +808,7 @@ namespace UVA_Arena.Elements
         {
             if (e.Model == null) return;
 
-            //change backcolor of known users
+            //change back-color of known users
             UserRanklist js = (UserRanklist)e.Model;
             if (js.username == RegistryAccess.DefaultUsername)
             {

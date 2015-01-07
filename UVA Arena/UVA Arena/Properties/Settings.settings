@@ -56,5 +56,11 @@
     <Setting Name="ShowExitDialogue" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="CompilerSplitterRatio" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.7</Value>
+    </Setting>
+    <Setting Name="CodesSplitterRatio" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.25</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

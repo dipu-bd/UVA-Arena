@@ -1,6 +1,6 @@
 # UVA-Arena
 
-![UVA Arena Icon](Images/Main.ico)
+![UVA Arena Icon](Images/Main.png)
 
 **UVA Arena** (c) 2014, is a windows based, non-commercial, open source utility application to make problem solving easier for the programmers. It is based on popular [UVA Online Judge](http://uva.onlinejudge.org/) and uses APIs from [uHunt](http://uhunt.felix-halim.net/). 
 

@@ -4,7 +4,7 @@ namespace UVA_Arena.Structures
 {
     public class UserRanklist
     {
-        /// <summary> Contructor </summary>
+        /// <summary> Constructor </summary>
         public UserRanklist() { }
 
         /// <summary> The rank of the user </summary>

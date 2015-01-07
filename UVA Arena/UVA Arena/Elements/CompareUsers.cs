@@ -139,7 +139,7 @@ namespace UVA_Arena.Elements
                 if (acceptedRadio.Checked && !sub.IsAccepted()) continue;
                 if (commonSubs.Checked) //show problems that are common in both user.
                 {
-                    //if first does't have this, 
+                    //if first doesn't have this, 
                     if (!first.HasTried(sub.pnum)) continue;
                     //if only accepted need to be shown and first did not solve this,
                     if (acceptedRadio.Checked && !first.IsSolved(sub.pnum)) continue;
@@ -159,11 +159,11 @@ namespace UVA_Arena.Elements
                 }
                 else continue;
 
-                //--- take seond user's submisison ----
+                //--- take second user's submission ----
                 usub.Add(sub);
                 if (!secondsSubs.Checked && first.HasTried(sub.pnum))
                 {
-                    //take seond user's submisison
+                    //take second user's submission
                     usub.Add(first.TryList[sub.pnum]);
                 }
             }

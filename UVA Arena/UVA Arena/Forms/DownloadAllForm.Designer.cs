@@ -270,7 +270,6 @@
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DownloadAllForm";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Downloading Problems";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadAllForm_FormClosing);

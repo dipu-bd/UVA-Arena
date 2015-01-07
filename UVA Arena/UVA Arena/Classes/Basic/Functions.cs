@@ -128,7 +128,7 @@ namespace UVA_Arena
         {
             switch (lan)
             {
-                case Structures.Language.C: return "Ansi C";
+                case Structures.Language.C: return "ANSI C";
                 case Structures.Language.CPP: return "C++";
                 case Structures.Language.CPP11: return "C++11";
                 case Structures.Language.Java: return "Java";
@@ -182,7 +182,7 @@ namespace UVA_Arena
         /// Get color for given verdict
         /// </summary>
         /// <param name="ver">Verdict number to get color</param>
-        /// <returns>Color for the fiven verdict </returns>
+        /// <returns>Color for the given verdict </returns>
         public static System.Drawing.Color GetVerdictColor(Structures.Verdict ver)
         {
             switch (ver)
@@ -341,7 +341,7 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// Background process form backuping data
+        /// Background process form backing up data
         /// </summary>
         /// <param name="state">File name to save data</param>
         private static void Backup(object state)

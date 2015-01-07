@@ -28,11 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CodeFileCreator));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cPPradio = new System.Windows.Forms.RadioButton();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.ansiCradio = new System.Windows.Forms.RadioButton();
             this.pascalRadio = new System.Windows.Forms.RadioButton();
             this.javaRadio = new System.Windows.Forms.RadioButton();
@@ -70,9 +67,8 @@
             // 
             this.cPPradio.Checked = true;
             this.cPPradio.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cPPradio.Image = global::UVA_Arena.Properties.Resources.cpp;
             this.cPPradio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cPPradio.ImageKey = ".cpp.png";
-            this.cPPradio.ImageList = this.imageList1;
             this.cPPradio.Location = new System.Drawing.Point(11, 31);
             this.cPPradio.Margin = new System.Windows.Forms.Padding(10, 1, 10, 1);
             this.cPPradio.Name = "cPPradio";
@@ -83,36 +79,25 @@
             this.cPPradio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.cPPradio.UseVisualStyleBackColor = true;
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, ".c.png");
-            this.imageList1.Images.SetKeyName(1, ".cpp.png");
-            this.imageList1.Images.SetKeyName(2, ".java.png");
-            this.imageList1.Images.SetKeyName(3, ".pascal.png");
-            // 
             // ansiCradio
             // 
             this.ansiCradio.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ansiCradio.Image = global::UVA_Arena.Properties.Resources.ansi_c;
             this.ansiCradio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ansiCradio.ImageKey = ".c.png";
-            this.ansiCradio.ImageList = this.imageList1;
             this.ansiCradio.Location = new System.Drawing.Point(11, 2);
             this.ansiCradio.Margin = new System.Windows.Forms.Padding(10, 1, 10, 1);
             this.ansiCradio.Name = "ansiCradio";
             this.ansiCradio.Size = new System.Drawing.Size(154, 26);
             this.ansiCradio.TabIndex = 2;
-            this.ansiCradio.Text = "Ansi C";
+            this.ansiCradio.Text = "ANSI C";
             this.ansiCradio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.ansiCradio.UseVisualStyleBackColor = true;
             // 
             // pascalRadio
             // 
             this.pascalRadio.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pascalRadio.Image = global::UVA_Arena.Properties.Resources.pascal;
             this.pascalRadio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.pascalRadio.ImageKey = ".pascal.png";
-            this.pascalRadio.ImageList = this.imageList1;
             this.pascalRadio.Location = new System.Drawing.Point(11, 89);
             this.pascalRadio.Margin = new System.Windows.Forms.Padding(10, 1, 10, 1);
             this.pascalRadio.Name = "pascalRadio";
@@ -125,9 +110,8 @@
             // javaRadio
             // 
             this.javaRadio.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.javaRadio.Image = global::UVA_Arena.Properties.Resources.java;
             this.javaRadio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.javaRadio.ImageKey = ".java.png";
-            this.javaRadio.ImageList = this.imageList1;
             this.javaRadio.Location = new System.Drawing.Point(11, 60);
             this.javaRadio.Margin = new System.Windows.Forms.Padding(10, 1, 10, 1);
             this.javaRadio.Name = "javaRadio";
@@ -186,11 +170,11 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CodeFileCreator";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Select a language";
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -206,7 +190,6 @@
         private System.Windows.Forms.Button cancel_button;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RadioButton ansiCradio;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.RadioButton cPPradio;
         private System.Windows.Forms.RadioButton pascalRadio;
         private System.Windows.Forms.RadioButton javaRadio;

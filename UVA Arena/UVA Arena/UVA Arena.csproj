@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UVA_Arena</RootNamespace>
     <AssemblyName>UVA Arena</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
@@ -26,7 +26,7 @@
     <SupportUrl>https://github.com/dipu-bd/UVA-Arena</SupportUrl>
     <ProductName>UVA Arena</ProductName>
     <PublisherName>Sudipto Chandra</PublisherName>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -411,7 +411,8 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\..\External References\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\External References\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ObjectListView">

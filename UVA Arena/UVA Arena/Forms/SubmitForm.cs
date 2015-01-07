@@ -41,21 +41,19 @@ namespace UVA_Arena
         private bool ProcessPage()
         {
             bool result = false;
-
             try
             {
                 HtmlDocument hdoc = customWebBrowser1.Document;
                 if (hdoc == null) return false;
+
                 foreach (HtmlElement helem in hdoc.Forms)
                 {
                     if (helem == null) continue;
                     HtmlElementCollection hcol = helem.GetElementsByTagName("input");
                     HtmlElementCollection tarea = helem.GetElementsByTagName("textarea");
 
-                    string check = "3";
-                    if (lang == Language.C) check = "1";
-                    if (lang == Language.CPP) check = "3";
-                    if (lang == Language.CPP11) check = "5";
+                    string check = "5"; //C++ and C++11
+                    if (lang == Language.C) check = "1";                                        
                     if (lang == Language.Java) check = "2";
                     if (lang == Language.Pascal) check = "4";
 

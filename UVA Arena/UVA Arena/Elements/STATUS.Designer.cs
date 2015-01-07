@@ -29,12 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(STATUS));
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.refreshToolButton = new System.Windows.Forms.ToolStripStatusLabel();
-            this.Status1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.updateToolMenu = new System.Windows.Forms.ToolStripDropDownButton();
             this.updateContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.autoUpdateToolMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.instantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,67 +58,19 @@
             this.rankSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.subtimeSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.statusStrip1.SuspendLayout();
             this.updateContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.BackColor = System.Drawing.Color.PowderBlue;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshToolButton,
-            this.Status1,
-            this.updateToolMenu});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 407);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(790, 27);
-            this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // refreshToolButton
-            // 
-            this.refreshToolButton.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.refreshToolButton.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
-            this.refreshToolButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.refreshToolButton.Image = global::UVA_Arena.Properties.Resources.reload;
-            this.refreshToolButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.refreshToolButton.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
-            this.refreshToolButton.Name = "refreshToolButton";
-            this.refreshToolButton.Padding = new System.Windows.Forms.Padding(25, 3, 25, 3);
-            this.refreshToolButton.Size = new System.Drawing.Size(116, 26);
-            this.refreshToolButton.Text = "Refresh";
-            this.refreshToolButton.Click += new System.EventHandler(this.toolStripStatusLabel2_Click);
-            // 
-            // Status1
-            // 
-            this.Status1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.Status1.Name = "Status1";
-            this.Status1.Size = new System.Drawing.Size(599, 22);
-            this.Status1.Spring = true;
-            this.Status1.Text = "Status";
-            this.Status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // updateToolMenu
-            // 
-            this.updateToolMenu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.updateToolMenu.DropDown = this.updateContextMenu;
-            this.updateToolMenu.Image = ((System.Drawing.Image)(resources.GetObject("updateToolMenu.Image")));
-            this.updateToolMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.updateToolMenu.Name = "updateToolMenu";
-            this.updateToolMenu.Size = new System.Drawing.Size(58, 25);
-            this.updateToolMenu.Text = "Update";
-            // 
             // updateContextMenu
             // 
             this.updateContextMenu.BackColor = System.Drawing.Color.AliceBlue;
             this.updateContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
             this.autoUpdateToolMenu,
             this.toolStripSeparator1,
             this.instantToolStripMenuItem,
@@ -136,8 +84,16 @@
             this.fiveMinutesToolItem,
             this.tenMinutesToolItem});
             this.updateContextMenu.Name = "contextMenuStrip1";
-            this.updateContextMenu.OwnerItem = this.updateToolMenu;
-            this.updateContextMenu.Size = new System.Drawing.Size(142, 252);
+            this.updateContextMenu.Size = new System.Drawing.Size(142, 274);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
+            this.toolStripMenuItem1.Image = global::UVA_Arena.Properties.Resources.reload;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
+            this.toolStripMenuItem1.Text = "Refresh Now";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.refreshSubmission_Click);
             // 
             // autoUpdateToolMenu
             // 
@@ -276,19 +232,20 @@
             this.runSUB,
             this.rankSUB,
             this.subtimeSUB});
+            this.submissionStatus.ContextMenuStrip = this.updateContextMenu;
             this.submissionStatus.CopySelectionOnControlC = false;
             this.submissionStatus.Cursor = System.Windows.Forms.Cursors.Default;
             this.submissionStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.submissionStatus.EmptyListMsg = "Refresh to view last submissions";
             this.submissionStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.submissionStatus.ForeColor = System.Drawing.Color.Black;
-            this.submissionStatus.FullRowSelect = true;
             this.submissionStatus.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.submissionStatus.Location = new System.Drawing.Point(0, 35);
+            this.submissionStatus.MultiSelect = false;
             this.submissionStatus.Name = "submissionStatus";
             this.submissionStatus.ShowGroups = false;
             this.submissionStatus.ShowItemToolTips = true;
-            this.submissionStatus.Size = new System.Drawing.Size(790, 372);
+            this.submissionStatus.Size = new System.Drawing.Size(715, 379);
             this.submissionStatus.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.submissionStatus.TabIndex = 1;
             this.submissionStatus.UseCellFormatEvents = true;
@@ -417,12 +374,30 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(790, 35);
+            this.panel1.Size = new System.Drawing.Size(715, 35);
             this.panel1.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightBlue;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PowderBlue;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::UVA_Arena.Properties.Resources.reload;
+            this.button1.Location = new System.Drawing.Point(673, 1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(40, 32);
+            this.button1.TabIndex = 1;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.refreshSubmission_Click);
             // 
             // label1
             // 
@@ -449,26 +424,20 @@
             this.BackColor = System.Drawing.Color.LightBlue;
             this.Controls.Add(this.submissionStatus);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "STATUS";
-            this.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Size = new System.Drawing.Size(790, 434);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.Size = new System.Drawing.Size(715, 414);
             this.updateContextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Panel panel1;
         private BrightIdeasSoftware.OLVColumn sidSUB;
         private BrightIdeasSoftware.OLVColumn uidSUB;
@@ -482,9 +451,6 @@
         private BrightIdeasSoftware.OLVColumn fullnameSUB;
         private BrightIdeasSoftware.OLVColumn unameSUB;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ToolStripStatusLabel Status1;
-        private System.Windows.Forms.ToolStripStatusLabel refreshToolButton;
-        private System.Windows.Forms.ToolStripDropDownButton updateToolMenu;
         private BrightIdeasSoftware.OLVColumn pnumSUB;
         private BrightIdeasSoftware.OLVColumn ptitleSUB;
         public BrightIdeasSoftware.FastObjectListView submissionStatus;
@@ -502,5 +468,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem autoUpdateToolMenu;
         public System.Windows.Forms.ContextMenuStrip updateContextMenu;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }

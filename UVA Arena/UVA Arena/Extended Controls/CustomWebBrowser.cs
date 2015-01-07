@@ -23,8 +23,7 @@ namespace UVA_Arena.ExtendedControls
             get;
             set;
         }
-
-
+         
         /// <summary>
         /// Gets or sets the URL of the current document
         /// </summary>
@@ -33,6 +32,16 @@ namespace UVA_Arena.ExtendedControls
         {
             get { return webBrowser1.Url; }
             set { webBrowser1.Url = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the visibility of status bar
+        /// </summary>
+        [Category("Custom Property"), DefaultValue(true)]
+        public bool StatusBarVisible
+        {
+            get { return statusStrip1.Visible; }
+            set { statusStrip1.Visible = value; }
         }
 
 
@@ -85,6 +94,7 @@ namespace UVA_Arena.ExtendedControls
             get { return webBrowser1.Document; }
         }
 
+
         /// <summary>
         /// True to show previous and next button
         /// </summary>
@@ -99,18 +109,6 @@ namespace UVA_Arena.ExtendedControls
                 backButton.Visible = value;
             }
         }
-
-        /// <summary>
-        /// Gets or Sets whethere status bar will be available
-        /// </summary>
-        [DefaultValue(true)]
-        [Category("Custom Property")]
-        public bool StatusBarVisible
-        {
-            get { return statusStrip1.Visible; }
-            set { statusStrip1.Visible = value; }
-        }
-
 
         /// <summary>
         /// Navigate to the given url address
@@ -194,7 +192,7 @@ namespace UVA_Arena.ExtendedControls
         {
             try
             {
-                progress1.Value = (int)e.CurrentProgress;
+                Progress1.Value = (int)e.CurrentProgress;
                 if (ProgressChanged != null) ProgressChanged(sender, e);
             }
             catch { }
@@ -204,9 +202,9 @@ namespace UVA_Arena.ExtendedControls
         {
             try
             {
-                status1.Text = webBrowser1.StatusText;
+                Status1.Text = webBrowser1.StatusText;
                 if (StatusChanged != null)
-                    StatusChanged(sender, new StatusChangedEventArgs(status1.Text));
+                    StatusChanged(sender, new StatusChangedEventArgs(webBrowser1.StatusText));
             }
             catch { }
         }
@@ -227,7 +225,7 @@ namespace UVA_Arena.ExtendedControls
             {
                 string url = urlBox.Text;
                 webBrowser1.Navigate(url);
-                progress1.Value = 0;
+                Progress1.Value = 0;
             }
             else
             {
@@ -271,10 +269,13 @@ namespace UVA_Arena.ExtendedControls
 
         private void SetUrlBox()
         {
-            if (webBrowser1.DocumentTitle == "")
-                urlBox.Text = webBrowser1.Url.ToString();
-            else
+            if (webBrowser1.DocumentTitle.Length > 2)
                 urlBox.Text = webBrowser1.DocumentTitle;
+            else
+                if (webBrowser1.Url != null)
+                    urlBox.Text = webBrowser1.Url.ToString();
+                else
+                    urlBox.Text = "";
         }
 
         private void homeButton_Click(object sender, EventArgs e)
@@ -291,14 +292,13 @@ namespace UVA_Arena.ExtendedControls
         {
             webBrowser1.GoForward();
         }
-
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        private void clearCookie_Click(object sender, EventArgs e)
         {
             ClearCookies();
         }
 
-        #endregion
 
+        #endregion
 
     }
 }

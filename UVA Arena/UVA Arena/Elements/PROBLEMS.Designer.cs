@@ -35,10 +35,6 @@
             this.deepSearchCheckBox = new System.Windows.Forms.CheckBox();
             this.memProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.mleProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.updateToolButton = new System.Windows.Forms.ToolStripStatusLabel();
-            this.Status1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.Progress1 = new System.Windows.Forms.ToolStripProgressBar();
             this.tleProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.reProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.peProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -90,7 +86,9 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.searchBox1 = new UVA_Arena.Custom.SearchBox();
             this.cancelDeepSearchButton = new System.Windows.Forms.Button();
-            this.statusStrip1.SuspendLayout();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.problemContextMenu.SuspendLayout();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
@@ -103,6 +101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.problemListView)).BeginInit();
             this.plistPanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // hideAccepted
@@ -111,7 +110,7 @@
             this.hideAccepted.AutoCheck = false;
             this.hideAccepted.AutoSize = true;
             this.hideAccepted.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hideAccepted.Location = new System.Drawing.Point(1, 409);
+            this.hideAccepted.Location = new System.Drawing.Point(1, 283);
             this.hideAccepted.Margin = new System.Windows.Forms.Padding(1);
             this.hideAccepted.Name = "hideAccepted";
             this.hideAccepted.Size = new System.Drawing.Size(164, 22);
@@ -132,9 +131,9 @@
             this.deepSearchCheckBox.Name = "deepSearchCheckBox";
             this.deepSearchCheckBox.Size = new System.Drawing.Size(90, 17);
             this.deepSearchCheckBox.TabIndex = 5;
-            this.deepSearchCheckBox.Text = "Deep Search";
-            this.toolTip1.SetToolTip(this.deepSearchCheckBox, "Search including problem descritions.\r\n(It requires offline copy of all problem d" +
-        "escription)");
+            this.deepSearchCheckBox.Text = "Use Deep Search";
+            this.toolTip1.SetToolTip(this.deepSearchCheckBox, "Search including problem descritions. (Slower)\r\n(You need to have all description" +
+        "s downloaded to make it effective)");
             this.deepSearchCheckBox.UseVisualStyleBackColor = true;
             this.deepSearchCheckBox.CheckedChanged += new System.EventHandler(this.deepSearchCheckBox_CheckedChanged);
             // 
@@ -163,45 +162,6 @@
             this.mleProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mleProb.ToolTipText = "Number of submission that got \"Memory Limit Exceeded\"";
             this.mleProb.UseFiltering = false;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.updateToolButton,
-            this.Status1,
-            this.Progress1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 482);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(838, 28);
-            this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // updateToolButton
-            // 
-            this.updateToolButton.Image = global::UVA_Arena.Properties.Resources.reload;
-            this.updateToolButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.updateToolButton.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.updateToolButton.Name = "updateToolButton";
-            this.updateToolButton.Padding = new System.Windows.Forms.Padding(30, 2, 30, 2);
-            this.updateToolButton.Size = new System.Drawing.Size(137, 24);
-            this.updateToolButton.Text = "Download";
-            this.updateToolButton.Click += new System.EventHandler(this.updateToolButton_Click);
-            // 
-            // Status1
-            // 
-            this.Status1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
-            this.Status1.Name = "Status1";
-            this.Status1.Size = new System.Drawing.Size(560, 23);
-            this.Status1.Spring = true;
-            this.Status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Progress1
-            // 
-            this.Progress1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Progress1.Name = "Progress1";
-            this.Progress1.Size = new System.Drawing.Size(120, 20);
             // 
             // tleProb
             // 
@@ -449,7 +409,8 @@
             // mainSplitContainer.Panel1
             // 
             this.mainSplitContainer.Panel1.Controls.Add(this.problemViewSplitContainer);
-            this.mainSplitContainer.Size = new System.Drawing.Size(838, 482);
+            this.mainSplitContainer.Panel1.Controls.Add(this.tableLayoutPanel3);
+            this.mainSplitContainer.Size = new System.Drawing.Size(838, 386);
             this.mainSplitContainer.SplitterDistance = 300;
             this.mainSplitContainer.SplitterWidth = 5;
             this.mainSplitContainer.TabIndex = 0;
@@ -472,7 +433,7 @@
             this.problemViewSplitContainer.Panel2.BackColor = System.Drawing.Color.LightBlue;
             this.problemViewSplitContainer.Panel2.Controls.Add(this.problemListContainer);
             this.problemViewSplitContainer.Panel2.Controls.Add(this.tableLayoutPanel2);
-            this.problemViewSplitContainer.Size = new System.Drawing.Size(300, 482);
+            this.problemViewSplitContainer.Size = new System.Drawing.Size(300, 356);
             this.problemViewSplitContainer.SplitterDistance = 130;
             this.problemViewSplitContainer.TabIndex = 0;
             this.problemViewSplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.problemViewSplitContainer_SplitterMoved);
@@ -497,7 +458,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(130, 482);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(130, 356);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // filterBox1
@@ -507,7 +468,7 @@
             this.filterBox1.CueText = "Filter...";
             this.filterBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filterBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filterBox1.Location = new System.Drawing.Point(3, 399);
+            this.filterBox1.Location = new System.Drawing.Point(3, 273);
             this.filterBox1.Margin = new System.Windows.Forms.Padding(3, 1, 1, 1);
             this.filterBox1.Name = "filterBox1";
             this.filterBox1.SearchButtonVisible = false;
@@ -564,7 +525,7 @@
             this.favoriteButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.favoriteButton.ForeColor = System.Drawing.Color.Purple;
             this.favoriteButton.Image = global::UVA_Arena.Properties.Resources.favorite;
-            this.favoriteButton.Location = new System.Drawing.Point(1, 423);
+            this.favoriteButton.Location = new System.Drawing.Point(1, 297);
             this.favoriteButton.Margin = new System.Windows.Forms.Padding(1);
             this.favoriteButton.Name = "favoriteButton";
             this.favoriteButton.Size = new System.Drawing.Size(128, 28);
@@ -582,7 +543,7 @@
             this.allProbButton.AutoCheck = false;
             this.allProbButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.allProbButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.allProbButton.Location = new System.Drawing.Point(1, 453);
+            this.allProbButton.Location = new System.Drawing.Point(1, 327);
             this.allProbButton.Margin = new System.Windows.Forms.Padding(1);
             this.allProbButton.Name = "allProbButton";
             this.allProbButton.Size = new System.Drawing.Size(128, 28);
@@ -615,7 +576,7 @@
             this.categoryListView.SelectAllOnControlA = false;
             this.categoryListView.ShowGroups = false;
             this.categoryListView.ShowItemToolTips = true;
-            this.categoryListView.Size = new System.Drawing.Size(128, 336);
+            this.categoryListView.Size = new System.Drawing.Size(128, 210);
             this.categoryListView.TabIndex = 4;
             this.categoryListView.UseAlternatingBackColors = true;
             this.categoryListView.UseCellFormatEvents = true;
@@ -660,7 +621,7 @@
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.problemListContainer.Size = new System.Drawing.Size(166, 432);
+            this.problemListContainer.Size = new System.Drawing.Size(166, 306);
             this.problemListContainer.TabIndex = 1;
             this.problemListContainer.Tag = "115";
             // 
@@ -720,7 +681,7 @@
             this.problemListView.ShowGroups = false;
             this.problemListView.ShowItemCountOnGroups = true;
             this.problemListView.ShowItemToolTips = true;
-            this.problemListView.Size = new System.Drawing.Size(166, 373);
+            this.problemListView.Size = new System.Drawing.Size(166, 247);
             this.problemListView.TabIndex = 3;
             this.problemListView.UseAlternatingBackColors = true;
             this.problemListView.UseCellFormatEvents = true;
@@ -875,7 +836,7 @@
             this.tableLayoutPanel2.Controls.Add(this.deepSearchCheckBox, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.cancelDeepSearchButton, 1, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 432);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 306);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -915,19 +876,63 @@
             this.cancelDeepSearchButton.Visible = false;
             this.cancelDeepSearchButton.Click += new System.EventHandler(this.cancelDeepSearchButton_Click);
             // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel3.Controls.Add(this.button2, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.button1, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 356);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(300, 30);
+            this.tableLayoutPanel3.TabIndex = 1;
+            // 
+            // button2
+            // 
+            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Image = global::UVA_Arena.Properties.Resources.download;
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button2.Location = new System.Drawing.Point(121, 1);
+            this.button2.Margin = new System.Windows.Forms.Padding(1);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(178, 28);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "Description Downloader";
+            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.downloadAllToolStripMenuItem_Click);
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Image = global::UVA_Arena.Properties.Resources.reload;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.Location = new System.Drawing.Point(1, 1);
+            this.button1.Margin = new System.Windows.Forms.Padding(1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(118, 28);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Update List";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.updateToolButton_Click);
+            // 
             // PROBLEMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PaleTurquoise;
             this.Controls.Add(this.mainSplitContainer);
-            this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "PROBLEMS";
-            this.Size = new System.Drawing.Size(838, 510);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.Size = new System.Drawing.Size(838, 386);
             this.problemContextMenu.ResumeLayout(false);
             this.mainSplitContainer.Panel1.ResumeLayout(false);
             this.mainSplitContainer.ResumeLayout(false);
@@ -942,8 +947,8 @@
             this.plistPanel.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -977,11 +982,8 @@
         private BrightIdeasSoftware.OLVColumn levelProb;
         private BrightIdeasSoftware.OLVColumn nameVol;
         private BrightIdeasSoftware.OLVColumn countVol;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        public System.Windows.Forms.ToolStripStatusLabel Status1;
         public BrightIdeasSoftware.FastObjectListView problemListView;
         public BrightIdeasSoftware.ObjectListView categoryListView;
-        public System.Windows.Forms.ToolStripProgressBar Progress1;
         public System.Windows.Forms.RadioButton favoriteButton;
         public System.Windows.Forms.RadioButton allProbButton;
         private System.Windows.Forms.ContextMenuStrip problemContextMenu;
@@ -1008,6 +1010,8 @@
         private System.Windows.Forms.Button cancelDeepSearchButton;
         private BrightIdeasSoftware.OLVColumn priorityProb;
         private System.Windows.Forms.CheckBox hideAccepted;
-        private System.Windows.Forms.ToolStripStatusLabel updateToolButton;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

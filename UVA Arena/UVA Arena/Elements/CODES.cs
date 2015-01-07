@@ -52,7 +52,7 @@ namespace UVA_Arena.Elements
         public FileInfo CurrentFile { get; set; }
 
         public Structures.Language CustomLang { get; set; }
-         
+
         public string OpenedInput { get; set; }
 
         public string OpenedOutput { get; set; }
@@ -78,9 +78,10 @@ namespace UVA_Arena.Elements
             CurrentFile = file; //set current file info
             fileNameLabel.Text = file.Name;
 
-            //load highlighters
+            //load code text box
             SetLanguage(file.Extension);
             HighlightCodebox(codeTextBox.Range); //highlight immediately after loading language
+            MakeAutoCompleteMenu();
 
             //select and expand to opened node if not already selected
             Interactivity.codesBrowser.ExpandAndSelect(
@@ -95,13 +96,37 @@ namespace UVA_Arena.Elements
             //open input-output for valid problem number
             if (SelectedPNUM == -1) return;
 
-            //make input output files
-            MakeInputOutput(file.DirectoryName);
-            //as there are IO files we can run tests
-            runtestToolButton.Enabled = true;
             //change file name label text to include problem numbre and title
             fileNameLabel.Text = string.Format("Problem {0} - {1} ({2})",
                   SelectedPNUM, LocalDatabase.GetTitle(SelectedPNUM), fileNameLabel.Text);
+            //as there are IO files we can run tests
+            runtestToolButton.Enabled = true;
+            //make input output files
+            MakeInputOutput(file.DirectoryName);
+        }
+
+        private bool PrecheckOpenFile(FileInfo file, bool history = true)
+        {
+            //check if already opened 
+            if (CurrentFile == file) return false;
+
+            //add to history
+            if (history && CurrentFile != null)
+            {
+                AddToPrev();
+                nextToolMenu.Enabled = false;
+                nextToolMenu.DropDownItems.Clear();
+            }
+
+            //clear prev values
+            ClearPrevOpenedFiles();
+
+            //check file validity
+            if (file == null) return false;
+
+            //check extension validity
+            Regex invalid = new Regex(@".(exe|dll|o|class)");
+            return (!invalid.IsMatch(file.Extension.ToLower()));
         }
 
         private void ClearPrevOpenedFiles()
@@ -132,29 +157,6 @@ namespace UVA_Arena.Elements
             correctOutputTextBox.ReadOnly = true;
         }
 
-        private bool PrecheckOpenFile(FileInfo file, bool history = true)
-        {
-            //check if already opened 
-            if (CurrentFile == file) return false;
-
-            //add to history
-            if (history && CurrentFile != null)
-            {
-                AddToPrev();
-                nextToolMenu.Enabled = false;
-                nextToolMenu.DropDownItems.Clear();
-            }
-
-            //clear prev values
-            ClearPrevOpenedFiles();
-
-            //check file validity
-            if (file == null) return false;
-
-            //check extension validity
-            Regex invalid = new Regex(@".(exe|dll|o|class)");
-            return (!invalid.IsMatch(file.Extension.ToLower()));
-        }
 
         private void SetLanguage(string ext)
         {
@@ -177,45 +179,47 @@ namespace UVA_Arena.Elements
                 codeTextBox.Language = Language.HTML;
             else
             {
-                string keyword = null;
                 codeTextBox.Language = Language.Custom;
-
                 if (ext == ".c")
                     CustomLang = Structures.Language.C;
                 else if (ext == ".java")
-                {
                     CustomLang = Structures.Language.Java;
-                    keyword = Properties.Resources.JavaKeyword;
-                }
                 else if (ext == ".cpp" || ext == ".h")
-                {
                     CustomLang = Structures.Language.CPP;
-                    keyword = Properties.Resources.CPPKeyword;
-                }
                 else if (ext == ".pascal")
                     CustomLang = Structures.Language.Pascal;
                 else
                     CustomLang = Structures.Language.Other;
+            }
+        }
 
-                if (keyword == null)
+        private void MakeAutoCompleteMenu()
+        {
+            string keyword = null;
+            if (CustomLang == Structures.Language.CPP)
+                keyword = Properties.Resources.CPPKeyword;
+            else if (CustomLang == Structures.Language.Java)
+                keyword = Properties.Resources.JavaKeyword;
+
+            if (keyword == null)
+            {
+                if (autoCompleteMenu != null)
                 {
-                    if (autoCompleteMenu != null)
-                    {
-                        autoCompleteMenu.Items.SetAutocompleteItems(new string[] { });
-                    }
+                    autoCompleteMenu.Items.SetAutocompleteItems(new string[] { });
                 }
-                else
-                {
-                    string[] items = keyword.Split(new char[] { '|' });
-                    autoCompleteMenu = new AutocompleteMenu(codeTextBox);
-                    autoCompleteMenu.MinFragmentLength = 1;
-                    autoCompleteMenu.DropShadowEnabled = true;
-                    autoCompleteMenu.Items.SetAutocompleteItems(items);
-                    autoCompleteMenu.Items.MaximumSize = new System.Drawing.Size(200, 300);
-                    autoCompleteMenu.Items.Width = 200;
-                    autoCompleteMenu.AllowTransparency = true;
-                    autoCompleteMenu.AllowTabKey = true;
-                }
+            }
+            else
+            {
+                string[] items = keyword.Split(new char[] { '|' });
+                autoCompleteMenu = new AutocompleteMenu(codeTextBox);
+                autoCompleteMenu.MinFragmentLength = 1;
+                autoCompleteMenu.DropShadowEnabled = true;
+                autoCompleteMenu.Items.SetAutocompleteItems(items);
+                autoCompleteMenu.Items.MaximumSize = new System.Drawing.Size(200, 300);
+                autoCompleteMenu.Items.Width = 200;
+                autoCompleteMenu.AllowTransparency = true;
+                autoCompleteMenu.Opacity = 0.8;
+                autoCompleteMenu.AllowTabKey = true;
             }
         }
 
@@ -371,9 +375,17 @@ namespace UVA_Arena.Elements
             }
             else
             {
-                codeTextBox.Text = File.ReadAllText(file);
-                if (file.CompareTo(codeTextBox.Tag) != 0)
+                if (file.CompareTo(codeTextBox.Tag) == 0)
+                {
+                    codeTextBox.Text = File.ReadAllText(file);
+                }
+                else
+                {
+                    codeTextBox.Clear();
+                    codeTextBox.Text = File.ReadAllText(file);
                     codeTextBox.ClearUndo();
+                    codeTextBox.Tag = file;
+                }
             }
         }
 
@@ -1018,7 +1030,7 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                string path = (string)inputTextBox.Tag;
+                string path = OpenedInput;
                 if (string.IsNullOrEmpty(path)) return;
                 File.WriteAllText(path, inputTextBox.Text);
             }
@@ -1045,10 +1057,9 @@ namespace UVA_Arena.Elements
         // 
         private void loadDefaultInput_Click(object sender, EventArgs e)
         {
-            if (!LocalDatabase.HasProblem(SelectedPNUM)) return;
-            string path = LocalDirectory.GetCodesPath(SelectedPNUM);
-            string inp = Path.Combine(path, "input.txt");
-            string correct = Path.Combine(path, "correct.txt");
+            string inp = OpenedInput;
+            string correct = OpenedCorrect;
+            if (!(File.Exists(inp) && File.Exists(correct))) return;
             if (!CodesBrowser.ParseInputOutput(SelectedPNUM, inp, correct, true))
             {
                 MessageBox.Show("Can't load input-output automatically. Parsing failed.");
@@ -1125,8 +1136,8 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                string path = (string)correctOutputTextBox.Tag;
-                if (string.IsNullOrEmpty(path)) return;
+                string path = OpenedCorrect;
+                if (string.IsNullOrEmpty(path) || !File.Exists(path)) return;
                 File.WriteAllText(path, correctOutputTextBox.Text);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -1134,16 +1145,19 @@ namespace UVA_Arena.Elements
 
         private void refreshCompareButton_Click(object sender, EventArgs e)
         {
-            string path = (string)correctOutputTextBox.Tag;
-            if (!string.IsNullOrEmpty(path) && File.Exists(path))
+            if (!string.IsNullOrEmpty(OpenedInput) && File.Exists(OpenedInput))
             {
-                OpenCorrectFile(path);
+                OpenInputFile(OpenedInput);
             }
 
-            string file = OpenedOutput;
-            if (!string.IsNullOrEmpty(file) && File.Exists(file))
+            if (!string.IsNullOrEmpty(OpenedOutput) && File.Exists(OpenedOutput))
             {
-                OpenOutputFile(file);
+                OpenOutputFile(OpenedOutput);
+            }
+
+            if (!string.IsNullOrEmpty(OpenedCorrect) && File.Exists(OpenedCorrect))
+            {
+                OpenCorrectFile(OpenedCorrect);
             }
         }
 
@@ -1290,6 +1304,16 @@ namespace UVA_Arena.Elements
             }
         }
 
+
+        private void customWebBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
+        {
+            Interactivity.SetProgress(e.CurrentProgress, e.MaximumProgress);
+        }
+
+        private void customWebBrowser1_StatusChanged(object sender, ExtendedControls.CustomWebBrowser.StatusChangedEventArgs e)
+        {
+            Interactivity.SetStatus("uDebug Browser: " + e.Status);
+        }
 
         #endregion
     }

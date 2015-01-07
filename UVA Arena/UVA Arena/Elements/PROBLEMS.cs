@@ -38,8 +38,6 @@ namespace UVA_Arena.Elements
             if (LocalDatabase.IsReady)
                 Interactivity.ProblemDatabaseUpdated();
 
-            CustomStatusButton.Initialize(updateToolButton);
-
             Stylish.SetGradientBackground(plistPanel,
                 new Stylish.GradientStyle(Color.LightSteelBlue, Color.PowderBlue, 90F));
         }
@@ -66,7 +64,7 @@ namespace UVA_Arena.Elements
 
         public void RefreshProblemList()
         {
-            if(deepSearchCheckBox.Checked)
+            if (deepSearchCheckBox.Checked)
             {
                 if (_deepSearchRes != null)
                 {
@@ -77,10 +75,10 @@ namespace UVA_Arena.Elements
             }
             if (plistLabel.Tag == null)
             {
-                if (favoriteButton.Checked)                
-                    ShowFavorites();                
-                else                
-                    ShowAllProblems();                
+                if (favoriteButton.Checked)
+                    ShowFavorites();
+                else
+                    ShowAllProblems();
             }
             else
             {
@@ -103,55 +101,7 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
-
-        #region StatusBar
-
-        public void SetStatus(string text, int timeout = 1000)
-        {
-            if (this.IsDisposed) return;
-            Status1.Text = text;
-            TaskQueue.AddTask(ClearStatus, timeout);
-        }
-        public void ClearStatus()
-        {
-            if (this.IsDisposed) return;
-            Status1.Text = "";
-        }
-
-
-        //
-        //Problem List Downloader
-        //
-        private void updateToolButton_Click(object sender, EventArgs e)
-        {
-            Downloader.DownloadProblemDatabase();
-        }
-
-        public void problemWorkerProgress(DownloadTask task)
-        {
-            if (this.IsDisposed) return;
-            this.BeginInvoke((MethodInvoker)delegate
-            {
-                Status1.Text = string.Format("Downloading problem database... ({0}/{1} completed)",
-                Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
-                Progress1.Value = task.ProgressPercentage;
-            });
-        }
-
-        public void problemWorkerCompleted(DownloadTask task)
-        {
-            string msg = "";
-            if (task.Status == ProgressStatus.Completed)
-                msg = "Problem database is successfully updated.";
-            else
-                msg = "Failed to update problem database. See log for details.";
-
-            this.BeginInvoke((MethodInvoker)(() => SetStatus(msg)));
-            Logger.Add(msg, "Problems|problemWorkerCompleted");
-        }
-
-        #endregion
-
+                
         #region Problem Loader
 
         //
@@ -176,8 +126,7 @@ namespace UVA_Arena.Elements
                 cl.count = it.Current.Value.Count;
                 volumes.Add(cl);
             }
-
-
+                          
             categoryListView.SetObjects(volumes);
             categoryListView.Sort(0);
 
@@ -234,7 +183,7 @@ namespace UVA_Arena.Elements
         public void ShowFavorites()
         {
             deepSearchCheckBox.Checked = false;
-            searchBox1.SearchText = "";            
+            searchBox1.SearchText = "";
             allProbButton.Checked = false;
             favoriteButton.Checked = true;
             plistLabel.Text = "Marked Problems";
@@ -302,7 +251,7 @@ namespace UVA_Arena.Elements
         #endregion
 
         #region View Problem Events
-        
+
         //
         // Radio Buttons
         //
@@ -502,6 +451,11 @@ namespace UVA_Arena.Elements
 
         #region  Context Menu
 
+        private void updateToolButton_Click(object sender, EventArgs e)
+        {
+            Downloader.DownloadProblemDatabase();
+        }
+
         private void problemContextMenu_Opening(object sender, CancelEventArgs e)
         {
             bool marked = false;
@@ -602,7 +556,7 @@ namespace UVA_Arena.Elements
                 problemListView.ShowGroups = false;
 
                 TextMatchFilter filter = new TextMatchFilter(problemListView,
-                   searchBox1.SearchText, StringComparison.OrdinalIgnoreCase);    
+                   searchBox1.SearchText, StringComparison.OrdinalIgnoreCase);
                 problemListView.DefaultRenderer = new HighlightTextRenderer(filter);
                 problemListView.AdditionalFilter = filter;
             }
@@ -610,7 +564,7 @@ namespace UVA_Arena.Elements
 
         private void searchBox1_ClearButtonClicked(object sender, EventArgs e)
         {
-           ClearSearch();
+            ClearSearch();
         }
 
         public void ClearSearch()
@@ -621,11 +575,11 @@ namespace UVA_Arena.Elements
                 problemListView.ShowGroups = true;
 
             if (deepSearchCheckBox.Checked)
-            { 
+            {
                 if (_InDeepSearch)
                     _CancelSearch = true;
                 else
-                    ShowAllProblems(); 
+                    ShowAllProblems();
             }
         }
 
@@ -649,7 +603,7 @@ namespace UVA_Arena.Elements
             //run new thread
             _InDeepSearch = true;
             _CancelSearch = false;
-            ShowDeepSearchStatus(); 
+            ShowDeepSearchStatus();
             System.Threading.ThreadPool.QueueUserWorkItem(LoadDeepSearch, src);
         }
 
@@ -751,9 +705,9 @@ namespace UVA_Arena.Elements
             if (_InDeepSearch)
             {
                 int total = LocalDatabase.problem_list.Count;
-                Progress1.Value = (int)(100 * _DeepSearchProgress / total);
-                Status1.Text = "Searching... ";
-                Status1.Text += string.Format("[{0} of {1} problems completed.]", _DeepSearchProgress, total);
+                Interactivity.SetProgress(_DeepSearchProgress, total);
+                string msg = "Searching for problems... [{0} of {1} problems completed.]";
+                Interactivity.SetStatus(string.Format(msg, _DeepSearchProgress, total));
 
                 _SetObjects(_deepSearchRes);
                 problemListView.Sort(priorityProb, SortOrder.Descending);
@@ -762,16 +716,16 @@ namespace UVA_Arena.Elements
             }
             else
             {
-                Progress1.Value = 0;
+                Interactivity.SetProgress(0);
                 if (_CancelSearch)
-                    SetStatus("Search Cancelled.");
+                    Interactivity.SetStatus("Deep search cancelled.");
                 else
-                    SetStatus("Search Completed.");
+                    Interactivity.SetStatus("Deep search completed.");
             }
 
         }
 
         #endregion
-         
+
     }
 }

@@ -157,7 +157,7 @@ namespace UVA_Arena.Internet
     public static class Downloader
     {
         #region General Properties and Functions
-         
+
         public static bool IsBusy()
         {
             if (CurrentTask == null) return false;
@@ -339,7 +339,11 @@ namespace UVA_Arena.Internet
                 task.Status = ProgressStatus.Completed;
 
             if (task.Status == ProgressStatus.Completed)
+            {
                 RegistryAccess.SetUserid(name, uid);
+                string msg = "Username downloaded : {0} = {1}";
+                Interactivity.SetStatus(string.Format(msg, name, uid));
+            }
         }
 
         #endregion
@@ -352,62 +356,69 @@ namespace UVA_Arena.Internet
         {
             if (_DownloadingProblemDatabase) return;
 
-            DownloadTaskHandler progress = null;
-            DownloadTaskHandler completed = null;
-            if (Interactivity.problems != null && !Interactivity.problems.IsDisposed)
-            {
-                progress = Interactivity.problems.problemWorkerProgress;
-                completed = Interactivity.problems.problemWorkerCompleted;
-                Interactivity.problems.BeginInvoke((System.Windows.Forms.MethodInvoker)delegate
-                {
-                    Interactivity.problems.Status1.Text = "Updating problem database...";
-                });
-            }
-
             _DownloadingProblemDatabase = true;
 
             //problem database
             string url = "http://uhunt.felix-halim.net/api/p";
             string file = LocalDirectory.GetProblemInfoFile();
-            DownloadFileAsync(url, file, null, Priority.High, progress, __DownloadProblemDatabaseCompleted);
+            DownloadFileAsync(url, file, false, Priority.High,
+                __DownloadProblemDatabaseProgress, __DownloadProblemDatabaseCompleted);
 
             //problem catagories
             url = "http://uhunt.felix-halim.net/api/cpbook/3";
             file = LocalDirectory.GetCategoryPath();
-            DownloadTask task = DownloadFileAsync(url, file, null, Priority.High, progress, completed);
-            task.DownloadCompletedEvent += __DownloadProblemCategoryCompleted;
+            DownloadTask task = DownloadFileAsync(url, file, true, Priority.High,
+                __DownloadProblemDatabaseProgress, __DownloadProblemCategoryCompleted);
+        }
+        private static void __DownloadProblemDatabaseProgress(DownloadTask task)
+        {
+            string msg = "Downloading problem list... [{0}/{1} completed]";
+            if ((bool)task.Token) msg = "Downloading category list... [{0}/{1} completed]";
+            msg = string.Format(msg, Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
+            Interactivity.SetStatus(msg);
+
+            int percent = task.ProgressPercentage;
+            if ((bool)task.Token) percent += 100;
+            Interactivity.SetProgress(task.ProgressPercentage, 200);
+
         }
 
         private static void __DownloadProblemDatabaseCompleted(DownloadTask task)
         {
             _DownloadingProblemDatabase = false;
 
+            string msg = "Failed to update problem list.";
             if (task.Status == ProgressStatus.Completed)
             {
                 LocalDatabase.LoadDatabase();
-                Logger.Add("Downloaded problem database file",
-                    "Downloader | __DownloadProblemDatabaseCompleted()");
+                msg = "Problem list is successfully updated.";
+                Logger.Add("Downloaded problem database file", "Downloader");
             }
             else if (task.Error != null)
-            {
-                Logger.Add(task.Error.Message,
-                    "Downloader | __DownloadProblemDatabaseCompleted()");
+            { 
+                Logger.Add(task.Error.Message, "Downloader");
             }
+
+            Interactivity.SetStatus(msg);
+            Interactivity.SetProgress(0);
         }
 
         private static void __DownloadProblemCategoryCompleted(DownloadTask task)
         {
+            string msg = "Failed to downloaded category list."; 
             if (task.Status == ProgressStatus.Completed)
             {
                 LocalDatabase.LoadCategories();
-                Logger.Add("Downloaded context book 3 categories",
-                    "Downloader | __DownloadProblemCategoryCompleted()");
+                msg = "Downloaded category list.";
+                Logger.Add("Downloaded problem's categories.", "Downloader");
             }
             else if (task.Error != null)
             {
-                Logger.Add(task.Error.Message,
-                    "Downloader | __DownloadProblemCategoryCompleted()");
+                Logger.Add(task.Error.Message, "Downloader");
             }
+
+            Interactivity.SetStatus(msg);
+            Interactivity.SetProgress(0);
         }
 
         #endregion

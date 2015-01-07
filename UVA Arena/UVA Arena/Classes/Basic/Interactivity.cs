@@ -187,7 +187,33 @@ namespace UVA_Arena
             catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|DefaultUsernameChanged()"); }
         }
 
+        /// <summary>
+        /// Set a status to default status bar
+        /// </summary>
+        /// <param name="status">Status to set</param>
+        public static void SetStatus(string status = "")
+        {
+            if (mainForm == null || mainForm.IsDisposed) return;
+            mainForm.BeginInvoke((MethodInvoker)(() => mainForm.Status1.Text = status));
+        }
 
+        /// <summary>
+        /// Set the progress to the main for
+        /// </summary>
+        /// <param name="progress">Value of current progress </param>
+        /// <param name="maximum">Maximum value of the progress</param>
+        public static void SetProgress(float progress = 0, float maximum = 100)
+        {
+            if (mainForm == null || mainForm.IsDisposed) return;
+            mainForm.BeginInvoke((MethodInvoker)delegate
+            {
+                float val = progress;
+                if (maximum != 0) val = 100 * progress / maximum;
+                if (!(val >= 0 && val <= 100)) val = 0;
+                mainForm.Progress1.Value = (int)val;
+            });
+        }
+         
         /// <summary>
         /// Select User Status tab page and show profile of the user
         /// </summary>
@@ -319,5 +345,7 @@ namespace UVA_Arena
                 Logger.Add(ex.Message, "Interactivity|ProblemDatabaseUpdated()");
             }
         }
+
+
     }
 }

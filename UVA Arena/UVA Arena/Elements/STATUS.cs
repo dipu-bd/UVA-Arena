@@ -15,7 +15,6 @@ namespace UVA_Arena.Elements
         public STATUS()
         {
             InitializeComponent();
-            CustomStatusButton.Initialize(refreshToolButton);
             webClient1.DownloadDataCompleted += webClient1_DownloadDataCompleted;
             webClient1.DownloadProgressChanged += webClient1_DownloadProgressChanged;
         }
@@ -71,10 +70,10 @@ namespace UVA_Arena.Elements
         //
         // Public functions
         //  
-        private long LastSubID = 0; 
+        private long LastSubID = 0;
         private DateTime LastUpdate = DateTime.Now;
         public List<JudgeStatus> StatusList = new List<JudgeStatus>();
-        public Dictionary<long, JudgeStatus> SIDtoStatus = new Dictionary<long, JudgeStatus>(); 
+        public Dictionary<long, JudgeStatus> SIDtoStatus = new Dictionary<long, JudgeStatus>();
 
         public void SetStatus(JudgeStatus status)
         {
@@ -111,13 +110,15 @@ namespace UVA_Arena.Elements
             if (webClient1.IsBusy) return;
 
             ClearSome();
-            Status1.Text = "Update started...";
+            Interactivity.SetStatus("Judge status update started...");
             string url = string.Format("http://uhunt.felix-halim.net/api/poll/{0}.", LastSubID);
             webClient1.DownloadDataAsync(new Uri(url));
         }
 
         void webClient1_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
+            Interactivity.SetStatus("Judge status updating...");
+            Interactivity.SetProgress(e.ProgressPercentage);
         }
 
         void webClient1_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
@@ -134,15 +135,17 @@ namespace UVA_Arena.Elements
                     if (status.id > LastSubID) LastSubID = status.id;
                 }
 
-                Status1.Text = "Update finished.";
+                Interactivity.SetProgress();
+                Interactivity.SetStatus("Judge status update finished.");
 
                 //set submisstion status
-                submissionStatus.SetObjects(StatusList);
+                submissionStatus.SetObjects(StatusList, false);
                 submissionStatus.Sort(sidSUB, SortOrder.Descending);
+                submissionStatus.EnsureVisible(0);
             }
             catch (Exception ex)
             {
-                Status1.Text = "Update failed.";
+                Interactivity.SetStatus("Judge status update failed.");
                 Logger.Add(ex.Message, "Judge Status | webClient1_DownloadDataCompleted");
             }
             finally
@@ -162,6 +165,7 @@ namespace UVA_Arena.Elements
 
             //refresh items
             submissionStatus.SetObjects(StatusList);
+            submissionStatus.SelectedObject = null;
 
             //check if update needed
             if (!AutoUpdateStatus) return;
@@ -187,7 +191,7 @@ namespace UVA_Arena.Elements
                 //show status about when to update 
                 long inv = (long)Math.Ceiling((UpdateInterval - diff) / 1000.0);
                 string msg = Functions.FormatTimeSpan(inv);
-                Status1.Text = "Updating in " + msg;
+                Interactivity.SetStatus("Updating judge status in " + msg);
             }
         }
 
@@ -198,10 +202,9 @@ namespace UVA_Arena.Elements
         {
             bool enable = AutoUpdateStatus;
             string tag = UpdateInterval.ToString();
-            foreach (ToolStripItem item in updateToolMenu.DropDownItems)
+            foreach (ToolStripItem item in updateContextMenu.Items)
             {
-                if (item.GetType() == typeof(ToolStripMenuItem)
-                    && autoUpdateToolMenu != item)
+                if (item.Tag != null && item.GetType() == typeof(ToolStripMenuItem))
                 {
                     ToolStripMenuItem tmi = (ToolStripMenuItem)item;
                     tmi.Checked = tag.Equals(tmi.Tag);
@@ -228,7 +231,7 @@ namespace UVA_Arena.Elements
             SelectUpdateRateMenu();
         }
 
-        private void toolStripStatusLabel2_Click(object sender, EventArgs e)
+        private void refreshSubmission_Click(object sender, EventArgs e)
         {
             UpdateSubmissions();
         }

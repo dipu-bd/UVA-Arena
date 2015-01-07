@@ -198,7 +198,7 @@ namespace UVA_Arena.Elements
                 string url = string.Format(format, pnum / 100, pnum);
                 string file = LocalDirectory.GetProblemHtml(pnum);
                 if (!reloadButton.Enabled || LocalDirectory.GetFileSize(file) < 100)
-                    Downloader.DownloadFileAsync(url, file, pnum, 
+                    Downloader.DownloadFileAsync(url, file, pnum,
                         Internet.Priority.Normal, ProgressChanged, DownloadFinished);
             }
             catch (Exception ex)
@@ -222,21 +222,22 @@ namespace UVA_Arena.Elements
         private void ProgressChanged(Internet.DownloadTask task)
         {
             string file = Path.GetFileName(task.FileName);
-            string text = string.Format("Downloading \"{0}\"... {1}% [{2} out of {3}] completed.",
+            string text = string.Format("Downloading file : \"{0}\"... {1}% [{2} out of {3}] completed.",
                     file, task.ProgressPercentage, Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
-            Interactivity.problems.Status1.Text = text;
+            Interactivity.SetStatus(text);
+            Interactivity.SetProgress(task.Received, task.Total);
         }
 
         private void DownloadFinished(DownloadTask task)
         {
             if (task.Error != null)
             {
-                Interactivity.problems.Status1.Text = task.Error.Message;
+                Logger.Add(task.Error.Message, "ProblemViewer | DownloadFinished()");
                 return;
             }
 
             bool finish = false;
-            long pnum = (long)task.Token; 
+            long pnum = (long)task.Token;
             if (current == null || current.pnum != pnum) finish = true;
 
             if (!finish) //if no error occured
@@ -244,16 +245,15 @@ namespace UVA_Arena.Elements
                 string ext = Path.GetExtension(task.FileName);
                 if (ext == ".pdf")
                 {
-                    TaskQueue.AddTask(Interactivity.problems.ClearStatus, 1000);
                     System.Diagnostics.Process.Start(task.FileName);
                     finish = true;
                 }
                 else if (ext == ".html")
                 {
-                        string file = LocalDirectory.GetProblemHtml(pnum);  
-                        problemWebBrowser.Navigate(file);
-                        int cnt = DownloadContents(pnum);
-                        if (cnt == 0) finish = true;
+                    string file = LocalDirectory.GetProblemHtml(pnum);
+                    problemWebBrowser.Navigate(file);
+                    int cnt = DownloadContents(pnum);
+                    if (cnt == 0) finish = true;
                 }
                 else
                 {
@@ -265,7 +265,6 @@ namespace UVA_Arena.Elements
             {
                 problemWebBrowser.Refresh();
                 reloadButton.Enabled = true;
-                TaskQueue.AddTask(Interactivity.problems.ClearStatus, 1000);
             }
         }
 
@@ -493,27 +492,27 @@ namespace UVA_Arena.Elements
                     stop = UnixTimestamp.ToUnixTime(DateTime.Now);
                     format = "http://uhunt.felix-halim.net/api/p/subs/{0}/{1}/{2}"; //pid, unix time start, stop
                     url = string.Format(format, current.pid, start, stop);
-                    Interactivity.problems.SetStatus("Downloading submissions...");
+                    Interactivity.SetStatus("Downloading last submissions on current problem...");
                     break;
                 case SubViewType.Ranklist:
                     start = 1;
                     stop = (long)numericUpDown1.Value;
                     format = "http://uhunt.felix-halim.net/api/p/rank/{0}/{1}/{2}"; //pid, rank start, rank count
                     url = string.Format(format, current.pid, start, stop);
-                    Interactivity.problems.SetStatus("Downloading ranks...");
+                    Interactivity.SetStatus("Downloading ranks on current problem...");
                     break;
                 case SubViewType.UsersRank:
                     start = stop = 10;
                     if (string.IsNullOrEmpty(uid)) return;
                     format = "http://uhunt.felix-halim.net/api/p/ranklist/{0}/{1}/{2}/{3}"; //pid, uid, before_count, after_count
                     url = string.Format(format, current.pid, uid, start, stop);
-                    Interactivity.problems.SetStatus("Downloading " + user + "'s rankdata...");
+                    Interactivity.SetStatus("Downloading " + user + "'s rankdata on current problem...");
                     break;
                 case SubViewType.UsersSub:
                     if (string.IsNullOrEmpty(uid)) return;
                     format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/{2}"; //uid, pnum, last sid
                     url = string.Format(format, uid, current.pnum, 0);
-                    Interactivity.problems.SetStatus("Downloading " + user + "'s submission...");
+                    Interactivity.SetStatus("Downloading " + user + "'s submission on current problem...");
                     break;
                 case SubViewType.Comapre:
                     List<string> uidcol = new List<string>();
@@ -521,7 +520,7 @@ namespace UVA_Arena.Elements
                     if (uidcol.Count == 0) return;
                     format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/0"; //uids(sep = comma), pnum
                     url = string.Format(format, string.Join(",", uidcol.ToArray()), current.pnum);
-                    Interactivity.problems.SetStatus("Comparing user's for this problem...");
+                    Interactivity.SetStatus("Comparing user's on curretn problem...");
                     break;
             }
 
@@ -530,10 +529,10 @@ namespace UVA_Arena.Elements
 
         private void dt_progressChanged(DownloadTask task)
         {
-            string status = string.Format("Downloading... [{0} of {1} received]",
+            string status = string.Format("Downloading submission data on problem... [{0} of {1} received]",
                Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
-            Interactivity.problems.SetStatus(status);
-            Interactivity.problems.Progress1.Value = task.ProgressPercentage;
+            Interactivity.SetStatus(status);
+            Interactivity.SetProgress(task.ProgressPercentage);
         }
 
         private void dt_taskCompleted(DownloadTask task)
@@ -543,7 +542,7 @@ namespace UVA_Arena.Elements
             {
                 if (task.Error != null)
                 {
-                    Interactivity.problems.SetStatus("Download failed.");
+                    Interactivity.SetStatus("Failed to download submission data on problem.");
                     Logger.Add(task.Error.Message, "Problem Viewer | dt_taskCompleted(DownloadTask task)");
                 }
                 return;
@@ -796,18 +795,19 @@ namespace UVA_Arena.Elements
             string discuss = string.Format("http://acm.uva.es/board/{0}", query);
             customWebBrowser1.Navigate(discuss);
         }
+              
+        private void customWebBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
+        {
+            Interactivity.SetProgress(e.CurrentProgress, e.MaximumProgress);
+        }
 
         private void customWebBrowser1_StatusChanged(object sender, ExtendedControls.CustomWebBrowser.StatusChangedEventArgs e)
         {
-            Interactivity.problems.Status1.Text = e.Status;
-        }
-
-        private void customWebBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
-        {
-            Interactivity.problems.Progress1.Value = (int)e.CurrentProgress;
-        }
-
+            Interactivity.SetStatus("uDebug Browser: " + e.Status);
+        }  
+        
         #endregion
+
 
     }
 }

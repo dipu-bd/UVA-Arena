@@ -169,46 +169,6 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Status Strip
-
-        public bool _QueueOnRun = false;
-        public Queue<string> StatusQueue = new Queue<string>();
-
-        private void ShowNextStatus()
-        {
-            _QueueOnRun = false;
-            if (this.IsDisposed) return;
-            if (StatusQueue.Count == 0)
-            {
-                Status1.Text = "";
-                return;
-            }
-            try
-            {
-                Status1.Text = StatusQueue.Dequeue();
-                _QueueOnRun = true;
-                TaskQueue.AddTask(ShowNextStatus, 1000);
-            }
-            catch { }
-        }
-
-        public void SetStatus(string text = "", bool instant = false)
-        {
-            if (instant)
-            {
-                if (!_QueueOnRun) Status1.Text = text;
-            }
-            else if (StatusQueue.Count < 10)
-            {
-                StatusQueue.Enqueue(text);
-                if (!_QueueOnRun) ShowNextStatus();
-            }
-        }
-
-
-
-        #endregion
-
         #region Username List
 
         //
@@ -298,7 +258,7 @@ namespace UVA_Arena.Elements
 
         private void ShowDataByTab()
         {
-            SetStatus("", true);
+            Interactivity.SetStatus();
             if (currentUser == null) return;
 
             //change view and looks
@@ -346,9 +306,7 @@ namespace UVA_Arena.Elements
 
             try
             {
-                //remove previous status
-                if (!_QueueOnRun) Status1.Text = "";
-                else StatusQueue.Clear();
+                Interactivity.SetStatus();
 
                 //if current user is default user then get it from LocalDatabase
                 if (user == RegistryAccess.DefaultUsername)
@@ -388,7 +346,7 @@ namespace UVA_Arena.Elements
             }
             catch (Exception ex)
             {
-                SetStatus("Error : " + ex.Message);
+                Interactivity.SetStatus("Error while loading user submissions.");
                 Logger.Add(ex.Message, "User Statistics | LoadUserSub(string user)");
             }
         }
@@ -398,22 +356,17 @@ namespace UVA_Arena.Elements
             if (webClient1.IsBusy || currentUser == null || currentUser.uname != user) return;
             string format = "http://uhunt.felix-halim.net/api/subs-user/{0}/{1}";
             string url = string.Format(format, currentUser.uid, currentUser.LastSID);
-            SetStatus("Downloading " + user + "'s submissions...");
+            Interactivity.SetStatus("Downloading " + user + "'s submissions...");
             webClient1.DownloadDataAsync(new Uri(url), currentUser.uname);
         }
 
 
         void webClient1_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            try
-            {
-                if (this.IsDisposed) return;
-                Progress1.Value = e.ProgressPercentage;
-                SetStatus(string.Format("Downloading {0}'s submissions... [{1} out of {2}]",
-                    e.UserState, Functions.FormatMemory(e.BytesReceived),
-                    Functions.FormatMemory(e.TotalBytesToReceive), true));
-            }
-            catch { }
+            Interactivity.SetProgress(e.ProgressPercentage);
+            string msg = "Downloading {0}'s submissions... [{1} out of {2}]";
+            Interactivity.SetStatus(string.Format(msg, e.UserState,
+                Functions.FormatMemory(e.BytesReceived), Functions.FormatMemory(e.TotalBytesToReceive), true));
         }
 
         void webClient1_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
@@ -421,7 +374,7 @@ namespace UVA_Arena.Elements
             if (this.IsDisposed) return;
             try
             {
-                Progress1.Value = 0;
+                Interactivity.SetProgress();
                 if (e.Cancelled) throw new OperationCanceledException();
                 if (e.Error != null) throw e.Error;
 
@@ -445,13 +398,13 @@ namespace UVA_Arena.Elements
                 ShowDataByTab();
 
                 string msg = string.Format("Downloaded {0}'s submissions", e.UserState);
-                SetStatus(msg);
-                if (currentUser.LastSID == 0)
-                    Logger.Add(msg, "User Statistics");
+                Interactivity.SetStatus(msg);
+                if (currentUser.LastSID == 0) Logger.Add(msg, "User Statistics");
             }
             catch (Exception ex)
             {
-                SetStatus("Error : " + ex.Message);
+                Interactivity.SetStatus(string.Format("Error while downloading {0}'s submissions.", e.UserState));
+                Logger.Add(ex.Message, "UserStat | webClient1_DownloadDataCompleted");
             }
             finally
             {
@@ -490,7 +443,7 @@ namespace UVA_Arena.Elements
                 //show status about when to update 
                 long inv = (long)Math.Ceiling((UpdateInterval - diff) / 1000.0);
                 string msg = Functions.FormatTimeSpan(inv);
-                SetStatus("Updating in " + msg, true);
+                Interactivity.SetStatus("Updating user submissions in " + msg);
             }
         }
 
@@ -570,11 +523,8 @@ namespace UVA_Arena.Elements
 
         private void lastSubmissions1_Click(object sender, EventArgs e)
         {
-            if (lastSubmissions1.Items.Count == 0)
-            {
-                if (currentUser != null)
-                    DownloadUserSubs(currentUser.uname);
-            }
+            if (lastSubmissions1.Items.Count == 0 && currentUser != null)
+                DownloadUserSubs(currentUser.uname);
         }
 
         private void SetSubmissionToListView()
@@ -765,14 +715,14 @@ namespace UVA_Arena.Elements
                 //get current user's ranklist
                 string format = "http://uhunt.felix-halim.net/api/ranklist/{0}/{1}/{2}";
                 url = string.Format(format, currentUser.uid, 100, 100);
-                SetStatus("Downloading " + currentUser.uname + "'s rank-list...");
+                Interactivity.SetStatus("Downloading " + currentUser.uname + "'s rank-list...");
             }
             else
             {
                 //get ranklist from a specific rank
                 string format = "http://uhunt.felix-halim.net/api/rank/{0}/{1}";
                 url = string.Format(format, from, 200);
-                SetStatus("Downloading rank-list from " + from.ToString() + "...");
+                Interactivity.SetStatus("Downloading rank-list from " + from.ToString() + "...");
             }
 
             webClient2.DownloadDataAsync(new Uri(url), from);
@@ -780,14 +730,9 @@ namespace UVA_Arena.Elements
 
         void webClient2_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            try
-            {
-                if (this.IsDisposed) return;
-                Progress1.Value = e.ProgressPercentage;
-                SetStatus(string.Format("Downloading rank-list... [{0} out of {1}]",
-                    Functions.FormatMemory(e.BytesReceived), Functions.FormatMemory(e.TotalBytesToReceive)), true);
-            }
-            catch { }
+            Interactivity.SetProgress(e.ProgressPercentage);
+            Interactivity.SetStatus(string.Format("Downloading rank-list... [{0} out of {1}]",
+                Functions.FormatMemory(e.BytesReceived), Functions.FormatMemory(e.TotalBytesToReceive)));
         }
 
         List<UserRanklist> worldRanks;
@@ -822,12 +767,12 @@ namespace UVA_Arena.Elements
                 worldRanklist.Sort(rankRANK, SortOrder.Ascending);
 
 
-                SetStatus(currentUser.uname + "'s rank-list downloaded.");
+                Interactivity.SetStatus(currentUser.uname + "'s rank-list downloaded.");
                 Logger.Add("World rank downloaded - " + currentUser.uname, "World Rank | webClient2_DownloadDataCompleted");
             }
             catch (Exception ex)
             {
-                SetStatus("Rank-list download failed due to an error. Please try again.");
+                Interactivity.SetStatus("Rank-list download failed due to an error. Please try again.");
                 Logger.Add(ex.Message, "World Rank | webClient2_DownloadDataCompleted");
             }
 

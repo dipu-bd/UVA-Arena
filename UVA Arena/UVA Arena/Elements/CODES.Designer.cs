@@ -101,6 +101,7 @@
             this.copyOutputTool = new System.Windows.Forms.ToolStripButton();
             this.saveOutputTool = new System.Windows.Forms.ToolStripButton();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.loadDefaultInput = new System.Windows.Forms.Button();
             this.compareTAB = new System.Windows.Forms.TabPage();
             this.compareContainer = new System.Windows.Forms.CustomSplitContainer();
@@ -117,6 +118,7 @@
             this.toolStripLabel6 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.refreshCompareButton = new System.Windows.Forms.Button();
             this.compareOutputButton = new System.Windows.Forms.Button();
             this.uDebugTab = new System.Windows.Forms.TabPage();
@@ -873,7 +875,6 @@
             this.inputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.inputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.inputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.inputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.inputTextBox.Hotkeys = resources.GetString("inputTextBox.Hotkeys");
             this.inputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.inputTextBox.IsReplaceMode = false;
@@ -931,7 +932,6 @@
             this.outputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.outputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.outputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.outputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.outputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.outputTextBox.IsReplaceMode = false;
             this.outputTextBox.Location = new System.Drawing.Point(3, 25);
@@ -990,6 +990,7 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.button2);
             this.panel4.Controls.Add(this.loadDefaultInput);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel4.Location = new System.Drawing.Point(1, 227);
@@ -997,10 +998,21 @@
             this.panel4.Size = new System.Drawing.Size(595, 30);
             this.panel4.TabIndex = 3;
             // 
+            // button2
+            // 
+            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.button2.Location = new System.Drawing.Point(3, 1);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(150, 28);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Refresh";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.refreshCompareButton_Click);
+            // 
             // loadDefaultInput
             // 
             this.loadDefaultInput.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.loadDefaultInput.Location = new System.Drawing.Point(3, 1);
+            this.loadDefaultInput.Location = new System.Drawing.Point(159, 1);
             this.loadDefaultInput.Name = "loadDefaultInput";
             this.loadDefaultInput.Size = new System.Drawing.Size(150, 28);
             this.loadDefaultInput.TabIndex = 1;
@@ -1137,7 +1149,6 @@
             this.correctOutputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.correctOutputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.correctOutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.correctOutputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.correctOutputTextBox.Hotkeys = resources.GetString("correctOutputTextBox.Hotkeys");
             this.correctOutputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.correctOutputTextBox.IsReplaceMode = false;
@@ -1195,7 +1206,6 @@
             this.progOutputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.progOutputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.progOutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progOutputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.progOutputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.progOutputTextBox.IsReplaceMode = false;
             this.progOutputTextBox.Location = new System.Drawing.Point(3, 25);
@@ -1243,6 +1253,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.refreshCompareButton);
             this.panel3.Controls.Add(this.compareOutputButton);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -1250,6 +1261,17 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(597, 30);
             this.panel3.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.button1.Location = new System.Drawing.Point(159, 1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(150, 28);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Load Default";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.loadDefaultInput_Click);
             // 
             // refreshCompareButton
             // 
@@ -1299,6 +1321,8 @@
             this.customWebBrowser1.TopBarColor = System.Drawing.Color.Tan;
             this.customWebBrowser1.Url = new System.Uri("about:blank", System.UriKind.Absolute);
             this.customWebBrowser1.UrlBoxFont = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customWebBrowser1.StatusChanged += new UVA_Arena.ExtendedControls.CustomWebBrowser.StatusChangedEventHandler(this.customWebBrowser1_StatusChanged);
+            this.customWebBrowser1.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.customWebBrowser1_ProgressChanged);
             // 
             // compilerOutput
             // 
@@ -1719,7 +1743,9 @@
         private ExtendedControls.CustomWebBrowser customWebBrowser1;
         private System.Windows.Forms.ToolStripButton undoToolButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
-        private System.Windows.Forms.ToolStripButton redoToolButton; 
+        private System.Windows.Forms.ToolStripButton redoToolButton;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2; 
 
     }
 }

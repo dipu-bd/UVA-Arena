@@ -33,6 +33,9 @@ namespace UVA_Arena
             Stylish.SetGradientBackground(menuStrip1,
                 new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
 
+            //start status clearear
+            ClearStatus("");
+
             //set some properties to the form
             SetFormProperties();
 
@@ -43,35 +46,26 @@ namespace UVA_Arena
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-            if(!Properties.Settings.Default.ShowExitDialogue)
+            if (!Properties.Settings.Default.ShowExitDialogue)
             {
                 ClosingDialogueForm cdf = new ClosingDialogueForm();
-                if(cdf.ShowDialog() == System.Windows.Forms.DialogResult.No)
+                if (cdf.ShowDialog() == System.Windows.Forms.DialogResult.No)
                 {
                     e.Cancel = true;
                 }
             }
         }
 
-        public void SetFormProperties()
+        public void ClearStatus(object last)
         {
-            string user = RegistryAccess.DefaultUsername;
-            if (LocalDatabase.ContainsUser(user))
+            if (Status1.Text.CompareTo(last) == 0)
             {
-                this.Text = string.Format(this.Tag.ToString(), user, LocalDatabase.GetUserid(user));
+                Interactivity.SetStatus();
+                Interactivity.SetProgress();
             }
-            else
-            {
-                string msg = "Looks like you didn't set a default username." + Environment.NewLine;
-                msg += "It is extremely important to set a default username to enable many features." + Environment.NewLine;
-                msg += "Press OK to set it now. Or, you can set it later from the menubar options.";
-                if(MessageBox.Show(msg, Application.ProductName, MessageBoxButtons.OKCancel)
-                    == System.Windows.Forms.DialogResult.OK)
-                {
-                    Interactivity.ShowUserNameForm();
-                }
-            }
+            TaskQueue.AddTask(ClearStatus, Status1.Text, 3000);
         }
+
 
         #region mouse wheel without focus
 
@@ -94,6 +88,27 @@ namespace UVA_Arena
 
         #endregion
 
+        #region Delay Initializers
+
+        public void SetFormProperties()
+        {
+            string user = RegistryAccess.DefaultUsername;
+            if (LocalDatabase.ContainsUser(user))
+            {
+                this.Text = string.Format(this.Tag.ToString(), user, LocalDatabase.GetUserid(user));
+            }
+            else
+            {
+                string msg = "Looks like you didn't set a default username." + Environment.NewLine;
+                msg += "It is extremely important to set a default username to enable many features." + Environment.NewLine;
+                msg += "Press OK to set it now. Or, you can set it later from the menubar options.";
+                if (MessageBox.Show(msg, Application.ProductName, MessageBoxButtons.OKCancel)
+                    == System.Windows.Forms.DialogResult.OK)
+                {
+                    Interactivity.ShowUserNameForm();
+                }
+            }
+        }
 
         private void DelayInitialize(object background)
         {
@@ -109,7 +124,7 @@ namespace UVA_Arena
             LocalDatabase.RunLoadAsync(false);
 
             //load controls
-             bool _initialized = false;
+            bool _initialized = false;
             this.BeginInvoke((MethodInvoker)delegate
             {
                 //add controls
@@ -140,7 +155,7 @@ namespace UVA_Arena
                 string file = LocalDirectory.GetUserSubPath(RegistryAccess.DefaultUsername);
                 if (LocalDirectory.GetFileSize(file) < 50)
                 {
-                System.Threading.Thread.Sleep(1000);
+                    System.Threading.Thread.Sleep(1000);
                     this.BeginInvoke((MethodInvoker)delegate
                     {
                         Interactivity.userstat.DownloadUserSubs(RegistryAccess.DefaultUsername);
@@ -212,6 +227,10 @@ namespace UVA_Arena
             submissionsToolStripMenuItem.DropDown = Interactivity.userstat.MainContextMenu;
         }
 
+        #endregion
+
+        #region Less significant functions
+
         private void customTabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (customTabControl1.SelectedTab == profileTab)
@@ -220,10 +239,7 @@ namespace UVA_Arena
             }
         }
 
-        #region Menubar Actions
-
-
-        //File Menu
+        #region File Menu
         private void setDefaultUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Interactivity.ShowUserNameForm();
@@ -260,8 +276,9 @@ namespace UVA_Arena
         {
             this.Close();
         }
+        #endregion
 
-        //problems
+        #region problems
         private void refreshDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LocalDatabase.LoadDatabase();
@@ -311,7 +328,9 @@ namespace UVA_Arena
             Interactivity.problemViewer.codeButton.PerformClick();
         }
 
-        //codes
+        #endregion
+
+        #region codes
         private void changeDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             customTabControl1.SelectedTab = codesTab;
@@ -350,7 +369,9 @@ namespace UVA_Arena
             Interactivity.codes.submitToolButton.PerformClick();
         }
 
-        //user status
+        #endregion
+
+        #region user status
         private void addUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Interactivity.userstat.usernameBox.Focus();
@@ -404,7 +425,9 @@ namespace UVA_Arena
             customTabControl1.SelectedTab = profileTab;
         }
 
-        // help menu
+        #endregion
+
+        #region  help menu
         private void onlineHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -443,6 +466,7 @@ namespace UVA_Arena
 
         #endregion
 
+        #endregion
 
     }
 }

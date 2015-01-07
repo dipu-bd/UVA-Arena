@@ -40,36 +40,6 @@ namespace UVA_Arena.Elements
                 new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightBlue, -90F));
         }
 
-        public void ShowCode(object pnum)
-        {
-            if (Interactivity.codesBrowser.IsReady)
-            {
-                //create code file if doesn't exist
-                string path = LocalDirectory.GetCodesPath((long)pnum);
-                if (!Directory.Exists(path) || Directory.GetFiles(path).Length == 0)
-                {
-                    this.BeginInvoke((MethodInvoker)delegate
-                    {
-                        CodeFileCreator cfc = new CodeFileCreator();
-                        if (cfc.ShowDialog() == DialogResult.OK)
-                        {
-                            Interactivity.codesBrowser.AddProblem((long)pnum, cfc.Language);
-                            return;
-                        }
-                        cfc.Dispose();
-                    });
-                }
-
-                //select code file path
-                TreeNode tn = Interactivity.codesBrowser.GetNode(new DirectoryInfo(path));
-                Interactivity.codesBrowser.ExpandAndSelect(tn,
-                    CodesBrowser.ExpandSelectType.SelecFirstChild);
-            }
-            else
-            {
-                TaskQueue.AddTask(ShowCode, pnum, 1000);
-            }
-        }
 
         #endregion
 
@@ -79,11 +49,10 @@ namespace UVA_Arena.Elements
         private AutocompleteMenu autoCompleteMenu;
 
         public long SelectedPNUM { get; set; }
-        public FileInfo CurrentProblem { get; set; }
+        public FileInfo CurrentFile { get; set; }
 
         public Structures.Language CustomLang { get; set; }
-
-        public string OpenedCodeFile { get; set; }
+         
         public string OpenedInput { get; set; }
 
         public string OpenedOutput { get; set; }
@@ -106,7 +75,7 @@ namespace UVA_Arena.Elements
             //open file normally
             OpenCodeFile(file.FullName);
             codeTextBox.ReadOnly = false;
-            CurrentProblem = file; //set current file info
+            CurrentFile = file; //set current file info
             fileNameLabel.Text = file.Name;
 
             //load highlighters
@@ -140,7 +109,7 @@ namespace UVA_Arena.Elements
             tabControl1.SelectedTab = codeTAB;
 
             SelectedPNUM = -1;
-            CurrentProblem = null;
+            CurrentFile = null;
             fileNameLabel.Text = "No Opened File";
             CustomLang = Structures.Language.Other;
 
@@ -166,10 +135,10 @@ namespace UVA_Arena.Elements
         private bool PrecheckOpenFile(FileInfo file, bool history = true)
         {
             //check if already opened 
-            if (CurrentProblem == file) return false;
+            if (CurrentFile == file) return false;
 
             //add to history
-            if (history && CurrentProblem != null)
+            if (history && CurrentFile != null)
             {
                 AddToPrev();
                 nextToolMenu.Enabled = false;
@@ -307,8 +276,8 @@ namespace UVA_Arena.Elements
 
         private void AddToPrev()
         {
-            if (CurrentProblem == null) return;
-            ToolStripItem tmi = GetToolItem(CurrentProblem);
+            if (CurrentFile == null) return;
+            ToolStripItem tmi = GetToolItem(CurrentFile);
             tmi.Click += prevItemClick;
             prevToolMenu.DropDownItems.Insert(0, tmi);
             prevToolMenu.Enabled = true;
@@ -316,8 +285,8 @@ namespace UVA_Arena.Elements
 
         private void AddToNext()
         {
-            if (CurrentProblem == null) return;
-            ToolStripItem tmi = GetToolItem(CurrentProblem);
+            if (CurrentFile == null) return;
+            ToolStripItem tmi = GetToolItem(CurrentFile);
             tmi.Click += nextItemClick;
             nextToolMenu.DropDownItems.Insert(0, tmi);
             nextToolMenu.Enabled = true;
@@ -696,7 +665,7 @@ namespace UVA_Arena.Elements
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
             e.Cancel = (!LocalDatabase.HasProblem(SelectedPNUM) && e.TabPage != codeTAB);
-            if (e.Cancel && CurrentProblem != null)
+            if (e.Cancel && CurrentFile != null)
             {
                 MessageBox.Show("Select a problem's code to enable this feature.");
             }
@@ -720,8 +689,8 @@ namespace UVA_Arena.Elements
 
         private void saveToolButton_Click(object sender, EventArgs e)
         {
-            if (CurrentProblem == null) return;
-            codeTextBox.SaveToFile(CurrentProblem.FullName, Encoding.Default);
+            if (CurrentFile == null) return;
+            codeTextBox.SaveToFile(CurrentFile.FullName, Encoding.Default);
         }
 
         private void cutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -755,9 +724,9 @@ namespace UVA_Arena.Elements
 
         private void reloadToolButton_Click(object sender, EventArgs e)
         {
-            if (CurrentProblem == null) return;
+            if (CurrentFile == null) return;
             codeTextBox.Clear();
-            OpenCodeFile(CurrentProblem.FullName);
+            OpenCodeFile(CurrentFile.FullName);
         }
 
         private void formatAllToolStripMenuItem_Click(object sender, EventArgs e)
@@ -770,8 +739,8 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                if (CurrentProblem == null) return;
-                string file = CurrentProblem.FullName;
+                if (CurrentFile == null) return;
+                string file = CurrentFile.FullName;
                 string folder = Path.GetDirectoryName(file);
                 System.Diagnostics.Process.Start(folder);
             }
@@ -785,8 +754,8 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                if (CurrentProblem == null) return;
-                string file = CurrentProblem.FullName;
+                if (CurrentFile == null) return;
+                string file = CurrentFile.FullName;
                 System.Diagnostics.Process.Start(file);
             }
             catch (Exception ex)
@@ -812,8 +781,8 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                if (SelectedPNUM == -1 || CurrentProblem == null) return;
-                string code = File.ReadAllText(CurrentProblem.FullName);
+                if (SelectedPNUM == -1 || CurrentFile == null) return;
+                string code = File.ReadAllText(CurrentFile.FullName);
                 Interactivity.SubmitCode(SelectedPNUM, code, CustomLang);
             }
             catch (Exception ex)
@@ -839,7 +808,7 @@ namespace UVA_Arena.Elements
         private void BuildAndRun(object state)
         {
             //if no file opened
-            if (Interactivity.codes.CurrentProblem == null) return;
+            if (Interactivity.codes.CurrentFile == null) return;
 
             //clear and initiate
             Interactivity.codes.BeginInvoke((MethodInvoker)delegate
@@ -858,7 +827,7 @@ namespace UVA_Arena.Elements
 
             //run task
             bool ok = CodeCompiler.BuildAndRun((BuildRunType)state,
-                CurrentProblem, SelectedPNUM, RunTimeLimit);
+                CurrentFile, SelectedPNUM, RunTimeLimit);
 
 
             //re-enable all data
@@ -937,7 +906,7 @@ namespace UVA_Arena.Elements
         //
         private void precodeToolButton_ButtonClick(object sender, EventArgs e)
         {
-            if (CurrentProblem == null)
+            if (CurrentFile == null)
             {
                 MessageBox.Show("Create a code file first.");
             }

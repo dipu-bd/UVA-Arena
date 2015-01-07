@@ -138,7 +138,8 @@ namespace UVA_Arena.Elements
             {
                 //run process from a batch file
                 string arguments = "\"" + exec + "\"";
-                return RunInBatch(arguments, Path.GetFileNameWithoutExtension(exec));
+                string title = Path.GetFileNameWithoutExtension(exec);
+                return RunInBatch(arguments, title);
             }
         }
 
@@ -176,7 +177,8 @@ namespace UVA_Arena.Elements
             }
             {
                 //run from a batch file
-                return RunInBatch(arguments, Path.GetFileNameWithoutExtension(CurrentProblem.Name));
+                string title = Path.GetFileNameWithoutExtension(CurrentProblem.Name);
+                return RunInBatch(arguments, title);
             }
         }
 
@@ -346,21 +348,27 @@ namespace UVA_Arena.Elements
 
         private static bool RunInBatch(string args, string title)
         {
-            //get bat file
-            string file = Path.GetTempFileName();
-            string bat = file + ".bat";
-            File.Move(file, bat);
-
-            string commands =
+            //batch program
+            string commands = 
+                  "@{0}\n" +            //root                
+                  "@cd \"{1}\"\n" +     //path
                   "@cls\n" +
-                  "@title " + title + "\n" +
-                  "@" + args + "\n" +
+                  "@title {2}\n" +      //title
+                  "@{3}\n" +            //args
                   "@echo.\n" +
                   "@set /p exit=Press Enter to exit...%=%\n" +
                   "@exit";
 
-            //write commands to batch file
-            File.WriteAllText(bat, commands);
+            //get bat file
+            string file = Path.GetTempFileName();            
+            string bat = file + ".bat";
+            File.Move(file, bat);
+
+            string path = CurrentProblem.DirectoryName;
+            string root = Path.GetPathRoot(path).Replace("\\", "");
+   
+            //write batch program to temporary file 
+            File.WriteAllText(bat, string.Format(commands, root, path, title, args));
 
             //start batch file
             Process p = System.Diagnostics.Process.Start(bat);

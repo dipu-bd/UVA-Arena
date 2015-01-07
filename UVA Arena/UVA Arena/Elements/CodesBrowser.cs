@@ -16,11 +16,11 @@ namespace UVA_Arena.Elements
             InitializeComponent();
             folderTreeView.PathSeparator = Path.DirectorySeparatorChar.ToString();
         }
-        
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            
+
             string path = RegistryAccess.CodesPath;
             if (Directory.Exists(path))
             {
@@ -77,7 +77,6 @@ namespace UVA_Arena.Elements
                 try
                 {
                     FormatCodeDirectory(true);
-                    LoadCodeFolder(true);
                     fileSystemWatcher1.Path = fbd.SelectedPath;
                 }
                 catch (Exception ex)
@@ -102,7 +101,10 @@ namespace UVA_Arena.Elements
                 if (string.IsNullOrEmpty(RegistryAccess.CodesPath) || !Directory.Exists(RegistryAccess.CodesPath))
                 {
                     RegistryAccess.CodesPath = LocalDirectory.DefaultCodesPath();
-                    FormatCodeDirectory(true);
+                    IsReady = false;
+                    FormatCodeDirectory(false);
+                    IsReady = true;
+                    LoadCodeFolder(true);                    
                 }
                 LoadCodeFolder(true);
                 fileSystemWatcher1.Path = RegistryAccess.CodesPath;
@@ -154,7 +156,7 @@ namespace UVA_Arena.Elements
             if (e.KeyCode == Keys.Enter && !e.Shift && !e.Control)
             {
                 TreeNode tn = folderTreeView.SelectedNode;
-                if (tn == null || !(e.Alt || Interactivity.codes.CurrentProblem != tn.Tag)) return;
+                if (tn == null || !(e.Alt || Interactivity.codes.CurrentFile != tn.Tag)) return;
                 if (tn.Tag.GetType() == typeof(FileInfo))
                 {
                     try { System.Diagnostics.Process.Start(((FileInfo)tn.Tag).FullName); }
@@ -232,6 +234,7 @@ namespace UVA_Arena.Elements
 
             //fist turn off some values
             IsReady = false;
+
             this.BeginInvoke((MethodInvoker)delegate
             {
                 selectDirectoryPanel.Visible = false;
@@ -372,6 +375,46 @@ namespace UVA_Arena.Elements
         }
 
         /// <summary>
+        /// Expand upto path of given problem number and select top file inside that folder
+        /// Prompt for new file if none exist
+        /// </summary>
+        /// <param name="pnum">Problem number</param>
+        public void ShowCode(object pnum)
+        {
+            if (!Directory.Exists(RegistryAccess.CodesPath)) return;
+            if (!IsReady || folderTreeView.Nodes.Count == 0)
+            {
+                if (this.IsDisposed) return;
+                TaskQueue.AddTask(ShowCode, pnum, 1000);
+                return;
+            }
+
+            //create code file if doesn't exist
+            string path = LocalDirectory.GetCodesPath((long)pnum);
+            if (!Directory.Exists(path) || Directory.GetFiles(path).Length == 0)
+            {
+                this.BeginInvoke((MethodInvoker)delegate
+                {
+                    CodeFileCreator cfc = new CodeFileCreator();
+                    if (cfc.ShowDialog() == DialogResult.OK)
+                    {
+                        AddProblem((long)pnum, cfc.Language);
+                        return;
+                    }
+                    cfc.Dispose();
+                });
+            }
+
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                //select code file path
+                TreeNode tn = GetNode(new DirectoryInfo(path));
+                Interactivity.codesBrowser.ExpandAndSelect(tn,
+                    CodesBrowser.ExpandSelectType.SelecFirstChild);
+            });
+        }
+
+        /// <summary>
         /// Try to get respective tree node from FileSystemInfo
         /// </summary>
         /// <param name="finfo">FileInfo for file and DirectoryInfo for folder tree node</param>
@@ -421,7 +464,7 @@ namespace UVA_Arena.Elements
 
         public static void CreateFile(string par, string name, string ext, bool trial = true)
         {
-            if (par == null) return;
+            if (string.IsNullOrEmpty(par)) return;
 
             int tcount = 1;
             string path = Path.Combine(par, name + ext);
@@ -570,7 +613,28 @@ namespace UVA_Arena.Elements
 
         private void fileSystemWatcher1_Created(object sender, FileSystemEventArgs e)
         {
+            if (!IsReady) return;
+            try
+            {
+                string path = Path.GetDirectoryName(e.FullPath);
 
+                TreeNode tn = null;
+                if (File.Exists(e.FullPath))
+                    tn = AddTreeNode(new FileInfo(e.FullPath));
+                else
+                    tn = AddTreeNode(new DirectoryInfo(e.FullPath));
+
+                if (path == RegistryAccess.CodesPath)
+                {
+                    folderTreeView.Nodes.Add(tn);
+                }
+                else
+                {
+                    TreeNode par = GetNode(new DirectoryInfo(path));
+                    if (par != null) par.Nodes.Add(tn);
+                }
+            }
+            catch { }
         }
 
         private void fileSystemWatcher1_Deleted(object sender, FileSystemEventArgs e)
@@ -590,8 +654,8 @@ namespace UVA_Arena.Elements
                     DirectoryInfo dir = new DirectoryInfo(e.FullPath);
                     TreeNode tn = GetNode(dir);
                     if (tn != null) tn.Remove();
-                    if (Interactivity.codes.CurrentProblem == null) return;
-                    if (Interactivity.codes.CurrentProblem.FullName == e.FullPath)
+                    if (Interactivity.codes.CurrentFile == null) return;
+                    if (Interactivity.codes.CurrentFile.FullName == e.FullPath)
                         Interactivity.codes.OpenFile(null);
                 }
             }
@@ -644,20 +708,20 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                if (Interactivity.codes.CurrentProblem == null) return;
-                if (Interactivity.codes.CurrentProblem.FullName == e.FullPath)
+                if (Interactivity.codes.CurrentFile == null) return;
+                if (Interactivity.codes.CurrentFile.FullName == e.FullPath)
                 {
                     Interactivity.codes.OpenCodeFile(e.FullPath);
                 }
-                else if ((string)Interactivity.codes.OpenedInput == e.FullPath)
+                else if (Interactivity.codes.OpenedInput == e.FullPath)
                 {
                     Interactivity.codes.OpenInputFile(e.FullPath);
                 }
-                else if ((string)Interactivity.codes.OpenedOutput == e.FullPath)
+                else if (Interactivity.codes.OpenedOutput == e.FullPath)
                 {
                     Interactivity.codes.OpenOutputFile(e.FullPath);
                 }
-                else if ((string)Interactivity.codes.OpenedCorrect == e.FullPath)
+                else if (Interactivity.codes.OpenedCorrect == e.FullPath)
                 {
                     Interactivity.codes.OpenCorrectFile(e.FullPath);
                 }
@@ -748,62 +812,74 @@ namespace UVA_Arena.Elements
         //
         private void folderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dir = GetSelectedPath();
-            CreateDirectory(dir, "New Folder");
+            string path = GetSelectedPath();
+            if (path == null) return;
+            CreateDirectory(path, "New Folder");
         }
 
         private void textFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dir = GetSelectedPath();
-            CreateFile(dir, "New Text File", ".txt");
+            string path = GetSelectedPath();
+            if (path == null) return;
+            CreateFile(path, "New Text File", ".txt");
         }
 
         private void cFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dir = GetSelectedPath();
-            if (dir == null) return;
-            long pnum = LocalDatabase.GetProblemNumber(Path.GetFileName(dir));
-            if (pnum == -1) CreateFile(dir, "New Program", ".c");
-            else AddProblem(pnum, Structures.Language.C);
+            string path = GetSelectedPath();
+            if (path == null) return;
+            long pnum = Interactivity.codes.SelectedPNUM;
+            if (LocalDatabase.HasProblem(pnum))
+                AddProblem(pnum, Structures.Language.C);
+            else
+                CreateFile(path, "New Program", ".c");
         }
 
         private void cPPFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dir = GetSelectedPath();
-            if (dir == null) return;
-            long pnum = LocalDatabase.GetProblemNumber(Path.GetFileName(dir));
-            if (pnum == -1) CreateFile(dir, "New Program", ".cpp");
-            else AddProblem(pnum, Structures.Language.CPP);
+            string path = GetSelectedPath();
+            if (path == null) return;
+            long pnum = Interactivity.codes.SelectedPNUM;
+            if (LocalDatabase.HasProblem(pnum))
+                AddProblem(pnum, Structures.Language.CPP);
+            else
+                CreateFile(path, "New Program", ".cpp");
         }
 
         private void javaFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dir = GetSelectedPath();
-            if (dir == null) return;
-            long pnum = LocalDatabase.GetProblemNumber(Path.GetFileName(dir));
-            if (pnum == -1) CreateFile(dir, "New Program", ".java");
-            else AddProblem(pnum, Structures.Language.Java);
+            if (Interactivity.codes.CurrentFile == null) return;
+            string path = Interactivity.codes.CurrentFile.DirectoryName;
+            long pnum = Interactivity.codes.SelectedPNUM;
+            if (LocalDatabase.HasProblem(pnum))
+                AddProblem(pnum, Structures.Language.Java);
+            else
+                CreateFile(path, "New Program", ".java");
         }
 
         private void pascalFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dir = GetSelectedPath();
-            if (dir == null) return;
-            long pnum = LocalDatabase.GetProblemNumber(Path.GetFileName(dir));
-            if (pnum == -1) CreateFile(dir, "New Program", ".pascal");
-            else AddProblem(pnum, Structures.Language.Pascal);
+            if (Interactivity.codes.CurrentFile == null) return;
+            string path = Interactivity.codes.CurrentFile.DirectoryName;
+            long pnum = Interactivity.codes.SelectedPNUM;
+            if (LocalDatabase.HasProblem(pnum))
+                AddProblem(pnum, Structures.Language.Pascal);
+            else
+                CreateFile(path, "New Program", ".pascal");
         }
 
         private void inputFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dir = GetSelectedPath();
-            CreateFile(dir, "input", ".txt", false);
+            string path = GetSelectedPath();
+            if (path == null) return;
+            CreateFile(path, "input", ".txt", false);
         }
 
         private void outputFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dir = GetSelectedPath();
-            CreateFile(dir, "output", ".txt", false);
+            string path = GetSelectedPath();
+            if (path == null) return;
+            CreateFile(path, "output", ".txt", false);
         }
 
         //

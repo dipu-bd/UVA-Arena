@@ -267,7 +267,7 @@ namespace UVA_Arena
 
                 codes.BeginInvoke((MethodInvoker)delegate
                 {
-                    codes.ShowCode(pnum);
+                    codesBrowser.ShowCode(pnum);
                 });
 
                 mainForm.BeginInvoke((MethodInvoker)delegate

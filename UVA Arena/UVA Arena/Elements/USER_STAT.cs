@@ -46,11 +46,10 @@ namespace UVA_Arena.Elements
             SetViewMenu();
             AssignAspectFunctions();
             SelectUpdateRateMenu();
-            autoUpdateToolMenu.Checked = AutoUpdateStatus;
             lastSubmissions1.MakeColumnSelectMenu(MainContextMenu);
 
             ShowUserSub(RegistryAccess.DefaultUsername);
-
+            
             Stylish.SetGradientBackground(titleBackPanel,
                 new Stylish.GradientStyle(Color.PowderBlue, Color.PaleTurquoise, 90F));
         }
@@ -68,20 +67,16 @@ namespace UVA_Arena.Elements
         //Private functions
         //
         private void SelectUpdateRateMenu()
-        {
-            bool enable = AutoUpdateStatus;
+        { 
             string tag = UpdateInterval.ToString();
-
-            timer1.Enabled = enable;
-            autoUpdateToolMenu.Checked = enable;
+            if (AutoUpdateStatus) UserStatRefresh(); 
             foreach (ToolStripItem item in updateContextMenu.Items)
             {
-                if (item.GetType() == typeof(ToolStripMenuItem)
-                    && autoUpdateToolMenu != item)
+                if (item.Tag != null && item.GetType() == typeof(ToolStripMenuItem))
                 {
                     ToolStripMenuItem tmi = (ToolStripMenuItem)item;
                     tmi.Checked = tag.Equals(tmi.Tag);
-                    tmi.Enabled = (enable);
+                    tmi.Enabled = AutoUpdateStatus;
                 }
             }
         }
@@ -119,20 +114,17 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Registry Access
+        #region Settings
 
         public static int ViewOption
         {
             get
             {
-                object val = RegistryAccess.GetValue("User State View Option");
-                if (val == null || val.GetType() != typeof(int)) return -1;
-                return (int)val;
+                return Properties.Settings.Default.UserStatViewOption;
             }
             set
             {
-                RegistryAccess.SetValue("User State View Option", value,
-                    null, Microsoft.Win32.RegistryValueKind.DWord);
+                Properties.Settings.Default.UserStatViewOption = value;
             }
         }
 
@@ -140,14 +132,11 @@ namespace UVA_Arena.Elements
         {
             get
             {
-                object val = RegistryAccess.GetValue("User State Update Interval");
-                if (val == null || val.GetType() != typeof(int)) return 5000;
-                return (int)val;
+                return Properties.Settings.Default.UserStatUpdateInterval;                
             }
             set
             {
-                RegistryAccess.SetValue("User State Update Interval", value,
-                    null, Microsoft.Win32.RegistryValueKind.DWord);
+                Properties.Settings.Default.UserStatUpdateInterval = value;
             }
         }
 
@@ -155,15 +144,12 @@ namespace UVA_Arena.Elements
         {
             get
             {
-                object val = RegistryAccess.GetValue("Auto Update User State");
-                if (val == null || val.GetType() != typeof(int)) return false;
-                return ((int)val == 1);
+                return Properties.Settings.Default.AutoUpdateUserStat;
             }
             set
             {
-                RegistryAccess.SetValue("Auto Update User State", (value ? 1 : 0),
-                    null, Microsoft.Win32.RegistryValueKind.DWord);
-                timer1.Enabled = value;
+                Properties.Settings.Default.AutoUpdateUserStat = value;
+                if (value && !_taskRunning) UserStatRefresh();
             }
         }
 
@@ -417,21 +403,30 @@ namespace UVA_Arena.Elements
 
         #region Auto Update Timer
 
+        private bool _taskRunning = false;
         private DateTime LastUpdate = DateTime.Now;
 
         //
         // Timer
         // 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void UserStatRefresh()
         {
+            _taskRunning = false;
+            if (this.IsDisposed || !AutoUpdateStatus) return;
+            TaskQueue.AddTask(UserStatRefresh, 800);
+            _taskRunning = true;
+
             //check if this is focused
             if (this.tabControl1.SelectedTab != submissionTab) return;
             if (Interactivity.mainForm.customTabControl1.SelectedTab
                 != Interactivity.mainForm.profileTab) return;
 
+            //refresh list
+            lastSubmissions1.Refresh();
+
             //check if update needed
             if (webClient1.IsBusy || !AutoUpdateStatus || currentUser == null) return;
-
+            
             //update
             TimeSpan span = DateTime.Now.Subtract(LastUpdate);
             long diff = (long)span.TotalMilliseconds;
@@ -484,7 +479,6 @@ namespace UVA_Arena.Elements
 
         private void autoUpdateToolMenu_Click(object sender, EventArgs e)
         {
-            AutoUpdateStatus = !AutoUpdateStatus;
             SelectUpdateRateMenu();
         }
 

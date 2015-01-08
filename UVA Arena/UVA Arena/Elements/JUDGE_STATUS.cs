@@ -25,9 +25,10 @@ namespace UVA_Arena.Elements
             base.OnLoad(e);
 
             AssignAspectFunctions();
-            SelectUpdateRateMenu();
-            timer1.Enabled = AutoUpdateStatus;
-            autoUpdateToolMenu.Checked = AutoUpdateStatus;
+            SelectUpdateRateMenu();  
+
+            //start refresh task
+            if(AutoUpdateStatus) JudgeStatusRefresh();
 
             Stylish.SetGradientBackground(panel1,
                 new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 90F));
@@ -40,14 +41,11 @@ namespace UVA_Arena.Elements
         {
             get
             {
-                object val = RegistryAccess.GetValue("Status Update Interval");
-                if (val == null || val.GetType() != typeof(int)) return 5000;
-                return (int)val;
+                return Properties.Settings.Default.JudgeStatUpdateInterval;
             }
             set
             {
-                RegistryAccess.SetValue("Status Update Interval", value,
-                    null, Microsoft.Win32.RegistryValueKind.DWord);
+                Properties.Settings.Default.JudgeStatUpdateInterval = value;
             }
         }
 
@@ -55,15 +53,12 @@ namespace UVA_Arena.Elements
         {
             get
             {
-                object val = RegistryAccess.GetValue("Auto Update Status");
-                if (val == null || val.GetType() != typeof(int)) return true;
-                return ((int)val == 1);
+                return Properties.Settings.Default.AutoUpdateJudgeStatus;
             }
             set
             {
-                RegistryAccess.SetValue("Auto Update Status", (value ? 1 : 0),
-                    null, Microsoft.Win32.RegistryValueKind.DWord);
-                timer1.Enabled = value;
+                Properties.Settings.Default.AutoUpdateJudgeStatus = value;
+                if (value && !_taskRunning) JudgeStatusRefresh();
             }
         }
 
@@ -71,6 +66,7 @@ namespace UVA_Arena.Elements
         // Public functions
         //  
         private long LastSubID = 0;
+        private bool _taskRunning = false;
         private DateTime LastUpdate = DateTime.Now;
         public List<JudgeStatus> StatusList = new List<JudgeStatus>();
         public Dictionary<long, JudgeStatus> SIDtoStatus = new Dictionary<long, JudgeStatus>();
@@ -157,8 +153,15 @@ namespace UVA_Arena.Elements
         //
         // Timer
         // 
-        private void timer1_Tick(object sender, EventArgs e)
+
+
+        private void JudgeStatusRefresh()
         {
+            _taskRunning = false;
+            if (this.IsDisposed || !AutoUpdateStatus) return;
+            TaskQueue.AddTask(JudgeStatusRefresh, 800);
+            _taskRunning = true;
+
             //check if this is focused
             if (Interactivity.mainForm.customTabControl1.SelectedTab
                     != Interactivity.mainForm.judgeStatusTab) return;
@@ -199,8 +202,7 @@ namespace UVA_Arena.Elements
         //Private functions
         //
         private void SelectUpdateRateMenu()
-        {
-            bool enable = AutoUpdateStatus;
+        { 
             string tag = UpdateInterval.ToString();
             foreach (ToolStripItem item in updateContextMenu.Items)
             {
@@ -208,7 +210,7 @@ namespace UVA_Arena.Elements
                 {
                     ToolStripMenuItem tmi = (ToolStripMenuItem)item;
                     tmi.Checked = tag.Equals(tmi.Tag);
-                    tmi.Enabled = (enable);
+                    tmi.Enabled = AutoUpdateStatus;
                 }
             }
         }
@@ -225,9 +227,7 @@ namespace UVA_Arena.Elements
         }
 
         private void autoUpdateToolMenu_Click(object sender, EventArgs e)
-        {
-            autoUpdateToolMenu.Checked = !autoUpdateToolMenu.Checked;
-            AutoUpdateStatus = autoUpdateToolMenu.Checked;
+        { 
             SelectUpdateRateMenu();
         }
 

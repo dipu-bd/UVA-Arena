@@ -115,7 +115,7 @@ namespace UVA_Arena
             return FormatTimeSpan(new TimeSpan(span * 10000000));
         }
 
-        #endregion
+        #endregion Formatter Functions
 
         #region Color and String getter
 
@@ -202,7 +202,7 @@ namespace UVA_Arena
             }
         }
 
-        #endregion
+        #endregion Color and String getter
 
         #region HTML File Parser
 
@@ -251,7 +251,6 @@ namespace UVA_Arena
             }
         }
 
-
         /// <summary>
         /// Recursive Depth First Search to find all image files
         /// </summary>
@@ -290,7 +289,7 @@ namespace UVA_Arena
             }
         }
 
-        #endregion
+        #endregion HTML File Parser
 
         #region Backup and Restore
 
@@ -337,7 +336,6 @@ namespace UVA_Arena
             }
 
             ofd.Dispose();
-
         }
 
         /// <summary>
@@ -402,14 +400,14 @@ namespace UVA_Arena
             //key path
             dat += string.Format("[{0}]", key) + NL;
 
-            //get values            
+            //get values
             foreach (string name in key.GetValueNames())
             {
                 string value = JsonConvert.SerializeObject(key.GetValue(name));
                 dat += string.Format("\"{0}\"={1}", name, value) + NL;
             }
 
-            //get sub keys            
+            //get sub keys
             foreach (string subkey in key.GetSubKeyNames())
             {
                 dat += GetRegistryData(key.OpenSubKey(subkey)) + NL;
@@ -418,9 +416,6 @@ namespace UVA_Arena
             return dat;
         }
 
-        #endregion
-
-
-
+        #endregion Backup and Restore
     }
 }

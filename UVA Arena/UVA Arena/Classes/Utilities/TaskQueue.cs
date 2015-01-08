@@ -35,32 +35,39 @@ namespace UVA_Arena
         }
 
         public static Timer timer1;
+
         public delegate void Function();
+
         public delegate void Function2(object data);
+
         public static List<Task> queue = new List<Task>();
 
         public static void StartTimer()
         {
             if (timer1 != null) return;
             timer1 = new Timer();
-            timer1.Interval = 50;
+            timer1.Interval = 100;
             timer1.Tick += timer1_Tick;
             timer1.Enabled = true;
         }
 
-        public static void AddTask(Function2 func2, object data, int timeout)
+        public static Task AddTask(Function2 func2, object data, int timeout)
         {
-            AddTask(new Task(func2, data, timeout));
+            return AddTask(new Task(func2, data, timeout));
         }
-        public static void AddTask(Function func, int timeout)
+
+        public static Task AddTask(Function func, int timeout)
         {
-            AddTask(new Task(func, timeout));
+            return AddTask(new Task(func, timeout));
         }
-        public static void AddTask(Task t)
+
+        public static Task AddTask(Task t)
         {
             StartTimer();
             queue.Add(t);
+            return t;
         }
+
         private static void timer1_Tick(object sender, EventArgs e)
         {
             for (int i = 0; i < queue.Count; ++i)
@@ -69,8 +76,7 @@ namespace UVA_Arena
                 if (queue[i].timeout < 10)
                 {
                     queue[i].Call();
-                    queue.RemoveAt(i);
-                    --i;
+                    queue.RemoveAt(i--);
                 }
             }
         }

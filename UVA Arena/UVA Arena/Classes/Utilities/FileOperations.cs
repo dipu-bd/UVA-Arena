@@ -82,7 +82,7 @@ namespace UVA_Arena
         [DllImport("shell32.dll", CharSet = CharSet.Auto)]
         private static extern int SHFileOperation(ref SHFILEOPSTRUCT FileOp);
 
-        public static void CallSH(FileOperationType type, string[] from, string to, FileOperationFlags flags)
+        public static bool CallSH(FileOperationType type, string[] from, string to, FileOperationFlags flags)
         {
             var fs = new SHFILEOPSTRUCT();
             fs.wFunc = type;
@@ -91,32 +91,32 @@ namespace UVA_Arena
             if (to.Length > 0)
                 fs.pTo = to + "\0\0";
             fs.fFlags = flags;
-            SHFileOperation(ref fs);
+            return SHFileOperation(ref fs) == 0;
         }
 
-        public static void Rename(string from, string to)
+        public static bool Rename(string from, string to)
         {
-            CallSH(FileOperationType.FO_RENAME, new string[] { from }, to, FileOperationFlags.FOF_ALLOWUNDO);
+            return CallSH(FileOperationType.FO_RENAME, new string[] { from }, to, FileOperationFlags.FOF_ALLOWUNDO);
         }
 
-        public static void Copy(string[] from, string to)
+        public static bool Copy(string[] from, string to)
         {
-            CallSH(FileOperationType.FO_COPY, from, to, FileOperationFlags.FOF_SILENT);
+            return CallSH(FileOperationType.FO_COPY, from, to, FileOperationFlags.FOF_SILENT);
         }
 
-        public static void Move(string[] from, string to)
+        public static bool Move(string[] from, string to)
         {
-            CallSH(FileOperationType.FO_MOVE, from, to, FileOperationFlags.FOF_SILENT);
+            return CallSH(FileOperationType.FO_MOVE, from, to, FileOperationFlags.FOF_SILENT);
         }
 
-        public static void Delete(string[] paths, FileOperationFlags flags)
+        public static bool Delete(string[] paths, FileOperationFlags flags)
         {
-            CallSH(FileOperationType.FO_DELETE, paths, "", flags);
+            return CallSH(FileOperationType.FO_DELETE, paths, "", flags);
         }
 
-        public static void SendToRecycleBin(string[] paths)
+        public static bool SendToRecycleBin(string[] paths)
         {
-            Delete(paths, FileOperationFlags.FOF_ALLOWUNDO | FileOperationFlags.FOF_WANTNUKEWARNING);
+            return Delete(paths, FileOperationFlags.FOF_ALLOWUNDO | FileOperationFlags.FOF_WANTNUKEWARNING);
         }
     }
 }

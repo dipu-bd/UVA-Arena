@@ -46,7 +46,7 @@ namespace UVA_Arena
             }
             catch (Exception ex)
             {
-                if (ex == null) ex = new Exception("Cancelled");
+                if (ex == null) ex = new Exception("Canceled");
                 Status.Text = string.Format("[Error: {0}]", ex.Message);
             }
             finally

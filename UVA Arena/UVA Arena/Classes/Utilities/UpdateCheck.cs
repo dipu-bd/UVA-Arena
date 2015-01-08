@@ -3,13 +3,15 @@ using System;
 using System.Net;
 using System.Threading;
 
-namespace UVA_Arena 
+namespace UVA_Arena
 {
     public class UpdateCheck
     {
         public class UpdateMessage
         {
-            public UpdateMessage() { }
+            public UpdateMessage()
+            {
+            }
 
             /// <summary>
             /// Get the updated version
@@ -31,7 +33,7 @@ namespace UVA_Arena
 
         /// <summary>
         /// Check if any update is available for the current version
-        /// </summary>       
+        /// </summary>
         public static void CheckForUpdate()
         {
             if (IsChecking) return;
@@ -44,16 +46,16 @@ namespace UVA_Arena
         {
             try
             {
-                IsChecking = true; 
+                IsChecking = true;
                 string url = "https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/VERSION";
 
                 WebClient wc = new WebClient();
                 byte[] raw = wc.DownloadData(url);
                 string data = System.Text.Encoding.UTF8.GetString(raw);
                 UpdateMessage um = JsonConvert.DeserializeObject<UpdateMessage>(data);
-                
+
                 //this applications functions
-                if(um != null) Interactivity.UpdateFound(um);
+                if (um != null) Interactivity.UpdateFound(um);
             }
             catch (Exception ex)
             {

@@ -95,8 +95,7 @@ namespace UVA_Arena.Elements
             MakeAutoCompleteMenu();
 
             //select and expand to opened node if not already selected
-            Interactivity.codesBrowser.ExpandAndSelect(
-                Interactivity.codesBrowser.GetNode(file));
+            CodesBrowser.ExpandAndSelect(Interactivity.codesBrowser.GetNode(file));
 
             //set problem number
             if (CanHaveIOFiles(codeTextBox.Language))
@@ -946,7 +945,8 @@ namespace UVA_Arena.Elements
             }
             else
             {
-                codeTextBox.OpenFile(LocalDirectory.GetPrecode(CustomLang));
+                string file = LocalDirectory.GetPrecode(CustomLang);
+                codeTextBox.Text = File.ReadAllText(file);
             }
         }
 
@@ -1092,7 +1092,12 @@ namespace UVA_Arena.Elements
             if (!(File.Exists(inp) && File.Exists(correct))) return;
             if (!CodesBrowser.ParseInputOutput(SelectedPNUM, inp, correct, true))
             {
-                MessageBox.Show("Can't load input-output automatically. Parsing failed.");
+                MessageBox.Show("Can't load input-output automatically. [Parsing failed]");
+            }
+            else
+            {
+                MessageBox.Show("Input/Output loaded. " + Environment.NewLine +
+                    "[Warning: It might be wrong. Please check to be sure.]");
             }
         }
 

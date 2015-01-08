@@ -125,6 +125,7 @@ namespace UVA_Arena
         // Needed in project
         //
         private static string _DefaultPath = null;
+
         /// <summary>
         /// Default path to store documents. (Usually in MyDocuments folder)
         /// </summary>
@@ -140,8 +141,8 @@ namespace UVA_Arena
             }
         }
 
-        /// <summary> 
-        /// Get the path where downloaded problems info should be saved 
+        /// <summary>
+        /// Get the path where downloaded problems info should be saved
         /// </summary>
         /// <returns>Valid filename with .json extension</returns>
         public static string GetProblemInfoFile()
@@ -151,8 +152,8 @@ namespace UVA_Arena
             return path;
         }
 
-        /// <summary> 
-        /// Get path where category data should be saved 
+        /// <summary>
+        /// Get path where category data should be saved
         /// </summary>
         /// <returns>Valid filename with .json extension</returns>
         public static string GetCategoryPath()
@@ -162,7 +163,7 @@ namespace UVA_Arena
             return path;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Get the folder where all problem's description is saved.
         /// </summary>
         public static string GetProblemDescritionPath()
@@ -172,7 +173,7 @@ namespace UVA_Arena
             return path;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Get the folder for where a problem's description should be saved.
         /// </summary>
         /// <param name="pnum">Problem Number</param>
@@ -197,12 +198,12 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// Get the path where codes for a problem are saved 
+        /// Get the path where codes for a problem are saved
         /// </summary>
         /// <param name="pnum">Problem Number</param>
         /// <returns>
-        /// Valid folder of codes for a given problem. 
-        /// Returns null if LocalDatabase is not ready or CodesPath doesn't exist 
+        /// Valid folder of codes for a given problem.
+        /// Returns null if LocalDatabase is not ready or CodesPath doesn't exist
         /// </returns>
         public static string GetCodesPath(long pnum)
         {
@@ -288,7 +289,7 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// Get path where user's submissions are stored. 
+        /// Get path where user's submissions are stored.
         /// If user id doesn't found an empty string is returned.
         /// </summary>
         /// <param name="username">User-name of the user</param>
@@ -304,9 +305,8 @@ namespace UVA_Arena
             return file;
         }
 
-
         /// <summary>
-        /// File to store program's logs. 
+        /// File to store program's logs.
         /// If a pre-existing file size is > 1MB then,
         /// reduce its size by removing some lines from the beginning.
         /// </summary>
@@ -323,23 +323,6 @@ namespace UVA_Arena
                     File.AppendAllText(file, lines[i] + Environment.NewLine);
             }
             return file;
-        }
-
-        /// <summary>
-        /// Get the folder where delete code files and folders should be saved.
-        /// Folder name starts with dot(.) and it is normally hidden.
-        /// </summary>
-        /// <returns>Valid directory that is hidden</returns>
-        public static string GetRecycleFolder()
-        {
-            string path = RegistryAccess.CodesPath;
-            if (!Directory.Exists(path)) path = DefaultCodesPath();
-            path = Path.Combine(path, ".deleted");
-            if (Directory.Exists(path)) return path;
-            Directory.CreateDirectory(path);
-            DirectoryInfo dir = new DirectoryInfo(path);
-            dir.Attributes = FileAttributes.Hidden;
-            return path;
         }
     }
 }

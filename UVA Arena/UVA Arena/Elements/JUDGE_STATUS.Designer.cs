@@ -60,7 +60,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.updateContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).BeginInit();
             this.panel1.SuspendLayout();
@@ -84,58 +83,59 @@
             this.fiveMinutesToolItem,
             this.tenMinutesToolItem});
             this.updateContextMenu.Name = "contextMenuStrip1";
-            this.updateContextMenu.Size = new System.Drawing.Size(142, 274);
+            this.updateContextMenu.Size = new System.Drawing.Size(153, 296);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
             this.toolStripMenuItem1.Image = global::UVA_Arena.Properties.Resources.reload;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem1.Text = "Refresh Now";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.refreshSubmission_Click);
             // 
             // autoUpdateToolMenu
             // 
-            this.autoUpdateToolMenu.Checked = true;
+            this.autoUpdateToolMenu.Checked = global::UVA_Arena.Properties.Settings.Default.AutoUpdateJudgeStatus;
+            this.autoUpdateToolMenu.CheckOnClick = true;
             this.autoUpdateToolMenu.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autoUpdateToolMenu.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
             this.autoUpdateToolMenu.ForeColor = System.Drawing.Color.Navy;
             this.autoUpdateToolMenu.Name = "autoUpdateToolMenu";
-            this.autoUpdateToolMenu.Size = new System.Drawing.Size(141, 22);
+            this.autoUpdateToolMenu.Size = new System.Drawing.Size(152, 22);
             this.autoUpdateToolMenu.Text = "Auto Update";
             this.autoUpdateToolMenu.Click += new System.EventHandler(this.autoUpdateToolMenu_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // instantToolStripMenuItem
             // 
             this.instantToolStripMenuItem.ForeColor = System.Drawing.Color.Maroon;
             this.instantToolStripMenuItem.Name = "instantToolStripMenuItem";
-            this.instantToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.instantToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.instantToolStripMenuItem.Tag = "500";
             this.instantToolStripMenuItem.Text = "Instant";
             this.instantToolStripMenuItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
             // 
             // twoSecondsToolItem
             // 
+            this.twoSecondsToolItem.Checked = true;
+            this.twoSecondsToolItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.twoSecondsToolItem.ForeColor = System.Drawing.Color.Black;
             this.twoSecondsToolItem.Name = "twoSecondsToolItem";
-            this.twoSecondsToolItem.Size = new System.Drawing.Size(141, 22);
+            this.twoSecondsToolItem.Size = new System.Drawing.Size(152, 22);
             this.twoSecondsToolItem.Tag = "2000";
             this.twoSecondsToolItem.Text = "2 seconds";
             this.twoSecondsToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
             // 
             // fiveSecondsToolItem
             // 
-            this.fiveSecondsToolItem.Checked = true;
-            this.fiveSecondsToolItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.fiveSecondsToolItem.ForeColor = System.Drawing.Color.Black;
             this.fiveSecondsToolItem.Name = "fiveSecondsToolItem";
-            this.fiveSecondsToolItem.Size = new System.Drawing.Size(141, 22);
+            this.fiveSecondsToolItem.Size = new System.Drawing.Size(152, 22);
             this.fiveSecondsToolItem.Tag = "5000";
             this.fiveSecondsToolItem.Text = "5 seconds";
             this.fiveSecondsToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -144,7 +144,7 @@
             // 
             this.tenSecondsToolItem.ForeColor = System.Drawing.Color.Black;
             this.tenSecondsToolItem.Name = "tenSecondsToolItem";
-            this.tenSecondsToolItem.Size = new System.Drawing.Size(141, 22);
+            this.tenSecondsToolItem.Size = new System.Drawing.Size(152, 22);
             this.tenSecondsToolItem.Tag = "10000";
             this.tenSecondsToolItem.Text = "10 seconds";
             this.tenSecondsToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -153,7 +153,7 @@
             // 
             this.fifteenSecondsToolItem.ForeColor = System.Drawing.Color.Black;
             this.fifteenSecondsToolItem.Name = "fifteenSecondsToolItem";
-            this.fifteenSecondsToolItem.Size = new System.Drawing.Size(141, 22);
+            this.fifteenSecondsToolItem.Size = new System.Drawing.Size(152, 22);
             this.fifteenSecondsToolItem.Tag = "15000";
             this.fifteenSecondsToolItem.Text = "15 seconds";
             this.fifteenSecondsToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -162,7 +162,7 @@
             // 
             this.thirtySecodsToolItem.ForeColor = System.Drawing.Color.Black;
             this.thirtySecodsToolItem.Name = "thirtySecodsToolItem";
-            this.thirtySecodsToolItem.Size = new System.Drawing.Size(141, 22);
+            this.thirtySecodsToolItem.Size = new System.Drawing.Size(152, 22);
             this.thirtySecodsToolItem.Tag = "30000";
             this.thirtySecodsToolItem.Text = "30 seconds";
             this.thirtySecodsToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -171,7 +171,7 @@
             // 
             this.oneMinutesToolItem.ForeColor = System.Drawing.Color.Black;
             this.oneMinutesToolItem.Name = "oneMinutesToolItem";
-            this.oneMinutesToolItem.Size = new System.Drawing.Size(141, 22);
+            this.oneMinutesToolItem.Size = new System.Drawing.Size(152, 22);
             this.oneMinutesToolItem.Tag = "60000";
             this.oneMinutesToolItem.Text = "1 minute";
             this.oneMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -180,7 +180,7 @@
             // 
             this.twoMinutesToolItem.ForeColor = System.Drawing.Color.Black;
             this.twoMinutesToolItem.Name = "twoMinutesToolItem";
-            this.twoMinutesToolItem.Size = new System.Drawing.Size(141, 22);
+            this.twoMinutesToolItem.Size = new System.Drawing.Size(152, 22);
             this.twoMinutesToolItem.Tag = "120000";
             this.twoMinutesToolItem.Text = "2 minutes";
             this.twoMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -189,7 +189,7 @@
             // 
             this.fiveMinutesToolItem.ForeColor = System.Drawing.Color.Black;
             this.fiveMinutesToolItem.Name = "fiveMinutesToolItem";
-            this.fiveMinutesToolItem.Size = new System.Drawing.Size(141, 22);
+            this.fiveMinutesToolItem.Size = new System.Drawing.Size(152, 22);
             this.fiveMinutesToolItem.Tag = "300000";
             this.fiveMinutesToolItem.Text = "5 minutes";
             this.fiveMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -198,7 +198,7 @@
             // 
             this.tenMinutesToolItem.ForeColor = System.Drawing.Color.Black;
             this.tenMinutesToolItem.Name = "tenMinutesToolItem";
-            this.tenMinutesToolItem.Size = new System.Drawing.Size(141, 22);
+            this.tenMinutesToolItem.Size = new System.Drawing.Size(152, 22);
             this.tenMinutesToolItem.Tag = "600000";
             this.tenMinutesToolItem.Text = "10 minutes";
             this.tenMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
@@ -386,7 +386,7 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.button1.BackColor = System.Drawing.Color.Transparent;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightBlue;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PowderBlue;
@@ -411,11 +411,6 @@
             this.label1.Size = new System.Drawing.Size(278, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Judge Status - Last Submissions";
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 800;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // STATUS
             // 
@@ -453,8 +448,7 @@
         private System.Windows.Forms.Label label1;
         private BrightIdeasSoftware.OLVColumn pnumSUB;
         private BrightIdeasSoftware.OLVColumn ptitleSUB;
-        public BrightIdeasSoftware.FastObjectListView submissionStatus;
-        private System.Windows.Forms.Timer timer1;
+        public BrightIdeasSoftware.FastObjectListView submissionStatus; 
         private System.Windows.Forms.ToolStripMenuItem instantToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem twoSecondsToolItem;
         private System.Windows.Forms.ToolStripMenuItem fiveSecondsToolItem;

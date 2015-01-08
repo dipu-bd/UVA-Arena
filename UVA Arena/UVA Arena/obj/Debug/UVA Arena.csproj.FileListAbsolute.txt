@@ -10,13 +10,11 @@ G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.exe.manifes
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.application
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.exe
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\UVA Arena.pdb
-G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ActiveButtons.dll
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\FastColoredTextBox.DLL
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\HtmlAgilityPack.dll
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.dll
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.DLL
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ZedGraph.dll
-G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ActiveButtons.pdb
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.pdb
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\Newtonsoft.Json.xml
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\bin\Debug\ObjectListView.pdb
@@ -51,4 +49,3 @@ G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.exe.manifes
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.application
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.exe
 G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.pdb
-G:\Projects\GitHub\UVA-Arena\UVA Arena\UVA Arena\obj\Debug\UVA Arena.csprojResolveAssemblyReference.cache

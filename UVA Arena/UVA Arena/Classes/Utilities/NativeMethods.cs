@@ -112,7 +112,7 @@ namespace UVA_Arena
         public static extern bool ReleaseCapture();
 
         // P/Invoke declarations
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll")]        
         public static extern IntPtr WindowFromPoint(Point pt);
 
         //

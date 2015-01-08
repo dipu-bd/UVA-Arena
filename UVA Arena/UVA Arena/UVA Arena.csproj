@@ -72,10 +72,10 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ManifestCertificateThumbprint>299CCA3FD8980E50CF4749F40A73999100020EE6</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>76DF74A9150CE14F15AC14B92B78A6A9EE83F63D</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>UVA Arena_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>UVAArenaKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
@@ -83,11 +83,17 @@
   <PropertyGroup />
   <PropertyGroup />
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>UVAArenaKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\Data Structures\ContextBook.cs" />
@@ -119,11 +125,11 @@
     <Compile Include="Extended Controls\CustomWebBrowser.Designer.cs">
       <DependentUpon>CustomWebBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Elements\STATUS.cs">
+    <Compile Include="Elements\JUDGE_STATUS.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Elements\STATUS.Designer.cs">
-      <DependentUpon>STATUS.cs</DependentUpon>
+    <Compile Include="Elements\JUDGE_STATUS.Designer.cs">
+      <DependentUpon>JUDGE_STATUS.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Utilities\DiffFileMerger.cs" />
     <Compile Include="Classes\Utilities\FileOperations.cs" />
@@ -294,8 +300,8 @@
     <EmbeddedResource Include="Elements\ProblemViewer.resx">
       <DependentUpon>ProblemViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Elements\STATUS.resx">
-      <DependentUpon>STATUS.cs</DependentUpon>
+    <EmbeddedResource Include="Elements\JUDGE_STATUS.resx">
+      <DependentUpon>JUDGE_STATUS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Elements\UserProgTracker.resx">
       <DependentUpon>UserProgTracker.cs</DependentUpon>
@@ -363,7 +369,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="UVA Arena_TemporaryKey.pfx" />
+    <None Include="UVAArenaKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />
@@ -402,9 +408,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ActiveButtons">
-      <HintPath>..\..\External References\ActiveButtons.dll</HintPath>
-    </Reference>
     <Reference Include="FastColoredTextBox">
       <HintPath>..\..\External References\FastColoredTextBox.DLL</HintPath>
     </Reference>
@@ -419,10 +422,7 @@
       <HintPath>..\..\External References\ObjectListView.DLL</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
     <Reference Include="ZedGraph">

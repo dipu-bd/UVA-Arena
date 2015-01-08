@@ -91,7 +91,7 @@ namespace UVA_Arena
         //
         // UserID
         //
-        
+
         /// <summary>
         /// Set the userid of a username
         /// </summary>
@@ -141,9 +141,9 @@ namespace UVA_Arena
         public static void SetUserRank(Structures.UserRanklist urank)
         {
             string data = JsonConvert.SerializeObject(urank);
-            SetValue(urank.username, data, "User Rank", RegistryValueKind.String);            
+            SetValue(urank.username, data, "User Rank", RegistryValueKind.String);
         }
-        
+
         /// <summary>
         /// Get rank-list of a user
         /// </summary>
@@ -155,7 +155,7 @@ namespace UVA_Arena
             if (string.IsNullOrEmpty((string)data)) return null;
             return JsonConvert.DeserializeObject<Structures.UserRanklist>(data);
         }
-        
+
         //
         // Problem Database
         //
@@ -200,7 +200,7 @@ namespace UVA_Arena
             List<string> tags = JsonConvert.DeserializeObject<List<string>>(data);
             if (tags == null) tags = new List<string>();
             return tags;
-        } 
+        }
 
         public static string MinGWCompilerPath
         {

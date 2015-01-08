@@ -231,7 +231,8 @@ namespace UVA_Arena
         //
         // Precode Settings
         //
-        private void SavePrecode()
+
+        private string getFile()
         {
             Structures.Language lang = Language.CPP;
             if (ansiCradioButton.Checked)
@@ -242,25 +243,17 @@ namespace UVA_Arena
                 lang = Language.Pascal;
             else
                 lang = Language.CPP;
+            return LocalDirectory.GetPrecode(lang);
+        }
 
-            string file = LocalDirectory.GetPrecode(lang);
-            codeTextBox.SaveToFile(file, Encoding.UTF8);
+        private void SavePrecode()
+        { 
+            codeTextBox.SaveToFile(getFile(), Encoding.UTF8);
         }
 
         private void LoadPrecode()
-        {
-            Structures.Language lang = Language.CPP;
-            if (ansiCradioButton.Checked)
-                lang = Language.C;
-            else if (JavaRadioButton.Checked)
-                lang = Language.Java;
-            else if (PascalRadioButton.Checked)
-                lang = Language.Pascal;
-            else
-                lang = Language.CPP;
-
-            string file = LocalDirectory.GetPrecode(lang);
-            codeTextBox.OpenFile(file);
+        {  
+            codeTextBox.OpenFile(getFile());
             codeTextBox.Tag = codeTextBox.Text;
         }
 

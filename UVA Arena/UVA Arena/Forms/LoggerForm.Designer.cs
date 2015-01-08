@@ -58,6 +58,7 @@
             this.funcTask = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Status1 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.activityList)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -74,33 +75,29 @@
             this.activityList.AllColumns.Add(this.dateTime);
             this.activityList.AllColumns.Add(this.status);
             this.activityList.AllColumns.Add(this.source);
-            this.activityList.AlternateRowBackColor = System.Drawing.Color.SeaShell;
             this.activityList.BackColor = System.Drawing.Color.Azure;
-            this.activityList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.activityList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.activityList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.dateTime,
             this.status,
             this.source});
-            this.activityList.Cursor = System.Windows.Forms.Cursors.Default;
             this.activityList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.activityList.EmptyListMsg = "No Log Yet";
+            this.activityList.EmptyListMsg = "Log is empty";
             this.activityList.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.activityList.ForeColor = System.Drawing.Color.Black;
             this.activityList.FullRowSelect = true;
             this.activityList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.activityList.Location = new System.Drawing.Point(0, 0);
+            this.activityList.MultiSelect = false;
             this.activityList.Name = "activityList";
             this.activityList.ShowGroups = false;
             this.activityList.ShowItemCountOnGroups = true;
             this.activityList.ShowItemToolTips = true;
-            this.activityList.Size = new System.Drawing.Size(756, 345);
+            this.activityList.Size = new System.Drawing.Size(744, 310);
             this.activityList.TabIndex = 0;
-            this.activityList.UseAlternatingBackColors = true;
             this.activityList.UseCellFormatEvents = true;
             this.activityList.UseCompatibleStateImageBehavior = false;
             this.activityList.UseCustomSelectionColors = true;
-            this.activityList.UseHotItem = true;
-            this.activityList.UseTranslucentHotItem = true;
             this.activityList.UseTranslucentSelection = true;
             this.activityList.View = System.Windows.Forms.View.Details;
             this.activityList.VirtualMode = true;
@@ -129,7 +126,6 @@
             this.source.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.source.Sortable = false;
             this.source.Text = "Source";
-            this.source.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.source.Width = 120;
             // 
             // contextMenuStrip1
@@ -172,7 +168,7 @@
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(647, 3);
+            this.button1.Location = new System.Drawing.Point(635, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(114, 25);
             this.button1.TabIndex = 1;
@@ -184,7 +180,7 @@
             // 
             this.gotoEndButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gotoEndButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gotoEndButton.Location = new System.Drawing.Point(527, 3);
+            this.gotoEndButton.Location = new System.Drawing.Point(515, 3);
             this.gotoEndButton.Name = "gotoEndButton";
             this.gotoEndButton.Size = new System.Drawing.Size(114, 25);
             this.gotoEndButton.TabIndex = 2;
@@ -202,7 +198,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(50, 8);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(764, 381);
+            this.tabControl1.Size = new System.Drawing.Size(752, 346);
             this.tabControl1.TabIndex = 3;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -211,7 +207,7 @@
             this.tabPage1.Controls.Add(this.activityList);
             this.tabPage1.Location = new System.Drawing.Point(4, 32);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(756, 345);
+            this.tabPage1.Size = new System.Drawing.Size(744, 310);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Activity Log";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -236,9 +232,8 @@
             this.downloadQueue1.AllColumns.Add(this.totalINT);
             this.downloadQueue1.AllColumns.Add(this.priorityINT);
             this.downloadQueue1.AllColumns.Add(this.statINT);
-            this.downloadQueue1.AlternateRowBackColor = System.Drawing.Color.SeaShell;
-            this.downloadQueue1.BackColor = System.Drawing.Color.Azure;
-            this.downloadQueue1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.downloadQueue1.BackColor = System.Drawing.Color.AliceBlue;
+            this.downloadQueue1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.downloadQueue1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameINT,
             this.uriINT,
@@ -249,9 +244,8 @@
             this.priorityINT,
             this.statINT});
             this.downloadQueue1.ContextMenuStrip = this.contextMenuStrip1;
-            this.downloadQueue1.Cursor = System.Windows.Forms.Cursors.Default;
             this.downloadQueue1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.downloadQueue1.EmptyListMsg = "Queue is empty";
+            this.downloadQueue1.EmptyListMsg = "Download queue is empty";
             this.downloadQueue1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.downloadQueue1.ForeColor = System.Drawing.Color.Black;
             this.downloadQueue1.FullRowSelect = true;
@@ -262,14 +256,10 @@
             this.downloadQueue1.ShowItemCountOnGroups = true;
             this.downloadQueue1.ShowItemToolTips = true;
             this.downloadQueue1.Size = new System.Drawing.Size(756, 345);
-            this.downloadQueue1.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.downloadQueue1.TabIndex = 2;
-            this.downloadQueue1.UseAlternatingBackColors = true;
             this.downloadQueue1.UseCellFormatEvents = true;
             this.downloadQueue1.UseCompatibleStateImageBehavior = false;
             this.downloadQueue1.UseCustomSelectionColors = true;
-            this.downloadQueue1.UseHotItem = true;
-            this.downloadQueue1.UseTranslucentHotItem = true;
             this.downloadQueue1.UseTranslucentSelection = true;
             this.downloadQueue1.View = System.Windows.Forms.View.Details;
             this.downloadQueue1.VirtualMode = true;
@@ -337,31 +327,26 @@
             // taskQueue1
             // 
             this.taskQueue1.AllColumns.Add(this.funcTask);
-            this.taskQueue1.AlternateRowBackColor = System.Drawing.Color.SeaShell;
-            this.taskQueue1.BackColor = System.Drawing.Color.Azure;
-            this.taskQueue1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.taskQueue1.BackColor = System.Drawing.Color.LightCyan;
+            this.taskQueue1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.taskQueue1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.funcTask});
-            this.taskQueue1.Cursor = System.Windows.Forms.Cursors.Default;
             this.taskQueue1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.taskQueue1.EmptyListMsg = "Queue is empty";
+            this.taskQueue1.EmptyListMsg = "Task queue is empty";
             this.taskQueue1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.taskQueue1.ForeColor = System.Drawing.Color.Black;
-            this.taskQueue1.FullRowSelect = true;
+            this.taskQueue1.HasCollapsibleGroups = false;
             this.taskQueue1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.taskQueue1.IsSearchOnSortColumn = false;
             this.taskQueue1.Location = new System.Drawing.Point(3, 3);
+            this.taskQueue1.MultiSelect = false;
             this.taskQueue1.Name = "taskQueue1";
             this.taskQueue1.ShowGroups = false;
-            this.taskQueue1.ShowItemCountOnGroups = true;
             this.taskQueue1.ShowItemToolTips = true;
             this.taskQueue1.Size = new System.Drawing.Size(750, 339);
             this.taskQueue1.TabIndex = 1;
-            this.taskQueue1.UseAlternatingBackColors = true;
-            this.taskQueue1.UseCellFormatEvents = true;
             this.taskQueue1.UseCompatibleStateImageBehavior = false;
             this.taskQueue1.UseCustomSelectionColors = true;
-            this.taskQueue1.UseHotItem = true;
-            this.taskQueue1.UseTranslucentHotItem = true;
             this.taskQueue1.UseTranslucentSelection = true;
             this.taskQueue1.View = System.Windows.Forms.View.Details;
             this.taskQueue1.VirtualMode = true;
@@ -369,36 +354,53 @@
             // funcTask
             // 
             this.funcTask.AspectName = "func";
+            this.funcTask.FillsFreeSpace = true;
             this.funcTask.Text = "Function";
             this.funcTask.Width = 300;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel1.Controls.Add(this.gotoEndButton, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.Status1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gotoEndButton, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.Status1, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.checkBox1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 381);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 346);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(764, 31);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(752, 31);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // Status1
             // 
             this.Status1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Status1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Status1.Location = new System.Drawing.Point(10, 1);
+            this.Status1.Location = new System.Drawing.Point(120, 1);
             this.Status1.Margin = new System.Windows.Forms.Padding(10, 1, 3, 1);
             this.Status1.Name = "Status1";
-            this.Status1.Size = new System.Drawing.Size(511, 29);
+            this.Status1.Size = new System.Drawing.Size(389, 29);
             this.Status1.TabIndex = 3;
             this.Status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = global::UVA_Arena.Properties.Settings.Default.LoggerIsTopMost;
+            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "LoggerIsTopMost", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox1.Location = new System.Drawing.Point(3, 7);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.checkBox1.Size = new System.Drawing.Size(104, 17);
+            this.checkBox1.TabIndex = 4;
+            this.checkBox1.Text = "Stay on top";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // LoggerForm
             // 
@@ -406,15 +408,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PaleTurquoise;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(764, 412);
+            this.ClientSize = new System.Drawing.Size(752, 377);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.DataBindings.Add(new System.Windows.Forms.Binding("TopMost", global::UVA_Arena.Properties.Settings.Default, "LoggerIsTopMost", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoggerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Log Keeper";
+            this.TopMost = global::UVA_Arena.Properties.Settings.Default.LoggerIsTopMost;
             this.Load += new System.EventHandler(this.LoggerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.activityList)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -425,6 +429,7 @@
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.taskQueue1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -459,5 +464,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem forceStopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem forceStartToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

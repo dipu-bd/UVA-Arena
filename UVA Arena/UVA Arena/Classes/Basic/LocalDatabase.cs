@@ -17,6 +17,7 @@ namespace UVA_Arena
 
         /// <summary> User-info of default user </summary>
         public static UserInfo DefaultUser;
+
         /// <summary> Dictionary of [User-name -> User-id] values </summary>
         /// <remarks> initialized in the main function </remarks>
         public static Dictionary<string, string> usernames;
@@ -123,7 +124,7 @@ namespace UVA_Arena
                     AllDacu.Add(plist.dacu, 1);
             }
 
-            //cumulative sum of all dacu            
+            //cumulative sum of all dacu
             int last = 0;
             var it = AllDacu.GetEnumerator();
             Dictionary<long, int> sum = new Dictionary<long, int>();
@@ -134,7 +135,7 @@ namespace UVA_Arena
             }
             it.Dispose();
 
-            //set problem level 
+            //set problem level
             int product = problem_list.Count / 10;
             foreach (ProblemInfo plist in problem_list)
             {
@@ -194,7 +195,7 @@ namespace UVA_Arena
             }
         }
 
-        #endregion
+        #endregion Loader Functions
 
         #region Other Functions
 
@@ -205,6 +206,7 @@ namespace UVA_Arena
             if (problem_id.ContainsKey(pid)) return;
             problem_id.Add(pid, pnum);
         }
+
         /// <summary> Get problem number for given problem id </summary>
         public static long GetNumber(long pid)
         {
@@ -219,6 +221,7 @@ namespace UVA_Arena
             if (problem_num == null) return false;
             return problem_num.ContainsKey(pnum);
         }
+
         /// <summary> Save problem info for given problem number </summary>
         public static void SetProblem(long pnum, ProblemInfo plist)
         {
@@ -226,6 +229,7 @@ namespace UVA_Arena
             if (HasProblem(pnum)) problem_num[pnum] = plist;
             else problem_num.Add(pnum, plist);
         }
+
         /// <summary> Get problem info for given problem number </summary>
         public static ProblemInfo GetProblem(long pnum)
         {
@@ -239,6 +243,7 @@ namespace UVA_Arena
             if (!HasProblem(pnum)) return "-";
             return GetProblem(pnum).ptitle;
         }
+
         /// <summary> Get problem id for given problem number </summary>
         public static long GetProblemID(long pnum)
         {
@@ -254,6 +259,7 @@ namespace UVA_Arena
             problem_vol.Add(vol, new List<ProblemInfo>());
             return problem_vol[vol];
         }
+
         /// <summary> Get problem list for given category </summary>
         public static List<ProblemInfo> GetCategory(string cat)
         {
@@ -268,13 +274,13 @@ namespace UVA_Arena
         {
             return (usernames != null && usernames.ContainsKey(user));
         }
+
         /// <summary> get user id from name </summary>
         public static string GetUserid(string name)
         {
             if (!ContainsUser(name)) return "-";
             return usernames[name];
         }
-
 
         /// <summary>
         /// Get problem number from file name
@@ -295,7 +301,6 @@ namespace UVA_Arena
             return res;
         }
 
-        #endregion
-
+        #endregion Other Functions
     }
 }

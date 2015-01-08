@@ -43,6 +43,8 @@
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.codeFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.folderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
@@ -96,7 +98,7 @@
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.problemListContainer.Size = new System.Drawing.Size(304, 419);
+            this.problemListContainer.Size = new System.Drawing.Size(215, 419);
             this.problemListContainer.TabIndex = 3;
             this.problemListContainer.Tag = "115";
             // 
@@ -112,7 +114,7 @@
             this.searchBox1.Name = "searchBox1";
             this.searchBox1.SearchButtonVisible = true;
             this.searchBox1.SearchText = "";
-            this.searchBox1.Size = new System.Drawing.Size(302, 26);
+            this.searchBox1.Size = new System.Drawing.Size(213, 26);
             this.searchBox1.TabIndex = 0;
             this.searchBox1.SearchButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchButtonClicked);
             this.searchBox1.ClearButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_ClearButtonClicked);
@@ -124,7 +126,7 @@
             this.plistPanel.Location = new System.Drawing.Point(1, 1);
             this.plistPanel.Margin = new System.Windows.Forms.Padding(1);
             this.plistPanel.Name = "plistPanel";
-            this.plistPanel.Size = new System.Drawing.Size(302, 26);
+            this.plistPanel.Size = new System.Drawing.Size(213, 26);
             this.plistPanel.TabIndex = 4;
             // 
             // plistLabel
@@ -136,7 +138,7 @@
             this.plistLabel.Location = new System.Drawing.Point(0, 0);
             this.plistLabel.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.plistLabel.Name = "plistLabel";
-            this.plistLabel.Size = new System.Drawing.Size(302, 26);
+            this.plistLabel.Size = new System.Drawing.Size(213, 26);
             this.plistLabel.TabIndex = 2;
             this.plistLabel.Text = "Codes";
             this.plistLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -158,12 +160,13 @@
             this.folderTreeView.SelectedImageIndex = 0;
             this.folderTreeView.ShowLines = false;
             this.folderTreeView.ShowNodeToolTips = true;
-            this.folderTreeView.Size = new System.Drawing.Size(298, 332);
+            this.folderTreeView.Size = new System.Drawing.Size(209, 332);
             this.folderTreeView.TabIndex = 5;
             this.folderTreeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.folderTreeView_AfterLabelEdit);
             this.folderTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.folderTreeView_AfterSelect);
             this.folderTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.folderTreeView_NodeMouseClick);
             this.folderTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.folderTreeView_NodeMouseDoubleClick);
+            this.folderTreeView.Enter += new System.EventHandler(this.folderTreeView_Enter);
             this.folderTreeView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.folderTreeView_KeyDown);
             // 
             // folderTreeContext
@@ -240,6 +243,8 @@
             // newContextMenu
             // 
             this.newContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.codeFileToolStripMenuItem,
+            this.toolStripSeparator1,
             this.folderToolStripMenuItem,
             this.textFileToolStripMenuItem,
             this.toolStripSeparator11,
@@ -252,14 +257,31 @@
             this.outputFileToolStripMenuItem,
             this.correctOutputFileToolStripMenuItem});
             this.newContextMenu.Name = "newContextMenu";
-            this.newContextMenu.Size = new System.Drawing.Size(155, 236);
+            this.newContextMenu.OwnerItem = this.newToolStripMenuItem;
+            this.newContextMenu.Size = new System.Drawing.Size(167, 242);
+            // 
+            // codeFileToolStripMenuItem
+            // 
+            this.codeFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.code;
+            this.codeFileToolStripMenuItem.Name = "codeFileToolStripMenuItem";
+            this.codeFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.codeFileToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.codeFileToolStripMenuItem.Text = "Code File";
+            this.codeFileToolStripMenuItem.Click += new System.EventHandler(this.codeFileToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(163, 6);
             // 
             // folderToolStripMenuItem
             // 
             this.folderToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.folder;
             this.folderToolStripMenuItem.Name = "folderToolStripMenuItem";
-            this.folderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.folderToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.folderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.N)));
+            this.folderToolStripMenuItem.ShowShortcutKeys = false;
+            this.folderToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.folderToolStripMenuItem.Text = "Folder";
             this.folderToolStripMenuItem.Click += new System.EventHandler(this.folderToolStripMenuItem_Click);
             // 
@@ -267,20 +289,20 @@
             // 
             this.textFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.file;
             this.textFileToolStripMenuItem.Name = "textFileToolStripMenuItem";
-            this.textFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.textFileToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.textFileToolStripMenuItem.Text = "Text File";
             this.textFileToolStripMenuItem.Click += new System.EventHandler(this.textFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(151, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(163, 6);
             // 
             // cFileToolStripMenuItem
             // 
             this.cFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.ansi_c;
             this.cFileToolStripMenuItem.Name = "cFileToolStripMenuItem";
-            this.cFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.cFileToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.cFileToolStripMenuItem.Text = "C File";
             this.cFileToolStripMenuItem.Click += new System.EventHandler(this.cFileToolStripMenuItem_Click);
             // 
@@ -288,7 +310,7 @@
             // 
             this.cPPFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.cpp;
             this.cPPFileToolStripMenuItem.Name = "cPPFileToolStripMenuItem";
-            this.cPPFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.cPPFileToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.cPPFileToolStripMenuItem.Text = "CPP File";
             this.cPPFileToolStripMenuItem.Click += new System.EventHandler(this.cPPFileToolStripMenuItem_Click);
             // 
@@ -296,7 +318,7 @@
             // 
             this.javaFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.java;
             this.javaFileToolStripMenuItem.Name = "javaFileToolStripMenuItem";
-            this.javaFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.javaFileToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.javaFileToolStripMenuItem.Text = "Java File";
             this.javaFileToolStripMenuItem.Click += new System.EventHandler(this.javaFileToolStripMenuItem_Click);
             // 
@@ -304,20 +326,20 @@
             // 
             this.pascalFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.pascal;
             this.pascalFileToolStripMenuItem.Name = "pascalFileToolStripMenuItem";
-            this.pascalFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.pascalFileToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.pascalFileToolStripMenuItem.Text = "Pascal File";
             this.pascalFileToolStripMenuItem.Click += new System.EventHandler(this.pascalFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(151, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(163, 6);
             // 
             // inputFileToolStripMenuItem
             // 
             this.inputFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.input;
             this.inputFileToolStripMenuItem.Name = "inputFileToolStripMenuItem";
-            this.inputFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.inputFileToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.inputFileToolStripMenuItem.Text = "Input File";
             this.inputFileToolStripMenuItem.Click += new System.EventHandler(this.inputFileToolStripMenuItem_Click);
             // 
@@ -325,7 +347,7 @@
             // 
             this.outputFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.output;
             this.outputFileToolStripMenuItem.Name = "outputFileToolStripMenuItem";
-            this.outputFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.outputFileToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.outputFileToolStripMenuItem.Text = "Output File";
             this.outputFileToolStripMenuItem.Click += new System.EventHandler(this.outputFileToolStripMenuItem_Click);
             // 
@@ -333,7 +355,7 @@
             // 
             this.correctOutputFileToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.correct;
             this.correctOutputFileToolStripMenuItem.Name = "correctOutputFileToolStripMenuItem";
-            this.correctOutputFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.correctOutputFileToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.correctOutputFileToolStripMenuItem.Text = "Correct Output";
             this.correctOutputFileToolStripMenuItem.Click += new System.EventHandler(this.correctOutputFileToolStripMenuItem_Click);
             // 
@@ -403,7 +425,7 @@
             this.toolStrip3.Location = new System.Drawing.Point(3, 28);
             this.toolStrip3.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(298, 25);
+            this.toolStrip3.Size = new System.Drawing.Size(209, 25);
             this.toolStrip3.TabIndex = 6;
             this.toolStrip3.Text = "toolStrip3";
             // 
@@ -418,18 +440,17 @@
             // 
             // selectDirectoryPanel
             // 
-            this.selectDirectoryPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectDirectoryPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.selectDirectoryPanel.BackColor = System.Drawing.Color.PaleTurquoise;
             this.selectDirectoryPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.selectDirectoryPanel.Controls.Add(this.label1);
             this.selectDirectoryPanel.Controls.Add(this.tableLayoutPanel1);
             this.selectDirectoryPanel.ForeColor = System.Drawing.Color.Black;
-            this.selectDirectoryPanel.Location = new System.Drawing.Point(40, 142);
+            this.selectDirectoryPanel.Location = new System.Drawing.Point(11, 123);
+            this.selectDirectoryPanel.MaximumSize = new System.Drawing.Size(210, 220);
             this.selectDirectoryPanel.MinimumSize = new System.Drawing.Size(180, 200);
             this.selectDirectoryPanel.Name = "selectDirectoryPanel";
-            this.selectDirectoryPanel.Size = new System.Drawing.Size(218, 200);
+            this.selectDirectoryPanel.Size = new System.Drawing.Size(190, 200);
             this.selectDirectoryPanel.TabIndex = 4;
             // 
             // label1
@@ -438,7 +459,7 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(216, 158);
+            this.label1.Size = new System.Drawing.Size(188, 158);
             this.label1.TabIndex = 0;
             this.label1.Text = "Click [Browse] to select a directory for code files. \r\nClick [Cancel] to store co" +
     "des in default directory.\r\n\r\nNote : This will automatically <FORMAT> the selecte" +
@@ -459,7 +480,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(216, 40);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(188, 40);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // browseFolderButton
@@ -468,7 +489,7 @@
             this.browseFolderButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.browseFolderButton.Location = new System.Drawing.Point(4, 5);
             this.browseFolderButton.Name = "browseFolderButton";
-            this.browseFolderButton.Size = new System.Drawing.Size(100, 30);
+            this.browseFolderButton.Size = new System.Drawing.Size(86, 30);
             this.browseFolderButton.TabIndex = 1;
             this.browseFolderButton.Text = "Browse";
             this.browseFolderButton.UseVisualStyleBackColor = true;
@@ -478,9 +499,9 @@
             // 
             this.cancelBrowseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelBrowseButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelBrowseButton.Location = new System.Drawing.Point(111, 5);
+            this.cancelBrowseButton.Location = new System.Drawing.Point(97, 5);
             this.cancelBrowseButton.Name = "cancelBrowseButton";
-            this.cancelBrowseButton.Size = new System.Drawing.Size(101, 30);
+            this.cancelBrowseButton.Size = new System.Drawing.Size(87, 30);
             this.cancelBrowseButton.TabIndex = 2;
             this.cancelBrowseButton.Text = "Cancel";
             this.cancelBrowseButton.UseVisualStyleBackColor = true;
@@ -503,7 +524,7 @@
             this.Controls.Add(this.selectDirectoryPanel);
             this.Controls.Add(this.problemListContainer);
             this.Name = "CodesBrowser";
-            this.Size = new System.Drawing.Size(304, 419);
+            this.Size = new System.Drawing.Size(215, 419);
             this.problemListContainer.ResumeLayout(false);
             this.problemListContainer.PerformLayout();
             this.plistPanel.ResumeLayout(false);
@@ -561,5 +582,7 @@
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ToolStripMenuItem correctOutputFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem codeFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

@@ -21,38 +21,47 @@ namespace UVA_Arena.Elements
             imageList1.Images.Add("volume", Properties.Resources.volumes);
             imageList1.Images.Add("problem", Properties.Resources.problem);
             imageList1.Images.Add("folder", Properties.Resources.folder);
-            imageList1.Images.Add("file", Properties.Resources.file);    
+            imageList1.Images.Add("file", Properties.Resources.file);
             imageList1.Images.Add(".c", Properties.Resources.ansi_c);
             imageList1.Images.Add(".cpp", Properties.Resources.cpp);
             imageList1.Images.Add(".java", Properties.Resources.java);
             imageList1.Images.Add(".pascal", Properties.Resources.pascal);
             imageList1.Images.Add("correct.txt", Properties.Resources.correct);
             imageList1.Images.Add("input.txt", Properties.Resources.input);
-            imageList1.Images.Add("output.txt", Properties.Resources.output);        
+            imageList1.Images.Add("output.txt", Properties.Resources.output);
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            string path = RegistryAccess.CodesPath;
-            if (Directory.Exists(path))
+            LoadCodeFolder(true);
+        }
+
+        public void CheckCodesPath()
+        {
+            if (!Directory.Exists(RegistryAccess.CodesPath))
             {
-                fileSystemWatcher1.Path = path;
-                fileSystemWatcher1.EnableRaisingEvents = true;
-                try { LoadCodeFolder(true); }
-                catch (Exception ex) { Logger.Add(ex.Message, "Codes"); }
+                folderTreeView.Nodes.Clear();
+                fileSystemWatcher1.EnableRaisingEvents = false;
+                selectDirectoryPanel.Visible = true;
             }
-
-
         }
 
         #endregion
 
-        #region Code Path Selector
+        #region Load Folder Tree
 
+        public bool IsReady = true;
+         
+        /// <summary>
+        /// Formats the code directory with default files and folders
+        /// </summary>
+        /// <param name="background">True to run this process on background</param>
         public void FormatCodeDirectory(object background)
         {
+            if (!IsReady) return;
+
             //gather all files
             string path = RegistryAccess.CodesPath;
             if (!Directory.Exists(path)) return;
@@ -63,10 +72,18 @@ namespace UVA_Arena.Elements
                 return;
             }
 
+            IsReady = false;
+
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                selectDirectoryPanel.Visible = false;
+                folderTreeView.UseWaitCursor = true;
+            });
+
             //create codes-path and check them
             if (!LocalDatabase.IsReady)
             {
-                Logger.Add("Problem Database is not ready yet.", "Codes : FormatCodeDirectory()");
+                Logger.Add("Problem Database is not ready.", "Codes | FormatCodeDirectory()");
                 return;
             }
 
@@ -81,7 +98,184 @@ namespace UVA_Arena.Elements
             LocalDirectory.GetPrecode(Structures.Language.CPP);
             LocalDirectory.GetPrecode(Structures.Language.Java);
             LocalDirectory.GetPrecode(Structures.Language.Pascal);
+
+            IsReady = true;
+            LoadCodeFolder(false);
         }
+
+        /// <summary>
+        /// Create a list of tree nodes to display in the folderTreeView  
+        /// It recursive track all files and folders stored in CodesPath
+        /// </summary>
+        /// <param name="background">True to run the loading process as a separate thread</param>
+        public void LoadCodeFolder(object background)
+        {
+            if (!IsReady) return;
+
+            //get code path
+            string path = RegistryAccess.CodesPath;
+            if (path == null || !Directory.Exists(path)) return;
+
+            if ((bool)background)
+            {
+                System.Threading.ThreadPool.QueueUserWorkItem(LoadCodeFolder, false);
+                return;
+            }
+
+            //fist turn off some values
+            IsReady = false;
+            try
+            {
+                this.BeginInvoke((MethodInvoker)delegate
+                {
+                    selectDirectoryPanel.Visible = false;
+                    folderTreeView.UseWaitCursor = true;
+                });
+
+                //list of new tree nodes
+                List<TreeNode> parent = new List<TreeNode>();
+
+                //top level folders
+                foreach (string folder in Directory.GetDirectories(path))
+                {
+                    DirectoryInfo difo = new DirectoryInfo(folder);
+                    //if (difo.Name.StartsWith(".")) continue;
+                    TreeNode nod = AddTreeNode(difo);
+                    if (nod != null)
+                    {
+                        AddChildNodes(nod);
+                        parent.Add(nod);
+                    }
+                }
+
+                //top level files
+                foreach (string file in Directory.GetFiles(path))
+                {
+                    FileInfo fifo = new FileInfo(file);
+                    //if (fifo.Name.StartsWith(".")) continue;
+                    TreeNode nod = AddTreeNode(fifo);
+                    if (nod != null) parent.Add(nod);
+                }
+
+                //add codes
+                if (this.IsDisposed || folderTreeView.IsDisposed) return;
+                this.BeginInvoke((MethodInvoker)delegate
+                {
+                    FileSystemInfo last = null;
+                    if (folderTreeView.SelectedNode != null)
+                    {
+                        last = (FileSystemInfo)folderTreeView.SelectedNode.Tag;
+                    }
+
+                    folderTreeView.BeginUpdate();
+                    folderTreeView.Sort();
+                    folderTreeView.Nodes.Clear();
+                    folderTreeView.Nodes.AddRange(parent.ToArray());
+                    folderTreeView.EndUpdate();
+
+                    folderTreeView.UseWaitCursor = false;
+
+                    fileSystemWatcher1.Path = path;
+                    fileSystemWatcher1.EnableRaisingEvents = true;
+
+                    if (last != null) //restore last selection
+                    {
+                        ExpandAndSelect(GetNode(last));
+                    }
+                    else if (parent.Count > 0)
+                    {
+                        folderTreeView.Nodes[0].Expand();
+                        folderTreeView.Nodes[0].Collapse();
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.Add(ex.Message, "Codes | LoadCodeFolder");
+            }
+            finally
+            {
+                IsReady = true;
+            }
+        }
+
+        /// <summary>
+        /// Recursively add child-nodes ignoring files and folders
+        /// </summary>
+        /// <param name="parent">Parent tree-node to add children</param>
+        public void AddChildNodes(TreeNode parent)
+        {
+            parent.Nodes.Clear();
+            DirectoryInfo dir = (DirectoryInfo)parent.Tag;
+            foreach (DirectoryInfo d in dir.GetDirectories())
+            {
+                //if (d.Name.StartsWith(".")) continue;
+                TreeNode child = AddTreeNode(d, parent);
+                if (child != null) AddChildNodes(child);
+            }
+            foreach (FileInfo f in dir.GetFiles())
+            {
+                //if (f.Name.StartsWith(".")) continue;
+                AddTreeNode(f, parent);
+            }
+        }
+
+        /// <summary>
+        /// Create and add a new tree node 
+        /// (If parent any parent node is given, add tree node to the parent)
+        /// </summary>
+        /// <param name="info">FileInfo for file and DirectoryInfo for folder to create tree node upon</param>
+        /// <param name="parent">Parent to add the TreeNode. If it is NULL</param>
+        /// <returns>A reference to the created TreeNode.</returns>
+        private TreeNode AddTreeNode(FileSystemInfo info, TreeNode parent = null)
+        {
+            try
+            {
+                if (info == null) return null;
+                TreeNode tn = new TreeNode();
+                tn.Name = info.Name;
+                tn.Text = info.Name;
+                tn.Tag = info;
+                tn.ImageKey = GetKey(info);
+                tn.SelectedImageKey = tn.ImageKey;
+                if (parent != null) parent.Nodes.Add(tn);
+                return tn;
+            }
+            catch { return null; }
+        }
+
+        /// <summary>
+        /// Get image key for given folder of file
+        /// </summary>
+        /// <param name="info">FileInfo for a file or DirectoryInfo for directory</param>
+        /// <returns>Image keys from imagelist1</returns>
+        private string GetKey(FileSystemInfo info)
+        {
+            string key = info.Name.ToLower();
+            try { if (imageList1.Images.ContainsKey(key)) return key; }
+            catch { }
+
+            key = info.Extension.ToLower();
+            try { if (imageList1.Images.ContainsKey(key)) return key; }
+            catch { }
+
+            if (info.GetType() == typeof(FileInfo)) return "file";
+
+            string name = info.FullName.Substring(RegistryAccess.CodesPath.Length + 1);
+            if (!name.StartsWith("Volume"))
+            {
+                if (name.Contains(Path.DirectorySeparatorChar.ToString())) return key = "folder";
+                return "root";
+            }
+
+            if (name.Contains(Path.DirectorySeparatorChar.ToString())) return "problem";
+            return "volume";
+        }
+
+        #endregion
+
+        #region Code Path Selector
+
 
         public void ChangeCodeDirectory()
         {
@@ -93,13 +287,15 @@ namespace UVA_Arena.Elements
                 try
                 {
                     FormatCodeDirectory(true);
-                    fileSystemWatcher1.Path = fbd.SelectedPath;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
+                    Logger.Add(ex.Message, "Codes|ChangeCodeDirectory()");
+
                     RegistryAccess.CodesPath = null;
                     selectDirectoryPanel.Visible = true;
+                    fileSystemWatcher1.Path = null;
                 }
             }
             fbd.Dispose();
@@ -114,24 +310,16 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                if (string.IsNullOrEmpty(RegistryAccess.CodesPath) || !Directory.Exists(RegistryAccess.CodesPath))
-                {
-                    RegistryAccess.CodesPath = LocalDirectory.DefaultCodesPath();
-                    IsReady = false;
-                    FormatCodeDirectory(false);
-                    IsReady = true;
-                    LoadCodeFolder(true);
-                }
-                LoadCodeFolder(true);
-                fileSystemWatcher1.Path = RegistryAccess.CodesPath;
+                RegistryAccess.CodesPath = LocalDirectory.DefaultCodesPath();
+                FormatCodeDirectory(true);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                RegistryAccess.CodesPath = null;
-                selectDirectoryPanel.Visible = true;
+                this.BeginInvoke((MethodInvoker)CheckCodesPath);
+                Logger.Add(ex.Message, "Codes|CancelBrowserButton()");
             }
         }
+
 
         #endregion
 
@@ -145,6 +333,18 @@ namespace UVA_Arena.Elements
                 Interactivity.codes.OpenFile((FileInfo)folderTreeView.SelectedNode.Tag);
             }
             else Interactivity.codes.OpenFile(null);
+        }
+
+        private void folderTreeView_Enter(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(RegistryAccess.CodesPath))
+            {
+                CheckCodesPath(); 
+            }
+            else if (folderTreeView.Nodes.Count == 0)
+            {
+                FormatCodeDirectory(true);
+            }
         }
 
         private void folderTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -161,8 +361,18 @@ namespace UVA_Arena.Elements
             try
             {
                 TreeNode tn = folderTreeView.SelectedNode;
-                if (tn != null && tn.Tag.GetType() == typeof(FileInfo))
-                    System.Diagnostics.Process.Start(((FileInfo)tn.Tag).FullName);
+                if (tn == null) return;
+
+                FileSystemInfo fsi = (FileSystemInfo)tn.Tag;
+                if (fsi.GetType() == typeof(FileInfo))
+                {
+                    System.Diagnostics.Process.Start(fsi.FullName);
+                }
+                else if (tn.Nodes.Count == 0 && tn.ImageKey == "problem")
+                {
+                    long number = LocalDatabase.GetProblemNumber(fsi.Name);
+                    AddProblem(number);
+                }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -225,161 +435,6 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Load Folder Tree
-
-        public bool IsReady = true;
-
-        /// <summary>
-        /// Create a list of tree nodes to display in the folderTreeView  
-        /// It recursive track all files and folders stored in CodesPath
-        /// </summary>
-        /// <param name="background">True to run the loading process as a separate thread</param>
-        public void LoadCodeFolder(object background)
-        {
-            if (!IsReady) return;
-
-            //get code path
-            string path = RegistryAccess.CodesPath;
-            if (path == null || !Directory.Exists(path)) return;
-
-            if ((bool)background)
-            {
-                System.Threading.ThreadPool.QueueUserWorkItem(LoadCodeFolder, false);
-                return;
-            }
-
-            //fist turn off some values
-            IsReady = false;
-
-            this.BeginInvoke((MethodInvoker)delegate
-            {
-                selectDirectoryPanel.Visible = false;
-                folderTreeView.UseWaitCursor = true;
-            });
-
-            //list of new tree nodes
-            List<TreeNode> parent = new List<TreeNode>();
-
-            //top level folders
-            foreach (string folder in Directory.GetDirectories(path))
-            {
-                DirectoryInfo difo = new DirectoryInfo(folder);
-                //if (difo.Name.StartsWith(".")) continue;
-                TreeNode nod = AddTreeNode(difo);
-                AddChildNodes(nod);
-                parent.Add(nod);
-            }
-
-            //top level files
-            foreach (string file in Directory.GetFiles(path))
-            {
-                FileInfo fifo = new FileInfo(file);
-                //if (fifo.Name.StartsWith(".")) continue;
-                parent.Add(AddTreeNode(fifo));
-            }
-
-            //add codes
-            if (this.IsDisposed || folderTreeView.IsDisposed) return;
-            this.BeginInvoke((MethodInvoker)delegate
-            {
-                FileSystemInfo last = null;
-                if (folderTreeView.SelectedNode != null)
-                {
-                    last = (FileSystemInfo)folderTreeView.SelectedNode.Tag;
-                }
-
-                folderTreeView.BeginUpdate();
-                folderTreeView.Sort();
-                folderTreeView.Nodes.Clear();
-                folderTreeView.Nodes.AddRange(parent.ToArray());
-                folderTreeView.EndUpdate();
-
-                folderTreeView.UseWaitCursor = false;
-
-                if (last != null) //restore last selection
-                {
-                    ExpandAndSelect(GetNode(last));
-                }
-                else if (parent.Count > 0)
-                {
-                    folderTreeView.Nodes[0].Expand();
-                    folderTreeView.Nodes[0].Collapse();
-                }
-            });
-
-            IsReady = true;
-        }
-
-        /// <summary>
-        /// Recursively add child-nodes ignoring files and folders
-        /// </summary>
-        /// <param name="parent">Parent tree-node to add children</param>
-        public void AddChildNodes(TreeNode parent)
-        {
-            parent.Nodes.Clear();
-            DirectoryInfo dir = (DirectoryInfo)parent.Tag;
-            foreach (DirectoryInfo d in dir.GetDirectories())
-            {
-                //if (d.Name.StartsWith(".")) continue;
-                TreeNode child = AddTreeNode(d, parent);
-                AddChildNodes(child);
-            }
-            foreach (FileInfo f in dir.GetFiles())
-            {
-                //if (f.Name.StartsWith(".")) continue;
-                AddTreeNode(f, parent);
-            }
-        }
-
-        /// <summary>
-        /// Create and add a new tree node 
-        /// (If parent any parent node is given, add tree node to the parent)
-        /// </summary>
-        /// <param name="info">FileInfo for file and DirectoryInfo for folder to create tree node upon</param>
-        /// <param name="parent">Parent to add the TreeNode. If it is NULL</param>
-        /// <returns>A reference to the created TreeNode.</returns>
-        private TreeNode AddTreeNode(FileSystemInfo info, TreeNode parent = null)
-        {
-            if (info == null) return null;
-            TreeNode tn = new TreeNode();
-            tn.Name = info.Name;
-            tn.Text = info.Name;
-            tn.Tag = info;
-            tn.ImageKey = GetKey(info);
-            tn.SelectedImageKey = tn.ImageKey;
-            if (parent != null) parent.Nodes.Add(tn);
-            return tn;
-        }
-
-        /// <summary>
-        /// Get image key for given folder of file
-        /// </summary>
-        /// <param name="info">FileInfo for a file or DirectoryInfo for directory</param>
-        /// <returns>Image keys from imagelist1</returns>
-        private string GetKey(FileSystemInfo info)
-        {
-            string key = info.Name.ToLower();
-            try { if (imageList1.Images.ContainsKey(key)) return key; }
-            catch { }
-
-            key = info.Extension.ToLower();
-            try { if (imageList1.Images.ContainsKey(key)) return key; }
-            catch { }
-
-            if (info.GetType() == typeof(FileInfo)) return "file";
-
-            string name = info.FullName.Substring(RegistryAccess.CodesPath.Length + 1);
-            if (!name.StartsWith("Volume"))
-            {
-                if (name.Contains(Path.DirectorySeparatorChar.ToString())) return key = "folder";
-                return "root";
-            }
-
-            if (name.Contains(Path.DirectorySeparatorChar.ToString())) return "problem";
-            return "volume";
-        }
-
-        #endregion
 
         #region Useful functions
 
@@ -409,24 +464,15 @@ namespace UVA_Arena.Elements
             string path = LocalDirectory.GetCodesPath((long)pnum);
             if (!Directory.Exists(path) || Directory.GetFiles(path).Length == 0)
             {
-                this.BeginInvoke((MethodInvoker)delegate
-                {
-                    CodeFileCreator cfc = new CodeFileCreator();
-                    if (cfc.ShowDialog() == DialogResult.OK)
-                    {
-                        AddProblem((long)pnum, cfc.Language);
-                        return;
-                    }
-                    cfc.Dispose();
-                });
+                this.BeginInvoke((MethodInvoker)(() => AddProblem((long)pnum)));
+                return;
             }
 
             this.BeginInvoke((MethodInvoker)delegate
             {
                 //select code file path
                 TreeNode tn = GetNode(new DirectoryInfo(path));
-                Interactivity.codesBrowser.ExpandAndSelect(tn,
-                    CodesBrowser.ExpandSelectType.SelecFirstChild);
+                CodesBrowser.ExpandAndSelect(tn, CodesBrowser.ExpandSelectType.SelecFirstChild);
             });
         }
 
@@ -451,7 +497,7 @@ namespace UVA_Arena.Elements
             catch { return null; }
         }
 
-        public void ExpandAndSelect(TreeNode node, ExpandSelectType type = ExpandSelectType.ExpandToNode)
+        public static void ExpandAndSelect(TreeNode node, ExpandSelectType type = ExpandSelectType.ExpandToNode)
         {
             if (node == null) return;
 
@@ -525,11 +571,17 @@ namespace UVA_Arena.Elements
             return GetNode(new DirectoryInfo(path));
         }
 
-        public void AddProblem(long pnum, Structures.Language lang = Structures.Language.CPP)
+        public void AddProblem(long pnum)
         {
             //get code path
             string path = LocalDirectory.GetCodesPath(pnum);
             if (string.IsNullOrEmpty(path)) return;
+
+            //get language
+            CodeFileCreator cfc = new CodeFileCreator();
+            if (cfc.ShowDialog() != DialogResult.OK) return;
+            Structures.Language lang = cfc.Language;
+            cfc.Dispose();
 
             //get file extension
             string ext = ".cpp";
@@ -663,6 +715,7 @@ namespace UVA_Arena.Elements
                 {
                     folderTreeView.Nodes.Clear();
                     selectDirectoryPanel.Visible = true;
+                    fileSystemWatcher1.EnableRaisingEvents = false;
                     return;
                 }
                 else
@@ -840,48 +893,43 @@ namespace UVA_Arena.Elements
             CreateFile(path, "New Text File", ".txt");
         }
 
+        private void codeFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = GetSelectedPath();
+            if (path == null) return;
+            long pnum = LocalDatabase.GetProblemNumber(Path.GetFileName(path));
+            if (LocalDatabase.HasProblem(pnum))
+            {
+                AddProblem(pnum);
+            }
+        }
+
         private void cFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string path = GetSelectedPath();
             if (path == null) return;
-            long pnum = Interactivity.codes.SelectedPNUM;
-            if (LocalDatabase.HasProblem(pnum))
-                AddProblem(pnum, Structures.Language.C);
-            else
-                CreateFile(path, "New Program", ".c");
+            CreateFile(path, "New Program", ".c");
         }
 
         private void cPPFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string path = GetSelectedPath();
             if (path == null) return;
-            long pnum = Interactivity.codes.SelectedPNUM;
-            if (LocalDatabase.HasProblem(pnum))
-                AddProblem(pnum, Structures.Language.CPP);
-            else
-                CreateFile(path, "New Program", ".cpp");
+            CreateFile(path, "New Program", ".cpp");
         }
 
         private void javaFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Interactivity.codes.CurrentFile == null) return;
             string path = Interactivity.codes.CurrentFile.DirectoryName;
-            long pnum = Interactivity.codes.SelectedPNUM;
-            if (LocalDatabase.HasProblem(pnum))
-                AddProblem(pnum, Structures.Language.Java);
-            else
-                CreateFile(path, "New Program", ".java");
+            CreateFile(path, "New Program", ".java");
         }
 
         private void pascalFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Interactivity.codes.CurrentFile == null) return;
             string path = Interactivity.codes.CurrentFile.DirectoryName;
-            long pnum = Interactivity.codes.SelectedPNUM;
-            if (LocalDatabase.HasProblem(pnum))
-                AddProblem(pnum, Structures.Language.Pascal);
-            else
-                CreateFile(path, "New Program", ".pascal");
+            CreateFile(path, "New Program", ".pascal");
         }
 
         private void inputFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -924,8 +972,8 @@ namespace UVA_Arena.Elements
             try
             {
                 TreeNode tn = folderTreeView.SelectedNode;
-                if (tn == null) return;
-                string path = ((FileSystemInfo)tn.Tag).FullName;
+                string path = RegistryAccess.CodesPath;
+                if (tn != null) path = ((FileSystemInfo)tn.Tag).FullName;
                 System.Diagnostics.Process.Start(path);
             }
             catch (Exception ex)
@@ -934,9 +982,21 @@ namespace UVA_Arena.Elements
             }
         }
 
+
         private void refreshTool_Click(object sender, EventArgs e)
         {
-            LoadCodeFolder(true);
+            if (!Directory.Exists(RegistryAccess.CodesPath))
+            {
+                CheckCodesPath();
+            }
+            else if (folderTreeView.Nodes.Count == 0)
+            {
+                FormatCodeDirectory(true);
+            }
+            else
+            {
+                LoadCodeFolder(true);
+            }
         }
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)

@@ -284,5 +284,77 @@ namespace UVA_Arena.Properties {
                 this["CodesSplitterRatio"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LoggerIsTopMost {
+            get {
+                return ((bool)(this["LoggerIsTopMost"]));
+            }
+            set {
+                this["LoggerIsTopMost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoUpdateUserStat {
+            get {
+                return ((bool)(this["AutoUpdateUserStat"]));
+            }
+            set {
+                this["AutoUpdateUserStat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoUpdateJudgeStatus {
+            get {
+                return ((bool)(this["AutoUpdateJudgeStatus"]));
+            }
+            set {
+                this["AutoUpdateJudgeStatus"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public int UserStatUpdateInterval {
+            get {
+                return ((int)(this["UserStatUpdateInterval"]));
+            }
+            set {
+                this["UserStatUpdateInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
+        public int JudgeStatUpdateInterval {
+            get {
+                return ((int)(this["JudgeStatUpdateInterval"]));
+            }
+            set {
+                this["JudgeStatUpdateInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int UserStatViewOption {
+            get {
+                return ((int)(this["UserStatViewOption"]));
+            }
+            set {
+                this["UserStatViewOption"] = value;
+            }
+        }
     }
 }

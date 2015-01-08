@@ -94,9 +94,14 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.Status1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.Progress1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.helpButton = new System.Windows.Forms.Button();
+            this.loggerButton = new System.Windows.Forms.Button();
+            this.settingsButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.customTabControl1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabImageList
@@ -623,12 +628,82 @@
             this.Progress1.Name = "Progress1";
             this.Progress1.Size = new System.Drawing.Size(120, 20);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Controls.Add(this.settingsButton, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.loggerButton, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.helpButton, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(742, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(100, 24);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // helpButton
+            // 
+            this.helpButton.BackColor = System.Drawing.Color.Transparent;
+            this.helpButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.helpButton.FlatAppearance.BorderSize = 0;
+            this.helpButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightBlue;
+            this.helpButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleTurquoise;
+            this.helpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.helpButton.Image = global::UVA_Arena.Properties.Resources.help;
+            this.helpButton.Location = new System.Drawing.Point(2, 2);
+            this.helpButton.Margin = new System.Windows.Forms.Padding(2);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(29, 20);
+            this.helpButton.TabIndex = 0;
+            this.helpButton.UseVisualStyleBackColor = false;
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
+            // 
+            // loggerButton
+            // 
+            this.loggerButton.BackColor = System.Drawing.Color.Transparent;
+            this.loggerButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loggerButton.FlatAppearance.BorderSize = 0;
+            this.loggerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightBlue;
+            this.loggerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleTurquoise;
+            this.loggerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.loggerButton.Image = global::UVA_Arena.Properties.Resources.log;
+            this.loggerButton.Location = new System.Drawing.Point(35, 2);
+            this.loggerButton.Margin = new System.Windows.Forms.Padding(2);
+            this.loggerButton.Name = "loggerButton";
+            this.loggerButton.Size = new System.Drawing.Size(29, 20);
+            this.loggerButton.TabIndex = 1;
+            this.loggerButton.UseVisualStyleBackColor = false;
+            this.loggerButton.Click += new System.EventHandler(this.loggerButton_Click);
+            // 
+            // settingsButton
+            // 
+            this.settingsButton.BackColor = System.Drawing.Color.Transparent;
+            this.settingsButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsButton.FlatAppearance.BorderSize = 0;
+            this.settingsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightBlue;
+            this.settingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleTurquoise;
+            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsButton.Image = global::UVA_Arena.Properties.Resources.tools;
+            this.settingsButton.Location = new System.Drawing.Point(68, 2);
+            this.settingsButton.Margin = new System.Windows.Forms.Padding(2);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(30, 20);
+            this.settingsButton.TabIndex = 2;
+            this.settingsButton.UseVisualStyleBackColor = false;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(844, 442);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.customTabControl1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
@@ -646,6 +721,7 @@
             this.customTabControl1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -717,6 +793,10 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         public System.Windows.Forms.ToolStripStatusLabel Status1;
         public System.Windows.Forms.ToolStripProgressBar Progress1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button helpButton;
+        private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.Button loggerButton;
           
     }
 }

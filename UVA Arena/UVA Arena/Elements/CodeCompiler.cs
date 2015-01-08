@@ -16,6 +16,7 @@ namespace UVA_Arena.Elements
     public static class CodeCompiler
     {
         public static bool IsRunning = false;
+        public static bool cancelationPending = false;
         public static FileInfo CurrentProblem = null;
         public static long SelectedPNUM = -1;
         public static double RunTimeLimit = 3000;
@@ -29,6 +30,7 @@ namespace UVA_Arena.Elements
 
         public static void ReportCompileStatus(string status, Style style = null)
         {
+            if (Interactivity.codes == null || Interactivity.codes.IsDisposed) return;
             Interactivity.codes.compilerOutput.BeginInvoke((MethodInvoker)delegate
             {
                 //add message to compiler output
@@ -45,6 +47,8 @@ namespace UVA_Arena.Elements
             if (IsRunning) return false;
 
             IsRunning = true;
+            cancelationPending = false;
+
             CurrentProblem = currentProblem;
             SelectedPNUM = pnum;
             RunTimeLimit = timelimit;
@@ -78,7 +82,9 @@ namespace UVA_Arena.Elements
 
         public static void ForceStopTask()
         {
-            IsRunning = false;
+            cancelationPending = true;
+            while (IsRunning) 
+                System.Threading.Thread.Sleep(50);
         }
 
         private static void StartBuildTask()
@@ -222,30 +228,29 @@ namespace UVA_Arena.Elements
             if (runtest && SelectedPNUM == -1) return false;
 
             //get exe file name
-            string filename = Path.GetFileNameWithoutExtension(CurrentProblem.Name);
-            string exec = Path.Combine(CurrentProblem.DirectoryName, filename + ".exe");
-
-            //get argument parameters
-            int runtime = (int)(RunTimeLimit * 1000);
-            string input = Path.Combine(CurrentProblem.DirectoryName, "input.txt");
-            string output = Path.Combine(CurrentProblem.DirectoryName, "output.txt");
-
-            ReportCompileStatus("Input file  : " + input + "\n", HighlightSyntax.GreenLineStyle);
-            ReportCompileStatus("Output file : " + output + "\n\n", HighlightSyntax.RedLineStyle);
+            string filename = Path.GetFileNameWithoutExtension(CurrentProblem.Name) + ".exe";
+            string exec = Path.Combine(CurrentProblem.DirectoryName, filename);
 
             if (runtest)
             {
+                //get argument parameters
+                int runtime = (int)(RunTimeLimit * 1000);
+                string input = Path.Combine(CurrentProblem.DirectoryName, "input.txt");
+                string output = Path.Combine(CurrentProblem.DirectoryName, "output.txt");
+                ReportCompileStatus("Input file  : " + input + "\n", HighlightSyntax.GreenLineStyle);
+                ReportCompileStatus("Output file : " + output + "\n\n", HighlightSyntax.RedLineStyle);
+
                 //run process with predefined input
                 string format = "\"{0}\" < \"{1}\" > \"{2}\"";
                 string arguments = string.Format(format, exec, input, output);
-                return ExecuteProcess(arguments, runtime, Path.GetFileName(exec));
+                return ExecuteProcess(arguments, runtime, filename);
             }
             else
             {
                 //run process from a batch file
                 string arguments = "\"" + exec + "\"";
-                string title = Path.GetFileNameWithoutExtension(exec);
-                return RunInBatch(arguments, title);
+                
+                return RunInBatch(arguments, filename);
             }
         }
 
@@ -271,9 +276,6 @@ namespace UVA_Arena.Elements
             string input = Path.Combine(CurrentProblem.DirectoryName, "input.txt");
             string output = Path.Combine(CurrentProblem.DirectoryName, "output.txt");
 
-            ReportCompileStatus("Input file  : " + input + "\n", HighlightSyntax.GreenLineStyle);
-            ReportCompileStatus("Output file : " + output + "\n\n", HighlightSyntax.RedLineStyle);
-
             //format of the arguments 
             string format = "\"{0}\" -classpath \"{1}\" Main < \"{2}\" > \"{3}\" ";
             if (!runtest) format = "\"{0}\" -classpath \"{1}\" Main";
@@ -281,13 +283,15 @@ namespace UVA_Arena.Elements
 
             if (runtest)
             {
+                ReportCompileStatus("Input file  : " + input + "\n", HighlightSyntax.GreenLineStyle);
+                ReportCompileStatus("Output file : " + output + "\n\n", HighlightSyntax.RedLineStyle);
+
                 //run process with predefined input-output
                 return ExecuteProcess(arguments, runtime, Path.GetFileName(exec));
             }
             {
                 //run from a batch file
-                string title = Path.GetFileNameWithoutExtension(CurrentProblem.Name);
-                return RunInBatch(arguments, title);
+                return RunInBatch(arguments, Path.GetFileName(exec));
             }
         }
 
@@ -332,10 +336,10 @@ namespace UVA_Arena.Elements
             proc.BeginOutputReadLine();
 
             double timepass = 0;
-            while (IsRunning && !proc.HasExited)
+            while (!proc.HasExited && !cancelationPending)
             {
                 proc.WaitForExit(10);
-                timepass = DateTime.Now.Subtract(proc.StartTime).TotalMilliseconds;                
+                timepass = DateTime.Now.Subtract(proc.StartTime).TotalMilliseconds;
                 if (timelim >= 0 && timepass > timelim) break;
             }
 
@@ -343,10 +347,14 @@ namespace UVA_Arena.Elements
             bool tle = !proc.HasExited; //check if time limit has exceeded
             if (tle) ForceKill(procname); //force kill tle tasks by process-name
 
-            string runtime = string.Format("Runtime = {0:0.000} sec.", timepass / 1000);
+            proc.WaitForExit();
+
+            string runtime = string.Format("Runtime = {0:0.000} sec.", 
+                (proc.ExitTime - proc.StartTime).TotalSeconds);
+
             string verdict = "Successful";
             if (tle) verdict = "Time Limit Exceeded";
-            if (!IsRunning) verdict = "Stopped";
+            if (cancelationPending) verdict = "Canceled";
 
             int exitcode = tle ? -1 : proc.ExitCode;
             string msg = string.Format("Exit Code = {0} ({1}).\n", exitcode, verdict);
@@ -410,13 +418,17 @@ namespace UVA_Arena.Elements
 
             //start batch file
             Process p = System.Diagnostics.Process.Start(bat);
-            while (IsRunning && !p.HasExited)
+            while (!p.HasExited && !cancelationPending)
             {
                 p.WaitForExit(50);
             }
 
-            p.Kill();
-            p.WaitForExit();
+            ForceKill(title);
+            if (!p.HasExited)
+            {
+                p.Kill();
+                p.WaitForExit();
+            }
 
             //delete batch file
             File.Delete(bat);

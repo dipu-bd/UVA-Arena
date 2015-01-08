@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using TheCodeKing.ActiveButtons.Controls;
-using UVA_Arena.Properties;
 
 namespace UVA_Arena
 {
     public partial class MainForm : Form, IMessageFilter
     {
-        private ActiveButton log = new ActiveButton();
-        private ActiveButton settings = new ActiveButton();
-        private ActiveButton help = new ActiveButton();
+        //private ActiveButton log = new ActiveButton();
+        //private ActiveButton settings = new ActiveButton();
+        //private ActiveButton help = new ActiveButton();
 
         public MainForm()
         {
@@ -20,7 +18,7 @@ namespace UVA_Arena
             Application.AddMessageFilter(this);
 
             //make background transparent
-            // bool set = NativeMethods.ExtendWindowsFrame(this, 3, 2, 58, 2);   //true if works
+            //bool set = NativeMethods.ExtendWindowsFrame(this, 3, 2, 58, 2);   //true if works
 
             //load images
             tabImageList.Images.Add("code", Properties.Resources.code);
@@ -38,6 +36,8 @@ namespace UVA_Arena
             //set styles
             customTabControl1.BackColor = Color.PaleTurquoise;
             Stylish.SetGradientBackground(menuStrip1,
+                new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
+            Stylish.SetGradientBackground(tableLayoutPanel1,
                 new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
 
             //start status cleaner
@@ -73,7 +73,6 @@ namespace UVA_Arena
             TaskQueue.AddTask(ClearStatus, Status1.Text, 3000);
         }
 
-
         #region mouse wheel without focus
 
         public bool PreFilterMessage(ref Message m)
@@ -93,7 +92,7 @@ namespace UVA_Arena
             return false;
         }
 
-        #endregion
+        #endregion mouse wheel without focus
 
         #region Delay Initializers
 
@@ -106,9 +105,9 @@ namespace UVA_Arena
             }
             else
             {
-                string msg = "Looks like you didn't set a default username." + Environment.NewLine;
-                msg += "It is extremely important to set a default username to enable many features." + Environment.NewLine;
-                msg += "Press OK to set it now. Or, you can set it later from the menubar options.";
+                string msg = "Looks like you didn't set a default user-name." + Environment.NewLine;
+                msg += "It is extremely important to set a default user-name to enable many features." + Environment.NewLine;
+                msg += "Press OK to set it now. Or, you can set it later from the menu bar options.";
                 if (MessageBox.Show(msg, Application.ProductName, MessageBoxButtons.OKCancel)
                     == System.Windows.Forms.DialogResult.OK)
                 {
@@ -138,7 +137,7 @@ namespace UVA_Arena
                 AddControls();
 
                 //add buttons to the top right beside control buttons
-                AddActiveButtons();
+                //AddActiveButtons();
 
                 _initialized = true;
                 this.Cursor = Cursors.Default;
@@ -175,6 +174,7 @@ namespace UVA_Arena
             UpdateCheck.CheckForUpdate();
         }
 
+        /*
         private void AddActiveButtons()
         {
             IActiveMenu menu = ActiveMenu.GetInstance(this);
@@ -201,40 +201,45 @@ namespace UVA_Arena
             menu.Items.Add(log);
             menu.Items.Add(help);
         }
+        */
 
         private void AddControls()
         {
+            customTabControl1.SuspendLayout();
+
             //load problems
             Interactivity.problems = new Elements.PROBLEMS();
             Interactivity.problems.Dock = DockStyle.Fill;
             problemTab.Controls.Add(Interactivity.problems);
 
-            //load codes 
+            //load codes
             Interactivity.codes = new Elements.CODES();
             Interactivity.codes.Dock = DockStyle.Fill;
             codesTab.Controls.Add(Interactivity.codes);
 
-            //load status 
+            //load status
             Interactivity.status = new Elements.STATUS();
             Interactivity.status.Dock = DockStyle.Fill;
             judgeStatusTab.Controls.Add(Interactivity.status);
 
-            //load user stat 
+            //load user stat
             Interactivity.userstat = new Elements.USER_STAT();
             Interactivity.userstat.Dock = DockStyle.Fill;
             profileTab.Controls.Add(Interactivity.userstat);
 
-            //load utilities 
+            //load utilities
             //Interactivity.utilities = new Elements.UTILITIES();
-            //Interactivity.utilities.Dock = DockStyle.Fill; 
-            //utilitiesTab.Controls.Add(Interactivity.utilities); 
+            //Interactivity.utilities.Dock = DockStyle.Fill;
+            //utilitiesTab.Controls.Add(Interactivity.utilities);
+
+            customTabControl1.ResumeLayout(false);
 
             //set up context menu
             statusToolStripMenuItem.DropDown = Interactivity.status.updateContextMenu;
             submissionsToolStripMenuItem.DropDown = Interactivity.userstat.MainContextMenu;
         }
 
-        #endregion
+        #endregion Delay Initializers
 
         #region Less significant functions
 
@@ -243,10 +248,30 @@ namespace UVA_Arena
             if (customTabControl1.SelectedTab == profileTab)
             {
                 Interactivity.userstat.LoadUsernames();
+            } 
+            else if(customTabControl1.SelectedTab == codesTab)
+            {
+                Interactivity.codesBrowser.CheckCodesPath();
             }
         }
 
+        private void helpButton_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowHelpAbout();
+        }
+
+        private void loggerButton_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowLogger();
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowSettings();
+        }
+
         #region File Menu
+
         private void setDefaultUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Interactivity.ShowUserNameForm();
@@ -283,9 +308,11 @@ namespace UVA_Arena
         {
             this.Close();
         }
-        #endregion
+
+        #endregion File Menu
 
         #region problems
+
         private void refreshDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LocalDatabase.LoadDatabase();
@@ -335,9 +362,10 @@ namespace UVA_Arena
             Interactivity.problemViewer.codeButton.PerformClick();
         }
 
-        #endregion
+        #endregion problems
 
         #region codes
+
         private void changeDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             customTabControl1.SelectedTab = codesTab;
@@ -376,9 +404,10 @@ namespace UVA_Arena
             Interactivity.codes.submitToolButton.PerformClick();
         }
 
-        #endregion
+        #endregion codes
 
         #region user status
+
         private void addUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Interactivity.userstat.usernameBox.Focus();
@@ -432,9 +461,10 @@ namespace UVA_Arena
             customTabControl1.SelectedTab = profileTab;
         }
 
-        #endregion
+        #endregion user status
 
-        #region  help menu
+        #region help menu
+
         private void onlineHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -471,9 +501,8 @@ namespace UVA_Arena
                 checkForUpdateToolStripMenuItem.Text = "Check for update";
         }
 
-        #endregion
+        #endregion help menu
 
-        #endregion
-
+        #endregion Less significant functions
     }
 }

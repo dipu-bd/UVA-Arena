@@ -21,7 +21,7 @@ namespace UVA_Arena
 
         private void InitOthers()
         {
-            TaskQueue.AddTask(RefreshList, 100);
+            TaskQueue.AddTask(RefreshList, 1000);
 
             nameINT.AspectGetter = delegate(object row)
             {
@@ -50,27 +50,24 @@ namespace UVA_Arena
         private void RefreshList()
         {
             if (this.Disposing || this.IsDisposed) return;
-            
+
             Status1.Text = "";
             if (tabControl1.SelectedIndex == 0 && Logger.LOG != null)
             {
                 activityList.SetObjects(Logger.LOG);
-                activityList.Sort(dateTime, SortOrder.Ascending);
                 source.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
                 status.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
-                if (activityList.SelectedIndex == 0) //goto end enabled                
-                    activityList.GetLastItemInDisplayOrder().EnsureVisible();                               
+
+                if (activityList.SelectedIndex == 0) //goto end enabled
+                    activityList.GetLastItemInDisplayOrder().EnsureVisible();
 
                 Status1.Text = "Log size : " + Logger.LOG.Count.ToString();
             }
 
             if (tabControl1.SelectedIndex == 1 && Downloader.DownloadQueue != null)
-            { 
+            {
                 downloadQueue1.SetObjects(Downloader.DownloadQueue);
-                
-                downloadQueue1.BuildGroups();
-                downloadQueue1.ShowGroups = true;
-                downloadQueue1.Sort(statINT);
+                downloadQueue1.BuildGroups(statINT, SortOrder.Ascending);
 
                 if (Downloader.IsBusy()) Status1.Text = "Downloading...";
                 else Status1.Text = "Stopped";
@@ -78,16 +75,17 @@ namespace UVA_Arena
 
             if (tabControl1.SelectedIndex == 2 && TaskQueue.queue != null)
             {
-                taskQueue1.SetObjects(TaskQueue.queue);
-                funcTask.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); 
+                taskQueue1.ClearObjects();
+                foreach (var t in TaskQueue.queue)
+                    if (t != null) taskQueue1.AddObject(t);
 
-                Status1.Text = "Interval = " + Functions.FormatRuntime(TaskQueue.timer1.Interval);
+                Status1.Text = "Clock interval = " + Functions.FormatRuntime(TaskQueue.timer1.Interval);
             }
 
-            TaskQueue.AddTask(new TaskQueue.Task(RefreshList, 100));
+            TaskQueue.AddTask(new TaskQueue.Task(RefreshList, 1000));
         }
 
-        #endregion
+        #endregion Loader Functions
 
         #region Activity Log
 
@@ -120,7 +118,7 @@ namespace UVA_Arena
             }
         }
 
-        #endregion
+        #endregion Activity Log
 
         #region Download Queue
 
@@ -142,7 +140,7 @@ namespace UVA_Arena
             {
                 e.SubItem.ForeColor = Color.Maroon;
             }
-        } 
+        }
 
         private void cancelTaskToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -161,7 +159,6 @@ namespace UVA_Arena
             Downloader.StartDownload();
         }
 
-        #endregion
-
+        #endregion Download Queue
     }
 }

@@ -22,7 +22,7 @@ namespace UVA_Arena
             dat += Environment.NewLine;
             System.IO.File.AppendAllText(LocalDirectory.GetLogFile(), dat);
 
-            //load usernames
+            //load user-names
             LocalDatabase.usernames = RegistryAccess.GetAllUsers();
             if (string.IsNullOrEmpty(RegistryAccess.DefaultUsername))
             {
@@ -33,13 +33,15 @@ namespace UVA_Arena
             //task queue
             TaskQueue.StartTimer();
 
-            //lauch application
+            //launch application
             Interactivity.mainForm = new MainForm();
             Application.Run(Interactivity.mainForm);
 
             //end of application works
             Interactivity.CloseAllOpenedForms();
             Properties.Settings.Default.Save();
+
+            UVA_Arena.Elements.CodeCompiler.ForceStopTask();
         }
     }
 }

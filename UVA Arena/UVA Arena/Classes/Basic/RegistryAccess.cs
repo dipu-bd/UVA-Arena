@@ -89,32 +89,8 @@ namespace UVA_Arena
         }
 
         //
-        // UserID
+        // UserIDs
         //
-
-        /// <summary>
-        /// Set the userid of a username
-        /// </summary>
-        /// <param name="name">Username</param>
-        /// <param name="uid">Userid</param>
-        public static void SetUserid(string name, string uid)
-        {
-            SetValue(name, uid, "UserID", RegistryValueKind.String);
-            if (!LocalDatabase.usernames.ContainsKey(name))
-                LocalDatabase.usernames.Add(name, uid);
-        }
-
-        /// <summary>
-        /// Delete a username from registry entry
-        /// </summary>
-        /// <param name="name">Username to delete</param>
-        public static void DeleteUserid(string name)
-        {
-            if (!LocalDatabase.usernames.ContainsKey(name)) return;
-            LocalDatabase.usernames.Remove(name);
-            RegistryKey key = DEFAULT.CreateSubKey("UserID");
-            key.DeleteValue(name, false);
-        }
 
         /// <summary> 
         /// Get a list of all stored usernames and userids 
@@ -129,6 +105,32 @@ namespace UVA_Arena
                 dic.Add(name, key.GetValue(name).ToString());
             }
             return dic;
+        }
+
+        /// <summary>
+        /// Set the userid of a username
+        /// </summary>
+        /// <param name="name">Username</param>
+        /// <param name="uid">Userid</param>
+        public static void SetUserid(string name, string uid)
+        {
+            SetValue(name, uid, "UserID", RegistryValueKind.String);
+            if (!LocalDatabase.usernames.ContainsKey(name))
+                LocalDatabase.usernames.Add(name, uid);
+            Interactivity.UserNameListChanged();
+        }
+
+        /// <summary>
+        /// Delete a username from registry entry
+        /// </summary>
+        /// <param name="name">Username to delete</param>
+        public static void DeleteUserid(string name)
+        {
+            if (!LocalDatabase.usernames.ContainsKey(name)) return;
+            LocalDatabase.usernames.Remove(name);
+            RegistryKey key = DEFAULT.CreateSubKey("UserID");
+            key.DeleteValue(name, false);
+            Interactivity.UserNameListChanged();
         }
 
         //

@@ -134,6 +134,7 @@
             this.Name = "UsernameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Set Default Username";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -184,7 +184,19 @@ namespace UVA_Arena
                 mainForm.BeginInvoke(new MethodInvoker(mainForm.SetFormProperties));
                 settingsForm.BeginInvoke(new MethodInvoker(settingsForm.SetCurrentUsername));
             }
-            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|DefaultUsernameChanged()"); }
+            catch (System.Exception ex)
+            {
+                Logger.Add(ex.Message, "Interactivity|DefaultUsernameChanged()");
+            }
+        }
+
+        public static void UserNameListChanged()
+        {
+            userstat.BeginInvoke((MethodInvoker)delegate
+            {
+                userstat.LoadUsernames();
+                compareUser.LoadUsersList();
+            });
         }
 
         /// <summary>
@@ -213,7 +225,7 @@ namespace UVA_Arena
                 mainForm.Progress1.Value = (int)val;
             });
         }
-         
+
         /// <summary>
         /// Select User Status tab page and show profile of the user
         /// </summary>

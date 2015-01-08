@@ -244,15 +244,7 @@ namespace UVA_Arena
         #region Less significant functions
 
         private void customTabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (customTabControl1.SelectedTab == profileTab)
-            {
-                Interactivity.userstat.LoadUsernames();
-            } 
-            else if(customTabControl1.SelectedTab == codesTab)
-            {
-                Interactivity.codesBrowser.CheckCodesPath();
-            }
+        { 
         }
 
         private void helpButton_Click(object sender, EventArgs e)

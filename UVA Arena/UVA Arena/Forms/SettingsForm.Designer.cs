@@ -37,6 +37,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.generalTab = new System.Windows.Forms.TabPage();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.currentCodeDir = new System.Windows.Forms.LinkLabel();
@@ -90,6 +91,7 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label26 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.PascalRadioButton = new System.Windows.Forms.RadioButton();
@@ -100,6 +102,7 @@
             this.saveCodeButton = new System.Windows.Forms.Button();
             this.cancelCodeButton = new System.Windows.Forms.Button();
             this.codeTextBox = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.registryAccessBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutPanel3.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.generalTab.SuspendLayout();
@@ -121,6 +124,7 @@
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.codeTextBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.registryAccessBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // current_username
@@ -203,24 +207,38 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.checkBox2);
             this.groupBox11.Controls.Add(this.checkBox1);
-            this.groupBox11.Location = new System.Drawing.Point(8, 74);
+            this.groupBox11.Location = new System.Drawing.Point(8, 80);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(360, 56);
+            this.groupBox11.Size = new System.Drawing.Size(360, 70);
             this.groupBox11.TabIndex = 17;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "General :";
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = global::UVA_Arena.Properties.Settings.Default.AskForUsernameEverytime;
+            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "AskForUsernameEverytime", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox2.Location = new System.Drawing.Point(17, 21);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(187, 17);
+            this.checkBox2.TabIndex = 1;
+            this.checkBox2.Text = "Always ask username at startup";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = global::UVA_Arena.Properties.Settings.Default.ShowExitDialogue;
-            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "ShowExitDialogue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox1.Location = new System.Drawing.Point(25, 21);
+            this.checkBox1.Checked = global::UVA_Arena.Properties.Settings.Default.HideExitDialog;
+            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "HideExitDialog", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox1.Location = new System.Drawing.Point(17, 44);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(248, 17);
+            this.checkBox1.Size = new System.Drawing.Size(214, 17);
             this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Don\'t prompt while closing the application";
+            this.checkBox1.Text = "Don\'t show exit dialog while closing";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // groupBox6
@@ -229,9 +247,9 @@
             this.groupBox6.Controls.Add(this.changeCodeButton);
             this.groupBox6.Controls.Add(this.formatCodeButton);
             this.groupBox6.Controls.Add(this.label34);
-            this.groupBox6.Location = new System.Drawing.Point(8, 315);
+            this.groupBox6.Location = new System.Drawing.Point(8, 156);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(355, 125);
+            this.groupBox6.Size = new System.Drawing.Size(360, 97);
             this.groupBox6.TabIndex = 16;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Change Code Directory";
@@ -242,7 +260,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentCodeDir.Location = new System.Drawing.Point(72, 24);
             this.currentCodeDir.Name = "currentCodeDir";
-            this.currentCodeDir.Size = new System.Drawing.Size(277, 28);
+            this.currentCodeDir.Size = new System.Drawing.Size(282, 28);
             this.currentCodeDir.TabIndex = 14;
             this.currentCodeDir.TabStop = true;
             this.currentCodeDir.Text = "linkLabel1";
@@ -252,22 +270,25 @@
             // changeCodeButton
             // 
             this.changeCodeButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.changeCodeButton.Location = new System.Drawing.Point(53, 60);
+            this.changeCodeButton.Image = global::UVA_Arena.Properties.Resources.root;
+            this.changeCodeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.changeCodeButton.Location = new System.Drawing.Point(14, 60);
             this.changeCodeButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.changeCodeButton.Name = "changeCodeButton";
-            this.changeCodeButton.Size = new System.Drawing.Size(250, 28);
+            this.changeCodeButton.Size = new System.Drawing.Size(160, 28);
             this.changeCodeButton.TabIndex = 11;
-            this.changeCodeButton.Text = "Changed Code Directory";
+            this.changeCodeButton.Text = "Change Code Directory";
+            this.changeCodeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.changeCodeButton.UseVisualStyleBackColor = true;
             this.changeCodeButton.Click += new System.EventHandler(this.changeCodeButton_Click);
             // 
             // formatCodeButton
             // 
             this.formatCodeButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.formatCodeButton.Location = new System.Drawing.Point(53, 92);
+            this.formatCodeButton.Location = new System.Drawing.Point(185, 60);
             this.formatCodeButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.formatCodeButton.Name = "formatCodeButton";
-            this.formatCodeButton.Size = new System.Drawing.Size(250, 28);
+            this.formatCodeButton.Size = new System.Drawing.Size(160, 28);
             this.formatCodeButton.TabIndex = 12;
             this.formatCodeButton.Text = "Format Code Directory";
             this.formatCodeButton.UseVisualStyleBackColor = true;
@@ -294,9 +315,9 @@
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.label3);
-            this.groupBox5.Location = new System.Drawing.Point(8, 136);
+            this.groupBox5.Location = new System.Drawing.Point(8, 257);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(355, 168);
+            this.groupBox5.Size = new System.Drawing.Size(360, 177);
             this.groupBox5.TabIndex = 15;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Problem Data :";
@@ -304,7 +325,7 @@
             // backupRegistryButton
             // 
             this.backupRegistryButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.backupRegistryButton.Location = new System.Drawing.Point(53, 134);
+            this.backupRegistryButton.Location = new System.Drawing.Point(56, 84);
             this.backupRegistryButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.backupRegistryButton.Name = "backupRegistryButton";
             this.backupRegistryButton.Size = new System.Drawing.Size(250, 28);
@@ -316,7 +337,7 @@
             // downloadAll
             // 
             this.downloadAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.downloadAll.Location = new System.Drawing.Point(53, 32);
+            this.downloadAll.Location = new System.Drawing.Point(56, 32);
             this.downloadAll.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.downloadAll.Name = "downloadAll";
             this.downloadAll.Size = new System.Drawing.Size(250, 28);
@@ -328,10 +349,10 @@
             // restoreData
             // 
             this.restoreData.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.restoreData.Location = new System.Drawing.Point(185, 85);
+            this.restoreData.Location = new System.Drawing.Point(185, 137);
             this.restoreData.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.restoreData.Name = "restoreData";
-            this.restoreData.Size = new System.Drawing.Size(150, 28);
+            this.restoreData.Size = new System.Drawing.Size(160, 28);
             this.restoreData.TabIndex = 4;
             this.restoreData.Text = "Restore Description";
             this.restoreData.UseVisualStyleBackColor = true;
@@ -340,10 +361,10 @@
             // backupData
             // 
             this.backupData.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.backupData.Location = new System.Drawing.Point(25, 85);
+            this.backupData.Location = new System.Drawing.Point(14, 137);
             this.backupData.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.backupData.Name = "backupData";
-            this.backupData.Size = new System.Drawing.Size(150, 28);
+            this.backupData.Size = new System.Drawing.Size(160, 28);
             this.backupData.TabIndex = 5;
             this.backupData.Text = "Backup Description";
             this.backupData.UseVisualStyleBackColor = true;
@@ -361,16 +382,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 119);
+            this.label2.Location = new System.Drawing.Point(13, 69);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 13);
+            this.label2.Size = new System.Drawing.Size(187, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Backup registry :";
+            this.label2.Text = "Backup data stored in the registry :";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 69);
+            this.label3.Location = new System.Drawing.Point(13, 122);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(335, 13);
             this.label3.TabIndex = 8;
@@ -642,16 +663,17 @@
             // 
             // javaCompilerOptions
             // 
+            this.javaCompilerOptions.BackColor = System.Drawing.Color.White;
             this.javaCompilerOptions.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.javaCompilerOptions.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UVA_Arena.Properties.Settings.Default, "JavaCompilerOptions", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.javaCompilerOptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.javaCompilerOptions.ForeColor = System.Drawing.Color.Black;
             this.javaCompilerOptions.Location = new System.Drawing.Point(3, 18);
             this.javaCompilerOptions.Multiline = true;
             this.javaCompilerOptions.Name = "javaCompilerOptions";
             this.javaCompilerOptions.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.javaCompilerOptions.Size = new System.Drawing.Size(344, 54);
             this.javaCompilerOptions.TabIndex = 0;
-            this.javaCompilerOptions.Text = global::UVA_Arena.Properties.Settings.Default.JavaCompilerOptions;
+            this.javaCompilerOptions.TextChanged += new System.EventHandler(this.cCompilerOptions_TextChanged);
             // 
             // groupBox9
             // 
@@ -665,16 +687,17 @@
             // 
             // cppCompilerOptions
             // 
+            this.cppCompilerOptions.BackColor = System.Drawing.Color.White;
             this.cppCompilerOptions.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.cppCompilerOptions.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UVA_Arena.Properties.Settings.Default, "CPPCompilerOptions", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cppCompilerOptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cppCompilerOptions.ForeColor = System.Drawing.Color.Black;
             this.cppCompilerOptions.Location = new System.Drawing.Point(3, 18);
             this.cppCompilerOptions.Multiline = true;
             this.cppCompilerOptions.Name = "cppCompilerOptions";
             this.cppCompilerOptions.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.cppCompilerOptions.Size = new System.Drawing.Size(344, 54);
             this.cppCompilerOptions.TabIndex = 0;
-            this.cppCompilerOptions.Text = global::UVA_Arena.Properties.Settings.Default.CPPCompilerOptions;
+            this.cppCompilerOptions.TextChanged += new System.EventHandler(this.cCompilerOptions_TextChanged);
             // 
             // groupBox8
             // 
@@ -688,16 +711,17 @@
             // 
             // cCompilerOptions
             // 
+            this.cCompilerOptions.BackColor = System.Drawing.Color.White;
             this.cCompilerOptions.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.cCompilerOptions.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UVA_Arena.Properties.Settings.Default, "CCompilerOptions", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cCompilerOptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cCompilerOptions.ForeColor = System.Drawing.Color.Black;
             this.cCompilerOptions.Location = new System.Drawing.Point(3, 18);
             this.cCompilerOptions.Multiline = true;
             this.cCompilerOptions.Name = "cCompilerOptions";
             this.cCompilerOptions.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.cCompilerOptions.Size = new System.Drawing.Size(344, 54);
             this.cCompilerOptions.TabIndex = 0;
-            this.cCompilerOptions.Text = global::UVA_Arena.Properties.Settings.Default.CCompilerOptions;
+            this.cCompilerOptions.TextChanged += new System.EventHandler(this.cCompilerOptions_TextChanged);
             // 
             // panel3
             // 
@@ -842,6 +866,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.button4);
             this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.saveCodeButton);
@@ -854,6 +879,17 @@
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Precode";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.label9.Location = new System.Drawing.Point(1, 388);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(374, 15);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "Don\'t worry about saving. Codes are automatically stored as you type.";
             // 
             // button4
             // 
@@ -1000,12 +1036,16 @@
             this.codeTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.codeTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("codeTextBox.ServiceColors")));
             this.codeTextBox.ShowFoldingLines = true;
-            this.codeTextBox.Size = new System.Drawing.Size(360, 352);
+            this.codeTextBox.Size = new System.Drawing.Size(360, 331);
             this.codeTextBox.SourceTextBox = this.codeTextBox;
             this.codeTextBox.TabIndex = 2;
             this.codeTextBox.ToolTipDelay = 300;
             this.codeTextBox.Zoom = 100;
             this.codeTextBox.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.codeTextBox_TextChangedDelayed);
+            // 
+            // registryAccessBindingSource
+            // 
+            this.registryAccessBindingSource.DataSource = typeof(UVA_Arena.RegistryAccess);
             // 
             // SettingsForm
             // 
@@ -1015,6 +1055,7 @@
             this.ClientSize = new System.Drawing.Size(384, 511);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tableLayoutPanel3);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -1053,9 +1094,11 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.codeTextBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.registryAccessBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1132,5 +1175,8 @@
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.Button backupRegistryButton;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.BindingSource registryAccessBindingSource;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }

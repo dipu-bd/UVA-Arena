@@ -24,9 +24,10 @@ namespace UVA_Arena
 
             //load user-names
             LocalDatabase.usernames = RegistryAccess.GetAllUsers();
-            if (string.IsNullOrEmpty(RegistryAccess.DefaultUsername))
+            if (string.IsNullOrEmpty(RegistryAccess.DefaultUsername) ||
+                Properties.Settings.Default.AskForUsernameEverytime)
             {
-                UsernameForm uf = new UsernameForm();
+                UsernameForm uf = new UsernameForm(true);                
                 Application.Run(uf);
             }
 

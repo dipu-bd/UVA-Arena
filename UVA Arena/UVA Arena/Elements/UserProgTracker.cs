@@ -15,7 +15,7 @@ namespace UVA_Arena.Elements
 
         protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);            
+            base.OnLoad(e);
             Stylish.SetGradientBackground(basicInfoTab,
                 new Stylish.GradientStyle(Color.LightCyan, Color.LightBlue, 90));
         }
@@ -80,7 +80,7 @@ namespace UVA_Arena.Elements
             _subInAnsiC = _subInCPP = _subInCPP11 = _subInJava = _subInPascal = 0;
             _acCount = _waCount = _tleCount = _reCount = _peCount = 0;
             _ceCount = _oleCount = _subeCount = _mleCount = 0;
-             
+
             List<long> solved = new List<long>();
 
             foreach (UserSubmission usub in currentUser.submissions)
@@ -119,6 +119,7 @@ namespace UVA_Arena.Elements
                 //submissionPerTime
                 double xval = new ZedGraph.XDate(UnixTimestamp.FromUnixTime(usub.sbt));
                 if (_totalSubmission == 1) _subOverTime.Add(xval, 0);
+
                 _subOverTime.Add(xval, _totalSubmission);
                 _acOverTime.Add(xval, _solvedCount);
 
@@ -143,7 +144,7 @@ namespace UVA_Arena.Elements
             _acOverTime.Add(new ZedGraph.XDate(DateTime.Now), _solvedCount);
         }
 
-#endregion
+        #endregion
 
         #region Load Processed Data
 
@@ -187,12 +188,13 @@ namespace UVA_Arena.Elements
                 BuildRankCloud();
             });
         }
-        
+
         private void BuildSubPerLangGraph()
         {
             ZedGraph.ZedGraphControl zg1 = new ZedGraph.ZedGraphControl();
             zg1.Dock = DockStyle.Fill;
-            zg1.IsShowPointValues = true;
+            zg1.IsEnableZoom = false;
+            zg1.IsShowPointValues = false;
 
             ZedGraph.GraphPane pane = zg1.GraphPane;
 
@@ -206,6 +208,7 @@ namespace UVA_Arena.Elements
             pane.Title.FontSpec.IsBold = false;
 
             pane.Legend.FontSpec.Size = 12;
+            pane.Legend.IsShowLegendSymbols = true;
             pane.Legend.Position = ZedGraph.LegendPos.TopCenter;
 
             double[] value = { _subInCPP, _subInJava, _subInAnsiC, _subInCPP11, _subInPascal };
@@ -227,7 +230,7 @@ namespace UVA_Arena.Elements
             pane.AxisChange();
 
             this.subPerLanTab.Controls.Clear();
-            this.subPerLanTab.Controls.Add(zg1); 
+            this.subPerLanTab.Controls.Add(zg1);
         }
 
         private void BuildSubPerDateGraph()
@@ -255,8 +258,6 @@ namespace UVA_Arena.Elements
             pane.XAxis.Title.FontSpec.FontColor = Color.Maroon;
             pane.XAxis.Title.FontSpec.IsBold = false;
             pane.XAxis.Type = ZedGraph.AxisType.Date;
-            pane.XAxis.Scale.MinorUnit = ZedGraph.DateUnit.Hour;
-            pane.XAxis.Scale.MajorUnit = ZedGraph.DateUnit.Year;
 
             pane.YAxis.Title.Text = "Submissions";
             pane.YAxis.Title.FontSpec.Family = "Courier New";
@@ -264,20 +265,22 @@ namespace UVA_Arena.Elements
             pane.YAxis.Title.FontSpec.IsBold = false;
 
             // Generate a red curve 
-            pane.AddCurve("Submissions / Time", _subOverTime, Color.DarkGoldenrod, ZedGraph.SymbolType.None);
-            pane.AddCurve("Accepted / Time", _acOverTime, Color.Navy, ZedGraph.SymbolType.None);
+            var a = pane.AddCurve("Submissions / Time", _subOverTime, Color.DarkGoldenrod, ZedGraph.SymbolType.VDash);
+            var b = pane.AddCurve("Accepted / Time", _acOverTime, Color.Navy, ZedGraph.SymbolType.VDash);
+            a.Symbol.Size = 2;
+            b.Symbol.Size = 2;
 
             pane.AxisChange();
-
             this.subPerDateTab.Controls.Clear();
-            this.subPerDateTab.Controls.Add(zg1); 
+            this.subPerDateTab.Controls.Add(zg1);
         }
 
         private void BuildSubPerVerGraph()
         {
             ZedGraph.ZedGraphControl zg1 = new ZedGraph.ZedGraphControl();
             zg1.Dock = DockStyle.Fill;
-            zg1.IsShowPointValues = true;
+            zg1.IsEnableZoom = false;
+            zg1.IsShowPointValues = false;
 
             ZedGraph.GraphPane pane = zg1.GraphPane;
 
@@ -292,11 +295,18 @@ namespace UVA_Arena.Elements
 
             pane.Legend.IsVisible = false;
 
+            double[] yval = new double[] { _acCount, _waCount, _tleCount, _reCount, _peCount, _ceCount, _oleCount, _subeCount, _mleCount };
+            string[] labels = new string[] { "AC", "WA", "TLE", "RE", "PE", "CE", "OLE", "SUBE", "MLE" };
+            for (int i = 0; i < yval.Length; ++i)
+            {
+                labels[i] += string.Format("\n({0})", yval[i].ToString());
+            }
+
             pane.XAxis.Title.Text = "Verdicts";
             pane.XAxis.Title.FontSpec.Family = "Courier New";
             pane.XAxis.Title.FontSpec.FontColor = Color.Maroon;
             pane.XAxis.Title.FontSpec.IsBold = false;
-            pane.XAxis.Scale.TextLabels = new string[] { "AC", "WA", "TLE", "RE", "PE", "CE", "OLE", "SUBE", "MLE" };
+            pane.XAxis.Scale.TextLabels = labels;
             pane.XAxis.Type = ZedGraph.AxisType.Text;
 
             pane.YAxis.Title.Text = "Submissions";
@@ -305,14 +315,13 @@ namespace UVA_Arena.Elements
             pane.YAxis.Title.FontSpec.IsBold = false;
 
             // Generate a bar chart                   
-            double[] yval = new double[] { _acCount, _waCount, _tleCount, _reCount, _peCount, _ceCount, _oleCount, _subeCount, _mleCount };
             ZedGraph.BarItem bar = pane.AddBar("Verdicts", null, yval, Color.DarkTurquoise);
             bar.Label.IsVisible = true;
 
             pane.AxisChange();
 
             this.subPerVerTab.Controls.Clear();
-            this.subPerVerTab.Controls.Add(zg1); 
+            this.subPerVerTab.Controls.Add(zg1);
         }
 
         private void BuildRankCloud()
@@ -354,11 +363,11 @@ namespace UVA_Arena.Elements
             pane.AxisChange();
 
             this.rankCloudTab.Controls.Clear();
-            this.rankCloudTab.Controls.Add(zg1); 
+            this.rankCloudTab.Controls.Add(zg1);
         }
 
         #endregion
-        
+
 
     }
 }

@@ -694,7 +694,10 @@ namespace UVA_Arena.Elements
 
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            e.Cancel = (!LocalDatabase.HasProblem(SelectedPNUM) && e.TabPage != codeTAB);
+            if (!LocalDatabase.HasProblem(SelectedPNUM))
+            {
+                e.Cancel = !(e.TabPage == codeTAB || e.TabPage == uDebugTab);
+            }
             if (e.Cancel && CurrentFile != null)
             {
                 MessageBox.Show("Select a problem's code to enable this feature.");
@@ -811,7 +814,7 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                if (SelectedPNUM == -1 || CurrentFile == null) return;
+                if (CurrentFile == null || !LocalDatabase.HasProblem(SelectedPNUM)) return;
                 string code = File.ReadAllText(CurrentFile.FullName);
                 Interactivity.SubmitCode(SelectedPNUM, code, CustomLang);
             }

@@ -123,7 +123,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalProgress.Location = new System.Drawing.Point(12, 30);
             this.totalProgress.Name = "totalProgress";
-            this.totalProgress.Size = new System.Drawing.Size(520, 26);
+            this.totalProgress.Size = new System.Drawing.Size(520, 30);
             this.totalProgress.TabIndex = 2;
             // 
             // currentProgress
@@ -132,7 +132,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentProgress.Location = new System.Drawing.Point(11, 93);
             this.currentProgress.Name = "currentProgress";
-            this.currentProgress.Size = new System.Drawing.Size(520, 23);
+            this.currentProgress.Size = new System.Drawing.Size(520, 20);
             this.currentProgress.TabIndex = 4;
             // 
             // label2
@@ -173,7 +173,7 @@
             this.StatusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StatusLabel.BackColor = System.Drawing.Color.Transparent;
-            this.StatusLabel.Location = new System.Drawing.Point(12, 119);
+            this.StatusLabel.Location = new System.Drawing.Point(12, 116);
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(520, 13);
             this.StatusLabel.TabIndex = 7;
@@ -266,6 +266,7 @@
             this.Controls.Add(this.totalProgress);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

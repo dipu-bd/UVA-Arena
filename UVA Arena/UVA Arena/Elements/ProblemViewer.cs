@@ -30,7 +30,7 @@ namespace UVA_Arena.Elements
         {
             base.OnLoad(e);
             AssignAspectToSubList();
-            usernameList1.SetObjects(LocalDatabase.usernames);
+            LoadUsernameList();
             dateTimePicker1.Value = DateTime.Now.Subtract(new TimeSpan(7, 0, 0, 0));
 
             Stylish.SetGradientBackground(titleBox1,
@@ -109,13 +109,13 @@ namespace UVA_Arena.Elements
             string path = LocalDirectory.GetProblemHtml(current.pnum);
             if (LocalDirectory.GetFileSize(path) < 100)
             {
+                problemWebBrowser.Navigate("about:tabs");
                 DownloadHtml(current.pnum);
-                problemWebBrowser.GoHome();
             }
             else
             {
-                DownloadContents(current.pnum);
                 problemWebBrowser.Navigate(path);
+                DownloadContents(current.pnum);
             }
         }
 
@@ -230,6 +230,7 @@ namespace UVA_Arena.Elements
 
         private void DownloadFinished(DownloadTask task)
         {
+            problemWebBrowser.Refresh();
             if (task.Error != null)
             {
                 Logger.Add(task.Error.Message, "ProblemViewer | DownloadFinished()");
@@ -412,6 +413,12 @@ namespace UVA_Arena.Elements
 
         private SubViewType _curSubType = SubViewType.LastSubmission;
 
+        public void LoadUsernameList()
+        {
+            usernameList1.SetObjects(LocalDatabase.usernames);
+            usernameList1.Sort(0);
+        }
+
         #region  View type selection
 
         private void submissionReloadButton_Click(object sender, EventArgs e)
@@ -481,7 +488,7 @@ namespace UVA_Arena.Elements
                 uid = LocalDatabase.GetUserid(user);  //uid        
 
             submissionStatus.ClearObjects();
-            usernameList1.SetObjects(LocalDatabase.usernames);
+            LoadUsernameList();
 
             long start, stop;
             string url = "", format;
@@ -766,8 +773,7 @@ namespace UVA_Arena.Elements
         {
             if (RegistryAccess.DefaultUsername == ((KeyValuePair<string, string>)e.Model).Key)
             {
-                for (int i = 0; i < e.Item.SubItems.Count; ++i)
-                    e.Item.SubItems[i].BackColor = Color.LightBlue;
+                e.SubItem.BackColor = Color.Linen;
             }
 
             if (e.Column == unameCol)
@@ -795,7 +801,7 @@ namespace UVA_Arena.Elements
             string discuss = string.Format("http://acm.uva.es/board/{0}", query);
             customWebBrowser1.Navigate(discuss);
         }
-              
+
         private void customWebBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
         {
             Interactivity.SetProgress(e.CurrentProgress, e.MaximumProgress);
@@ -803,9 +809,9 @@ namespace UVA_Arena.Elements
 
         private void customWebBrowser1_StatusChanged(object sender, ExtendedControls.CustomWebBrowser.StatusChangedEventArgs e)
         {
-            Interactivity.SetStatus("uDebug Browser: " + e.Status);
-        }  
-        
+            Interactivity.SetStatus("Discuss Browser: " + e.Status);
+        }
+
         #endregion
 
 

@@ -7,7 +7,7 @@ namespace UVA_Arena
     /// <summary>
     /// Allows interactivity among forms and controls during runtime
     /// </summary>
-    internal static class Interactivity
+    internal sealed class Interactivity
     {
         //forms
         public static MainForm mainForm;
@@ -35,20 +35,16 @@ namespace UVA_Arena
         /// <param name="form"> Form to close </param>
         public static void CloseForm(Form form)
         {
-            if (form != null && !form.IsDisposed)
-            {
-                form.Close();
-                form.Dispose();
-            }
+            if (form == null && form.IsDisposed) return;
+            form.Close();
+            form.Dispose();
         }
 
         public static void OpenForm(Form form)
         {
-            if (form != null && !form.IsDisposed)
-            {
-                if (form.Visible) form.BringToFront();
-                else form.Show();
-            }
+            if (form == null && !form.IsDisposed) return;
+            if (form.Visible) form.BringToFront();
+            else form.Show();
         }
 
         /// <summary>
@@ -196,6 +192,7 @@ namespace UVA_Arena
             {
                 userstat.LoadUsernames();
                 compareUser.LoadUsersList();
+                problemViewer.LoadUsernameList();
             });
         }
 

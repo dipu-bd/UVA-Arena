@@ -6,7 +6,7 @@ using UVA_Arena.Structures;
 
 namespace UVA_Arena
 {
-    internal static class LocalDatabase
+    internal sealed class LocalDatabase
     {
         public static bool IsReady = true;
         public static List<ProblemInfo> problem_list;

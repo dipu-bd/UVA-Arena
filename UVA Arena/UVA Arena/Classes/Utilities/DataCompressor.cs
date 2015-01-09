@@ -6,7 +6,7 @@ using System.Text;
 
 namespace UVA_Arena
 {
-    internal static class DataManipulation
+    internal sealed class DataManipulation
     {
         /// <summary>
         /// Compresses the string.

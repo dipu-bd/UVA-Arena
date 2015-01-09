@@ -86,22 +86,22 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.Status1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.Progress1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.settingsButton = new System.Windows.Forms.Button();
+            this.loggerButton = new System.Windows.Forms.Button();
+            this.helpButton = new System.Windows.Forms.Button();
             this.customTabControl1 = new System.Windows.Forms.CustomTabControl();
             this.problemTab = new System.Windows.Forms.TabPage();
             this.codesTab = new System.Windows.Forms.TabPage();
             this.judgeStatusTab = new System.Windows.Forms.TabPage();
             this.profileTab = new System.Windows.Forms.TabPage();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.Status1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.Progress1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.helpButton = new System.Windows.Forms.Button();
-            this.loggerButton = new System.Windows.Forms.Button();
-            this.settingsButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
-            this.customTabControl1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.customTabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabImageList
@@ -123,7 +123,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(844, 24);
-            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
@@ -227,6 +227,7 @@
             this.problemsToolStripMenuItem.Name = "problemsToolStripMenuItem";
             this.problemsToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.problemsToolStripMenuItem.Text = "Problems";
+            this.problemsToolStripMenuItem.Click += new System.EventHandler(this.problemsToolStripMenuItem_Click);
             // 
             // refreshDatabaseToolStripMenuItem
             // 
@@ -320,6 +321,7 @@
             this.codesToolStripMenuItem.Name = "codesToolStripMenuItem";
             this.codesToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.codesToolStripMenuItem.Text = "Codes";
+            this.codesToolStripMenuItem.Click += new System.EventHandler(this.codesToolStripMenuItem_Click);
             // 
             // changeDirectoryToolStripMenuItem
             // 
@@ -394,6 +396,7 @@
             this.statusToolStripMenuItem.Name = "statusToolStripMenuItem";
             this.statusToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.statusToolStripMenuItem.Text = "Status";
+            this.statusToolStripMenuItem.Click += new System.EventHandler(this.statusToolStripMenuItem_Click);
             // 
             // profilesToolStripMenuItem
             // 
@@ -407,6 +410,7 @@
             this.profilesToolStripMenuItem.Name = "profilesToolStripMenuItem";
             this.profilesToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.profilesToolStripMenuItem.Text = "Profiles";
+            this.profilesToolStripMenuItem.Click += new System.EventHandler(this.profilesToolStripMenuItem_Click);
             // 
             // addUserToolStripMenuItem
             // 
@@ -485,7 +489,7 @@
             // 
             this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
             this.compareToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.compareToolStripMenuItem.Text = "Compare";
+            this.compareToolStripMenuItem.Text = "Compare Users";
             this.compareToolStripMenuItem.Click += new System.EventHandler(this.compareToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -542,6 +546,102 @@
             this.checkForUpdateToolStripMenuItem.DropDownOpening += new System.EventHandler(this.checkForUpdateToolStripMenuItem_DropDownOpening);
             this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Status1,
+            this.Progress1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 414);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(844, 28);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 3;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // Status1
+            // 
+            this.Status1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
+            this.Status1.Name = "Status1";
+            this.Status1.Size = new System.Drawing.Size(703, 23);
+            this.Status1.Spring = true;
+            this.Status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Progress1
+            // 
+            this.Progress1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Progress1.Name = "Progress1";
+            this.Progress1.Size = new System.Drawing.Size(120, 20);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Controls.Add(this.settingsButton, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.loggerButton, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.helpButton, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(742, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(100, 24);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // settingsButton
+            // 
+            this.settingsButton.BackColor = System.Drawing.Color.Transparent;
+            this.settingsButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsButton.FlatAppearance.BorderSize = 0;
+            this.settingsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightBlue;
+            this.settingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleTurquoise;
+            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsButton.Image = global::UVA_Arena.Properties.Resources.tools;
+            this.settingsButton.Location = new System.Drawing.Point(68, 2);
+            this.settingsButton.Margin = new System.Windows.Forms.Padding(2);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(30, 20);
+            this.settingsButton.TabIndex = 2;
+            this.settingsButton.UseVisualStyleBackColor = false;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+            // 
+            // loggerButton
+            // 
+            this.loggerButton.BackColor = System.Drawing.Color.Transparent;
+            this.loggerButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loggerButton.FlatAppearance.BorderSize = 0;
+            this.loggerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightBlue;
+            this.loggerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleTurquoise;
+            this.loggerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.loggerButton.Image = global::UVA_Arena.Properties.Resources.log;
+            this.loggerButton.Location = new System.Drawing.Point(35, 2);
+            this.loggerButton.Margin = new System.Windows.Forms.Padding(2);
+            this.loggerButton.Name = "loggerButton";
+            this.loggerButton.Size = new System.Drawing.Size(29, 20);
+            this.loggerButton.TabIndex = 1;
+            this.loggerButton.UseVisualStyleBackColor = false;
+            this.loggerButton.Click += new System.EventHandler(this.loggerButton_Click);
+            // 
+            // helpButton
+            // 
+            this.helpButton.BackColor = System.Drawing.Color.Transparent;
+            this.helpButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.helpButton.FlatAppearance.BorderSize = 0;
+            this.helpButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightBlue;
+            this.helpButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleTurquoise;
+            this.helpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.helpButton.Image = global::UVA_Arena.Properties.Resources.help;
+            this.helpButton.Location = new System.Drawing.Point(2, 2);
+            this.helpButton.Margin = new System.Windows.Forms.Padding(2);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(29, 20);
+            this.helpButton.TabIndex = 0;
+            this.helpButton.UseVisualStyleBackColor = false;
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
+            // 
             // customTabControl1
             // 
             this.customTabControl1.Controls.Add(this.problemTab);
@@ -558,7 +658,7 @@
             this.customTabControl1.Padding = new System.Drawing.Point(30, 7);
             this.customTabControl1.SelectedIndex = 0;
             this.customTabControl1.Size = new System.Drawing.Size(844, 390);
-            this.customTabControl1.TabIndex = 0;
+            this.customTabControl1.TabIndex = 2;
             this.customTabControl1.SelectedIndexChanged += new System.EventHandler(this.customTabControl1_SelectedIndexChanged);
             // 
             // problemTab
@@ -601,102 +701,6 @@
             this.profileTab.TabIndex = 2;
             this.profileTab.Text = "PROFILES";
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Status1,
-            this.Progress1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 414);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(844, 28);
-            this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // Status1
-            // 
-            this.Status1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
-            this.Status1.Name = "Status1";
-            this.Status1.Size = new System.Drawing.Size(703, 23);
-            this.Status1.Spring = true;
-            this.Status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Progress1
-            // 
-            this.Progress1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Progress1.Name = "Progress1";
-            this.Progress1.Size = new System.Drawing.Size(120, 20);
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Controls.Add(this.settingsButton, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.loggerButton, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.helpButton, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(742, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(100, 24);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // helpButton
-            // 
-            this.helpButton.BackColor = System.Drawing.Color.Transparent;
-            this.helpButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.helpButton.FlatAppearance.BorderSize = 0;
-            this.helpButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightBlue;
-            this.helpButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleTurquoise;
-            this.helpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.helpButton.Image = global::UVA_Arena.Properties.Resources.help;
-            this.helpButton.Location = new System.Drawing.Point(2, 2);
-            this.helpButton.Margin = new System.Windows.Forms.Padding(2);
-            this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(29, 20);
-            this.helpButton.TabIndex = 0;
-            this.helpButton.UseVisualStyleBackColor = false;
-            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
-            // 
-            // loggerButton
-            // 
-            this.loggerButton.BackColor = System.Drawing.Color.Transparent;
-            this.loggerButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.loggerButton.FlatAppearance.BorderSize = 0;
-            this.loggerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightBlue;
-            this.loggerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleTurquoise;
-            this.loggerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.loggerButton.Image = global::UVA_Arena.Properties.Resources.log;
-            this.loggerButton.Location = new System.Drawing.Point(35, 2);
-            this.loggerButton.Margin = new System.Windows.Forms.Padding(2);
-            this.loggerButton.Name = "loggerButton";
-            this.loggerButton.Size = new System.Drawing.Size(29, 20);
-            this.loggerButton.TabIndex = 1;
-            this.loggerButton.UseVisualStyleBackColor = false;
-            this.loggerButton.Click += new System.EventHandler(this.loggerButton_Click);
-            // 
-            // settingsButton
-            // 
-            this.settingsButton.BackColor = System.Drawing.Color.Transparent;
-            this.settingsButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsButton.FlatAppearance.BorderSize = 0;
-            this.settingsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightBlue;
-            this.settingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleTurquoise;
-            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settingsButton.Image = global::UVA_Arena.Properties.Resources.tools;
-            this.settingsButton.Location = new System.Drawing.Point(68, 2);
-            this.settingsButton.Margin = new System.Windows.Forms.Padding(2);
-            this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Size = new System.Drawing.Size(30, 20);
-            this.settingsButton.TabIndex = 2;
-            this.settingsButton.UseVisualStyleBackColor = false;
-            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -707,6 +711,7 @@
             this.Controls.Add(this.customTabControl1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
+            this.DataBindings.Add(new System.Windows.Forms.Binding("WindowState", global::UVA_Arena.Properties.Settings.Default, "MainWindowState", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
@@ -715,13 +720,13 @@
             this.Name = "MainForm";
             this.Tag = "UVA Arena [{0} : {1}]";
             this.Text = "UVA Arena";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.WindowState = global::UVA_Arena.Properties.Settings.Default.MainWindowState;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.customTabControl1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.customTabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

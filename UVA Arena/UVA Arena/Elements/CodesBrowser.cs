@@ -53,7 +53,7 @@ namespace UVA_Arena.Elements
         #region Load Folder Tree
 
         public bool IsReady = true;
-         
+
         /// <summary>
         /// Formats the code directory with default files and folders
         /// </summary>
@@ -205,6 +205,8 @@ namespace UVA_Arena.Elements
         /// <param name="parent">Parent tree-node to add children</param>
         public void AddChildNodes(TreeNode parent)
         {
+            if (parent == null || parent.Tag.GetType() != typeof(DirectoryInfo)) return;
+
             parent.Nodes.Clear();
             DirectoryInfo dir = (DirectoryInfo)parent.Tag;
             foreach (DirectoryInfo d in dir.GetDirectories())
@@ -339,7 +341,7 @@ namespace UVA_Arena.Elements
         {
             if (!Directory.Exists(RegistryAccess.CodesPath))
             {
-                CheckCodesPath(); 
+                CheckCodesPath();
             }
             else if (folderTreeView.Nodes.Count == 0)
             {
@@ -347,8 +349,15 @@ namespace UVA_Arena.Elements
             }
         }
 
+        private void folderTreeView_MouseMove(object sender, MouseEventArgs e)
+        {
+            CheckCodesPath();
+        }
+
         private void folderTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
+            CheckCodesPath();
+
             if (e.Clicks != 1) return;
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
@@ -691,6 +700,7 @@ namespace UVA_Arena.Elements
                     tn = AddTreeNode(new FileInfo(e.FullPath));
                 else
                     tn = AddTreeNode(new DirectoryInfo(e.FullPath));
+                AddChildNodes(tn);
 
                 if (path == RegistryAccess.CodesPath)
                 {
@@ -957,6 +967,12 @@ namespace UVA_Arena.Elements
         // Other context menu
         //
 
+        private void folderTreeContext_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            StringCollection strcol = Clipboard.GetFileDropList();
+            pasteToolStripMenuItem.Enabled = !(strcol == null || strcol.Count == 0);
+        }
+
         private void collapseAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             folderTreeView.CollapseAll();
@@ -982,6 +998,26 @@ namespace UVA_Arena.Elements
             }
         }
 
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(RegistryAccess.CodesPath))
+            {
+                CheckCodesPath();
+            }
+            else if (folderTreeView.Nodes.Count == 0)
+            {
+                FormatCodeDirectory(true);
+            }
+            else
+            {
+                TreeNode tn = folderTreeView.SelectedNode;
+                if (tn == null)
+                    LoadCodeFolder(true);
+                else if (tn.GetType() == typeof(DirectoryInfo))
+                    AddChildNodes(tn);
+            }
+        }
+
 
         private void refreshTool_Click(object sender, EventArgs e)
         {
@@ -999,28 +1035,89 @@ namespace UVA_Arena.Elements
             }
         }
 
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                TreeNode tn = folderTreeView.SelectedNode;
+                if (tn == null) return;
+                string path = ((FileSystemInfo)tn.Tag).FullName;
+                StringCollection clip = new StringCollection();
+                clip.Add(path);
+
+                byte[] moveEffect = new byte[] { 2, 0, 0, 0 }; //cut = 0x2000
+                MemoryStream dropEffect = new MemoryStream();
+                dropEffect.Write(moveEffect, 0, moveEffect.Length);
+
+                DataObject data = new DataObject();
+                data.SetFileDropList(clip);
+                data.SetData("Preferred DropEffect", dropEffect);
+
+                Clipboard.Clear();
+                Clipboard.SetDataObject(data, true);
+            }
+            catch (Exception ex)
+            {
+                Logger.Add(ex.Message, "CodesBrowser|cutToolStripMenuItem_Click");
+            }
+        }
+
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TreeNode tn = folderTreeView.SelectedNode;
-            if (tn == null) return;
-            string path = ((FileSystemInfo)tn.Tag).FullName;
-            StringCollection clip = new StringCollection();
-            clip.Add(path);
-            Clipboard.SetFileDropList(clip);
+            try
+            {
+                TreeNode tn = folderTreeView.SelectedNode;
+                if (tn == null) return;
+                string path = ((FileSystemInfo)tn.Tag).FullName;
+                StringCollection clip = new StringCollection();
+                clip.Add(path);
+
+                byte[] moveEffect = new byte[] { 5, 0, 0, 0 }; //copy = 0x5000
+                MemoryStream dropEffect = new MemoryStream();
+                dropEffect.Write(moveEffect, 0, moveEffect.Length);
+
+                DataObject data = new DataObject();
+                data.SetFileDropList(clip);
+                data.SetData("Preferred DropEffect", dropEffect);
+
+                Clipboard.Clear();
+                Clipboard.SetDataObject(data, true);
+            }
+            catch (Exception ex)
+            {
+                Logger.Add(ex.Message, "CodesBrowser|copyToolStripMenuItem_Click");
+            }
         }
 
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string path = GetSelectedPath();
-            List<string> from = new List<string>();
-            StringCollection strcol = Clipboard.GetFileDropList();
-            foreach (string file in strcol)
+            try
             {
-                if (Directory.Exists(file)) from.Add(file);
-                else if (File.Exists(file)) from.Add(file);
+                string path = GetSelectedPath();
+                List<string> from = new List<string>();
+                StringCollection strcol = Clipboard.GetFileDropList();
+                foreach (string file in strcol)
+                {
+                    if (Directory.Exists(file)) from.Add(file);
+                    else if (File.Exists(file)) from.Add(file);
+                }
+
+                int byt = ((MemoryStream)Clipboard.GetData("Preferred DropEffect")).ReadByte();
+                if (byt == 2) //cut            
+                {
+                    LocalDirectory.MoveFilesOrFolders(from.ToArray(), path);
+                }
+                else if (byt == 5) //copy
+                {
+                    LocalDirectory.CopyFilesOrFolders(from.ToArray(), path);
+                }
+
+                Clipboard.Clear();
             }
-            LocalDirectory.CopyFilesOrFolders(from.ToArray(), path);
-            Clipboard.Clear();
+            catch (Exception ex)
+            {
+                Logger.Add(ex.Message, "CodesBrowser|pasteToolStripMenuItem_Click");
+            }
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1053,7 +1150,6 @@ namespace UVA_Arena.Elements
                 Logger.Add(ex.Message, "Codes");
             }
         }
-
 
         #endregion
 

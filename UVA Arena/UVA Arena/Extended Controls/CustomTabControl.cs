@@ -15,14 +15,14 @@ namespace System.Windows.Forms
         public CustomTabControl()
         {
             components = new System.ComponentModel.Container();
+            
+            this.BackColor = Color.PaleTurquoise;
 
-            this.SetStyle(ControlStyles.Opaque, true);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.EnableNotifyMessage, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            this.BackColor = Color.PaleTurquoise;
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);            
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);            
         }
 
         protected override void Dispose(bool disposing)

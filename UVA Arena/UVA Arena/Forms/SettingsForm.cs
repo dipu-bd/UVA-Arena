@@ -42,8 +42,7 @@ namespace UVA_Arena
             LoadEditorSettings();
 
             //compiler
-            minGWLocation.Text = RegistryAccess.MinGWCompilerPath;
-            jdkLocation.Text = RegistryAccess.JDKCompilerPath;
+            LoadCompilerSettings();
 
             //precode
             LoadPrecode();
@@ -89,8 +88,7 @@ namespace UVA_Arena
                 sfd.Filter = "Registry File|*.reg";
                 if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    string regdata = Functions.GetRegistryData();
-                    File.WriteAllText(sfd.FileName, regdata, Encoding.UTF8);
+                    Functions.BackupRegistryData(sfd.FileName);
                 }
             }
             catch (Exception ex)
@@ -186,6 +184,24 @@ namespace UVA_Arena
         //
         // Compiler Settings
         //
+
+        private void LoadCompilerSettings()
+        {
+            minGWLocation.Text = RegistryAccess.MinGWCompilerPath;
+            jdkLocation.Text = RegistryAccess.JDKCompilerPath;
+
+            cCompilerOptions.Text = RegistryAccess.CCompilerOption;
+            cppCompilerOptions.Text = RegistryAccess.CPPCompilerOption;
+            javaCompilerOptions.Text = RegistryAccess.JavaCompilerOption;
+        }
+
+        private void cCompilerOptions_TextChanged(object sender, EventArgs e)
+        {
+            RegistryAccess.CCompilerOption = cCompilerOptions.Text;
+            RegistryAccess.CPPCompilerOption = cppCompilerOptions.Text;
+            RegistryAccess.JavaCompilerOption = javaCompilerOptions.Text;
+        }
+
         private void minGW_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
@@ -231,7 +247,6 @@ namespace UVA_Arena
         //
         // Precode Settings
         //
-
         private string getFile()
         {
             Structures.Language lang = Language.CPP;
@@ -247,12 +262,12 @@ namespace UVA_Arena
         }
 
         private void SavePrecode()
-        { 
+        {
             codeTextBox.SaveToFile(getFile(), Encoding.UTF8);
         }
 
         private void LoadPrecode()
-        {  
+        {
             codeTextBox.OpenFile(getFile());
             codeTextBox.Tag = codeTextBox.Text;
         }

@@ -592,6 +592,7 @@
             this.Controls.Add(this.subCounterPanel);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "CompareUsers";

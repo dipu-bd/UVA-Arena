@@ -217,7 +217,7 @@
             this.tabPage2.Controls.Add(this.downloadQueue1);
             this.tabPage2.Location = new System.Drawing.Point(4, 32);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(756, 345);
+            this.tabPage2.Size = new System.Drawing.Size(744, 310);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Download Queue";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -255,7 +255,7 @@
             this.downloadQueue1.ShowGroups = false;
             this.downloadQueue1.ShowItemCountOnGroups = true;
             this.downloadQueue1.ShowItemToolTips = true;
-            this.downloadQueue1.Size = new System.Drawing.Size(756, 345);
+            this.downloadQueue1.Size = new System.Drawing.Size(744, 310);
             this.downloadQueue1.TabIndex = 2;
             this.downloadQueue1.UseCellFormatEvents = true;
             this.downloadQueue1.UseCompatibleStateImageBehavior = false;
@@ -319,7 +319,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 32);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(756, 345);
+            this.tabPage3.Size = new System.Drawing.Size(744, 310);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Pending Task";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -343,7 +343,7 @@
             this.taskQueue1.Name = "taskQueue1";
             this.taskQueue1.ShowGroups = false;
             this.taskQueue1.ShowItemToolTips = true;
-            this.taskQueue1.Size = new System.Drawing.Size(750, 339);
+            this.taskQueue1.Size = new System.Drawing.Size(738, 304);
             this.taskQueue1.TabIndex = 1;
             this.taskQueue1.UseCompatibleStateImageBehavior = false;
             this.taskQueue1.UseCustomSelectionColors = true;
@@ -412,6 +412,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.DataBindings.Add(new System.Windows.Forms.Binding("TopMost", global::UVA_Arena.Properties.Settings.Default, "LoggerIsTopMost", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

@@ -7,7 +7,7 @@ namespace UVA_Arena
     /// <summary>
     /// Provides supportive functions for directories and files
     /// </summary>
-    internal static class LocalDirectory
+    internal sealed class LocalDirectory
     {
         //
         // Usual functions
@@ -66,12 +66,14 @@ namespace UVA_Arena
             foreach (char ch in name)
             {
                 if (invalid.Contains(ch)) return false;
+                if (ch >= 256) return false;
             }
             return true;
         }
 
         /// <summary>
         /// Remove all invalid file name characters from given file name.
+        /// Invalid characters : Invalid File Name chars and unicode characters
         /// </summary>
         /// <param name="name">Name of the file</param>
         /// <param name="replace">Replacement for invalid characters</param>
@@ -81,9 +83,9 @@ namespace UVA_Arena
             string res = "";
             List<char> invalid = new List<char>();
             invalid.AddRange(Path.GetInvalidFileNameChars());
-            foreach (char ch in name)
+            for (int i = 0; i < name.Length; ++i)
             {
-                if (!invalid.Contains(ch)) res += ch;
+                if (name[i] < 256 && !invalid.Contains(name[i])) res += name[i];
                 else if (!string.IsNullOrEmpty(replace)) res += replace;
             }
             return res;
@@ -100,6 +102,16 @@ namespace UVA_Arena
         public static void CopyFilesOrFolders(string[] from, string dest)
         {
             SHOperations.Copy(from, dest);
+        }
+
+        /// <summary>
+        /// Move files and folders to the destination directory
+        /// </summary>
+        /// <param name="from">List of files and folders to copy</param>
+        /// <param name="dest">Destination folder for the given files and folders</param>
+        public static void MoveFilesOrFolders(string[] from, string dest)
+        {
+            SHOperations.Move(from, dest);
         }
 
         /// <summary>

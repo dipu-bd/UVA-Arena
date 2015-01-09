@@ -33,11 +33,11 @@ namespace UVA_Arena.Internet
         public object Token { get; set; }
         public string Result { get; set; }
         public string FileName { get; set; }
-        public string TempFileName { get; private set; }
 
         public long Total { get; set; }
         public long Received { get; set; }
         public int ProgressPercentage { get; set; }
+        public int RetryCount { get; set; }
         public Exception Error { get; set; }
         public Priority TaskPriority { get; set; }
         public ProgressStatus Status { get; set; }
@@ -55,7 +55,7 @@ namespace UVA_Arena.Internet
 
         #region Constructor and Necessary Functions
 
-        public DownloadTask(string url = null, string file = null, object token = null)
+        public DownloadTask(string url = null, string file = null, object token = null, int retry = 0)
         {
             FileName = file;
             Token = token;
@@ -63,14 +63,13 @@ namespace UVA_Arena.Internet
             if (url != null) Url = new Uri(url);
             TaskPriority = Priority.Normal;
             Status = ProgressStatus.Waiting;
-            TempFileName = LocalDirectory.GetTempFile();
+            RetryCount = retry;
         }
 
         public void Dispose()
         {
             try
             {
-                File.Delete(TempFileName);
                 Status = ProgressStatus.Disposed;
                 webClient.Dispose();
                 GC.SuppressFinalize(this);
@@ -82,10 +81,6 @@ namespace UVA_Arena.Internet
         {
             return ((int)a.TaskPriority - (int)b.TaskPriority);
         }
-
-        #endregion
-
-        #region Custom Methods
 
         public void Cancel()
         {
@@ -109,53 +104,84 @@ namespace UVA_Arena.Internet
             if (webClient == null)
             {
                 webClient = new WebClient();
-                webClient.DownloadFileCompleted += webClient_DownloadFileCompleted;
+                webClient.DownloadDataCompleted += webClient_DownloadDataCompleted;
                 webClient.DownloadProgressChanged += webClient_DownloadProgressChanged;
             }
 
-            webClient.DownloadFileAsync(Url, TempFileName);
             Status = ProgressStatus.Running;
+            webClient.DownloadDataAsync(Url);
             StartedAt = DateTime.Now;
-        }
-
-        void webClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            this.Error = e.Error;
-            if (this.Error == null && this.Status == ProgressStatus.Running)
-            {
-                try
-                {
-                    this.Result = File.ReadAllText(this.TempFileName);
-                    if (this.IsSaveToFile) File.Copy(this.TempFileName, this.FileName, true);
-                    this.Status = ProgressStatus.Completed;
-                }
-                catch (Exception ex) { this.Error = ex; }
-            }
-            if (this.Error != null) this.Status = ProgressStatus.Failed;
-
-            this.ReportComplete();
-            Downloader.DownloadNext();
         }
 
         void webClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
+            //gather progress data
             this.Received = e.BytesReceived;
             this.Total = e.TotalBytesToReceive;
             this.ProgressPercentage = e.ProgressPercentage;
             if (ProgressChangedEvent != null)
                 ProgressChangedEvent(this);
 
-            //cancel if it is running for long time
-            if (this.TimeElapsed.TotalSeconds > 8 && ProgressPercentage == 0)
+            //cancel if it is running for long time ( > 7 secs
+            if (this.TimeElapsed.TotalSeconds > 7 && ProgressPercentage == 0)
                 this.Cancel();
         }
+
+        void webClient_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
+        {
+            //write download to file or string
+            this.Error = e.Error;
+            if (this.Error == null && this.Status == ProgressStatus.Running)
+            {
+                try
+                {
+                    this.Result = System.Text.Encoding.UTF8.GetString(e.Result);
+                    if (this.IsSaveToFile)
+                        File.WriteAllBytes(this.FileName, e.Result);
+                    this.Status = ProgressStatus.Completed;
+                }
+                catch (Exception ex) { this.Error = ex; }
+            }
+            if (this.Error != null)
+                this.Status = ProgressStatus.Failed;
+
+            //retry if couldn't complete
+            if (this.Status != ProgressStatus.Completed &&
+                this.Status != ProgressStatus.Cancelled &&
+                this.RetryCount > 0)
+            {
+                --this.RetryCount;
+                this.Error = null;
+                this.Status = ProgressStatus.Running;
+                Downloader.DownloadNext();
+                return;
+            }
+
+            //send completion report          
+            this.ReportComplete();
+            Downloader.DownloadNext();
+        }
+
+
 
         #endregion
 
     }
 
-    public static class Downloader
+    internal sealed class Downloader
     {
+        #region Check Connections
+        public static bool IsInternetConnected()
+        {
+            long dwConnectionFlags = 0;
+            if (NativeMethods.InternetGetConnectedState(dwConnectionFlags, 0))
+                return (NativeMethods.InternetAttemptConnect(0) == 0);
+            else
+                return false;
+        }
+
+        #endregion
+
         #region General Properties and Functions
 
         public static bool IsBusy()
@@ -280,9 +306,10 @@ namespace UVA_Arena.Internet
             object token = null,
             Priority priority = Priority.High,
             DownloadTaskHandler progress = null,
-            DownloadTaskHandler completed = null)
+            DownloadTaskHandler completed = null,
+            int retry = 0)
         {
-            DownloadTask task = new DownloadTask(url, null, token);
+            DownloadTask task = new DownloadTask(url, null, token, retry);
             task.ProgressChangedEvent += progress;
             task.DownloadCompletedEvent += completed;
             return DownloadAsync(task, priority);
@@ -294,9 +321,10 @@ namespace UVA_Arena.Internet
             object token = null,
             Priority priority = Priority.Normal,
             DownloadTaskHandler progress = null,
-            DownloadTaskHandler completed = null)
+            DownloadTaskHandler completed = null,
+            int retry = 0)
         {
-            DownloadTask task = new DownloadTask(url, file, token);
+            DownloadTask task = new DownloadTask(url, file, token, retry);
             task.ProgressChangedEvent += progress;
             task.DownloadCompletedEvent += completed;
             return DownloadAsync(task, priority);
@@ -309,7 +337,7 @@ namespace UVA_Arena.Internet
         public static void DownloadUserid(string name, Internet.DownloadTaskHandler complete)
         {
             string url = "http://uhunt.felix-halim.net/api/uname2uid/" + name;
-            DownloadTask dt = new DownloadTask(url, null, name);
+            DownloadTask dt = new DownloadTask(url, null, name, 2);
 
             if (LocalDatabase.ContainsUser(name))
             {
@@ -362,13 +390,13 @@ namespace UVA_Arena.Internet
             string url = "http://uhunt.felix-halim.net/api/p";
             string file = LocalDirectory.GetProblemInfoFile();
             DownloadFileAsync(url, file, false, Priority.High,
-                __DownloadProblemDatabaseProgress, __DownloadProblemDatabaseCompleted);
+                __DownloadProblemDatabaseProgress, __DownloadProblemDatabaseCompleted, 1);
 
             //problem categories
             url = "http://uhunt.felix-halim.net/api/cpbook/3";
             file = LocalDirectory.GetCategoryPath();
             DownloadTask task = DownloadFileAsync(url, file, true, Priority.High,
-                __DownloadProblemDatabaseProgress, __DownloadProblemCategoryCompleted);
+                __DownloadProblemDatabaseProgress, __DownloadProblemCategoryCompleted, 1);
         }
         private static void __DownloadProblemDatabaseProgress(DownloadTask task)
         {
@@ -395,7 +423,7 @@ namespace UVA_Arena.Internet
                 Logger.Add("Downloaded problem database file", "Downloader");
             }
             else if (task.Error != null)
-            { 
+            {
                 Logger.Add(task.Error.Message, "Downloader");
             }
 
@@ -405,7 +433,7 @@ namespace UVA_Arena.Internet
 
         private static void __DownloadProblemCategoryCompleted(DownloadTask task)
         {
-            string msg = "Failed to downloaded category list."; 
+            string msg = "Failed to downloaded category list.";
             if (task.Status == ProgressStatus.Completed)
             {
                 LocalDatabase.LoadCategories();

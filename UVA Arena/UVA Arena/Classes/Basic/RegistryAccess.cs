@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
+using System.Data;
 using System.Collections.Generic;
 
 namespace UVA_Arena
@@ -7,7 +8,7 @@ namespace UVA_Arena
     /// <summary>
     /// Interactive functions to get or set data into system's registry
     /// </summary>
-    internal static class RegistryAccess
+    internal sealed class RegistryAccess
     {
         /// <summary>
         /// Default registry key used for this application
@@ -18,6 +19,14 @@ namespace UVA_Arena
             {
                 return Registry.CurrentUser.OpenSubKey("Software", true).CreateSubKey("UVA Arena");
             }
+        }
+
+        /// <summary>
+        /// Default registry key path used for this application
+        /// </summary>
+        public static string GetDefaultRegKeyPath()
+        {
+            return DEFAULT.Name;
         }
 
         /// <summary>
@@ -239,6 +248,60 @@ namespace UVA_Arena
             set
             {
                 SetValue("JDK Compiler Path", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or Sets the Compiler options for C compiler
+        /// </summary>         
+        public static string CCompilerOption
+        {
+            get
+            {
+                string dat = (string)GetValue("C Compiler Options");
+                if (string.IsNullOrEmpty(dat)) dat = "-Wall -ansi";
+                return dat;
+            }
+            set
+            {
+                SetValue("C Compiler Options", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or Sets the Compiler options for C++ compiler
+        /// </summary> 
+        public static string CPPCompilerOption
+        {
+            get
+            {
+                string dat = (string)GetValue("C++ Compiler Options");
+                if (string.IsNullOrEmpty(dat)) dat = "-Wall";
+                return dat;
+            }
+            set
+            {
+                SetValue("C++ Compiler Options", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or Sets the Compiler options for Java compiler
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-g")]
+        public static string JavaCompilerOption
+        {
+            get
+            {
+                string dat = (string)GetValue("Java Compiler Options");
+                if (string.IsNullOrEmpty(dat)) dat = "-g";
+                return dat;
+            }
+            set
+            {
+                SetValue("Java Compiler Options", value);
             }
         }
     }

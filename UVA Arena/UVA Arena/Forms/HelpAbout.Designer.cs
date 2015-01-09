@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HelpAbout));
             this.productName = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -50,7 +51,7 @@
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -63,9 +64,9 @@
             this.productName.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.productName.Font = new System.Drawing.Font("Candara", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.productName.ForeColor = System.Drawing.Color.DarkBlue;
-            this.productName.Location = new System.Drawing.Point(0, 264);
+            this.productName.Location = new System.Drawing.Point(0, 262);
             this.productName.Name = "productName";
-            this.productName.Size = new System.Drawing.Size(332, 35);
+            this.productName.Size = new System.Drawing.Size(332, 40);
             this.productName.TabIndex = 0;
             this.productName.Text = "UVA Arena";
             this.productName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -82,7 +83,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(30, 5);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(340, 383);
+            this.tabControl1.Size = new System.Drawing.Size(340, 387);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -95,7 +96,7 @@
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(332, 353);
+            this.tabPage1.Size = new System.Drawing.Size(332, 357);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "About";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -107,7 +108,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(332, 264);
+            this.panel1.Size = new System.Drawing.Size(332, 262);
             this.panel1.TabIndex = 3;
             // 
             // versionLabel
@@ -115,9 +116,9 @@
             this.versionLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.versionLabel.Font = new System.Drawing.Font("Cambria", 12.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.versionLabel.ForeColor = System.Drawing.Color.DarkRed;
-            this.versionLabel.Location = new System.Drawing.Point(0, 299);
+            this.versionLabel.Location = new System.Drawing.Point(0, 302);
             this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(332, 28);
+            this.versionLabel.Size = new System.Drawing.Size(332, 25);
             this.versionLabel.TabIndex = 1;
             this.versionLabel.Text = "Version 1.0";
             this.versionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -129,7 +130,7 @@
             this.label3.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.label3.Location = new System.Drawing.Point(0, 327);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(332, 26);
+            this.label3.Size = new System.Drawing.Size(332, 30);
             this.label3.TabIndex = 2;
             this.label3.Text = "Copyright (c) 2014 by Sudipto Chandra.";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -144,7 +145,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 26);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(332, 353);
+            this.tabPage2.Size = new System.Drawing.Size(332, 357);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "License";
             // 
@@ -168,6 +169,7 @@
             this.button2.Size = new System.Drawing.Size(81, 58);
             this.button2.TabIndex = 3;
             this.button2.Tag = "https://github.com/dipu-bd";
+            this.toolTip1.SetToolTip(this.button2, "https://github.com/dipu-bd");
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -194,6 +196,7 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Tag = "mailto:dipu.sudipta@gmail.com";
             this.linkLabel1.Text = "dipu.sudipta@gmail.com";
+            this.toolTip1.SetToolTip(this.linkLabel1, "mailto:dipu.sudipta@gmail.com");
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // licenceText
@@ -244,7 +247,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 26);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(332, 353);
+            this.tabPage3.Size = new System.Drawing.Size(332, 357);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Help Docs";
             // 
@@ -267,10 +270,10 @@
             this.label7.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(12, 150);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(304, 101);
+            this.label7.Size = new System.Drawing.Size(304, 93);
             this.label7.TabIndex = 4;
-            this.label7.Text = "To check for update click Check For Update under Help menu. \r\n\r\nIt will notify yo" +
-    "u if any update found, otherwise it won\'t bother you.";
+            this.label7.Text = "To check for update click Check For Update under Help menu. \r\n(It will notify you" +
+    " if any update found, otherwise it won\'t bother you.)";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // linkLabel3
@@ -278,13 +281,14 @@
             this.linkLabel3.AutoSize = true;
             this.linkLabel3.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel3.Location = new System.Drawing.Point(120, 105);
+            this.linkLabel3.Location = new System.Drawing.Point(120, 111);
             this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(111, 19);
+            this.linkLabel3.Size = new System.Drawing.Size(103, 19);
             this.linkLabel3.TabIndex = 2;
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Tag = "https://github.com/dipu-bd/UVA-Arena/issues";
-            this.linkLabel3.Text = "Report and issue";
+            this.linkLabel3.Text = "Report an issue";
+            this.toolTip1.SetToolTip(this.linkLabel3, "https://github.com/dipu-bd/UVA-Arena/issues");
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // linkLabel2
@@ -292,13 +296,14 @@
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel2.Location = new System.Drawing.Point(96, 43);
+            this.linkLabel2.Location = new System.Drawing.Point(96, 51);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(176, 19);
             this.linkLabel2.TabIndex = 0;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Tag = "https://github.com/dipu-bd/UVA-Arena/wiki";
             this.linkLabel2.Text = "Online help documentation";
+            this.toolTip1.SetToolTip(this.linkLabel2, "https://github.com/dipu-bd/UVA-Arena/wiki");
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // label1
@@ -306,7 +311,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 20);
+            this.label1.Location = new System.Drawing.Point(12, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(304, 46);
             this.label1.TabIndex = 1;
@@ -318,33 +323,21 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 82);
+            this.label2.Location = new System.Drawing.Point(12, 88);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(304, 46);
             this.label2.TabIndex = 3;
             this.label2.Text = "Report any problems, bugs, suggestions or ask questions here -";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(222, 401);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(130, 28);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Close";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // HelpAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.ClientSize = new System.Drawing.Size(364, 441);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(364, 411);
             this.Controls.Add(this.tabControl1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -371,7 +364,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel1;
@@ -389,5 +381,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

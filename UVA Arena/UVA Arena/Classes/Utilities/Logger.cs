@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace UVA_Arena
 {
-    internal static class Logger
+    internal sealed class Logger
     {
         public class LogData
         {

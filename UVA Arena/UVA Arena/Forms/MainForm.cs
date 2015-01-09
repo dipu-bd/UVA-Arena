@@ -53,7 +53,7 @@ namespace UVA_Arena
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-            if (!Properties.Settings.Default.ShowExitDialogue)
+            if (!Properties.Settings.Default.HideExitDialog)
             {
                 ClosingDialogueForm cdf = new ClosingDialogueForm();
                 if (cdf.ShowDialog() == System.Windows.Forms.DialogResult.No)
@@ -244,21 +244,28 @@ namespace UVA_Arena
         #region Less significant functions
 
         private void customTabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        { 
+        {
+            //problemsToolStripMenuItem.Enabled = (customTabControl1.SelectedTab == problemTab);
+            //codesToolStripMenuItem.Enabled = (customTabControl1.SelectedTab == codesTab);
+            //statusToolStripMenuItem.Enabled = (customTabControl1.SelectedTab == judgeStatusTab);
+            //profilesToolStripMenuItem.Enabled = (customTabControl1.SelectedTab == profileTab);
         }
 
         private void helpButton_Click(object sender, EventArgs e)
         {
+            customTabControl1.Focus();
             Interactivity.ShowHelpAbout();
         }
 
         private void loggerButton_Click(object sender, EventArgs e)
         {
+            customTabControl1.Focus();
             Interactivity.ShowLogger();
         }
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
+            customTabControl1.Focus();
             Interactivity.ShowSettings();
         }
 
@@ -495,6 +502,29 @@ namespace UVA_Arena
 
         #endregion help menu
 
+        #region Top Level
+        private void problemsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //customTabControl1.SelectedTab = problemTab;
+        }
+        private void codesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //customTabControl1.SelectedTab = codesTab;
+        }
+
+        private void statusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //customTabControl1.SelectedTab = judgeStatusTab;
+        }
+
+        private void profilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //customTabControl1.SelectedTab = profileTab;
+        }
+
+        #endregion
+
         #endregion Less significant functions
+
     }
 }

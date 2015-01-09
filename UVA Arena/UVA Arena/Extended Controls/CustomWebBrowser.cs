@@ -100,7 +100,7 @@ namespace UVA_Arena.ExtendedControls
         /// </summary>
         [DefaultValue(true)]
         [Category("Custom Property")]
-        public bool KeepHistory
+        public bool HistoryButtons
         {
             get { return (nextButton.Visible); }
             set
@@ -116,8 +116,8 @@ namespace UVA_Arena.ExtendedControls
         /// <param name="url">URL to navigate</param>
         public void Navigate(string url)
         {
-            webBrowser1.Navigate(url);
             HomeUrl = url;
+            webBrowser1.Navigate(url);
             SetUrlBox();
         }
 
@@ -231,7 +231,7 @@ namespace UVA_Arena.ExtendedControls
 
         private void topBox_Enter(object sender, EventArgs e)
         {
-            urlBox.Text = webBrowser1.Url.ToString();
+            SetUrlBox(true);
             if (urlBox.Focused)
                 urlBox.ForeColor = Color.Black;
             else
@@ -255,15 +255,19 @@ namespace UVA_Arena.ExtendedControls
             }
         }
 
-        private void SetUrlBox()
+        private void SetUrlBox(bool urlonly = false)
         {
-            if (webBrowser1.DocumentTitle.Length > 2)
+            if (!urlonly && webBrowser1.DocumentTitle.Length > 2)
+            {
                 urlBox.Text = webBrowser1.DocumentTitle;
+            }
             else
-                if (webBrowser1.Url != null)
-                    urlBox.Text = webBrowser1.Url.ToString();
+            {
+                if (webBrowser1.Url == null)
+                    urlBox.Text = "NULL";
                 else
-                    urlBox.Text = "";
+                    urlBox.Text = webBrowser1.Url.ToString();
+            }
         }
 
         private void homeButton_Click(object sender, EventArgs e)

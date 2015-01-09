@@ -64,11 +64,11 @@
             this.last2DaysLabel = new System.Windows.Forms.Label();
             this.lastMonthLabel = new System.Windows.Forms.Label();
             this.last7Dayslabel = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.subPerDateTab = new System.Windows.Forms.TabPage();
             this.subPerVerTab = new System.Windows.Forms.TabPage();
             this.subPerLanTab = new System.Windows.Forms.TabPage();
             this.rankCloudTab = new System.Windows.Forms.TabPage();
-            this.label13 = new System.Windows.Forms.Label();
             this.subCounterPanel.SuspendLayout();
             this.namePanel.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -80,8 +80,7 @@
             // 
             // subCounterPanel
             // 
-            this.subCounterPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.subCounterPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.subCounterPanel.BackColor = System.Drawing.Color.LightCyan;
             this.subCounterPanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.subCounterPanel.ColumnCount = 4;
@@ -204,8 +203,7 @@
             // 
             // namePanel
             // 
-            this.namePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.namePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.namePanel.AutoSize = true;
             this.namePanel.BackColor = System.Drawing.Color.GhostWhite;
             this.namePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
@@ -335,7 +333,6 @@
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.BackColor = System.Drawing.Color.PaleTurquoise;
             this.tableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -349,7 +346,6 @@
             this.tableLayoutPanel3.Controls.Add(this.tabControl1, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel3.MinimumSize = new System.Drawing.Size(350, 300);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -411,7 +407,6 @@
             // basicInfoTab
             // 
             this.basicInfoTab.AutoScroll = true;
-            this.basicInfoTab.BackColor = System.Drawing.Color.LightBlue;
             this.basicInfoTab.Controls.Add(this.tableLayoutPanel1);
             this.basicInfoTab.Controls.Add(this.namePanel);
             this.basicInfoTab.Controls.Add(this.subCounterPanel);
@@ -423,8 +418,7 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.Ivory;
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 2;
@@ -607,6 +601,19 @@
             this.last7Dayslabel.TabIndex = 2;
             this.last7Dayslabel.Text = "[0]";
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.label13.Location = new System.Drawing.Point(185, 119);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(414, 17);
+            this.label13.TabIndex = 6;
+            this.label13.Text = "Visit the world rank tab to get updated rank information";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // subPerDateTab
             // 
             this.subPerDateTab.BackColor = System.Drawing.Color.FloralWhite;
@@ -643,25 +650,13 @@
             this.rankCloudTab.TabIndex = 3;
             this.rankCloudTab.Text = "Rank Cloud";
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.label13.Location = new System.Drawing.Point(185, 119);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(414, 17);
-            this.label13.TabIndex = 6;
-            this.label13.Text = "Visit the world rank tab to get updated rank information";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // UserProgTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Lavender;
             this.Controls.Add(this.tableLayoutPanel3);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "UserProgTracker";

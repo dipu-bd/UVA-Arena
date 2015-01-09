@@ -4,14 +4,14 @@
     {
         public CustomSplitContainer()
         {
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.UserPaint, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
 
-        private System.Drawing.Point _initial;
         private DateTime _lastMove;
         private bool _moving = false;
+        private System.Drawing.Point _initial;
 
         private bool _MoveSplitter(int diff, int maxsiz)
         {
@@ -36,6 +36,7 @@
                 _initial = e.Location;
                 IsSplitterFixed = true;
             }
+
             base.OnMouseDown(e);
         }
 
@@ -46,6 +47,7 @@
                 _moving = false;
                 IsSplitterFixed = false;
             }
+
             base.OnMouseUp(e);
         }
 
@@ -64,6 +66,7 @@
                         _initial = e.Location;
                 }
             }
+
             base.OnMouseMove(e);
         }
     }

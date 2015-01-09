@@ -734,6 +734,7 @@
             this.customWebBrowser1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customWebBrowser1.ForeColor = System.Drawing.Color.Black;
             this.customWebBrowser1.HomeUrl = null;
+            this.customWebBrowser1.HistoryButtons = false;
             this.customWebBrowser1.Location = new System.Drawing.Point(0, 0);
             this.customWebBrowser1.Name = "customWebBrowser1";
             this.customWebBrowser1.Size = new System.Drawing.Size(792, 342);
@@ -874,6 +875,7 @@
             this.BackColor = System.Drawing.Color.LightBlue;
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.TopPanel);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "ProblemViewer";

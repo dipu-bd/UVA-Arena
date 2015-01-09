@@ -49,7 +49,7 @@ namespace UVA_Arena.Elements
             lastSubmissions1.MakeColumnSelectMenu(MainContextMenu);
 
             ShowUserSub(RegistryAccess.DefaultUsername);
-            
+
             Stylish.SetGradientBackground(titleBackPanel,
                 new Stylish.GradientStyle(Color.PowderBlue, Color.PaleTurquoise, 90F));
         }
@@ -67,9 +67,9 @@ namespace UVA_Arena.Elements
         //Private functions
         //
         private void SelectUpdateRateMenu()
-        { 
+        {
             string tag = UpdateInterval.ToString();
-            if (AutoUpdateStatus) UserStatRefresh(); 
+            if (AutoUpdateStatus) UserStatRefresh();
             foreach (ToolStripItem item in updateContextMenu.Items)
             {
                 if (item.Tag != null && item.GetType() == typeof(ToolStripMenuItem))
@@ -132,7 +132,7 @@ namespace UVA_Arena.Elements
         {
             get
             {
-                return Properties.Settings.Default.UserStatUpdateInterval;                
+                return Properties.Settings.Default.UserStatUpdateInterval;
             }
             set
             {
@@ -206,17 +206,35 @@ namespace UVA_Arena.Elements
         //
         // Username list
         //
+
+        private void SelectUsername(string user)
+        {
+            string uid = LocalDatabase.GetUserid(user);
+            for (int i = 0; i < usernameList.GetItemCount(); ++i)
+            {
+                if (((KeyValuePair<string, string>)usernameList.GetModelObject(i)).Value == uid)
+                {
+                    usernameList.EnsureModelVisible(i);
+                    usernameList.SelectedIndex = i;
+                    break;
+                }
+            }
+        }
+
         public void LoadUsernames()
         {
             usernameList.SetObjects(LocalDatabase.usernames);
+            if (currentUser != null && !LocalDatabase.ContainsUser(currentUser.uname))
+            {
+                LoadUserSub(RegistryAccess.DefaultUsername);
+            }
         }
 
         private void usernameList_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
         {
             if (RegistryAccess.DefaultUsername == ((KeyValuePair<string, string>)e.Model).Key)
             {
-                for (int i = 0; i < e.Item.SubItems.Count; ++i)
-                    e.Item.SubItems[i].BackColor = Color.LightBlue;
+                e.SubItem.BackColor = Color.Linen;
             }
 
             if (e.Column == unameCol)
@@ -281,6 +299,10 @@ namespace UVA_Arena.Elements
 
         public UserInfo currentUser = null;
 
+        /// <summary>
+        /// Load user submissions information to currentUser
+        /// </summary>
+        /// <param name="user">Username to load</param>
         public void LoadUserSub(string user)
         {
             //if 'user' is already loaded then do nothing
@@ -330,6 +352,9 @@ namespace UVA_Arena.Elements
                     //show list 
                     ShowDataByTab();
                 }
+
+                //select user
+                SelectUsername(user);
             }
             catch (Exception ex)
             {
@@ -426,7 +451,7 @@ namespace UVA_Arena.Elements
 
             //check if update needed
             if (webClient1.IsBusy || !AutoUpdateStatus || currentUser == null) return;
-            
+
             //update
             TimeSpan span = DateTime.Now.Subtract(LastUpdate);
             long diff = (long)span.TotalMilliseconds;
@@ -509,7 +534,13 @@ namespace UVA_Arena.Elements
 
         #region Submissions List
 
-        private void refreshToolButton_Click(object sender, EventArgs e)
+        private void refreshSubmissionsItem_Click(object sender, EventArgs e)
+        {
+            if (currentUser == null) return;
+            DownloadUserSubs(currentUser.uname);
+        }
+
+        private void redownloadSubmissionsButton_Click(object sender, EventArgs e)
         {
             if (currentUser == null) return;
             currentUser.LastSID = 0;
@@ -518,7 +549,7 @@ namespace UVA_Arena.Elements
 
         private void lastSubmissions1_Click(object sender, EventArgs e)
         {
-            if (lastSubmissions1.Items.Count == 0 && currentUser != null)
+            if (lastSubmissions1.GetItemCount() == 0 && currentUser != null)
                 DownloadUserSubs(currentUser.uname);
         }
 
@@ -690,7 +721,7 @@ namespace UVA_Arena.Elements
 
         private void worldRanklist_Click(object sender, EventArgs e)
         {
-            if (worldRanklist.Items.Count == 0)
+            if (worldRanklist.GetItemCount() == 0)
                 ShowWorldRank();
         }
 

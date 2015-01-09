@@ -83,7 +83,7 @@ namespace UVA_Arena.Elements
         public static void ForceStopTask()
         {
             cancelationPending = true;
-            while (IsRunning) 
+            while (IsRunning)
                 System.Threading.Thread.Sleep(50);
         }
 
@@ -154,7 +154,7 @@ namespace UVA_Arena.Elements
             string exec = Path.Combine(Path.GetDirectoryName(filename), name + ".exe");
 
             //options
-            string options = Properties.Settings.Default.CCompilerOptions;
+            string options = RegistryAccess.CPPCompilerOption;
 
             //run process
             string arguments = string.Format("\"{0}\" \"{1}\" {2} -o \"{3}", compiler, filename, options, exec);
@@ -181,7 +181,7 @@ namespace UVA_Arena.Elements
             string exec = Path.Combine(Path.GetDirectoryName(filename), name + ".exe");
 
             //options
-            string options = Properties.Settings.Default.CPPCompilerOptions;
+            string options = RegistryAccess.CPPCompilerOption;
 
             //run process
             string arguments = string.Format("\"{0}\" \"{1}\" {2} -o \"{3}", compiler, filename, options, exec);
@@ -207,7 +207,7 @@ namespace UVA_Arena.Elements
             string dir = Path.GetDirectoryName(filename);
 
             //options
-            string options = Properties.Settings.Default.JavaCompilerOptions;
+            string options = RegistryAccess.JavaCompilerOption;
 
             //run process
             string arguments = string.Format("\"{0}\" {1} -d \"{2}\" \"{3}\"", compiler, options, dir, filename);
@@ -230,6 +230,8 @@ namespace UVA_Arena.Elements
             //get exe file name
             string filename = Path.GetFileNameWithoutExtension(CurrentProblem.Name) + ".exe";
             string exec = Path.Combine(CurrentProblem.DirectoryName, filename);
+            if (!File.Exists(exec))
+                throw new FileNotFoundException("Executable file was not found. Please compile first");
 
             if (runtest)
             {
@@ -249,7 +251,7 @@ namespace UVA_Arena.Elements
             {
                 //run process from a batch file
                 string arguments = "\"" + exec + "\"";
-                
+
                 return RunInBatch(arguments, filename);
             }
         }
@@ -349,14 +351,16 @@ namespace UVA_Arena.Elements
 
             proc.WaitForExit();
 
-            string runtime = string.Format("Runtime = {0:0.000} sec.", 
+            string runtime = string.Format("Runtime = {0:0.000} sec.",
                 (proc.ExitTime - proc.StartTime).TotalSeconds);
+            
+            int exitcode = tle ? -1 : proc.ExitCode;
 
             string verdict = "Successful";
+            if (exitcode != 0) verdict = "Failed";
             if (tle) verdict = "Time Limit Exceeded";
-            if (cancelationPending) verdict = "Canceled";
+            if (cancelationPending) verdict = "Canceled";            
 
-            int exitcode = tle ? -1 : proc.ExitCode;
             string msg = string.Format("Exit Code = {0} ({1}).\n", exitcode, verdict);
 
             //show output 
@@ -365,7 +369,7 @@ namespace UVA_Arena.Elements
 
             //return result
             proc.Dispose();
-            return (!tle);
+            return (exitcode == 0 && !tle);
         }
 
         private static void ForceKill(string procname)

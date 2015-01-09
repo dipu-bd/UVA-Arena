@@ -3,15 +3,18 @@
   <assemblyIdentity name="UVA Arena.application" version="1.0.0.5" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <description asmv2:publisher="Sudipto Chandra" asmv2:product="UVA Arena" asmv2:supportUrl="https://github.com/dipu-bd/UVA-Arena" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" />
+  <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
+    <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
+  </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="UVA Arena.exe.manifest" size="8496">
+    <dependentAssembly dependencyType="install" codebase="UVA Arena.exe.manifest" size="8642">
       <assemblyIdentity name="UVA Arena.exe" version="1.0.0.5" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>mJzVHhHRtvUzsSH0TtY5uLSn7DA=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>aeTHdchbT7uwz2KWF+pgQos+/6vcHS6QllmdCAwxVuM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

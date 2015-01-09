@@ -299,6 +299,9 @@ namespace UVA_Arena
         /// </summary>
         public static void BackupData()
         {
+            string path = LocalDirectory.DefaultPath;
+            if (!System.IO.Directory.Exists(path)) return;
+
             string file = @"unzip\unzip.exe";
             if (!System.IO.File.Exists(file)) return;
 
@@ -308,12 +311,11 @@ namespace UVA_Arena
             sfd.DefaultExt = ".uapak";
             sfd.AddExtension = true;
             sfd.CheckPathExists = true;
-
+            
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 System.Threading.ThreadPool.QueueUserWorkItem(Backup, sfd.FileName);
             }
-
             sfd.Dispose();
         }
 
@@ -323,6 +325,9 @@ namespace UVA_Arena
         /// </summary>
         public static void RestoreData()
         {
+            string path = LocalDirectory.DefaultPath;
+            if (!System.IO.Directory.Exists(path)) return;
+
             string file = @"unzip\zipit.exe";
             if (!System.IO.File.Exists(file)) return;
 
@@ -347,15 +352,17 @@ namespace UVA_Arena
             string zipit = @"unzip\zipit.exe";
             string file = (string)state;
 
-            //get reg
             string path = LocalDirectory.DefaultPath;
-            string data = GetRegistryData();
-            string regfile = Path.Combine(path, "regkey.reg");
-            File.WriteAllText(regfile, data);
+            if (!System.IO.Directory.Exists(path)) return;
+
+            string regfile = Path.Combine(path, "backup.reg");
+            BackupRegistryData(regfile);
 
             //save data
-            string arg = string.Format("\"{0}\" \"{1}\"", file, path);
-            System.Diagnostics.Process.Start(zipit, arg);
+            string arg = string.Format("\"{0}\" \"{1}\" -64 -es -zc \"UVA Arena package\" -progress", file, path);
+            System.Diagnostics.Process.Start(zipit, arg).WaitForExit();
+
+            MessageBox.Show("Data backup completed.");
         }
 
         /// <summary>
@@ -369,51 +376,38 @@ namespace UVA_Arena
 
             //delete old
             string path = LocalDirectory.DefaultPath;
-            System.IO.Directory.Delete(path, true);
+
+            LocalDirectory.DeleteFilesOrFolders(new string[] { path });
+
+            while (System.IO.Directory.Exists(path))
+                System.Threading.Thread.Sleep(100);
 
             //restore all
-            string arg = string.Format("-o -d \"{0}\" \"{1}\"", path, file);
+            string arg = string.Format("-o -q -d \"{0}\" \"{1}\"", path, file);
             System.Diagnostics.Process.Start(unzip, arg).WaitForExit();
 
-            //restore reg
-            string regfile = Path.Combine(path, "regkey.reg");
-            System.Diagnostics.Process.Start(regfile);
+            //restore registry            
+            string regfile = Path.Combine(path, "backup.reg");
+            RestorRegistryData(regfile);
+
+            //prompt to restart application
+            string msg = "Data restore finished. You need to restart the application to make some settings effective.";
+            if (MessageBox.Show(msg, Application.ProductName, MessageBoxButtons.OKCancel) == DialogResult.Cancel) return;
             Application.Restart();
         }
 
-        /// <summary>
-        /// Get registry entries in Windows Registry Editor Version 5.00 format
-        /// </summary>
-        /// <param name="key">This should be initially null to start from RegistryAccess.DEFAULT key</param>
-        /// <returns>A string that can be opened by system's Registry Editor written in .reg file</returns>
-        public static string GetRegistryData(RegistryKey key = null)
+        public static void BackupRegistryData(string regfile)
         {
-            string dat = "";
-            string NL = Environment.NewLine;
+            var key = RegistryAccess.GetDefaultRegKeyPath();
+            string arg = string.Format("/e \"{0}\" \"{1}\"", regfile, key);
+            System.Diagnostics.Process.Start("regedit.exe", arg).WaitForExit();
+        }
 
-            if (key == null)
-            {
-                key = RegistryAccess.DEFAULT;
-                dat = "Windows Registry Editor Version 5.00" + NL + NL;
-            }
-
-            //key path
-            dat += string.Format("[{0}]", key) + NL;
-
-            //get values
-            foreach (string name in key.GetValueNames())
-            {
-                string value = JsonConvert.SerializeObject(key.GetValue(name));
-                dat += string.Format("\"{0}\"={1}", name, value) + NL;
-            }
-
-            //get sub keys
-            foreach (string subkey in key.GetSubKeyNames())
-            {
-                dat += GetRegistryData(key.OpenSubKey(subkey)) + NL;
-            }
-
-            return dat;
+        public static void RestorRegistryData(string regfile)
+        {
+            if (!System.IO.File.Exists(regfile)) return;
+            string arg = string.Format("/s \"{0}\"", regfile);
+            System.Diagnostics.Process.Start("regedit.exe", arg).WaitForExit();
         }
 
         #endregion Backup and Restore

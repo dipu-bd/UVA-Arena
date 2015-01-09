@@ -41,8 +41,8 @@
             this.twoMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fiveMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tenMinutesToolItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.updateRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -52,18 +52,19 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.acceptedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notAcceptedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.noneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verdictToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.problemNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.groupByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshSubmissions2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.redownloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,8 +112,11 @@
             this.rankSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.subtimeSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.refreshSubmission = new System.Windows.Forms.ToolStripButton();
+            this.refreshSubmissions = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.redownloadSubmissions = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.progtrackerTab = new System.Windows.Forms.TabPage();
             this.worldrankTab = new System.Windows.Forms.TabPage();
             this.worldRanklist = new BrightIdeasSoftware.FastObjectListView();
@@ -172,6 +176,7 @@
             this.fiveMinutesToolItem,
             this.tenMinutesToolItem});
             this.updateContextMenu.Name = "updateContextMenu";
+            this.updateContextMenu.OwnerItem = this.updateRateToolStripMenuItem;
             this.updateContextMenu.Size = new System.Drawing.Size(142, 230);
             // 
             // autoUpdateToolMenu
@@ -263,13 +268,6 @@
             this.tenMinutesToolItem.Text = "10 minutes";
             this.tenMinutesToolItem.Click += new System.EventHandler(this.updateRateToolStripMenuItem2_Click);
             // 
-            // updateRateToolStripMenuItem
-            // 
-            this.updateRateToolStripMenuItem.DropDown = this.updateContextMenu;
-            this.updateRateToolStripMenuItem.Name = "updateRateToolStripMenuItem";
-            this.updateRateToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.updateRateToolStripMenuItem.Text = "Auto Update";
-            // 
             // toolStripSplitButton1
             // 
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -278,6 +276,13 @@
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
             this.toolStripSplitButton1.Size = new System.Drawing.Size(84, 20);
             this.toolStripSplitButton1.Text = "Update Rate";
+            // 
+            // updateRateToolStripMenuItem
+            // 
+            this.updateRateToolStripMenuItem.DropDown = this.updateContextMenu;
+            this.updateRateToolStripMenuItem.Name = "updateRateToolStripMenuItem";
+            this.updateRateToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.updateRateToolStripMenuItem.Text = "Update Rate";
             // 
             // viewContextMenu
             // 
@@ -291,14 +296,15 @@
             this.acceptedToolStripMenuItem,
             this.notAcceptedToolStripMenuItem});
             this.viewContextMenu.Name = "viewContextMenu";
-            this.viewContextMenu.Size = new System.Drawing.Size(153, 170);
+            this.viewContextMenu.OwnerItem = this.viewToolStripMenuItem;
+            this.viewContextMenu.Size = new System.Drawing.Size(148, 148);
             // 
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Checked = true;
             this.allToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.allToolStripMenuItem.Tag = "-1";
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.viewMenuItem_Click);
@@ -306,12 +312,12 @@
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(144, 6);
             // 
             // recent100ToolStripMenuItem
             // 
             this.recent100ToolStripMenuItem.Name = "recent100ToolStripMenuItem";
-            this.recent100ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.recent100ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.recent100ToolStripMenuItem.Tag = "100";
             this.recent100ToolStripMenuItem.Text = "Recent 100";
             this.recent100ToolStripMenuItem.Click += new System.EventHandler(this.viewMenuItem_Click);
@@ -319,7 +325,7 @@
             // recent500ToolStripMenuItem
             // 
             this.recent500ToolStripMenuItem.Name = "recent500ToolStripMenuItem";
-            this.recent500ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.recent500ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.recent500ToolStripMenuItem.Tag = "500";
             this.recent500ToolStripMenuItem.Text = "Recent 500";
             this.recent500ToolStripMenuItem.Click += new System.EventHandler(this.viewMenuItem_Click);
@@ -327,7 +333,7 @@
             // recent1000ToolStripMenuItem
             // 
             this.recent1000ToolStripMenuItem.Name = "recent1000ToolStripMenuItem";
-            this.recent1000ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.recent1000ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.recent1000ToolStripMenuItem.Tag = "1000";
             this.recent1000ToolStripMenuItem.Text = "Recent 1000";
             this.recent1000ToolStripMenuItem.Click += new System.EventHandler(this.viewMenuItem_Click);
@@ -335,12 +341,12 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(144, 6);
             // 
             // acceptedToolStripMenuItem
             // 
             this.acceptedToolStripMenuItem.Name = "acceptedToolStripMenuItem";
-            this.acceptedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.acceptedToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.acceptedToolStripMenuItem.Tag = "-10";
             this.acceptedToolStripMenuItem.Text = "Accepted";
             this.acceptedToolStripMenuItem.Click += new System.EventHandler(this.viewMenuItem_Click);
@@ -348,17 +354,10 @@
             // notAcceptedToolStripMenuItem
             // 
             this.notAcceptedToolStripMenuItem.Name = "notAcceptedToolStripMenuItem";
-            this.notAcceptedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.notAcceptedToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.notAcceptedToolStripMenuItem.Tag = "-20";
             this.notAcceptedToolStripMenuItem.Text = "Not Accepted";
             this.notAcceptedToolStripMenuItem.Click += new System.EventHandler(this.viewMenuItem_Click);
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.DropDown = this.viewContextMenu;
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.viewToolStripMenuItem.Text = "View";
             // 
             // toolStripSplitButton2
             // 
@@ -369,6 +368,13 @@
             this.toolStripSplitButton2.Size = new System.Drawing.Size(45, 20);
             this.toolStripSplitButton2.Text = "View";
             // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDown = this.viewContextMenu;
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
             // groupContextMenu
             // 
             this.groupContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -378,7 +384,7 @@
             this.verdictToolStripMenuItem,
             this.problemNameToolStripMenuItem});
             this.groupContextMenu.Name = "contextMenuStrip1";
-            this.groupContextMenu.OwnerItem = this.toolStripButton1;
+            this.groupContextMenu.OwnerItem = this.groupByToolStripMenuItem;
             this.groupContextMenu.Size = new System.Drawing.Size(155, 98);
             // 
             // noneToolStripMenuItem
@@ -416,13 +422,6 @@
             this.problemNameToolStripMenuItem.Text = "Problem Name";
             this.problemNameToolStripMenuItem.Click += new System.EventHandler(this.groupMenuItem_Click);
             // 
-            // groupByToolStripMenuItem
-            // 
-            this.groupByToolStripMenuItem.DropDown = this.groupContextMenu;
-            this.groupByToolStripMenuItem.Name = "groupByToolStripMenuItem";
-            this.groupByToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.groupByToolStripMenuItem.Text = "Group By";
-            // 
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -432,34 +431,51 @@
             this.toolStripButton1.Size = new System.Drawing.Size(69, 20);
             this.toolStripButton1.Text = "Group By";
             // 
+            // groupByToolStripMenuItem
+            // 
+            this.groupByToolStripMenuItem.DropDown = this.groupContextMenu;
+            this.groupByToolStripMenuItem.Name = "groupByToolStripMenuItem";
+            this.groupByToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.groupByToolStripMenuItem.Text = "Group By";
+            // 
             // MainContextMenu
             // 
             this.MainContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshToolStripMenuItem,
+            this.refreshSubmissions2,
+            this.redownloadToolStripMenuItem,
             this.toolStripSeparator3,
             this.viewToolStripMenuItem,
             this.groupByToolStripMenuItem,
-            this.updateRateToolStripMenuItem,
-            this.toolStripSeparator4});
+            this.toolStripSeparator4,
+            this.updateRateToolStripMenuItem});
             this.MainContextMenu.Name = "contextMenuStrip1";
-            this.MainContextMenu.Size = new System.Drawing.Size(142, 104);
+            this.MainContextMenu.Size = new System.Drawing.Size(141, 126);
             // 
-            // refreshToolStripMenuItem
+            // refreshSubmissions2
             // 
-            this.refreshToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.reload;
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshSubmissions2.Image = global::UVA_Arena.Properties.Resources.reload;
+            this.refreshSubmissions2.Name = "refreshSubmissions2";
+            this.refreshSubmissions2.Size = new System.Drawing.Size(140, 22);
+            this.refreshSubmissions2.Text = "Refresh";
+            this.refreshSubmissions2.Click += new System.EventHandler(this.refreshSubmissionsItem_Click);
+            // 
+            // redownloadToolStripMenuItem
+            // 
+            this.redownloadToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.download;
+            this.redownloadToolStripMenuItem.Name = "redownloadToolStripMenuItem";
+            this.redownloadToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.redownloadToolStripMenuItem.Text = "Redownload";
+            this.redownloadToolStripMenuItem.Click += new System.EventHandler(this.redownloadSubmissionsButton_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(137, 6);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(137, 6);
             // 
             // toolStripMenuItem1
             // 
@@ -653,7 +669,9 @@
             this.usernameList.Cursor = System.Windows.Forms.Cursors.Default;
             this.usernameList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usernameList.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usernameList.ForeColor = System.Drawing.Color.Black;
             this.usernameList.FullRowSelect = true;
+            this.usernameList.HideSelection = false;
             this.usernameList.Location = new System.Drawing.Point(0, 35);
             this.usernameList.Name = "usernameList";
             this.usernameList.ShowGroups = false;
@@ -921,12 +939,16 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.BackColor = System.Drawing.Color.PowderBlue;
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshSubmission,
+            this.refreshSubmissions,
+            this.toolStripSeparator11,
+            this.redownloadSubmissions,
             this.toolStripSeparator10,
-            this.toolStripButton1,
             this.toolStripSplitButton2,
+            this.toolStripButton1,
+            this.toolStripSeparator12,
             this.toolStripSplitButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 325);
             this.toolStrip1.Name = "toolStrip1";
@@ -935,21 +957,40 @@
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // refreshSubmission
+            // refreshSubmissions
             // 
-            this.refreshSubmission.Image = global::UVA_Arena.Properties.Resources.reload;
-            this.refreshSubmission.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.refreshSubmission.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.refreshSubmission.Name = "refreshSubmission";
-            this.refreshSubmission.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.refreshSubmission.Size = new System.Drawing.Size(103, 20);
-            this.refreshSubmission.Text = "Redownload";
-            this.refreshSubmission.Click += new System.EventHandler(this.refreshToolButton_Click);
+            this.refreshSubmissions.Image = global::UVA_Arena.Properties.Resources.reload;
+            this.refreshSubmissions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.refreshSubmissions.Name = "refreshSubmissions";
+            this.refreshSubmissions.Size = new System.Drawing.Size(66, 20);
+            this.refreshSubmissions.Text = "Refresh";
+            this.refreshSubmissions.Click += new System.EventHandler(this.refreshSubmissionsItem_Click);
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(6, 23);
+            // 
+            // redownloadSubmissions
+            // 
+            this.redownloadSubmissions.Image = global::UVA_Arena.Properties.Resources.download;
+            this.redownloadSubmissions.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.redownloadSubmissions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.redownloadSubmissions.Name = "redownloadSubmissions";
+            this.redownloadSubmissions.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.redownloadSubmissions.Size = new System.Drawing.Size(103, 20);
+            this.redownloadSubmissions.Text = "Redownload";
+            this.redownloadSubmissions.Click += new System.EventHandler(this.redownloadSubmissionsButton_Click);
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
             this.toolStripSeparator10.Size = new System.Drawing.Size(6, 23);
+            // 
+            // toolStripSeparator12
+            // 
+            this.toolStripSeparator12.Name = "toolStripSeparator12";
+            this.toolStripSeparator12.Size = new System.Drawing.Size(6, 23);
             // 
             // progtrackerTab
             // 
@@ -1258,6 +1299,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.Controls.Add(this.customSplitContainer1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "USER_STAT";
@@ -1343,7 +1385,7 @@
         private System.Windows.Forms.ToolStripMenuItem verdictToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem problemNameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem updateRateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshSubmissions2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
@@ -1371,7 +1413,7 @@
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton refreshSubmission;
+        private System.Windows.Forms.ToolStripButton redownloadSubmissions;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ContextMenuStrip uernameContextMenu;
         private System.Windows.Forms.ToolStripMenuItem deleteUserToolStripMenuItem;
@@ -1400,5 +1442,9 @@
         public System.Windows.Forms.TabPage progtrackerTab;
         public System.Windows.Forms.TabPage worldrankTab;
         public System.Windows.Forms.TabPage compareTab;
+        private System.Windows.Forms.ToolStripButton refreshSubmissions;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.ToolStripMenuItem redownloadToolStripMenuItem;
     }
 }

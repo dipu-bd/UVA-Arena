@@ -73,7 +73,7 @@ namespace UVA_Arena.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Transparent")]
+        [global::System.Configuration.DefaultSettingValueAttribute("LightCyan")]
         public global::System.Drawing.Color EditorCurrentLineColor {
             get {
                 return ((global::System.Drawing.Color)(this["EditorCurrentLineColor"]));
@@ -179,42 +179,6 @@ namespace UVA_Arena.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-ansi -Wall")]
-        public string CCompilerOptions {
-            get {
-                return ((string)(this["CCompilerOptions"]));
-            }
-            set {
-                this["CCompilerOptions"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-Wall")]
-        public string CPPCompilerOptions {
-            get {
-                return ((string)(this["CPPCompilerOptions"]));
-            }
-            set {
-                this["CPPCompilerOptions"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-g")]
-        public string JavaCompilerOptions {
-            get {
-                return ((string)(this["JavaCompilerOptions"]));
-            }
-            set {
-                this["JavaCompilerOptions"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.3")]
         public double ProblemMainSplitterDistance {
             get {
@@ -246,18 +210,6 @@ namespace UVA_Arena.Properties {
             }
             set {
                 this["HideAcceptedChecked"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ShowExitDialogue {
-            get {
-                return ((bool)(this["ShowExitDialogue"]));
-            }
-            set {
-                this["ShowExitDialogue"] = value;
             }
         }
         
@@ -354,6 +306,42 @@ namespace UVA_Arena.Properties {
             }
             set {
                 this["UserStatViewOption"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Maximized")]
+        public global::System.Windows.Forms.FormWindowState MainWindowState {
+            get {
+                return ((global::System.Windows.Forms.FormWindowState)(this["MainWindowState"]));
+            }
+            set {
+                this["MainWindowState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AskForUsernameEverytime {
+            get {
+                return ((bool)(this["AskForUsernameEverytime"]));
+            }
+            set {
+                this["AskForUsernameEverytime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HideExitDialog {
+            get {
+                return ((bool)(this["HideExitDialog"]));
+            }
+            set {
+                this["HideExitDialog"] = value;
             }
         }
     }

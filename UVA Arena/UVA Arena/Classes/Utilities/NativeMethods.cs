@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace UVA_Arena
 { 
-    public class NativeMethods
+    public sealed class NativeMethods
     {
         private NativeMethods() { }
         
@@ -126,6 +126,15 @@ namespace UVA_Arena
         //
         [DllImport("dwmapi.dll")]
         private static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref MARGINS pMarInset);
+        
+        //
+        // WinINet
+        [DllImport("wininet.dll", SetLastError = true)]
+        public static extern int InternetAttemptConnect(uint res);
+        
+        [DllImport("wininet.dll", SetLastError = true)]
+        public static extern bool InternetGetConnectedState(long flags, long reserved);
+     
 
         //
         // Misc Functions

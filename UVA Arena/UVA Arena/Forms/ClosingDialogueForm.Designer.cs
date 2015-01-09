@@ -76,8 +76,8 @@
             // 
             this.dontShowCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dontShowCheckBox.AutoSize = true;
-            this.dontShowCheckBox.Checked = global::UVA_Arena.Properties.Settings.Default.ShowExitDialogue;
-            this.dontShowCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "ShowExitDialogue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.dontShowCheckBox.Checked = global::UVA_Arena.Properties.Settings.Default.HideExitDialog;
+            this.dontShowCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "HideExitDialog", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.dontShowCheckBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dontShowCheckBox.Location = new System.Drawing.Point(10, 10);
             this.dontShowCheckBox.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
@@ -137,6 +137,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

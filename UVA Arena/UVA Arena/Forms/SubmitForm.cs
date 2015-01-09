@@ -32,10 +32,10 @@ namespace UVA_Arena
             this.lang = language;
 
             //submit problem
-            if (!ProcessPage())
-            {
+            if (customWebBrowser1.Url == null)
                 customWebBrowser1.Navigate(QUICK);
-            }
+            else if (!ProcessPage())
+                customWebBrowser1.Navigate(QUICK);
         }
 
         private bool ProcessPage()
@@ -44,7 +44,6 @@ namespace UVA_Arena
             try
             {
                 HtmlDocument hdoc = customWebBrowser1.Document;
-                if (hdoc == null) return false;
 
                 foreach (HtmlElement helem in hdoc.Forms)
                 {
@@ -53,7 +52,7 @@ namespace UVA_Arena
                     HtmlElementCollection tarea = helem.GetElementsByTagName("textarea");
 
                     string check = "5"; //C++ and C++11
-                    if (lang == Language.C) check = "1";                                        
+                    if (lang == Language.C) check = "1";
                     if (lang == Language.Java) check = "2";
                     if (lang == Language.Pascal) check = "4";
 
@@ -76,43 +75,50 @@ namespace UVA_Arena
                         if (name == "remember")
                         {
                             inpbox.SetAttribute("checked", "true");
-                            result = false;
                         }
                         else if (name == "localid")
                         {
                             inpbox.SetAttribute("value", pnum.ToString());
+                            result = true;
                         }
                         else if (name == "language")
                         {
                             string value = inpbox.GetAttribute("value");
                             if (value == check) inpbox.SetAttribute("checked", "1");
+                            result = true;
                         }
                     }
                 }
             }
-            catch { }
+            catch
+            {
+                result = false;
+            }
 
             return result;
         }
-                  
-         
+
         private void customWebBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             ProcessPage();
-        
-            //check if a submission occured            
-            string url = customWebBrowser1.Url.ToString();
-            string msg = "mosmsg=Submission+received+with+ID+";
-            if (url.Contains(msg))
+
+            try
             {
-                int tmp;
-                url = url.Substring(url.IndexOf(msg) + msg.Length);
-                if (int.TryParse(url, out tmp))
+                //check if a submission occured            
+                if (customWebBrowser1.Url == null) return;
+                string url = customWebBrowser1.Url.ToString();
+                string msg = "mosmsg=Submission+received+with+ID+";
+                if (url.Contains(msg))
                 {
-                    Interactivity.ShowJudgeStatus();
-                    this.Hide();
+                    url = url.Substring(url.IndexOf(msg) + msg.Length);
+                    if (int.Parse(url) > 10)
+                    {
+                        Interactivity.ShowJudgeStatus();
+                        this.Hide();
+                    }
                 }
             }
+            catch { }
         }
     }
 }

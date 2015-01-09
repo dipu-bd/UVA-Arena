@@ -16,25 +16,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_1EA21B388F492DF4E5CCE5FE76AFBAB5"
+        "MsmKey" = "8:_48B91BE35A206D4F0A9EF863D7EE8A28"
         "OwnerKey" = "8:_ACC87B58606549268BFDF9B671711776"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_373B2AFB333A1798097EB740C85D01A1"
-        "OwnerKey" = "8:_ACC87B58606549268BFDF9B671711776"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_96CC9802DA74DFCF86D52616AF0C7E69"
-        "OwnerKey" = "8:_ACC87B58606549268BFDF9B671711776"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A8DD1583146E43A3536552935D1C8088"
+        "MsmKey" = "8:_A9E8F3E08DE1CCD7AA28AA5B8C2E11A5"
         "OwnerKey" = "8:_ACC87B58606549268BFDF9B671711776"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -52,56 +40,56 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_D0BADF735FCE454F2D943F53C6D04B5D"
+        "MsmKey" = "8:_B1EDAA8B2D1D05A806C3786A2462A8DC"
         "OwnerKey" = "8:_ACC87B58606549268BFDF9B671711776"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F5420B108AF8E4F2A327456D2D72FA69"
+        "MsmKey" = "8:_B4CF2E210814CEFB364D99586EB70ADC"
         "OwnerKey" = "8:_ACC87B58606549268BFDF9B671711776"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A8DD1583146E43A3536552935D1C8088"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_B72DC1D089181A7C17F333169B4E21C9"
         "OwnerKey" = "8:_ACC87B58606549268BFDF9B671711776"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1EA21B388F492DF4E5CCE5FE76AFBAB5"
+        "OwnerKey" = "8:_ACC87B58606549268BFDF9B671711776"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_96CC9802DA74DFCF86D52616AF0C7E69"
+        "OwnerKey" = "8:_A9E8F3E08DE1CCD7AA28AA5B8C2E11A5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F5420B108AF8E4F2A327456D2D72FA69"
+        "OwnerKey" = "8:_48B91BE35A206D4F0A9EF863D7EE8A28"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D0BADF735FCE454F2D943F53C6D04B5D"
+        "OwnerKey" = "8:_B1EDAA8B2D1D05A806C3786A2462A8DC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_373B2AFB333A1798097EB740C85D01A1"
+        "OwnerKey" = "8:_B72DC1D089181A7C17F333169B4E21C9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_B4CF2E210814CEFB364D99586EB70ADC"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -122,6 +110,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -138,6 +142,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -167,76 +187,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1EA21B388F492DF4E5CCE5FE76AFBAB5"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ZedGraph, Version=5.1.5.28844, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_1EA21B388F492DF4E5CCE5FE76AFBAB5"
-                    {
-                    "Name" = "8:ZedGraph.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:ZedGraph.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_24DBEC7994A74643B90F3CAFA2AE2609"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_373B2AFB333A1798097EB740C85D01A1"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:FastColoredTextBox, Version=2.16.2.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_373B2AFB333A1798097EB740C85D01A1"
-                    {
-                    "Name" = "8:FastColoredTextBox.DLL"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:FastColoredTextBox.DLL"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_24DBEC7994A74643B90F3CAFA2AE2609"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_96CC9802DA74DFCF86D52616AF0C7E69"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_48B91BE35A206D4F0A9EF863D7EE8A28"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:ObjectListView, Version=2.8.0.5451, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_96CC9802DA74DFCF86D52616AF0C7E69"
+                    "_48B91BE35A206D4F0A9EF863D7EE8A28"
                     {
                     "Name" = "8:ObjectListView.DLL"
                     "Attributes" = "3:512"
@@ -260,20 +218,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A8DD1583146E43A3536552935D1C8088"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A9E8F3E08DE1CCD7AA28AA5B8C2E11A5"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ActiveButtons, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:ZedGraph, Version=5.1.5.28844, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_A8DD1583146E43A3536552935D1C8088"
+                    "_A9E8F3E08DE1CCD7AA28AA5B8C2E11A5"
                     {
-                    "Name" = "8:ActiveButtons.dll"
+                    "Name" = "8:ZedGraph.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:ActiveButtons.dll"
+            "SourcePath" = "8:ZedGraph.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_24DBEC7994A74643B90F3CAFA2AE2609"
@@ -311,20 +269,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D0BADF735FCE454F2D943F53C6D04B5D"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B1EDAA8B2D1D05A806C3786A2462A8DC"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_D0BADF735FCE454F2D943F53C6D04B5D"
+                    "_B1EDAA8B2D1D05A806C3786A2462A8DC"
                     {
-                    "Name" = "8:HtmlAgilityPack.dll"
+                    "Name" = "8:Newtonsoft.Json.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:HtmlAgilityPack.dll"
+            "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_24DBEC7994A74643B90F3CAFA2AE2609"
@@ -342,20 +300,51 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F5420B108AF8E4F2A327456D2D72FA69"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B4CF2E210814CEFB364D99586EB70ADC"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:FastColoredTextBox, Version=2.16.2.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F5420B108AF8E4F2A327456D2D72FA69"
+                    "_B4CF2E210814CEFB364D99586EB70ADC"
                     {
-                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Name" = "8:FastColoredTextBox.DLL"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Newtonsoft.Json.dll"
+            "SourcePath" = "8:FastColoredTextBox.DLL"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_24DBEC7994A74643B90F3CAFA2AE2609"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B72DC1D089181A7C17F333169B4E21C9"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_B72DC1D089181A7C17F333169B4E21C9"
+                    {
+                    "Name" = "8:HtmlAgilityPack.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:HtmlAgilityPack.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_24DBEC7994A74643B90F3CAFA2AE2609"
@@ -429,9 +418,9 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:UVA Arena"
-        "ProductCode" = "8:{77A78622-17B1-431F-8087-8F4B098E0FB4}"
-        "PackageCode" = "8:{33E67209-AFDE-41A5-91A1-1023ECCB8254}"
-        "UpgradeCode" = "8:{9833C5C2-88AB-4119-A8E6-FB933F03B9AF}"
+        "ProductCode" = "8:{E7E35422-4CEC-4C41-A392-90A997EAB560}"
+        "PackageCode" = "8:{FD5563DF-B2A3-4766-93AF-9EA4C88BE853}"
+        "UpgradeCode" = "8:{6F0FF62B-D215-490B-B06E-B5A53A284277}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
@@ -442,7 +431,7 @@
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/dipu-bd/UVA-Arena/wiki"
         "Title" = "8:UVA Arena Setup"
-        "Subject" = "8:"
+        "Subject" = "8:UVA Arena is a utility tool to practice problem solving"
         "ARPCONTACT" = "8:Sudipto Chandra"
         "Keywords" = "8:UVA Arena; Utility; Programing"
         "ARPCOMMENTS" = "8:UVA Arena is a utility tool to practice problem solving"
@@ -507,9 +496,9 @@
                         {
                             "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_E25C6F4F1279495EA5690D1676646FFB"
                             {
-                            "Name" = "8:[Manufacturer]"
+                            "Name" = "8:UVA Arena"
                             "Condition" = "8:"
-                            "AlwaysCreate" = "11:FALSE"
+                            "AlwaysCreate" = "11:TRUE"
                             "DeleteAtUninstall" = "11:FALSE"
                             "Transitive" = "11:FALSE"
                                 "Keys"
@@ -673,8 +662,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License version 3.0 as published by the Free Software Foundation"
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -730,8 +719,8 @@
                             "Type" = "3:15"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1258"
+                            "Setting" = "3:2"
+                            "Value" = "8:Please check the vendor's website for updates"
                             "DefaultValue" = "8:#1258"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -824,8 +813,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License version 3.0 as published by the Free Software Foundation"
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }

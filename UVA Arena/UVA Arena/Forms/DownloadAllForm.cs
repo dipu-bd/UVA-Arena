@@ -137,7 +137,7 @@ namespace UVA_Arena
         #endregion
 
         #region Event Listeners
-        
+
         private void replaceBox_Click(object sender, EventArgs e)
         {
             if (replaceBox.Checked)
@@ -153,7 +153,7 @@ namespace UVA_Arena
                 replaceCombo1.SelectedIndex = 0;
             }
         }
-        
+
         private void replaceCombo1_SelectedIndexChanged(object sender, EventArgs e)
         {
             replaceBox.Checked = (replaceCombo1.SelectedIndex != -1);
@@ -284,7 +284,7 @@ namespace UVA_Arena
                     break;
             }
 
-            SetStatus(0, ""); 
+            SetStatus(0, "");
         }
 
         void SetStatus(int percent, string status)
@@ -354,6 +354,12 @@ namespace UVA_Arena
                 backgroundWorker1.ReportProgress(100 * finished / total, status);
             }
 
+            if (!Internet.Downloader.IsInternetConnected())
+            {
+                status = "Not connected to the Internet";
+                backgroundWorker1.ReportProgress(0, status);
+                CurrentState = State.Cancelling;
+            }
             if (CurrentState != State.Running) return;
 
             //download PDF file                
@@ -367,22 +373,38 @@ namespace UVA_Arena
                 backgroundWorker1.ReportProgress(100 * finished / total, status);
             }
 
+            if (!Internet.Downloader.IsInternetConnected())
+            {
+                status = "Not connected to the Internet";
+                backgroundWorker1.ReportProgress(0, status);
+                CurrentState = State.Cancelling;
+            }
             if (CurrentState != State.Running) return;
 
             //download HTML contents
             var list = Functions.ProcessHtmlContent(current,
                 ReplaceOldFiles == 0 || ReplaceOldFiles == 3);
+
             finished = 0;
             total = list.Count;
             foreach (var itm in list)
             {
                 if (CurrentState != State.Running) return;
 
-                status = "Downloading " + Path.GetFileName(itm.FileName) + "... ";
-                backgroundWorker1.ReportProgress(100 * finished / total, status);
-                status = DownloadFile(itm.Url.ToString(), itm.FileName, 10);
-                ++finished;
-                backgroundWorker1.ReportProgress(100 * finished / total, status);
+                if (Internet.Downloader.IsInternetConnected())
+                {
+                    status = "Downloading " + Path.GetFileName(itm.FileName) + "... ";
+                    backgroundWorker1.ReportProgress(100 * finished / total, status);
+                    status = DownloadFile(itm.Url.ToString(), itm.FileName, 10);
+                    ++finished;
+                    backgroundWorker1.ReportProgress(100 * finished / total, status);
+                }
+                else
+                {
+                    status = "Not connected to the Internet";
+                    backgroundWorker1.ReportProgress(0, status);
+                    CurrentState = State.Cancelling;
+                }
             }
         }
 
@@ -401,7 +423,7 @@ namespace UVA_Arena
                     return "Success.";
                 }
                 else
-                { 
+                {
                     File.Delete(tmp);
                     return ("File doesn't have desired length.");
                 }

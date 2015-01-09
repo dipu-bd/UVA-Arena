@@ -42,7 +42,7 @@ namespace UVA_Arena.Elements
                 Interactivity.ProblemDatabaseUpdated();
 
             Stylish.SetGradientBackground(plistPanel,
-                new Stylish.GradientStyle(Color.LightSteelBlue, Color.PowderBlue, 90F));
+                new Stylish.GradientStyle(Color.LightCyan, Color.PaleTurquoise, -90F));
         }
 
         #endregion
@@ -634,7 +634,7 @@ namespace UVA_Arena.Elements
             //set data
             this.BeginInvoke((MethodInvoker)delegate
             {
-                allProbButton.Checked = true;
+                allProbButton.Checked = false;
                 favoriteButton.Checked = false;
                 plistLabel.Text = "Deep Search Result";
                 problemListView.AdditionalFilter = null;

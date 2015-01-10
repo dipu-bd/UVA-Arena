@@ -223,6 +223,26 @@ namespace UVA_Arena.Elements
         }
 
         /// <summary>
+        /// Checks whether given file system info contains in the nodes collection
+        /// </summary>
+        /// <param name="finfo">File system info of child nodes</param>
+        /// <param name="nodes">Tree Node Collection of parent's childs</param>
+        /// <returns></returns>
+        private bool CanAddNode(FileSystemInfo finfo, TreeNodeCollection nodes)
+        {
+            if (!finfo.Exists) return false;
+            foreach (TreeNode nod in nodes)
+            {
+                var fs = (FileSystemInfo)nod.Tag;
+                if (!fs.Exists)
+                    nod.Remove();
+                else if (finfo.FullName == fs.FullName)
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Create and add a new tree node 
         /// (If parent any parent node is given, add tree node to the parent)
         /// </summary>
@@ -696,20 +716,31 @@ namespace UVA_Arena.Elements
                 string path = Path.GetDirectoryName(e.FullPath);
 
                 TreeNode tn = null;
-                if (File.Exists(e.FullPath))
-                    tn = AddTreeNode(new FileInfo(e.FullPath));
-                else
+                if (Directory.Exists(e.FullPath))
+                {
                     tn = AddTreeNode(new DirectoryInfo(e.FullPath));
-                AddChildNodes(tn);
+                    AddChildNodes(tn);
+                }
+                else if (File.Exists(e.FullPath))
+                {
+                    tn = AddTreeNode(new FileInfo(e.FullPath));
+                }
+                if(tn == null) return;
 
                 if (path == RegistryAccess.CodesPath)
                 {
-                    folderTreeView.Nodes.Add(tn);
+                    if (CanAddNode((FileSystemInfo)tn.Tag, folderTreeView.Nodes))
+                    {
+                        folderTreeView.Nodes.Add(tn);
+                    }
                 }
                 else
                 {
                     TreeNode par = GetNode(new DirectoryInfo(path));
-                    if (par != null) par.Nodes.Add(tn);
+                    if (par != null && CanAddNode((FileSystemInfo)tn.Tag, par.Nodes))
+                    {
+                        par.Nodes.Add(tn);
+                    }
                 }
             }
             catch { }
@@ -724,8 +755,7 @@ namespace UVA_Arena.Elements
                 if (RegistryAccess.CodesPath == e.FullPath)
                 {
                     folderTreeView.Nodes.Clear();
-                    selectDirectoryPanel.Visible = true;
-                    fileSystemWatcher1.EnableRaisingEvents = false;
+                    CheckCodesPath();
                     return;
                 }
                 else
@@ -733,9 +763,11 @@ namespace UVA_Arena.Elements
                     DirectoryInfo dir = new DirectoryInfo(e.FullPath);
                     TreeNode tn = GetNode(dir);
                     if (tn != null) tn.Remove();
+
                     if (Interactivity.codes.CurrentFile == null) return;
                     if (Interactivity.codes.CurrentFile.FullName == e.FullPath)
                         Interactivity.codes.OpenFile(null);
+
                 }
             }
             catch { }
@@ -1013,7 +1045,7 @@ namespace UVA_Arena.Elements
                 TreeNode tn = folderTreeView.SelectedNode;
                 if (tn == null)
                     LoadCodeFolder(true);
-                else if (tn.GetType() == typeof(DirectoryInfo))
+                else
                     AddChildNodes(tn);
             }
         }

@@ -188,12 +188,13 @@ namespace UVA_Arena
 
         public static void UserNameListChanged()
         {
-            userstat.BeginInvoke((MethodInvoker)delegate
+            try
             {
-                userstat.LoadUsernames();
-                compareUser.LoadUsersList();
-                problemViewer.LoadUsernameList();
-            });
+                userstat.BeginInvoke((MethodInvoker)userstat.LoadUsernames);
+                compareUser.BeginInvoke((MethodInvoker)compareUser.LoadUsersList);
+                problemViewer.BeginInvoke((MethodInvoker)problemViewer.LoadUsernameList);
+            }
+            catch { }
         }
 
         /// <summary>
@@ -244,7 +245,10 @@ namespace UVA_Arena
                     mainForm.BringToFront();
                 });
             }
-            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ShowUserStat()"); }
+            catch (System.Exception ex)
+            {
+                Logger.Add(ex.Message, "Interactivity|ShowUserStat()");
+            }
         }
 
         /// <summary>
@@ -260,7 +264,10 @@ namespace UVA_Arena
                     mainForm.BringToFront();
                 });
             }
-            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ShowJudgeStatus()"); }
+            catch (System.Exception ex)
+            {
+                Logger.Add(ex.Message, "Interactivity|ShowJudgeStatus()");
+            }
         }
 
         /// <summary>
@@ -287,7 +294,10 @@ namespace UVA_Arena
                     mainForm.BringToFront();
                 });
             }
-            catch (System.Exception ex) { Logger.Add(ex.Message, "Interactivity|ShowProblem()"); }
+            catch (System.Exception ex)
+            {
+                Logger.Add(ex.Message, "Interactivity|ShowProblem()");
+            }
         }
 
         /// <summary>

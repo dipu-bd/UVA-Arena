@@ -30,8 +30,9 @@ namespace UVA_Arena.Elements
         {
             base.OnLoad(e);
             AssignAspectToSubList();
-            LoadUsernameList();
             dateTimePicker1.Value = DateTime.Now.Subtract(new TimeSpan(7, 0, 0, 0));
+
+            LoadUsernameList();
 
             Stylish.SetGradientBackground(titleBox1,
                 new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 90F));
@@ -466,10 +467,9 @@ namespace UVA_Arena.Elements
                 usernameList1.Tag = null;
             }
 
-            showUsersRankButton.Text = string.Format((string)showUsersRankButton.Tag, user);
             showUserSubButton.Text = string.Format((string)showUserSubButton.Tag, user);
+            showUsersRankButton.Text = string.Format((string)showUsersRankButton.Tag, user);            
 
-            usernameList1.Tag = user;
             _curSubType = SubViewType.UsersSub;
             LoadSubmission();
         }
@@ -483,12 +483,9 @@ namespace UVA_Arena.Elements
             if (current == null) return;
 
             string user = (string)usernameList1.Tag;
-            string uid = "";
-            if (!string.IsNullOrEmpty(user))
-                uid = LocalDatabase.GetUserid(user);  //uid        
+            string uid = LocalDatabase.GetUserid(user);
 
-            submissionStatus.ClearObjects();
-            LoadUsernameList();
+            submissionStatus.ClearObjects(); 
 
             long start, stop;
             string url = "", format;
@@ -510,13 +507,13 @@ namespace UVA_Arena.Elements
                     break;
                 case SubViewType.UsersRank:
                     start = stop = 10;
-                    if (string.IsNullOrEmpty(uid)) return;
+                    if (string.IsNullOrEmpty(uid) || uid == "-") return;
                     format = "http://uhunt.felix-halim.net/api/p/ranklist/{0}/{1}/{2}/{3}"; //pid, uid, before_count, after_count
                     url = string.Format(format, current.pid, uid, start, stop);
                     Interactivity.SetStatus("Downloading " + user + "'s rank-data on current problem...");
                     break;
                 case SubViewType.UsersSub:
-                    if (string.IsNullOrEmpty(uid)) return;
+                    if (string.IsNullOrEmpty(uid) || uid == "-") return;
                     format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/{2}"; //uid, pnum, last sid
                     url = string.Format(format, uid, current.pnum, 0);
                     Interactivity.SetStatus("Downloading " + user + "'s submission on current problem...");

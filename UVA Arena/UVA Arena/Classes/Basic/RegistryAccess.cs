@@ -107,12 +107,16 @@ namespace UVA_Arena
         /// <returns>A dictory of [username]->[userid] values</returns>
         public static Dictionary<string, string> GetAllUsers()
         {
-            RegistryKey key = DEFAULT.CreateSubKey("UserID");
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            foreach (string name in key.GetValueNames())
+            try
             {
-                dic.Add(name, key.GetValue(name).ToString());
+                RegistryKey key = DEFAULT.CreateSubKey("UserID");
+                foreach (string name in key.GetValueNames())
+                {
+                    dic.Add(name, key.GetValue(name).ToString());
+                }
             }
+            catch { }
             return dic;
         }
 

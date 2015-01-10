@@ -182,6 +182,7 @@ namespace UVA_Arena.Elements
             if (task.Status == Internet.ProgressStatus.Completed)
             {
                 LoadUsernames();
+                usernameBox.Text = "";
                 usernameStatus.Text = "Added " + task.Token.ToString();
             }
             else

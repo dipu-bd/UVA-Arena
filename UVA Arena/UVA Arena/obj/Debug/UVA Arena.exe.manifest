@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="UVA Arena.exe" version="1.0.0.5" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="UVA Arena.exe" version="1.0.0.6" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="main.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="UVA Arena" version="1.0.0.0" publicKeyToken="AB433924B6D06406" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="UVA Arena" version="1.0.0.0" publicKeyToken="0631076D6C2615EC" language="neutral" processorArchitecture="msil" />
     <commandLine file="UVA Arena.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -91,14 +91,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UVA Arena.exe" size="746496">
-      <assemblyIdentity name="UVA Arena" version="1.0.0.0" publicKeyToken="AB433924B6D06406" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UVA Arena.exe" size="748032">
+      <assemblyIdentity name="UVA Arena" version="1.0.0.0" publicKeyToken="0631076D6C2615EC" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>PMRa7vbNIdZtFpqJegvkKtVC5KJpzYibOf5VkEJ4mgA=</dsig:DigestValue>
+        <dsig:DigestValue>zW2/Dklc4MTYuGzsbJtTUpGW8yXkOM47caj9bhuzQd0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -114,6 +114,15 @@
       </hash>
     </dependentAssembly>
   </dependency>
+  <file name="LICENSE" size="35795">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>N9LlpinTG3mzwIdqFGx9TB+NLPcCdt1PrC2Nar0/CzI=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="main.ico" size="89197">
     <hash>
       <dsig:Transforms>
@@ -123,13 +132,76 @@
       <dsig:DigestValue>Zlt2wIazNg2hToj4iR6qtegisEo6vEu04hCfCW8tZiA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="UVA Arena.exe.config" size="5869">
+  <file name="unzip\Ionic.BZip2.dll" size="57344">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>iCtqiaH0hNA2cXfJArw3uRJ+ZDj/WJ82IIJ/pyHn1fU=</dsig:DigestValue>
+      <dsig:DigestValue>YRMiY16Si+X0JipbHGRkxFKmiQBLBylXmoLr09lgtEA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="unzip\Ionic.Zip.dll" size="462336">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Oz5UFoLkjz/Shy+FoGJ42i8+eHfulW2om5DXMqHqoL0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="unzip\Ionic.Zlib.dll" size="102400">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>841UdnZdwdshJzKABmmiJ5TarjvTh90GA2azhNNnjbE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="unzip\License.txt" size="2672">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>gTpCayH9mZrAJdhH5m4093Pd/QxPHHirNaeJXgiVLZo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="unzip\Readme.txt" size="39373">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>o333o8oKctUFsPU09zztwqdHzC0mZ+TExxzYhEdYFHk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="unzip\unzip.exe" size="13824">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>lm4YMJ3vbICxJLOKcFsJKJvmlIIZMJy+Z+HSxQTtRrc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="unzip\zipit.exe" size="20480">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>sNgwcwu1gS/zgpu7OWB5cCRDCo0kpxm2aXnvsOwhAt0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="UVA Arena.exe.config" size="5852">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>noNRmVs/Mt4ggdec/H2DRUIKqy/K3uAfdr7UnoRNtPI=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

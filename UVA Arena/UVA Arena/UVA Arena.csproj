@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>G:\Projects\GitHub\UVA-Arena\Setup\Files\</PublishUrl>
+    <PublishUrl>H:\Projects\GitHub\UVA-Arena\Setup\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -26,7 +26,7 @@
     <SupportUrl>https://github.com/dipu-bd/UVA-Arena</SupportUrl>
     <ProductName>UVA Arena</ProductName>
     <PublisherName>Sudipto Chandra</PublisherName>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -361,11 +361,10 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="LICENSE">
+    <Content Include="LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Properties\app.manifest" />
-    <None Include="Properties\DataSources\RegistryAccess.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -379,27 +378,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />
-    <None Include="unzip\Ionic.BZip2.dll">
+    <Content Include="unzip\Ionic.BZip2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="unzip\Ionic.Zip.dll">
+    </Content>
+    <Content Include="unzip\Ionic.Zip.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="unzip\Ionic.Zlib.dll">
+    </Content>
+    <Content Include="unzip\Ionic.Zlib.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="unzip\License.txt">
+    </Content>
+    <Content Include="unzip\License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="unzip\Readme.txt">
+    </Content>
+    <Content Include="unzip\Readme.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="unzip\unzip.exe">
+    </Content>
+    <Content Include="unzip\unzip.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="unzip\zipit.exe">
+    </Content>
+    <Content Include="unzip\zipit.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -435,6 +434,9 @@
     <Reference Include="ZedGraph">
       <HintPath>..\..\External References\ZedGraph.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

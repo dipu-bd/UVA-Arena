@@ -278,6 +278,7 @@ namespace UVA_Arena
         /// <summary> get user id from name </summary>
         public static string GetUserid(string name)
         {
+            if (string.IsNullOrEmpty(name)) return null;
             if (!ContainsUser(name)) return "-";
             return usernames[name];
         }

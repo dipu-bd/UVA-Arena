@@ -114,11 +114,11 @@
             this.tabControl1.Controls.Add(this.discussTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(0, 74);
+            this.tabControl1.Location = new System.Drawing.Point(0, 75);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(35, 6);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(800, 376);
+            this.tabControl1.Size = new System.Drawing.Size(800, 375);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -129,7 +129,7 @@
             this.descriptionTab.Controls.Add(this.toolStrip1);
             this.descriptionTab.Location = new System.Drawing.Point(4, 30);
             this.descriptionTab.Name = "descriptionTab";
-            this.descriptionTab.Size = new System.Drawing.Size(792, 342);
+            this.descriptionTab.Size = new System.Drawing.Size(792, 341);
             this.descriptionTab.TabIndex = 0;
             this.descriptionTab.Text = "Description";
             // 
@@ -140,7 +140,7 @@
             this.problemWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.problemWebBrowser.Name = "problemWebBrowser";
             this.problemWebBrowser.ScriptErrorsSuppressed = true;
-            this.problemWebBrowser.Size = new System.Drawing.Size(792, 304);
+            this.problemWebBrowser.Size = new System.Drawing.Size(792, 303);
             this.problemWebBrowser.TabIndex = 1;
             // 
             // toolStrip1
@@ -271,7 +271,7 @@
             this.submissionTab.Controls.Add(this.tableLayoutPanel4);
             this.submissionTab.Location = new System.Drawing.Point(4, 30);
             this.submissionTab.Name = "submissionTab";
-            this.submissionTab.Size = new System.Drawing.Size(792, 342);
+            this.submissionTab.Size = new System.Drawing.Size(792, 341);
             this.submissionTab.TabIndex = 1;
             this.submissionTab.Text = "Submissions";
             // 
@@ -309,7 +309,7 @@
             this.submissionStatus.ShowGroups = false;
             this.submissionStatus.ShowItemCountOnGroups = true;
             this.submissionStatus.ShowItemToolTips = true;
-            this.submissionStatus.Size = new System.Drawing.Size(592, 311);
+            this.submissionStatus.Size = new System.Drawing.Size(592, 310);
             this.submissionStatus.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.submissionStatus.TabIndex = 2;
             this.submissionStatus.UseCellFormatEvents = true;
@@ -448,7 +448,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(200, 342);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(200, 341);
             this.tableLayoutPanel4.TabIndex = 5;
             // 
             // panel3
@@ -456,7 +456,7 @@
             this.panel3.BackColor = System.Drawing.Color.MediumTurquoise;
             this.panel3.Controls.Add(this.label5);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(1, 290);
+            this.panel3.Location = new System.Drawing.Point(1, 289);
             this.panel3.Margin = new System.Windows.Forms.Padding(1);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(198, 23);
@@ -477,7 +477,7 @@
             // compareUserButton
             // 
             this.compareUserButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.compareUserButton.Location = new System.Drawing.Point(1, 315);
+            this.compareUserButton.Location = new System.Drawing.Point(1, 314);
             this.compareUserButton.Margin = new System.Windows.Forms.Padding(1);
             this.compareUserButton.Name = "compareUserButton";
             this.compareUserButton.Size = new System.Drawing.Size(198, 26);
@@ -505,7 +505,7 @@
             this.usernameList1.Location = new System.Drawing.Point(3, 185);
             this.usernameList1.Name = "usernameList1";
             this.usernameList1.ShowGroups = false;
-            this.usernameList1.Size = new System.Drawing.Size(194, 45);
+            this.usernameList1.Size = new System.Drawing.Size(194, 44);
             this.usernameList1.TabIndex = 12;
             this.usernameList1.UseCellFormatEvents = true;
             this.usernameList1.UseCompatibleStateImageBehavior = false;
@@ -692,7 +692,7 @@
             // showUsersRankButton
             // 
             this.showUsersRankButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.showUsersRankButton.Location = new System.Drawing.Point(1, 262);
+            this.showUsersRankButton.Location = new System.Drawing.Point(1, 261);
             this.showUsersRankButton.Margin = new System.Windows.Forms.Padding(1);
             this.showUsersRankButton.Name = "showUsersRankButton";
             this.showUsersRankButton.Size = new System.Drawing.Size(198, 26);
@@ -706,7 +706,7 @@
             // showUserSubButton
             // 
             this.showUserSubButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.showUserSubButton.Location = new System.Drawing.Point(1, 234);
+            this.showUserSubButton.Location = new System.Drawing.Point(1, 233);
             this.showUserSubButton.Margin = new System.Windows.Forms.Padding(1);
             this.showUserSubButton.Name = "showUserSubButton";
             this.showUserSubButton.Size = new System.Drawing.Size(198, 26);
@@ -733,8 +733,8 @@
             this.customWebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.customWebBrowser1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customWebBrowser1.ForeColor = System.Drawing.Color.Black;
-            this.customWebBrowser1.HomeUrl = null;
             this.customWebBrowser1.HistoryButtons = false;
+            this.customWebBrowser1.HomeUrl = null;
             this.customWebBrowser1.Location = new System.Drawing.Point(0, 0);
             this.customWebBrowser1.Name = "customWebBrowser1";
             this.customWebBrowser1.Size = new System.Drawing.Size(792, 342);
@@ -764,7 +764,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 72);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 73);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // up_downButton
@@ -827,7 +827,7 @@
             this.problemMessage.Margin = new System.Windows.Forms.Padding(1);
             this.problemMessage.Name = "problemMessage";
             this.problemMessage.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.problemMessage.Size = new System.Drawing.Size(766, 19);
+            this.problemMessage.Size = new System.Drawing.Size(766, 20);
             this.problemMessage.TabIndex = 4;
             this.problemMessage.Tag = "You DID NOT TRY this problem.";
             this.problemMessage.Text = "You DID NOT TRY this problem.";
@@ -840,7 +840,7 @@
             this.expandCollapseButton.Location = new System.Drawing.Point(1, 1);
             this.expandCollapseButton.Margin = new System.Windows.Forms.Padding(0);
             this.expandCollapseButton.Name = "expandCollapseButton";
-            this.expandCollapseButton.Size = new System.Drawing.Size(30, 72);
+            this.expandCollapseButton.Size = new System.Drawing.Size(30, 73);
             this.expandCollapseButton.TabIndex = 3;
             this.expandCollapseButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.expandCollapseButton.UseVisualStyleBackColor = true;
@@ -865,7 +865,7 @@
             this.TopPanel.Location = new System.Drawing.Point(0, 0);
             this.TopPanel.Name = "TopPanel";
             this.TopPanel.Padding = new System.Windows.Forms.Padding(1);
-            this.TopPanel.Size = new System.Drawing.Size(800, 74);
+            this.TopPanel.Size = new System.Drawing.Size(800, 75);
             this.TopPanel.TabIndex = 4;
             // 
             // ProblemViewer

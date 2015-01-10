@@ -5,8 +5,8 @@
 **UVA Arena** (c) 2014, is a windows based, non-commercial, open source utility application to make problem solving easier for the programmers. It is based on popular [UVA Online Judge](http://uva.onlinejudge.org/) and uses APIs from [uHunt](http://uhunt.felix-halim.net/). 
 
 ### Download 
-	1. [Windows 8 and and later versions](https://github.com/dipu-bd/UVA-Arena/tree/master/Setup/.Net_4.5)  
-	2. [Windows XP, Vista and 7](https://github.com/dipu-bd/UVA-Arena/tree/master/Setup/.Net_2.0)     
+1. [For Windows XP, Vista and 7](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/.Net_2.0/UVA%20Arena%201.0.exe?raw=true)     
+2. [For Windows 8 and and later versions](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/.Net_4.5/UVA%20Arena%201.0.exe?raw=true)  
 
 ### Short Info
 Main target of this software is to provide a useful and informative tool to the users to help them with their programming practice. Today programming has become a very competitive field. You need to keep track of your progress daily, learn new things, and of-course solve new problems as fast as you can. Problem picking and managing your codes is a time consuming process. You can minimize this wasting of time as much as possible using **UVA Arena**.  

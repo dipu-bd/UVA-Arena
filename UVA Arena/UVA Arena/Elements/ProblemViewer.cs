@@ -170,6 +170,15 @@ namespace UVA_Arena.Elements
             problemMessage.Text = msg;
         }
 
+        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (e.TabPage == submissionTab && current == null)
+            {
+                e.Cancel = true;
+                MessageBox.Show("Select a problem first");
+            }
+        }
+
         #endregion
 
         #region Problem Downloader
@@ -468,7 +477,7 @@ namespace UVA_Arena.Elements
             }
 
             showUserSubButton.Text = string.Format((string)showUserSubButton.Tag, user);
-            showUsersRankButton.Text = string.Format((string)showUsersRankButton.Tag, user);            
+            showUsersRankButton.Text = string.Format((string)showUsersRankButton.Tag, user);
 
             _curSubType = SubViewType.UsersSub;
             LoadSubmission();
@@ -485,7 +494,7 @@ namespace UVA_Arena.Elements
             string user = (string)usernameList1.Tag;
             string uid = LocalDatabase.GetUserid(user);
 
-            submissionStatus.ClearObjects(); 
+            submissionStatus.ClearObjects();
 
             long start, stop;
             string url = "", format;
@@ -552,73 +561,81 @@ namespace UVA_Arena.Elements
                 return;
             }
 
-            string user = (string)task.Token;
-
-            //set result to listview
-            if (_curSubType == SubViewType.UsersSub)
+            try
             {
-                task.Result = task.Result.Remove(0, task.Result.IndexOf(":") + 1);
-                task.Result = task.Result.Remove(task.Result.Length - 1);
-                UserInfo uinfo = JsonConvert.DeserializeObject<UserInfo>(task.Result);
-                uinfo.Process();
-                submissionStatus.SetObjects(uinfo.submissions);
-            }
-            else if (_curSubType == SubViewType.Comapre)
-            {
-                List<UserSubmission> allsubs = new List<UserSubmission>();
+                string user = (string)task.Token;
 
-                string data = task.Result.Substring(1, task.Result.Length - 2);
-                do
+                //set result to listview
+                if (_curSubType == SubViewType.UsersSub)
                 {
-                    int i = data.IndexOf("{");
-                    if (i < 0) break;
-                    int j = data.IndexOf("}", i);
-                    if (j < 0) break;
-
-                    string tmp = data.Substring(i, j - i + 1);
-                    UserInfo uinfo = JsonConvert.DeserializeObject<UserInfo>(tmp);
+                    task.Result = task.Result.Remove(0, task.Result.IndexOf(":") + 1);
+                    task.Result = task.Result.Remove(task.Result.Length - 1);
+                    UserInfo uinfo = JsonConvert.DeserializeObject<UserInfo>(task.Result);
                     uinfo.Process();
-                    allsubs.AddRange(uinfo.submissions.ToArray());
-
-                    data = data.Substring(j + 1);
+                    submissionStatus.SetObjects(uinfo.submissions);
                 }
-                while (data.Length > 0);
-                submissionStatus.SetObjects(allsubs);
-            }
-            else
-            {
-                List<SubmissionMessage> lsm =
-                    JsonConvert.DeserializeObject<List<SubmissionMessage>>(task.Result);
-                if (lsm == null) return;
-                submissionStatus.SetObjects(lsm);
-            }
+                else if (_curSubType == SubViewType.Comapre)
+                {
+                    List<UserSubmission> allsubs = new List<UserSubmission>();
 
-            //sort listview and set other flags
-            submissionStatus.ShowGroups = false;
-            switch (_curSubType)
+                    string data = task.Result.Substring(1, task.Result.Length - 2);
+                    do
+                    {
+                        int i = data.IndexOf("{");
+                        if (i < 0) break;
+                        int j = data.IndexOf("}", i);
+                        if (j < 0) break;
+
+                        string tmp = data.Substring(i, j - i + 1);
+                        UserInfo uinfo = JsonConvert.DeserializeObject<UserInfo>(tmp);
+                        uinfo.Process();
+                        allsubs.AddRange(uinfo.submissions.ToArray());
+
+                        data = data.Substring(j + 1);
+                    }
+                    while (data.Length > 0);
+                    submissionStatus.SetObjects(allsubs);
+                }
+                else
+                {
+                    List<SubmissionMessage> lsm =
+                        JsonConvert.DeserializeObject<List<SubmissionMessage>>(task.Result);
+                    if (lsm == null) return;
+                    submissionStatus.SetObjects(lsm);
+                }
+
+                //sort listview and set other flags
+                submissionStatus.ShowGroups = false;
+                switch (_curSubType)
+                {
+                    case SubViewType.LastSubmission:
+                        submissionStatus.Sort(sidSUB, SortOrder.Descending);
+                        subListLabel.Text = "Last submissions on this problem from " +
+                            dateTimePicker1.Value.ToString();
+                        break;
+                    case SubViewType.Ranklist:
+                        submissionStatus.Sort(rankSUB, SortOrder.Ascending);
+                        subListLabel.Text = "Rank-list of this problem displaying first " +
+                            numericUpDown1.Value.ToString() + "' users.";
+                        break;
+                    case SubViewType.UsersRank:
+                        submissionStatus.Sort(rankSUB, SortOrder.Ascending);
+                        subListLabel.Text = user + "'s nearby users on this problem";
+                        break;
+                    case SubViewType.UsersSub:
+                        submissionStatus.Sort(sidSUB, SortOrder.Descending);
+                        subListLabel.Text = user + "'s submissions on this problem";
+                        break;
+                    case SubViewType.Comapre:
+                        submissionStatus.BuildGroups(unameSUB, SortOrder.Ascending);
+                        subListLabel.Text = "Comparison between all users in this problem";
+                        break;
+                }
+            }
+            catch (Exception ex)
             {
-                case SubViewType.LastSubmission:
-                    submissionStatus.Sort(sidSUB, SortOrder.Descending);
-                    subListLabel.Text = "Last submissions on this problem from " +
-                        dateTimePicker1.Value.ToString();
-                    break;
-                case SubViewType.Ranklist:
-                    submissionStatus.Sort(rankSUB, SortOrder.Ascending);
-                    subListLabel.Text = "Rank-list of this problem displaying first " +
-                        numericUpDown1.Value.ToString() + "' users.";
-                    break;
-                case SubViewType.UsersRank:
-                    submissionStatus.Sort(rankSUB, SortOrder.Ascending);
-                    subListLabel.Text = user + "'s nearby users on this problem";
-                    break;
-                case SubViewType.UsersSub:
-                    submissionStatus.Sort(sidSUB, SortOrder.Descending);
-                    subListLabel.Text = user + "'s submissions on this problem";
-                    break;
-                case SubViewType.Comapre:
-                    submissionStatus.BuildGroups(unameSUB, SortOrder.Ascending);
-                    subListLabel.Text = "Comparison between all users in this problem";
-                    break;
+                Interactivity.SetStatus("Failed to download submission data on problem.");
+                Logger.Add(ex.Message, "Problem Viewer | dt_taskCompleted(DownloadTask task)");
             }
         }
         #endregion

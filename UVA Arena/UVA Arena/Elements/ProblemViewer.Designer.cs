@@ -121,6 +121,7 @@
             this.tabControl1.Size = new System.Drawing.Size(800, 375);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
             // descriptionTab
             // 
@@ -722,7 +723,7 @@
             this.discussTab.Controls.Add(this.customWebBrowser1);
             this.discussTab.Location = new System.Drawing.Point(4, 30);
             this.discussTab.Name = "discussTab";
-            this.discussTab.Size = new System.Drawing.Size(792, 342);
+            this.discussTab.Size = new System.Drawing.Size(792, 341);
             this.discussTab.TabIndex = 4;
             this.discussTab.Text = "Discuss";
             this.discussTab.UseVisualStyleBackColor = true;
@@ -737,7 +738,7 @@
             this.customWebBrowser1.HomeUrl = null;
             this.customWebBrowser1.Location = new System.Drawing.Point(0, 0);
             this.customWebBrowser1.Name = "customWebBrowser1";
-            this.customWebBrowser1.Size = new System.Drawing.Size(792, 342);
+            this.customWebBrowser1.Size = new System.Drawing.Size(792, 341);
             this.customWebBrowser1.StatusBarVisible = false;
             this.customWebBrowser1.TabIndex = 0;
             this.customWebBrowser1.TopBarColor = System.Drawing.Color.LightBlue;

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace UVA_Arena
 {
-    public class WebBrowserHelper
+    public static class WebBrowserHelper
     {
         #region Definitions/DLL Imports
         /// 

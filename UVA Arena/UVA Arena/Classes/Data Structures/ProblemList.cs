@@ -4,16 +4,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace UVA_Arena.Structures
-{
-    [StructLayout(LayoutKind.Sequential)]
-    public class CategoryList
-    {
-        public CategoryList() { }
-        public int count { get; set; }
-        public string name { get; set; }
-        public object tag { get; set; }
-    }
-
+{ 
     public enum ProblemStatus
     {
         Unavailable,
@@ -22,9 +13,10 @@ namespace UVA_Arena.Structures
     };
 
     [StructLayout(LayoutKind.Sequential)]
-    public class ProblemInfo
+    public class ProblemInfo 
     {
-        public ProblemInfo() { } 
+        public ProblemInfo() { }
+        public ProblemInfo(List<object> data) { SetData(data); }
 
         /// <summary>Problem ID</summary>
         public long pid { get; set; }
@@ -79,12 +71,12 @@ namespace UVA_Arena.Structures
         public bool marked { get; set; }
         public int priority { get; set;}
 
-        public List<string> tags = new List<string>();
+        public List<string> categories = new List<string>();
 
         public override string ToString()
         {
             return string.Format(" {0} {1} {2} {3} ", pnum, ptitle,
-                    string.Join(" ", tags.ToArray()), status);
+                    string.Join(" ", categories.ToArray()), status);
         }
 
         public void SetData(List<object> data)
@@ -105,9 +97,7 @@ namespace UVA_Arena.Structures
 
             if (stat == 0) status = ProblemStatus.Unavailable;
             else if (stat == 1) status = ProblemStatus.Normal;
-            else status = ProblemStatus.Special_Judge;
-            
-            tags = RegistryAccess.GetTags(pnum);
+            else status = ProblemStatus.Special_Judge; 
         }
     }
 }

@@ -47,7 +47,7 @@
     </DocumentationFile>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -74,7 +74,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ManifestCertificateThumbprint>76DF74A9150CE14F15AC14B92B78A6A9EE83F63D</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>9096198299B55FE521BEB2B43AA699F0A78DBD4A</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>UVAArenaKey.pfx</ManifestKeyFile>
@@ -98,7 +98,9 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Classes\Data Structures\CategoryNode.cs" />
     <Compile Include="Classes\Data Structures\ContextBook.cs" />
+    <Compile Include="Classes\Data Structures\DownloadTask.cs" />
     <Compile Include="Classes\Data Structures\UserInfo.cs" />
     <Compile Include="Classes\Data Structures\UserRanklist.cs" />
     <Compile Include="Classes\Utilities\UpdateCheck.cs" />

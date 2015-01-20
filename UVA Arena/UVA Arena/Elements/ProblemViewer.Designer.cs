@@ -557,7 +557,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(198, 23);
             this.label4.TabIndex = 1;
-            this.label4.Text = "Favorite Users";
+            this.label4.Text = "List of Users";
             this.label4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // showSubmissionButton

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace UVA_Arena
 {
-    internal sealed class SHOperations
+    internal static class SHOperations
     {
         /// <summary>
         /// Possible flags for the SHFileOperation method.

@@ -7,7 +7,7 @@ namespace UVA_Arena
     /// <summary>
     /// Allows interactivity among forms and controls during runtime
     /// </summary>
-    internal sealed class Interactivity
+    internal static class Interactivity
     {
         //forms
         public static MainForm mainForm;
@@ -339,14 +339,7 @@ namespace UVA_Arena
                 problems.BeginInvoke((MethodInvoker)delegate
                 {
                     //load volumes or category
-                    if (!problems.categoryButton.Checked)
-                    {
-                        problems.LoadVolumes();
-                    }
-                    else
-                    {
-                        problems.LoadCategory();
-                    }
+                    problems.LoadCategory();
 
                     //load problems or refresh
                     if (problems.problemListView.Items.Count == 0)

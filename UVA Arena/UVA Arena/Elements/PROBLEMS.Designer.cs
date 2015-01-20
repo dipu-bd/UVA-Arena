@@ -61,13 +61,11 @@
             this.problemViewSplitContainer = new System.Windows.Forms.CustomSplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.filterBox1 = new UVA_Arena.Custom.SearchBox();
-            this.categoryButton = new System.Windows.Forms.RadioButton();
-            this.volumesButton = new System.Windows.Forms.RadioButton();
             this.favoriteButton = new System.Windows.Forms.RadioButton();
             this.allProbButton = new System.Windows.Forms.RadioButton();
-            this.categoryListView = new BrightIdeasSoftware.ObjectListView();
-            this.nameVol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.countVol = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.categoryListView = new BrightIdeasSoftware.TreeListView();
+            this.nameCat = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.countCat = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.problemListContainer = new System.Windows.Forms.TableLayoutPanel();
             this.problemListView = new BrightIdeasSoftware.FastObjectListView();
             this.pnumProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -112,7 +110,7 @@
             this.hideAccepted.Location = new System.Drawing.Point(1, 283);
             this.hideAccepted.Margin = new System.Windows.Forms.Padding(1);
             this.hideAccepted.Name = "hideAccepted";
-            this.hideAccepted.Size = new System.Drawing.Size(203, 22);
+            this.hideAccepted.Size = new System.Drawing.Size(165, 22);
             this.hideAccepted.TabIndex = 6;
             this.hideAccepted.Tag = "Hide Accepted Problems|Show Accepted Problems";
             this.hideAccepted.Text = "Hide Accepted Problems";
@@ -128,7 +126,7 @@
             this.deepSearchCheckBox.Location = new System.Drawing.Point(6, 29);
             this.deepSearchCheckBox.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.deepSearchCheckBox.Name = "deepSearchCheckBox";
-            this.deepSearchCheckBox.Size = new System.Drawing.Size(112, 17);
+            this.deepSearchCheckBox.Size = new System.Drawing.Size(91, 17);
             this.deepSearchCheckBox.TabIndex = 5;
             this.deepSearchCheckBox.Text = "Use Deep Search";
             this.toolTip1.SetToolTip(this.deepSearchCheckBox, "Search including problem descriptions. (Slower)\r\n(You need to have all descriptio" +
@@ -411,7 +409,7 @@
             this.mainSplitContainer.Panel1.Controls.Add(this.problemViewSplitContainer);
             this.mainSplitContainer.Panel1.Controls.Add(this.tableLayoutPanel3);
             this.mainSplitContainer.Size = new System.Drawing.Size(747, 386);
-            this.mainSplitContainer.SplitterDistance = 339;
+            this.mainSplitContainer.SplitterDistance = 336;
             this.mainSplitContainer.SplitterWidth = 5;
             this.mainSplitContainer.TabIndex = 0;
             this.mainSplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.mainSplitContainer_SplitterMoved);
@@ -434,8 +432,8 @@
             this.problemViewSplitContainer.Panel2.BackColor = System.Drawing.Color.LightBlue;
             this.problemViewSplitContainer.Panel2.Controls.Add(this.problemListContainer);
             this.problemViewSplitContainer.Panel2.Controls.Add(this.tableLayoutPanel2);
-            this.problemViewSplitContainer.Size = new System.Drawing.Size(339, 356);
-            this.problemViewSplitContainer.SplitterDistance = 130;
+            this.problemViewSplitContainer.Size = new System.Drawing.Size(336, 356);
+            this.problemViewSplitContainer.SplitterDistance = 165;
             this.problemViewSplitContainer.TabIndex = 0;
             this.problemViewSplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.problemViewSplitContainer_SplitterMoved);
             // 
@@ -443,23 +441,21 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.filterBox1, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.categoryButton, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.volumesButton, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.favoriteButton, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.allProbButton, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.categoryListView, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.filterBox1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.favoriteButton, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.allProbButton, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.categoryListView, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(130, 356);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(165, 356);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // filterBox1
@@ -474,49 +470,9 @@
             this.filterBox1.Name = "filterBox1";
             this.filterBox1.SearchButtonVisible = false;
             this.filterBox1.SearchText = "";
-            this.filterBox1.Size = new System.Drawing.Size(126, 22);
+            this.filterBox1.Size = new System.Drawing.Size(161, 22);
             this.filterBox1.TabIndex = 9;
             this.filterBox1.SearchTextChanged += new System.EventHandler<System.EventArgs>(this.searchBox2_SearchTextChanged);
-            // 
-            // categoryButton
-            // 
-            this.categoryButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.categoryButton.AutoCheck = false;
-            this.categoryButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.categoryButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.categoryButton.ForeColor = System.Drawing.Color.Maroon;
-            this.categoryButton.Image = global::UVA_Arena.Properties.Resources.category;
-            this.categoryButton.Location = new System.Drawing.Point(1, 31);
-            this.categoryButton.Margin = new System.Windows.Forms.Padding(1);
-            this.categoryButton.Name = "categoryButton";
-            this.categoryButton.Size = new System.Drawing.Size(128, 28);
-            this.categoryButton.TabIndex = 8;
-            this.categoryButton.TabStop = true;
-            this.categoryButton.Text = "Categories";
-            this.categoryButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.categoryButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.categoryButton.UseVisualStyleBackColor = true;
-            this.categoryButton.Click += new System.EventHandler(this.categoryButton_Click);
-            // 
-            // volumesButton
-            // 
-            this.volumesButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.volumesButton.AutoCheck = false;
-            this.volumesButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.volumesButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.volumesButton.ForeColor = System.Drawing.Color.Navy;
-            this.volumesButton.Image = global::UVA_Arena.Properties.Resources.volumes;
-            this.volumesButton.Location = new System.Drawing.Point(1, 1);
-            this.volumesButton.Margin = new System.Windows.Forms.Padding(1);
-            this.volumesButton.Name = "volumesButton";
-            this.volumesButton.Size = new System.Drawing.Size(128, 28);
-            this.volumesButton.TabIndex = 7;
-            this.volumesButton.TabStop = true;
-            this.volumesButton.Text = "Volumes";
-            this.volumesButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.volumesButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.volumesButton.UseVisualStyleBackColor = true;
-            this.volumesButton.Click += new System.EventHandler(this.volumesButton_Click);
             // 
             // favoriteButton
             // 
@@ -529,7 +485,7 @@
             this.favoriteButton.Location = new System.Drawing.Point(1, 297);
             this.favoriteButton.Margin = new System.Windows.Forms.Padding(1);
             this.favoriteButton.Name = "favoriteButton";
-            this.favoriteButton.Size = new System.Drawing.Size(128, 28);
+            this.favoriteButton.Size = new System.Drawing.Size(163, 28);
             this.favoriteButton.TabIndex = 6;
             this.favoriteButton.TabStop = true;
             this.favoriteButton.Text = "Marked";
@@ -547,7 +503,7 @@
             this.allProbButton.Location = new System.Drawing.Point(1, 327);
             this.allProbButton.Margin = new System.Windows.Forms.Padding(1);
             this.allProbButton.Name = "allProbButton";
-            this.allProbButton.Size = new System.Drawing.Size(128, 28);
+            this.allProbButton.Size = new System.Drawing.Size(163, 28);
             this.allProbButton.TabIndex = 5;
             this.allProbButton.TabStop = true;
             this.allProbButton.Text = "All Problems";
@@ -557,28 +513,30 @@
             // 
             // categoryListView
             // 
-            this.categoryListView.AllColumns.Add(this.nameVol);
-            this.categoryListView.AllColumns.Add(this.countVol);
+            this.categoryListView.AllColumns.Add(this.nameCat);
+            this.categoryListView.AllColumns.Add(this.countCat);
             this.categoryListView.AlternateRowBackColor = System.Drawing.Color.LightCyan;
             this.categoryListView.BackColor = System.Drawing.Color.AliceBlue;
             this.categoryListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.categoryListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameVol,
-            this.countVol});
+            this.nameCat,
+            this.countCat});
             this.categoryListView.Cursor = System.Windows.Forms.Cursors.Default;
             this.categoryListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.categoryListView.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.categoryListView.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.categoryListView.FullRowSelect = true;
             this.categoryListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.categoryListView.HideSelection = false;
-            this.categoryListView.Location = new System.Drawing.Point(1, 61);
+            this.categoryListView.Location = new System.Drawing.Point(1, 1);
             this.categoryListView.Margin = new System.Windows.Forms.Padding(1);
             this.categoryListView.MultiSelect = false;
             this.categoryListView.Name = "categoryListView";
+            this.categoryListView.OwnerDraw = true;
             this.categoryListView.SelectAllOnControlA = false;
             this.categoryListView.ShowGroups = false;
+            this.categoryListView.ShowImagesOnSubItems = true;
             this.categoryListView.ShowItemToolTips = true;
-            this.categoryListView.Size = new System.Drawing.Size(128, 210);
+            this.categoryListView.Size = new System.Drawing.Size(163, 270);
             this.categoryListView.TabIndex = 4;
             this.categoryListView.UseAlternatingBackColors = true;
             this.categoryListView.UseCellFormatEvents = true;
@@ -589,25 +547,26 @@
             this.categoryListView.UseTranslucentHotItem = true;
             this.categoryListView.UseTranslucentSelection = true;
             this.categoryListView.View = System.Windows.Forms.View.Details;
+            this.categoryListView.VirtualMode = true;
+            this.categoryListView.Expanded += new System.EventHandler<BrightIdeasSoftware.TreeBranchExpandedEventArgs>(this.categoryListView_Expanded);
             this.categoryListView.FormatCell += new System.EventHandler<BrightIdeasSoftware.FormatCellEventArgs>(this.ListView_FormatCell);
             this.categoryListView.SelectedIndexChanged += new System.EventHandler(this.volumeListView_SelectedIndexChanged);
             // 
-            // nameVol
+            // nameCat
             // 
-            this.nameVol.AspectName = "name";
-            this.nameVol.AspectToStringFormat = "";
-            this.nameVol.FillsFreeSpace = true;
-            this.nameVol.Text = "Volume";
-            this.nameVol.ToolTipText = "Volume number";
+            this.nameCat.AspectName = "Title";
+            this.nameCat.AspectToStringFormat = "";
+            this.nameCat.Text = "Title";
+            this.nameCat.ToolTipText = "Volume number";
             // 
-            // countVol
+            // countCat
             // 
-            this.countVol.AspectName = "count";
-            this.countVol.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.countVol.Text = "N";
-            this.countVol.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.countVol.ToolTipText = "Count of problems in this volume";
-            this.countVol.Width = 30;
+            this.countCat.AspectName = "Count";
+            this.countCat.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.countCat.Text = "Count";
+            this.countCat.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.countCat.ToolTipText = "Count of problems in this volume";
+            this.countCat.Width = 30;
             // 
             // problemListContainer
             // 
@@ -623,7 +582,7 @@
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.problemListContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.problemListContainer.Size = new System.Drawing.Size(205, 306);
+            this.problemListContainer.Size = new System.Drawing.Size(167, 306);
             this.problemListContainer.TabIndex = 1;
             this.problemListContainer.Tag = "115";
             // 
@@ -685,7 +644,7 @@
             this.problemListView.ShowGroups = false;
             this.problemListView.ShowItemCountOnGroups = true;
             this.problemListView.ShowItemToolTips = true;
-            this.problemListView.Size = new System.Drawing.Size(205, 247);
+            this.problemListView.Size = new System.Drawing.Size(167, 247);
             this.problemListView.TabIndex = 3;
             this.problemListView.UseAlternatingBackColors = true;
             this.problemListView.UseCellFormatEvents = true;
@@ -814,7 +773,7 @@
             this.plistPanel.Location = new System.Drawing.Point(0, 0);
             this.plistPanel.Margin = new System.Windows.Forms.Padding(0);
             this.plistPanel.Name = "plistPanel";
-            this.plistPanel.Size = new System.Drawing.Size(205, 35);
+            this.plistPanel.Size = new System.Drawing.Size(167, 35);
             this.plistPanel.TabIndex = 4;
             // 
             // plistLabel
@@ -826,7 +785,7 @@
             this.plistLabel.ForeColor = System.Drawing.Color.Navy;
             this.plistLabel.Location = new System.Drawing.Point(0, 0);
             this.plistLabel.Name = "plistLabel";
-            this.plistLabel.Size = new System.Drawing.Size(205, 35);
+            this.plistLabel.Size = new System.Drawing.Size(167, 35);
             this.plistLabel.TabIndex = 2;
             this.plistLabel.Text = "Problems";
             this.plistLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -845,7 +804,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(205, 50);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(167, 50);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // searchBox1
@@ -861,7 +820,7 @@
             this.searchBox1.Name = "searchBox1";
             this.searchBox1.SearchButtonVisible = false;
             this.searchBox1.SearchText = "";
-            this.searchBox1.Size = new System.Drawing.Size(203, 24);
+            this.searchBox1.Size = new System.Drawing.Size(165, 24);
             this.searchBox1.TabIndex = 0;
             this.searchBox1.SearchTextChanged += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchTextChanged);
             this.searchBox1.SearchButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchButtonClicked);
@@ -870,10 +829,10 @@
             // cancelDeepSearchButton
             // 
             this.cancelDeepSearchButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cancelDeepSearchButton.Location = new System.Drawing.Point(126, 26);
+            this.cancelDeepSearchButton.Location = new System.Drawing.Point(103, 26);
             this.cancelDeepSearchButton.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.cancelDeepSearchButton.Name = "cancelDeepSearchButton";
-            this.cancelDeepSearchButton.Size = new System.Drawing.Size(76, 24);
+            this.cancelDeepSearchButton.Size = new System.Drawing.Size(61, 24);
             this.cancelDeepSearchButton.TabIndex = 6;
             this.cancelDeepSearchButton.Text = "Cancel";
             this.cancelDeepSearchButton.UseVisualStyleBackColor = true;
@@ -892,7 +851,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(339, 30);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(336, 30);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // button2
@@ -901,10 +860,10 @@
             this.button2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Image = global::UVA_Arena.Properties.Resources.download;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button2.Location = new System.Drawing.Point(136, 1);
+            this.button2.Location = new System.Drawing.Point(1, 1);
             this.button2.Margin = new System.Windows.Forms.Padding(1);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(202, 28);
+            this.button2.Size = new System.Drawing.Size(132, 28);
             this.button2.TabIndex = 8;
             this.button2.Text = "Description Downloader";
             this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -917,10 +876,10 @@
             this.button1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Image = global::UVA_Arena.Properties.Resources.reload;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.Location = new System.Drawing.Point(1, 1);
+            this.button1.Location = new System.Drawing.Point(135, 1);
             this.button1.Margin = new System.Windows.Forms.Padding(1);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(133, 28);
+            this.button1.Size = new System.Drawing.Size(200, 28);
             this.button1.TabIndex = 7;
             this.button1.Text = "Update List";
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -985,10 +944,10 @@
         private BrightIdeasSoftware.OLVColumn pidProb;
         private BrightIdeasSoftware.OLVColumn totalProb;
         private BrightIdeasSoftware.OLVColumn levelProb;
-        private BrightIdeasSoftware.OLVColumn nameVol;
-        private BrightIdeasSoftware.OLVColumn countVol;
+        private BrightIdeasSoftware.OLVColumn nameCat;
+        private BrightIdeasSoftware.OLVColumn countCat;
         public BrightIdeasSoftware.FastObjectListView problemListView;
-        public BrightIdeasSoftware.ObjectListView categoryListView;
+        public BrightIdeasSoftware.TreeListView categoryListView;
         public System.Windows.Forms.RadioButton favoriteButton;
         public System.Windows.Forms.RadioButton allProbButton;
         private System.Windows.Forms.ContextMenuStrip problemContextMenu;
@@ -1004,8 +963,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.CustomSplitContainer problemViewSplitContainer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        public System.Windows.Forms.RadioButton volumesButton;
-        public System.Windows.Forms.RadioButton categoryButton;
         private System.Windows.Forms.Panel plistPanel;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         public System.Windows.Forms.CustomSplitContainer mainSplitContainer;

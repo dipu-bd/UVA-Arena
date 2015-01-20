@@ -123,9 +123,9 @@ namespace UVA_Arena.Elements
         private void ShowTags()
         {
             if (current == null) return;
-            string data = string.Join("; ", current.tags.ToArray());
+            string data = string.Join("; ", current.categories.ToArray());
             if (data.Length > 2)
-                categoryInfo.Text = string.Format("Tags: {0}", data);
+                categoryInfo.Text = string.Format("Categories: {0}", data);
             else
                 categoryInfo.Clear();
         }
@@ -827,7 +827,6 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
-
 
     }
 }

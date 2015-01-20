@@ -29,20 +29,28 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CategoryChange));
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.save_Button = new System.Windows.Forms.Button();
+            this.cancel_Button = new System.Windows.Forms.Button();
+            this.reload_All = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.addNode1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.removeAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button4 = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.renameNode1 = new System.Windows.Forms.ToolStripButton();
+            this.addChild1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.removeNode1 = new System.Windows.Forms.ToolStripButton();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.renameNode2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.addNode2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addChild2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeNode2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.nativeTreeView1 = new System.Windows.Forms.NativeTreeView();
+            this.toolStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,169 +65,217 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Categories : ";
             // 
-            // label2
+            // save_Button
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(9, 237);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Add Category : ";
+            this.save_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.save_Button.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.save_Button.ForeColor = System.Drawing.Color.Black;
+            this.save_Button.Location = new System.Drawing.Point(397, 227);
+            this.save_Button.Name = "save_Button";
+            this.save_Button.Size = new System.Drawing.Size(75, 25);
+            this.save_Button.TabIndex = 5;
+            this.save_Button.Text = "Save";
+            this.save_Button.UseVisualStyleBackColor = true;
+            this.save_Button.Click += new System.EventHandler(this.save_Button_Click);
             // 
-            // textBox1
+            // cancel_Button
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.textBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.ForeColor = System.Drawing.Color.Black;
-            this.textBox1.Location = new System.Drawing.Point(12, 253);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(210, 21);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+            this.cancel_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancel_Button.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancel_Button.ForeColor = System.Drawing.Color.Black;
+            this.cancel_Button.Location = new System.Drawing.Point(320, 227);
+            this.cancel_Button.Name = "cancel_Button";
+            this.cancel_Button.Size = new System.Drawing.Size(75, 25);
+            this.cancel_Button.TabIndex = 6;
+            this.cancel_Button.Text = "Cancel";
+            this.cancel_Button.UseVisualStyleBackColor = true;
+            this.cancel_Button.Click += new System.EventHandler(this.cancel_Button_Click);
             // 
-            // button1
+            // reload_All
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(224, 251);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(48, 24);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.reload_All.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.reload_All.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reload_All.ForeColor = System.Drawing.Color.Black;
+            this.reload_All.Location = new System.Drawing.Point(12, 227);
+            this.reload_All.Name = "reload_All";
+            this.reload_All.Size = new System.Drawing.Size(80, 25);
+            this.reload_All.TabIndex = 8;
+            this.reload_All.Text = "Reload All";
+            this.reload_All.UseVisualStyleBackColor = true;
+            this.reload_All.Click += new System.EventHandler(this.reload_All_Click);
             // 
-            // button2
+            // toolStrip1
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(197, 286);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 25);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Save";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.Black;
-            this.button3.Location = new System.Drawing.Point(120, 286);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 25);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Cancel";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editToolStripMenuItem,
-            this.removeToolStripMenuItem,
+            this.toolStrip1.AutoSize = false;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addNode1,
             this.toolStripSeparator1,
-            this.removeAllToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(135, 76);
+            this.renameNode1,
+            this.addChild1,
+            this.toolStripSeparator3,
+            this.removeNode1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(458, 25);
+            this.toolStrip1.TabIndex = 10;
+            this.toolStrip1.Text = "toolStrip1";
             // 
-            // editToolStripMenuItem
+            // addNode1
             // 
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.editToolStripMenuItem.Text = "Edit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
-            // 
-            // removeToolStripMenuItem
-            // 
-            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.removeToolStripMenuItem.Text = "Remove";
-            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            this.addNode1.Image = global::UVA_Arena.Properties.Resources.add;
+            this.addNode1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addNode1.Name = "addNode1";
+            this.addNode1.Size = new System.Drawing.Size(81, 22);
+            this.addNode1.Text = "Add Node";
+            this.addNode1.Click += new System.EventHandler(this.addNode1_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(131, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // removeAllToolStripMenuItem
+            // renameNode1
             // 
-            this.removeAllToolStripMenuItem.Name = "removeAllToolStripMenuItem";
-            this.removeAllToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.removeAllToolStripMenuItem.Text = "Remove All";
+            this.renameNode1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.renameNode1.Enabled = false;
+            this.renameNode1.Image = ((System.Drawing.Image)(resources.GetObject("renameNode1.Image")));
+            this.renameNode1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.renameNode1.Name = "renameNode1";
+            this.renameNode1.Size = new System.Drawing.Size(54, 22);
+            this.renameNode1.Text = "Rename";
+            this.renameNode1.Click += new System.EventHandler(this.renameNode1_Click);
             // 
-            // button4
+            // addChild1
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.Black;
-            this.button4.Location = new System.Drawing.Point(12, 286);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(80, 25);
-            this.button4.TabIndex = 8;
-            this.button4.Text = "Remove All";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.addChild1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.addChild1.Enabled = false;
+            this.addChild1.Image = ((System.Drawing.Image)(resources.GetObject("addChild1.Image")));
+            this.addChild1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addChild1.Name = "addChild1";
+            this.addChild1.Size = new System.Drawing.Size(64, 22);
+            this.addChild1.Text = "Add Child";
+            this.addChild1.Click += new System.EventHandler(this.addChild1_Click);
             // 
-            // listView1
+            // toolStripSeparator3
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // removeNode1
+            // 
+            this.removeNode1.Enabled = false;
+            this.removeNode1.Image = global::UVA_Arena.Properties.Resources.clear;
+            this.removeNode1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.removeNode1.Name = "removeNode1";
+            this.removeNode1.Size = new System.Drawing.Size(96, 22);
+            this.removeNode1.Text = "Remoe Node";
+            this.removeNode1.Click += new System.EventHandler(this.removeNode1_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.BackColor = System.Drawing.Color.Snow;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.listView1.ContextMenuStrip = this.contextMenuStrip1;
-            this.listView1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listView1.ForeColor = System.Drawing.Color.Black;
-            this.listView1.GridLines = true;
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView1.LabelEdit = true;
-            this.listView1.Location = new System.Drawing.Point(12, 29);
-            this.listView1.Name = "listView1";
-            this.listView1.ShowItemToolTips = true;
-            this.listView1.Size = new System.Drawing.Size(260, 205);
-            this.listView1.TabIndex = 9;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.listView1_AfterLabelEdit);
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.nativeTreeView1);
+            this.panel1.Controls.Add(this.toolStrip1);
+            this.panel1.Location = new System.Drawing.Point(12, 31);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(460, 190);
+            this.panel1.TabIndex = 11;
             // 
-            // columnHeader1
+            // contextMenuStrip1
             // 
-            this.columnHeader1.Width = 220;
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.renameNode2,
+            this.toolStripSeparator2,
+            this.addNode2,
+            this.addChild2,
+            this.removeNode2});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(206, 98);
+            // 
+            // renameNode2
+            // 
+            this.renameNode2.Enabled = false;
+            this.renameNode2.Name = "renameNode2";
+            this.renameNode2.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.renameNode2.Size = new System.Drawing.Size(220, 22);
+            this.renameNode2.Text = "Rename";
+            this.renameNode2.Click += new System.EventHandler(this.renameNode1_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(217, 6);
+            // 
+            // addNode2
+            // 
+            this.addNode2.Image = global::UVA_Arena.Properties.Resources.add;
+            this.addNode2.Name = "addNode2";
+            this.addNode2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.addNode2.Size = new System.Drawing.Size(220, 22);
+            this.addNode2.Text = "Add Node";
+            this.addNode2.Click += new System.EventHandler(this.addNode1_Click);
+            // 
+            // addChild2
+            // 
+            this.addChild2.Enabled = false;
+            this.addChild2.Name = "addChild2";
+            this.addChild2.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.N)));
+            this.addChild2.Size = new System.Drawing.Size(220, 22);
+            this.addChild2.Text = "Add Child";
+            this.addChild2.Click += new System.EventHandler(this.addChild1_Click);
+            // 
+            // removeNode2
+            // 
+            this.removeNode2.Enabled = false;
+            this.removeNode2.Image = global::UVA_Arena.Properties.Resources.clear;
+            this.removeNode2.Name = "removeNode2";
+            this.removeNode2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.Delete)));
+            this.removeNode2.Size = new System.Drawing.Size(205, 22);
+            this.removeNode2.Text = "Remove Node";
+            this.removeNode2.Click += new System.EventHandler(this.removeNode1_Click);
+            // 
+            // nativeTreeView1
+            // 
+            this.nativeTreeView1.BackColor = System.Drawing.Color.Azure;
+            this.nativeTreeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.nativeTreeView1.ContextMenuStrip = this.contextMenuStrip1;
+            this.nativeTreeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.nativeTreeView1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nativeTreeView1.ForeColor = System.Drawing.Color.Black;
+            this.nativeTreeView1.LabelEdit = true;
+            this.nativeTreeView1.Location = new System.Drawing.Point(0, 25);
+            this.nativeTreeView1.Name = "nativeTreeView1";
+            this.nativeTreeView1.Size = new System.Drawing.Size(458, 163);
+            this.nativeTreeView1.TabIndex = 9;
+            this.nativeTreeView1.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.nativeTreeView1_AfterLabelEdit);
+            this.nativeTreeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.nativeTreeView1_AfterSelect);
             // 
             // CategoryChange
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.ClientSize = new System.Drawing.Size(284, 321);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.listView1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(484, 262);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.reload_All);
+            this.Controls.Add(this.cancel_Button);
+            this.Controls.Add(this.save_Button);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "CategoryChange";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Change Category";
-            this.Load += new System.EventHandler(this.CategoryChange_Load);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -229,18 +285,23 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
+        private System.Windows.Forms.Button save_Button;
+        private System.Windows.Forms.Button cancel_Button;
+        private System.Windows.Forms.Button reload_All;
+        private System.Windows.Forms.NativeTreeView nativeTreeView1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripButton addNode1;
+        private System.Windows.Forms.ToolStripButton removeNode1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem removeAllToolStripMenuItem;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ToolStripButton renameNode1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem renameNode2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem addNode2;
+        private System.Windows.Forms.ToolStripMenuItem addChild2;
+        private System.Windows.Forms.ToolStripMenuItem removeNode2;
+        private System.Windows.Forms.ToolStripButton addChild1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }

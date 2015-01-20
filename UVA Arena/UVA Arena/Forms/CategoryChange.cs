@@ -18,119 +18,151 @@ namespace UVA_Arena
                 this.Close();
                 return;
             }
-        }
-        
-        private void CategoryChange_Load(object sender, EventArgs e)
-        {
-            if (problem.tags == null)
-            {
-                problem.tags = RegistryAccess.GetTags(problem.pnum);
-            }            
 
-            listView1.Items.Clear();
-            foreach (string itm in problem.tags)
-            {
-                listView1.Items.Add(new ListViewItem(itm));
-            }
-
-            List<string> category = new List<string>();
-            var it = LocalDatabase.problem_cat.GetEnumerator();
-            while (it.MoveNext()) category.Add(it.Current.Key);
-            textBox1.Items.AddRange(category.ToArray());
-
+            LoadAllCategory();
+            nativeTreeView1.PathSeparator = CategoryNode.SEPARATOR.ToString();
         }
 
         private ProblemInfo problem = null;
+        private string root = LocalDatabase.NodeRoot + CategoryNode.SEPARATOR;
+        private string lead = LocalDatabase.CatRoot + CategoryNode.SEPARATOR;
 
-        private void button1_Click(object sender, EventArgs e)
+        private void LoadAllCategory()
         {
-            string txt = textBox1.Text.Trim();
-            if (string.IsNullOrEmpty(txt)) return;
-            if (problem.tags.Contains(txt)) return;
-            listView1.Items.Add(new ListViewItem(txt));
-            problem.tags.Add(txt);
-            textBox1.Text = "";
-            textBox1.Focus();
-        }
-
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                button1.PerformClick();
-        }
-
-        private void editToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (listView1.FocusedItem != null)
-                listView1.FocusedItem.BeginEdit();
-        }
-
-        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (listView1.SelectedItems != null)
+            foreach (string path in problem.categories)
             {
-                foreach (ListViewItem lvi in listView1.SelectedItems)
+                string tmp = path.Substring(lead.Length + root.Length);
+                string[] parts = tmp.Split(new char[] { CategoryNode.SEPARATOR },
+                    StringSplitOptions.RemoveEmptyEntries);
+
+                TreeNodeCollection col = nativeTreeView1.Nodes;
+                foreach (string part in parts)
                 {
-                    problem.tags.Remove(lvi.Text);
-                    lvi.Remove();
+                    col = col.Add(part).Nodes;
                 }
             }
+
+            nativeTreeView1.ExpandAll();
         }
 
-        private void listView1_AfterLabelEdit(object sender, LabelEditEventArgs e)
+        private void SaveAllCategory(TreeNode cur = null)
         {
-            if (e.Label.Trim().Length < 2)
+            TreeNodeCollection col = null;
+            if (cur == null)
+                col = nativeTreeView1.Nodes;
+            else if (cur.Nodes.Count > 0)
+                col = cur.Nodes;
+
+            if (col != null)
             {
-                e.CancelEdit = true;
+                foreach (TreeNode tn in col)
+                {
+                    SaveAllCategory(tn);
+                }
             }
             else
             {
-                string old = listView1.Items[e.Item].Text;
-                int indx = problem.tags.IndexOf(old);
-                problem.tags[indx] = e.Label;
+                LocalDatabase.category_root[LocalDatabase.CatRoot][cur.FullPath].AddProblem(problem);
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void RemoveEmptyNodes(CategoryNode cur)
         {
-            listView1.Items.Clear();
-            problem.tags.Clear();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            problem.tags = RegistryAccess.GetTags(problem.pnum);
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Close(); 
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            List<string> old = RegistryAccess.GetTags(problem.pnum);
-            try
-            { 
-                //remove old tags
-                foreach (string tag in old) LocalDatabase.GetCategory(tag).Remove(problem);
-                //add new tags
-                RegistryAccess.SetTags(problem.pnum, problem.tags);
-                foreach (string tag in problem.tags) LocalDatabase.GetCategory(tag).Add(problem);
-                
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
-                if (Interactivity.problems.categoryButton.Checked)
+            for (int i = 0; i < cur.Nodes.Count; ++i)
+            {
+                CategoryNode c = cur.Nodes[i];
+                if (c.Problems.Count == 0)
                 {
-                    Interactivity.problems.LoadCategory();
-                    Interactivity.problems.problemListView.Refresh();
+                    c.Delete();
+                    --i;
+                }
+                else
+                {
+                    RemoveEmptyNodes(c);
                 }
             }
-            catch (Exception ex)
-            {
-                Logger.Add(ex.Message, "Category Change");   
+        }
 
-                problem.tags = old;
-                this.DialogResult = System.Windows.Forms.DialogResult.Abort;
+        private void reload_All_Click(object sender, EventArgs e)
+        {
+            LoadAllCategory();
+        }
+
+        private void save_Button_Click(object sender, EventArgs e)
+        {
+            foreach (string cat in problem.categories)
+            {
+                string path = cat.Substring(root.Length);
+                LocalDatabase.category_root[path].RemoveProblem(problem);
             }
 
-            this.Close(); 
+            problem.categories.Clear();
+            SaveAllCategory();
+
+            RemoveEmptyNodes(LocalDatabase.category_root);
+            RegistryAccess.SetTags(problem.pnum, problem.categories);
+
+            LocalDatabase.LoadCategories();
+            Interactivity.problems.LoadCategory();
+
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.Close();
+        }
+
+        private void cancel_Button_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void nativeTreeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            bool enable = (nativeTreeView1.SelectedNode != null);
+            addChild1.Enabled = enable;
+            addChild2.Enabled = enable;
+            renameNode1.Enabled = enable;
+            renameNode2.Enabled = enable;
+            removeNode1.Enabled = enable;
+            removeNode2.Enabled = enable;
+        }
+
+        private void nativeTreeView1_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            e.CancelEdit = (string.IsNullOrEmpty(e.Label) ||
+                e.Label.Contains(CategoryNode.SEPARATOR.ToString()));
+        }
+
+        private void addNode1_Click(object sender, EventArgs e)
+        {
+            TreeNode nod = nativeTreeView1.SelectedNode;
+            if (nod == null || nod.Parent == null)
+                nod = nativeTreeView1.Nodes.Add("New Node");
+            else
+                nod = nod.Parent.Nodes.Add("New Node");
+            nod.BeginEdit();
+        }
+
+        private void renameNode1_Click(object sender, EventArgs e)
+        {
+            TreeNode nod = nativeTreeView1.SelectedNode;
+            if (nod != null) nod.BeginEdit();
+        }
+
+        private void addChild1_Click(object sender, EventArgs e)
+        {
+            TreeNode nod = nativeTreeView1.SelectedNode;
+            if (nod != null)
+            {
+                TreeNode tn = nod.Nodes.Add("New Node");
+                nod.Expand();
+                tn.BeginEdit();
+            }
+        }
+
+        private void removeNode1_Click(object sender, EventArgs e)
+        {
+            TreeNode nod = nativeTreeView1.SelectedNode;
+            if (nod != null) nod.Remove();
         }
 
     }

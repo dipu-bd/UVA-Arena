@@ -11,16 +11,6 @@ namespace UVA_Arena
             InitializeComponent();            
         }
 
-        /// <summary>
-        /// Show username form specify whether to show ask button
-        /// </summary>
-        /// <param name="showask"></param>
-        public UsernameForm(bool showask)
-        {
-            InitializeComponent();            
-            checkBox1.Visible = true;
-        }
-
         private void username1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) set_button1.PerformClick();

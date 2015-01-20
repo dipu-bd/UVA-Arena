@@ -7,7 +7,7 @@ namespace UVA_Arena
     /// <summary>
     /// Provides supportive functions for directories and files
     /// </summary>
-    internal sealed class LocalDirectory
+    internal static class LocalDirectory
     {
         //
         // Usual functions

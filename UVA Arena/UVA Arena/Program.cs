@@ -27,7 +27,7 @@ namespace UVA_Arena
             if (string.IsNullOrEmpty(RegistryAccess.DefaultUsername) ||
                 Properties.Settings.Default.AskForUsernameEverytime)
             {
-                UsernameForm uf = new UsernameForm(true);                
+                UsernameForm uf = new UsernameForm();                
                 Application.Run(uf);
             }
 

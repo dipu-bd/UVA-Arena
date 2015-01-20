@@ -303,6 +303,7 @@ namespace UVA_Arena
             if (!System.IO.Directory.Exists(path)) return;
 
             string file = @"unzip\unzip.exe";
+            file = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), file);
             if (!System.IO.File.Exists(file)) return;
 
             SaveFileDialog sfd = new SaveFileDialog();
@@ -311,7 +312,7 @@ namespace UVA_Arena
             sfd.DefaultExt = ".uapak";
             sfd.AddExtension = true;
             sfd.CheckPathExists = true;
-            
+
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 System.Threading.ThreadPool.QueueUserWorkItem(Backup, sfd.FileName);
@@ -329,6 +330,7 @@ namespace UVA_Arena
             if (!System.IO.Directory.Exists(path)) return;
 
             string file = @"unzip\zipit.exe";
+            file = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), file);
             if (!System.IO.File.Exists(file)) return;
 
             OpenFileDialog ofd = new OpenFileDialog();
@@ -350,6 +352,7 @@ namespace UVA_Arena
         private static void Backup(object state)
         {
             string zipit = @"unzip\zipit.exe";
+            zipit = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), zipit);
             string file = (string)state;
 
             string path = LocalDirectory.DefaultPath;
@@ -359,7 +362,7 @@ namespace UVA_Arena
             BackupRegistryData(regfile);
 
             //save data
-            string arg = string.Format("\"{0}\" \"{1}\" -64 -es -zc \"UVA Arena package\" -progress", file, path);
+            string arg = string.Format("\"{0}\" \"{1}\" -64 -es -zc \"UVA Arena package\"", file, path);
             System.Diagnostics.Process.Start(zipit, arg).WaitForExit();
 
             MessageBox.Show("Data backup completed.");
@@ -372,18 +375,22 @@ namespace UVA_Arena
         private static void Restore(object state)
         {
             string unzip = @"unzip\unzip.exe";
+            unzip = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), unzip);
             string file = (string)state;
 
             //delete old
             string path = LocalDirectory.DefaultPath;
 
-            LocalDirectory.DeleteFilesOrFolders(new string[] { path });
+            SHOperations.Delete(new string[] { path },
+                SHOperations.FileOperationFlags.FOF_ALLOWUNDO |
+                SHOperations.FileOperationFlags.FOF_NOCONFIRMATION |
+                SHOperations.FileOperationFlags.FOF_SIMPLEPROGRESS);
 
             while (System.IO.Directory.Exists(path))
                 System.Threading.Thread.Sleep(100);
 
             //restore all
-            string arg = string.Format("-o -q -d \"{0}\" \"{1}\"", path, file);
+            string arg = string.Format("-o -d \"{0}\" \"{1}\"", path, file);
             System.Diagnostics.Process.Start(unzip, arg).WaitForExit();
 
             //restore registry            

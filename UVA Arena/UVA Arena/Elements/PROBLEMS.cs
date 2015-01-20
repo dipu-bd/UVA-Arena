@@ -18,12 +18,11 @@ namespace UVA_Arena.Elements
             InitializeComponent();
 
             //other initial codes
-            SetAspectValues();
-            problemListView.MakeColumnSelectMenu(problemContextMenu);
+            InitializeProblemList();
+            InitializeCategoryList();
 
-            problemViewSplitContainer.SplitterDistance = 
-                Properties.Settings.Default.ProblemSubSplitterDistance;
-
+            problemViewSplitContainer.SplitterDistance = Properties.Settings.Default.ProblemSubSplitterDistance; 
+            
             mainSplitContainer.SplitterDistance =
                 (int)Math.Round(mainSplitContainer.Width * Properties.Settings.Default.ProblemMainSplitterDistance);
 
@@ -43,6 +42,52 @@ namespace UVA_Arena.Elements
 
             Stylish.SetGradientBackground(plistPanel,
                 new Stylish.GradientStyle(Color.LightCyan, Color.PaleTurquoise, -90F));
+        }
+
+
+        void InitializeCategoryList()
+        {
+            categoryListView.CanExpandGetter = delegate(object row)
+            {
+                return ((CategoryNode)row).Nodes.Count > 0;
+            };
+            categoryListView.ChildrenGetter = delegate(object row)
+            {
+                return ((CategoryNode)row).Nodes;
+            };
+
+            // You can change the way the connection lines are drawn by changing the pen
+            var renderer = categoryListView.TreeColumnRenderer;
+            renderer.LinePen = new Pen(Color.Indigo, 0.5f);
+            renderer.LinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+        }
+
+        private void InitializeProblemList()
+        {
+            problemListView.MakeColumnSelectMenu(problemContextMenu);
+
+            pnumProb.GroupKeyGetter = delegate(object row)
+            {
+                return ((ProblemInfo)row).volume;
+            };
+            levelProb.GroupKeyGetter = delegate(object row)
+            {
+                return Math.Round(((ProblemInfo)row).level);
+            };
+            rtlProb.AspectToStringConverter = delegate(object key)
+            {
+                return Functions.FormatRuntime((long)key);
+            };
+            runProb.AspectToStringConverter = delegate(object key)
+            {
+                if ((long)key < 0) return "(?)";
+                else return Functions.FormatRuntime((long)key);
+            };
+            memProb.AspectToStringConverter = delegate(object key)
+            {
+                if ((long)key < 0) return "(512MB)";
+                else return Functions.FormatMemory((long)key);
+            };
         }
 
         #endregion
@@ -86,10 +131,11 @@ namespace UVA_Arena.Elements
             }
             else
             {
-                if (plistLabel.Tag.GetType() == typeof(long))
-                    ShowVolume((long)plistLabel.Tag);
-                else
-                    ShowCategory((string)plistLabel.Tag);
+                if (categoryListView.SelectedObject != null)
+                {
+                    var cn = (CategoryNode)categoryListView.SelectedObject;
+                    _SetObjects(cn.Problems);
+                }
             }
         }
 
@@ -105,66 +151,35 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
-                
-        #region Problem Loader
+
+        #region Load and Show Problem List
 
         //
         // Loaders
-        //
-        public void LoadVolumes()
-        {
-            filterBox1.SearchText = "";
-            volumesButton.Checked = true;
-            categoryButton.Checked = false;
-
-            if (LocalDatabase.problem_vol == null) return;
-
-            List<CategoryList> volumes = new List<CategoryList>();
-            var it = LocalDatabase.problem_vol.GetEnumerator();
-            while (it.MoveNext())
-            {
-                if (it.Current.Value.Count == 0) continue;
-                CategoryList cl = new CategoryList();
-                cl.name = string.Format("Volume {0:000}", it.Current.Key);
-                cl.tag = it.Current.Key;
-                cl.count = it.Current.Value.Count;
-                volumes.Add(cl);
-            }
-                          
-            categoryListView.SetObjects(volumes);
-            categoryListView.Sort(0);
-
-            countVol.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
-        }
-
+        // 
         public void LoadCategory()
         {
-            filterBox1.SearchText = "";
-            volumesButton.Checked = false;
-            categoryButton.Checked = true;
-
-            if (LocalDatabase.problem_cat == null) return;
-
-            List<CategoryList> category = new List<CategoryList>();
-            var it = LocalDatabase.problem_cat.GetEnumerator();
-            while (it.MoveNext())
-            {
-                if (it.Current.Value.Count == 0) continue;
-                CategoryList cl = new CategoryList();
-                cl.name = it.Current.Key;
-                cl.tag = it.Current.Key;
-                cl.count = it.Current.Value.Count;
-                category.Add(cl);
-            }
-            it.Dispose();
-
-            categoryListView.SetObjects(category);
-            categoryListView.Sort(0);
+            filterBox1.SearchText = "";     
+            if (LocalDatabase.category_root == null) return;
+            
+            categoryListView.Roots = LocalDatabase.category_root.Nodes; 
+            for (int i = LocalDatabase.category_root.Nodes.Count - 1; i >= 0; --i)
+                categoryListView.Expand(LocalDatabase.category_root.Nodes[i]);
+            countCat.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);      
         }
 
-        #endregion
+        public void ShowCategory()
+        {
+            object sel = categoryListView.SelectedObject;
+            if (sel == null) return;
 
-        #region Show Problem List
+            allProbButton.Checked = false;
+            favoriteButton.Checked = false;            
+
+            plistLabel.Tag = sel;
+            var nod = (CategoryNode)sel;
+            _SetObjects(nod.Problems);
+        }
 
         //
         // Show List of problems
@@ -203,30 +218,6 @@ namespace UVA_Arena.Elements
             _SetObjects(favorite);
         }
 
-        public void ShowVolume(long vol)
-        {
-            searchBox1.SearchText = "";
-            allProbButton.Checked = false;
-            favoriteButton.Checked = false;
-            plistLabel.Tag = vol;
-            plistLabel.Text = string.Format("Volume {0:000}", vol);
-
-            _SetObjects(LocalDatabase.GetVolume(vol));
-        }
-
-        public void ShowCategory(string cat)
-        {
-            if (string.IsNullOrEmpty(cat)) return;
-
-            searchBox1.SearchText = "";
-            allProbButton.Checked = false;
-            favoriteButton.Checked = false;
-            plistLabel.Tag = cat;
-            plistLabel.Text = cat;
-
-            _SetObjects(LocalDatabase.GetCategory(cat));
-        }
-
         private void _SetObjects(List<ProblemInfo> list, bool regroup = false)
         {
             problemListView.ClearObjects();
@@ -257,18 +248,17 @@ namespace UVA_Arena.Elements
         #region View Problem Events
 
         //
+        // Volume List Events
+        //
+        private void volumeListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ShowCategory();
+        }
+
+        //
         // Radio Buttons
         //
-        private void volumesButton_Click(object sender, EventArgs e)
-        {
-            if (!volumesButton.Checked) LoadVolumes();
-        }
-
-        private void categoryButton_Click(object sender, EventArgs e)
-        {
-            if (!categoryButton.Checked) LoadCategory();
-        }
-
+    
         private void favoriteButton_Click(object sender, EventArgs e)
         {
             if (!favoriteButton.Checked) ShowFavorites();
@@ -290,25 +280,14 @@ namespace UVA_Arena.Elements
             hideAccepted.Text = txt.Split(new char[] { '|' })[indx];
         }
 
-
-
-        //
-        // Volume List Events
-        //
-        private void volumeListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            object sel = categoryListView.SelectedObject;
-            if (sel == null) return;
-
-            if (volumesButton.Checked)
-                ShowVolume((long)((CategoryList)sel).tag);
-            else
-                ShowCategory((string)((CategoryList)sel).tag);
-        }
-
         #endregion
 
         #region Problem and Category List View
+
+        private void categoryListView_Expanded(object sender, TreeBranchExpandedEventArgs e)
+        {
+            nameCat.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+        }
 
         //
         // Problem List Events
@@ -349,35 +328,7 @@ namespace UVA_Arena.Elements
 
         //
         // Listview formatter
-        //
-
-        private void SetAspectValues()
-        {
-            pnumProb.GroupKeyGetter = delegate(object row)
-            {
-                return ((ProblemInfo)row).volume;
-            };
-            levelProb.GroupKeyGetter = delegate(object row)
-            {
-                return Math.Round(((ProblemInfo)row).level);
-            };
-            rtlProb.AspectToStringConverter = delegate(object key)
-            {
-                return Functions.FormatRuntime((long)key);
-            };
-            runProb.AspectToStringConverter = delegate(object key)
-            {
-                if ((long)key < 0) return "(?)";
-                else return Functions.FormatRuntime((long)key);
-            };
-            memProb.AspectToStringConverter = delegate(object key)
-            {
-                if ((long)key < 0) return "(512MB)";
-                else return Functions.FormatMemory((long)key);
-            };
-        }
-
-
+        //        
         private void ListView_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
         {
             float size = 8.5F;
@@ -435,15 +386,25 @@ namespace UVA_Arena.Elements
                 size = 8.0F;
                 fore = Color.Black;
             }
-            else if (e.Column == nameVol)
+            else if (e.Column == nameCat)
             {
-                size = 8.25F;
-                font = "Segoe UI Semibold";
+                size = 8.25F;   
+                font = "Segoe UI Semibold";      
                 fore = Color.Black;
+                if (((CategoryNode)e.Model).Level <= 1)
+                {
+                    size = 10F;
+                    fore = Color.Maroon;
+                    e.SubItem.BackColor = Color.PaleTurquoise;
+                }
             }
-            else if (e.Column == countVol)
+            else if (e.Column == countCat)
             {
                 size = 8.0F;
+                if (((CategoryNode)e.Model).Level <= 1)
+                { 
+                    e.SubItem.BackColor = Color.PaleTurquoise;
+                }
             }
 
             e.SubItem.Font = new Font(font, size, fs);
@@ -531,11 +492,14 @@ namespace UVA_Arena.Elements
             {
                 categoryListView.DefaultRenderer = null;
                 categoryListView.AdditionalFilter = null;
+                for (int i = LocalDatabase.category_root.Nodes.Count - 1; i >= 0; --i)
+                    categoryListView.Expand(LocalDatabase.category_root.Nodes[i]);
             }
             else
             {
                 TextMatchFilter filter = new TextMatchFilter(categoryListView,
                     filterBox1.SearchText, StringComparison.OrdinalIgnoreCase);
+                categoryListView.ExpandAll();
                 categoryListView.DefaultRenderer = new HighlightTextRenderer(filter);
                 categoryListView.AdditionalFilter = filter;
             }

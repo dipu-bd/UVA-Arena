@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace UVA_Arena
 {
-    internal sealed class Logger
+    public class LogData
     {
-        public class LogData
-        {
-            public DateTime time { get; set; }
-            public string source { get; set; }
-            public string status { get; set; }
-            public LogData() { }
-        };
+        public DateTime time { get; set; }
+        public string source { get; set; }
+        public string status { get; set; }
+        public LogData() { }
+    };
 
+    internal static class Logger
+    {
         public static List<LogData> LOG = new List<LogData>();
         public static void Add(string text, string source)
         {

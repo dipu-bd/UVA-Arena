@@ -8,7 +8,7 @@ namespace UVA_Arena
     /// <summary>
     /// Interactive functions to get or set data into system's registry
     /// </summary>
-    internal sealed class RegistryAccess
+    internal static class RegistryAccess
     {
         /// <summary>
         /// Default registry key used for this application

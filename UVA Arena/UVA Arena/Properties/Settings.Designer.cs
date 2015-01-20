@@ -191,7 +191,7 @@ namespace UVA_Arena.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("125")]
+        [global::System.Configuration.DefaultSettingValueAttribute("165")]
         public int ProblemSubSplitterDistance {
             get {
                 return ((int)(this["ProblemSubSplitterDistance"]));

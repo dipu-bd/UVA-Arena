@@ -6,14 +6,18 @@ using UVA_Arena.Structures;
 
 namespace UVA_Arena
 {
-    internal sealed class LocalDatabase
+    internal static class LocalDatabase
     {
+        public const string VolRoot = "[Volumes]";
+        public const string CatRoot = "Categories";
+        public const string NodeRoot = "Root";
+
         public static bool IsReady = true;
+        public static CategoryNode category_root;        
         public static List<ProblemInfo> problem_list;
-        public static Dictionary<long, long> problem_id;
-        public static Dictionary<long, ProblemInfo> problem_num;
-        public static Dictionary<long, List<ProblemInfo>> problem_vol;
-        public static Dictionary<string, List<ProblemInfo>> problem_cat;
+        public static SortedDictionary<long, long> problem_id;
+        public static SortedDictionary<long, ProblemInfo> problem_num;
+        
 
         /// <summary> User-info of default user </summary>
         public static UserInfo DefaultUser;
@@ -49,12 +53,11 @@ namespace UVA_Arena
             {
                 IsReady = false;
 
-                //initialize global values
-                problem_list = new List<ProblemInfo>();
-                problem_id = new Dictionary<long, long>();
-                problem_num = new Dictionary<long, ProblemInfo>();
-                problem_vol = new Dictionary<long, List<ProblemInfo>>();
-                problem_cat = new Dictionary<string, List<ProblemInfo>>();
+                //initialize global values                
+                problem_list = new List<ProblemInfo>();                
+                category_root = new CategoryNode(NodeRoot);
+                problem_id = new SortedDictionary<long, long>();
+                problem_num = new SortedDictionary<long, ProblemInfo>();
 
                 //get object data from json data
                 string text = File.ReadAllText(LocalDirectory.GetProblemInfoFile());
@@ -75,8 +78,11 @@ namespace UVA_Arena
                 if (!IsAvailable) Internet.Downloader.DownloadProblemDatabase();
             }
 
-            //load default user after database updated
+            //load default user after database updated            
             LoadDefaultUser();
+
+            //load categories
+            LoadCategories();
 
             IsReady = true;
             Interactivity.ProblemDatabaseUpdated();
@@ -87,18 +93,30 @@ namespace UVA_Arena
             //Load problem from list
             foreach (List<object> lst in datalist)
             {
-                ProblemInfo plist = new ProblemInfo();
-                plist.SetData(lst);
+                ProblemInfo plist = new ProblemInfo(lst);
                 problem_list.Add(plist);
 
                 SetProblem(plist.pnum, plist);
                 SetNumber(plist.pid, plist.pnum);
-                GetVolume(plist.volume).Add(plist);
-                foreach (string cat in plist.tags)
-                {
-                    GetCategory(cat).Add(plist);
-                }
+
+                //add problem to volume
+                string vol = string.Format("Volume {0:000}", plist.volume);
+                category_root[VolRoot][vol].AddProblem(plist, false);
             }
+
+            //load book categories
+            string file = LocalDirectory.GetCategoryPath();
+            string data = File.ReadAllText(file);
+            List<ContextBook> catlist = JsonConvert.DeserializeObject<List<ContextBook>>(data);
+            foreach (ContextBook book in catlist)
+            {
+                book.Process();
+            }
+        }
+
+        private static void LoadOthers()
+        {
+            if (problem_list.Count < 10) return;
 
             //set favorites
             foreach (long pnum in RegistryAccess.FavoriteProblems)
@@ -108,14 +126,9 @@ namespace UVA_Arena
                     GetProblem(pnum).marked = true;
                 }
             }
-        }
-
-        private static void LoadOthers()
-        {
-            if (problem_list.Count < 10) return;
 
             //get all dacu
-            SortedDictionary<long, int> AllDacu = new SortedDictionary<long, int>();
+            SortedDictionary<long, int> AllDacu = new SortedDictionary<long, int>();            
             foreach (ProblemInfo plist in problem_list)
             {
                 if (AllDacu.ContainsKey(plist.dacu))
@@ -180,14 +193,16 @@ namespace UVA_Arena
         {
             try
             {
-                string file = LocalDirectory.GetCategoryPath();
-                string data = File.ReadAllText(file);
-                List<ContextBook> catlist = JsonConvert.DeserializeObject<List<ContextBook>>(data);
-                foreach (ContextBook book in catlist)
+                foreach (ProblemInfo plist in problem_list)
                 {
-                    book.Process();
+                    //add custom category                
+                    List<string> tags = RegistryAccess.GetTags(plist.pnum);
+                    foreach (string cat in tags)
+                    {
+                        string path = cat.Substring((NodeRoot + CategoryNode.SEPARATOR).Length);
+                        category_root[path].AddProblem(plist);
+                    }
                 }
-                Logger.Add("Category updated", "LocalDatabase|LoadCategory()");
             }
             catch (Exception ex)
             {
@@ -250,29 +265,11 @@ namespace UVA_Arena
             if (!HasProblem(pnum)) return 0;
             return GetProblem(pnum).pid;
         }
-
-        /// <summary> Get problem list for given volume </summary>
-        public static List<ProblemInfo> GetVolume(long vol)
-        {
-            if (problem_vol == null) return null;
-            if (problem_vol.ContainsKey(vol)) return problem_vol[vol];
-            problem_vol.Add(vol, new List<ProblemInfo>());
-            return problem_vol[vol];
-        }
-
-        /// <summary> Get problem list for given category </summary>
-        public static List<ProblemInfo> GetCategory(string cat)
-        {
-            if (problem_cat == null) return null;
-            if (problem_cat.ContainsKey(cat)) return problem_cat[cat];
-            problem_cat.Add(cat, new List<ProblemInfo>());
-            return problem_cat[cat];
-        }
-
+        
         /// <summary> check if this user contains in the list </summary>
         public static bool ContainsUser(string user)
         {
-            return (usernames != null && usernames.ContainsKey(user));
+            return (!string.IsNullOrEmpty(user) && usernames.ContainsKey(user));
         }
 
         /// <summary> get user id from name </summary>

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace UVA_Arena
 {
-    public sealed class Stylish
+    public static class Stylish
     {
         public enum GradientType
         {
@@ -63,7 +63,7 @@ namespace UVA_Arena
 
             public Image GetImage(int width, int height)
             {
-                if (width < 10 || height < 5) return null;
+                if (width < 5 || height < 5) return null;
                 Image img = new Bitmap(width, height);
                 using (Graphics g = Graphics.FromImage(img))
                 {

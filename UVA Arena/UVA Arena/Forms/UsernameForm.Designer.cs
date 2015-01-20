@@ -58,7 +58,7 @@
             this.Status.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Status.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Status.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.Status.Location = new System.Drawing.Point(16, 286);
+            this.Status.Location = new System.Drawing.Point(16, 282);
             this.Status.Name = "Status";
             this.Status.Size = new System.Drawing.Size(253, 18);
             this.Status.TabIndex = 3;
@@ -109,13 +109,12 @@
             this.checkBox1.Checked = global::UVA_Arena.Properties.Settings.Default.AskForUsernameEverytime;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "AskForUsernameEverytime", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox1.Location = new System.Drawing.Point(16, 306);
+            this.checkBox1.Location = new System.Drawing.Point(16, 302);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(225, 17);
             this.checkBox1.TabIndex = 7;
             this.checkBox1.Text = "Ask me everytime the application starts";
-            this.checkBox1.UseVisualStyleBackColor = false;
-            this.checkBox1.Visible = false;
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // username1
             // 
@@ -124,7 +123,7 @@
             this.username1.BackColor = System.Drawing.Color.Snow;
             this.username1.CueText = "Write your UVA username here...";
             this.username1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.username1.Location = new System.Drawing.Point(16, 260);
+            this.username1.Location = new System.Drawing.Point(16, 256);
             this.username1.Name = "username1";
             this.username1.Size = new System.Drawing.Size(253, 25);
             this.username1.TabIndex = 0;

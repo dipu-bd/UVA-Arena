@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace UVA_Arena
 {
-    public class UpdateCheck
+    public static class UpdateCheck
     {
         public class UpdateMessage
         {

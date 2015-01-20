@@ -6,10 +6,8 @@ using System.Windows.Forms;
 
 namespace UVA_Arena
 { 
-    public sealed class NativeMethods
-    {
-        private NativeMethods() { }
-        
+    public static class NativeMethods
+    { 
         //
         // Messages
         //
@@ -30,7 +28,7 @@ namespace UVA_Arena
         /// <summary> The left mouse button is down </summary>
         public const int MK_LBUTTON = 0x0001;
         /// <summary> Set Cue-text on a Textbox control</summary>
-        public const int EM_SETCUEBANNER = 0x1501;/// <span class="code-SummaryComment"><summary></span>
+        public const int EM_SETCUEBANNER = 0x1501; 
         /// Animates the window from left to right. 
         /// This flag can be used with roll or slide animation.
         /// <span class="code-SummaryComment"></summary></span>

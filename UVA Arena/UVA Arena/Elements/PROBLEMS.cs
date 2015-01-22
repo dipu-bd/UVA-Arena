@@ -484,10 +484,11 @@ namespace UVA_Arena.Elements
         #region Search and Filter
 
         //
-        // Filter Category and Volume list
+        // Filter Category list
         //
         private void searchBox2_SearchTextChanged(object sender, EventArgs e)
         {
+            categoryListView.SelectedObjects.Clear();
             if (filterBox1.SearchText.Length == 0)
             {
                 categoryListView.DefaultRenderer = null;
@@ -510,6 +511,7 @@ namespace UVA_Arena.Elements
         //
         private void searchBox1_SearchTextChanged(object sender, EventArgs e)
         {
+            problemListView.SelectedObjects.Clear();
             if (deepSearchCheckBox.Checked)
             {
                 return;

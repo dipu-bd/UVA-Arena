@@ -98,10 +98,18 @@
             this.codesTab = new System.Windows.Forms.TabPage();
             this.judgeStatusTab = new System.Windows.Forms.TabPage();
             this.profileTab = new System.Windows.Forms.TabPage();
+            this.loadingPanel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.productName = new System.Windows.Forms.Label();
+            this.versionLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.customTabControl1.SuspendLayout();
+            this.loadingPanel.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabImageList
@@ -701,12 +709,79 @@
             this.profileTab.TabIndex = 2;
             this.profileTab.Text = "PROFILES";
             // 
+            // loadingPanel
+            // 
+            this.loadingPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.loadingPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.loadingPanel.Controls.Add(this.panel2);
+            this.loadingPanel.Controls.Add(this.versionLabel);
+            this.loadingPanel.Controls.Add(this.panel1);
+            this.loadingPanel.Controls.Add(this.productName);
+            this.loadingPanel.Location = new System.Drawing.Point(300, 150);
+            this.loadingPanel.Name = "loadingPanel";
+            this.loadingPanel.Size = new System.Drawing.Size(300, 150);
+            this.loadingPanel.TabIndex = 4;
+            // 
+            // panel1
+            // 
+            this.panel1.BackgroundImage = global::UVA_Arena.Properties.Resources.Main;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel1.Location = new System.Drawing.Point(5, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(116, 99);
+            this.panel1.TabIndex = 9;
+            // 
+            // productName
+            // 
+            this.productName.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.productName.ForeColor = System.Drawing.Color.Indigo;
+            this.productName.Location = new System.Drawing.Point(125, 27);
+            this.productName.Name = "productName";
+            this.productName.Size = new System.Drawing.Size(164, 44);
+            this.productName.TabIndex = 8;
+            this.productName.Text = "UVA Arena";
+            this.productName.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // versionLabel
+            // 
+            this.versionLabel.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.versionLabel.ForeColor = System.Drawing.Color.DarkRed;
+            this.versionLabel.Location = new System.Drawing.Point(131, 72);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(158, 25);
+            this.versionLabel.TabIndex = 10;
+            this.versionLabel.Text = "Version 1.0";
+            this.versionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.DarkSlateBlue;
+            this.label1.Location = new System.Drawing.Point(51, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(195, 17);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Loading UVA Arena. Please wait...";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 108);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(298, 40);
+            this.panel2.TabIndex = 12;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(844, 442);
+            this.Controls.Add(this.loadingPanel);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.customTabControl1);
             this.Controls.Add(this.menuStrip1);
@@ -727,6 +802,9 @@
             this.statusStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.customTabControl1.ResumeLayout(false);
+            this.loadingPanel.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -802,6 +880,12 @@
         private System.Windows.Forms.Button helpButton;
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button loggerButton;
+        private System.Windows.Forms.Panel loadingPanel;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label productName;
+        private System.Windows.Forms.Label versionLabel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel2;
           
     }
 }

@@ -154,9 +154,9 @@ namespace UVA_Arena
             if (update.version.Length > 2 &&
                 update.version != Application.ProductVersion)
             {
-                ShowCheckUpdateForm();
-                checkUpdateForm.BeginInvoke((MethodInvoker)delegate
+                mainForm.BeginInvoke((MethodInvoker)delegate
                 {
+                    ShowCheckUpdateForm();
                     checkUpdateForm.updateLink.Text = update.link;
                     checkUpdateForm.newVersion.Text = update.version;
                     checkUpdateForm.curVersion.Text = Application.ProductVersion;
@@ -284,7 +284,7 @@ namespace UVA_Arena
                 {
                     ProblemInfo pinfo = LocalDatabase.GetProblem(pnum);
                     problems.ShowAllProblems();
-                    problems.problemListView.SelectObject(pinfo, true);
+                    problems.problemListView.SelectedObject = pinfo;
                     problems.problemListView.EnsureVisible(problems.problemListView.SelectedIndex);
                 });
 

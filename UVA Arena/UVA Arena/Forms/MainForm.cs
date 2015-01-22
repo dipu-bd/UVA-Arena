@@ -17,6 +17,9 @@ namespace UVA_Arena
             //to enable lower level mouse
             Application.AddMessageFilter(this);
 
+            productName.Text = Application.ProductName;
+            versionLabel.Text = "Version " + Application.ProductVersion;
+
             //make background transparent
             //bool set = NativeMethods.ExtendWindowsFrame(this, 3, 2, 58, 2);   //true if works
 
@@ -142,6 +145,8 @@ namespace UVA_Arena
                 _initialized = true;
                 this.Cursor = Cursors.Default;
                 Logger.Add("Initialized all controls", "Main Form");
+
+                loadingPanel.Visible = false;
             });
 
             //update problem database if not available

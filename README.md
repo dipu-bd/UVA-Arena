@@ -1,18 +1,19 @@
 # UVA-Arena
 
-![UVA Arena Icon](Images/Main.png)
+[![UVA Arena Icon](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/Main.png)](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/Main.png)
 
 **UVA Arena** (c) 2014, is a windows based, non-commercial, open source utility application to make problem solving easier for the programmers. It is based on popular [UVA Online Judge](http://uva.onlinejudge.org/) and uses APIs from [uHunt](http://uhunt.felix-halim.net/). 
 
 ### Download 
+To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena/wiki/What's-New)     
 ##### Version 1.1
-1. [For Windows XP, Vista and 7](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/.Net_2.0/UVA%20Arena%201.1.exe?raw=true)     
-2. [For Windows 8 and and later versions](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/.Net_4.5/UVA%20Arena%201.1.exe?raw=true)     
-To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena/wiki/What's-New)  
-
+1. [For All Platforms](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/All/UVA%20Arena%201.1.exe?raw=true)     
+2. [For Windows XP, Vista and 7](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_2.0/UVA%20Arena%201.1.exe?raw=true)     
+3. [For Windows 8 and and later versions](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_4.5/UVA%20Arena%201.1.exe?raw=true)     
+     
 ##### Version 1.0  
-1. [For Windows XP, Vista and 7](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/.Net_2.0/UVA%20Arena%201.0.exe?raw=true)     
-2. [For Windows 8 and and later versions](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/.Net_4.5/UVA%20Arena%201.0.exe?raw=true)  
+1. [For Windows XP, Vista and 7](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_2.0/UVA%20Arena%201.0.exe?raw=true)     
+2. [For Windows 8 and and later versions](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_4.5/UVA%20Arena%201.0.exe?raw=true)  
 
 ### Short Info
 Main target of this software is to provide a useful and informative tool to the users to help them with their programming practice. Today programming has become a very competitive field. You need to keep track of your progress daily, learn new things, and of-course solve new problems as fast as you can. Problem picking and managing your codes is a time consuming process. You can minimize this wasting of time as much as possible using **UVA Arena**.  
@@ -39,7 +40,7 @@ Here is a brief list of the features that this software provides:
 * Discuss and uDebug browser  
 
 #### Screen Shots 
-![Whole](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/wiki/_all_.png)  
+[![Whole](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/wiki/_all_.png)](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/wiki/_all_.png)  
 
 ###Licence Information
 `This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License, version 3.0 as published by the Free Software Foundation.`  

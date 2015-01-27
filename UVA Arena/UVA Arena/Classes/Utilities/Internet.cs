@@ -9,6 +9,7 @@ namespace UVA_Arena.Internet
     internal static class Downloader
     {
         #region Check Connections
+
         public static bool IsInternetConnected()
         {
             long dwConnectionFlags = 0;
@@ -233,7 +234,7 @@ namespace UVA_Arena.Internet
             //problem categories
             url = "http://uhunt.felix-halim.net/api/cpbook/3";
             file = LocalDirectory.GetCategoryPath();
-            DownloadTask task = DownloadFileAsync(url, file, true, Priority.High,
+            DownloadFileAsync(url, file, true, Priority.High,
                 __DownloadProblemDatabaseProgress, __DownloadProblemCategoryCompleted, 1);
         }
         private static void __DownloadProblemDatabaseProgress(DownloadTask task)

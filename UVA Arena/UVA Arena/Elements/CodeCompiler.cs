@@ -154,7 +154,7 @@ namespace UVA_Arena.Elements
             string exec = Path.Combine(Path.GetDirectoryName(filename), name + ".exe");
 
             //options
-            string options = RegistryAccess.CPPCompilerOption;
+            string options = RegistryAccess.CCompilerOption;
 
             //run process
             string arguments = string.Format("\"{0}\" \"{1}\" {2} -o \"{3}", compiler, filename, options, exec);

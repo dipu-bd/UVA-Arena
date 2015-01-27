@@ -148,8 +148,7 @@ namespace UVA_Arena
             }
             it.Dispose();
 
-            //set problem level
-            int product = problem_list.Count / 10;
+            //set problem level 
             foreach (ProblemInfo plist in problem_list)
             {
                 int pos = sum[plist.dacu];

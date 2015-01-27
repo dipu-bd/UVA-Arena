@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Uninstaller.exe" version="1.0.0.0" publicKeyToken="bc2036d56c184ebe" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="Burning.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Uninstaller" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Uninstaller.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="4" minorVersion="10" buildNumber="0" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="2.0.50727.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Uninstaller.exe" size="87552">
+      <assemblyIdentity name="Uninstaller" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>gyX86OIJrnWZ59zXQeX1x0jf24w=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Burning.ico" size="82726">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>KZGo/TFOFz8/G/IzYHuk2lQ2L2s=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="rims.ico" size="270398">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>XdsGgcigymf1f4mOdf7OsiG/3RE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Uninstaller.exe.config" size="188">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>7tpoo6Xg5i9PKT2ugXfmAf2I0lg=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=DIPU-LAB\Dipu" issuerKeyHash="c2f09652aad5de524a12092d04ebe1668c88a440" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>z5//Wjp6T5olOgxDnv6LZ5urupM=</DigestValue></Reference></SignedInfo><SignatureValue>L+2XTemxRbPuYc9/Z71Ns9QflIXzilWZ/xcK+7/ONvskqAz1ACQa9dJVVJbi2B6BaRKKPJGd1sAo8hPYvCYrdZyTLDYT+bCh3U5p82Ti8Cux+IWg2O05NYDoHGJUS4HDABu6FbbU7UNt4Y1vfnEO40LkYPhFclxnDdyq0jNdmfE=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>1pHkb+1GNxTkF9UnmGTfK08WwKgoCHsyBFTHIHCykRVGBGiz5VJSze55twaIKrolh4Kg1+/IAqWJ0AzS6dGIwEUpRoHKaPUl9jgzHbgZuEy4q+ZOvr4lPIWI1LAXxj9AdG1y4e+m4pWwFwryntAvpfbJWETKRyaj0KbxhSg9kS0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="93baab9b678bfe9e430c3a259a4f7a3a5aff9fcf" Description="" Url=""><as:assemblyIdentity name="Uninstaller.exe" version="1.0.0.0" publicKeyToken="bc2036d56c184ebe" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=DIPU-LAB\Dipu</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>WQrJ84QVR2edt2J2ALgk4wMm16s=</DigestValue></Reference></SignedInfo><SignatureValue>EsKvF32GqACAzLz7iibp1jc/0m7EgwsuJu3YKANgTKJS8thDUmCWF7GxAt09O/AJV5dQ6goYyfdMio37w1R0hV7yo63qDo3T7hrWZOAXKB2697iSkbNbRApAELT6BpZey14xGkBtAgsUQ4K+Yl8grYUpLed8BzBSMzQe7zEpIRs=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>1pHkb+1GNxTkF9UnmGTfK08WwKgoCHsyBFTHIHCykRVGBGiz5VJSze55twaIKrolh4Kg1+/IAqWJ0AzS6dGIwEUpRoHKaPUl9jgzHbgZuEy4q+ZOvr4lPIWI1LAXxj9AdG1y4e+m4pWwFwryntAvpfbJWETKRyaj0KbxhSg9kS0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBzTCCATagAwIBAgIQMGSGmbffgpBHvziUeNIbBTANBgkqhkiG9w0BAQUFADAlMSMwIQYDVQQDHhoARABJAFAAVQAtAEwAQQBCAFwARABpAHAAdTAeFw0xNTAxMjcxMzUxMTFaFw0xNjAxMjcxOTUxMTFaMCUxIzAhBgNVBAMeGgBEAEkAUABVAC0ATABBAEIAXABEAGkAcAB1MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDWkeRv7UY3FOQX1SeYZN8rTxbAqCgIezIEVMcgcLKRFUYEaLPlUlLN7nm3BogquiWHgqDX78gCpYnQDNLp0YjARSlGgcpo9SX2ODMduBm4TLir5k6+viU8hYjUsBfGP0B0bXLh76bilbAXCvKe0C+l9slYRMpHJqPQpvGFKD2RLQIDAQABMA0GCSqGSIb3DQEBBQUAA4GBAEAuzBExk5YvAVsXy6x5K3jK7NuupQlXWz+CXpgDJf1TepGi6q+4lYIZX98V8XHJ1Xe76O1Ki3WkBZbSCeJW9C7a+Sv+/z7gVHLhyrI12eVvE1R3/4s07v+jg/U31zwjOyBUGN4UutavznG1KOjXqDrZu5AkgiHiGX0pfv3Y0fqS</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

@@ -223,7 +223,11 @@ namespace UVA_Arena
             {
                 string dat = (string)GetValue("MinGW Compiler Path");
                 if (string.IsNullOrEmpty(dat))
-                    dat = @"C:\Program Files\CodeBlocks\MinGW";
+                {
+                    dat = @"C:\Program Files (x86)\CodeBlocks\MinGW";
+                    if(!System.IO.Directory.Exists(dat))
+                        dat = @"C:\Program Files\CodeBlocks\MinGW";
+                }
                 return dat;
             }
             set
@@ -238,8 +242,10 @@ namespace UVA_Arena
                 string dat = (string)GetValue("JDK Compiler Path");
                 if (string.IsNullOrEmpty(dat))
                 {
-                    dat = @"C:\Program Files\Java";
-                    if (!System.IO.Directory.Exists(dat)) return dat;
+                    dat = @"C:\Program Files\Java";            
+                    if(!System.IO.Directory.Exists(dat))
+                        dat = @"C:\Program Files (x86)\Java";                            
+                    if (System.IO.Directory.Exists(dat)) 
                     {
                         var all = System.IO.Directory.GetDirectories(dat, "jdk*");
                         if (all.Length == 0) return dat;
@@ -263,7 +269,7 @@ namespace UVA_Arena
             get
             {
                 string dat = (string)GetValue("C Compiler Options");
-                if (string.IsNullOrEmpty(dat)) dat = "-Wall -ansi";
+                if (string.IsNullOrEmpty(dat)) dat = "-Wall -O2 -static -ansi";
                 return dat;
             }
             set
@@ -280,7 +286,7 @@ namespace UVA_Arena
             get
             {
                 string dat = (string)GetValue("C++ Compiler Options");
-                if (string.IsNullOrEmpty(dat)) dat = "-Wall";
+                if (string.IsNullOrEmpty(dat)) dat = "-Wall -O2 -static -std=c++11";
                 return dat;
             }
             set
@@ -300,7 +306,7 @@ namespace UVA_Arena
             get
             {
                 string dat = (string)GetValue("Java Compiler Options");
-                if (string.IsNullOrEmpty(dat)) dat = "-g";
+                if (string.IsNullOrEmpty(dat)) dat = "";
                 return dat;
             }
             set

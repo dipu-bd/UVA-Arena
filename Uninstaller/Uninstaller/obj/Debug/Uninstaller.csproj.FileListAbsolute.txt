@@ -3,3 +3,12 @@ C:\Users\Dipu\Desktop\Uninstaller\Uninstaller\bin\Debug\Uninstaller.exe
 C:\Users\Dipu\Desktop\Uninstaller\Uninstaller\bin\Debug\Uninstaller.pdb
 C:\Users\Dipu\Desktop\Uninstaller\Uninstaller\obj\Debug\Uninstaller.exe
 C:\Users\Dipu\Desktop\Uninstaller\Uninstaller\obj\Debug\Uninstaller.pdb
+E:\Projects\GitHub\UVA-Arena\Uninstaller\Uninstaller\bin\Debug\Uninstaller.exe.config
+E:\Projects\GitHub\UVA-Arena\Uninstaller\Uninstaller\bin\Debug\Uninstaller.exe.manifest
+E:\Projects\GitHub\UVA-Arena\Uninstaller\Uninstaller\bin\Debug\Uninstaller.application
+E:\Projects\GitHub\UVA-Arena\Uninstaller\Uninstaller\bin\Debug\Uninstaller.exe
+E:\Projects\GitHub\UVA-Arena\Uninstaller\Uninstaller\bin\Debug\Uninstaller.pdb
+E:\Projects\GitHub\UVA-Arena\Uninstaller\Uninstaller\obj\Debug\Uninstaller.exe.manifest
+E:\Projects\GitHub\UVA-Arena\Uninstaller\Uninstaller\obj\Debug\Uninstaller.application
+E:\Projects\GitHub\UVA-Arena\Uninstaller\Uninstaller\obj\Debug\Uninstaller.exe
+E:\Projects\GitHub\UVA-Arena\Uninstaller\Uninstaller\obj\Debug\Uninstaller.pdb

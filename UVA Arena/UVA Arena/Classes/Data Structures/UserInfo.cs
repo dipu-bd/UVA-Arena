@@ -42,6 +42,7 @@ namespace UVA_Arena.Structures
             sidToSub = new Dictionary<long, UserSubmission>();
 
             ProcessListData(subs);
+            RegistryAccess.SetUserid(uname, uid);
         }
 
         public void AddSubmissions(string json)

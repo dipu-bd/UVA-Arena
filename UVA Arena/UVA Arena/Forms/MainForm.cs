@@ -482,6 +482,32 @@ namespace UVA_Arena
             }
         }
 
+        private void likeOnFacebookToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string url = "https://www.facebook.com/uvaarena";
+                System.Diagnostics.Process.Start(url);
+            }
+            catch (Exception ex)
+            {
+                Logger.Add(ex.Message, "MainForm|onlineHelpToolStripMenuItem_Click");
+            }
+        }
+
+        private void fAQToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string url = "https://github.com/dipu-bd/UVA-Arena/wiki/FAQ";
+                System.Diagnostics.Process.Start(url);
+            }
+            catch (Exception ex)
+            {
+                Logger.Add(ex.Message, "MainForm|fAQToolStripMenuItem_Click");
+            }
+        }
+
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Interactivity.ShowHelpAbout();
@@ -528,6 +554,7 @@ namespace UVA_Arena
         }
 
         #endregion
+
 
         #endregion Less significant functions
 

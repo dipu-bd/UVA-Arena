@@ -81,7 +81,9 @@
             this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.likeOnFacebookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.fAQToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.licenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
@@ -99,11 +101,11 @@
             this.judgeStatusTab = new System.Windows.Forms.TabPage();
             this.profileTab = new System.Windows.Forms.TabPage();
             this.loadingPanel = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.productName = new System.Windows.Forms.Label();
-            this.versionLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -504,7 +506,9 @@
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.onlineHelpToolStripMenuItem,
+            this.likeOnFacebookToolStripMenuItem,
             this.toolStripSeparator1,
+            this.fAQToolStripMenuItem,
             this.licenceToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.toolStripSeparator11,
@@ -517,19 +521,34 @@
             // 
             this.onlineHelpToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.web;
             this.onlineHelpToolStripMenuItem.Name = "onlineHelpToolStripMenuItem";
-            this.onlineHelpToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.onlineHelpToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.onlineHelpToolStripMenuItem.Text = "Online Help";
             this.onlineHelpToolStripMenuItem.Click += new System.EventHandler(this.onlineHelpToolStripMenuItem_Click);
+            // 
+            // likeOnFacebookToolStripMenuItem
+            // 
+            this.likeOnFacebookToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.facebook;
+            this.likeOnFacebookToolStripMenuItem.Name = "likeOnFacebookToolStripMenuItem";
+            this.likeOnFacebookToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.likeOnFacebookToolStripMenuItem.Text = "Like on Facebook";
+            this.likeOnFacebookToolStripMenuItem.Click += new System.EventHandler(this.likeOnFacebookToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(162, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(163, 6);
+            // 
+            // fAQToolStripMenuItem
+            // 
+            this.fAQToolStripMenuItem.Name = "fAQToolStripMenuItem";
+            this.fAQToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.fAQToolStripMenuItem.Text = "FAQ";
+            this.fAQToolStripMenuItem.Click += new System.EventHandler(this.fAQToolStripMenuItem_Click);
             // 
             // licenceToolStripMenuItem
             // 
             this.licenceToolStripMenuItem.Name = "licenceToolStripMenuItem";
-            this.licenceToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.licenceToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.licenceToolStripMenuItem.Text = "License";
             this.licenceToolStripMenuItem.Click += new System.EventHandler(this.licenceToolStripMenuItem_Click);
             // 
@@ -537,19 +556,19 @@
             // 
             this.aboutToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.help;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(162, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(163, 6);
             // 
             // checkForUpdateToolStripMenuItem
             // 
             this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
-            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.checkForUpdateToolStripMenuItem.Text = "Check for update";
             this.checkForUpdateToolStripMenuItem.DropDownOpening += new System.EventHandler(this.checkForUpdateToolStripMenuItem_DropDownOpening);
             this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
@@ -592,11 +611,11 @@
             this.tableLayoutPanel1.Controls.Add(this.settingsButton, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.loggerButton, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.helpButton, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(742, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(750, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(100, 24);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(90, 24);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // settingsButton
@@ -608,10 +627,10 @@
             this.settingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleTurquoise;
             this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.settingsButton.Image = global::UVA_Arena.Properties.Resources.tools;
-            this.settingsButton.Location = new System.Drawing.Point(68, 2);
-            this.settingsButton.Margin = new System.Windows.Forms.Padding(2);
+            this.settingsButton.Location = new System.Drawing.Point(61, 1);
+            this.settingsButton.Margin = new System.Windows.Forms.Padding(1);
             this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Size = new System.Drawing.Size(30, 20);
+            this.settingsButton.Size = new System.Drawing.Size(28, 22);
             this.settingsButton.TabIndex = 2;
             this.settingsButton.UseVisualStyleBackColor = false;
             this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
@@ -625,10 +644,10 @@
             this.loggerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleTurquoise;
             this.loggerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loggerButton.Image = global::UVA_Arena.Properties.Resources.log;
-            this.loggerButton.Location = new System.Drawing.Point(35, 2);
-            this.loggerButton.Margin = new System.Windows.Forms.Padding(2);
+            this.loggerButton.Location = new System.Drawing.Point(31, 1);
+            this.loggerButton.Margin = new System.Windows.Forms.Padding(1);
             this.loggerButton.Name = "loggerButton";
-            this.loggerButton.Size = new System.Drawing.Size(29, 20);
+            this.loggerButton.Size = new System.Drawing.Size(28, 22);
             this.loggerButton.TabIndex = 1;
             this.loggerButton.UseVisualStyleBackColor = false;
             this.loggerButton.Click += new System.EventHandler(this.loggerButton_Click);
@@ -642,10 +661,10 @@
             this.helpButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleTurquoise;
             this.helpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.helpButton.Image = global::UVA_Arena.Properties.Resources.help;
-            this.helpButton.Location = new System.Drawing.Point(2, 2);
-            this.helpButton.Margin = new System.Windows.Forms.Padding(2);
+            this.helpButton.Location = new System.Drawing.Point(1, 1);
+            this.helpButton.Margin = new System.Windows.Forms.Padding(1);
             this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(29, 20);
+            this.helpButton.Size = new System.Drawing.Size(28, 22);
             this.helpButton.TabIndex = 0;
             this.helpButton.UseVisualStyleBackColor = false;
             this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
@@ -722,6 +741,39 @@
             this.loadingPanel.Size = new System.Drawing.Size(300, 150);
             this.loadingPanel.TabIndex = 4;
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 108);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(298, 40);
+            this.panel2.TabIndex = 12;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.DarkSlateBlue;
+            this.label1.Location = new System.Drawing.Point(51, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(195, 17);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Loading UVA Arena. Please wait...";
+            // 
+            // versionLabel
+            // 
+            this.versionLabel.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.versionLabel.ForeColor = System.Drawing.Color.DarkRed;
+            this.versionLabel.Location = new System.Drawing.Point(131, 72);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(158, 25);
+            this.versionLabel.TabIndex = 10;
+            this.versionLabel.Text = "Version 1.0";
+            this.versionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // panel1
             // 
             this.panel1.BackgroundImage = global::UVA_Arena.Properties.Resources.Main;
@@ -741,39 +793,6 @@
             this.productName.TabIndex = 8;
             this.productName.Text = "UVA Arena";
             this.productName.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
-            // versionLabel
-            // 
-            this.versionLabel.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.versionLabel.ForeColor = System.Drawing.Color.DarkRed;
-            this.versionLabel.Location = new System.Drawing.Point(131, 72);
-            this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(158, 25);
-            this.versionLabel.TabIndex = 10;
-            this.versionLabel.Text = "Version 1.0";
-            this.versionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.label1.Location = new System.Drawing.Point(51, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(195, 17);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Loading UVA Arena. Please wait...";
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 108);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(298, 40);
-            this.panel2.TabIndex = 12;
             // 
             // MainForm
             // 
@@ -886,6 +905,8 @@
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ToolStripMenuItem likeOnFacebookToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fAQToolStripMenuItem;
           
     }
 }

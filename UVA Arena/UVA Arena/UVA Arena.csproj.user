@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectView>ShowAllFiles</ProjectView>
-    <PublishUrlHistory>H:\Projects\GitHub\UVA-Arena\Setup\|G:\Projects\GitHub\UVA-Arena\Setup\Files\|\bin\publish\|publish\</PublishUrlHistory>
+    <PublishUrlHistory>E:\Projects\GitHub\UVA-Arena\Setup\|H:\Projects\GitHub\UVA-Arena\Setup\|G:\Projects\GitHub\UVA-Arena\Setup\Files\|\bin\publish\|publish\</PublishUrlHistory>
     <InstallUrlHistory />
     <SupportUrlHistory>https://github.com/dipu-bd/UVA-Arena</SupportUrlHistory>
     <UpdateUrlHistory />

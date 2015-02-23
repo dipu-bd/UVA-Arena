@@ -103,6 +103,7 @@
             this.cancelCodeButton = new System.Windows.Forms.Button();
             this.codeTextBox = new FastColoredTextBoxNS.FastColoredTextBox();
             this.registryAccessBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.autoUpdateCheck = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel3.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.generalTab.SuspendLayout();
@@ -207,6 +208,7 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.autoUpdateCheck);
             this.groupBox11.Controls.Add(this.checkBox2);
             this.groupBox11.Controls.Add(this.checkBox1);
             this.groupBox11.Location = new System.Drawing.Point(8, 80);
@@ -222,11 +224,11 @@
             this.checkBox2.Checked = global::UVA_Arena.Properties.Settings.Default.AskForUsernameEverytime;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "AskForUsernameEverytime", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox2.Location = new System.Drawing.Point(17, 21);
+            this.checkBox2.Location = new System.Drawing.Point(14, 21);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(187, 17);
+            this.checkBox2.Size = new System.Drawing.Size(134, 17);
             this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Always ask username at startup";
+            this.checkBox2.Text = "Always ask username";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // checkBox1
@@ -234,11 +236,11 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = global::UVA_Arena.Properties.Settings.Default.HideExitDialog;
             this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "HideExitDialog", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox1.Location = new System.Drawing.Point(17, 44);
+            this.checkBox1.Location = new System.Drawing.Point(202, 21);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(214, 17);
+            this.checkBox1.Size = new System.Drawing.Size(143, 17);
             this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Don\'t show exit dialog while closing";
+            this.checkBox1.Text = "Don\'t show exit dialog";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // groupBox6
@@ -1047,6 +1049,19 @@
             // 
             this.registryAccessBindingSource.DataSource = typeof(UVA_Arena.RegistryAccess);
             // 
+            // autoUpdateCheck
+            // 
+            this.autoUpdateCheck.AutoSize = true;
+            this.autoUpdateCheck.Checked = global::UVA_Arena.Properties.Settings.Default.CheckForUpdate;
+            this.autoUpdateCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autoUpdateCheck.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "CheckForUpdate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.autoUpdateCheck.Location = new System.Drawing.Point(14, 44);
+            this.autoUpdateCheck.Name = "autoUpdateCheck";
+            this.autoUpdateCheck.Size = new System.Drawing.Size(190, 17);
+            this.autoUpdateCheck.TabIndex = 2;
+            this.autoUpdateCheck.Text = "Automatically check for updates";
+            this.autoUpdateCheck.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1178,5 +1193,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.BindingSource registryAccessBindingSource;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox autoUpdateCheck;
     }
 }

@@ -323,7 +323,7 @@ namespace UVA_Arena.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool AskForUsernameEverytime {
             get {
                 return ((bool)(this["AskForUsernameEverytime"]));
@@ -342,6 +342,18 @@ namespace UVA_Arena.Properties {
             }
             set {
                 this["HideExitDialog"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CheckForUpdate {
+            get {
+                return ((bool)(this["CheckForUpdate"]));
+            }
+            set {
+                this["CheckForUpdate"] = value;
             }
         }
     }

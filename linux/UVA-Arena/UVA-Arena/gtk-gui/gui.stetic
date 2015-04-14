@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stetic-interface>
+  <configuration>
+    <images-root-path>..</images-root-path>
+    <target-gtk-version>2.12</target-gtk-version>
+  </configuration>
+  <import>
+    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <widget-library name="../bin/Debug/UVA-Arena.exe" internal="true" />
+  </import>
+  <widget class="Gtk.Window" id="UVAArena.MainWindow" design-size="733 433">
+    <action-group name="Default">
+      <action id="FileAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">File</property>
+        <property name="ShortLabel" translatable="yes">File</property>
+      </action>
+      <action id="Action">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+      </action>
+      <action id="UVAArenaAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">UVA Arena</property>
+        <property name="ShortLabel" translatable="yes">UVA Arena</property>
+      </action>
+      <action id="closeAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Exit</property>
+        <property name="ShortLabel" translatable="yes">Exit</property>
+        <property name="StockId">gtk-close</property>
+        <signal name="Activated" handler="OnCloseActionActivated" />
+      </action>
+      <action id="ProblemsAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Problems</property>
+        <property name="ShortLabel" translatable="yes">Problems</property>
+      </action>
+      <action id="CodesAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Codes</property>
+        <property name="ShortLabel" translatable="yes">Codes</property>
+      </action>
+      <action id="StatusAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Status</property>
+        <property name="ShortLabel" translatable="yes">Status</property>
+      </action>
+      <action id="ProfilesAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Profiles</property>
+        <property name="ShortLabel" translatable="yes">Profiles</property>
+      </action>
+      <action id="HelpAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Help</property>
+        <property name="ShortLabel" translatable="yes">Help</property>
+      </action>
+      <action id="helpAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Online Help</property>
+        <property name="ShortLabel" translatable="yes">Online Help</property>
+        <property name="StockId">gtk-help</property>
+      </action>
+      <action id="dialogQuestionAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">About</property>
+        <property name="ShortLabel" translatable="yes">About</property>
+        <property name="StockId">gtk-dialog-question</property>
+      </action>
+      <action id="FacebookPageAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Facebook Page</property>
+        <property name="ShortLabel" translatable="yes">Facebook Page</property>
+      </action>
+    </action-group>
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">UVA Arena</property>
+    <property name="WindowPosition">Center</property>
+    <signal name="DeleteEvent" handler="OnDeleteEvent" />
+    <child>
+      <widget class="Gtk.VBox" id="vbox4">
+        <property name="MemberName" />
+        <property name="Spacing">1</property>
+        <child>
+          <widget class="Gtk.MenuBar" id="menubar2">
+            <property name="MemberName" />
+            <node name="__gtksharp_221_Stetic_Editor_ActionMenuBar" type="Menubar">
+              <node type="Menu" action="UVAArenaAction">
+                <node type="Menuitem" action="closeAction" />
+              </node>
+              <node type="Menu" action="ProblemsAction" />
+              <node type="Menu" action="CodesAction" />
+              <node type="Menu" action="StatusAction" />
+              <node type="Menu" action="ProfilesAction" />
+              <node type="Menu" action="HelpAction">
+                <node type="Menuitem" action="helpAction" />
+                <node type="Menuitem" action="dialogQuestionAction" />
+                <node type="Separator" />
+                <node type="Menuitem" action="FacebookPageAction" />
+              </node>
+            </node>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Notebook" id="notebook6">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="CurrentPage">0</property>
+            <child>
+              <placeholder />
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label10">
+                <property name="MemberName" />
+                <property name="Xpad">30</property>
+                <property name="Ypad">6</property>
+                <property name="LabelProp" translatable="yes">PROBLEMS</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder />
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label11">
+                <property name="MemberName" />
+                <property name="Xpad">30</property>
+                <property name="Ypad">6</property>
+                <property name="LabelProp" translatable="yes">CODES</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder />
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label12">
+                <property name="MemberName" />
+                <property name="Xpad">30</property>
+                <property name="Ypad">6</property>
+                <property name="LabelProp" translatable="yes">STATUS</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder />
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label13">
+                <property name="MemberName" />
+                <property name="Xpad">30</property>
+                <property name="Ypad">6</property>
+                <property name="LabelProp" translatable="yes">PROFILES</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">1</property>
+            <property name="AutoSize">True</property>
+            <property name="Padding">2</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Statusbar" id="statusbar6">
+            <property name="MemberName" />
+            <property name="Spacing">4</property>
+            <child>
+              <widget class="Gtk.ProgressBar" id="progressbar2">
+                <property name="MemberName" />
+              </widget>
+              <packing>
+                <property name="Position">1</property>
+                <property name="AutoSize">False</property>
+                <property name="Expand">False</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">2</property>
+            <property name="AutoSize">False</property>
+            <property name="Expand">False</property>
+            <property name="Padding">2</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</stetic-interface>

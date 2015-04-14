@@ -1,0 +1,605 @@
+﻿namespace UVA_Arena
+{
+    partial class MainForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setDefaultUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.submitFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.uDebugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.discussForumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loggerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.problemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downloadDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.descriptionDownloaderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.descriptionFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.backupDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restoreDatabseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.expandViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewCodeFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.codesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.formatDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.editorSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setUpCompilerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changePrecodesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.submitCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.profilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.submissionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.progressTrackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.basicInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.submissionOverTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.submissionPerVerdictrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.submissionLanguagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rankCloudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.worldRankToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.likeOnFacebookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.fAQToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.licenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.statusStrip.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel,
+            this.toolStripProgressBar1});
+            this.statusStrip.Location = new System.Drawing.Point(0, 363);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(738, 24);
+            this.statusStrip.TabIndex = 2;
+            this.statusStrip.Text = "StatusStrip";
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(571, 19);
+            this.toolStripStatusLabel.Spring = true;
+            this.toolStripStatusLabel.Text = "Status";
+            this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.LightBlue;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.problemsToolStripMenuItem,
+            this.codesToolStripMenuItem,
+            this.statusToolStripMenuItem,
+            this.profilesToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(738, 24);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setDefaultUserToolStripMenuItem,
+            this.submitFormToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.uDebugToolStripMenuItem,
+            this.discussForumToolStripMenuItem,
+            this.toolStripSeparator12,
+            this.settingsToolStripMenuItem,
+            this.loggerToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.closeToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.fileToolStripMenuItem.Text = "UVA Arena";
+            // 
+            // setDefaultUserToolStripMenuItem
+            // 
+            this.setDefaultUserToolStripMenuItem.Name = "setDefaultUserToolStripMenuItem";
+            this.setDefaultUserToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.setDefaultUserToolStripMenuItem.Text = "Change Default User";
+            // 
+            // submitFormToolStripMenuItem
+            // 
+            this.submitFormToolStripMenuItem.Name = "submitFormToolStripMenuItem";
+            this.submitFormToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.submitFormToolStripMenuItem.Text = "Submit Form";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(179, 6);
+            // 
+            // uDebugToolStripMenuItem
+            // 
+            this.uDebugToolStripMenuItem.Name = "uDebugToolStripMenuItem";
+            this.uDebugToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.uDebugToolStripMenuItem.Text = "uDebug";
+            // 
+            // discussForumToolStripMenuItem
+            // 
+            this.discussForumToolStripMenuItem.Name = "discussForumToolStripMenuItem";
+            this.discussForumToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.discussForumToolStripMenuItem.Text = "Discuss Forum";
+            // 
+            // toolStripSeparator12
+            // 
+            this.toolStripSeparator12.Name = "toolStripSeparator12";
+            this.toolStripSeparator12.Size = new System.Drawing.Size(179, 6);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // loggerToolStripMenuItem
+            // 
+            this.loggerToolStripMenuItem.Name = "loggerToolStripMenuItem";
+            this.loggerToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.loggerToolStripMenuItem.Text = "Logger";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(179, 6);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.closeToolStripMenuItem.Text = "Exit";
+            // 
+            // problemsToolStripMenuItem
+            // 
+            this.problemsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshDatabaseToolStripMenuItem,
+            this.downloadDatabaseToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.descriptionDownloaderToolStripMenuItem,
+            this.descriptionFolderToolStripMenuItem,
+            this.toolStripSeparator5,
+            this.backupDatabaseToolStripMenuItem,
+            this.restoreDatabseToolStripMenuItem,
+            this.toolStripSeparator6,
+            this.expandViewToolStripMenuItem,
+            this.viewCodeFileToolStripMenuItem});
+            this.problemsToolStripMenuItem.Name = "problemsToolStripMenuItem";
+            this.problemsToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.problemsToolStripMenuItem.Text = "Problems";
+            // 
+            // refreshDatabaseToolStripMenuItem
+            // 
+            this.refreshDatabaseToolStripMenuItem.Name = "refreshDatabaseToolStripMenuItem";
+            this.refreshDatabaseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.refreshDatabaseToolStripMenuItem.Text = "Refresh Database";
+            // 
+            // downloadDatabaseToolStripMenuItem
+            // 
+            this.downloadDatabaseToolStripMenuItem.Name = "downloadDatabaseToolStripMenuItem";
+            this.downloadDatabaseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.downloadDatabaseToolStripMenuItem.Text = "Download Database";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(198, 6);
+            // 
+            // descriptionDownloaderToolStripMenuItem
+            // 
+            this.descriptionDownloaderToolStripMenuItem.Name = "descriptionDownloaderToolStripMenuItem";
+            this.descriptionDownloaderToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.descriptionDownloaderToolStripMenuItem.Text = "Description Downloader";
+            // 
+            // descriptionFolderToolStripMenuItem
+            // 
+            this.descriptionFolderToolStripMenuItem.Name = "descriptionFolderToolStripMenuItem";
+            this.descriptionFolderToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.descriptionFolderToolStripMenuItem.Text = "Description Folder";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(198, 6);
+            // 
+            // backupDatabaseToolStripMenuItem
+            // 
+            this.backupDatabaseToolStripMenuItem.Name = "backupDatabaseToolStripMenuItem";
+            this.backupDatabaseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.backupDatabaseToolStripMenuItem.Text = "Backup Database";
+            // 
+            // restoreDatabseToolStripMenuItem
+            // 
+            this.restoreDatabseToolStripMenuItem.Name = "restoreDatabseToolStripMenuItem";
+            this.restoreDatabseToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.restoreDatabseToolStripMenuItem.Text = "Restore Database";
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(198, 6);
+            // 
+            // expandViewToolStripMenuItem
+            // 
+            this.expandViewToolStripMenuItem.Name = "expandViewToolStripMenuItem";
+            this.expandViewToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.expandViewToolStripMenuItem.Text = "Expand or Collapse";
+            // 
+            // viewCodeFileToolStripMenuItem
+            // 
+            this.viewCodeFileToolStripMenuItem.Name = "viewCodeFileToolStripMenuItem";
+            this.viewCodeFileToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.viewCodeFileToolStripMenuItem.Text = "View Code File";
+            // 
+            // codesToolStripMenuItem
+            // 
+            this.codesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changeDirectoryToolStripMenuItem,
+            this.formatDirectoryToolStripMenuItem,
+            this.toolStripSeparator7,
+            this.refreshViewToolStripMenuItem,
+            this.toolStripSeparator8,
+            this.editorSettingToolStripMenuItem,
+            this.setUpCompilerToolStripMenuItem,
+            this.changePrecodesToolStripMenuItem,
+            this.toolStripSeparator9,
+            this.submitCodeToolStripMenuItem});
+            this.codesToolStripMenuItem.Name = "codesToolStripMenuItem";
+            this.codesToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.codesToolStripMenuItem.Text = "Codes";
+            // 
+            // changeDirectoryToolStripMenuItem
+            // 
+            this.changeDirectoryToolStripMenuItem.Name = "changeDirectoryToolStripMenuItem";
+            this.changeDirectoryToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.changeDirectoryToolStripMenuItem.Text = "Change Directory";
+            // 
+            // formatDirectoryToolStripMenuItem
+            // 
+            this.formatDirectoryToolStripMenuItem.Name = "formatDirectoryToolStripMenuItem";
+            this.formatDirectoryToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.formatDirectoryToolStripMenuItem.Text = "Format Directory";
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(163, 6);
+            // 
+            // refreshViewToolStripMenuItem
+            // 
+            this.refreshViewToolStripMenuItem.Name = "refreshViewToolStripMenuItem";
+            this.refreshViewToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.refreshViewToolStripMenuItem.Text = "Refresh View";
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(163, 6);
+            // 
+            // editorSettingToolStripMenuItem
+            // 
+            this.editorSettingToolStripMenuItem.Name = "editorSettingToolStripMenuItem";
+            this.editorSettingToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.editorSettingToolStripMenuItem.Text = "Editor Settings";
+            // 
+            // setUpCompilerToolStripMenuItem
+            // 
+            this.setUpCompilerToolStripMenuItem.Name = "setUpCompilerToolStripMenuItem";
+            this.setUpCompilerToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.setUpCompilerToolStripMenuItem.Text = "Set up Compiler";
+            // 
+            // changePrecodesToolStripMenuItem
+            // 
+            this.changePrecodesToolStripMenuItem.Name = "changePrecodesToolStripMenuItem";
+            this.changePrecodesToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.changePrecodesToolStripMenuItem.Text = "Change Precode";
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(163, 6);
+            // 
+            // submitCodeToolStripMenuItem
+            // 
+            this.submitCodeToolStripMenuItem.Name = "submitCodeToolStripMenuItem";
+            this.submitCodeToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.submitCodeToolStripMenuItem.Text = "Submit Code";
+            // 
+            // statusToolStripMenuItem
+            // 
+            this.statusToolStripMenuItem.Name = "statusToolStripMenuItem";
+            this.statusToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.statusToolStripMenuItem.Text = "Status";
+            // 
+            // profilesToolStripMenuItem
+            // 
+            this.profilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addUserToolStripMenuItem,
+            this.toolStripSeparator10,
+            this.submissionsToolStripMenuItem,
+            this.progressTrackerToolStripMenuItem,
+            this.worldRankToolStripMenuItem,
+            this.compareToolStripMenuItem});
+            this.profilesToolStripMenuItem.Name = "profilesToolStripMenuItem";
+            this.profilesToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.profilesToolStripMenuItem.Text = "Profiles";
+            // 
+            // addUserToolStripMenuItem
+            // 
+            this.addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
+            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.addUserToolStripMenuItem.Text = "Add User";
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(158, 6);
+            // 
+            // submissionsToolStripMenuItem
+            // 
+            this.submissionsToolStripMenuItem.Name = "submissionsToolStripMenuItem";
+            this.submissionsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.submissionsToolStripMenuItem.Text = "Submissions";
+            // 
+            // progressTrackerToolStripMenuItem
+            // 
+            this.progressTrackerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.basicInfoToolStripMenuItem,
+            this.submissionOverTimeToolStripMenuItem,
+            this.submissionPerVerdictrToolStripMenuItem,
+            this.submissionLanguagesToolStripMenuItem,
+            this.rankCloudToolStripMenuItem});
+            this.progressTrackerToolStripMenuItem.Name = "progressTrackerToolStripMenuItem";
+            this.progressTrackerToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.progressTrackerToolStripMenuItem.Text = "Progress Tracker";
+            // 
+            // basicInfoToolStripMenuItem
+            // 
+            this.basicInfoToolStripMenuItem.Name = "basicInfoToolStripMenuItem";
+            this.basicInfoToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.basicInfoToolStripMenuItem.Text = "Basic Info";
+            // 
+            // submissionOverTimeToolStripMenuItem
+            // 
+            this.submissionOverTimeToolStripMenuItem.Name = "submissionOverTimeToolStripMenuItem";
+            this.submissionOverTimeToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.submissionOverTimeToolStripMenuItem.Text = "Submission Over Time";
+            // 
+            // submissionPerVerdictrToolStripMenuItem
+            // 
+            this.submissionPerVerdictrToolStripMenuItem.Name = "submissionPerVerdictrToolStripMenuItem";
+            this.submissionPerVerdictrToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.submissionPerVerdictrToolStripMenuItem.Text = "Submission Per Verdict";
+            // 
+            // submissionLanguagesToolStripMenuItem
+            // 
+            this.submissionLanguagesToolStripMenuItem.Name = "submissionLanguagesToolStripMenuItem";
+            this.submissionLanguagesToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.submissionLanguagesToolStripMenuItem.Text = "Submission Languages";
+            // 
+            // rankCloudToolStripMenuItem
+            // 
+            this.rankCloudToolStripMenuItem.Name = "rankCloudToolStripMenuItem";
+            this.rankCloudToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.rankCloudToolStripMenuItem.Text = "Rank Cloud";
+            // 
+            // worldRankToolStripMenuItem
+            // 
+            this.worldRankToolStripMenuItem.Name = "worldRankToolStripMenuItem";
+            this.worldRankToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.worldRankToolStripMenuItem.Text = "World Rank";
+            // 
+            // compareToolStripMenuItem
+            // 
+            this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
+            this.compareToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.compareToolStripMenuItem.Text = "Compare Users";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.onlineHelpToolStripMenuItem,
+            this.likeOnFacebookToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.fAQToolStripMenuItem,
+            this.licenceToolStripMenuItem,
+            this.aboutToolStripMenuItem,
+            this.toolStripSeparator11,
+            this.checkForUpdateToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // onlineHelpToolStripMenuItem
+            // 
+            this.onlineHelpToolStripMenuItem.Name = "onlineHelpToolStripMenuItem";
+            this.onlineHelpToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.onlineHelpToolStripMenuItem.Text = "Online Help";
+            // 
+            // likeOnFacebookToolStripMenuItem
+            // 
+            this.likeOnFacebookToolStripMenuItem.Name = "likeOnFacebookToolStripMenuItem";
+            this.likeOnFacebookToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.likeOnFacebookToolStripMenuItem.Text = "Facebook page";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(163, 6);
+            // 
+            // fAQToolStripMenuItem
+            // 
+            this.fAQToolStripMenuItem.Name = "fAQToolStripMenuItem";
+            this.fAQToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.fAQToolStripMenuItem.Text = "FAQ";
+            // 
+            // licenceToolStripMenuItem
+            // 
+            this.licenceToolStripMenuItem.Name = "licenceToolStripMenuItem";
+            this.licenceToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.licenceToolStripMenuItem.Text = "License";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(163, 6);
+            // 
+            // checkForUpdateToolStripMenuItem
+            // 
+            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
+            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.checkForUpdateToolStripMenuItem.Text = "Check for update";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(150, 16);
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(738, 387);
+            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.statusStrip);
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForeColor = System.Drawing.Color.Black;
+            this.IsMdiContainer = true;
+            this.Name = "MainForm";
+            this.Text = "MainForm";
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+        #endregion
+
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setDefaultUserToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem submitFormToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem uDebugToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem discussForumToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loggerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem problemsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem downloadDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem descriptionDownloaderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem descriptionFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem backupDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restoreDatabseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem expandViewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewCodeFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem codesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeDirectoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem formatDirectoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem refreshViewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem editorSettingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setUpCompilerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changePrecodesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem submitCodeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem statusToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem profilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addUserToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem submissionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem progressTrackerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem basicInfoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem submissionOverTimeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem submissionPerVerdictrToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem submissionLanguagesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rankCloudToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem worldRankToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compareToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem onlineHelpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem likeOnFacebookToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem fAQToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem licenceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+    }
+}
+
+
+

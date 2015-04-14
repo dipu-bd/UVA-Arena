@@ -1,0 +1,14 @@
+﻿<Properties StartupItem="UVA-Arena\UVA-Arena.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="UVA-Arena\Program.cs">
+    <Files>
+      <File FileName="UVA-Arena\Program.cs" Line="13" Column="24" />
+      <File FileName="UVA-Arena\MainWindow.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="Sudipto Chandra" Email="dipu.sudipta@gmail.com" Copyright="Sudipto Chandra" Company="Sand Soft" Trademark="" />
+</Properties>

@@ -412,25 +412,25 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FastColoredTextBox">
-      <HintPath>..\..\External References\FastColoredTextBox.DLL</HintPath>
+      <HintPath>..\..\..\External References\FastColoredTextBox.DLL</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\External References\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\..\External References\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="ObjectListView">
-      <HintPath>..\..\External References\ObjectListView.DLL</HintPath>
+      <HintPath>..\..\..\External References\ObjectListView.DLL</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="ZedGraph">
-      <HintPath>..\..\External References\ZedGraph.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\External References\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="ZedGraph">
+      <HintPath>..\..\..\External References\ZedGraph.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

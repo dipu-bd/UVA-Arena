@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UALib
+namespace UVA_Arena
 {
-    public class Class1
+    internal class RequestQueue
     {
+
     }
 }

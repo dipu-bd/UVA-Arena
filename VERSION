@@ -1,5 +1,5 @@
 {
-	"version":"1.1.0.0",
-	"link":"https://github.com/dipu-bd/UVA-Arena/blob/master/README.md#uva-arena",
-	"message":"Changed category list into a tree-view and fixed some bugs. For details see https://github.com/dipu-bd/UVA-Arena/wiki/What's-New"
+	"version":"1.2",
+	"link":"http://dipu-bd.github.io/UVA-Arena",
+	"message":"Following changes were made-\r\n\t1. Startup loop fixed.\r\n\t2. Merged input-output and compare tab for easier access.\r\n\t3. Problems, codes, status and profiles tabpages can be rearranged.\r\n\t4. Improved design for ease of use in problems and codes.\r\n\t5. Added forward and backward button on discuss and uDebug Tab.\r\n\t6. 'Click does not work on problem list' bug fixed.\r\n\t7. 'World Rank does not load in first try' bug fixed.\r\n\t8. 'Userlist go crazy when it is sorted' bug fixed.\r\n\t9. Several other bug fixed.\r\n\t10. Added facebook like button on help menu."
 }

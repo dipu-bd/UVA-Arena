@@ -18,3 +18,8 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
+
+SUBMODULES_DIR = ../submodules
+QDARKSTYLE = $$SUBMODULES_DIR/QDarkStyleSheet/qdarkstyle
+
+RESOURCES += $$QDARKSTYLE/style.qrc

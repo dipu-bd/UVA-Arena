@@ -11,13 +11,24 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = UVA-Arena
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    widgets/problemswidget.cpp \
+    widgets/codeswidget.cpp \
+    widgets/judgestatuswidget.cpp \
+    widgets/profileswidget.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    widgets/problemswidget.h \
+    widgets/codeswidget.h \
+    widgets/judgestatuswidget.h \
+    widgets/profileswidget.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    widgets/problemswidget.ui \
+    widgets/codeswidget.ui \
+    widgets/judgestatuswidget.ui \
+    widgets/profileswidget.ui
 
 SUBMODULES_DIR = ../submodules
 QDARKSTYLE = $$SUBMODULES_DIR/QDarkStyleSheet/qdarkstyle

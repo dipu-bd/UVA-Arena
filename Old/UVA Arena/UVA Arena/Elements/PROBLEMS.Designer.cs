@@ -78,6 +78,7 @@
             this.acProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.waProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.priorityProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.fileSizeProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.plistPanel = new System.Windows.Forms.Panel();
             this.plistLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -86,7 +87,6 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.searchBox1 = new UVA_Arena.Custom.SearchBox();
             this.cancelDeepSearchButton = new System.Windows.Forms.Button();
-            this.fileSizeProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.problemContextMenu.SuspendLayout();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
@@ -655,7 +655,9 @@
             this.problemListView.View = System.Windows.Forms.View.Details;
             this.problemListView.VirtualMode = true;
             this.problemListView.BeforeSorting += new System.EventHandler<BrightIdeasSoftware.BeforeSortingEventArgs>(this.problemListView_BeforeSorting);
+            this.problemListView.CellClick += new System.EventHandler<BrightIdeasSoftware.CellClickEventArgs>(this.problemListView_CellClick);
             this.problemListView.FormatCell += new System.EventHandler<BrightIdeasSoftware.FormatCellEventArgs>(this.ListView_FormatCell);
+            this.problemListView.ItemActivate += new System.EventHandler(this.problemListView_ItemActivate);
             this.problemListView.SelectedIndexChanged += new System.EventHandler(this.problemListView_SelectedIndexChanged);
             // 
             // pnumProb
@@ -762,6 +764,13 @@
             this.priorityProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.priorityProb.ToolTipText = "Match count used in deep search";
             this.priorityProb.UseFiltering = false;
+            // 
+            // fileSizeProb
+            // 
+            this.fileSizeProb.AspectName = "fileSize";
+            this.fileSizeProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fileSizeProb.Text = "File Size";
+            this.fileSizeProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // plistPanel
             // 
@@ -889,13 +898,6 @@
             this.cancelDeepSearchButton.UseVisualStyleBackColor = true;
             this.cancelDeepSearchButton.Visible = false;
             this.cancelDeepSearchButton.Click += new System.EventHandler(this.cancelDeepSearchButton_Click);
-            // 
-            // fileSizeProb
-            // 
-            this.fileSizeProb.AspectName = "fileSize";
-            this.fileSizeProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.fileSizeProb.Text = "File Size";
-            this.fileSizeProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // PROBLEMS
             // 

@@ -173,6 +173,7 @@ namespace UVA_Arena.ExtendedControls
             {
                 if (DocumentCompleted != null)
                     DocumentCompleted(sender, e);
+                loadingForm.Visible = webBrowser1.IsBusy;
             }
         }
 
@@ -182,6 +183,7 @@ namespace UVA_Arena.ExtendedControls
             {
                 Progress1.Value = (int)e.CurrentProgress;
                 if (ProgressChanged != null) ProgressChanged(sender, e);
+                loadingForm.Visible = webBrowser1.IsBusy;
             }
             catch { }
         }
@@ -193,6 +195,7 @@ namespace UVA_Arena.ExtendedControls
                 Status1.Text = webBrowser1.StatusText;
                 if (StatusChanged != null)
                     StatusChanged(sender, new StatusChangedEventArgs(webBrowser1.StatusText));
+                loadingForm.Visible = webBrowser1.IsBusy;
             }
             catch { }
         }
@@ -293,7 +296,15 @@ namespace UVA_Arena.ExtendedControls
         private void ClearCarche(object state)
         {
             WebBrowserHelper.ClearCache();
-            MessageBox.Show("Temporary Internet files and cache cleared.");
+            webBrowser1.Refresh(WebBrowserRefreshOption.Completely);
+
+            String msg = "Temporary Internet files and cache cleared.";
+            msg += " If page is still not loading try following steps-" + Environment.NewLine + Environment.NewLine;
+            msg += "  1) Check if the UVA server is down." + Environment.NewLine + Environment.NewLine;
+            msg += "  2) Go to Internet Explorer settings." + Environment.NewLine; 
+            msg += "     Clear temporary internet files and cache." + Environment.NewLine;
+            msg += "     Refresh the submission page.";
+            MessageBox.Show(msg);
         }
 
         #endregion

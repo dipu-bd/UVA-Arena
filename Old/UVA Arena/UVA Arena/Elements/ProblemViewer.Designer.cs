@@ -272,7 +272,7 @@
             this.submissionTab.Controls.Add(this.tableLayoutPanel4);
             this.submissionTab.Location = new System.Drawing.Point(4, 30);
             this.submissionTab.Name = "submissionTab";
-            this.submissionTab.Size = new System.Drawing.Size(792, 341);
+            this.submissionTab.Size = new System.Drawing.Size(792, 342);
             this.submissionTab.TabIndex = 1;
             this.submissionTab.Text = "Submissions";
             // 
@@ -310,7 +310,7 @@
             this.submissionStatus.ShowGroups = false;
             this.submissionStatus.ShowItemCountOnGroups = true;
             this.submissionStatus.ShowItemToolTips = true;
-            this.submissionStatus.Size = new System.Drawing.Size(592, 310);
+            this.submissionStatus.Size = new System.Drawing.Size(592, 311);
             this.submissionStatus.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.submissionStatus.TabIndex = 2;
             this.submissionStatus.UseCellFormatEvents = true;
@@ -449,7 +449,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(200, 341);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(200, 342);
             this.tableLayoutPanel4.TabIndex = 5;
             // 
             // panel3
@@ -457,7 +457,7 @@
             this.panel3.BackColor = System.Drawing.Color.MediumTurquoise;
             this.panel3.Controls.Add(this.label5);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(1, 289);
+            this.panel3.Location = new System.Drawing.Point(1, 290);
             this.panel3.Margin = new System.Windows.Forms.Padding(1);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(198, 23);
@@ -478,7 +478,7 @@
             // compareUserButton
             // 
             this.compareUserButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.compareUserButton.Location = new System.Drawing.Point(1, 314);
+            this.compareUserButton.Location = new System.Drawing.Point(1, 315);
             this.compareUserButton.Margin = new System.Windows.Forms.Padding(1);
             this.compareUserButton.Name = "compareUserButton";
             this.compareUserButton.Size = new System.Drawing.Size(198, 26);
@@ -506,7 +506,7 @@
             this.usernameList1.Location = new System.Drawing.Point(3, 185);
             this.usernameList1.Name = "usernameList1";
             this.usernameList1.ShowGroups = false;
-            this.usernameList1.Size = new System.Drawing.Size(194, 44);
+            this.usernameList1.Size = new System.Drawing.Size(194, 45);
             this.usernameList1.TabIndex = 12;
             this.usernameList1.UseCellFormatEvents = true;
             this.usernameList1.UseCompatibleStateImageBehavior = false;
@@ -693,7 +693,7 @@
             // showUsersRankButton
             // 
             this.showUsersRankButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.showUsersRankButton.Location = new System.Drawing.Point(1, 261);
+            this.showUsersRankButton.Location = new System.Drawing.Point(1, 262);
             this.showUsersRankButton.Margin = new System.Windows.Forms.Padding(1);
             this.showUsersRankButton.Name = "showUsersRankButton";
             this.showUsersRankButton.Size = new System.Drawing.Size(198, 26);
@@ -707,7 +707,7 @@
             // showUserSubButton
             // 
             this.showUserSubButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.showUserSubButton.Location = new System.Drawing.Point(1, 233);
+            this.showUserSubButton.Location = new System.Drawing.Point(1, 234);
             this.showUserSubButton.Margin = new System.Windows.Forms.Padding(1);
             this.showUserSubButton.Name = "showUserSubButton";
             this.showUserSubButton.Size = new System.Drawing.Size(198, 26);

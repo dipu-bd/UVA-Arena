@@ -31,51 +31,6 @@ namespace UVA_Arena
             tabImageList.Images.Add("utilities", Properties.Resources.utility);
         }
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            Logger.Add("UVA Arena started", "Main Form");
-
-            //set styles
-            customTabControl1.BackColor = Color.PaleTurquoise;
-            Stylish.SetGradientBackground(menuStrip1,
-                new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
-            Stylish.SetGradientBackground(tableLayoutPanel1,
-                new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
-
-            //start status cleaner
-            ClearStatus("");
-
-            //set some properties to the form
-            SetFormProperties();
-
-            //initialize controls and add them
-            DelayInitialize(true);
-        }
-
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-            if (!Properties.Settings.Default.HideExitDialog)
-            {
-                ClosingDialogueForm cdf = new ClosingDialogueForm();
-                if (cdf.ShowDialog() == System.Windows.Forms.DialogResult.No)
-                {
-                    e.Cancel = true;
-                }
-            }
-        }
-
-        public void ClearStatus(object last)
-        {
-            if (Status1.Text.CompareTo(last) == 0)
-            {
-                Interactivity.SetStatus();
-                Interactivity.SetProgress();
-            }
-            TaskQueue.AddTask(ClearStatus, Status1.Text, 3000);
-        }
-
         #region mouse wheel without focus
 
         public bool PreFilterMessage(ref Message m)
@@ -97,8 +52,39 @@ namespace UVA_Arena
 
         #endregion mouse wheel without focus
 
-        #region Delay Initializers
+        #region Load form
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            Logger.Add("UVA Arena started", "Main Form");
+
+            //set styles
+            customTabControl1.BackColor = Color.PaleTurquoise;
+            Stylish.SetGradientBackground(menuStrip1,
+                new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
+            Stylish.SetGradientBackground(tableLayoutPanel1,
+                new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
+
+            //start status cleaner
+            ClearStatus("");            
+            
+            //other operations
+            delayOperations(true);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (!Properties.Settings.Default.HideExitDialog)
+            {
+                ClosingDialogueForm cdf = new ClosingDialogueForm();
+                if (cdf.ShowDialog() == System.Windows.Forms.DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
         public void SetFormProperties()
         {
             string user = RegistryAccess.DefaultUsername;
@@ -119,40 +105,51 @@ namespace UVA_Arena
             }
         }
 
-        private void DelayInitialize(object background)
+        public void ClearStatus(object last)
         {
-            //run in background
+            if (Status1.Text.CompareTo(last) == 0)
+            {
+                Interactivity.SetStatus();
+                Interactivity.SetProgress();
+            }
+            TaskQueue.AddTask(ClearStatus, Status1.Text, 3000);
+        }
+
+        private void delayOperations(object background)
+        {
             if ((bool)background)
             {
-                this.Cursor = Cursors.AppStarting;
-                System.Threading.ThreadPool.QueueUserWorkItem(DelayInitialize, false);
+                customTabControl1.Visible = false;
+                System.Threading.ThreadPool.QueueUserWorkItem(delayOperations, false);
                 return;
             }
 
+            //initialize controls and add them
             //load problem database
             LocalDatabase.RunLoadAsync(false);
 
-            //load controls
-            bool _initialized = false;
             this.BeginInvoke((MethodInvoker)delegate
             {
                 //add controls
                 AddControls();
+                customTabControl1.Visible = true;
 
                 //add buttons to the top right beside control buttons
                 //AddActiveButtons();
 
-                _initialized = true;
                 this.Cursor = Cursors.Default;
                 Logger.Add("Initialized all controls", "Main Form");
 
                 loadingPanel.Visible = false;
+
+                //set some properties to the form
+                SetFormProperties();                
             });
+
 
             //update problem database if not available
             if (LocalDirectory.GetFileSize(LocalDirectory.GetProblemInfoFile()) < 100)
             {
-                while (!_initialized) System.Threading.Thread.Sleep(1000);
                 System.Threading.Thread.Sleep(2000);
                 this.BeginInvoke((MethodInvoker)delegate
                 {
@@ -173,10 +170,46 @@ namespace UVA_Arena
                     });
                 }
             }
+        }
 
-            //check for updates
-            System.Threading.Thread.Sleep(10000);
-            UpdateCheck.CheckForUpdate();
+        private void AddControls()
+        {
+            customTabControl1.SuspendLayout();
+
+            //load problems
+            Interactivity.problems = new Elements.PROBLEMS();
+            Interactivity.problems.Dock = DockStyle.Fill;
+            problemTab.ImageIndex = 0;
+            problemTab.Controls.Add(Interactivity.problems);
+
+            //load codes
+            Interactivity.codes = new Elements.CODES();
+            Interactivity.codes.Dock = DockStyle.Fill;
+            codesTab.ImageIndex = 1;
+            codesTab.Controls.Add(Interactivity.codes);
+
+            //load status
+            Interactivity.status = new Elements.STATUS();
+            Interactivity.status.Dock = DockStyle.Fill;
+            statusTab.ImageIndex = 2;
+            statusTab.Controls.Add(Interactivity.status);
+
+            //load user stat
+            Interactivity.userstat = new Elements.USER_STAT();
+            Interactivity.userstat.Dock = DockStyle.Fill;
+            profileTab.ImageIndex = 3;
+            profileTab.Controls.Add(Interactivity.userstat);
+
+            //load utilities
+            //Interactivity.utilities = new Elements.UTILITIES();
+            //Interactivity.utilities.Dock = DockStyle.Fill;
+            //utilitiesTab.Controls.Add(Interactivity.utilities);
+
+            customTabControl1.ResumeLayout(false);
+
+            //set up context menu
+            statusToolStripMenuItem.DropDown = Interactivity.status.updateContextMenu;
+            submissionsToolStripMenuItem.DropDown = Interactivity.userstat.MainContextMenu;
         }
 
         /*
@@ -208,43 +241,7 @@ namespace UVA_Arena
         }
         */
 
-        private void AddControls()
-        {
-            customTabControl1.SuspendLayout();
-
-            //load problems
-            Interactivity.problems = new Elements.PROBLEMS();
-            Interactivity.problems.Dock = DockStyle.Fill;
-            problemTab.Controls.Add(Interactivity.problems);
-
-            //load codes
-            Interactivity.codes = new Elements.CODES();
-            Interactivity.codes.Dock = DockStyle.Fill;
-            codesTab.Controls.Add(Interactivity.codes);
-
-            //load status
-            Interactivity.status = new Elements.STATUS();
-            Interactivity.status.Dock = DockStyle.Fill;
-            judgeStatusTab.Controls.Add(Interactivity.status);
-
-            //load user stat
-            Interactivity.userstat = new Elements.USER_STAT();
-            Interactivity.userstat.Dock = DockStyle.Fill;
-            profileTab.Controls.Add(Interactivity.userstat);
-
-            //load utilities
-            //Interactivity.utilities = new Elements.UTILITIES();
-            //Interactivity.utilities.Dock = DockStyle.Fill;
-            //utilitiesTab.Controls.Add(Interactivity.utilities);
-
-            customTabControl1.ResumeLayout(false);
-
-            //set up context menu
-            statusToolStripMenuItem.DropDown = Interactivity.status.updateContextMenu;
-            submissionsToolStripMenuItem.DropDown = Interactivity.userstat.MainContextMenu;
-        }
-
-        #endregion Delay Initializers
+        #endregion
 
         #region Less significant functions
 
@@ -554,7 +551,6 @@ namespace UVA_Arena
         }
 
         #endregion
-
 
         #endregion Less significant functions
 

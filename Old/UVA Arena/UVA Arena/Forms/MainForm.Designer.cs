@@ -95,23 +95,23 @@
             this.settingsButton = new System.Windows.Forms.Button();
             this.loggerButton = new System.Windows.Forms.Button();
             this.helpButton = new System.Windows.Forms.Button();
-            this.customTabControl1 = new System.Windows.Forms.CustomTabControl();
-            this.problemTab = new System.Windows.Forms.TabPage();
-            this.codesTab = new System.Windows.Forms.TabPage();
-            this.judgeStatusTab = new System.Windows.Forms.TabPage();
-            this.profileTab = new System.Windows.Forms.TabPage();
             this.loadingPanel = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.versionLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.productName = new System.Windows.Forms.Label();
+            this.customTabControl1 = new System.Windows.Forms.CustomTabControl();
+            this.problemTab = new System.Windows.Forms.TabPage();
+            this.codesTab = new System.Windows.Forms.TabPage();
+            this.statusTab = new System.Windows.Forms.TabPage();
+            this.profileTab = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.customTabControl1.SuspendLayout();
             this.loadingPanel.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.customTabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabImageList
@@ -669,65 +669,6 @@
             this.helpButton.UseVisualStyleBackColor = false;
             this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
-            // customTabControl1
-            // 
-            this.customTabControl1.Controls.Add(this.problemTab);
-            this.customTabControl1.Controls.Add(this.codesTab);
-            this.customTabControl1.Controls.Add(this.judgeStatusTab);
-            this.customTabControl1.Controls.Add(this.profileTab);
-            this.customTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.customTabControl1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customTabControl1.ImageList = this.tabImageList;
-            this.customTabControl1.Location = new System.Drawing.Point(0, 24);
-            this.customTabControl1.Margin = new System.Windows.Forms.Padding(0);
-            this.customTabControl1.Name = "customTabControl1";
-            this.customTabControl1.Overlap = 6;
-            this.customTabControl1.Padding = new System.Drawing.Point(30, 7);
-            this.customTabControl1.SelectedIndex = 0;
-            this.customTabControl1.Size = new System.Drawing.Size(844, 390);
-            this.customTabControl1.TabIndex = 2;
-            this.customTabControl1.SelectedIndexChanged += new System.EventHandler(this.customTabControl1_SelectedIndexChanged);
-            // 
-            // problemTab
-            // 
-            this.problemTab.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.problemTab.ImageKey = "problems";
-            this.problemTab.Location = new System.Drawing.Point(4, 33);
-            this.problemTab.Name = "problemTab";
-            this.problemTab.Size = new System.Drawing.Size(836, 353);
-            this.problemTab.TabIndex = 1;
-            this.problemTab.Text = "PROBLEMS";
-            // 
-            // codesTab
-            // 
-            this.codesTab.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.codesTab.ImageKey = "code";
-            this.codesTab.Location = new System.Drawing.Point(4, 33);
-            this.codesTab.Name = "codesTab";
-            this.codesTab.Size = new System.Drawing.Size(836, 353);
-            this.codesTab.TabIndex = 3;
-            this.codesTab.Text = "CODES";
-            // 
-            // judgeStatusTab
-            // 
-            this.judgeStatusTab.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.judgeStatusTab.ImageKey = "live_submission";
-            this.judgeStatusTab.Location = new System.Drawing.Point(4, 33);
-            this.judgeStatusTab.Name = "judgeStatusTab";
-            this.judgeStatusTab.Size = new System.Drawing.Size(836, 353);
-            this.judgeStatusTab.TabIndex = 6;
-            this.judgeStatusTab.Text = "STATUS";
-            // 
-            // profileTab
-            // 
-            this.profileTab.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.profileTab.ImageKey = "profile";
-            this.profileTab.Location = new System.Drawing.Point(4, 33);
-            this.profileTab.Name = "profileTab";
-            this.profileTab.Size = new System.Drawing.Size(836, 353);
-            this.profileTab.TabIndex = 2;
-            this.profileTab.Text = "PROFILES";
-            // 
             // loadingPanel
             // 
             this.loadingPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -794,6 +735,65 @@
             this.productName.Text = "UVA Arena";
             this.productName.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
+            // customTabControl1
+            // 
+            this.customTabControl1.AllowDrop = true;
+            this.customTabControl1.AllowTabRedorder = true;
+            this.customTabControl1.BackColor = System.Drawing.Color.Transparent;
+            this.customTabControl1.Controls.Add(this.problemTab);
+            this.customTabControl1.Controls.Add(this.codesTab);
+            this.customTabControl1.Controls.Add(this.statusTab);
+            this.customTabControl1.Controls.Add(this.profileTab);
+            this.customTabControl1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.customTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customTabControl1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customTabControl1.ImageList = this.tabImageList;
+            this.customTabControl1.Location = new System.Drawing.Point(0, 24);
+            this.customTabControl1.Name = "customTabControl1";
+            this.customTabControl1.Overlap = 5;
+            this.customTabControl1.Padding = new System.Drawing.Point(30, 7);
+            this.customTabControl1.SelectedFontStyle = System.Drawing.FontStyle.Italic;
+            this.customTabControl1.SelectedIndex = 0;
+            this.customTabControl1.Size = new System.Drawing.Size(844, 390);
+            this.customTabControl1.TabIndex = 5;
+            this.customTabControl1.SelectedIndexChanged += new System.EventHandler(this.customTabControl1_SelectedIndexChanged);
+            // 
+            // problemTab
+            // 
+            this.problemTab.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.problemTab.Location = new System.Drawing.Point(4, 33);
+            this.problemTab.Name = "problemTab";
+            this.problemTab.Size = new System.Drawing.Size(836, 353);
+            this.problemTab.TabIndex = 0;
+            this.problemTab.Text = "PROBLEMS";
+            // 
+            // codesTab
+            // 
+            this.codesTab.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.codesTab.Location = new System.Drawing.Point(4, 33);
+            this.codesTab.Name = "codesTab";
+            this.codesTab.Size = new System.Drawing.Size(836, 353);
+            this.codesTab.TabIndex = 1;
+            this.codesTab.Text = "CODES";
+            // 
+            // statusTab
+            // 
+            this.statusTab.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.statusTab.Location = new System.Drawing.Point(4, 33);
+            this.statusTab.Name = "statusTab";
+            this.statusTab.Size = new System.Drawing.Size(836, 353);
+            this.statusTab.TabIndex = 2;
+            this.statusTab.Text = "STATUS";
+            // 
+            // profileTab
+            // 
+            this.profileTab.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.profileTab.Location = new System.Drawing.Point(4, 33);
+            this.profileTab.Name = "profileTab";
+            this.profileTab.Size = new System.Drawing.Size(836, 353);
+            this.profileTab.TabIndex = 3;
+            this.profileTab.Text = "PROFILES";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -820,10 +820,10 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.customTabControl1.ResumeLayout(false);
             this.loadingPanel.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.customTabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -832,11 +832,6 @@
         #endregion
 
         private System.Windows.Forms.ImageList tabImageList;
-        public System.Windows.Forms.CustomTabControl customTabControl1;
-        public System.Windows.Forms.TabPage problemTab;
-        public System.Windows.Forms.TabPage profileTab;
-        public System.Windows.Forms.TabPage codesTab;
-        public System.Windows.Forms.TabPage judgeStatusTab;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
@@ -907,6 +902,11 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripMenuItem likeOnFacebookToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fAQToolStripMenuItem;
+        public System.Windows.Forms.CustomTabControl customTabControl1;
+        public System.Windows.Forms.TabPage problemTab;
+        public System.Windows.Forms.TabPage codesTab;
+        public System.Windows.Forms.TabPage statusTab;
+        public System.Windows.Forms.TabPage profileTab;
           
     }
 }

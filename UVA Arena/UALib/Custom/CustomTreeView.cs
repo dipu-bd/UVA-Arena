@@ -20,23 +20,13 @@ namespace System.Windows.Forms
         /// </summary>
         public CustomTreeView()
         {
-            this.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
-            this.ForeColor = System.Drawing.Color.Black;
-            this.ShowLines = false;
-            this.ShowNodeToolTips = true;
+            //set up some properties
+            this.ItemHeight = 24;
             this.ShowPlusMinus = true;
             this.ShowRootLines = false;
-            this.ItemHeight = 24;
-
-            this.TopNodeBorder = Color.FromArgb(206, 212, 223);
-            this.SelectedTopBorder = Color.FromArgb(196, 210, 223);
-            this.SecondaryNodeBorder = Color.FromArgb(210, 216, 228);
-            this.SelectedSecondaryBorder = Color.FromArgb(229, 195, 120);
-            this.TopNodeBackgroud = Color.FromArgb(240, 240, 240);
-            this.SelectedTopBackground = Color.FromArgb(235, 230, 240);
-            this.SecondaryNodeBackgroud = Color.FromArgb(255, 240, 210);
-            this.SelectedSecondaryBackground = Color.FromArgb(250, 229, 190);
-
+            this.ShowNodeToolTips = true;
+            this.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;                        
+            
             //load state images            
             this.StateImageList = new ImageList();
             this.StateImageList.ColorDepth = ColorDepth.Depth32Bit;
@@ -45,97 +35,56 @@ namespace System.Windows.Forms
             this.StateImageList.Images.Add("collapse_focused", UALib.Properties.Resources.collapse_focused);
             this.StateImageList.Images.Add("expand", UALib.Properties.Resources.expand);
             this.StateImageList.Images.Add("expand_focused", UALib.Properties.Resources.expand_focused);
-
-            //set other styles 
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
         }
 
+        // Some constant color to use
+        public static const Color DEFAULT_BORDER1 = Color.FromArgb(206, 212, 223);
+        public static const Color DEFAULT_SELECTED_BORDER1 = Color.FromArgb(196, 210, 223);
+        public static const Color DEFAULT_BORDER2 = Color.FromArgb(210, 216, 228);
+        public static const Color DEFAULT_SELECTED_BORDER2 = Color.FromArgb(229, 195, 120);
+        public static const Color DEFAULT_BACKGROUND1 = Color.FromArgb(240, 240, 240);
+        public static const Color DEFAULT_SELECTED_BACKGROUND1 = Color.FromArgb(235, 230, 240);
+        public static const Color DEFAULT_BACKGROUND2 = Color.FromArgb(255, 240, 210);
+        public static const Color DEFAULT_SELECTED_BACKGROUND2 = Color.FromArgb(250, 229, 190);
+
         /// <summary>
-        /// Border color for the top nodes
+        /// Expand and Select a node on mouse click
         /// </summary>
-        [Editor(typeof(Pen), typeof(Pen)), Category("Appearance")]
-        [Description("Border color for the top nodes")]
-        public Color TopNodeBorder { get; set; }
+        [DefaultValue(true), Category("Appearance")]
+        [Description("Expand and Select a node on mouse click")]
+        public bool MouseSensitive { get; set; }
 
         /// <summary>
-        /// Border color for the selected top nodes
+        /// Get the children of a node
         /// </summary>
-        [Category("Appearance")]
-        [Description("Border color for the selected top nodes")]
-        public Color SelectedTopBorder { get; set; }
+        /// <param name="parent">Node to get children of</param>
+        /// <returns>List of all childrens</returns>
+        public delegate IEnumerable<object> ChildGetter(object parent);
 
         /// <summary>
-        /// Border color for the second level nodes
+        /// Get the backcolor for a node
         /// </summary>
-        [Category("Appearance")]
-        [Description("Border color for the second level nodes")]
-        public Color SelectedSecondaryBorder { get; set; }
+        /// <param name="node">Node to get the back color</param>        
+        /// <param name="state">State of the current node</param>
+        public delegate Color GetBackColor(object node, TreeNodeStates state);
 
         /// <summary>
-        /// Border color for the second level nodes
+        /// Get border color of a node
         /// </summary>
-        [Category("Appearance")]
-        [Description("Border color for the second level nodes")]
-        public Color SecondaryNodeBorder { get; set; }
-
-        /// <summary>
-        /// GradientStyle brush generator for TopNode's normal state background
-        /// </summary> 
-        [Category("Appearance")]
-        [Description("GradientStyle brush generator for TopNode's normal state background")]
-        public Color TopNodeBackgroud { get; set; }
-
-        /// <summary>
-        /// GradientStyle brush generator for TopNode's selected state background 
-        /// </summary>         
-        [Category("Appearance")]
-        [Description("GradientStyle brush generator for TopNode's selected state background")]
-
-        public Color SelectedTopBackground { get; set; }
-        /// <summary>
-        /// GradientStyle brush generator for secondary node's  normal state background
-        /// </summary> 
-        [Category("Appearance")]
-        [Description("GradientStyle brush generator for secondary node's normal state background")]
-        public Color SecondaryNodeBackgroud { get; set; }
-
-        /// <summary>
-        /// GradientStyle brush generator for secondary node's selected state background 
-        /// </summary>         
-        [Category("Appearance")]
-        [Description("GradientStyle brush generator for secondary node's selected state background")]
-        public Color SelectedSecondaryBackground { get; set; }
+        /// <param name="node">Node to get border color of</param>        
+        /// <param name="state">State of the current node</param>
+        public delegate Color GetBorderColor(object node, TreeNodeStates state);
 
         protected override void OnNodeMouseClick(TreeNodeMouseClickEventArgs e)
         {
             base.OnNodeMouseClick(e);
+            if (!MouseSensitive) return;
+
+            this.SelectedNode = e.Node;
             if (e.Button == Forms.MouseButtons.Left)
             {
-                if (e.Node.Level <= 1)
-                {
-                    e.Node.Expand();
-                }
-                else
-                {
-                    e.Node.Toggle();
-                }
-            }
-            this.SelectedNode = e.Node;
-        }
+                bool expand = e.Node.IsExpanded;
 
-        protected override void OnBeforeExpand(TreeViewCancelEventArgs e)
-        {
-            base.OnBeforeExpand(e);
-
-            foreach (TreeNode t in this.Nodes)
-            {
-                if (t.IsExpanded)
-                {
-                    t.Collapse();
-                    break;
-                }
             }
         }
 
@@ -215,7 +164,7 @@ namespace System.Windows.Forms
             }
 
             //fill rectangle
-            e.Graphics.FillRectangle(brush, bound);  
+            e.Graphics.FillRectangle(brush, bound);
             e.Graphics.DrawRectangle(pen, bound);
         }
 
@@ -247,8 +196,8 @@ namespace System.Windows.Forms
                     img = this.ImageList.Images[e.Node.SelectedImageIndex];
                 }
             }
-            
-            if(!e.Node.IsSelected || img == null)
+
+            if (!e.Node.IsSelected || img == null)
             {
                 if (!string.IsNullOrEmpty(e.Node.ImageKey))
                 {

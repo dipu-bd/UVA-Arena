@@ -164,7 +164,7 @@ namespace UVA_Arena.Elements
 
             //check if this is focused
             if (Interactivity.mainForm.customTabControl1.SelectedTab
-                    != Interactivity.mainForm.judgeStatusTab) return;
+                    != Interactivity.mainForm.statusTab) return;
 
             //refresh items
             submissionStatus.SetObjects(StatusList);
@@ -181,7 +181,7 @@ namespace UVA_Arena.Elements
             {
                 if (webClient1.IsBusy)
                 {
-                    if (diff > 15000)
+                    if (diff > 25000)
                         webClient1.CancelAsync();
                 }
                 else

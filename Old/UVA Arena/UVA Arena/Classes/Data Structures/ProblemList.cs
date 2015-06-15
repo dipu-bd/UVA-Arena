@@ -18,59 +18,59 @@ namespace UVA_Arena.Structures
         public ProblemInfo() { }
         public ProblemInfo(List<object> data) { SetData(data); }
 
-        /// <summary>Problem ID</summary>
+        /// <summary>0. Problem ID </summary>
         public long pid { get; set; }
-        /// <summary>Problem Number
+        /// <summary>1. Problem Number </summary>
         public long pnum { get; set; }
-        /// <summary>Problem Title
+        /// <summary>2. Problem Title  </summary>
         public string ptitle { get; set; }
-        /// <summary>Number of Distinct Accepted User (DACU)
+        /// <summary>3. Number of Distinct Accepted User (DACU) </summary>
         public long dacu { get; set; }
-        /// <summary>Best Runtime of an Accepted Submission
+        /// <summary>4. Best Runtime of an Accepted Submission </summary>
         public long run { get; set; }
-        /// <summary>Best Memory used of an Accepted Submission
+        /// <summary>5. Best Memory used of an Accepted Submission </summary>
         public long mem { get; set; }
-        /// <summary>Number of No Verdict Given (can be ignored)
+        /// <summary>6. Number of No Verdict Given (can be ignored) </summary>
         public long nver { get; set; }
-        /// <summary>Number of Submission Error
+        /// <summary>7. Number of Submission Error  </summary>
         public long sube { get; set; }
-        /// <summary>Number of Can't be Judged
+        /// <summary>8. Number of Can't be Judged </summary>
         public long cbj { get; set; }
-        /// <summary>Number of In Queue
+        /// <summary>9. Number of In Queue  </summary>
         public long inq { get; set; }
-        /// <summary>Number of Compilation Error
+        /// <summary>10. Number of Compilation Error </summary>
         public long ce { get; set; }
-        /// <summary>Number of Restricted Function
+        /// <summary>11. Number of Restricted Function </summary>
         public long resf { get; set; }
-        /// <summary>Number of Runtime Error
+        /// <summary>12. Number of Runtime Error </summary>
         public long re { get; set; }
-        /// <summary>Number of Output Limit Exceeded
+        /// <summary>13. Number of Output Limit Exceeded </summary>
         public long ole { get; set; }
-        /// <summary>Number of Time Limit Exceeded
+        /// <summary>14. Number of Time Limit Exceeded </summary>
         public long tle { get; set; }
-        /// <summary>Number of Memory Limit Exceeded
+        /// <summary>15. Number of Memory Limit Exceeded </summary>
         public long mle { get; set; }
-        /// <summary>Number of Wrong Answer
+        /// <summary>16. Number of Wrong Answer </summary>
         public long wa { get; set; }
-        /// <summary>Number of Presentation Error
+        /// <summary>17. Number of Presentation Error </summary>
         public long pe { get; set; }
-        /// <summary>Number of Accepted
+        /// <summary>18. Number of Accepted  </summary>
         public long ac { get; set; }
-        //Problem Run-Time Limit (milliseconds)
+        /// <summary>19. Time Limit (milliseconds)  </summary>
         public long rtl { get; set; }
-        //Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
+        /// <summary>20. Problem Status (0 = unavailable, 1 = normal, 2 = special judge)  </summary>
         public long stat { get; set; }
 
         //formatted special values 
-        public ProblemStatus status { get; set; }
         public int volume { get; set; }
         public long total { get; set; }
-        public double level { get; set; } 
         public bool stared { get; set; }
         public bool solved { get; set; }        
         public bool marked { get; set; }
         public int priority { get; set;}
         public long fileSize { get; set; }
+        public double level { get; set; } 
+        public ProblemStatus status { get; set; }
 
         public List<string> categories = new List<string>();
 
@@ -81,10 +81,13 @@ namespace UVA_Arena.Structures
         }
 
         public void SetData(List<object> data)
-        {            
+        {
+            //number of property to be assign
+            const int number_of_property = 20;
+
             Type t = typeof(ProblemInfo);
-            PropertyInfo[] pcol = t.GetProperties();
-            for (int i = 0; i < data.Count; ++i)
+            PropertyInfo[] pcol = t.GetProperties();            
+            for (int i = 0; i <= number_of_property; ++i)
             {
                 pcol[i].SetValue(this, data[i], null);
             }

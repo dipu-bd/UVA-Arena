@@ -147,7 +147,9 @@ namespace UVA_Arena.Elements
             compiler = Path.Combine(compiler, "bin");
             compiler = Path.Combine(compiler, "mingw32-gcc.exe");
             if (!File.Exists(compiler))
+            {
                 throw new FileNotFoundException("MinGW path is not valid. Select one from settings.");
+            }
 
             //filename
             string name = Path.GetFileNameWithoutExtension(filename);

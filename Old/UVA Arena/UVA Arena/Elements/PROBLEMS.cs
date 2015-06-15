@@ -308,6 +308,19 @@ namespace UVA_Arena.Elements
         //
         private void problemListView_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //object sel = problemListView.SelectedObject;
+            //if (sel == null) return;
+            //Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
+        }
+        private void problemListView_CellClick(object sender, CellClickEventArgs e)
+        {
+            object sel = problemListView.SelectedObject;
+            if (sel == null) return;
+            Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
+        }
+
+        private void problemListView_ItemActivate(object sender, EventArgs e)
+        {
             object sel = problemListView.SelectedObject;
             if (sel == null) return;
             Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
@@ -710,6 +723,7 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
+
 
     }
 }

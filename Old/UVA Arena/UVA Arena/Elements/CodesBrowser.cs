@@ -228,7 +228,7 @@ namespace UVA_Arena.Elements
         /// <param name="finfo">File system info of child nodes</param>
         /// <param name="nodes">Tree Node Collection of parent's childs</param>
         /// <returns></returns>
-        private bool CanAddNode(FileSystemInfo finfo, TreeNodeCollection nodes)
+        private static bool CanAddNode(FileSystemInfo finfo, TreeNodeCollection nodes)
         {
             if (!finfo.Exists) return false;
             foreach (TreeNode nod in nodes)

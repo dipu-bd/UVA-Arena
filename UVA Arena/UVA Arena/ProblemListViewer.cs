@@ -12,7 +12,7 @@ namespace UVA_Arena
     {
         public ProblemListViewer()
         {
-            InitializeComponent();
+            InitializeComponent();                                    
         }
     }
 }

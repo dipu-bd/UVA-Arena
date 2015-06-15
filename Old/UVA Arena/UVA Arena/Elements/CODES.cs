@@ -164,7 +164,7 @@ namespace UVA_Arena.Elements
 
             OpenedOutput = null;
             outputTextBox.Clear();
-            progOutputTextBox.Clear();
+            outputTextBox.Clear();
 
             OpenedCorrect = null;
             correctOutputTextBox.Clear();
@@ -429,7 +429,7 @@ namespace UVA_Arena.Elements
             if (OpenedOutput != file)
             {
                 outputTextBox.Clear();
-                progOutputTextBox.Clear();
+                outputTextBox.Clear();
             }
 
             //do not open very large files
@@ -442,7 +442,7 @@ namespace UVA_Arena.Elements
                 outputTextBox.Text = File.ReadAllText(file);
             }
 
-            progOutputTextBox.Text = outputTextBox.Text;
+            outputTextBox.Text = outputTextBox.Text;
         }
 
         public void OpenCorrectFile(string file)
@@ -726,11 +726,6 @@ namespace UVA_Arena.Elements
             codeTextBox.SaveToFile(CurrentFile.FullName, Encoding.Default);
         }
 
-        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            codeTextBox.Cut();
-        }
-
         private void copyToolButton_Click(object sender, EventArgs e)
         {
             if (codeTextBox.Text.Length > 0)
@@ -744,14 +739,21 @@ namespace UVA_Arena.Elements
             codeTextBox.Copy();
         }
 
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (codeTextBox.ReadOnly) return;
+            codeTextBox.Cut();
+        }
 
         private void pasteToolButton_Click(object sender, EventArgs e)
         {
+            if (codeTextBox.ReadOnly) return;
             codeTextBox.Paste();
         }
 
         private void findToolButton_Click(object sender, EventArgs e)
         {
+            if (codeTextBox.ReadOnly) return;
             codeTextBox.ShowFindDialog(codeTextBox.SelectedText);
         }
 
@@ -801,7 +803,11 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                if (SelectedPNUM == -1) return;
+                if (SelectedPNUM == -1)
+                {
+                        MessageBox.Show("No problem is selected.");
+                        return;
+                }
                 Interactivity.ShowProblem(SelectedPNUM);
             }
             catch (Exception ex)
@@ -814,7 +820,11 @@ namespace UVA_Arena.Elements
         {
             try
             {
-                if (CurrentFile == null || !LocalDatabase.HasProblem(SelectedPNUM)) return;
+                if (CurrentFile == null || !LocalDatabase.HasProblem(SelectedPNUM))
+                {
+                    MessageBox.Show("Select code of a problem first."); 
+                    return;
+                }
                 string code = File.ReadAllText(CurrentFile.FullName);
                 Interactivity.SubmitCode(SelectedPNUM, code, CustomLang);
             }
@@ -843,7 +853,7 @@ namespace UVA_Arena.Elements
             Interactivity.codes.BeginInvoke((MethodInvoker)delegate
             {
                 ClearOutputFile(); //clear output file
-                saveInputTool.PerformClick(); //save input
+                saveInputOutputData(); //save input output data
                 saveToolButton.PerformClick(); //save code
                 codeTextBox.ClearHints(); //clear hints                
                 compilerOutput.Clear(); //clear prev compiler report
@@ -876,7 +886,10 @@ namespace UVA_Arena.Elements
                 this.BeginInvoke((MethodInvoker)delegate { ProcessErrorData(); });
                 //if no error and runtest
                 if ((BuildRunType)state == BuildRunType.RunTest && ok)
-                    tabControl1.SelectedTab = compareTAB;
+                {
+                    tabControl1.SelectedTab = ioTAB;
+                    inputOutputTabControl.SelectedTab = inputTab;
+                }
             });
         }
 
@@ -1034,6 +1047,26 @@ namespace UVA_Arena.Elements
 
         #region Input Output
 
+        private void saveInputOutputData()
+        {
+            try
+            {
+                //input
+                string path = OpenedInput;
+                if (!string.IsNullOrEmpty(path))
+                {
+                    File.WriteAllText(path, inputTextBox.Text);
+                }
+                //correct output
+                path = OpenedCorrect;
+                if (!string.IsNullOrEmpty(path))
+                {
+                    File.WriteAllText(path, correctOutputTextBox.Text);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
         // 
         // Input Text Box
         //
@@ -1041,7 +1074,7 @@ namespace UVA_Arena.Elements
         {
             if (e.Action == FCTBAction.CustomAction1)
             {
-                saveInputTool.PerformClick();
+                saveInputOutputData();
             }
         }
 
@@ -1137,7 +1170,7 @@ namespace UVA_Arena.Elements
         {
             if (e.Action == FCTBAction.CustomAction1)
             {
-                saveCorrectToolButton.PerformClick();
+                saveInputOutputData();
             }
         }
 
@@ -1206,7 +1239,9 @@ namespace UVA_Arena.Elements
 
         private void compareOutputButton_Click(object sender, EventArgs e)
         {
-            saveCorrectToolButton.PerformClick();
+            saveInputOutputData();
+            inputOutputTabControl.SelectedTab = correctOutputTab;
+
             bool res = CompareOutputTexts();
             if (res)
             {
@@ -1238,9 +1273,9 @@ namespace UVA_Arena.Elements
             __updating++;
 
             //show lines
-            progOutputTextBox.Clear();
+            outputTextBox.Clear();
             correctOutputTextBox.Clear();
-            bool res = _ProcessDiff(source1, correctOutputTextBox, progOutputTextBox);
+            bool res = _ProcessDiff(source1, correctOutputTextBox, outputTextBox);
 
             //end update
             __updating--;
@@ -1291,12 +1326,12 @@ namespace UVA_Arena.Elements
             CurLnLabel.Text = string.Format((string)CurLnLabel.Tag, curLine);
             CurColLabel.Text = string.Format((string)CurColLabel.Tag, curChar);
 
-            if (sender == progOutputTextBox)
+            if (sender == outputTextBox)
                 _UpdateScroll(correctOutputTextBox, vPos, curLine);
             else
-                _UpdateScroll(progOutputTextBox, vPos, curLine);
+                _UpdateScroll(outputTextBox, vPos, curLine);
 
-            progOutputTextBox.Refresh();
+            outputTextBox.Refresh();
             correctOutputTextBox.Refresh();
         }
 

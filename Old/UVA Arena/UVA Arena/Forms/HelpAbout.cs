@@ -32,7 +32,9 @@ namespace UVA_Arena
         {
             try
             {
-                System.Diagnostics.Process.Start((string)((LinkLabel)sender).Tag);
+                String url = (string)((LinkLabel)sender).Tag;
+                System.Diagnostics.Process.Start(url);
+                Clipboard.SetText(url);
             }
             catch (Exception ex)
             {

@@ -100,25 +100,25 @@
             this.settingsButton = new System.Windows.Forms.Button();
             this.loggerButton = new System.Windows.Forms.Button();
             this.helpButton = new System.Windows.Forms.Button();
-            this.customTabControl1 = new System.Windows.Forms.CustomTabControl();
-            this.problemsTab = new System.Windows.Forms.TabPage();
-            this.problems1 = new UVA_Arena.PROBLEMS();
-            this.codesTab = new System.Windows.Forms.TabPage();
-            this.codes1 = new UVA_Arena.CODES();
-            this.statusTab = new System.Windows.Forms.TabPage();
-            this.status2 = new UVA_Arena.STATUS();
             this.profilesTab = new System.Windows.Forms.TabPage();
             this.profiles1 = new UVA_Arena.PROFILES();
+            this.statusTab = new System.Windows.Forms.TabPage();
+            this.status2 = new UVA_Arena.STATUS();
+            this.codesTab = new System.Windows.Forms.TabPage();
+            this.codes1 = new UVA_Arena.CODES();
+            this.problemsTab = new System.Windows.Forms.TabPage();
+            this.problems1 = new UVA_Arena.PROBLEMS();
+            this.customTabControl1 = new System.Windows.Forms.CustomTabControl();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.loadingPanel.SuspendLayout();
             this.panel2.SuspendLayout();
             this.quickButtonPanel.SuspendLayout();
-            this.customTabControl1.SuspendLayout();
-            this.problemsTab.SuspendLayout();
-            this.codesTab.SuspendLayout();
-            this.statusTab.SuspendLayout();
             this.profilesTab.SuspendLayout();
+            this.statusTab.SuspendLayout();
+            this.codesTab.SuspendLayout();
+            this.problemsTab.SuspendLayout();
+            this.customTabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabImageList
@@ -695,6 +695,78 @@
             this.helpButton.TabIndex = 0;
             this.helpButton.UseVisualStyleBackColor = false;
             // 
+            // profilesTab
+            // 
+            this.profilesTab.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.profilesTab.Controls.Add(this.profiles1);
+            this.profilesTab.Location = new System.Drawing.Point(4, 33);
+            this.profilesTab.Name = "profilesTab";
+            this.profilesTab.Size = new System.Drawing.Size(742, 344);
+            this.profilesTab.TabIndex = 3;
+            this.profilesTab.Text = "PROFILES";
+            // 
+            // profiles1
+            // 
+            this.profiles1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.profiles1.Location = new System.Drawing.Point(0, 0);
+            this.profiles1.Name = "profiles1";
+            this.profiles1.Size = new System.Drawing.Size(742, 344);
+            this.profiles1.TabIndex = 0;
+            // 
+            // statusTab
+            // 
+            this.statusTab.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.statusTab.Controls.Add(this.status2);
+            this.statusTab.Location = new System.Drawing.Point(4, 33);
+            this.statusTab.Name = "statusTab";
+            this.statusTab.Size = new System.Drawing.Size(742, 344);
+            this.statusTab.TabIndex = 2;
+            this.statusTab.Text = "STATUS";
+            // 
+            // status2
+            // 
+            this.status2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.status2.Location = new System.Drawing.Point(0, 0);
+            this.status2.Name = "status2";
+            this.status2.Size = new System.Drawing.Size(742, 344);
+            this.status2.TabIndex = 0;
+            // 
+            // codesTab
+            // 
+            this.codesTab.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.codesTab.Controls.Add(this.codes1);
+            this.codesTab.Location = new System.Drawing.Point(4, 33);
+            this.codesTab.Name = "codesTab";
+            this.codesTab.Size = new System.Drawing.Size(742, 344);
+            this.codesTab.TabIndex = 1;
+            this.codesTab.Text = "CODES";
+            // 
+            // codes1
+            // 
+            this.codes1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.codes1.Location = new System.Drawing.Point(0, 0);
+            this.codes1.Name = "codes1";
+            this.codes1.Size = new System.Drawing.Size(742, 344);
+            this.codes1.TabIndex = 0;
+            // 
+            // problemsTab
+            // 
+            this.problemsTab.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.problemsTab.Controls.Add(this.problems1);
+            this.problemsTab.Location = new System.Drawing.Point(4, 33);
+            this.problemsTab.Name = "problemsTab";
+            this.problemsTab.Size = new System.Drawing.Size(742, 344);
+            this.problemsTab.TabIndex = 0;
+            this.problemsTab.Text = "PROBLEMS";
+            // 
+            // problems1
+            // 
+            this.problems1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.problems1.Location = new System.Drawing.Point(0, 0);
+            this.problems1.Name = "problems1";
+            this.problems1.Size = new System.Drawing.Size(742, 344);
+            this.problems1.TabIndex = 0;
+            // 
             // customTabControl1
             // 
             this.customTabControl1.AllowDrop = true;
@@ -716,78 +788,6 @@
             this.customTabControl1.SelectedIndex = 0;
             this.customTabControl1.Size = new System.Drawing.Size(750, 381);
             this.customTabControl1.TabIndex = 0;
-            // 
-            // problemsTab
-            // 
-            this.problemsTab.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.problemsTab.Controls.Add(this.problems1);
-            this.problemsTab.Location = new System.Drawing.Point(4, 33);
-            this.problemsTab.Name = "problemsTab";
-            this.problemsTab.Size = new System.Drawing.Size(742, 344);
-            this.problemsTab.TabIndex = 0;
-            this.problemsTab.Text = "PROBLEMS";
-            // 
-            // problems1
-            // 
-            this.problems1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.problems1.Location = new System.Drawing.Point(0, 0);
-            this.problems1.Name = "problems1";
-            this.problems1.Size = new System.Drawing.Size(742, 344);
-            this.problems1.TabIndex = 0;
-            // 
-            // codesTab
-            // 
-            this.codesTab.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.codesTab.Controls.Add(this.codes1);
-            this.codesTab.Location = new System.Drawing.Point(4, 33);
-            this.codesTab.Name = "codesTab";
-            this.codesTab.Size = new System.Drawing.Size(742, 344);
-            this.codesTab.TabIndex = 1;
-            this.codesTab.Text = "CODES";
-            // 
-            // codes1
-            // 
-            this.codes1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.codes1.Location = new System.Drawing.Point(0, 0);
-            this.codes1.Name = "codes1";
-            this.codes1.Size = new System.Drawing.Size(742, 344);
-            this.codes1.TabIndex = 0;
-            // 
-            // statusTab
-            // 
-            this.statusTab.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.statusTab.Controls.Add(this.status2);
-            this.statusTab.Location = new System.Drawing.Point(4, 33);
-            this.statusTab.Name = "statusTab";
-            this.statusTab.Size = new System.Drawing.Size(742, 344);
-            this.statusTab.TabIndex = 2;
-            this.statusTab.Text = "STATUS";
-            // 
-            // status2
-            // 
-            this.status2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.status2.Location = new System.Drawing.Point(0, 0);
-            this.status2.Name = "status2";
-            this.status2.Size = new System.Drawing.Size(742, 344);
-            this.status2.TabIndex = 0;
-            // 
-            // profilesTab
-            // 
-            this.profilesTab.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.profilesTab.Controls.Add(this.profiles1);
-            this.profilesTab.Location = new System.Drawing.Point(4, 33);
-            this.profilesTab.Name = "profilesTab";
-            this.profilesTab.Size = new System.Drawing.Size(742, 344);
-            this.profilesTab.TabIndex = 3;
-            this.profilesTab.Text = "PROFILES";
-            // 
-            // profiles1
-            // 
-            this.profiles1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.profiles1.Location = new System.Drawing.Point(0, 0);
-            this.profiles1.Name = "profiles1";
-            this.profiles1.Size = new System.Drawing.Size(742, 344);
-            this.profiles1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -815,11 +815,11 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.quickButtonPanel.ResumeLayout(false);
-            this.customTabControl1.ResumeLayout(false);
-            this.problemsTab.ResumeLayout(false);
-            this.codesTab.ResumeLayout(false);
-            this.statusTab.ResumeLayout(false);
             this.profilesTab.ResumeLayout(false);
+            this.statusTab.ResumeLayout(false);
+            this.codesTab.ResumeLayout(false);
+            this.problemsTab.ResumeLayout(false);
+            this.customTabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -883,10 +883,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.TabPage problemsTab;
-        private System.Windows.Forms.TabPage codesTab;
-        private System.Windows.Forms.TabPage statusTab;
-        private System.Windows.Forms.TabPage profilesTab;
         private System.Windows.Forms.ToolStripStatusLabel Status1;
         private System.Windows.Forms.ToolStripProgressBar Progress1;
         private System.Windows.Forms.Panel loadingPanel;
@@ -900,11 +896,15 @@
         private System.Windows.Forms.Button loggerButton;
         private System.Windows.Forms.Button helpButton;
         private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.CustomTabControl customTabControl1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private PROBLEMS problems1;
-        private CODES codes1;
-        private STATUS status2;
+        private System.Windows.Forms.TabPage profilesTab;
         private PROFILES profiles1;
+        private System.Windows.Forms.TabPage statusTab;
+        private STATUS status2;
+        private System.Windows.Forms.TabPage codesTab;
+        private CODES codes1;
+        private System.Windows.Forms.TabPage problemsTab;
+        private PROBLEMS problems1;
+        private System.Windows.Forms.CustomTabControl customTabControl1;
     }
 }

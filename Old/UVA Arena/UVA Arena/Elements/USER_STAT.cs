@@ -11,7 +11,6 @@ namespace UVA_Arena.Elements
 {
     public partial class USER_STAT : UserControl
     {
-
         #region Top Level
 
         private WebClient webClient1 = new WebClient();
@@ -213,10 +212,11 @@ namespace UVA_Arena.Elements
             string uid = LocalDatabase.GetUserid(user);
             for (int i = 0; i < usernameList.GetItemCount(); ++i)
             {
-                if (((KeyValuePair<string, string>)usernameList.GetModelObject(i)).Value == uid)
+                object model = usernameList.GetModelObject(i);
+                if (((KeyValuePair<string, string>)model).Value == uid)
                 {
                     usernameList.EnsureModelVisible(i);
-                    usernameList.SelectedIndex = i;
+                    usernameList.SelectObject(model);
                     break;
                 }
             }
@@ -280,7 +280,7 @@ namespace UVA_Arena.Elements
             }
             else if (tabControl1.SelectedTab == worldrankTab)
             {
-                ShowWorldRank();
+                ShowWorldRank(-1);
             }
             else if (tabControl1.SelectedTab == compareTab)
             {
@@ -712,32 +712,33 @@ namespace UVA_Arena.Elements
 
         private void reloadButton_Click(object sender, EventArgs e)
         {
-            ShowWorldRank();
+            ShowWorldRank(-1);
         }
 
         private void showUser_Click(object sender, EventArgs e)
         {
-            ShowWorldRank((int)rankSelector.Value);
+            ShowWorldRank(rankSelector.Value);
         }
 
-        private void worldRanklist_Click(object sender, EventArgs e)
+        private void worldRanklist_MouseClick(object sender, MouseEventArgs e)
         {
-            if (worldRanklist.GetItemCount() == 0)
-                ShowWorldRank();
+            if (worldRanklist.GetItemCount() == 0) ShowWorldRank(-1);
         }
 
-        private void ShowWorldRank(int from = -1)
+
+        private void ShowWorldRank(object from)
         {
             if (currentUser == null) return;
 
             if (webClient2.IsBusy)
             {
                 webClient2.CancelAsync();
+                TaskQueue.AddTask(new TaskQueue.Function2(ShowWorldRank), from, 500);
                 return;
             }
 
             string url;
-            if (from <= 0)
+            if ((int)from <= 0)
             {
                 //get current user's ranklist
                 string format = "http://uhunt.felix-halim.net/api/ranklist/{0}/{1}/{2}";
@@ -799,6 +800,7 @@ namespace UVA_Arena.Elements
             }
             catch (Exception ex)
             {
+                TaskQueue.AddTask(new TaskQueue.Function2(ShowWorldRank), e.UserState, 500);
                 Interactivity.SetStatus("Rank-list download failed due to an error. Please try again.");
                 Logger.Add(ex.Message, "World Rank | webClient2_DownloadDataCompleted");
             }
@@ -883,6 +885,7 @@ namespace UVA_Arena.Elements
 
 
         #endregion
+
 
     }
 }

@@ -44,11 +44,12 @@
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.formatAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inputContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.cutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,25 +78,22 @@
             this.pasteToolButton = new System.Windows.Forms.ToolStripButton();
             this.findToolButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.buildRunToolButton = new System.Windows.Forms.ToolStripButton();
-            this.compileToolButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
-            this.runtestToolButton = new System.Windows.Forms.ToolStripButton();
-            this.forceStopToolButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator32 = new System.Windows.Forms.ToolStripSeparator();
             this.precodeToolButton = new System.Windows.Forms.ToolStripSplitButton();
             this.loadPrecodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changePrecodesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.submitToolButton = new System.Windows.Forms.ToolStripButton();
+            this.problemToolButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.exploreToolButton = new System.Windows.Forms.ToolStripButton();
+            this.externalToolButton = new System.Windows.Forms.ToolStripButton();
             this.ioTAB = new System.Windows.Forms.TabPage();
             this.IOContainer1 = new System.Windows.Forms.CustomSplitContainer();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.inputToolBar = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.pasteInputTool = new System.Windows.Forms.ToolStripButton();
-            this.saveInputTool = new System.Windows.Forms.ToolStripButton();
-            this.openInputTool = new System.Windows.Forms.ToolStripButton();
+            this.inputOutputTabControl = new System.Windows.Forms.TabControl();
+            this.inputTab = new System.Windows.Forms.TabPage();
             this.inputTextBox = new FastColoredTextBoxNS.FastColoredTextBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.correctOutputTab = new System.Windows.Forms.TabPage();
+            this.correctOutputTextBox = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.outputTextBox = new FastColoredTextBoxNS.FastColoredTextBox();
             this.ouputToolBar = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
@@ -104,23 +102,6 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.loadDefaultInput = new System.Windows.Forms.Button();
-            this.compareTAB = new System.Windows.Forms.TabPage();
-            this.compareContainer = new System.Windows.Forms.CustomSplitContainer();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
-            this.pasteCorrectToolButton = new System.Windows.Forms.ToolStripButton();
-            this.saveCorrectToolButton = new System.Windows.Forms.ToolStripButton();
-            this.openCorrectToolButton = new System.Windows.Forms.ToolStripButton();
-            this.correctOutputTextBox = new FastColoredTextBoxNS.FastColoredTextBox();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.progOutputTextBox = new FastColoredTextBoxNS.FastColoredTextBox();
-            this.toolStrip4 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel6 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.refreshCompareButton = new System.Windows.Forms.Button();
             this.compareOutputButton = new System.Windows.Forms.Button();
             this.uDebugTab = new System.Windows.Forms.TabPage();
             this.customWebBrowser1 = new UVA_Arena.ExtendedControls.CustomWebBrowser();
@@ -135,15 +116,16 @@
             this.timeLimitCombo = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
-            this.submitToolButton = new System.Windows.Forms.ToolStripButton();
-            this.problemToolButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.reloadToolButton = new System.Windows.Forms.ToolStripButton();
-            this.exploreToolButton = new System.Windows.Forms.ToolStripButton();
-            this.externalToolButton = new System.Windows.Forms.ToolStripButton();
             this.CurColLabel = new System.Windows.Forms.ToolStripLabel();
             this.CurLnLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
+            this.reloadToolButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.buildRunToolButton = new System.Windows.Forms.ToolStripButton();
+            this.compileToolButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
+            this.runtestToolButton = new System.Windows.Forms.ToolStripButton();
+            this.forceStopToolButton = new System.Windows.Forms.ToolStripButton();
             this.codeboxContext.SuspendLayout();
             this.inputContext.SuspendLayout();
             this.outputContext.SuspendLayout();
@@ -161,24 +143,15 @@
             this.IOContainer1.Panel1.SuspendLayout();
             this.IOContainer1.Panel2.SuspendLayout();
             this.IOContainer1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.inputToolBar.SuspendLayout();
+            this.inputOutputTabControl.SuspendLayout();
+            this.inputTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.inputTextBox)).BeginInit();
-            this.tableLayoutPanel3.SuspendLayout();
+            this.correctOutputTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.correctOutputTextBox)).BeginInit();
+            this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputTextBox)).BeginInit();
             this.ouputToolBar.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.compareTAB.SuspendLayout();
-            this.compareContainer.Panel1.SuspendLayout();
-            this.compareContainer.Panel2.SuspendLayout();
-            this.compareContainer.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.correctOutputTextBox)).BeginInit();
-            this.tableLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.progOutputTextBox)).BeginInit();
-            this.toolStrip4.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.uDebugTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.compilerOutput)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -291,53 +264,59 @@
             // inputContext
             // 
             this.inputContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem1,
+            this.toolStripSeparator7,
             this.cutToolStripMenuItem1,
             this.copyToolStripMenuItem2,
             this.pasteToolStripMenuItem2,
             this.toolStripSeparator4,
-            this.saveToolStripMenuItem1,
             this.openFileToolStripMenuItem});
             this.inputContext.Name = "inputContext";
-            this.inputContext.Size = new System.Drawing.Size(123, 120);
+            this.inputContext.Size = new System.Drawing.Size(153, 126);
+            // 
+            // saveToolStripMenuItem1
+            // 
+            this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem1.Text = "Save";
+            this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveInputTool_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(149, 6);
             // 
             // cutToolStripMenuItem1
             // 
             this.cutToolStripMenuItem1.Name = "cutToolStripMenuItem1";
-            this.cutToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.cutToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.cutToolStripMenuItem1.Text = "Cut";
             this.cutToolStripMenuItem1.Click += new System.EventHandler(this.cutInputTool_Click);
             // 
             // copyToolStripMenuItem2
             // 
             this.copyToolStripMenuItem2.Name = "copyToolStripMenuItem2";
-            this.copyToolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
+            this.copyToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.copyToolStripMenuItem2.Text = "Copy";
             this.copyToolStripMenuItem2.Click += new System.EventHandler(this.copyInputTool_Click);
             // 
             // pasteToolStripMenuItem2
             // 
             this.pasteToolStripMenuItem2.Name = "pasteToolStripMenuItem2";
-            this.pasteToolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
+            this.pasteToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.pasteToolStripMenuItem2.Text = "Paste";
             this.pasteToolStripMenuItem2.Click += new System.EventHandler(this.pasteInputTool_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(119, 6);
-            // 
-            // saveToolStripMenuItem1
-            // 
-            this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
-            this.saveToolStripMenuItem1.Text = "Save";
-            this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveInputTool_Click);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
             // 
             // openFileToolStripMenuItem
             // 
             this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
-            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.openFileToolStripMenuItem.Text = "Open file";
+            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openFileToolStripMenuItem.Text = "Load From File";
             this.openFileToolStripMenuItem.Click += new System.EventHandler(this.openInputTool_Click);
             // 
             // outputContext
@@ -372,46 +351,46 @@
             this.toolStripMenuItem4,
             this.toolStripMenuItem5});
             this.correctCotext.Name = "inputContext";
-            this.correctCotext.Size = new System.Drawing.Size(123, 120);
+            this.correctCotext.Size = new System.Drawing.Size(153, 120);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem1.Text = "Cut";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem2.Text = "Copy";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(122, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem3.Text = "Paste";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.pasteCorrectToolButton_Click);
             // 
             // toolStripSeparator15
             // 
             this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(119, 6);
+            this.toolStripSeparator15.Size = new System.Drawing.Size(149, 6);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(122, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem4.Text = "Save";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.saveCorrectToolButton_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(122, 22);
-            this.toolStripMenuItem5.Text = "Open file";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem5.Text = "Load From File";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.openCorrectToolButton_Click);
             // 
             // splitContainer1
@@ -460,7 +439,6 @@
             // 
             this.tabControl1.Controls.Add(this.codeTAB);
             this.tabControl1.Controls.Add(this.ioTAB);
-            this.tabControl1.Controls.Add(this.compareTAB);
             this.tabControl1.Controls.Add(this.uDebugTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -558,13 +536,12 @@
             this.pasteToolButton,
             this.findToolButton,
             this.toolStripSeparator3,
-            this.buildRunToolButton,
-            this.compileToolButton,
-            this.toolStripSeparator18,
-            this.runtestToolButton,
-            this.forceStopToolButton,
-            this.toolStripSeparator32,
-            this.precodeToolButton});
+            this.precodeToolButton,
+            this.submitToolButton,
+            this.problemToolButton,
+            this.toolStripSeparator2,
+            this.exploreToolButton,
+            this.externalToolButton});
             this.TopToolBar.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.TopToolBar.Location = new System.Drawing.Point(3, 3);
             this.TopToolBar.Name = "TopToolBar";
@@ -674,61 +651,6 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 38);
             // 
-            // buildRunToolButton
-            // 
-            this.buildRunToolButton.Image = global::UVA_Arena.Properties.Resources.start;
-            this.buildRunToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buildRunToolButton.Name = "buildRunToolButton";
-            this.buildRunToolButton.Size = new System.Drawing.Size(35, 35);
-            this.buildRunToolButton.Text = "Start";
-            this.buildRunToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.buildRunToolButton.ToolTipText = "Compile and Run program";
-            this.buildRunToolButton.Click += new System.EventHandler(this.buildRunToolButton_Click);
-            // 
-            // compileToolButton
-            // 
-            this.compileToolButton.Image = global::UVA_Arena.Properties.Resources.compile;
-            this.compileToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.compileToolButton.Name = "compileToolButton";
-            this.compileToolButton.Size = new System.Drawing.Size(38, 35);
-            this.compileToolButton.Text = "Build";
-            this.compileToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.compileToolButton.ToolTipText = "Compile current file";
-            this.compileToolButton.Click += new System.EventHandler(this.compileToolButton_Click);
-            // 
-            // toolStripSeparator18
-            // 
-            this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(6, 38);
-            // 
-            // runtestToolButton
-            // 
-            this.runtestToolButton.Enabled = false;
-            this.runtestToolButton.Image = global::UVA_Arena.Properties.Resources.runtest;
-            this.runtestToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.runtestToolButton.Name = "runtestToolButton";
-            this.runtestToolButton.Size = new System.Drawing.Size(57, 35);
-            this.runtestToolButton.Text = "Run Test";
-            this.runtestToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.runtestToolButton.ToolTipText = "Run program on given input";
-            this.runtestToolButton.Click += new System.EventHandler(this.runtestToolButton_Click);
-            // 
-            // forceStopToolButton
-            // 
-            this.forceStopToolButton.Enabled = false;
-            this.forceStopToolButton.Image = global::UVA_Arena.Properties.Resources.clear;
-            this.forceStopToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.forceStopToolButton.Name = "forceStopToolButton";
-            this.forceStopToolButton.Size = new System.Drawing.Size(67, 35);
-            this.forceStopToolButton.Text = "Force Stop";
-            this.forceStopToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.forceStopToolButton.Click += new System.EventHandler(this.forceStopToolButton_Click);
-            // 
-            // toolStripSeparator32
-            // 
-            this.toolStripSeparator32.Name = "toolStripSeparator32";
-            this.toolStripSeparator32.Size = new System.Drawing.Size(6, 38);
-            // 
             // precodeToolButton
             // 
             this.precodeToolButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -757,6 +679,55 @@
             this.changePrecodesToolStripMenuItem.Text = "Change Precode";
             this.changePrecodesToolStripMenuItem.Click += new System.EventHandler(this.changePrecodesToolStripMenuItem_Click);
             // 
+            // submitToolButton
+            // 
+            this.submitToolButton.Image = global::UVA_Arena.Properties.Resources.submit;
+            this.submitToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.submitToolButton.Name = "submitToolButton";
+            this.submitToolButton.Size = new System.Drawing.Size(49, 35);
+            this.submitToolButton.Text = "Submit";
+            this.submitToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.submitToolButton.ToolTipText = "Submit current problem";
+            this.submitToolButton.Click += new System.EventHandler(this.submitToolButton_Click);
+            // 
+            // problemToolButton
+            // 
+            this.problemToolButton.Image = global::UVA_Arena.Properties.Resources.problem;
+            this.problemToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.problemToolButton.Name = "problemToolButton";
+            this.problemToolButton.Size = new System.Drawing.Size(56, 35);
+            this.problemToolButton.Text = "Problem";
+            this.problemToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.problemToolButton.ToolTipText = "View problem description";
+            this.problemToolButton.Click += new System.EventHandler(this.problemToolButton_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 38);
+            // 
+            // exploreToolButton
+            // 
+            this.exploreToolButton.Image = global::UVA_Arena.Properties.Resources.explorer;
+            this.exploreToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.exploreToolButton.Name = "exploreToolButton";
+            this.exploreToolButton.Size = new System.Drawing.Size(53, 35);
+            this.exploreToolButton.Text = "Explorer";
+            this.exploreToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.exploreToolButton.ToolTipText = "Open file location in browser";
+            this.exploreToolButton.Click += new System.EventHandler(this.exploreToolButton_Click);
+            // 
+            // externalToolButton
+            // 
+            this.externalToolButton.Image = global::UVA_Arena.Properties.Resources.external;
+            this.externalToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.externalToolButton.Name = "externalToolButton";
+            this.externalToolButton.Size = new System.Drawing.Size(52, 35);
+            this.externalToolButton.Text = "External";
+            this.externalToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.externalToolButton.ToolTipText = "Open with external program";
+            this.externalToolButton.Click += new System.EventHandler(this.externalToolButton_Click);
+            // 
             // ioTAB
             // 
             this.ioTAB.BackColor = System.Drawing.Color.Bisque;
@@ -778,89 +749,40 @@
             // IOContainer1.Panel1
             // 
             this.IOContainer1.Panel1.BackColor = System.Drawing.Color.Ivory;
-            this.IOContainer1.Panel1.Controls.Add(this.tableLayoutPanel2);
+            this.IOContainer1.Panel1.Controls.Add(this.inputOutputTabControl);
             this.IOContainer1.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             // 
             // IOContainer1.Panel2
             // 
             this.IOContainer1.Panel2.BackColor = System.Drawing.Color.Ivory;
-            this.IOContainer1.Panel2.Controls.Add(this.tableLayoutPanel3);
+            this.IOContainer1.Panel2.Controls.Add(this.tableLayoutPanel5);
             this.IOContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.IOContainer1.Size = new System.Drawing.Size(596, 203);
-            this.IOContainer1.SplitterDistance = 277;
+            this.IOContainer1.SplitterDistance = 276;
             this.IOContainer1.TabIndex = 0;
             // 
-            // tableLayoutPanel2
+            // inputOutputTabControl
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.inputToolBar, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.inputTextBox, 0, 1);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.ForeColor = System.Drawing.Color.Black;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(277, 203);
-            this.tableLayoutPanel2.TabIndex = 0;
+            this.inputOutputTabControl.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.inputOutputTabControl.Controls.Add(this.inputTab);
+            this.inputOutputTabControl.Controls.Add(this.correctOutputTab);
+            this.inputOutputTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputOutputTabControl.Location = new System.Drawing.Point(0, 0);
+            this.inputOutputTabControl.Name = "inputOutputTabControl";
+            this.inputOutputTabControl.SelectedIndex = 0;
+            this.inputOutputTabControl.Size = new System.Drawing.Size(276, 203);
+            this.inputOutputTabControl.TabIndex = 0;
             // 
-            // inputToolBar
+            // inputTab
             // 
-            this.inputToolBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.inputToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.inputToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
-            this.pasteInputTool,
-            this.saveInputTool,
-            this.openInputTool});
-            this.inputToolBar.Location = new System.Drawing.Point(0, 0);
-            this.inputToolBar.Name = "inputToolBar";
-            this.inputToolBar.Size = new System.Drawing.Size(277, 22);
-            this.inputToolBar.TabIndex = 1;
-            this.inputToolBar.TabStop = true;
-            this.inputToolBar.Text = "toolStrip3";
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(42, 19);
-            this.toolStripLabel1.Text = "Input";
-            // 
-            // pasteInputTool
-            // 
-            this.pasteInputTool.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.pasteInputTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pasteInputTool.Image = global::UVA_Arena.Properties.Resources.paste;
-            this.pasteInputTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pasteInputTool.Name = "pasteInputTool";
-            this.pasteInputTool.Size = new System.Drawing.Size(23, 19);
-            this.pasteInputTool.Text = "Paste";
-            this.pasteInputTool.Click += new System.EventHandler(this.pasteInputTool_Click);
-            // 
-            // saveInputTool
-            // 
-            this.saveInputTool.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.saveInputTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveInputTool.Image = global::UVA_Arena.Properties.Resources.save;
-            this.saveInputTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveInputTool.Name = "saveInputTool";
-            this.saveInputTool.Size = new System.Drawing.Size(23, 19);
-            this.saveInputTool.Text = "Save To File";
-            this.saveInputTool.Click += new System.EventHandler(this.saveInputTool_Click);
-            // 
-            // openInputTool
-            // 
-            this.openInputTool.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.openInputTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openInputTool.Image = global::UVA_Arena.Properties.Resources.open;
-            this.openInputTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openInputTool.Name = "openInputTool";
-            this.openInputTool.Size = new System.Drawing.Size(23, 19);
-            this.openInputTool.Text = "Load From File";
-            this.openInputTool.Click += new System.EventHandler(this.openInputTool_Click);
+            this.inputTab.Controls.Add(this.inputTextBox);
+            this.inputTab.Location = new System.Drawing.Point(4, 25);
+            this.inputTab.Name = "inputTab";
+            this.inputTab.Padding = new System.Windows.Forms.Padding(3);
+            this.inputTab.Size = new System.Drawing.Size(268, 174);
+            this.inputTab.TabIndex = 0;
+            this.inputTab.Text = "Input Data";
+            this.inputTab.UseVisualStyleBackColor = true;
             // 
             // inputTextBox
             // 
@@ -878,7 +800,7 @@
             this.inputTextBox.AutoIndent = false;
             this.inputTextBox.AutoIndentChars = false;
             this.inputTextBox.AutoIndentExistingLines = false;
-            this.inputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.inputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.inputTextBox.BackBrush = null;
             this.inputTextBox.BackColor = System.Drawing.Color.Snow;
             this.inputTextBox.CharHeight = 14;
@@ -891,34 +813,87 @@
             this.inputTextBox.Hotkeys = resources.GetString("inputTextBox.Hotkeys");
             this.inputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.inputTextBox.IsReplaceMode = false;
-            this.inputTextBox.Location = new System.Drawing.Point(3, 25);
+            this.inputTextBox.Location = new System.Drawing.Point(3, 3);
             this.inputTextBox.Name = "inputTextBox";
             this.inputTextBox.Paddings = new System.Windows.Forms.Padding(0);
             this.inputTextBox.ReadOnly = true;
             this.inputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.inputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("inputTextBox.ServiceColors")));
-            this.inputTextBox.Size = new System.Drawing.Size(271, 175);
+            this.inputTextBox.Size = new System.Drawing.Size(262, 168);
             this.inputTextBox.TabIndex = 0;
             this.inputTextBox.Zoom = 100;
             this.inputTextBox.SelectionChanged += new System.EventHandler(this.FCTB_SelectionChanged);
             this.inputTextBox.CustomAction += new System.EventHandler<FastColoredTextBoxNS.CustomActionEventArgs>(this.inputTextBox_CustomAction);
             // 
-            // tableLayoutPanel3
+            // correctOutputTab
             // 
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.outputTextBox, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.ouputToolBar, 0, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.ForeColor = System.Drawing.Color.Black;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(315, 203);
-            this.tableLayoutPanel3.TabIndex = 1;
+            this.correctOutputTab.Controls.Add(this.correctOutputTextBox);
+            this.correctOutputTab.Location = new System.Drawing.Point(4, 25);
+            this.correctOutputTab.Name = "correctOutputTab";
+            this.correctOutputTab.Padding = new System.Windows.Forms.Padding(3);
+            this.correctOutputTab.Size = new System.Drawing.Size(268, 174);
+            this.correctOutputTab.TabIndex = 1;
+            this.correctOutputTab.Text = "Correct Output Data";
+            this.correctOutputTab.UseVisualStyleBackColor = true;
+            // 
+            // correctOutputTextBox
+            // 
+            this.correctOutputTextBox.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.correctOutputTextBox.AutoIndent = false;
+            this.correctOutputTextBox.AutoIndentChars = false;
+            this.correctOutputTextBox.AutoIndentExistingLines = false;
+            this.correctOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.correctOutputTextBox.BackBrush = null;
+            this.correctOutputTextBox.BackColor = System.Drawing.Color.Snow;
+            this.correctOutputTextBox.CharHeight = 14;
+            this.correctOutputTextBox.CharWidth = 8;
+            this.correctOutputTextBox.ContextMenuStrip = this.correctCotext;
+            this.correctOutputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.correctOutputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.correctOutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.correctOutputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
+            this.correctOutputTextBox.Hotkeys = resources.GetString("correctOutputTextBox.Hotkeys");
+            this.correctOutputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
+            this.correctOutputTextBox.IsReplaceMode = false;
+            this.correctOutputTextBox.Location = new System.Drawing.Point(3, 3);
+            this.correctOutputTextBox.Name = "correctOutputTextBox";
+            this.correctOutputTextBox.Paddings = new System.Windows.Forms.Padding(0);
+            this.correctOutputTextBox.ReadOnly = true;
+            this.correctOutputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.correctOutputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("correctOutputTextBox.ServiceColors")));
+            this.correctOutputTextBox.Size = new System.Drawing.Size(262, 168);
+            this.correctOutputTextBox.TabIndex = 0;
+            this.correctOutputTextBox.Zoom = 100;
+            this.correctOutputTextBox.SelectionChanged += new System.EventHandler(this.tb_VisibleRangeChanged);
+            this.correctOutputTextBox.VisibleRangeChanged += new System.EventHandler(this.tb_VisibleRangeChanged);
+            this.correctOutputTextBox.CustomAction += new System.EventHandler<FastColoredTextBoxNS.CustomActionEventArgs>(this.correctOutputTextBox_CustomAction);
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.ColumnCount = 1;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Controls.Add(this.outputTextBox, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.ouputToolBar, 0, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.ForeColor = System.Drawing.Color.Black;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 2;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(316, 203);
+            this.tableLayoutPanel5.TabIndex = 1;
             // 
             // outputTextBox
             // 
@@ -936,12 +911,11 @@
             this.outputTextBox.AutoIndent = false;
             this.outputTextBox.AutoIndentChars = false;
             this.outputTextBox.AutoIndentExistingLines = false;
-            this.outputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.outputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.outputTextBox.BackBrush = null;
             this.outputTextBox.BackColor = System.Drawing.Color.MintCream;
             this.outputTextBox.CharHeight = 14;
             this.outputTextBox.CharWidth = 8;
-            this.outputTextBox.ContextMenuStrip = this.outputContext;
             this.outputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.outputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.outputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -954,10 +928,11 @@
             this.outputTextBox.ReadOnly = true;
             this.outputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.outputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("outputTextBox.ServiceColors")));
-            this.outputTextBox.Size = new System.Drawing.Size(309, 175);
+            this.outputTextBox.Size = new System.Drawing.Size(310, 175);
             this.outputTextBox.TabIndex = 0;
             this.outputTextBox.Zoom = 100;
-            this.outputTextBox.SelectionChanged += new System.EventHandler(this.FCTB_SelectionChanged);
+            this.outputTextBox.SelectionChanged += new System.EventHandler(this.tb_VisibleRangeChanged);
+            this.outputTextBox.VisibleRangeChanged += new System.EventHandler(this.tb_VisibleRangeChanged);
             // 
             // ouputToolBar
             // 
@@ -969,7 +944,7 @@
             this.saveOutputTool});
             this.ouputToolBar.Location = new System.Drawing.Point(0, 0);
             this.ouputToolBar.Name = "ouputToolBar";
-            this.ouputToolBar.Size = new System.Drawing.Size(315, 22);
+            this.ouputToolBar.Size = new System.Drawing.Size(316, 22);
             this.ouputToolBar.TabIndex = 1;
             this.ouputToolBar.Text = "toolStrip4";
             // 
@@ -1006,6 +981,7 @@
             // 
             this.panel4.Controls.Add(this.button2);
             this.panel4.Controls.Add(this.loadDefaultInput);
+            this.panel4.Controls.Add(this.compareOutputButton);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel4.Location = new System.Drawing.Point(1, 204);
             this.panel4.Name = "panel4";
@@ -1034,278 +1010,10 @@
             this.loadDefaultInput.UseVisualStyleBackColor = true;
             this.loadDefaultInput.Click += new System.EventHandler(this.loadDefaultInput_Click);
             // 
-            // compareTAB
-            // 
-            this.compareTAB.BackColor = System.Drawing.Color.Linen;
-            this.compareTAB.Controls.Add(this.compareContainer);
-            this.compareTAB.Controls.Add(this.panel3);
-            this.compareTAB.Location = new System.Drawing.Point(4, 26);
-            this.compareTAB.Name = "compareTAB";
-            this.compareTAB.Size = new System.Drawing.Size(598, 235);
-            this.compareTAB.TabIndex = 2;
-            this.compareTAB.Text = "Compare Output";
-            // 
-            // compareContainer
-            // 
-            this.compareContainer.BackColor = System.Drawing.Color.Bisque;
-            this.compareContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.compareContainer.Location = new System.Drawing.Point(0, 0);
-            this.compareContainer.Name = "compareContainer";
-            // 
-            // compareContainer.Panel1
-            // 
-            this.compareContainer.Panel1.BackColor = System.Drawing.Color.Ivory;
-            this.compareContainer.Panel1.Controls.Add(this.tableLayoutPanel4);
-            this.compareContainer.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            // 
-            // compareContainer.Panel2
-            // 
-            this.compareContainer.Panel2.BackColor = System.Drawing.Color.Ivory;
-            this.compareContainer.Panel2.Controls.Add(this.tableLayoutPanel5);
-            this.compareContainer.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.compareContainer.Size = new System.Drawing.Size(598, 205);
-            this.compareContainer.SplitterDistance = 278;
-            this.compareContainer.TabIndex = 1;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 1;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.toolStrip2, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.correctOutputTextBox, 0, 1);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.ForeColor = System.Drawing.Color.Black;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(278, 205);
-            this.tableLayoutPanel4.TabIndex = 0;
-            // 
-            // toolStrip2
-            // 
-            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel5,
-            this.pasteCorrectToolButton,
-            this.saveCorrectToolButton,
-            this.openCorrectToolButton});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(278, 22);
-            this.toolStrip2.TabIndex = 1;
-            this.toolStrip2.TabStop = true;
-            this.toolStrip2.Text = "toolStrip3";
-            // 
-            // toolStripLabel5
-            // 
-            this.toolStripLabel5.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
-            this.toolStripLabel5.Name = "toolStripLabel5";
-            this.toolStripLabel5.Size = new System.Drawing.Size(104, 19);
-            this.toolStripLabel5.Text = "Correct Output";
-            // 
-            // pasteCorrectToolButton
-            // 
-            this.pasteCorrectToolButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.pasteCorrectToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pasteCorrectToolButton.Image = global::UVA_Arena.Properties.Resources.paste;
-            this.pasteCorrectToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pasteCorrectToolButton.Name = "pasteCorrectToolButton";
-            this.pasteCorrectToolButton.Size = new System.Drawing.Size(23, 19);
-            this.pasteCorrectToolButton.Text = "Paste";
-            this.pasteCorrectToolButton.Click += new System.EventHandler(this.pasteCorrectToolButton_Click);
-            // 
-            // saveCorrectToolButton
-            // 
-            this.saveCorrectToolButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.saveCorrectToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveCorrectToolButton.Image = global::UVA_Arena.Properties.Resources.save;
-            this.saveCorrectToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveCorrectToolButton.Name = "saveCorrectToolButton";
-            this.saveCorrectToolButton.Size = new System.Drawing.Size(23, 19);
-            this.saveCorrectToolButton.Text = "Save To File";
-            this.saveCorrectToolButton.Click += new System.EventHandler(this.saveCorrectToolButton_Click);
-            // 
-            // openCorrectToolButton
-            // 
-            this.openCorrectToolButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.openCorrectToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openCorrectToolButton.Image = global::UVA_Arena.Properties.Resources.open;
-            this.openCorrectToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openCorrectToolButton.Name = "openCorrectToolButton";
-            this.openCorrectToolButton.Size = new System.Drawing.Size(23, 19);
-            this.openCorrectToolButton.Text = "Load From File";
-            this.openCorrectToolButton.Click += new System.EventHandler(this.openCorrectToolButton_Click);
-            // 
-            // correctOutputTextBox
-            // 
-            this.correctOutputTextBox.AutoCompleteBracketsList = new char[] {
-        '(',
-        ')',
-        '{',
-        '}',
-        '[',
-        ']',
-        '\"',
-        '\"',
-        '\'',
-        '\''};
-            this.correctOutputTextBox.AutoIndent = false;
-            this.correctOutputTextBox.AutoIndentChars = false;
-            this.correctOutputTextBox.AutoIndentExistingLines = false;
-            this.correctOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
-            this.correctOutputTextBox.BackBrush = null;
-            this.correctOutputTextBox.BackColor = System.Drawing.Color.Snow;
-            this.correctOutputTextBox.CharHeight = 14;
-            this.correctOutputTextBox.CharWidth = 8;
-            this.correctOutputTextBox.ContextMenuStrip = this.correctCotext;
-            this.correctOutputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.correctOutputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.correctOutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.correctOutputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
-            this.correctOutputTextBox.Hotkeys = resources.GetString("correctOutputTextBox.Hotkeys");
-            this.correctOutputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
-            this.correctOutputTextBox.IsReplaceMode = false;
-            this.correctOutputTextBox.Location = new System.Drawing.Point(3, 25);
-            this.correctOutputTextBox.Name = "correctOutputTextBox";
-            this.correctOutputTextBox.Paddings = new System.Windows.Forms.Padding(0);
-            this.correctOutputTextBox.ReadOnly = true;
-            this.correctOutputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.correctOutputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("correctOutputTextBox.ServiceColors")));
-            this.correctOutputTextBox.Size = new System.Drawing.Size(272, 177);
-            this.correctOutputTextBox.TabIndex = 0;
-            this.correctOutputTextBox.Zoom = 100;
-            this.correctOutputTextBox.SelectionChanged += new System.EventHandler(this.tb_VisibleRangeChanged);
-            this.correctOutputTextBox.VisibleRangeChanged += new System.EventHandler(this.tb_VisibleRangeChanged);
-            this.correctOutputTextBox.CustomAction += new System.EventHandler<FastColoredTextBoxNS.CustomActionEventArgs>(this.correctOutputTextBox_CustomAction);
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.ColumnCount = 1;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.progOutputTextBox, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.toolStrip4, 0, 0);
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.ForeColor = System.Drawing.Color.Black;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(316, 205);
-            this.tableLayoutPanel5.TabIndex = 1;
-            // 
-            // progOutputTextBox
-            // 
-            this.progOutputTextBox.AutoCompleteBracketsList = new char[] {
-        '(',
-        ')',
-        '{',
-        '}',
-        '[',
-        ']',
-        '\"',
-        '\"',
-        '\'',
-        '\''};
-            this.progOutputTextBox.AutoIndent = false;
-            this.progOutputTextBox.AutoIndentChars = false;
-            this.progOutputTextBox.AutoIndentExistingLines = false;
-            this.progOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
-            this.progOutputTextBox.BackBrush = null;
-            this.progOutputTextBox.BackColor = System.Drawing.Color.MintCream;
-            this.progOutputTextBox.CharHeight = 14;
-            this.progOutputTextBox.CharWidth = 8;
-            this.progOutputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.progOutputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.progOutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progOutputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
-            this.progOutputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
-            this.progOutputTextBox.IsReplaceMode = false;
-            this.progOutputTextBox.Location = new System.Drawing.Point(3, 25);
-            this.progOutputTextBox.Name = "progOutputTextBox";
-            this.progOutputTextBox.Paddings = new System.Windows.Forms.Padding(0);
-            this.progOutputTextBox.ReadOnly = true;
-            this.progOutputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.progOutputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("progOutputTextBox.ServiceColors")));
-            this.progOutputTextBox.Size = new System.Drawing.Size(310, 177);
-            this.progOutputTextBox.TabIndex = 0;
-            this.progOutputTextBox.Zoom = 100;
-            this.progOutputTextBox.SelectionChanged += new System.EventHandler(this.tb_VisibleRangeChanged);
-            this.progOutputTextBox.VisibleRangeChanged += new System.EventHandler(this.tb_VisibleRangeChanged);
-            // 
-            // toolStrip4
-            // 
-            this.toolStrip4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toolStrip4.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel6,
-            this.toolStripButton3});
-            this.toolStrip4.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip4.Name = "toolStrip4";
-            this.toolStrip4.Size = new System.Drawing.Size(316, 22);
-            this.toolStrip4.TabIndex = 1;
-            this.toolStrip4.TabStop = true;
-            this.toolStrip4.Text = "toolStrip4";
-            // 
-            // toolStripLabel6
-            // 
-            this.toolStripLabel6.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
-            this.toolStripLabel6.Name = "toolStripLabel6";
-            this.toolStripLabel6.Size = new System.Drawing.Size(120, 19);
-            this.toolStripLabel6.Text = "Program\'s Output";
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = global::UVA_Arena.Properties.Resources.reload;
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(23, 19);
-            this.toolStripButton3.Text = "toolStripButton3";
-            this.toolStripButton3.Click += new System.EventHandler(this.refreshCompareButton_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.button1);
-            this.panel3.Controls.Add(this.refreshCompareButton);
-            this.panel3.Controls.Add(this.compareOutputButton);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 205);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(598, 30);
-            this.panel3.TabIndex = 2;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.button1.Location = new System.Drawing.Point(159, 1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 28);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Load Default";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.loadDefaultInput_Click);
-            // 
-            // refreshCompareButton
-            // 
-            this.refreshCompareButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.refreshCompareButton.Location = new System.Drawing.Point(3, 1);
-            this.refreshCompareButton.Name = "refreshCompareButton";
-            this.refreshCompareButton.Size = new System.Drawing.Size(150, 28);
-            this.refreshCompareButton.TabIndex = 1;
-            this.refreshCompareButton.Text = "Refresh";
-            this.refreshCompareButton.UseVisualStyleBackColor = true;
-            this.refreshCompareButton.Click += new System.EventHandler(this.refreshCompareButton_Click);
-            // 
             // compareOutputButton
             // 
             this.compareOutputButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.compareOutputButton.Location = new System.Drawing.Point(445, 1);
+            this.compareOutputButton.Location = new System.Drawing.Point(443, 1);
             this.compareOutputButton.Name = "compareOutputButton";
             this.compareOutputButton.Size = new System.Drawing.Size(150, 28);
             this.compareOutputButton.TabIndex = 0;
@@ -1329,6 +1037,7 @@
             this.customWebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.customWebBrowser1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customWebBrowser1.ForeColor = System.Drawing.Color.Black;
+            this.customWebBrowser1.HistoryButtons = false;
             this.customWebBrowser1.HomeUrl = null;
             this.customWebBrowser1.Location = new System.Drawing.Point(0, 0);
             this.customWebBrowser1.Name = "customWebBrowser1";
@@ -1449,15 +1158,16 @@
             this.timeLimitCombo,
             this.toolStripLabel4,
             this.toolStripSeparator14,
-            this.submitToolButton,
-            this.problemToolButton,
-            this.toolStripSeparator2,
-            this.reloadToolButton,
-            this.exploreToolButton,
-            this.externalToolButton,
             this.CurColLabel,
             this.CurLnLabel,
-            this.toolStripSeparator16});
+            this.toolStripSeparator16,
+            this.reloadToolButton,
+            this.toolStripSeparator6,
+            this.buildRunToolButton,
+            this.compileToolButton,
+            this.toolStripSeparator18,
+            this.runtestToolButton,
+            this.forceStopToolButton});
             this.BottomToolbar.Location = new System.Drawing.Point(0, 394);
             this.BottomToolbar.Name = "BottomToolbar";
             this.BottomToolbar.ShowItemToolTips = false;
@@ -1498,61 +1208,6 @@
             this.toolStripSeparator14.Name = "toolStripSeparator14";
             this.toolStripSeparator14.Size = new System.Drawing.Size(6, 38);
             // 
-            // submitToolButton
-            // 
-            this.submitToolButton.Image = global::UVA_Arena.Properties.Resources.submit;
-            this.submitToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.submitToolButton.Name = "submitToolButton";
-            this.submitToolButton.Size = new System.Drawing.Size(49, 35);
-            this.submitToolButton.Text = "Submit";
-            this.submitToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.submitToolButton.Click += new System.EventHandler(this.submitToolButton_Click);
-            // 
-            // problemToolButton
-            // 
-            this.problemToolButton.Image = global::UVA_Arena.Properties.Resources.problem;
-            this.problemToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.problemToolButton.Name = "problemToolButton";
-            this.problemToolButton.Size = new System.Drawing.Size(56, 35);
-            this.problemToolButton.Text = "Problem";
-            this.problemToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.problemToolButton.Click += new System.EventHandler(this.problemToolButton_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 38);
-            // 
-            // reloadToolButton
-            // 
-            this.reloadToolButton.Image = global::UVA_Arena.Properties.Resources.reload;
-            this.reloadToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.reloadToolButton.Name = "reloadToolButton";
-            this.reloadToolButton.Size = new System.Drawing.Size(47, 35);
-            this.reloadToolButton.Text = "Reload";
-            this.reloadToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.reloadToolButton.Click += new System.EventHandler(this.reloadToolButton_Click);
-            // 
-            // exploreToolButton
-            // 
-            this.exploreToolButton.Image = global::UVA_Arena.Properties.Resources.explorer;
-            this.exploreToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.exploreToolButton.Name = "exploreToolButton";
-            this.exploreToolButton.Size = new System.Drawing.Size(53, 35);
-            this.exploreToolButton.Text = "Explorer";
-            this.exploreToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.exploreToolButton.Click += new System.EventHandler(this.exploreToolButton_Click);
-            // 
-            // externalToolButton
-            // 
-            this.externalToolButton.Image = global::UVA_Arena.Properties.Resources.external;
-            this.externalToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.externalToolButton.Name = "externalToolButton";
-            this.externalToolButton.Size = new System.Drawing.Size(52, 35);
-            this.externalToolButton.Text = "External";
-            this.externalToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.externalToolButton.Click += new System.EventHandler(this.externalToolButton_Click);
-            // 
             // CurColLabel
             // 
             this.CurColLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -1574,6 +1229,72 @@
             this.toolStripSeparator16.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSeparator16.Name = "toolStripSeparator16";
             this.toolStripSeparator16.Size = new System.Drawing.Size(6, 38);
+            // 
+            // reloadToolButton
+            // 
+            this.reloadToolButton.Image = global::UVA_Arena.Properties.Resources.reload;
+            this.reloadToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.reloadToolButton.Name = "reloadToolButton";
+            this.reloadToolButton.Size = new System.Drawing.Size(47, 35);
+            this.reloadToolButton.Text = "Reload";
+            this.reloadToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.reloadToolButton.ToolTipText = "Reload the file";
+            this.reloadToolButton.Click += new System.EventHandler(this.reloadToolButton_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 38);
+            // 
+            // buildRunToolButton
+            // 
+            this.buildRunToolButton.Image = global::UVA_Arena.Properties.Resources.start;
+            this.buildRunToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buildRunToolButton.Name = "buildRunToolButton";
+            this.buildRunToolButton.Size = new System.Drawing.Size(35, 35);
+            this.buildRunToolButton.Text = "Start";
+            this.buildRunToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.buildRunToolButton.ToolTipText = "Compile and Run program";
+            this.buildRunToolButton.Click += new System.EventHandler(this.buildRunToolButton_Click);
+            // 
+            // compileToolButton
+            // 
+            this.compileToolButton.Image = global::UVA_Arena.Properties.Resources.compile;
+            this.compileToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.compileToolButton.Name = "compileToolButton";
+            this.compileToolButton.Size = new System.Drawing.Size(38, 35);
+            this.compileToolButton.Text = "Build";
+            this.compileToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.compileToolButton.ToolTipText = "Compile current file";
+            this.compileToolButton.Click += new System.EventHandler(this.compileToolButton_Click);
+            // 
+            // toolStripSeparator18
+            // 
+            this.toolStripSeparator18.Name = "toolStripSeparator18";
+            this.toolStripSeparator18.Size = new System.Drawing.Size(6, 38);
+            // 
+            // runtestToolButton
+            // 
+            this.runtestToolButton.Enabled = false;
+            this.runtestToolButton.Image = global::UVA_Arena.Properties.Resources.runtest;
+            this.runtestToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.runtestToolButton.Name = "runtestToolButton";
+            this.runtestToolButton.Size = new System.Drawing.Size(57, 35);
+            this.runtestToolButton.Text = "Run Test";
+            this.runtestToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.runtestToolButton.ToolTipText = "Run program on given input";
+            this.runtestToolButton.Click += new System.EventHandler(this.runtestToolButton_Click);
+            // 
+            // forceStopToolButton
+            // 
+            this.forceStopToolButton.Enabled = false;
+            this.forceStopToolButton.Image = global::UVA_Arena.Properties.Resources.clear;
+            this.forceStopToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.forceStopToolButton.Name = "forceStopToolButton";
+            this.forceStopToolButton.Size = new System.Drawing.Size(67, 35);
+            this.forceStopToolButton.Text = "Force Stop";
+            this.forceStopToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.forceStopToolButton.Click += new System.EventHandler(this.forceStopToolButton_Click);
             // 
             // CODES
             // 
@@ -1607,32 +1328,17 @@
             this.IOContainer1.Panel1.ResumeLayout(false);
             this.IOContainer1.Panel2.ResumeLayout(false);
             this.IOContainer1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.inputToolBar.ResumeLayout(false);
-            this.inputToolBar.PerformLayout();
+            this.inputOutputTabControl.ResumeLayout(false);
+            this.inputTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.inputTextBox)).EndInit();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
+            this.correctOutputTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.correctOutputTextBox)).EndInit();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputTextBox)).EndInit();
             this.ouputToolBar.ResumeLayout(false);
             this.ouputToolBar.PerformLayout();
             this.panel4.ResumeLayout(false);
-            this.compareTAB.ResumeLayout(false);
-            this.compareContainer.Panel1.ResumeLayout(false);
-            this.compareContainer.Panel2.ResumeLayout(false);
-            this.compareContainer.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.correctOutputTextBox)).EndInit();
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.progOutputTextBox)).EndInit();
-            this.toolStrip4.ResumeLayout(false);
-            this.toolStrip4.PerformLayout();
-            this.panel3.ResumeLayout(false);
             this.uDebugTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.compilerOutput)).EndInit();
             this.toolStrip1.ResumeLayout(false);
@@ -1650,14 +1356,7 @@
         private System.Windows.Forms.Panel filenamePanel;
         private System.Windows.Forms.Label fileNameLabel;
         private System.Windows.Forms.CustomSplitContainer IOContainer1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.ToolStrip BottomToolbar;
-        private System.Windows.Forms.ToolStrip inputToolBar;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripButton pasteInputTool;
-        private System.Windows.Forms.ToolStripButton saveInputTool;
-        private System.Windows.Forms.ToolStripButton openInputTool;
         private System.Windows.Forms.ToolStrip ouputToolBar;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripButton copyOutputTool;
@@ -1668,7 +1367,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripButton showHideOutput;
         private FastColoredTextBoxNS.FastColoredTextBox inputTextBox;
-        private FastColoredTextBoxNS.FastColoredTextBox outputTextBox;
         private System.Windows.Forms.ContextMenuStrip codeboxContext;
         private System.Windows.Forms.ToolStripMenuItem compileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem runTestToolStripMenuItem;
@@ -1698,21 +1396,10 @@
         private System.Windows.Forms.ToolStripMenuItem saveToFileToolStripMenuItem;
         private System.Windows.Forms.TabPage codeTAB;
         private System.Windows.Forms.TabPage ioTAB;
-        private System.Windows.Forms.TabPage compareTAB;
-        private System.Windows.Forms.CustomSplitContainer compareContainer;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel5;
         private FastColoredTextBoxNS.FastColoredTextBox correctOutputTextBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private FastColoredTextBoxNS.FastColoredTextBox progOutputTextBox;
-        private System.Windows.Forms.ToolStrip toolStrip4;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel6;
-        private System.Windows.Forms.Panel panel3;
+        private FastColoredTextBoxNS.FastColoredTextBox outputTextBox;
         private System.Windows.Forms.Button compareOutputButton;
-        private System.Windows.Forms.ToolStripButton pasteCorrectToolButton;
-        private System.Windows.Forms.ToolStripButton saveCorrectToolButton;
-        private System.Windows.Forms.ToolStripButton openCorrectToolButton;
         private System.Windows.Forms.ContextMenuStrip correctCotext;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
@@ -1720,21 +1407,13 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
-        private System.Windows.Forms.Button refreshCompareButton;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button loadDefaultInput;
         public FastColoredTextBoxNS.FastColoredTextBox compilerOutput;
         public System.Windows.Forms.TabControl tabControl1;
         public System.Windows.Forms.TabPage uDebugTab;
         private ExtendedControls.CustomWebBrowser customWebBrowser1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ToolStripButton problemToolButton;
-        private System.Windows.Forms.ToolStripButton reloadToolButton;
-        private System.Windows.Forms.ToolStripButton externalToolButton;
-        private System.Windows.Forms.ToolStripButton exploreToolButton;
-        public System.Windows.Forms.ToolStripButton submitToolButton;
         private System.Windows.Forms.ToolStrip TopToolBar;
         private System.Windows.Forms.ToolStripSplitButton prevToolMenu;
         private System.Windows.Forms.ToolStripSplitButton nextToolMenu;
@@ -1747,19 +1426,28 @@
         private System.Windows.Forms.ToolStripButton pasteToolButton;
         private System.Windows.Forms.ToolStripButton findToolButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton buildRunToolButton;
-        private System.Windows.Forms.ToolStripButton compileToolButton;
-        private System.Windows.Forms.ToolStripButton runtestToolButton;
-        private System.Windows.Forms.ToolStripButton forceStopToolButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator32;
         private System.Windows.Forms.ToolStripSplitButton precodeToolButton;
         private System.Windows.Forms.ToolStripMenuItem loadPrecodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changePrecodesToolStripMenuItem;
         private System.Windows.Forms.ToolStripTextBox timeLimitCombo;
         private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel7;
+        public System.Windows.Forms.ToolStripButton submitToolButton;
+        private System.Windows.Forms.ToolStripButton problemToolButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel7; 
+        private System.Windows.Forms.ToolStripButton exploreToolButton;
+        private System.Windows.Forms.ToolStripButton externalToolButton;
+        private System.Windows.Forms.ToolStripButton buildRunToolButton;
+        private System.Windows.Forms.ToolStripButton compileToolButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
+        private System.Windows.Forms.ToolStripButton runtestToolButton;
+        private System.Windows.Forms.ToolStripButton forceStopToolButton;
+        private System.Windows.Forms.ToolStripButton reloadToolButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.TabControl inputOutputTabControl;
+        private System.Windows.Forms.TabPage inputTab;
+        private System.Windows.Forms.TabPage correctOutputTab;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7; 
 
     }
 }

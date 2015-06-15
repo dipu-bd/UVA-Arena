@@ -79,7 +79,7 @@ namespace UVA_Arena.Structures
             }
 
             if (usub.IsInQueue()) return;
-            if (TryList[usub.pnum].rank <= 0 || TryList[usub.pnum].rank > usub.rank)
+            if (TryList[usub.pnum].rank <= 0 || usub.rank < TryList[usub.pnum].rank)
             {
                 TryList[usub.pnum] = usub;
             }
@@ -94,6 +94,8 @@ namespace UVA_Arena.Structures
             foreach (List<long> lst in allsub)
             {
                 UserSubmission usub = new UserSubmission(lst);
+
+                //remove usub if already existed
                 if (sidToSub.ContainsKey(usub.sid))
                 {
                     if (usub.IsInQueue()) continue;
@@ -101,16 +103,21 @@ namespace UVA_Arena.Structures
                     sidToSub.Remove(usub.sid);
                 }
 
+                //set the properties to usub add add to list
                 usub.name = name;
                 usub.uname = uname;
                 submissions.Add(usub);
                 sidToSub.Add(usub.sid, usub);
                 needToSort = true;
 
+                //if usub is not in the queue add it
                 if (!usub.IsInQueue())
                 {
                     if (addToDef) subs.Add(lst);
-                    if (this.LastSID < usub.sid) this.LastSID = usub.sid;
+                    if (this.LastSID < usub.sid)
+                    {
+                        this.LastSID = usub.sid;
+                    }
                 }
 
                 SetTried(usub);

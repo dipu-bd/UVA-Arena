@@ -285,13 +285,21 @@ namespace UVA_Arena.Elements
 
         private void codeButton_Click(object sender, EventArgs e)
         {
-            if (current == null) return;
+            if (current == null)
+            {
+                MessageBox.Show("Select a problem first.");
+                return;
+            }
             Interactivity.ShowCode(current.pnum);
         }
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            if (current == null) return;
+            if (current == null)
+            {
+                MessageBox.Show("Select a problem first.");
+                return;
+            }
             Interactivity.SubmitCode(current.pnum);
         }
 
@@ -351,7 +359,11 @@ namespace UVA_Arena.Elements
 
         private void pdfButton_Click(object sender, EventArgs e)
         {
-            if (current == null) return;
+            if (current == null)
+            {
+                MessageBox.Show("Select a problem first.");
+                return;
+            }
 
             string filepath = LocalDirectory.GetProblemPdf(current.pnum);
             if (!File.Exists(filepath) || (new FileInfo(filepath)).Length < 200)
@@ -366,14 +378,22 @@ namespace UVA_Arena.Elements
 
         private void externalButton_Click(object sender, EventArgs e)
         {
-            if (current == null) return;
+            if (current == null)
+            {
+                MessageBox.Show("Select a problem first.");
+                return;
+            }
             string url = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.html", current.volume, current.pnum);
             System.Diagnostics.Process.Start(url);
         }
 
         private void markButton_Click(object sender, EventArgs e)
         {
-            if (current == null) return;
+            if (current == null)
+            {
+                MessageBox.Show("Select a problem first.");
+                return;
+            }
 
             List<long> fav = RegistryAccess.FavoriteProblems;
             if (current.marked) fav.Remove(current.pnum);

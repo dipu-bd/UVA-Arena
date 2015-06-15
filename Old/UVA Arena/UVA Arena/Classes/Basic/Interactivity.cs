@@ -76,7 +76,8 @@ namespace UVA_Arena
         {
             if (submitForm == null || submitForm.IsDisposed)
                 submitForm = new SubmitForm();
-            submitForm.LoadSubmit(pnum, code, lang); 
+            submitForm.LoadSubmit(pnum, code, lang);
+            submitForm.Show();
         }
 
         /// <summary>
@@ -259,7 +260,7 @@ namespace UVA_Arena
             {
                 mainForm.BeginInvoke((MethodInvoker)delegate
                 {
-                    mainForm.customTabControl1.SelectedTab = mainForm.judgeStatusTab;
+                    mainForm.customTabControl1.SelectedTab = mainForm.statusTab;
                     mainForm.BringToFront();
                 });
             }

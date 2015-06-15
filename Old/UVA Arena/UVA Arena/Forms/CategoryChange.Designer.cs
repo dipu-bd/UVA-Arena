@@ -42,13 +42,13 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.removeNode1 = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.nativeTreeView1 = new System.Windows.Forms.NativeTreeView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.renameNode2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.addNode2 = new System.Windows.Forms.ToolStripMenuItem();
             this.addChild2 = new System.Windows.Forms.ToolStripMenuItem();
             this.removeNode2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.nativeTreeView1 = new System.Windows.Forms.NativeTreeView();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -184,6 +184,22 @@
             this.panel1.Size = new System.Drawing.Size(460, 190);
             this.panel1.TabIndex = 11;
             // 
+            // nativeTreeView1
+            // 
+            this.nativeTreeView1.BackColor = System.Drawing.Color.Azure;
+            this.nativeTreeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.nativeTreeView1.ContextMenuStrip = this.contextMenuStrip1;
+            this.nativeTreeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.nativeTreeView1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nativeTreeView1.ForeColor = System.Drawing.Color.Black;
+            this.nativeTreeView1.LabelEdit = true;
+            this.nativeTreeView1.Location = new System.Drawing.Point(0, 25);
+            this.nativeTreeView1.Name = "nativeTreeView1";
+            this.nativeTreeView1.Size = new System.Drawing.Size(458, 163);
+            this.nativeTreeView1.TabIndex = 9;
+            this.nativeTreeView1.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.nativeTreeView1_AfterLabelEdit);
+            this.nativeTreeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.nativeTreeView1_AfterSelect);
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -200,21 +216,21 @@
             this.renameNode2.Enabled = false;
             this.renameNode2.Name = "renameNode2";
             this.renameNode2.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.renameNode2.Size = new System.Drawing.Size(220, 22);
+            this.renameNode2.Size = new System.Drawing.Size(205, 22);
             this.renameNode2.Text = "Rename";
             this.renameNode2.Click += new System.EventHandler(this.renameNode1_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(217, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(202, 6);
             // 
             // addNode2
             // 
             this.addNode2.Image = global::UVA_Arena.Properties.Resources.add;
             this.addNode2.Name = "addNode2";
             this.addNode2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.addNode2.Size = new System.Drawing.Size(220, 22);
+            this.addNode2.Size = new System.Drawing.Size(205, 22);
             this.addNode2.Text = "Add Node";
             this.addNode2.Click += new System.EventHandler(this.addNode1_Click);
             // 
@@ -224,7 +240,7 @@
             this.addChild2.Name = "addChild2";
             this.addChild2.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.N)));
-            this.addChild2.Size = new System.Drawing.Size(220, 22);
+            this.addChild2.Size = new System.Drawing.Size(205, 22);
             this.addChild2.Text = "Add Child";
             this.addChild2.Click += new System.EventHandler(this.addChild1_Click);
             // 
@@ -237,22 +253,6 @@
             this.removeNode2.Size = new System.Drawing.Size(205, 22);
             this.removeNode2.Text = "Remove Node";
             this.removeNode2.Click += new System.EventHandler(this.removeNode1_Click);
-            // 
-            // nativeTreeView1
-            // 
-            this.nativeTreeView1.BackColor = System.Drawing.Color.Azure;
-            this.nativeTreeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.nativeTreeView1.ContextMenuStrip = this.contextMenuStrip1;
-            this.nativeTreeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nativeTreeView1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nativeTreeView1.ForeColor = System.Drawing.Color.Black;
-            this.nativeTreeView1.LabelEdit = true;
-            this.nativeTreeView1.Location = new System.Drawing.Point(0, 25);
-            this.nativeTreeView1.Name = "nativeTreeView1";
-            this.nativeTreeView1.Size = new System.Drawing.Size(458, 163);
-            this.nativeTreeView1.TabIndex = 9;
-            this.nativeTreeView1.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.nativeTreeView1_AfterLabelEdit);
-            this.nativeTreeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.nativeTreeView1_AfterSelect);
             // 
             // CategoryChange
             // 
@@ -271,7 +271,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "CategoryChange";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Change Category";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

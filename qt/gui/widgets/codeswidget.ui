@@ -1,9 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>CodesWidget</class>
- <widget name="CodesWidget" class="QWidget">
+ <widget class="QWidget" name="CodesWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,7 +13,12 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="editor" native="true"/>
+   </item>
+  </layout>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>

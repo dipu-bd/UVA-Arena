@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+CONFIG += qscintilla2
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,12 +31,17 @@ FORMS    += mainwindow.ui \
     widgets/judgestatuswidget.ui \
     widgets/profileswidget.ui
 
-su
-
 SUBMODULES_DIR = ../../submodules
 QDARKSTYLE = $$SUBMODULES_DIR/QDarkStyleSheet/qdarkstyle
 
 RESOURCES += $$QDARKSTYLE/style.qrc
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../QScintilla-gpl-2.9/qscintilla/release/ -lqscintilla2
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../QScintilla-gpl-2.9/qscintilla/debug/ -lqscintilla2
+else:unix: LIBS += -L$$OUT_PWD/../QScintilla-gpl-2.9/qscintilla/ -lqscintilla2
+
+INCLUDEPATH += $$PWD/../QScintilla-gpl-2.9/qscintilla
+DEPENDPATH += $$PWD/../QScintilla-gpl-2.9/qscintilla
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../uhuntqt/release/ -luhuntqt
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../uhuntqt/debug/ -luhuntqt

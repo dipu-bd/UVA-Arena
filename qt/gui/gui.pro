@@ -34,7 +34,8 @@ FORMS    += mainwindow.ui \
 SUBMODULES_DIR = ../../submodules
 QDARKSTYLE = $$SUBMODULES_DIR/QDarkStyleSheet/qdarkstyle
 
-RESOURCES += $$QDARKSTYLE/style.qrc
+RESOURCES += $$QDARKSTYLE/style.qrc \
+    images/images.qrc
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../QScintilla-gpl-2.9/qscintilla/release/ -lqscintilla2
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../QScintilla-gpl-2.9/qscintilla/debug/ -lqscintilla2

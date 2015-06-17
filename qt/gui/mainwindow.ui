@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>UVA Arena</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="images/images.qrc">
+    <normaloff>:/uva-arena/Main.ico</normaloff>:/uva-arena/Main.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QFormLayout" name="formLayout">
     <item row="0" column="0">
@@ -47,6 +51,8 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="images/images.qrc"/>
+ </resources>
  <connections/>
 </ui>

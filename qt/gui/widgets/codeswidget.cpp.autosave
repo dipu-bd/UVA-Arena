@@ -8,7 +8,7 @@ CodesWidget::CodesWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QsciLexer* curLexer = new QsciLexerCPP;
+    QsciLexer* curLexer = new QsciLexerCPP(ui->editor);
     ui->editor->setLexer(curLexer);
 }
 

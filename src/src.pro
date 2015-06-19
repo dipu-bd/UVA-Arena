@@ -4,26 +4,29 @@
 #
 #-------------------------------------------------
 
+include(../defaults.pri)
+
 QT       += core gui
 CONFIG += qscintilla2
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = UVA-Arena
-TEMPLATE = app
+TEMPLATE = lib
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
+SOURCES += mainwindow.cpp \
     widgets/problemswidget.cpp \
     widgets/codeswidget.cpp \
     widgets/judgestatuswidget.cpp \
-    widgets/profileswidget.cpp
+    widgets/profileswidget.cpp \
+    models/arenatablemodel.cpp
 
 HEADERS  += mainwindow.h \
     widgets/problemswidget.h \
     widgets/codeswidget.h \
     widgets/judgestatuswidget.h \
-    widgets/profileswidget.h
+    widgets/profileswidget.h \
+    models/arenatablemodel.h
 
 FORMS    += mainwindow.ui \
     widgets/problemswidget.ui \
@@ -31,11 +34,10 @@ FORMS    += mainwindow.ui \
     widgets/judgestatuswidget.ui \
     widgets/profileswidget.ui
 
-SUBMODULES_DIR = ../../submodules
 QDARKSTYLE = $$SUBMODULES_DIR/QDarkStyleSheet/qdarkstyle
 
 RESOURCES += $$QDARKSTYLE/style.qrc \
-    images/images.qrc
+    $$IMAGES_DIR/images.qrc
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../QScintilla-gpl-2.9/qscintilla/release/ -lqscintilla2
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../QScintilla-gpl-2.9/qscintilla/debug/ -lqscintilla2

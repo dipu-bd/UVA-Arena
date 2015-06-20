@@ -1,13 +1,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "src_global.h"
 #include <QMainWindow>
 
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
+class SRCSHARED_EXPORT MainWindow : public QMainWindow
 {
     Q_OBJECT
 

@@ -1,13 +1,14 @@
 #ifndef ARENATABLEMODEL_H
 #define ARENATABLEMODEL_H
 
+#include "src_global.h"
 #include <QAbstractTableModel>
 #include <QStringList>
 #include <QMap>
 #include <QList>
 #include <QVariant>
 
-class ArenaTableModel : public QAbstractTableModel
+class SRCSHARED_EXPORT ArenaTableModel : public QAbstractTableModel
 {
 public:
     typedef QMap<QVariant, QList<QVariant> > ModelMap;

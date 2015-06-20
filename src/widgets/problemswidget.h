@@ -1,13 +1,14 @@
 #ifndef PROBLEMSWIDGET_H
 #define PROBLEMSWIDGET_H
 
+#include "src_global.h"
 #include <QWidget>
 
 namespace Ui {
 class ProblemsWidget;
 }
 
-class ProblemsWidget : public QWidget
+class SRCSHARED_EXPORT ProblemsWidget : public QWidget
 {
     Q_OBJECT
 

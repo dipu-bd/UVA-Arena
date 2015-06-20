@@ -11,10 +11,13 @@ CONFIG += qscintilla2
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+DEFINES += SRC_LIBRARY
+
 TARGET = UVA-Arena
 TEMPLATE = lib
 
-SOURCES += mainwindow.cpp \
+SOURCES += src_global.h \
+    mainwindow.cpp \
     widgets/problemswidget.cpp \
     widgets/codeswidget.cpp \
     widgets/judgestatuswidget.cpp \
@@ -26,7 +29,8 @@ HEADERS  += mainwindow.h \
     widgets/codeswidget.h \
     widgets/judgestatuswidget.h \
     widgets/profileswidget.h \
-    models/arenatablemodel.h
+    models/arenatablemodel.h \
+    src_global.h
 
 FORMS    += mainwindow.ui \
     widgets/problemswidget.ui \
@@ -52,3 +56,8 @@ else:unix: LIBS += -L$$OUT_PWD/../uhuntqt/ -luhuntqt
 
 INCLUDEPATH += $$PWD/../uhuntqt
 DEPENDPATH += $$PWD/../uhuntqt
+
+unix {
+    target.path = /usr/lib
+    INSTALLS += target
+}

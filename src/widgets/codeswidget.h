@@ -1,13 +1,14 @@
 #ifndef CODESWIDGET_H
 #define CODESWIDGET_H
 
+#include "src_global.h"
 #include <QWidget>
 
 namespace Ui {
 class CodesWidget;
 }
 
-class CodesWidget : public QWidget
+class SRCSHARED_EXPORT CodesWidget : public QWidget
 {
     Q_OBJECT
 

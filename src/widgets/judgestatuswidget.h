@@ -1,13 +1,14 @@
 #ifndef JUDGESTATUSWIDGET_H
 #define JUDGESTATUSWIDGET_H
 
+#include "src_global.h"
 #include <QWidget>
 
 namespace Ui {
 class JudgeStatusWidget;
 }
 
-class JudgeStatusWidget : public QWidget
+class SRCSHARED_EXPORT JudgeStatusWidget : public QWidget
 {
     Q_OBJECT
 

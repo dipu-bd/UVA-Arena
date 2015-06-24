@@ -6,24 +6,87 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>905</width>
-    <height>561</height>
+    <width>657</width>
+    <height>383</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>UVA Arena</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="images/images.qrc">
+   <iconset resource="../images/images.qrc">
     <normaloff>:/uva-arena/Main.ico</normaloff>:/uva-arena/Main.ico</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QFormLayout" name="formLayout">
-    <item row="0" column="0">
-     <widget class="QPushButton" name="pushButton">
-      <property name="text">
-       <string>Hello, World!</string>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
       </property>
+      <property name="iconSize">
+       <size>
+        <width>48</width>
+        <height>24</height>
+       </size>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="icon">
+        <iconset resource="../images/images.qrc">
+         <normaloff>:/uva-arena/problems.png</normaloff>:/uva-arena/problems.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>PROBLEMS</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="icon">
+        <iconset resource="../images/images.qrc">
+         <normaloff>:/uva-arena/code.png</normaloff>:/uva-arena/code.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>CODES</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="icon">
+        <iconset resource="../images/images.qrc">
+         <normaloff>:/uva-arena/status.png</normaloff>:/uva-arena/status.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>STATUS</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="icon">
+        <iconset resource="../images/images.qrc">
+         <normaloff>:/uva-arena/profile.png</normaloff>:/uva-arena/profile.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>PROFILES</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_5">
+       <attribute name="icon">
+        <iconset resource="../images/images.qrc">
+         <normaloff>:/uva-arena/utility.png</normaloff>:/uva-arena/utility.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>UTILITIES</string>
+       </attribute>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -33,8 +96,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>905</width>
-     <height>26</height>
+     <width>657</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -52,7 +115,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="images/images.qrc"/>
+  <include location="../images/images.qrc"/>
  </resources>
  <connections/>
 </ui>

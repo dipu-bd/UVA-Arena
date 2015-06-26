@@ -15,76 +15,76 @@ public:
     void loadData(const QJsonObject& data);
 
     //sid: Submission ID
-    int getSid() const { return _sid; }
-    void setSid(int v) { _sid = v; }
+    int getSubmissionID() const { return vSubmissionID; }
+    void setSubmissionID(int v) { vSubmissionID = v; }
     //uid: user id
-    int getUid() const { return _uid; }
-    void setUid(int v) { _uid = v; }
+    int getUserID() const { return vUserID; }
+    void setUserID(int v) { vUserID = v; }
     //pid: Problem ID
-    int getPid() const { return _pid; }
-    void setPid(int v) { _pid = v; }
+    int getProblemID() const { return vProblemID; }
+    void setProblemID(int v) { vProblemID = v; }
     //ver: Verdict ID
-    Verdict getVer() const { return _ver; }
-    void setVer(Verdict v) { _ver = v; }
-    void setVer(int v);
+    Verdict getVerdict() const { return vVerdict; }
+    void setVerdict(Verdict v) { vVerdict = v; }
+    void setVerdict(int v);
     //lan: Language ID
-    Language getLan() const { return _lan; }
-    void setLan(Language v) { _lan = v; }
-    void setLan(int v);
+    Language getLanguage() const { return vLanguage; }
+    void setLanguage(Language v) { vLanguage = v; }
+    void setLanguage(int v);
     //run : Runtime
-    int getRun() const { return _run; }
-    void setRun(int v);
+    int getRuntime() const { return vRuntime; }
+    void setRuntime(int v);
     //mem: Memory taken
-    int getMem() const { return _mem; }
-    void setMem(int v);
+    int getMemory() const { return vMemory; }
+    void setMemory(int v);
     //rank: Submission Rank
-    int getRank() const { return _rank; }
-    void setRank(int v) { _rank = v; }
+    int getRank() const { return vRank; }
+    void setRank(int v) { vRank = v; }
     //sbt: Submission Time (UNIX time stamp)
-    int getSbt() const { return _sbt; }
-    void setSbt(int v) { _sbt = v; }
+    int getSubmissionTime() const { return vSubmissionTime; }
+    void setSubmissionTime(int v) { vSubmissionTime = v; }
     //name: full username
-    QString Name() const { return _name; }
-    void setName(QString v) { _name = v; }
+    QString getFullName() const { return vFullName; }
+    void setFullName(QString v) { vFullName = v; }
     //uname: user name
-    QString getUname() const { return _uname; }
-    void setUname(QString v) { _uname = v; }
+    QString getUserName() const { return vUserName; }
+    void setUserName(QString v) { vUserName = v; }
 
     //problem number
-    int getPnum() const { return _pnum; }
-    void setPnum(int v) { _pnum = v; }
+    int getProblemNumber() const { return vProblemNumber; }
+    void setProblemNumber(int v) { vProblemNumber = v; }
     //problem title
-    QString getPtitle() const { return _ptitle; }
-    void setPtitle(QString v) { _ptitle = v; }
+    QString getProblemTitle() const { return vProblemTitle; }
+    void setProblemTitle(QString v) { vProblemTitle = v; }
 
 private:
     //sid: Submission ID
-    int _sid;
+    int vSubmissionID;
     //uid: user id
-    int _uid;
+    int vUserID;
     //pid: Problem ID
-    int _pid;
+    int vProblemID;
     //ver: Verdict ID
-    Verdict _ver;
+    Verdict vVerdict;
     //lan: Language ID
-    Language _lan;
+    Language vLanguage;
     //run : Runtime
-    int _run;
+    int vRuntime;
     //mem: Memory taken
-    int _mem;
+    int vMemory;
     //rank: Submission Rank
-    int _rank;
+    int vRank;
     //sbt: Submission Time (UNIX time stamp)
-    int _sbt;
+    int vSubmissionTime;
     //name: full username
-    QString _name;
+    QString vFullName;
     //uname: user name
-    QString _uname;
+    QString vUserName;
 
     //problem number
-    int _pnum;
+    int vProblemNumber;
     //problem title
-    QString _ptitle;
+    QString vProblemTitle;
 };
 
 #endif // SUBMISSIONMESSAGE_H

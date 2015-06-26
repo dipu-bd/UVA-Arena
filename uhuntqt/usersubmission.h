@@ -12,71 +12,74 @@ public:
     UserSubmission();
     UserSubmission(const QJsonArray& data);
 
-    bool isInQueue() const;
-    bool isAccepted() const;
     void loadData(const QJsonArray& data);
 
+    // true if the verdict is in queue
+    bool isInQueue() const;
+    // true if the verdict is accepted
+    bool isAccepted() const;
+
     //Submission ID
-    int getSid() const { return _sid; }
-    void setSid(int v) { _sid = v; }
+    int getSubmissionID() const { return vSubmissionID; }
+    void setSubmissionID(int v) { vSubmissionID = v; }
     //Problem ID
-    int getPid() const { return _pid; }
-    void setPid(int v) { _pid = v; }
+    int getProblemID() const { return vProblemID; }
+    void setProblemID(int v) { vProblemID = v; }
     //Verdict ID
-    Verdict getVer() const { return _ver; }
-    void setVer(Verdict v) { _ver = v; }
-    void setVer(int v);
+    Verdict getVerdict() const { return vVerdict; }
+    void setVerdict(Verdict v) { vVerdict = v; }
+    void setVerdict(int v);
     //Runtime
-    int getRun() const { return _run; }
-    void setRun(int v);
+    int getRuntime() const { return vRuntime; }
+    void setRuntime(int v);
     //Submission Time (UNIX time stamp)
-    int getSbt() const { return _sbt; }
-    void setSbt(int v) { _sbt = v; }
+    int getSubmissionTime() const { return vSubmissionTime; }
+    void setSubmissionTime(int v) { vSubmissionTime = v; }
     //Language ID (1=ANSI C, 2=Java, 3=C++, 4=Pascal, 5=C++11)
-    Language getLan() const { return _lan; }
-    void setLan(Language v) { _lan = v; }
-    void setLan(int v);
+    Language getLanguage() const { return vLanguage; }
+    void setLanguage(Language v) { vLanguage = v; }
+    void setLanguage(int v);
     //Submission Rank
-    int getRank() const { return _rank; }
-    void setRank(int v) { _rank = v; }
+    int getRank() const { return vRank; }
+    void setRank(int v) { vRank = v; }
 
     //problem number
-    int getPnum() const { return _pnum; }
-    void setPnum(int v) { _pnum = v; }
+    int getProblemNumber() const { return vProblemNumber; }
+    void setProblemNumber(int v) { vProblemNumber = v; }
     //user name
-    QString getUname() const { return _uname; }
-    void setUname(QString v) { _uname = v; }
+    QString getUserName() const { return vUserName; }
+    void setUserName(QString v) { vUserName = v; }
     //full username
-    QString Name() const { return _name; }
-    void setName(QString v) { _name = v; }
+    QString getFullName() const { return vFullName; }
+    void setFullName(QString v) { vFullName = v; }
     //problem title
-    QString getPtitle() const { return _ptitle; }
-    void setPtitle(QString v) { _ptitle = v; }
+    QString getProblemTitle() const { return vProblemTitle; }
+    void setProblemTitle(QString v) { vProblemTitle = v; }
 
 private:
     //Submission ID
-    int _sid;
+    int vSubmissionID;
     //Problem ID
-    int _pid;
+    int vProblemID;
     //Verdict ID
-    Verdict _ver;
+    Verdict vVerdict;
     //Runtime
-    int _run;
+    int vRuntime;
     //Submission Time (UNIX time stamp)
-    int _sbt;
+    int vSubmissionTime;
     //Language ID (1=ANSI C, 2=Java, 3=C++, 4=Pascal, 5=C++11)
-    Language _lan;
+    Language vLanguage;
     //Submission Rank
-    int _rank;
+    int vRank;
 
     //problem number
-    int _pnum;
+    int vProblemNumber;
     //user name
-    QString _uname;
+    QString vUserName;
     //full username
-    QString _name;
+    QString vFullName;
     //problem title
-    QString _ptitle;
+    QString vProblemTitle;
 };
 
 #endif // USERSUBMISSION_H

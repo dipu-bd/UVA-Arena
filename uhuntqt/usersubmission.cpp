@@ -12,68 +12,68 @@ UserSubmission::UserSubmission(const QJsonArray& data)
 
 bool UserSubmission::isInQueue() const
 {
-    return (_ver == Verdict::InQueue);
+    return (vVerdict == Verdict::InQueue);
 }
 
 bool UserSubmission::isAccepted() const
 {
-    return (_ver == Verdict::Accepted);
+    return (vVerdict == Verdict::Accepted);
 }
 
 void UserSubmission::loadData(const QJsonArray& data)
 {
     //Submission ID
-    setSid(data[0].toInt());
+    setSubmissionID(data[0].toInt());
     //Problem ID
-    setPid(data[1].toInt());
+    setProblemID(data[1].toInt());
     //Verdict ID
-    setVer(data[2].toInt());
+    setVerdict(data[2].toInt());
     //Runtime
-    setRun(data[3].toInt());
+    setRuntime(data[3].toInt());
     //Submission Time (UNIX time stamp)
-    setSbt(data[4].toInt());
+    setSubmissionTime(data[4].toInt());
     //Language ID (1=ANSI C, 2=Java, 3=C++, 4=Pascal, 5=C++11)
-    setLan(data[5].toInt());
+    Language(data[5].toInt());
     //Submission Rank
     setRank(data[6].toInt());
 }
 
 
-void UserSubmission::setVer(int v)
+void UserSubmission::setVerdict(int v)
 {
     switch(v)
     {
-    case 10: _ver = Verdict::SubError; break;
-    case 15: _ver = Verdict::CannotBeJudge; break;
-    case 20: _ver = Verdict::InQueue; break;
-    case 30: _ver = Verdict::CompileError; break;
-    case 35: _ver = Verdict::RestrictedFunction; break;
-    case 40: _ver = Verdict::RuntimeError; break;
-    case 45: _ver = Verdict::OutputLimit; break;
-    case 50: _ver = Verdict::TimLimit; break;
-    case 60: _ver = Verdict::MemoryLimit; break;
-    case 70: _ver = Verdict::WrongAnswer; break;
-    case 80: _ver = Verdict::PresentationError; break;
-    case 90: _ver = Verdict::Accepted; break;
-    default: _ver = Verdict::InQueue; break;
+    case 10: vVerdict = Verdict::SubError; break;
+    case 15: vVerdict = Verdict::CannotBeJudge; break;
+    case 20: vVerdict = Verdict::InQueue; break;
+    case 30: vVerdict = Verdict::CompileError; break;
+    case 35: vVerdict = Verdict::RestrictedFunction; break;
+    case 40: vVerdict = Verdict::RuntimeError; break;
+    case 45: vVerdict = Verdict::OutputLimit; break;
+    case 50: vVerdict = Verdict::TimLimit; break;
+    case 60: vVerdict = Verdict::MemoryLimit; break;
+    case 70: vVerdict = Verdict::WrongAnswer; break;
+    case 80: vVerdict = Verdict::PresentationError; break;
+    case 90: vVerdict = Verdict::Accepted; break;
+    default: vVerdict = Verdict::InQueue; break;
     }
 }
 
-void UserSubmission::setRun(int v)
+void UserSubmission::setRuntime(int v)
 {
     if(v < 0 || v >= 1000000000) v = 0;
-    _run = v;
+    vRuntime = v;
 }
 
-void UserSubmission::setLan(int v)
+void UserSubmission::setLanguage(int v)
 {
     switch(v)
     {
-    case 1: _lan = Language::C; break;
-    case 2: _lan = Language::Java; break;
-    case 3: _lan = Language::CPP; break;
-    case 4: _lan = Language::Pascal; break;
-    case 5: _lan = Language::CPP11; break;
-    default: _lan = Language::Other; break;
+    case 1: vLanguage = Language::C; break;
+    case 2: vLanguage = Language::Java; break;
+    case 3: vLanguage = Language::CPP; break;
+    case 4: vLanguage = Language::Pascal; break;
+    case 5: vLanguage = Language::CPP11; break;
+    default: vLanguage = Language::Other; break;
     }
 }

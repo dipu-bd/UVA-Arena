@@ -13,73 +13,73 @@ SubmissionMessage::SubmissionMessage(const QJsonObject &data)
 void SubmissionMessage::loadData(const QJsonObject &data)
 {
     //sid: Submission ID
-    setSid(data["sid"].toInt());
+    setSubmissionID(data["sid"].toInt());
     //uid: user id
-    setUid(data["uid"].toInt());
+    setUserID(data["uid"].toInt());
     //pid: Problem ID
-    setPid(data["pid"].toInt());
+    setProblemID(data["pid"].toInt());
     //ver: Verdict ID
-    setVer(data["ver"].toInt());
+    setVerdict(data["ver"].toInt());
     //lan: Language ID
-    setLan(data["lan"].toInt());
+    setLanguage(data["lan"].toInt());
     //run : Runtime
-    setRun(data["run"].toInt());
+    setRuntime(data["run"].toInt());
     //mem: Memory taken
-    setMem(data["mem"].toInt());
+    setMemory(data["mem"].toInt());
     //rank: Submission Rank
     setRank(data["rank"].toInt());
     //sbt: Submission Time (UNIX time stamp)
-    setSbt(data["sbt"].toInt());
+    setSubmissionTime(data["sbt"].toInt());
     //name: full username
-    setName(data["name"].toString());
+    setFullName(data["name"].toString());
     //uname: user name
-    setUname(data["uname"].toString());
+    setUserName(data["uname"].toString());
 
 }
 
-void SubmissionMessage::setVer(int v)
+void SubmissionMessage::setVerdict(int v)
 {
     switch(v)
     {
-    case 10: _ver = Verdict::SubError; break;
-    case 15: _ver = Verdict::CannotBeJudge; break;
-    case 20: _ver = Verdict::InQueue; break;
-    case 30: _ver = Verdict::CompileError; break;
-    case 35: _ver = Verdict::RestrictedFunction; break;
-    case 40: _ver = Verdict::RuntimeError; break;
-    case 45: _ver = Verdict::OutputLimit; break;
-    case 50: _ver = Verdict::TimLimit; break;
-    case 60: _ver = Verdict::MemoryLimit; break;
-    case 70: _ver = Verdict::WrongAnswer; break;
-    case 80: _ver = Verdict::PresentationError; break;
-    case 90: _ver = Verdict::Accepted; break;
-    default: _ver = Verdict::InQueue; break;
+    case 10: vVerdict = Verdict::SubError; break;
+    case 15: vVerdict = Verdict::CannotBeJudge; break;
+    case 20: vVerdict = Verdict::InQueue; break;
+    case 30: vVerdict = Verdict::CompileError; break;
+    case 35: vVerdict = Verdict::RestrictedFunction; break;
+    case 40: vVerdict = Verdict::RuntimeError; break;
+    case 45: vVerdict = Verdict::OutputLimit; break;
+    case 50: vVerdict = Verdict::TimLimit; break;
+    case 60: vVerdict = Verdict::MemoryLimit; break;
+    case 70: vVerdict = Verdict::WrongAnswer; break;
+    case 80: vVerdict = Verdict::PresentationError; break;
+    case 90: vVerdict = Verdict::Accepted; break;
+    default: vVerdict = Verdict::InQueue; break;
     }
 }
 
-void SubmissionMessage::setLan(int v)
+void SubmissionMessage::setLanguage(int v)
 {
     switch(v)
     {
-    case 1: _lan = Language::C; break;
-    case 2: _lan = Language::Java; break;
-    case 3: _lan = Language::CPP; break;
-    case 4: _lan = Language::Pascal; break;
-    case 5: _lan = Language::CPP11; break;
-    default: _lan = Language::Other; break;
+    case 1: vLanguage = Language::C; break;
+    case 2: vLanguage = Language::Java; break;
+    case 3: vLanguage = Language::CPP; break;
+    case 4: vLanguage = Language::Pascal; break;
+    case 5: vLanguage = Language::CPP11; break;
+    default: vLanguage = Language::Other; break;
     }
 }
 
 
-void SubmissionMessage::setRun(int v)
+void SubmissionMessage::setRuntime(int v)
 {
     if(v < 0 || v >= 1000000000) v = 0;
-    _run = v;
+    vRuntime = v;
 }
 
-void SubmissionMessage::setMem(int v)
+void SubmissionMessage::setMemory(int v)
 {
     if(v < 0 || v >= 1000000000) v = 0;
-    _mem = v;
+    vMemory = v;
 }
 

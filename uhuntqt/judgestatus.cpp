@@ -21,25 +21,25 @@ void JudgeStatus::loadData(const QJsonObject &obj)
     const QJsonObject& data = obj["msg"].toObject();
 
     //sid: Submission ID
-    setSid(data["sid"].toInt());
+    setSubmissionID(data["sid"].toInt());
     //uid: user id
-    setUid(data["uid"].toInt());
+    setUserID(data["uid"].toInt());
     //pid: Problem ID
-    setPid(data["pid"].toInt());
+    setProblemID(data["pid"].toInt());
     //ver: Verdict ID
-    setVer(data["ver"].toInt());
+    setVerdict(data["ver"].toInt());
     //lan: Language ID
-    setLan(data["lan"].toInt());
+    setLanguage(data["lan"].toInt());
     //run : Runtime
-    setRun(data["run"].toInt());
+    setRuntime(data["run"].toInt());
     //mem: Memory taken
-    setMem(data["mem"].toInt());
+    setMemory(data["mem"].toInt());
     //rank: Submission Rank
     setRank(data["rank"].toInt());
     //sbt: Submission Time (UNIX time stamp)
-    setSbt(data["sbt"].toInt());
+    setSubmissionTime(data["sbt"].toInt());
     //name: full username
-    setName(data["name"].toString());
+    setFullName(data["name"].toString());
     //uname: user name
-    setUname(data["uname"].toString());
+    setUserName(data["uname"].toString());
 }

@@ -12,16 +12,16 @@ public:
     void loadData(const QJsonObject& data);
 
     //id: Submission ID
-    qint64 getId() const { return _id; }
-    void setId(qint64 v) { _id = v; }
-    //type: user name
-    QString getType() const { return _type; }
-    void setType(QString v) { _type = v; }
+    qint64 getId() const { return vID; }
+    void setId(qint64 v) { vID = v; }
+    //type: type of the submission
+    QString getType() const { return vType; }
+    void setType(QString v) { vType = v; }
 private:
     //id: Global submission id
-    qint64 _id;
+    qint64 vID;
     //type: type of submission
-    QString _type;
+    QString vType;
 };
 
 #endif // JUDGESTATUS_H

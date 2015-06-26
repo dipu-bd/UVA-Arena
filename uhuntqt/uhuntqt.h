@@ -16,7 +16,7 @@ public:
      * @param size Size of the JSON data.
      * @return List of problem info objects.
      */
-    static QList<ProblemInfo>* Uhuntqt::getProblemList(const char* data, int size);
+    static QList<ProblemInfo> Uhuntqt::getProblemList(const char* data, int size);
 
 };
 

@@ -9,6 +9,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${UVA_BIN_DIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${UVA_BIN_DIR})
 
 set(CMAKE_CXX_STANDARD 11)
+#Use solution folders.
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -36,9 +38,24 @@ qt5_add_resources(UVA_RESOURCES
 
 set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} Qt5::Widgets)
 
+set(CMAKE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/submodules/mupdf-qt/)
+add_subdirectory(submodules/mupdf-qt)
+set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} mupdf-qt)
+include_directories(submodules/mupdf-qt/include)
+set(CMAKE_SOURCE_DIR ${PROJECT_SOURCE_DIR})
+set_target_properties(mupdf-qt PROPERTIES FOLDER "Submodules/mupdf-qt")
+# set mupdf-qt examples property folders so they don't pollute
+# the solution explorer on Visual Studio
+foreach(example countpages_c exportpage_c outline_c qimage_c
+                showinfo_c showtext_c simpleviewer test_document
+                test_outline test_page test_text)
+    set_target_properties(${example} PROPERTIES FOLDER "Submodules/mupdf-qt")
+endforeach()
+
 add_subdirectory(submodules/Qscintilla)
 set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} qscintilla)
 include_directories(submodules/Qscintilla/Qt4Qt5)
+set_target_properties(qscintilla PROPERTIES FOLDER "Submodules/qscintilla")
 
 add_subdirectory(uhuntqt/)
 set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} uhuntqt)
@@ -63,7 +80,7 @@ else()
 endif()
 
 target_link_libraries(UVA-Arena ${UVA_DEPENDENCIES})
-
+set_target_properties(UVA-Arena PROPERTIES FOLDER "UVA-Arena")
 
 if(WIN32)
 

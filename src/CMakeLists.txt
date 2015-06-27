@@ -41,4 +41,4 @@ else()
 endif()
 
 target_link_libraries(${TARGET} ${UVA_DEPENDENCIES})
-set_target_properties(${TARGET} PROPERTIES FOLDER ${TARGET})
+set_target_properties(${TARGET} PROPERTIES FOLDER "UVA-Arena")

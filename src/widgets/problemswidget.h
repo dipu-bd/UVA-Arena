@@ -3,6 +3,7 @@
 
 #include "src_global.h"
 #include <QWidget>
+#include <mupdf-qt.h>
 
 namespace Ui {
 class ProblemsWidget;
@@ -18,6 +19,7 @@ public:
 
 private:
     Ui::ProblemsWidget *ui;
+	MuPDF::Document* pdfDocument;
 };
 
 #endif // PROBLEMSWIDGET_H

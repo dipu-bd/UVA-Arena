@@ -1,3 +1,6 @@
 [submodule "submodules/QDarkStyleSheet"]
 	path = submodules/QDarkStyleSheet
 	url = https://github.com/ColinDuquesnoy/QDarkStyleSheet
+[submodule "submodules/Qscintilla"]
+	path = submodules/Qscintilla
+	url = https://github.com/jgcoded/QScintilla

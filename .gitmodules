@@ -4,3 +4,6 @@
 [submodule "submodules/Qscintilla"]
 	path = submodules/Qscintilla
 	url = https://github.com/jgcoded/QScintilla
+[submodule "submodules/mupdf-qt"]
+	path = submodules/mupdf-qt
+	url = https://github.com/xiangxw/mupdf-qt

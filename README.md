@@ -1,3 +1,5 @@
+# This branch of UVA-Arena is still UNDER DEVELOPMENT
+
 # UVA-Arena
 
 ![Facebook Icon](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/facebook.png) [Facbook Page](https://www.facebook.com/uvaarena?ref=github)   
@@ -5,18 +7,8 @@
 
 [![UVA Arena Icon](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/Main.png)](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/Main.png)
 
-**UVA Arena** (c) 2014, is a windows based, non-commercial, open source utility application to make problem solving easier for the programmers. It is based on popular [UVA Online Judge](http://uva.onlinejudge.org/) and uses APIs from [uHunt](http://uhunt.felix-halim.net/). 
+**UVA Arena** (c) 2014, is a cross-platform, non-commercial, open source utility application to make problem solving easier for the programmers. It is based on popular [UVA Online Judge](http://uva.onlinejudge.org/) and uses APIs from [uHunt](http://uhunt.felix-halim.net/). 
 
-### Download 
-To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena/wiki/What's-New)     
-##### Version 1.1
-1. [For All Platforms](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/All/UVA%20Arena%201.1.exe?raw=true)     
-2. [For Windows XP, Vista and 7](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_2.0/UVA%20Arena%201.1.exe?raw=true)     
-3. [For Windows 8 and and later versions](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_4.5/UVA%20Arena%201.1.exe?raw=true)     
-     
-##### Version 1.0  
-1. [For Windows XP, Vista and 7](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_2.0/UVA%20Arena%201.0.exe?raw=true)     
-2. [For Windows 8 and and later versions](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_4.5/UVA%20Arena%201.0.exe?raw=true)  
 
 ### Short Info
 Main target of this software is to provide a useful and informative tool to the users to help them with their programming practice. Today programming has become a very competitive field. You need to keep track of your progress daily, learn new things, and of-course solve new problems as fast as you can. Problem picking and managing your codes is a time consuming process. You can minimize this wasting of time as much as possible using **UVA Arena**.  
@@ -32,19 +24,6 @@ If you need to report any bugs or suggest any new feature post it [here](https:/
 
 For any other information contact me at <dipu.sudipta@gmail.com>  
 
-### List of features 
-Here is a brief list of the features that this software provides:    
-* Problem Viewer (also view and edit categories)
-* Code Editor (C, C++ and Java)
-* Judge Status
-* User Statistics with graphs
-* World Rank viewer
-* Compare between users
-* Discuss and uDebug browser  
-
-#### Screen Shots 
-[![Whole](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/wiki/_all_.png)](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/wiki/_all_.png)  
-
 ###Licence Information
 `This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License, version 3.0 as published by the Free Software Foundation.`  
 
@@ -52,18 +31,58 @@ Here is a brief list of the features that this software provides:
 
 You should have received a copy of the GNU General Public License along with this program. If no see <http://www.gnu.org/licenses/>   
 
-### Dependent Projects  
-This software uses controls from the following sources-  
-* [uHunt API](http://uhunt.felix-halim.net/api) for user's information and problem database and latest judge status. 
-* For parsing and editing HTML files, [HTML Agility Pack](http://htmlagilitypack.codeplex.com/). 
-* [NewtonSoft.JSON](http://james.newtonking.com/json) to parse [JSON](http://en.wikipedia.org/wiki/JSON) data file. 
-* [Object List View](http://objectlistview.sourceforge.net/cs/index.html) is the _most used and notable control_. 
-* Second most used is [Fast Colored Text Box](https://github.com/PavelTorgashov/FastColoredTextBox) for Syntax Highlighting and Code Editing.  
-* To plot graphs in user progress tracker [ZedGraph](http://sourceforge.net/projects/zedgraph/) was used. 
-* To Compress and Decompress Problems data pack [Don Net Zip](https://github.com/eropple/dotnetzip) was used. 
-* Main icon is a licenced as "Free for non-commercial use". Downloaded from [here](http://www.iconarchive.com/show/stark-icons-by-fruityth1ng/Applications-icon.html)  
-* Icon resources are mostly open-source and many of them are downloaded from [IconArchive](http://www.iconarchive.com/). I couldn't look up the licences for all icons. Please inform me if any icon here is under strict copyright protection.
+## Building from source
 
-## Developer  
-> __Sudipto Chandra Dipu__  
-> <dipu.sudipta@gmail.com> 
+__You will only have to do the following once!__
+
+To build UVA-Arena from source, you will need [Qt5](http://www.qt.io/), [git](https://git-scm.com/), and [CMake](http://www.cmake.org/). 
+
+Clone this repository to a preferred directory, and update all submodules with this command:
+
+```$ git submodule update --init --recursive```
+
+This will download all of UVA-Arena's dependencies.
+
+Now mupdf must be be built before proceeding. 
+
+On windows, go to this directory:
+
+__[UVA-Arena root]__/submodules/mupdf-qt/mupdf/platform/win32
+
+and open the the solution file within the directory. Compile the solution and ignore anything about libcurl.
+
+On Linux-based OSs, run the Makefile located in the root of mupdf.
+
+With mupdf built, open up the CMake gui and set
+
+"where is the source code: " to the root of the UVA-Arena project
+
+and "Where to build the binaries: " to __[UVA-Arena project root]__/build
+
+Next, click on the "Configure" button. CMake will let you know that the directory doesn't exist. Press OK, and then
+another window will pop asking you to specify the generator for the project. On Windows, you'll most likely be developing with Visual Studio so select the version of Visual Studio that you have in the drop down list. If you're not using Visual Studio, then select the appropriate drop down item. On Linux-based OSs, simply select Unix Makefiles.
+
+Leave everything else as is and click Finish. You will get an error prompting you to:
+
+"Set Qt5_CMAKE_DIR to the directory containing the Qt5 cmake files"
+
+This is a little shortcut UVA-Arena uses to have the user set their Qt5 directory that holds the CMake files that UVA-Arena needs. You can find your Qt5 CMake directory by navigating to your Qt5 installation directory, and navigating to this directory:
+
+__[Qt root]__/Qt[Version]/[Version]/[configuration]/lib/cmake
+
+For example, on a Windows computer, this directory might look like so:
+C:\Qt\Qt5.4.1\5.4\msvc2013_opengl\lib\cmake
+
+set this directory as the value to Qt5_CMAKE_DIR, and then in the CMake gui click configure again, and then click generate.
+You will receive warnings in red text, but this is due to the mupdf-qt dependency. To ignore these warnings, click Options->Suppress dev Warnings in the CMake gui.
+
+You should now have all the build files necessary to compile UVA-Arena within the build folder. 
+
+### Trouble with CMake?
+
+If you're having trouble with CMake and you have no idea why, follow these steps:
+
+* Delete your build folder
+* In the CMake gui, click File -> Delete cache
+
+and then click Configure and generate again.

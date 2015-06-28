@@ -11,11 +11,13 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${UVA_BIN_DIR})
 set(CMAKE_CXX_STANDARD 11)
 #Use solution folders.
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(GLOBAL PROPERTY AUTOGEN_TARGETS_FOLDER "Generated")
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Instruct CMake to run moc automatically when needed
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 if(NOT Qt5_CMAKE_DIR AND NOT Qt5Widgets_DIR)
 
@@ -31,9 +33,9 @@ set(Qt5_HINTS_DIRS
 
 find_package(Qt5Widgets COMPONENTS gui core widgets REQUIRED HINTS ${Qt5_HINTS_DIRS})
 
-qt5_add_resources(UVA_RESOURCES 
-    submodules/QDarkStyleSheet/qdarkstyle/style.qrc
-    images/images.qrc
+set(UVA_RESOURCES 
+    ${PROJECT_SOURCE_DIR}/submodules/QDarkStyleSheet/qdarkstyle/style.qrc
+    ${PROJECT_SOURCE_DIR}/images/images.qrc
 )
 
 set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} Qt5::Widgets)

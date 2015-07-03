@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>657</width>
-    <height>383</height>
+    <width>831</width>
+    <height>569</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -50,6 +50,11 @@
        <attribute name="title">
         <string>PROBLEMS</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="ProblemsWidget" name="widget" native="true"/>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="icon">
@@ -59,6 +64,11 @@
        <attribute name="title">
         <string>CODES</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="CodesWidget" name="widget_2" native="true"/>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="icon">
@@ -66,8 +76,13 @@
          <normaloff>:/uva-arena/status.png</normaloff>:/uva-arena/status.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>STATUS</string>
+        <string>JUDGE STATUS</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="JudgeStatusWidget" name="widget_3" native="true"/>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_4">
        <attribute name="icon">
@@ -77,6 +92,11 @@
        <attribute name="title">
         <string>PROFILES</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="ProfilesWidget" name="widget_4" native="true"/>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_5">
        <attribute name="icon">
@@ -96,8 +116,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>657</width>
-     <height>21</height>
+     <width>831</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -114,6 +134,32 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>ProblemsWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/problemswidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CodesWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/codeswidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>JudgeStatusWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/judgestatuswidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ProfilesWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/profileswidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../images/images.qrc"/>
  </resources>

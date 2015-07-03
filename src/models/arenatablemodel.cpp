@@ -5,32 +5,39 @@ ArenaTableModel::ArenaTableModel()
 
 }
 
-void ArenaTableModel::SetColumnNames(QStringList columnNames)
+bool ArenaTableModel::insertRow(QVariant key, QList<QVariant> data)
 {
-    beginInsertColumns(QModelIndex(), 0, columnNames.size());
-    mColumnNames = columnNames;
-    endInsertColumns();
+	beginInsertRows(QModelIndex(), mData.size(), mData.size());
+	mData[key] = data;
+	endInsertRows();
+
+	return true;
 }
 
-void ArenaTableModel::AddData(QList<QVariant> data)
+bool ArenaTableModel::removeRow(QVariant key)
 {
-    beginInsertRows(QModelIndex(), mData.size(), mData.size());
-    QVariant key = data.takeFirst();
-    mData[key] = data;
-    endInsertRows();
+	ModelMap::const_iterator it = mData.find(key);
+
+	if (it == mData.end())
+	{
+		return false;
+	}
+	
+	int index = mData.values().indexOf(*it);
+	beginRemoveRows(QModelIndex(), index, index);
+	mData.remove(key);
+	endRemoveRows();
+
+	return true;
 }
 
-void ArenaTableModel::RemoveData(QVariant key)
+bool ArenaTableModel::insertColumns(QStringList columnNames)
 {
-    ModelMap::const_iterator it = mData.find(key);
+	beginInsertColumns(QModelIndex(), 0, columnNames.size());
+	mColumnNames = columnNames;
+	endInsertColumns();
 
-    if(it != mData.end())
-    {
-        int index = mData.values().indexOf(*it);
-        beginRemoveRows(QModelIndex(), index, index);
-        mData.remove(key);
-        endRemoveRows();
-    }
+	return true;
 }
 
 int ArenaTableModel::columnCount(const QModelIndex & /* parent */) const
@@ -49,7 +56,7 @@ QVariant ArenaTableModel::headerData(int section, Qt::Orientation orientation, i
         return QVariant();
 
     if(orientation == Qt::Vertical)
-        return QString("%1").arg(section);
+        return QString("%1").arg(section + 1);
 
     if(orientation == Qt::Horizontal)
         return mColumnNames[section];
@@ -62,16 +69,23 @@ QVariant ArenaTableModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (index.row() >= mData.size())
+    if (index.row() >= mData.count())
         return QVariant();
+
+	if (index.column() >= mColumnNames.count())
+		return QVariant();
 
     if(role != Qt::DisplayRole)
         return QVariant();
 
-    if(index.column() == 0)
-        return mData.keys().at(index.row());
-    else
-        return mData.values().at(index.row());
+	QVariant key = mData.keys().at(index.row());
+
+	if (index.column() == 0)
+	{
+		return key;
+	}
+	else
+	{
+		return mData[key].at(index.column());
+	}
 }
-
-

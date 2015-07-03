@@ -1,9 +1,9 @@
-#ifndef USERINFO_H
-#define USERINFO_H
+#pragma once
 
+#include "uhuntqt_global.h"
 #include "enums.h"
 
-class UserInfo
+class UHUNTQT_EXPORT UserInfo
 {
 public:
     UserInfo();
@@ -11,5 +11,3 @@ public:
 private:
 
 };
-
-#endif // USERINFO_H

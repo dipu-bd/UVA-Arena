@@ -1,12 +1,12 @@
-#ifndef SUBMISSIONMESSAGE_H
-#define SUBMISSIONMESSAGE_H
+#pragma once
 
 #include <QtCore/QString>
 #include <QtCore/QJsonObject>
 
+#include "uhuntqt_global.h"
 #include "enums.h"
 
-class SubmissionMessage
+class UHUNTQT_EXPORT SubmissionMessage
 {    
 public:
     SubmissionMessage();
@@ -15,76 +15,74 @@ public:
     void loadData(const QJsonObject& data);
 
     //sid: Submission ID
-    int getSubmissionID() const { return vSubmissionID; }
-    void setSubmissionID(int v) { vSubmissionID = v; }
+    int getSubmissionID() const { return mSubmissionID; }
+    void setSubmissionID(int v) { mSubmissionID = v; }
     //uid: user id
-    int getUserID() const { return vUserID; }
-    void setUserID(int v) { vUserID = v; }
+    int getUserID() const { return mUserID; }
+    void setUserID(int v) { mUserID = v; }
     //pid: Problem ID
-    int getProblemID() const { return vProblemID; }
-    void setProblemID(int v) { vProblemID = v; }
+    int getProblemID() const { return mProblemID; }
+    void setProblemID(int v) { mProblemID = v; }
     //ver: Verdict ID
-    Verdict getVerdict() const { return vVerdict; }
-    void setVerdict(Verdict v) { vVerdict = v; }
+    Verdict getVerdict() const { return mVerdict; }
+    void setVerdict(Verdict v) { mVerdict = v; }
     void setVerdict(int v);
     //lan: Language ID
-    Language getLanguage() const { return vLanguage; }
-    void setLanguage(Language v) { vLanguage = v; }
+    Language getLanguage() const { return mLanguage; }
+    void setLanguage(Language v) { mLanguage = v; }
     void setLanguage(int v);
     //run : Runtime
-    int getRuntime() const { return vRuntime; }
+    int getRuntime() const { return mRuntime; }
     void setRuntime(int v);
     //mem: Memory taken
-    int getMemory() const { return vMemory; }
+    int getMemory() const { return mMemory; }
     void setMemory(int v);
     //rank: Submission Rank
-    int getRank() const { return vRank; }
-    void setRank(int v) { vRank = v; }
+    int getRank() const { return mRank; }
+    void setRank(int v) { mRank = v; }
     //sbt: Submission Time (UNIX time stamp)
     int getSubmissionTime() const { return vSubmissionTime; }
     void setSubmissionTime(int v) { vSubmissionTime = v; }
     //name: full username
-    QString getFullName() const { return vFullName; }
-    void setFullName(QString v) { vFullName = v; }
+    QString getFullName() const { return mFullName; }
+    void setFullName(QString v) { mFullName = v; }
     //uname: user name
-    QString getUserName() const { return vUserName; }
-    void setUserName(QString v) { vUserName = v; }
+    QString getUserName() const { return mUserName; }
+    void setUserName(QString v) { mUserName = v; }
 
     //problem number
-    int getProblemNumber() const { return vProblemNumber; }
-    void setProblemNumber(int v) { vProblemNumber = v; }
+    int getProblemNumber() const { return mProblemNumber; }
+    void setProblemNumber(int v) { mProblemNumber = v; }
     //problem title
-    QString getProblemTitle() const { return vProblemTitle; }
-    void setProblemTitle(QString v) { vProblemTitle = v; }
+    QString getProblemTitle() const { return mProblemTitle; }
+    void setProblemTitle(QString v) { mProblemTitle = v; }
 
 private:
     //sid: Submission ID
-    int vSubmissionID;
+    int mSubmissionID;
     //uid: user id
-    int vUserID;
+    int mUserID;
     //pid: Problem ID
-    int vProblemID;
+    int mProblemID;
     //ver: Verdict ID
-    Verdict vVerdict;
+    Verdict mVerdict;
     //lan: Language ID
-    Language vLanguage;
+    Language mLanguage;
     //run : Runtime
-    int vRuntime;
+    int mRuntime;
     //mem: Memory taken
-    int vMemory;
+    int mMemory;
     //rank: Submission Rank
-    int vRank;
+    int mRank;
     //sbt: Submission Time (UNIX time stamp)
     int vSubmissionTime;
     //name: full username
-    QString vFullName;
+    QString mFullName;
     //uname: user name
-    QString vUserName;
+    QString mUserName;
 
     //problem number
-    int vProblemNumber;
+    int mProblemNumber;
     //problem title
-    QString vProblemTitle;
+    QString mProblemTitle;
 };
-
-#endif // SUBMISSIONMESSAGE_H

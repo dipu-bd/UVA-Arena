@@ -3,7 +3,9 @@
 
 #include <QObject>
 
-class CategoryNode : public QObject
+#include "uhuntqt_global.h"
+
+class UHUNTQT_EXPORT CategoryNode : public QObject
 {
     Q_OBJECT
 public:

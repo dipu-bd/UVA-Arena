@@ -3,9 +3,10 @@
 
 #include <QtCore/QJsonArray>
 
+#include "uhuntqt_global.h"
 #include "enums.h"
 
-class ProblemInfo
+class UHUNTQT_EXPORT ProblemInfo
 {
 public:
     ProblemInfo(const QJsonArray& data);
@@ -14,134 +15,134 @@ public:
     void loadData(const QJsonArray& data);
 
     // 0. Problem ID
-    int getProblemID() const { return vProblemID; }
-    void setProblemID(int v) { vProblemID = v; }
+    int getProblemID() const { return mProblemID; }
+    void setProblemID(int v) { mProblemID = v; }
     // 1. Problem Number
-    int getProblemNumber() const { return vProblemNumber; }
-    void setProblemNumber(int v) { vProblemNumber = v; }
+    int getProblemNumber() const { return mProblemNumber; }
+    void setProblemNumber(int v) { mProblemNumber = v; }
     // 2. Problem Title
-    QString getProblemTitle() const { return vProblemTitle; }
-    void setProblemTitle(QString v) { vProblemTitle = v; }
+    QString getProblemTitle() const { return mProblemTitle; }
+    void setProblemTitle(QString v) { mProblemTitle = v; }
     // 3. Number of Distinct Accepted User (DACU)
-    int getDACU() const { return vDACU; }
-    void setDACU(int v) { vDACU = v; }
+    int getDACU() const { return mDACU; }
+    void setDACU(int v) { mDACU = v; }
     // 4. Best Runtime of an Accepted Submission
-    int getBestRuntime() const { return vBestRuntime; }
+    int getBestRuntime() const { return mBestRuntime; }
     void setBestRuntime(int v);
     // 5. Best Memory used of an Accepted Submission
-    int getBestMemory() const { return vBestMemory; }
+    int getBestMemory() const { return mBestMemory; }
     void setBestMemory(int v);
     // 6. Number of No Verdict Given (can be ignored)
-    int getNoVerdictCount() const { return vNoVerdictCount; }
-    void setNoVerdictCount(int v) { vNoVerdictCount = v; }
+    int getNoVerdictCount() const { return mNoVerdictCount; }
+    void setNoVerdictCount(int v) { mNoVerdictCount = v; }
     // 7. Number of Submission Error
-    int getSubmissionErrorCount() const { return vSubmissionErrorCount; }
-    void setSubmissionErrorCount(int v) { vSubmissionErrorCount = v; }
+    int getSubmissionErrorCount() const { return mSubmissionErrorCount; }
+    void setSubmissionErrorCount(int v) { mSubmissionErrorCount = v; }
     // 8. Number of Can't be Judged
-    int getCantBeJudgeCount() const { return vCantBeJudgedCount; }
-    void setCantBeJudgedCount(int v) { vCantBeJudgedCount = v; }
+    int getCantBeJudgeCount() const { return mCantBeJudgedCount; }
+    void setCantBeJudgedCount(int v) { mCantBeJudgedCount = v; }
     // 9. Number of In Queue
-    int getInQueueCount() const { return vInQueueCount; }
-    void setInQueueCount(int v) { vInQueueCount = v; }
+    int getInQueueCount() const { return mInQueueCount; }
+    void setInQueueCount(int v) { mInQueueCount = v; }
     // 10. Number of Compilation Error
-    int getCompileErrorCount() const { return vCompileErrorCount; }
-    void setCompileErrorCount(int v) { vCompileErrorCount = v; }
+    int getCompileErrorCount() const { return mCompileErrorCount; }
+    void setCompileErrorCount(int v) { mCompileErrorCount = v; }
     // 11. Number of Restricted Function
-    int getRestrictedFunctionCount() const { return vRestrictedFunctionCount; }
-    void setRestrictedFunctionCount(int v) { vRestrictedFunctionCount = v; }
+    int getRestrictedFunctionCount() const { return mRestrictedFunctionCount; }
+    void setRestrictedFunctionCount(int v) { mRestrictedFunctionCount = v; }
     // 12. Number of Runtime Error
-    int getRuntimeErrorCount() const { return vRuntimeErrorCount; }
-    void setRuntimeErrorCount(int v) { vRuntimeErrorCount = v; }
+    int getRuntimeErrorCount() const { return mRuntimeErrorCount; }
+    void setRuntimeErrorCount(int v) { mRuntimeErrorCount = v; }
     // 13. Number of Output Limit Exceeded
-    int getOutputLimitExceededCount() const { return vOutputLimitExceededCount; }
-    void setOutputLimitExceededCount(int v) { vOutputLimitExceededCount = v; }
+    int getOutputLimitExceededCount() const { return mOutputLimitExceededCount; }
+    void setOutputLimitExceededCount(int v) { mOutputLimitExceededCount = v; }
     // 14. Number of Time Limit Exceeded
-    int getTimeLimitExceededCount() const { return vTimeLimitExceededCount; }
-    void setTimeLimitExceededCount(int v) { vTimeLimitExceededCount = v; }
+    int getTimeLimitExceededCount() const { return mTimeLimitExceededCount; }
+    void setTimeLimitExceededCount(int v) { mTimeLimitExceededCount = v; }
     // 15. Number of Memory Limit Exceeded
-    int getMemoryLimitExceededCount() const { return vMemoryLimitExceededCount; }
-    void setMemoryLimitExceededCount(int v) { vMemoryLimitExceededCount = v; }
+    int getMemoryLimitExceededCount() const { return mMemoryLimitExceededCount; }
+    void setMemoryLimitExceededCount(int v) { mMemoryLimitExceededCount = v; }
     // 16. Number of Wrong Answer
-    int getWrongAnswerCount() const { return vWrongAnswerCount; }
-    void setWrongAnswerCount(int v) { vWrongAnswerCount = v; }
+    int getWrongAnswerCount() const { return mWrongAnswerCount; }
+    void setWrongAnswerCount(int v) { mWrongAnswerCount = v; }
     // 17. Number of Presentation Error
-    int getPresentationErrorCount() const { return vPresentationErrorCount; }
-    void setPresentationErrorCount(int v) { vPresentationErrorCount = v; }
+    int getPresentationErrorCount() const { return mPresentationErrorCount; }
+    void setPresentationErrorCount(int v) { mPresentationErrorCount = v; }
     // 18. Number of Accepted
-    int getAcceptedCount() const { return vAcceptedCount; }
-    void setAcceptedCount(int v) { vAcceptedCount = v; }
+    int getAcceptedCount() const { return mAcceptedCount; }
+    void setAcceptedCount(int v) { mAcceptedCount = v; }
     // 19. Time Limit (milliseconds)
-    int getRuntimeLimitCount() const { return vRuntimeLimitCount; }
-    void setRuntimeLimitCount(int v) { vRuntimeLimitCount = v; }
+    int getRuntimeLimitCount() const { return mRuntimeLimitCount; }
+    void setRuntimeLimitCount(int v) { mRuntimeLimitCount = v; }
     // 20. Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
-    ProblemStatus getProblemStatus() const { return vProblemStatusCount; }
-    void setProblemStatus(ProblemStatus v) { vProblemStatusCount = v; }
+    ProblemStatus getProblemStatus() const { return mProblemStatusCount; }
+    void setProblemStatus(ProblemStatus v) { mProblemStatusCount = v; }
     void setProblemStatus(int v);
 
     // get volume number of the problem
-    int getVolume() const { return vProblemNumber / 100; }
+    int getVolume() const { return mProblemNumber / 100; }
     // get the total submissions
     int getTotalSubmission() const;
     // True if default user solved this problem
-    bool isSolved() const { return solved; }
-    void setSolved(bool v) { solved = v; }
+    bool isSolved() const { return mSolved; }
+    void setSolved(bool v) { mSolved = v; }
     // get the hardness level of the problem
-    double getLevel() const { return level; }
-    void setLevel(double v) { level = v; }
+    double getLevel() const { return mLevel; }
+    void setLevel(double v) { mLevel = v; }
     // True if problem is marked as favorite
-    bool isMarked() const { return marked; }
-    void setMarked(bool v) { marked = v; }
+    bool isMarked() const { return mMarked; }
+    void setMarked(bool v) { mMarked = v; }
 
 private:
     // 0. Problem ID
-    int vProblemID;
+    int mProblemID;
     // 1. Problem Number
-    int vProblemNumber;
+    int mProblemNumber;
     // 2. Problem Title
-    QString vProblemTitle;
+    QString mProblemTitle;
     // 3. Number of Distinct Accepted User (DACU)
-    int vDACU;
+    int mDACU;
     // 4. Best Runtime of an Accepted Submission
-    int vBestRuntime;
+    int mBestRuntime;
     // 5. Best Memory used of an Accepted Submission
-    int vBestMemory;
+    int mBestMemory;
     // 6. Number of No Verdict Given (can be ignored)
-    int vNoVerdictCount;
+    int mNoVerdictCount;
     // 7. Number of Submission Error
-    int vSubmissionErrorCount;
+    int mSubmissionErrorCount;
     // 8. Number of Can't be Judged
-    int vCantBeJudgedCount;
+    int mCantBeJudgedCount;
     // 9. Number of In Queue
-    int vInQueueCount;
+    int mInQueueCount;
     // 10. Number of Compilation Error
-    int vCompileErrorCount;
+    int mCompileErrorCount;
     // 11. Number of Restricted Function
-    int vRestrictedFunctionCount;
+    int mRestrictedFunctionCount;
     // 12. Number of Runtime Error
-    int vRuntimeErrorCount;
+    int mRuntimeErrorCount;
     // 13. Number of Output Limit Exceeded
-    int vOutputLimitExceededCount;
+    int mOutputLimitExceededCount;
     // 14. Number of Time Limit Exceeded
-    int vTimeLimitExceededCount;
+    int mTimeLimitExceededCount;
     // 15. Number of Memory Limit Exceeded
-    int vMemoryLimitExceededCount;
+    int mMemoryLimitExceededCount;
     // 16. Number of Wrong Answer
-    int vWrongAnswerCount;
+    int mWrongAnswerCount;
     // 17. Number of Presentation Error
-    int vPresentationErrorCount;
+    int mPresentationErrorCount;
     // 18. Number of Accepted
-    int vAcceptedCount;
+    int mAcceptedCount;
     // 19. Time Limit (milliseconds)
-    int vRuntimeLimitCount;
+    int mRuntimeLimitCount;
     // 20. Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
-    ProblemStatus vProblemStatusCount;
+    ProblemStatus mProblemStatusCount;
 
     //set true if this problem is solved by default user
-    bool solved;
+    bool mSolved;
     //set true if this problem is marked as favorite
-    bool marked;
+    bool mMarked;
     //set the level of this problem (value between 1 and 10~14)
-    double level;
+    double mLevel;
 
 };
 

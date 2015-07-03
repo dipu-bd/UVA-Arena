@@ -1,12 +1,23 @@
-#ifndef UHUNTQT_GLOBAL_H
-#define UHUNTQT_GLOBAL_H
+#pragma once
 
 #include <QtCore/qglobal.h>
 
-#if defined(UHUNTQT_LIBRARY)
-#  define UHUNTQTSHARED_EXPORT Q_DECL_EXPORT
-#else
-#  define UHUNTQTSHARED_EXPORT Q_DECL_IMPORT
-#endif
+#ifdef UHUNTQT_STATIC
 
-#endif // UHUNTQT_GLOBAL_H
+    #define UHUNTQT_EXPORT
+
+#else
+
+    #ifdef WIN32
+
+        #ifdef UHUNTQT_SHARED
+            #define UHUNTQT_EXPORT Q_DECL_EXPORT
+        #else
+            #define UHUNTQT_EXPORT Q_DECL_IMPORT
+        #endif
+
+    #else // not windows
+        #define UHUNTQT_EXPORT
+    #endif
+
+#endif

@@ -2,8 +2,9 @@
 #define CONTEXTBOOK_H
 
 #include <QObject>
+#include "uhuntqt_global.h"
 
-class ContextBook : public QObject
+class UHUNTQT_EXPORT ContextBook : public QObject
 {
     Q_OBJECT
 public:

@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include "src_global.h"
 #include <QMainWindow>
@@ -8,7 +7,7 @@ namespace Ui {
 class MainWindow;
 }
 
-class SRCSHARED_EXPORT MainWindow : public QMainWindow
+class UVA_EXPORT MainWindow : public QMainWindow
 {
     Q_OBJECT
 
@@ -19,5 +18,3 @@ public:
 private:
     Ui::MainWindow *ui;
 };
-
-#endif // MAINWINDOW_H

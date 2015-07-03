@@ -1,5 +1,4 @@
-#ifndef PROBLEMSWIDGET_H
-#define PROBLEMSWIDGET_H
+#pragma once
 
 #include "src_global.h"
 #include <QWidget>
@@ -9,7 +8,7 @@ namespace Ui {
 class ProblemsWidget;
 }
 
-class SRCSHARED_EXPORT ProblemsWidget : public QWidget
+class UVA_EXPORT ProblemsWidget : public QWidget
 {
     Q_OBJECT
 
@@ -21,5 +20,3 @@ private:
     Ui::ProblemsWidget *ui;
 	MuPDF::Document* pdfDocument;
 };
-
-#endif // PROBLEMSWIDGET_H

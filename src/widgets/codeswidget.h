@@ -1,5 +1,4 @@
-#ifndef CODESWIDGET_H
-#define CODESWIDGET_H
+#pragma once
 
 #include "src_global.h"
 #include <QWidget>
@@ -8,7 +7,7 @@ namespace Ui {
 class CodesWidget;
 }
 
-class SRCSHARED_EXPORT CodesWidget : public QWidget
+class UVA_EXPORT CodesWidget : public QWidget
 {
     Q_OBJECT
 
@@ -19,5 +18,3 @@ public:
 private:
     Ui::CodesWidget *ui;
 };
-
-#endif // CODESWIDGET_H

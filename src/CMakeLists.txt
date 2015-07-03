@@ -35,9 +35,10 @@ qt5_wrap_ui(UI_FILES
 
 option(${TARGET}_LIBRARY "Build ${TARGET} as a shared library." ON)
 if(${TARGET}_LIBRARY)
-    add_definitions(-DSRC_LIBRARY)
+    add_definitions(-DUVA_SHARED)
     add_library(${TARGET} SHARED ${HEADERS} ${SOURCES} ${UI_FILES} ${UVA_RESOURCES})
 else()
+    add_definitions(-DUVA_STATIC)
     add_library(${TARGET} STATIC ${HEADERS} ${SOURCES} ${UI_FILES} ${UVA_RESOURCES})
 endif()
 

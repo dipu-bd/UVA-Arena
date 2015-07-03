@@ -1,5 +1,4 @@
-#ifndef ARENATABLEMODEL_H
-#define ARENATABLEMODEL_H
+#pragma once
 
 #include "src_global.h"
 #include <QAbstractTableModel>
@@ -8,7 +7,7 @@
 #include <QList>
 #include <QVariant>
 
-class SRCSHARED_EXPORT ArenaTableModel : public QAbstractTableModel
+class UVA_EXPORT ArenaTableModel : public QAbstractTableModel
 {
 public:
     typedef QMap<QVariant, QList<QVariant> > ModelMap;
@@ -29,5 +28,3 @@ private:
     ModelMap mData;
     QStringList mColumnNames;
 };
-
-#endif // ARENATABLEMODEL_H

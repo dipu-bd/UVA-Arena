@@ -1,10 +1,9 @@
-#ifndef UHUNTQT_H
-#define UHUNTQT_H
+#pragma once
 
 #include "probleminfo.h"
 #include "uhuntqt_global.h"
 
-class UHUNTQTSHARED_EXPORT Uhuntqt
+class UHUNTQT_EXPORT Uhuntqt
 {
 
 public:
@@ -19,5 +18,3 @@ public:
     static QList<ProblemInfo> Uhuntqt::getProblemList(const char* data, int size);
 
 };
-
-#endif // UHUNTQT_H

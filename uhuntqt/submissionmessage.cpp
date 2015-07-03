@@ -41,19 +41,19 @@ void SubmissionMessage::setVerdict(int v)
 {
     switch(v)
     {
-    case 10: vVerdict = Verdict::SubError; break;
-    case 15: vVerdict = Verdict::CannotBeJudge; break;
-    case 20: vVerdict = Verdict::InQueue; break;
-    case 30: vVerdict = Verdict::CompileError; break;
-    case 35: vVerdict = Verdict::RestrictedFunction; break;
-    case 40: vVerdict = Verdict::RuntimeError; break;
-    case 45: vVerdict = Verdict::OutputLimit; break;
-    case 50: vVerdict = Verdict::TimLimit; break;
-    case 60: vVerdict = Verdict::MemoryLimit; break;
-    case 70: vVerdict = Verdict::WrongAnswer; break;
-    case 80: vVerdict = Verdict::PresentationError; break;
-    case 90: vVerdict = Verdict::Accepted; break;
-    default: vVerdict = Verdict::InQueue; break;
+    case 10: mVerdict = Verdict::SubError; break;
+    case 15: mVerdict = Verdict::CannotBeJudge; break;
+    case 20: mVerdict = Verdict::InQueue; break;
+    case 30: mVerdict = Verdict::CompileError; break;
+    case 35: mVerdict = Verdict::RestrictedFunction; break;
+    case 40: mVerdict = Verdict::RuntimeError; break;
+    case 45: mVerdict = Verdict::OutputLimit; break;
+    case 50: mVerdict = Verdict::TimLimit; break;
+    case 60: mVerdict = Verdict::MemoryLimit; break;
+    case 70: mVerdict = Verdict::WrongAnswer; break;
+    case 80: mVerdict = Verdict::PresentationError; break;
+    case 90: mVerdict = Verdict::Accepted; break;
+    default: mVerdict = Verdict::InQueue; break;
     }
 }
 
@@ -61,12 +61,12 @@ void SubmissionMessage::setLanguage(int v)
 {
     switch(v)
     {
-    case 1: vLanguage = Language::C; break;
-    case 2: vLanguage = Language::Java; break;
-    case 3: vLanguage = Language::CPP; break;
-    case 4: vLanguage = Language::Pascal; break;
-    case 5: vLanguage = Language::CPP11; break;
-    default: vLanguage = Language::Other; break;
+    case 1: mLanguage = Language::C; break;
+    case 2: mLanguage = Language::Java; break;
+    case 3: mLanguage = Language::CPP; break;
+    case 4: mLanguage = Language::Pascal; break;
+    case 5: mLanguage = Language::CPP11; break;
+    default: mLanguage = Language::Other; break;
     }
 }
 
@@ -74,12 +74,12 @@ void SubmissionMessage::setLanguage(int v)
 void SubmissionMessage::setRuntime(int v)
 {
     if(v < 0 || v >= 1000000000) v = 0;
-    vRuntime = v;
+    mRuntime = v;
 }
 
 void SubmissionMessage::setMemory(int v)
 {
     if(v < 0 || v >= 1000000000) v = 0;
-    vMemory = v;
+    mMemory = v;
 }
 

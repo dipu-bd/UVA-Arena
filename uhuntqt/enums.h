@@ -1,5 +1,4 @@
-#ifndef ENUMS
-#define ENUMS
+#pragma once
 
 enum ProblemStatus
 {
@@ -33,5 +32,3 @@ enum Verdict
     PresentationError = 80,
     Accepted = 90
 };
-
-#endif // ENUMS

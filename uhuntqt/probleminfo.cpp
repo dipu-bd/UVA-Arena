@@ -50,34 +50,34 @@ void ProblemInfo::loadData(const QJsonArray& data)
     // 20. Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
     setProblemStatus(data[20].toInt());
 
-    marked = false;
-    solved = false;
+    mMarked = false;
+    mSolved = false;
 }
 
 void ProblemInfo::setBestRuntime(int v)
 {
     if (v < 0 || v >= 1000000000) v = 0;
-    vBestRuntime = v;
+    mBestRuntime = v;
 }
 
 void ProblemInfo::setBestMemory(int v)
 {
     if (v < 0 || v >= 1000000000) v = 0;
-    vBestMemory = v;
+    mBestMemory = v;
 }
 
 void ProblemInfo::setProblemStatus(int v)
 {
     switch (v)
     {
-    case 0: vProblemStatusCount = ProblemStatus::Unavaible; break;
-    case 1:vProblemStatusCount = ProblemStatus::Normal; break;
-    case 2: vProblemStatusCount = ProblemStatus::Special_Judge;break;
-    default: vProblemStatusCount = ProblemStatus::Normal;break;
+    case 0: mProblemStatusCount = ProblemStatus::Unavaible; break;
+    case 1: mProblemStatusCount = ProblemStatus::Normal; break;
+    case 2: mProblemStatusCount = ProblemStatus::Special_Judge;break;
+    default: mProblemStatusCount = ProblemStatus::Normal;break;
     }
 }
 
 int ProblemInfo::getTotalSubmission() const
 {
-    return vAcceptedCount + vWrongAnswerCount + vCantBeJudgedCount + vCompileErrorCount + vMemoryLimitExceededCount + vTimeLimitExceededCount + vOutputLimitExceededCount + vNoVerdictCount + vPresentationErrorCount + vRuntimeErrorCount + vRestrictedFunctionCount + vSubmissionErrorCount;
+    return mAcceptedCount + mWrongAnswerCount + mCantBeJudgedCount + mCompileErrorCount + mMemoryLimitExceededCount + mTimeLimitExceededCount + mOutputLimitExceededCount + mNoVerdictCount + mPresentationErrorCount + mRuntimeErrorCount + mRestrictedFunctionCount + mSubmissionErrorCount;
 }

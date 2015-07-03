@@ -1,13 +1,13 @@
-#ifndef USERRANKLIST_H
-#define USERRANKLIST_H
+#pragma once
 
 #include <QtCore/QString>
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
 
+#include "uhuntqt_global.h"
 #include "enums.h"
 
-class UserRanklist
+class UHUNTQT_EXPORT UserRanklist
 {
 public:
     UserRanklist();
@@ -17,17 +17,17 @@ public:
     void loadData(const QJsonObject& data);
 
     //rank : The rank of the user
-    int getRank() { return vRank; }
-    void setRank(int v) { vRank = v; }
+    int getRank() { return mRank; }
+    void setRank(int v) { mRank = v; }
     //old : Non zero if the user is an old UVa user that hasn't migrate
     bool isOld() { return vOld; }
     void setOld(bool v) { vOld = v; }
     //name : The name of the user
-    QString getFullName() { return vFullName; }
-    void setFullName(QString v) { vFullName = v; }
+    QString getFullName() { return mFullName; }
+    void setFullName(QString v) { mFullName = v; }
     //username : The username of the user
-    QString getUserName() { return vUserName; }
-    void setUserName(QString v) { vUserName = v; }
+    QString getUserName() { return mUserName; }
+    void setUserName(QString v) { mUserName = v; }
     //ac : The number of accepted problems
     int getAcceptedCount() { return vAccepted; }
     void setAcceptedCount(int v) { vAccepted = v; }
@@ -55,13 +55,13 @@ public:
 
 private:
     //rank : The rank of the user
-    int vRank;
+    int mRank;
     //old : Non zero if the user is an old UVa user that hasn't migrate
     bool vOld;
     //name : The name of the user
-    QString vFullName;
+    QString mFullName;
     //username : The username of the user
-    QString vUserName;
+    QString mUserName;
     //ac : The number of accepted problems
     int vAccepted;
     //nos : The number of submissions of the user
@@ -79,5 +79,3 @@ private:
     //past 1 years activity
     int v1year;
 };
-
-#endif // USERRANKLIST_H

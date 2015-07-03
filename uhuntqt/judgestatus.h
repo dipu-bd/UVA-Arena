@@ -1,9 +1,8 @@
-#ifndef JUDGESTATUS_H
-#define JUDGESTATUS_H
+#pragma once
 
 #include "submissionmessage.h"
 
-class JudgeStatus : SubmissionMessage
+class UHUNTQT_EXPORT JudgeStatus : public SubmissionMessage
 {
 public:
     JudgeStatus();
@@ -12,18 +11,14 @@ public:
     void loadData(const QJsonObject& data);
 
     //id: Submission ID
-    qint64 getId() const { return vID; }
-    void setId(qint64 v) { vID = v; }
+    qint64 getId() const { return mID; }
+    void setId(qint64 v) { mID = v; }
     //type: type of the submission
-    QString getType() const { return vType; }
-    void setType(QString v) { vType = v; }
+    QString getType() const { return mType; }
+    void setType(QString v) { mType = v; }
 private:
     //id: Global submission id
-    qint64 vID;
+    qint64 mID;
     //type: type of submission
-    QString vType;
+    QString mType;
 };
-
-#endif // JUDGESTATUS_H
-
-

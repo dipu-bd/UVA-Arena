@@ -35,9 +35,10 @@ set(SOURCES
 
 option(${TARGET}_SHARED "Build ${TARGET} as a shared library." ON)
 if(${TARGET}_SHARED)
-    add_definitions(-DUHUNTQT_LIBRARY)
+    add_definitions(-DUHUNTQT_SHARED)
     add_library(${TARGET} SHARED ${HEADERS} ${SOURCES})
 else()
+    add_definitions(-DUHUNTQT_STATIC)
     add_library(${TARGET} STATIC ${HEADERS} ${SOURCES})
 endif()
 

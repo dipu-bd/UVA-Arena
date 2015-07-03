@@ -1,5 +1,4 @@
-#ifndef JUDGESTATUSWIDGET_H
-#define JUDGESTATUSWIDGET_H
+#pragma once
 
 #include "src_global.h"
 #include <QWidget>
@@ -8,7 +7,7 @@ namespace Ui {
 class JudgeStatusWidget;
 }
 
-class SRCSHARED_EXPORT JudgeStatusWidget : public QWidget
+class UVA_EXPORT JudgeStatusWidget : public QWidget
 {
     Q_OBJECT
 
@@ -19,5 +18,3 @@ public:
 private:
     Ui::JudgeStatusWidget *ui;
 };
-
-#endif // JUDGESTATUSWIDGET_H

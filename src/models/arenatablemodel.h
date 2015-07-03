@@ -14,14 +14,12 @@ public:
     typedef QMap<QVariant, QList<QVariant> > ModelMap;
     ArenaTableModel();
 
-    void SetColumnNames(QStringList columnNames);
+	virtual bool insertRow(QVariant key, QList<QVariant> data);
+	virtual bool removeRow(QVariant key);
+	virtual bool insertColumns(QStringList columnNames);
 
-    void AddData(QList<QVariant> data);
-    void RemoveData(QVariant key);
-
-    int columnCount(const QModelIndex & parent = QModelIndex()) const override;
-    int rowCount(const QModelIndex &parent) const override;
-
+    virtual int columnCount(const QModelIndex & parent = QModelIndex()) const override;
+    virtual int rowCount(const QModelIndex &parent) const override;
 
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
     QVariant data(const QModelIndex &index, int role) const override;
@@ -29,11 +27,7 @@ public:
 private:
 
     ModelMap mData;
-
     QStringList mColumnNames;
-    int mNumRows;
-    int mNumCols;
-
 };
 
 #endif // ARENATABLEMODEL_H

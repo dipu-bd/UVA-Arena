@@ -2,7 +2,7 @@
 
 #include "submissionmessage.h"
 
-namespace uhunqt
+namespace uhuntqt
 {
 
     class UHUNTQT_EXPORT JudgeStatus : public SubmissionMessage

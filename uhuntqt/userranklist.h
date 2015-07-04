@@ -7,7 +7,7 @@
 #include "uhuntqt_global.h"
 #include "enums.h"
 
-namespace uhunqt
+namespace uhuntqt
 {
 
     class UHUNTQT_EXPORT UserRanklist

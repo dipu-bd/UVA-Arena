@@ -1,6 +1,6 @@
 #include "submissionmessage.h"
 
-using namespace uhunqt;
+using namespace uhuntqt;
 
 SubmissionMessage::SubmissionMessage()
 {

@@ -1,6 +1,6 @@
 #include "judgestatus.h"
 
-using namespace uhunqt;
+using namespace uhuntqt;
 
 JudgeStatus::JudgeStatus()
 {

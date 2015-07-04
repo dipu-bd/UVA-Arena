@@ -1,6 +1,6 @@
 #include "userinfo.h"
 
-using namespace uhunqt;
+using namespace uhuntqt;
 
 UserInfo::UserInfo()
 {

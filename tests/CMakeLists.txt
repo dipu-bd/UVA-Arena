@@ -5,6 +5,7 @@ set(CMAKE_AUTOMOC ON)
 
 set(TESTS
 	modelstest
+    uhuntqttest
 )
 
 foreach(TEST ${TESTS})

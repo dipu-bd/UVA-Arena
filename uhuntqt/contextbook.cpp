@@ -1,6 +1,6 @@
 #include "contextbook.h"
 
-using namespace uhunqt;
+using namespace uhuntqt;
 
 ContextBook::ContextBook(QObject *parent) : QObject(parent)
 {

@@ -5,12 +5,16 @@
 #include "uhuntqt_global.h"
 #include "enums.h"
 
-namespace uhunqt
+namespace uhuntqt
 {
     class UHUNTQT_EXPORT ProblemInfo
     {
     public:
+        ProblemInfo(const QByteArray& data);
         ProblemInfo(const QJsonArray& data);
+
+        // load from javascript array
+        void loadData(const QByteArray& data);
 
         // Load data from a json array
         void loadData(const QJsonArray& data);

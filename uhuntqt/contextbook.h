@@ -3,7 +3,7 @@
 #include <QObject>
 #include "uhuntqt_global.h"
 
-namespace uhunqt
+namespace uhuntqt
 {
 
     class UHUNTQT_EXPORT ContextBook : public QObject

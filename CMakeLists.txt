@@ -61,7 +61,7 @@ set_target_properties(qscintilla PROPERTIES FOLDER "Submodules/qscintilla")
 
 add_subdirectory(uhuntqt/)
 set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} uhuntqt)
-include_directories(uhunqt/)
+include_directories(uhuntqt/)
 
 add_subdirectory(src/)
 set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} UVA-Arena-lib)

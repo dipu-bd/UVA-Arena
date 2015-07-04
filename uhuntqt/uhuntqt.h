@@ -1,10 +1,11 @@
 #pragma once
 
+#include <memory>
 #include "probleminfo.h"
 #include "uhuntqt_global.h"
 #include <QNetworkAccessManager>
 
-namespace uhunqt
+namespace uhuntqt
 {
 
     class UHUNTQT_EXPORT Uhuntqt : public QObject
@@ -12,8 +13,16 @@ namespace uhunqt
         Q_OBJECT
     public:
 
+        Uhuntqt(std::shared_ptr<QNetworkAccessManager> manager);
 
-        Uhuntqt(QNetworkAccessManager* manager);
+        /**
+            \brief getProblemList Get the list of problem info.
+
+            \param data Downloaded javascript array data
+            \return List of problem info objects.
+        */
+        QList<ProblemInfo> problemListFromData(const QByteArray& data);
+
 
     signals:
 
@@ -29,15 +38,6 @@ namespace uhunqt
 
     private:
 
-        /**
-            \brief getProblemList Get the list of problem info.
-
-            \param data Downloaded JSON data.
-            \param size Size of the JSON data.
-            \return List of problem info objects.
-        */
-        QList<ProblemInfo> problemListFromData(QByteArray data);
-
-        QNetworkAccessManager* mNetworkManager;
+        std::shared_ptr<QNetworkAccessManager> mNetworkManager;
     };
 }

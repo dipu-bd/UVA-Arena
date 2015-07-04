@@ -1,10 +1,68 @@
 #include "probleminfo.h"
+#include <QList>
 
-using namespace uhunqt;
+using namespace uhuntqt;
+
+ProblemInfo::ProblemInfo(const QByteArray& data)
+{
+    loadData(data);
+}
 
 ProblemInfo::ProblemInfo(const QJsonArray& data)
 {
     loadData(data);
+}
+
+void ProblemInfo::loadData(const QByteArray& data)
+{
+    // comma delimited values
+    QList<QByteArray> values = data.split(',');
+
+    // 0. Problem ID
+    setProblemID(values[0].toInt());
+    // 1. Problem Number
+    setProblemNumber(values[1].toInt());
+    // 2. Problem Title
+    setProblemTitle(values[2]);
+    // 3. Number of Distinct Accepted User (DACU)
+    setDACU(values[3].toInt());
+    // 4. Best Runtime of an Accepted Submission
+    setBestRuntime(values[4].toInt());
+    // 5. Best Memory used of an Accepted Submission
+    setBestMemory(values[5].toInt());
+    // 6. Number of No Verdict Given (can be ignored)
+    setNoVerdictCount(values[6].toInt());
+    // 7. Number of Submission Error
+    setSubmissionErrorCount(values[7].toInt());
+    // 8. Number of Can't be Judged
+    setCantBeJudgedCount(values[8].toInt());
+    // 9. Number of In Queue
+    setInQueueCount(values[9].toInt());
+    // 10. Number of Compilation Error
+    setCompileErrorCount(values[10].toInt());
+    // 11. Number of Restricted Function
+    setRestrictedFunctionCount(values[11].toInt());
+    // 12. Number of Runtime Error
+    setRuntimeErrorCount(values[12].toInt());
+    // 13. Number of Output Limit Exceeded
+    setOutputLimitExceededCount(values[13].toInt());
+    // 14. Number of Time Limit Exceeded
+    setTimeLimitExceededCount(values[14].toInt());
+    // 15. Number of Memory Limit Exceeded
+    setMemoryLimitExceededCount(values[15].toInt());
+    // 16. Number of Wrong Answer
+    setWrongAnswerCount(values[16].toInt());
+    // 17. Number of Presentation Error
+    setPresentationErrorCount(values[17].toInt());
+    // 18. Number of Accepted
+    setAcceptedCount(values[18].toInt());
+    // 19. Time Limit (milliseconds)
+    setRuntimeLimitCount(values[19].toInt());
+    // 20. Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
+    setProblemStatus(values[20].toInt());
+
+    mMarked = false;
+    mSolved = false;
 }
 
 void ProblemInfo::loadData(const QJsonArray& data)

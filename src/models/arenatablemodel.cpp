@@ -1,8 +1,8 @@
 #include "arenatablemodel.h"
 
 ArenaTableModel::ArenaTableModel()
+    : mModelStyle(nullptr)
 {
-
 }
 
 bool ArenaTableModel::insertRow(QVariant key, QList<QVariant> data)
@@ -19,9 +19,7 @@ bool ArenaTableModel::removeRow(QVariant key)
 	ModelMap::const_iterator it = mData.find(key);
 
 	if (it == mData.end())
-	{
 		return false;
-	}
 	
 	int index = mData.values().indexOf(*it);
 	beginRemoveRows(QModelIndex(), index, index);
@@ -72,20 +70,25 @@ QVariant ArenaTableModel::data(const QModelIndex &index, int role) const
     if (index.row() >= mData.count())
         return QVariant();
 
-	if (index.column() >= mColumnNames.count())
-		return QVariant();
-
-    if(role != Qt::DisplayRole)
+    if (index.column() >= mColumnNames.count())
         return QVariant();
 
+    if (role != Qt::DisplayRole)
+    {
+        if (mModelStyle)
+            return mModelStyle->Style(index, role);
+        else
+            return QVariant();
+    }
 	QVariant key = mData.keys().at(index.row());
 
 	if (index.column() == 0)
-	{
 		return key;
-	}
 	else
-	{
 		return mData[key].at(index.column());
-	}
+}
+
+void ArenaTableModel::SetModelStyle(std::shared_ptr<ModelStyle> style)
+{
+    mModelStyle = style;
 }

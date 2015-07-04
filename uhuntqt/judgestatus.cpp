@@ -1,5 +1,7 @@
 #include "judgestatus.h"
 
+using namespace uhunqt;
+
 JudgeStatus::JudgeStatus()
 {
 

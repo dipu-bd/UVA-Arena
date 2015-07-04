@@ -1,5 +1,7 @@
 #include "usersubmission.h"
 
+using namespace uhunqt;
+
 UserSubmission::UserSubmission()
 {
 

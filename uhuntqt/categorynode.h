@@ -1,19 +1,20 @@
-#ifndef CATEGORYNODE_H
-#define CATEGORYNODE_H
+#pragma once
 
 #include <QObject>
-
 #include "uhuntqt_global.h"
 
-class UHUNTQT_EXPORT CategoryNode : public QObject
+namespace uhunqt
 {
-    Q_OBJECT
-public:
-    explicit CategoryNode(QObject *parent = 0);
 
-signals:
+    class UHUNTQT_EXPORT CategoryNode : public QObject
+    {
+        Q_OBJECT
+    public:
+        explicit CategoryNode(QObject *parent = 0);
 
-public slots:
-};
+    signals:
 
-#endif // CATEGORYNODE_H
+        public slots :
+    };
+
+}

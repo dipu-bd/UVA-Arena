@@ -1,5 +1,7 @@
 #include "probleminfo.h"
 
+using namespace uhunqt;
+
 ProblemInfo::ProblemInfo(const QJsonArray& data)
 {
     loadData(data);

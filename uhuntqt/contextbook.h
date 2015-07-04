@@ -1,18 +1,20 @@
-#ifndef CONTEXTBOOK_H
-#define CONTEXTBOOK_H
+#pragma once
 
 #include <QObject>
 #include "uhuntqt_global.h"
 
-class UHUNTQT_EXPORT ContextBook : public QObject
+namespace uhunqt
 {
-    Q_OBJECT
-public:
-    explicit ContextBook(QObject *parent = 0);
 
-signals:
+    class UHUNTQT_EXPORT ContextBook : public QObject
+    {
+        Q_OBJECT
+    public:
+        explicit ContextBook(QObject *parent = 0);
 
-public slots:
-};
+    signals:
 
-#endif // CONTEXTBOOK_H
+        public slots :
+    };
+
+}

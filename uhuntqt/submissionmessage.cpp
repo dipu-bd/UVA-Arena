@@ -1,5 +1,7 @@
 #include "submissionmessage.h"
 
+using namespace uhunqt;
+
 SubmissionMessage::SubmissionMessage()
 {
 

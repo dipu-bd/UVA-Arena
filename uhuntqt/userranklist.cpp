@@ -1,5 +1,7 @@
 #include "userranklist.h"
 
+using namespace uhunqt;
+
 UserRanklist::UserRanklist()
 {
 

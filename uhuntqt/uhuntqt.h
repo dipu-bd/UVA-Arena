@@ -15,15 +15,17 @@ namespace uhunqt
 
         Uhuntqt(QNetworkAccessManager* manager);
 
-        /**
-            \brief Gets the UVA problem list. Emits problemListDownloaded()
-                when finished.
-        */
-        void getProblemList();
-
     signals:
 
         void problemListDownloaded(QList<ProblemInfo>);
+
+    public slots:
+
+        /**
+        \brief Gets the UVA problem list. Emits problemListDownloaded()
+        when finished.
+        */
+        void getProblemList();
 
     private:
 

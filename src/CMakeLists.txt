@@ -10,6 +10,7 @@ set(HEADERS
     mainwindow.h
     src_global.h
     models/arenatablemodel.h
+    models/modelstyle.h
     widgets/codeswidget.h
     widgets/judgestatuswidget.h
     widgets/problemswidget.h
@@ -19,6 +20,7 @@ set(HEADERS
 set(SOURCES
     mainwindow.cpp
     models/arenatablemodel.cpp
+    models/modelstyle.cpp
     widgets/codeswidget.cpp
     widgets/judgestatuswidget.cpp
     widgets/problemswidget.cpp

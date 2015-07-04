@@ -11,9 +11,9 @@
     #ifdef WIN32
     
         #ifdef UVA_SHARED
-        #define UVA_EXPORT Q_DECL_EXPORT
+            #define UVA_EXPORT Q_DECL_EXPORT
         #else
-        #define UVA_EXPORT Q_DECL_IMPORT
+            #define UVA_EXPORT Q_DECL_IMPORT
         #endif
 
     #else // not windows

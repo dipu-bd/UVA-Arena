@@ -1,6 +1,6 @@
 #include "userinfo.h"
 
-using namespace uhuntqt;
+using namespace uva;
 
 UserInfo::UserInfo()
 {

@@ -1,12 +1,12 @@
 #pragma once
 
 #include <QObject>
-#include "uhuntqt_global.h"
+#include "uvalib_global.h"
 
-namespace uhuntqt
+namespace uva
 {
 
-    class UHUNTQT_EXPORT ContextBook : public QObject
+    class UVA_EXPORT ContextBook : public QObject
     {
         Q_OBJECT
     public:

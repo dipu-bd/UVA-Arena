@@ -2,10 +2,10 @@
 
 #include "submissionmessage.h"
 
-namespace uhuntqt
+namespace uva
 {
 
-    class UHUNTQT_EXPORT JudgeStatus : public SubmissionMessage
+    class UVA_EXPORT JudgeStatus : public SubmissionMessage
     {
     public:
         JudgeStatus();

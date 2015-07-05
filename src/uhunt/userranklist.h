@@ -4,13 +4,13 @@
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
 
-#include "uhuntqt_global.h"
+#include "uvalib_global.h"
 #include "enums.h"
 
-namespace uhuntqt
+namespace uva
 {
 
-    class UHUNTQT_EXPORT UserRanklist
+    class UVA_EXPORT UserRanklist
     {
     public:
         UserRanklist();

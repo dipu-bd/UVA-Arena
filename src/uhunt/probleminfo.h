@@ -1,13 +1,13 @@
 #pragma once
 
-#include <QtCore/QJsonArray>
+#include <QJsonArray>
 
-#include "uhuntqt_global.h"
+#include "uvalib_global.h"
 #include "enums.h"
 
-namespace uhuntqt
+namespace uva
 {
-    class UHUNTQT_EXPORT ProblemInfo
+    class UVA_EXPORT ProblemInfo
     {
     public:
         ProblemInfo(const QByteArray& data);

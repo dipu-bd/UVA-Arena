@@ -8,7 +8,7 @@
 
 #include "uhuntqt.h"
 
-using namespace uhuntqt;
+using namespace uva;
 
 const QString API_BASE = "http://uhunt.felix-halim.net/api";
 

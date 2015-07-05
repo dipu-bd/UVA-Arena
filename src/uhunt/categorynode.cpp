@@ -1,6 +1,6 @@
 #include "categorynode.h"
 
-using namespace uhuntqt;
+using namespace uva;
 
 CategoryNode::CategoryNode(QObject *parent) : QObject(parent)
 {

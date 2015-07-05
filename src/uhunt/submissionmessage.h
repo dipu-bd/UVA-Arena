@@ -1,15 +1,15 @@
 #pragma once
 
-#include <QtCore/QString>
-#include <QtCore/QJsonObject>
+#include <QString>
+#include <QJsonObject>
 
-#include "uhuntqt_global.h"
+#include "uvalib_global.h"
 #include "enums.h"
 
-namespace uhuntqt
+namespace uva
 {
 
-    class UHUNTQT_EXPORT SubmissionMessage
+    class UVA_EXPORT SubmissionMessage
     {
     public:
         SubmissionMessage();

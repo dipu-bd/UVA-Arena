@@ -9,7 +9,7 @@ set(CMAKE_AUTORCC ON)
 set(HEADERS
     uvaarenaobject.h
     mainwindow.h
-    src_global.h
+    uvalib_global.h
     models/arenatablemodel.h
     models/modelstyle.h
     widgets/codeswidget.h

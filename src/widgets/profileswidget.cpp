@@ -4,7 +4,7 @@
 using namespace uva;
 
 ProfilesWidget::ProfilesWidget(QWidget *parent) :
-    QWidget(parent),
+    UVAArenaWidget(parent),
     ui(new Ui::ProfilesWidget)
 {
     ui->setupUi(this);

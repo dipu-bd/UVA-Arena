@@ -5,7 +5,7 @@
 using namespace uva;
 
 CodesWidget::CodesWidget(QWidget *parent) :
-    QWidget(parent),
+    UVAArenaWidget(parent),
     ui(new Ui::CodesWidget)
 {
     ui->setupUi(this);

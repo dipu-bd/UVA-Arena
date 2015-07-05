@@ -1,6 +1,7 @@
 #pragma once
 
 #include "uvalib_global.h"
+#include "uvaarenawidget.h"
 #include <QWidget>
 
 namespace uva
@@ -10,7 +11,7 @@ namespace uva
         class CodesWidget;
     }
 
-    class UVA_EXPORT CodesWidget : public QWidget
+    class UVA_EXPORT CodesWidget : public UVAArenaWidget
     {
         Q_OBJECT
 

@@ -3,18 +3,22 @@
 #include "src_global.h"
 #include <QWidget>
 
-namespace Ui {
-class ProfilesWidget;
-}
-
-class UVA_EXPORT ProfilesWidget : public QWidget
+namespace uva
 {
-    Q_OBJECT
+    namespace Ui {
+        class ProfilesWidget;
+    }
 
-public:
-    explicit ProfilesWidget(QWidget *parent = 0);
-    ~ProfilesWidget();
+    class UVA_EXPORT ProfilesWidget : public QWidget
+    {
+        Q_OBJECT
 
-private:
-    Ui::ProfilesWidget *ui;
-};
+    public:
+        explicit ProfilesWidget(QWidget *parent = 0);
+        ~ProfilesWidget();
+
+    private:
+        Ui::ProfilesWidget *ui;
+    };
+
+}

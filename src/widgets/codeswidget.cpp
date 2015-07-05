@@ -2,6 +2,8 @@
 #include "ui_codeswidget.h"
 #include <Qsci/qscilexercpp.h>
 
+using namespace uva;
+
 CodesWidget::CodesWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CodesWidget)

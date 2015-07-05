@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>uva::MainWindow</class>
+ <widget class="QMainWindow" name="uva::MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -52,7 +52,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="ProblemsWidget" name="widget" native="true"/>
+         <widget class="uva::ProblemsWidget" name="widget" native="true"/>
         </item>
        </layout>
       </widget>
@@ -66,7 +66,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="CodesWidget" name="widget_2" native="true"/>
+         <widget class="uva::CodesWidget" name="widget_2" native="true"/>
         </item>
        </layout>
       </widget>
@@ -80,7 +80,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="JudgeStatusWidget" name="widget_3" native="true"/>
+         <widget class="uva::JudgeStatusWidget" name="widget_3" native="true"/>
         </item>
        </layout>
       </widget>
@@ -94,7 +94,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="ProfilesWidget" name="widget_4" native="true"/>
+         <widget class="uva::ProfilesWidget" name="widget_4" native="true"/>
         </item>
        </layout>
       </widget>
@@ -136,25 +136,25 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>ProblemsWidget</class>
+   <class>uva::ProblemsWidget</class>
    <extends>QWidget</extends>
    <header>widgets/problemswidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>CodesWidget</class>
+   <class>uva::CodesWidget</class>
    <extends>QWidget</extends>
    <header>widgets/codeswidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>JudgeStatusWidget</class>
+   <class>uva::JudgeStatusWidget</class>
    <extends>QWidget</extends>
    <header>widgets/judgestatuswidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>ProfilesWidget</class>
+   <class>uva::ProfilesWidget</class>
    <extends>QWidget</extends>
    <header>widgets/profileswidget.h</header>
    <container>1</container>

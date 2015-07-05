@@ -1,5 +1,7 @@
 #include "arenatablemodel.h"
 
+using namespace uva;
+
 ArenaTableModel::ArenaTableModel()
     : mModelStyle(nullptr)
 {

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "uvalib_global.h"
 #include <QObject>
 
 namespace uva
@@ -10,13 +11,17 @@ namespace uva
 			   communication between widgets through signals and slots, and by providing
 			   methods to access common functionality.
 	*/
-	class UVAArenaObject : public QObject
+	class UVA_EXPORT UVAArenaObject : public QObject
 	{
-		Q_OBJECT
+        Q_OBJECT
+	public:
+        UVAArenaObject();
 
-		public:
+    signals:
 
-		private:
+    public slots:
+
+	private:
 
 	};
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "src_global.h"
+#include "uvalib_global.h"
 #include <QWidget>
 #include <mupdf-qt.h>
 

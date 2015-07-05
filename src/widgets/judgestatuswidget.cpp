@@ -4,7 +4,7 @@
 using namespace uva;
 
 JudgeStatusWidget::JudgeStatusWidget(QWidget *parent) :
-    QWidget(parent),
+    UVAArenaWidget(parent),
     ui(new Ui::JudgeStatusWidget)
 {
     ui->setupUi(this);

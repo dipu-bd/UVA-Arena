@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(HEADERS
-    uvaarenaobject.h
+    uvaarenawidget.h
     mainwindow.h
     uvalib_global.h
     models/arenatablemodel.h
@@ -19,7 +19,7 @@ set(HEADERS
 )
 
 set(SOURCES
-    uvaarenaobject.cpp
+    uvaarenawidget.cpp
     mainwindow.cpp
     models/arenatablemodel.cpp
     models/modelstyle.cpp

@@ -4,7 +4,7 @@
 using namespace uva;
 
 ProblemsWidget::ProblemsWidget(QWidget *parent) :
-    QWidget(parent),
+    UVAArenaWidget(parent),
     ui(new Ui::ProblemsWidget)
 {
     ui->setupUi(this);

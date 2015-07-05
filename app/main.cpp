@@ -3,6 +3,8 @@
 #include <QFile>
 #include <QTextStream>
 
+using namespace uva;
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

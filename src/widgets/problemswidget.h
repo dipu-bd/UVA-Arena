@@ -4,19 +4,24 @@
 #include <QWidget>
 #include <mupdf-qt.h>
 
-namespace Ui {
-class ProblemsWidget;
-}
-
-class UVA_EXPORT ProblemsWidget : public QWidget
+namespace uva
 {
-    Q_OBJECT
 
-public:
-    explicit ProblemsWidget(QWidget *parent = 0);
-    ~ProblemsWidget();
+    namespace Ui {
+        class ProblemsWidget;
+    }
 
-private:
-    Ui::ProblemsWidget *ui;
-	MuPDF::Document* pdfDocument;
-};
+    class UVA_EXPORT ProblemsWidget : public QWidget
+    {
+        Q_OBJECT
+
+    public:
+        explicit ProblemsWidget(QWidget *parent = 0);
+        ~ProblemsWidget();
+
+    private:
+        Ui::ProblemsWidget *ui;
+        MuPDF::Document* pdfDocument;
+    };
+
+}

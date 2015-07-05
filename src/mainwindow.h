@@ -3,18 +3,23 @@
 #include "src_global.h"
 #include <QMainWindow>
 
-namespace Ui {
-class MainWindow;
-}
-
-class UVA_EXPORT MainWindow : public QMainWindow
+namespace uva
 {
-    Q_OBJECT
 
-public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    namespace Ui {
+        class MainWindow;
+    }
 
-private:
-    Ui::MainWindow *ui;
-};
+    class UVA_EXPORT MainWindow : public QMainWindow
+    {
+        Q_OBJECT
+
+    public:
+        explicit MainWindow(QWidget *parent = 0);
+        ~MainWindow();
+
+    private:
+        Ui::MainWindow *ui;
+    };
+
+}

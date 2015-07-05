@@ -3,13 +3,13 @@
 #include <QtCore/QString>
 #include <QtCore/QJsonArray>
 
-#include "uhuntqt_global.h"
+#include "uvalib_global.h"
 #include "enums.h"
 
-namespace uhuntqt
+namespace uva
 {
 
-    class UHUNTQT_EXPORT UserSubmission
+    class UVA_EXPORT UserSubmission
     {
     public:
         UserSubmission();

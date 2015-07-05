@@ -1,7 +1,7 @@
 #include "probleminfo.h"
 #include <QList>
 
-using namespace uhuntqt;
+using namespace uva;
 
 ProblemInfo::ProblemInfo(const QByteArray& data)
 {

@@ -23,22 +23,27 @@ if(NOT Qt5_CMAKE_DIR AND NOT Qt5Widgets_DIR)
 
     set(Qt5_CMAKE_DIR "CHANGE ME" CACHE PATH "The path to the directory containing the Qt5 cmake files")
 
-    message(FATAL_ERROR "Set Qt5_CMAKE_DIR to the directory containing the Qt5 cmake files")
+    message(FATAL_ERROR "Set Qt5_CMAKE_DIR to the directory containing the Qt5 cmake files and then click Conigure again.")
 
 endif()
 
 set(Qt5_HINTS_DIRS 
-    ${Qt5_CMAKE_DIR}/Qt5Widgets 
+    ${Qt5_CMAKE_DIR}
+    #${Qt5_CMAKE_DIR}/Qt5Widgets 
 )
 
-find_package(Qt5Widgets COMPONENTS gui core widgets REQUIRED HINTS ${Qt5_HINTS_DIRS})
+find_package(Qt5Widgets 
+            COMPONENTS gui core widgets
+            REQUIRED 
+            HINTS ${Qt5_HINTS_DIRS})
+find_package(Qt5Network HINTS ${Qt5_HINTS_DIRS})
 
 set(UVA_RESOURCES 
     ${PROJECT_SOURCE_DIR}/submodules/QDarkStyleSheet/qdarkstyle/style.qrc
     ${PROJECT_SOURCE_DIR}/images/images.qrc
 )
 
-set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} Qt5::Widgets)
+set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} Qt5::Widgets Qt5::Network)
 
 set(CMAKE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/submodules/mupdf-qt/)
 add_subdirectory(submodules/mupdf-qt)
@@ -58,10 +63,6 @@ add_subdirectory(submodules/Qscintilla)
 set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} qscintilla)
 include_directories(submodules/Qscintilla/Qt4Qt5)
 set_target_properties(qscintilla PROPERTIES FOLDER "Submodules/qscintilla")
-
-add_subdirectory(uhuntqt/)
-set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} uhuntqt)
-include_directories(uhuntqt/)
 
 add_subdirectory(src/)
 set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} UVA-Arena-lib)
@@ -84,7 +85,7 @@ endif()
 target_link_libraries(UVA-Arena ${UVA_DEPENDENCIES})
 set_target_properties(UVA-Arena PROPERTIES FOLDER "UVA-Arena")
 
-if(WIN32)
+if(WIN32 AND NOT QT_BINARIES_COPIED)
 
     message(STATUS "Copying qt dlls...")
 
@@ -113,5 +114,7 @@ if(WIN32)
     file(COPY ${QT_RELEASE_DLLS} DESTINATION ${UVA_BIN_DIR}/Release)
 
     message(STATUS "Finished copying qt dlls")
+    set(QT_BINARIES_COPIED ON
+        CACHE BOOL "Automatically set when qt binaries are copied.")
 
 endif()

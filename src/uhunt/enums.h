@@ -1,6 +1,6 @@
 #pragma once
 
-namespace uhuntqt
+namespace uva
 {
 
     enum ProblemStatus

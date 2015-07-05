@@ -2,13 +2,13 @@
 
 #include <memory>
 #include "probleminfo.h"
-#include "uhuntqt_global.h"
+#include "uvalib_global.h"
 #include <QNetworkAccessManager>
 
-namespace uhuntqt
+namespace uva
 {
 
-    class UHUNTQT_EXPORT Uhuntqt : public QObject
+    class UVA_EXPORT Uhuntqt : public QObject
     {
         Q_OBJECT
     public:

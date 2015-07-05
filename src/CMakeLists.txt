@@ -16,6 +16,16 @@ set(HEADERS
     widgets/judgestatuswidget.h
     widgets/problemswidget.h
     widgets/profileswidget.h
+    uhunt/categorynode.h
+    uhunt/contextbook.h
+    uhunt/enums.h
+    uhunt/judgestatus.h
+    uhunt/probleminfo.h
+    uhunt/uhuntqt.h
+    uhunt/userinfo.h
+    uhunt/userranklist.h
+    uhunt/usersubmission.h
+    uhunt/submissionmessage.h
 )
 
 set(SOURCES
@@ -27,6 +37,15 @@ set(SOURCES
     widgets/judgestatuswidget.cpp
     widgets/problemswidget.cpp
     widgets/profileswidget.cpp
+    uhunt/categorynode.cpp
+    uhunt/contextbook.cpp
+    uhunt/judgestatus.cpp
+    uhunt/probleminfo.cpp
+    uhunt/submissionmessage.cpp
+    uhunt/uhuntqt.cpp
+    uhunt/userinfo.cpp
+    uhunt/userranklist.cpp
+    uhunt/usersubmission.cpp
 )
 
 qt5_wrap_ui(UI_FILES
@@ -37,8 +56,8 @@ qt5_wrap_ui(UI_FILES
     widgets/profileswidget.ui
 )
 
-option(${TARGET}_LIBRARY "Build ${TARGET} as a shared library." ON)
-if(${TARGET}_LIBRARY)
+option(${TARGET}_SHARED "Build ${TARGET} as a shared library." ON)
+if(${TARGET}_SHARED)
     add_definitions(-DUVA_SHARED)
     add_library(${TARGET} SHARED ${HEADERS} ${SOURCES} ${UI_FILES} ${UVA_RESOURCES})
 else()

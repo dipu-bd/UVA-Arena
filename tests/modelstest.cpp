@@ -9,7 +9,9 @@
 
 #include "models/arenatablemodel.h"
 #include "models/modelstyle.h"
+
 using namespace std;
+using namespace uva;
 
 class MyCustomModelStyle : public ModelStyle
 {

@@ -1,6 +1,6 @@
 #include "userranklist.h"
 
-using namespace uhuntqt;
+using namespace uva;
 
 UserRanklist::UserRanklist()
 {

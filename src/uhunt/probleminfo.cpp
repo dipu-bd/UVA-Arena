@@ -3,66 +3,9 @@
 
 using namespace uva;
 
-ProblemInfo::ProblemInfo(const QByteArray& data)
-{
-    loadData(data);
-}
-
 ProblemInfo::ProblemInfo(const QJsonArray& data)
 {
     loadData(data);
-}
-
-void ProblemInfo::loadData(const QByteArray& data)
-{
-    // comma delimited values
-    QList<QByteArray> values = data.split(',');
-
-    // 0. Problem ID
-    setProblemID(values[0].toInt());
-    // 1. Problem Number
-    setProblemNumber(values[1].toInt());
-    // 2. Problem Title
-    setProblemTitle(values[2]);
-    // 3. Number of Distinct Accepted User (DACU)
-    setDACU(values[3].toInt());
-    // 4. Best Runtime of an Accepted Submission
-    setBestRuntime(values[4].toInt());
-    // 5. Best Memory used of an Accepted Submission
-    setBestMemory(values[5].toInt());
-    // 6. Number of No Verdict Given (can be ignored)
-    setNoVerdictCount(values[6].toInt());
-    // 7. Number of Submission Error
-    setSubmissionErrorCount(values[7].toInt());
-    // 8. Number of Can't be Judged
-    setCantBeJudgedCount(values[8].toInt());
-    // 9. Number of In Queue
-    setInQueueCount(values[9].toInt());
-    // 10. Number of Compilation Error
-    setCompileErrorCount(values[10].toInt());
-    // 11. Number of Restricted Function
-    setRestrictedFunctionCount(values[11].toInt());
-    // 12. Number of Runtime Error
-    setRuntimeErrorCount(values[12].toInt());
-    // 13. Number of Output Limit Exceeded
-    setOutputLimitExceededCount(values[13].toInt());
-    // 14. Number of Time Limit Exceeded
-    setTimeLimitExceededCount(values[14].toInt());
-    // 15. Number of Memory Limit Exceeded
-    setMemoryLimitExceededCount(values[15].toInt());
-    // 16. Number of Wrong Answer
-    setWrongAnswerCount(values[16].toInt());
-    // 17. Number of Presentation Error
-    setPresentationErrorCount(values[17].toInt());
-    // 18. Number of Accepted
-    setAcceptedCount(values[18].toInt());
-    // 19. Time Limit (milliseconds)
-    setRuntimeLimitCount(values[19].toInt());
-    // 20. Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
-    setProblemStatus(values[20].toInt());
-
-    mMarked = false;
-    mSolved = false;
 }
 
 void ProblemInfo::loadData(const QJsonArray& data)
@@ -110,8 +53,45 @@ void ProblemInfo::loadData(const QJsonArray& data)
     // 20. Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
     setProblemStatus(data[20].toInt());
 
-    mMarked = false;
-    mSolved = false;
+    //calculate level
+    calculateLevel();
+
+    /*
+     --> To be edited on future edits <--
+    setMarked();
+    setSolved();
+    */
+}
+
+void ProblemInfo::calculateLevel()
+{
+    /*
+       Level will vary between 1 to 10.
+       The more the level is the harder the problem is.
+       Level will be calculated by taking e-based log of DACU.
+       Also ac/total ratio has an effect. The higher the ratio the lower the rank.
+     */
+    const double MAX_LEVEL = 9.0;
+
+    // accepted count
+    double ac = double(getAcceptedCount());
+    // total submissions count
+    double total = double(getTotalSubmission());
+    //get the ratio times 5
+    double ratio = round(5 * (ac / total));
+
+    double level;
+    if(mDACU <= 0) //no one solved this
+    {
+        level = MAX_LEVEL;
+    }
+    else
+    {
+        level = MAX_LEVEL - std::min(MAX_LEVEL, floor(log(mDACU)));
+    }
+
+    level = 1.0 + level;
+    mLevel = int(level);
 }
 
 void ProblemInfo::setBestRuntime(int v)

@@ -1,4 +1,5 @@
 #include <QFile>
+#include <QDataStream>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -13,12 +14,16 @@ using namespace uva;
 const QString API_BASE = "http://uhunt.felix-halim.net/api";
 const QString API_PROBLEM_LIST = API_BASE + "/p";
 const QString API_JUDGE_STATUS = API_BASE + "/poll";
+const QString API_USER_NAME_TO_ID = API_BASE + "/uname2uid";
 
 Uhuntqt::Uhuntqt(std::shared_ptr<QNetworkAccessManager> manager) :
     mNetworkManager(manager)
 {
 }
 
+//
+// SLOTS
+//
 void Uhuntqt::getProblemList()
 {
     if (!mNetworkManager)
@@ -65,6 +70,31 @@ void Uhuntqt::getJudgeStatus(int lastSubmissionID)
     });
 }
 
+void Uhuntqt::getUserID(QString userName)
+{
+    if (!mNetworkManager)
+        return;
+
+    QString url = API_USER_NAME_TO_ID + "/" + userName;
+
+    QNetworkRequest request;
+    request.setUrl(QUrl(url));
+
+    QNetworkReply* reply = mNetworkManager->get(request);
+
+    QObject::connect(reply,
+                     &QNetworkReply::finished,
+                     [this, reply, userName]()
+    {
+        int id = reply->readAll().toInt();
+        emit userIdDownloaded(userName, id);
+        reply->deleteLater();
+    });
+}
+
+//
+// Other functions
+//
 QList<ProblemInfo> Uhuntqt::problemListFromData(const QByteArray& data)
 {
     /*
@@ -84,60 +114,6 @@ QList<ProblemInfo> Uhuntqt::problemListFromData(const QByteArray& data)
     }
 
     return problems;
-/*
-    QByteArray::const_iterator it = data.begin();
-
-    // First character should be the beginning of the 2d array
-    if (*it != '[')
-        return QList<ProblemInfo>();
-
-    // The iterator is now at the first array in the 2d array
-    it++;
-
-    while (it != data.end())
-    {
-        // make sure this is the beginning of the array
-        if (*it != '[')
-            continue;
-
-        // consume open bracket
-        it++;
-
-        // now grab all the data in between [ ]'s
-        QByteArray text;
-
-        // true if we're current parsing a string (e.g., a title, a name)
-        bool parsingString = false;
-
-        while ((*it != ']' || parsingString) && it != data.end())
-        {
-            // at a new string or end of string
-            if (*it == '"')
-            {
-                parsingString = !parsingString;
-                // consume quotation marks
-                it++;
-            }
-
-            text.append(*it);
-            it++;
-        }
-
-        problems.push_back(ProblemInfo(text));
-
-        // consume close bracket
-        it++;
-
-        // another closed bracket signals end of 2d array
-        if (*it == ']')
-            break;
-
-        // consume comma
-        it++;
-    }
-
-    return problems;
-*/
 }
 
 QList<JudgeStatus> Uhuntqt::judgeStatusFromData(const QByteArray &data)
@@ -154,7 +130,7 @@ QList<JudgeStatus> Uhuntqt::judgeStatusFromData(const QByteArray &data)
     QJsonArray jarr = jdoc.array();
     for(int i = 0; i < jarr.count(); ++i)
     {
-       status.push_back(JudgeStatus(jarr[i].toObject()));
+        status.push_back(JudgeStatus(jarr[i].toObject()));
     }
 
     return status;

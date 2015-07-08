@@ -37,6 +37,11 @@ void SubmissionMessage::loadData(const QJsonObject &data)
     //uname: user name
     setUserName(data["uname"].toString());
 
+    /*
+     --> To be added on future edits <--
+    setProblemNumber();
+    setProblemTitle();
+    */
 }
 
 void SubmissionMessage::setVerdict(int v)

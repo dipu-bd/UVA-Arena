@@ -10,7 +10,6 @@ namespace uva
     class UVA_EXPORT ProblemInfo
     {
     public:
-        ProblemInfo(const QByteArray& data);
         ProblemInfo(const QJsonArray& data);
 
         // load from javascript array
@@ -93,7 +92,6 @@ namespace uva
         void setSolved(bool v) { mSolved = v; }
         // get the hardness level of the problem
         double getLevel() const { return mLevel; }
-        void setLevel(double v) { mLevel = v; }
         // True if problem is marked as favorite
         bool isMarked() const { return mMarked; }
         void setMarked(bool v) { mMarked = v; }
@@ -149,6 +147,8 @@ namespace uva
         //set the level of this problem (value between 1 and 10~14)
         double mLevel;
 
+        // calculates and sets the level of the problem
+        void calculateLevel();
     };
 
 }

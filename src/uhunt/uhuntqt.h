@@ -40,6 +40,9 @@ namespace uva
         //signal emitted after problem list is downloaded
         void problemListDownloaded(QList<ProblemInfo>);
 
+        //signal emitted after user id is downloaded
+        void userIdDownloaded(QString userName, int userID);
+
     public slots:
 
         /**
@@ -55,6 +58,12 @@ namespace uva
              0 means latest 100 submissions.
          */
         void getJudgeStatus(int lastSubmissionID = 0);
+
+        /**
+         * @brief getUserID returns id of an user from username
+         * @param userName Username of the user
+         */
+        void getUserID(QString userName);
 
     private:
 

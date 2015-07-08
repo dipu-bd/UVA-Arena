@@ -3,7 +3,6 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
@@ -15,6 +14,7 @@ const QString API_BASE = "http://uhunt.felix-halim.net/api";
 const QString API_PROBLEM_LIST = API_BASE + "/p";
 const QString API_JUDGE_STATUS = API_BASE + "/poll";
 const QString API_USER_NAME_TO_ID = API_BASE + "/uname2uid";
+const QString API_USER_INFO = API_BASE + "/subs-user";
 
 Uhuntqt::Uhuntqt(std::shared_ptr<QNetworkAccessManager> manager) :
     mNetworkManager(manager)
@@ -92,6 +92,52 @@ void Uhuntqt::getUserID(QString userName)
     });
 }
 
+void Uhuntqt::getUserInfo(int userId)
+{
+    if (!mNetworkManager)
+        return;
+
+    QString url = API_USER_INFO + "/" + QString::number(userId);
+
+    QNetworkRequest request;
+    request.setUrl(QUrl(url));
+
+    QNetworkReply* reply = mNetworkManager->get(request);
+
+    QObject::connect(reply,
+                     &QNetworkReply::finished,
+                     [this, reply, userId]()
+    {
+        UserInfo uinfo(reply->readAll());
+        uinfo.setUserId(userId);
+        emit userInfoDownloaded(uinfo);
+        reply->deleteLater();
+    });
+}
+
+void Uhuntqt::updatedUserInfo(UserInfo &uinfo)
+{
+    if (!mNetworkManager)
+        return;
+
+    QString url = API_USER_INFO + "/" + QString::number(uinfo.getUserId())
+                                + "/" + QString::number(uinfo.getLastSubmissionID());
+
+    QNetworkRequest request;
+    request.setUrl(QUrl(url));
+
+    QNetworkReply* reply = mNetworkManager->get(request);
+
+    QObject::connect(reply,
+                     &QNetworkReply::finished,
+                     [this, reply, &uinfo]()
+    {
+        uinfo.loadData(reply->readAll());
+        emit userInfoUpdated(uinfo);
+        reply->deleteLater();
+    });
+}
+
 //
 // Other functions
 //
@@ -105,9 +151,9 @@ QList<ProblemInfo> Uhuntqt::problemListFromData(const QByteArray& data)
     QList<ProblemInfo> problems;
 
     // get a json document from data
-    QJsonDocument jdoc = QJsonDocument::fromJson(data);
+    QJsonDocument& jdoc = QJsonDocument::fromJson(data);
 
-    QJsonArray jarr = jdoc.array();
+    const QJsonArray& jarr = jdoc.array();
     for(int i = 0; i < jarr.count(); ++i)
     {
         problems.push_back(ProblemInfo(jarr[i].toArray()));
@@ -125,9 +171,9 @@ QList<JudgeStatus> Uhuntqt::judgeStatusFromData(const QByteArray &data)
     QList<JudgeStatus> status;
 
     //get a json document from data
-    QJsonDocument jdoc = QJsonDocument::fromJson(data);
+    QJsonDocument& jdoc = QJsonDocument::fromJson(data);
 
-    QJsonArray jarr = jdoc.array();
+    const QJsonArray& jarr = jdoc.array();
     for(int i = 0; i < jarr.count(); ++i)
     {
         status.push_back(JudgeStatus(jarr[i].toObject()));

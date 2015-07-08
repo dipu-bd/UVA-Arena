@@ -29,25 +29,25 @@ void Uhuntqt::getProblemList()
 
     QNetworkReply* reply = mNetworkManager->get(request);
 
-    QObject::connect(reply, 
-                    &QNetworkReply::finished,
-                    [this, reply] ()
-                    {
-                        emit problemListDownloaded(
-                            this->problemListFromData(reply->readAll())
-                        );
+    QObject::connect(reply,
+                     &QNetworkReply::finished,
+                     [this, reply] ()
+    {
+        emit problemListDownloaded(
+                    this->problemListFromData(reply->readAll())
+                    );
 
-                        reply->deleteLater();
-                    });
+        reply->deleteLater();
+    });
 }
 
 QList<ProblemInfo> Uhuntqt::problemListFromData(const QByteArray& data)
 {
     /*
-        The data is a javascript multidimensional array.
-        The format is like so:
-        [[...],[...],[...]]
-    */
+            The data is a javascript multidimensional array.
+            The format is like so:
+            [[...],[...],[...]]
+        */
     QList<ProblemInfo> problems;
 
     QByteArray::const_iterator it = data.begin();
@@ -92,7 +92,7 @@ QList<ProblemInfo> Uhuntqt::problemListFromData(const QByteArray& data)
 
         // consume close bracket
         it++;
-        
+
         // another closed bracket signals end of 2d array
         if (*it == ']')
             break;

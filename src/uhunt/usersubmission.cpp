@@ -35,9 +35,15 @@ void UserSubmission::loadData(const QJsonArray& data)
     //Submission Time (UNIX time stamp)
     setSubmissionTime(data[4].toInt());
     //Language ID (1=ANSI C, 2=Java, 3=C++, 4=Pascal, 5=C++11)
-    Language(data[5].toInt());
+    setLanguage(data[5].toInt());
     //Submission Rank
     setRank(data[6].toInt());
+
+    /*
+     --> to be edited later <--
+    setProblemNumber();
+    setProblemTitle();
+    */
 }
 
 

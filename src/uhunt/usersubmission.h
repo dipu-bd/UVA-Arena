@@ -49,16 +49,14 @@ namespace uva
         //problem number
         int getProblemNumber() const { return mProblemNumber; }
         void setProblemNumber(int v) { mProblemNumber = v; }
-        //user name
-        QString getUserName() const { return mUserName; }
-        void setUserName(QString v) { mUserName = v; }
-        //full username
-        QString getFullName() const { return mFullName; }
-        void setFullName(QString v) { mFullName = v; }
         //problem title
         QString getProblemTitle() const { return mProblemTitle; }
         void setProblemTitle(QString v) { mProblemTitle = v; }
 
+        bool operator < (const UserSubmission& rhs) const
+        {
+            return mSubmissionID < rhs.mSubmissionID;
+        }
     private:
         //Submission ID
         int mSubmissionID;
@@ -77,10 +75,6 @@ namespace uva
 
         //problem number
         int mProblemNumber;
-        //user name
-        QString mUserName;
-        //full username
-        QString mFullName;
         //problem title
         QString mProblemTitle;
     };

@@ -1,5 +1,4 @@
 #include "probleminfo.h"
-#include <QList>
 
 using namespace uva;
 
@@ -67,18 +66,10 @@ void ProblemInfo::calculateLevel()
 {
     /*
        Level will vary between 1 to 10.
-       The more the level is the harder the problem is.
-       Level will be calculated by taking e-based log of DACU.
-       Also ac/total ratio has an effect. The higher the ratio the lower the rank.
+       Level increases with difficulty.
+       Level will be calculated by taking log of DACU.
      */
     const double MAX_LEVEL = 9.0;
-
-    // accepted count
-    double ac = double(getAcceptedCount());
-    // total submissions count
-    double total = double(getTotalSubmission());
-    //get the ratio times 5
-    double ratio = round(5 * (ac / total));
 
     double level;
     if(mDACU <= 0) //no one solved this

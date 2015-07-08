@@ -54,9 +54,11 @@ int main(int argc, char* argv[])
 
 	ArenaTableModel submissions;
 	submissions.insertColumns({ "SID", "User", "Full name", "Language", "Result", "Runtime" });
-	submissions.insertRow(5, QList<QVariant>({ 5, "dipu", "Sudiptu Chandra", "c++", "accepted", 0.32f }));
-	submissions.insertRow(7, QList<QVariant>({ 7, "jgcoded", "Julio Gutierrez", "java++", "accepted", 0.22f }));
-	submissions.insertRow(2, QList<QVariant>({ 2, "otherguy12", "John Smith", "c", "error", 0.05f }));
+    submissions.insertRow(5, QList<QVariant>({ 5, "dipu", "Sudipto Chandra", "c++", "accepted", 0.320f }));
+    submissions.insertRow(7, QList<QVariant>({ 7, "jgcoded", "Julio Gutierrez", "java", "accepted", 0.220f }));
+    submissions.insertRow(2, QList<QVariant>({ 2, "otherguy12", "John Smith", "c", "error", 0.005f }));
+    submissions.insertRow(2532234, QList<QVariant>({ 2532234, "otherguy32", "Unknown Entity", "pascal", "time limit exceeded", 3.000f }));
+    submissions.insertRow(6542365, QList<QVariant>({ 6542365, "human4", "Vanity Bug", "c++11", "wrong answer", 0.000f }));
 
     submissions.SetModelStyle(std::make_shared<MyCustomModelStyle>());
 

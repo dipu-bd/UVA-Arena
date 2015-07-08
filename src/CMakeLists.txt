@@ -17,7 +17,6 @@ set(HEADERS
     widgets/problemswidget.h
     widgets/profileswidget.h
     uhunt/categorynode.h
-    uhunt/contextbook.h
     uhunt/enums.h
     uhunt/judgestatus.h
     uhunt/probleminfo.h
@@ -38,7 +37,6 @@ set(SOURCES
     widgets/problemswidget.cpp
     widgets/profileswidget.cpp
     uhunt/categorynode.cpp
-    uhunt/contextbook.cpp
     uhunt/judgestatus.cpp
     uhunt/probleminfo.cpp
     uhunt/submissionmessage.cpp

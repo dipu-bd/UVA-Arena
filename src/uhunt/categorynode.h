@@ -14,7 +14,10 @@ namespace uva
 
     signals:
 
-        public slots :
+    public slots:
+
+    private:
+
     };
 
 }

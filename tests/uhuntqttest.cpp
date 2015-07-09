@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <iostream>
 #include <memory>
-#include <QApplication>
-#include <QPushButton>
-#include <QNetworkAccessManager>
 #include <QList>
+#include <QNetworkAccessManager>
+
+#include <QApplication>
+#include <QFrame>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 #include "uhunt/uhuntqt.h"
 
@@ -16,8 +19,9 @@ const QByteArray problemData = "[[40,104,\"this \\\"is\\\" [a] test\",3711,10,10
 const QByteArray judgeData = "[{\"id\":1433402181069, \"type\":\"lastsubs\", \"msg\":{\"sid\":15735294,\"uid\":159399,\"pid\":481,\"ver\":0,\"lan\":2,\"run\":0,\"mem\":0,\"rank\":-1,\"sbt\":1436337218,\"name\":\"Jim\",\"uname\":\"vjudge10\"}},{\"id\":1433402181070, \"type\":\"lastsubs\", \"msg\":{\"sid\":15735292,\"uid\":159395,\"pid\":1876,\"ver\":80,\"lan\":5,\"run\":0,\"mem\":0,\"rank\":-1,\"sbt\":1436337213,\"name\":\"Tom\",\"uname\":\"vjudge6\"}},{\"id\":1433402181071, \"type\":\"lastsubs\", \"msg\":{\"sid\":15735293,\"uid\":705089,\"pid\":318,\"ver\":70,\"lan\":1,\"run\":0,\"mem\":0,\"rank\":-1,\"sbt\":1436337215,\"name\":\"Safial Islam Ayon\",\"uname\":\"safialislam302\"}}]";
 const QByteArray dummyUserInfo = "{\"name\":\"Sudipto Chandra\",\"uname\":\"dipu_sust\",\"subs\":[[11555091,96,10,0,1365074607,1,-1],[12112146,382,10,0,1374910525,3,-1],[12112174,382,10,0,1374910892,3,-1],[12113445,382,10,0,1374934476,3,-1],[12113467,382,10,0,1374934867,3,-1],[12115611,382,10,0,1374979816,3,-1],[12115648,382,10,0,1374980298,3,-1]]}";
 const QList<QString> userNames = {"baodog", "dipu_sust", "felix_halim", "invalid-user", "", "-", "jgcoded"};
+const QByteArray rankData = "[{\"rank\":1,\"old\":0,\"userid\":1133,\"name\":\"Josh Bao\",\"username\":\"baodog\",\"ac\":4528,\"nos\":16236,\"activity\":[0,0,24,37,198]},{\"rank\":2,\"old\":0,\"userid\":2223,\"name\":\"try\",\"username\":\"try\",\"ac\":4366,\"nos\":6338,\"activity\":[0,0,0,5,951]},{\"rank\":3,\"old\":0,\"userid\":111636,\"name\":\"Brian Fry\",\"username\":\"brianfry713\",\"ac\":4357,\"nos\":13299,\"activity\":[0,0,2,5,527]},{\"rank\":4,\"old\":0,\"userid\":19304,\"name\":\"Krzysztof Stencel\",\"username\":\"stencel\",\"ac\":4127,\"nos\":9146,\"activity\":[0,3,21,60,264]},{\"rank\":5,\"old\":0,\"userid\":6320,\"name\":\"Lee Wei\",\"username\":\"evandrix\",\"ac\":3511,\"nos\":7519,\"activity\":[0,0,6,28,200]},{\"rank\":6,\"old\":0,\"userid\":2448,\"name\":\"Neal Zane\",\"username\":\"nealzane\",\"ac\":3389,\"nos\":6707,\"activity\":[0,0,12,19,127]},{\"rank\":7,\"old\":0,\"userid\":2397,\"name\":\"dreamoon\",\"username\":\"dreamoon\",\"ac\":3309,\"nos\":10050,\"activity\":[0,0,2,4,107]},{\"rank\":8,\"old\":0,\"userid\":46705,\"name\":\"No English No AC, I'm out.\",\"username\":\"morris821028\",\"ac\":3042,\"nos\":9585,\"activity\":[1,1,16,123,837]},{\"rank\":9,\"old\":0,\"userid\":10845,\"name\":\"nehc\",\"username\":\"nehcdnr\",\"ac\":2481,\"nos\":9056,\"activity\":[2,7,31,90,317]},{\"rank\":10,\"old\":0,\"userid\":94974,\"name\":\"张翼德\",\"username\":\"vjudge2\",\"ac\":2471,\"nos\":63831,\"activity\":[15,43,222,397,970]}]";
 
-void showProblemList(QList<uva::ProblemInfo> data)
+void showProblemList(const QList<uva::ProblemInfo>& data)
 {
     cout << "\nProblem List data: "
          << data.count() << " items" << endl;
@@ -36,7 +40,7 @@ void showProblemList(QList<uva::ProblemInfo> data)
     }
     cout << "Problem list data shown" << endl;
 }
-void showJudgeStatus(QList<uva::JudgeStatus> data)
+void showJudgeStatus(const QList<uva::JudgeStatus>& data)
 {
     cout << "\nJudge status data: "
          << data.count() << " items" << endl;
@@ -90,7 +94,29 @@ void ShowUserInfo(const uva::UserInfo& uinfo)
     cout << "Userinfo data shown" << endl;
 }
 
-void TestSampleData(uva::Uhuntqt& api)
+void showRankData(const QList<uva::RankInfo>& data)
+{
+    cout << "\nShowing RankInfo data: "
+         << data.count() << " items" << endl;
+
+    int cnt = 0;
+    for(uva::RankInfo info : data)
+    {
+        if(cnt++ > 20) break;
+        cout << "rank=" << info.getRank()
+             << "\t ac=" << info.getAcceptedCount()
+             << "\t 2day="  << info.getPast2day()
+             << "\t 7day=" << info.getPast7day()
+             << "\t 3mon=" << info.getPast3month()
+             << "\t 1year=" << info.getPast1year()
+             << "\t name=" << info.getUserName().toStdString()
+             << endl;
+    }
+    cout << "Judge Status data shown" << endl;
+    return;
+}
+
+void TestSampleData(uva::UhuntQt& api)
 {
     //problem list test
     showProblemList(api.problemListFromData(problemData));
@@ -103,7 +129,11 @@ void TestSampleData(uva::Uhuntqt& api)
     userInfo.setUserId(222248);
     ShowUserInfo(userInfo);
 
+    //rank info
+    showRankData(api.rankListFromData(rankData));
+
     cout << "Sample data test ended\n\n";
+    return;
 }
 
 int main(int argc, char* argv[])
@@ -111,61 +141,69 @@ int main(int argc, char* argv[])
     QApplication app(argc, argv);
 
     shared_ptr<QNetworkAccessManager> manager = make_shared<QNetworkAccessManager>();
-    uva::Uhuntqt api(manager);
+    uva::UhuntQt api(manager);
 
-    QObject::connect(&api, &uva::Uhuntqt::problemListDownloaded, &showProblemList);
-    QObject::connect(&api, &uva::Uhuntqt::judgeStatusDownloaded, &showJudgeStatus);
-    QObject::connect(&api, &uva::Uhuntqt::userIdDownloaded, &showUserID);
-    QObject::connect(&api, &uva::Uhuntqt::userInfoDownloaded, &ShowUserInfo);
-    QObject::connect(&api, &uva::Uhuntqt::userInfoUpdated, &ShowUserInfo);
+    QObject::connect(&api, &uva::UhuntQt::problemListDownloaded, &showProblemList);
+    QObject::connect(&api, &uva::UhuntQt::judgeStatusDownloaded, &showJudgeStatus);
+    QObject::connect(&api, &uva::UhuntQt::userIdDownloaded, &showUserID);
+    QObject::connect(&api, &uva::UhuntQt::userInfoDownloaded, &ShowUserInfo);
+    QObject::connect(&api, &uva::UhuntQt::userInfoUpdated, &ShowUserInfo);
+    QObject::connect(&api, &uva::UhuntQt::rankByPositionDownloaded, &showRankData);
+    QObject::connect(&api, &uva::UhuntQt::rankByUserDownloaded, &showRankData);
 
     //sample test
     TestSampleData(api);
 
     //problem list button
-    QPushButton pushButton;
-    pushButton.show();
+    QFrame frame;
+    QVBoxLayout verticalLayout;
+    QPushButton pushButton1;
+    QPushButton pushButton2;
+    QPushButton pushButton3;
+    QPushButton pushButton4;
+    QPushButton pushButton5;
+    QPushButton pushButton6;
+    QPushButton pushButton7;
+    verticalLayout.addWidget(&pushButton1);
+    verticalLayout.addWidget(&pushButton2);
+    verticalLayout.addWidget(&pushButton3);
+    verticalLayout.addWidget(&pushButton4);
+    verticalLayout.addWidget(&pushButton5);
+    verticalLayout.addWidget(&pushButton6);
+    verticalLayout.addWidget(&pushButton7);
+    frame.setLayout(&verticalLayout);
+    frame.setWindowTitle("UVA Arena Unit Test");
 
-    int clickCount = 0;
-
-    pushButton.setText("Click here to get userids");
-    QObject::connect(&pushButton, &QPushButton::clicked,
+    pushButton1.setText("Click here to get userids");
+    QObject::connect(&pushButton1, &QPushButton::clicked,
                      &api, [&]()
     {
-        ++clickCount;
-        switch(clickCount)
+        cout << "Userids: " << endl;
+        for(QString x : userNames)
         {
-        case 1: //user name to user id
-            cout << "Userids: " << endl;
-            for(QString x : userNames)
-            {
-                api.getUserID(x);
-            }
-            pushButton.setText("Click here to get judge status");
-            break;
-
-        case 2:  // get judge status
-            api.getJudgeStatus();
-            pushButton.setText("Click here to get problem list");
-            break;
-
-        case 3: // get problem list
-            api.getProblemList();
-            pushButton.setText("Click here to get user info");
-            break;
-
-        case 4: // get user info
-            api.getUserInfo(222248);
-            pushButton.setText("Click here to update user info");
-            break;
-
-         case 5: // update user info
-            api.updatedUserInfo(userInfo);
-            clickCount = 0; //restart
-            pushButton.setText("Click here to get userids");
-            break;
+            api.getUserID(x);
         }
     });
 
+    pushButton2.setText("Click here to get judge status");
+    QObject::connect(&pushButton2, &QPushButton::clicked, &api, [&] { api.getJudgeStatus(); });
+
+    pushButton3.setText("Click here to get problem list");
+    QObject::connect(&pushButton3, &QPushButton::clicked, &api, [&] { api.getProblemList(); } );
+
+    pushButton4.setText("Click here to get user info");
+    QObject::connect(&pushButton4, &QPushButton::clicked, &api, [&] { api.getUserInfo(222248); });
+
+    pushButton5.setText("Click here to update user info");
+    QObject::connect(&pushButton5, &QPushButton::clicked, &api, [&] { api.updateUserInfo(userInfo); });
+
+    pushButton6.setText("Click here to get ranklist of specific user");
+    QObject::connect(&pushButton6, &QPushButton::clicked, &api, [&] { api.getRankByUser(222248); });
+
+    pushButton7.setText("Click here to get ranklist starting from rank-1");
+    QObject::connect(&pushButton7, &QPushButton::clicked, &api, [&] { api.getRankByPosition(1, 20); });
+
+
+    frame.show();
     return app.exec();
 }

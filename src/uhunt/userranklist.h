@@ -10,11 +10,11 @@
 namespace uva
 {
 
-    class UVA_EXPORT UserRanklist
+    class UVA_EXPORT RankInfo
     {
     public:
-        UserRanklist();
-        UserRanklist(const QJsonObject& data);
+        RankInfo();
+        RankInfo(const QJsonObject& data);
 
         //load data from json object
         void loadData(const QJsonObject& data);

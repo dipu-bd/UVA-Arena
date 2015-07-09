@@ -12,11 +12,13 @@ using namespace uva;
 
 const QString API_BASE = "http://uhunt.felix-halim.net/api";
 const QString API_PROBLEM_LIST = API_BASE + "/p";
-const QString API_JUDGE_STATUS = API_BASE + "/poll";
-const QString API_USER_NAME_TO_ID = API_BASE + "/uname2uid";
-const QString API_USER_INFO = API_BASE + "/subs-user";
+const QString API_JUDGE_STATUS = API_BASE + "/poll/%1";             //%1 = userId
+const QString API_USER_NAME_TO_ID = API_BASE + "/uname2uid/%1";     //%1 = userName
+const QString API_USER_INFO = API_BASE + "/subs-user/%1/%2";        //%1 = userId, %2 = lastSubmissionId
+const QString API_RANK_BY_USER = API_BASE + "/ranklist/%1/%2/%3";   //%1 = userId, %2 = nabove, %3 = nbelow
+const QString API_RANK_BY_POS = API_BASE + "/rank/%1/%2";            //%1 = startPos, %2 = count
 
-Uhuntqt::Uhuntqt(std::shared_ptr<QNetworkAccessManager> manager) :
+UhuntQt::UhuntQt(std::shared_ptr<QNetworkAccessManager> manager) :
     mNetworkManager(manager)
 {
 }
@@ -24,7 +26,7 @@ Uhuntqt::Uhuntqt(std::shared_ptr<QNetworkAccessManager> manager) :
 //
 // SLOTS
 //
-void Uhuntqt::getProblemList()
+void UhuntQt::getProblemList()
 {
     if (!mNetworkManager)
         return;
@@ -38,20 +40,19 @@ void Uhuntqt::getProblemList()
                      &QNetworkReply::finished,
                      [this, reply] ()
     {
-        emit problemListDownloaded(
+        emit this->problemListDownloaded(
                     this->problemListFromData(reply->readAll())
                     );
-
         reply->deleteLater();
     });
 }
 
-void Uhuntqt::getJudgeStatus(int lastSubmissionID)
+void UhuntQt::getJudgeStatus(int lastSubmissionID)
 {
     if (!mNetworkManager)
         return;
 
-    QString lastStatus = API_JUDGE_STATUS + "/" + QString::number(lastSubmissionID);
+    QString lastStatus = API_JUDGE_STATUS.arg(lastSubmissionID);
 
     QNetworkRequest request;
     request.setUrl(QUrl(lastStatus));
@@ -62,20 +63,19 @@ void Uhuntqt::getJudgeStatus(int lastSubmissionID)
                      &QNetworkReply::finished,
                      [this, reply] ()
     {
-        emit judgeStatusDownloaded(
+        emit this->judgeStatusDownloaded(
                     this->judgeStatusFromData(reply->readAll())
                     );
-
         reply->deleteLater();
     });
 }
 
-void Uhuntqt::getUserID(QString userName)
+void UhuntQt::getUserID(QString userName)
 {
     if (!mNetworkManager)
         return;
 
-    QString url = API_USER_NAME_TO_ID + "/" + userName;
+    QString url = API_USER_NAME_TO_ID.arg(userName);
 
     QNetworkRequest request;
     request.setUrl(QUrl(url));
@@ -87,17 +87,17 @@ void Uhuntqt::getUserID(QString userName)
                      [this, reply, userName]()
     {
         int id = reply->readAll().toInt();
-        emit userIdDownloaded(userName, id);
+        emit this->userIdDownloaded(userName, id);
         reply->deleteLater();
     });
 }
 
-void Uhuntqt::getUserInfo(int userId)
+void UhuntQt::getUserInfo(int userId)
 {
     if (!mNetworkManager)
         return;
 
-    QString url = API_USER_INFO + "/" + QString::number(userId);
+    QString url = API_USER_INFO.arg(userId).arg(0);
 
     QNetworkRequest request;
     request.setUrl(QUrl(url));
@@ -110,18 +110,17 @@ void Uhuntqt::getUserInfo(int userId)
     {
         UserInfo uinfo(reply->readAll());
         uinfo.setUserId(userId);
-        emit userInfoDownloaded(uinfo);
+        emit this->userInfoDownloaded(uinfo);
         reply->deleteLater();
     });
 }
 
-void Uhuntqt::updatedUserInfo(UserInfo &uinfo)
+void UhuntQt::updateUserInfo(UserInfo &uinfo)
 {
     if (!mNetworkManager)
         return;
 
-    QString url = API_USER_INFO + "/" + QString::number(uinfo.getUserId())
-                                + "/" + QString::number(uinfo.getLastSubmissionID());
+    QString url = API_USER_INFO.arg(uinfo.getUserId()).arg(uinfo.getLastSubmissionID());
 
     QNetworkRequest request;
     request.setUrl(QUrl(url));
@@ -133,7 +132,53 @@ void Uhuntqt::updatedUserInfo(UserInfo &uinfo)
                      [this, reply, &uinfo]()
     {
         uinfo.loadData(reply->readAll());
-        emit userInfoUpdated(uinfo);
+        emit this->userInfoUpdated(uinfo);
+        reply->deleteLater();
+    });
+}
+
+void UhuntQt::getRankByUser(int userId, int nAbove, int nBelow)
+{
+    if (!mNetworkManager)
+        return;
+
+    QString url = API_RANK_BY_USER.arg(userId).arg(nAbove).arg(nBelow);
+
+    QNetworkRequest request;
+    request.setUrl(QUrl(url));
+
+    QNetworkReply* reply = mNetworkManager->get(request);
+
+    QObject::connect(reply,
+                     &QNetworkReply::finished,
+                     [this, reply]()
+    {
+        emit this->rankByUserDownloaded(
+                    this->rankListFromData(reply->readAll())
+                );
+        reply->deleteLater();
+    });
+}
+
+void UhuntQt::getRankByPosition(int startPos, int count)
+{
+    if (!mNetworkManager)
+        return;
+
+    QString url = API_RANK_BY_POS.arg(startPos).arg(count);
+
+    QNetworkRequest request;
+    request.setUrl(QUrl(url));
+
+    QNetworkReply* reply = mNetworkManager->get(request);
+
+    QObject::connect(reply,
+                     &QNetworkReply::finished,
+                     [this, reply]()
+    {
+        emit this->rankByPositionDownloaded(
+                    this->rankListFromData(reply->readAll())
+                );
         reply->deleteLater();
     });
 }
@@ -141,7 +186,7 @@ void Uhuntqt::updatedUserInfo(UserInfo &uinfo)
 //
 // Other functions
 //
-QList<ProblemInfo> Uhuntqt::problemListFromData(const QByteArray& data)
+QList<ProblemInfo> UhuntQt::problemListFromData(const QByteArray& data)
 {
     /*
         The data is a javascript multidimensional array.
@@ -162,7 +207,7 @@ QList<ProblemInfo> Uhuntqt::problemListFromData(const QByteArray& data)
     return problems;
 }
 
-QList<JudgeStatus> Uhuntqt::judgeStatusFromData(const QByteArray &data)
+QList<JudgeStatus> UhuntQt::judgeStatusFromData(const QByteArray &data)
 {
     /*
         The data is a javascript array of dictionary of following format:
@@ -180,4 +225,24 @@ QList<JudgeStatus> Uhuntqt::judgeStatusFromData(const QByteArray &data)
     }
 
     return status;
+}
+
+QList<RankInfo> UhuntQt::rankListFromData(const QByteArray &data)
+{
+    /*
+        Data is a javascript array of objects. Formatted like this-
+        [{...},{...}]
+     */
+    QList<RankInfo> ranks;
+
+    //get json document
+    QJsonDocument& jdoc = QJsonDocument::fromJson(data);
+
+    const QJsonArray& jarr = jdoc.array();
+    for(int i = 0; i < jarr.count(); ++i)
+    {
+        ranks.push_back(RankInfo(jarr[i].toObject()));
+    }
+
+    return ranks;
 }

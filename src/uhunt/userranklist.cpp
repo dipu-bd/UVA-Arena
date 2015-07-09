@@ -2,17 +2,17 @@
 
 using namespace uva;
 
-UserRanklist::UserRanklist()
+RankInfo::RankInfo()
 {
 
 }
 
-UserRanklist::UserRanklist(const QJsonObject& data)
+RankInfo::RankInfo(const QJsonObject& data)
 {
     loadData(data);
 }
 
-void UserRanklist::loadData(const QJsonObject& data)
+void RankInfo::loadData(const QJsonObject& data)
 {
     //rank : The rank of the user
     setRank(data["rank"].toInt());
@@ -30,7 +30,7 @@ void UserRanklist::loadData(const QJsonObject& data)
     setActivity(data["activity"].toArray());
 }
 
-void UserRanklist::setActivity(const QJsonArray& data)
+void RankInfo::setActivity(const QJsonArray& data)
 {
     setPast2day(data[0].toInt());
     setPast7day(data[1].toInt());

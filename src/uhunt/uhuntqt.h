@@ -6,18 +6,19 @@
 #include "probleminfo.h"
 #include "judgestatus.h"
 #include "userinfo.h"
+#include "userranklist.h"
 #include "usersubmission.h"
 #include "uvalib_global.h"
 
 namespace uva
 {
 
-    class UVA_EXPORT Uhuntqt : public QObject
+    class UVA_EXPORT UhuntQt : public QObject
     {
         Q_OBJECT
     public:
 
-        Uhuntqt(std::shared_ptr<QNetworkAccessManager> manager);
+        UhuntQt(std::shared_ptr<QNetworkAccessManager> manager);
 
         /**
          * @brief getProblemList Get the list of problem info.
@@ -33,6 +34,13 @@ namespace uva
          */
         QList<JudgeStatus> judgeStatusFromData(const QByteArray& data);
 
+        /**
+         * @brief rankListFromData Gets the rank list from the json data.
+         * @param data JSon string of data.
+         * @return List of RankInfo objects.
+         */
+        QList<RankInfo> rankListFromData(const QByteArray& data);
+
     signals:
 
         //signal emitted after judge status is downloaded
@@ -45,6 +53,10 @@ namespace uva
         void userInfoDownloaded(UserInfo);
         //signal emitted after user info is updated
         void userInfoUpdated(UserInfo&);
+        //signal emitted after rank by position is downloaded
+        void rankByPositionDownloaded(QList<RankInfo>);
+        //signal emitted after rank by user is downloaded
+        void rankByUserDownloaded(QList<RankInfo>);
 
     public slots:
 
@@ -77,7 +89,22 @@ namespace uva
          * @brief updatedUserInfo Update the user info to latest data
          * @param uinfo UserInfo object to be updated
          */
-        void updatedUserInfo(UserInfo& uinfo);
+        void updateUserInfo(UserInfo& uinfo);
+
+        /**
+         * @brief getRankByUser Gets the ranklist centered on the specific user.
+         * @param userId ID of the user
+         * @param nAbove Number of users above the userId
+         * @param nBelow Number of users below the userId
+         */
+        void getRankByUser(int userId, int nAbove = 10, int nBelow = 10);
+
+        /**
+         * @brief getRankByPosition Gets the ranklist starting from a certain position.
+         * @param startPos Rank from where the list starts.
+         * @param count Number of users on the list.
+         */
+        void getRankByPosition(int startPos = 1, int count = 100);
 
     private:
 

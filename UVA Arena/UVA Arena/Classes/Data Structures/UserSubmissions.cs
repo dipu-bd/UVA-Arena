@@ -71,7 +71,5 @@ namespace UVA_Arena.Structures
             pnum = LocalDatabase.GetNumber(pid);
             ptitle = LocalDatabase.GetTitle(pnum);
         }
-    }
-     
-
+    } 
 }

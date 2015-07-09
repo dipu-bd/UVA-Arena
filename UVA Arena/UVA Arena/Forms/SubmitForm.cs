@@ -32,6 +32,7 @@ namespace UVA_Arena
             this.lang = language;
 
             //submit problem  
+            ProcessPage();
             customWebBrowser1.Navigate(QUICK); 
         }
 

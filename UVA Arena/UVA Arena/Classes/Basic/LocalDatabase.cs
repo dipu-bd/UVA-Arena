@@ -128,44 +128,7 @@ namespace UVA_Arena
                 {
                     GetProblem(pnum).marked = true;
                 }
-            }
-
-            //get all dacu
-            SortedDictionary<long, int> AllDacu = new SortedDictionary<long, int>();            
-            foreach (ProblemInfo plist in problem_list)
-            {
-                if (AllDacu.ContainsKey(plist.dacu))
-                    AllDacu[plist.dacu]++;
-                else
-                    AllDacu.Add(plist.dacu, 1);
-            }
-
-            //cumulative sum of all dacu
-            int last = 0;
-            var it = AllDacu.GetEnumerator();
-            Dictionary<long, int> sum = new Dictionary<long, int>();
-            while (it.MoveNext())
-            {
-                last += it.Current.Value;
-                sum.Add(it.Current.Key, last);
-            }
-            it.Dispose();
-
-            //set problem level 
-            foreach (ProblemInfo plist in problem_list)
-            {
-                int pos = sum[plist.dacu];
-                double rank = 10 * (1 - (double)pos / problem_list.Count);
-                if (pos + 50 > problem_list.Count) rank -= 1; //among top 50
-                else if (pos + 100 > problem_list.Count) rank -= 0.5; //among top 100
-
-                double ac = plist.total <= 0 ? 0 : (double)plist.ac / plist.total;
-                if (ac > 0.6) rank -= 1;
-                else if (ac > 0.4) rank -= 0.5;
-                if (2 * ac < 1 && pos + 100 < problem_list.Count)
-                    rank += 2 * (1 - 2 * ac);
-                plist.level = 2 + rank;
-            }
+            }            
         }
 
         public static void LoadDefaultUser()

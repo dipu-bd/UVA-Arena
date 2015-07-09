@@ -74,10 +74,10 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ManifestCertificateThumbprint>871020976A15926733F077D9F444F1090F100C2A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>8F88EA608E455EEF0A89965F46A17460A3E3A95F</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>UVA Arena_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>UVA Arena_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
@@ -272,7 +272,7 @@
     <Compile Include="Classes\Basic\Interactivity.cs" />
     <Compile Include="Classes\Basic\LocalDirectory.cs" />
     <Compile Include="Classes\Utilities\Logger.cs" />
-    <Compile Include="Classes\Data Structures\ProblemList.cs" />
+    <Compile Include="Classes\Data Structures\ProblemInfo.cs" />
     <Compile Include="Classes\Basic\RegistryAccess.cs" />
     <Compile Include="Classes\Basic\LocalDatabase.cs" />
     <Compile Include="Classes\Utilities\Stylish.cs" />
@@ -291,6 +291,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Elements\CODES.resx">
       <DependentUpon>CODES.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Elements\CompareUsers.resx">
       <DependentUpon>CompareUsers.cs</DependentUpon>
@@ -342,6 +343,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SubmitForm.resx">
       <DependentUpon>SubmitForm.cs</DependentUpon>
@@ -373,31 +375,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="UVA Arena_TemporaryKey.pfx" />
+    <None Include="UVA Arena_1_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />
-    <Content Include="unzip\Ionic.BZip2.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="unzip\Ionic.Zip.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="unzip\Ionic.Zlib.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="unzip\License.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="unzip\Readme.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="unzip\unzip.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="unzip\zipit.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -413,17 +394,17 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FastColoredTextBox">
-      <HintPath>..\..\..\External References\FastColoredTextBox.DLL</HintPath>
+      <HintPath>..\..\External References\FastColoredTextBox.DLL</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\..\External References\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\External References\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Custom-Tools\.NET Tools\Json60r7\Bin\Net20\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\External References\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ObjectListView">
-      <HintPath>..\..\..\External References\ObjectListView.DLL</HintPath>
+      <HintPath>..\..\External References\ObjectListView.DLL</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -431,7 +412,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="ZedGraph">
-      <HintPath>..\..\..\External References\ZedGraph.dll</HintPath>
+      <HintPath>..\..\External References\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup />

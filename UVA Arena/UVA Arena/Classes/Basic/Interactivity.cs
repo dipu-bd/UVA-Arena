@@ -76,8 +76,8 @@ namespace UVA_Arena
         {
             if (submitForm == null || submitForm.IsDisposed)
                 submitForm = new SubmitForm();
-            submitForm.LoadSubmit(pnum, code, lang);
             submitForm.Show();
+            submitForm.LoadSubmit(pnum, code, lang);
         }
 
         /// <summary>
@@ -286,6 +286,7 @@ namespace UVA_Arena
                     problems.ShowAllProblems();
                     problems.problemListView.SelectedObject = pinfo;
                     problems.problemListView.EnsureVisible(problems.problemListView.SelectedIndex);
+                    problemViewer.LoadProblem(pinfo);
                 });
 
                 mainForm.BeginInvoke((MethodInvoker)delegate

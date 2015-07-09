@@ -48,11 +48,8 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.backupRegistryButton = new System.Windows.Forms.Button();
             this.downloadAll = new System.Windows.Forms.Button();
-            this.restoreData = new System.Windows.Forms.Button();
-            this.backupData = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.editorTab = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -159,7 +156,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel3.Controls.Add(this.closeButton, 2, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 477);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 457);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -173,7 +170,7 @@
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(114, 28);
             this.closeButton.TabIndex = 1;
-            this.closeButton.Text = "Close";
+            this.closeButton.Text = "OK";
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
@@ -189,7 +186,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(20, 5);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(384, 477);
+            this.tabControl1.Size = new System.Drawing.Size(384, 457);
             this.tabControl1.TabIndex = 3;
             // 
             // generalTab
@@ -202,7 +199,7 @@
             this.generalTab.Location = new System.Drawing.Point(4, 26);
             this.generalTab.Name = "generalTab";
             this.generalTab.Padding = new System.Windows.Forms.Padding(3);
-            this.generalTab.Size = new System.Drawing.Size(376, 447);
+            this.generalTab.Size = new System.Drawing.Size(376, 427);
             this.generalTab.TabIndex = 0;
             this.generalTab.Text = "General";
             // 
@@ -211,9 +208,9 @@
             this.groupBox11.Controls.Add(this.autoUpdateCheck);
             this.groupBox11.Controls.Add(this.checkBox2);
             this.groupBox11.Controls.Add(this.checkBox1);
-            this.groupBox11.Location = new System.Drawing.Point(8, 80);
+            this.groupBox11.Location = new System.Drawing.Point(8, 78);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(360, 70);
+            this.groupBox11.Size = new System.Drawing.Size(360, 93);
             this.groupBox11.TabIndex = 17;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "General :";
@@ -224,7 +221,7 @@
             this.autoUpdateCheck.Checked = global::UVA_Arena.Properties.Settings.Default.CheckForUpdate;
             this.autoUpdateCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autoUpdateCheck.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "CheckForUpdate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.autoUpdateCheck.Location = new System.Drawing.Point(14, 44);
+            this.autoUpdateCheck.Location = new System.Drawing.Point(14, 66);
             this.autoUpdateCheck.Name = "autoUpdateCheck";
             this.autoUpdateCheck.Size = new System.Drawing.Size(190, 17);
             this.autoUpdateCheck.TabIndex = 2;
@@ -237,7 +234,7 @@
             this.checkBox2.Checked = global::UVA_Arena.Properties.Settings.Default.AskForUsernameEverytime;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "AskForUsernameEverytime", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox2.Location = new System.Drawing.Point(14, 21);
+            this.checkBox2.Location = new System.Drawing.Point(14, 22);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(134, 17);
             this.checkBox2.TabIndex = 1;
@@ -249,7 +246,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = global::UVA_Arena.Properties.Settings.Default.HideExitDialog;
             this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "HideExitDialog", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox1.Location = new System.Drawing.Point(202, 21);
+            this.checkBox1.Location = new System.Drawing.Point(14, 44);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(143, 17);
             this.checkBox1.TabIndex = 0;
@@ -262,7 +259,7 @@
             this.groupBox6.Controls.Add(this.changeCodeButton);
             this.groupBox6.Controls.Add(this.formatCodeButton);
             this.groupBox6.Controls.Add(this.label34);
-            this.groupBox6.Location = new System.Drawing.Point(8, 156);
+            this.groupBox6.Location = new System.Drawing.Point(8, 179);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(360, 97);
             this.groupBox6.TabIndex = 16;
@@ -325,14 +322,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.backupRegistryButton);
             this.groupBox5.Controls.Add(this.downloadAll);
-            this.groupBox5.Controls.Add(this.restoreData);
-            this.groupBox5.Controls.Add(this.backupData);
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.label2);
-            this.groupBox5.Controls.Add(this.label3);
-            this.groupBox5.Location = new System.Drawing.Point(8, 257);
+            this.groupBox5.Location = new System.Drawing.Point(6, 283);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(360, 177);
+            this.groupBox5.Size = new System.Drawing.Size(360, 133);
             this.groupBox5.TabIndex = 15;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Problem Data :";
@@ -340,7 +334,7 @@
             // backupRegistryButton
             // 
             this.backupRegistryButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.backupRegistryButton.Location = new System.Drawing.Point(56, 84);
+            this.backupRegistryButton.Location = new System.Drawing.Point(56, 88);
             this.backupRegistryButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.backupRegistryButton.Name = "backupRegistryButton";
             this.backupRegistryButton.Size = new System.Drawing.Size(250, 28);
@@ -352,7 +346,7 @@
             // downloadAll
             // 
             this.downloadAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.downloadAll.Location = new System.Drawing.Point(56, 32);
+            this.downloadAll.Location = new System.Drawing.Point(56, 36);
             this.downloadAll.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.downloadAll.Name = "downloadAll";
             this.downloadAll.Size = new System.Drawing.Size(250, 28);
@@ -361,34 +355,10 @@
             this.downloadAll.UseVisualStyleBackColor = true;
             this.downloadAll.Click += new System.EventHandler(this.downloadAll_Click);
             // 
-            // restoreData
-            // 
-            this.restoreData.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.restoreData.Location = new System.Drawing.Point(185, 137);
-            this.restoreData.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.restoreData.Name = "restoreData";
-            this.restoreData.Size = new System.Drawing.Size(160, 28);
-            this.restoreData.TabIndex = 4;
-            this.restoreData.Text = "Restore Description";
-            this.restoreData.UseVisualStyleBackColor = true;
-            this.restoreData.Click += new System.EventHandler(this.restoreData_Click);
-            // 
-            // backupData
-            // 
-            this.backupData.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.backupData.Location = new System.Drawing.Point(14, 137);
-            this.backupData.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.backupData.Name = "backupData";
-            this.backupData.Size = new System.Drawing.Size(160, 28);
-            this.backupData.TabIndex = 5;
-            this.backupData.Text = "Backup Description";
-            this.backupData.UseVisualStyleBackColor = true;
-            this.backupData.Click += new System.EventHandler(this.backupData_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 18);
+            this.label1.Location = new System.Drawing.Point(14, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(189, 13);
             this.label1.TabIndex = 6;
@@ -397,20 +367,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 69);
+            this.label2.Location = new System.Drawing.Point(13, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(187, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "Backup data stored in the registry :";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 122);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(335, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Backup and Restore user settings and downloader description :";
             // 
             // groupBox4
             // 
@@ -433,7 +394,7 @@
             this.editorTab.Location = new System.Drawing.Point(4, 26);
             this.editorTab.Name = "editorTab";
             this.editorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.editorTab.Size = new System.Drawing.Size(376, 447);
+            this.editorTab.Size = new System.Drawing.Size(376, 427);
             this.editorTab.TabIndex = 1;
             this.editorTab.Text = "Editor";
             // 
@@ -443,9 +404,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.currentLineColor);
             this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Location = new System.Drawing.Point(8, 253);
+            this.groupBox3.Location = new System.Drawing.Point(8, 260);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(360, 50);
+            this.groupBox3.Size = new System.Drawing.Size(360, 62);
             this.groupBox3.TabIndex = 64;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Colors :";
@@ -454,7 +415,7 @@
             // 
             this.currentLineColor.BackColor = global::UVA_Arena.Properties.Settings.Default.EditorCurrentLineColor;
             this.currentLineColor.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::UVA_Arena.Properties.Settings.Default, "EditorCurrentLineColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.currentLineColor.Location = new System.Drawing.Point(168, 15);
+            this.currentLineColor.Location = new System.Drawing.Point(168, 19);
             this.currentLineColor.Name = "currentLineColor";
             this.currentLineColor.Size = new System.Drawing.Size(186, 29);
             this.currentLineColor.TabIndex = 1;
@@ -464,7 +425,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 23);
+            this.label7.Location = new System.Drawing.Point(12, 27);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(150, 13);
             this.label7.TabIndex = 0;
@@ -518,7 +479,7 @@
             this.groupBox1.Controls.Add(this.showLineNumbers);
             this.groupBox1.Controls.Add(this.caretBlinking);
             this.groupBox1.Controls.Add(this.autoIndentChars);
-            this.groupBox1.Location = new System.Drawing.Point(10, 117);
+            this.groupBox1.Location = new System.Drawing.Point(10, 122);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(358, 120);
             this.groupBox1.TabIndex = 56;
@@ -629,16 +590,16 @@
             this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox7.Controls.Add(this.changeShortcuts);
-            this.groupBox7.Location = new System.Drawing.Point(8, 321);
+            this.groupBox7.Location = new System.Drawing.Point(8, 346);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(360, 50);
+            this.groupBox7.Size = new System.Drawing.Size(360, 57);
             this.groupBox7.TabIndex = 63;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Shortcuts :";
             // 
             // changeShortcuts
             // 
-            this.changeShortcuts.Location = new System.Drawing.Point(61, 16);
+            this.changeShortcuts.Location = new System.Drawing.Point(61, 18);
             this.changeShortcuts.Name = "changeShortcuts";
             this.changeShortcuts.Size = new System.Drawing.Size(250, 28);
             this.changeShortcuts.TabIndex = 0;
@@ -663,16 +624,16 @@
             this.compilerTab.Location = new System.Drawing.Point(4, 26);
             this.compilerTab.Name = "compilerTab";
             this.compilerTab.Padding = new System.Windows.Forms.Padding(3);
-            this.compilerTab.Size = new System.Drawing.Size(376, 447);
+            this.compilerTab.Size = new System.Drawing.Size(376, 427);
             this.compilerTab.TabIndex = 2;
             this.compilerTab.Text = "Compiler";
             // 
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.javaCompilerOptions);
-            this.groupBox10.Location = new System.Drawing.Point(11, 367);
+            this.groupBox10.Location = new System.Drawing.Point(11, 351);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(350, 75);
+            this.groupBox10.Size = new System.Drawing.Size(350, 65);
             this.groupBox10.TabIndex = 22;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Java Compiler Options";
@@ -687,16 +648,16 @@
             this.javaCompilerOptions.Multiline = true;
             this.javaCompilerOptions.Name = "javaCompilerOptions";
             this.javaCompilerOptions.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.javaCompilerOptions.Size = new System.Drawing.Size(344, 54);
+            this.javaCompilerOptions.Size = new System.Drawing.Size(344, 44);
             this.javaCompilerOptions.TabIndex = 0;
             this.javaCompilerOptions.TextChanged += new System.EventHandler(this.CompilerOptions_TextChanged);
             // 
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.cppCompilerOptions);
-            this.groupBox9.Location = new System.Drawing.Point(11, 288);
+            this.groupBox9.Location = new System.Drawing.Point(11, 280);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(350, 75);
+            this.groupBox9.Size = new System.Drawing.Size(350, 65);
             this.groupBox9.TabIndex = 22;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "C++ Comopiler Options";
@@ -711,7 +672,7 @@
             this.cppCompilerOptions.Multiline = true;
             this.cppCompilerOptions.Name = "cppCompilerOptions";
             this.cppCompilerOptions.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.cppCompilerOptions.Size = new System.Drawing.Size(344, 54);
+            this.cppCompilerOptions.Size = new System.Drawing.Size(344, 44);
             this.cppCompilerOptions.TabIndex = 0;
             this.cppCompilerOptions.TextChanged += new System.EventHandler(this.CompilerOptions_TextChanged);
             // 
@@ -720,7 +681,7 @@
             this.groupBox8.Controls.Add(this.cCompilerOptions);
             this.groupBox8.Location = new System.Drawing.Point(12, 210);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(350, 75);
+            this.groupBox8.Size = new System.Drawing.Size(350, 65);
             this.groupBox8.TabIndex = 21;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "C Compiler Options";
@@ -735,7 +696,7 @@
             this.cCompilerOptions.Multiline = true;
             this.cCompilerOptions.Name = "cCompilerOptions";
             this.cCompilerOptions.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.cCompilerOptions.Size = new System.Drawing.Size(344, 54);
+            this.cCompilerOptions.Size = new System.Drawing.Size(344, 44);
             this.cCompilerOptions.TabIndex = 0;
             this.cCompilerOptions.TextChanged += new System.EventHandler(this.CompilerOptions_TextChanged);
             // 
@@ -891,26 +852,27 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(376, 447);
+            this.tabPage1.Size = new System.Drawing.Size(376, 427);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Precode";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // label9
             // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.label9.Location = new System.Drawing.Point(1, 388);
+            this.label9.Location = new System.Drawing.Point(63, 369);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(374, 15);
+            this.label9.Size = new System.Drawing.Size(235, 15);
             this.label9.TabIndex = 11;
-            this.label9.Text = "Don\'t worry about saving. Codes are automatically stored as you type.";
+            this.label9.Text = "Codes are automatically stored as you type.";
             // 
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button4.Location = new System.Drawing.Point(8, 413);
+            this.button4.Location = new System.Drawing.Point(8, 393);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(105, 25);
             this.button4.TabIndex = 10;
@@ -996,7 +958,7 @@
             // saveCodeButton
             // 
             this.saveCodeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.saveCodeButton.Location = new System.Drawing.Point(119, 413);
+            this.saveCodeButton.Location = new System.Drawing.Point(119, 393);
             this.saveCodeButton.Name = "saveCodeButton";
             this.saveCodeButton.Size = new System.Drawing.Size(105, 25);
             this.saveCodeButton.TabIndex = 4;
@@ -1007,7 +969,7 @@
             // cancelCodeButton
             // 
             this.cancelCodeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelCodeButton.Location = new System.Drawing.Point(263, 413);
+            this.cancelCodeButton.Location = new System.Drawing.Point(263, 393);
             this.cancelCodeButton.Name = "cancelCodeButton";
             this.cancelCodeButton.Size = new System.Drawing.Size(105, 25);
             this.cancelCodeButton.TabIndex = 3;
@@ -1032,7 +994,7 @@
         '\"',
         '\'',
         '\''};
-            this.codeTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 15);
+            this.codeTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 15);
             this.codeTextBox.BackBrush = null;
             this.codeTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.codeTextBox.CharHeight = 15;
@@ -1052,7 +1014,7 @@
             this.codeTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.codeTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("codeTextBox.ServiceColors")));
             this.codeTextBox.ShowFoldingLines = true;
-            this.codeTextBox.Size = new System.Drawing.Size(360, 331);
+            this.codeTextBox.Size = new System.Drawing.Size(360, 311);
             this.codeTextBox.SourceTextBox = this.codeTextBox;
             this.codeTextBox.TabIndex = 2;
             this.codeTextBox.ToolTipDelay = 300;
@@ -1068,7 +1030,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(384, 511);
+            this.ClientSize = new System.Drawing.Size(384, 491);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tableLayoutPanel3);
             this.DoubleBuffered = true;
@@ -1128,11 +1090,8 @@
         private System.Windows.Forms.TabPage generalTab;
         private System.Windows.Forms.TabPage editorTab;
         private System.Windows.Forms.TabPage compilerTab;
-        private System.Windows.Forms.Button backupData;
-        private System.Windows.Forms.Button restoreData;
         private System.Windows.Forms.Button downloadAll;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button changeCodeButton;
         private System.Windows.Forms.Button formatCodeButton;

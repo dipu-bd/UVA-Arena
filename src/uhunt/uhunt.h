@@ -6,7 +6,7 @@
 #include "problem.h"
 #include "judgestatus.h"
 #include "userinfo.h"
-#include "userranklist.h"
+#include "rankinfo.h"
 #include "usersubmission.h"
 #include "uvalib_global.h"
 

@@ -120,7 +120,6 @@ void showRankData(const QList<RankInfo>& data)
              << endl;
     }
     cout << "Judge Status data shown" << endl;
-    return;
 }
 
 void TestSampleData(Uhunt& api)
@@ -140,16 +139,17 @@ void TestSampleData(Uhunt& api)
     showRankData(api.rankListFromData(rankData));
 
     cout << "Sample data test ended\n\n";
-    return;
 }
 
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
+    //api data
     shared_ptr<QNetworkAccessManager> manager = make_shared<QNetworkAccessManager>();
     Uhunt api(manager);
 
+    //connect signal and slots
     QObject::connect(&api, &Uhunt::problemByIdDownloaded, &showProblemById);
     QObject::connect(&api, &Uhunt::problemListDownloaded, &showProblemList);
     QObject::connect(&api, &Uhunt::judgeStatusDownloaded, &showJudgeStatus);
@@ -162,7 +162,7 @@ int main(int argc, char* argv[])
     //sample test
     TestSampleData(api);
 
-    //problem list button
+    //initialize frame
     QFrame frame;
     QVBoxLayout verticalLayout;
     QPushButton pushButton1;
@@ -182,7 +182,7 @@ int main(int argc, char* argv[])
     verticalLayout.addWidget(&pushButton7);
     verticalLayout.addWidget(&pushButton8);
     frame.setLayout(&verticalLayout);
-    frame.setWindowTitle("UVA Arena Unit Test");
+    frame.setWindowTitle("Unit Test");
 
     pushButton1.setText("Click here to get userids");
     QObject::connect(&pushButton1, &QPushButton::clicked,

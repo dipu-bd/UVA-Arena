@@ -22,7 +22,7 @@ set(HEADERS
     uhunt/problem.h
     uhunt/uhunt.h
     uhunt/userinfo.h
-    uhunt/userranklist.h
+    uhunt/rankinfo.h
     uhunt/usersubmission.h
     uhunt/submissionmessage.h
 )
@@ -42,7 +42,7 @@ set(SOURCES
     uhunt/submissionmessage.cpp
     uhunt/uhunt.cpp
     uhunt/userinfo.cpp
-    uhunt/userranklist.cpp
+    uhunt/rankinfo.cpp
     uhunt/usersubmission.cpp
 )
 

@@ -1,4 +1,4 @@
-#include "userranklist.h"
+#include "rankinfo.h"
 
 using namespace uva;
 

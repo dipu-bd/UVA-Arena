@@ -3,7 +3,7 @@
 #include <memory>
 #include <QNetworkAccessManager>
 
-#include "probleminfo.h"
+#include "problem.h"
 #include "judgestatus.h"
 #include "userinfo.h"
 #include "userranklist.h"
@@ -13,46 +13,48 @@
 namespace uva
 {
 
-    class UVA_EXPORT UhuntQt : public QObject
+    class UVA_EXPORT Uhunt : public QObject
     {
         Q_OBJECT
     public:
 
-        UhuntQt(std::shared_ptr<QNetworkAccessManager> manager);
+        Uhunt(std::shared_ptr<QNetworkAccessManager> manager);
 
         /**
          * @brief getProblemList Get the list of problem info.
          * @param data Downloaded javascript array data.
          * @return List of problem info objects.
-        */
-        QList<ProblemInfo> problemListFromData(const QByteArray& data);
+         */
+        QList<Problem> problemListFromData(const QByteArray &data);
 
         /**
          * @brief judgeStatusFromData   Gets the latest judge status.
          * @param data Downloaded javascript array data.
          * @return List of judge status objects.
          */
-        QList<JudgeStatus> judgeStatusFromData(const QByteArray& data);
+        QList<JudgeStatus> judgeStatusFromData(const QByteArray &data);
 
         /**
          * @brief rankListFromData Gets the rank list from the json data.
          * @param data JSon string of data.
          * @return List of RankInfo objects.
          */
-        QList<RankInfo> rankListFromData(const QByteArray& data);
+        QList<RankInfo> rankListFromData(const QByteArray &data);
 
     signals:
 
+        //signal emitted after problem is downloaded
+        void problemByIdDownloaded(Problem);
+        //signal emitted after problem list is downloaded
+        void problemListDownloaded(QList<Problem>);
         //signal emitted after judge status is downloaded
         void judgeStatusDownloaded(QList<JudgeStatus>);
-        //signal emitted after problem list is downloaded
-        void problemListDownloaded(QList<ProblemInfo>);
         //signal emitted after user id is downloaded
         void userIdDownloaded(QString userName, int userID);
         //signal emitted after user info is downloaded
         void userInfoDownloaded(UserInfo);
         //signal emitted after user info is updated
-        void userInfoUpdated(UserInfo&);
+        void userInfoUpdated(UserInfo);
         //signal emitted after rank by position is downloaded
         void rankByPositionDownloaded(QList<RankInfo>);
         //signal emitted after rank by user is downloaded
@@ -61,8 +63,13 @@ namespace uva
     public slots:
 
         /**
+         * @brief Get a problem by it's id. Emits problemByIdDownloaded() when finished.
+         */
+        void getProblemById(int id);
+
+        /**
          * @brief Gets the UVA problem list. Emits problemListDownloaded() when finished.
-        */
+         */
         void getProblemList();
 
         /**
@@ -77,7 +84,7 @@ namespace uva
          * @brief getUserID returns id of an user from username
          * @param userName Username of the user
          */
-        void getUserID(QString userName);
+        void getUserID(const QString& userName);
 
         /**
          * @brief getUserSubmissions Get all submissions of a specific user starting from minId
@@ -89,7 +96,7 @@ namespace uva
          * @brief updatedUserInfo Update the user info to latest data
          * @param uinfo UserInfo object to be updated
          */
-        void updateUserInfo(UserInfo& uinfo);
+        void updateUserInfo(const UserInfo& uinfo);
 
         /**
          * @brief getRankByUser Gets the ranklist centered on the specific user.
@@ -107,6 +114,8 @@ namespace uva
         void getRankByPosition(int startPos = 1, int count = 100);
 
     private:
+
+        QNetworkReply* createNetworkRequest(QString url);
 
         std::shared_ptr<QNetworkAccessManager> mNetworkManager;
     };

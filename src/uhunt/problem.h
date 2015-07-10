@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QList>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QJsonArray>
 
 #include "uvalib_global.h"
@@ -8,26 +10,41 @@
 
 namespace uva
 {
-    class UVA_EXPORT ProblemInfo
+    class UVA_EXPORT Problem
     {
     public:
-        ProblemInfo(const QJsonArray& data);
+        Problem();
 
-        // load from javascript array
-        void loadData(const QByteArray& data);
+        /**
+        * @brief Creates a json object from utf8 formatted data
+        * @param json The json data to read
+        * @return An instance of problem based off the json data
+        */
+        static Problem fromJson(const QByteArray& json);
 
-        // Load data from a json array
-        void loadData(const QJsonArray& data);
+        /**
+        * @brief Creates a json object from utf8 formatted data
+        * @param object The QJsonObject to use
+        * @return An instance of problem based off the json data
+        */
+        static Problem fromJsonObject(const QJsonObject& object);
+
+        /**
+        * @brief Creates a json object from utf8 formatted data
+        * @param object The QJSonArray to use
+        * @return An instance of problem based off the json data
+        */
+        static Problem fromJsonArray(const QJsonArray& arr);
 
         // 0. Problem ID
-        int getProblemID() const { return mProblemID; }
-        void setProblemID(int v) { mProblemID = v; }
+        int getID() const { return mID; }
+        void setID(int v) { mID = v; }
         // 1. Problem Number
-        int getProblemNumber() const { return mProblemNumber; }
-        void setProblemNumber(int v) { mProblemNumber = v; }
+        int getNumber() const { return mNumber; }
+        void setNumber(int v) { mNumber = v; }
         // 2. Problem Title
-        QString getProblemTitle() const { return mProblemTitle; }
-        void setProblemTitle(QString v) { mProblemTitle = v; }
+        QString getTitle() const { return mTitle; }
+        void setTitle(QString v) { mTitle = v; }
         // 3. Number of Distinct Accepted User (DACU)
         int getDACU() const { return mDACU; }
         void setDACU(int v) { mDACU = v; }
@@ -80,12 +97,12 @@ namespace uva
         int getRuntimeLimitCount() const { return mRuntimeLimitCount; }
         void setRuntimeLimitCount(int v) { mRuntimeLimitCount = v; }
         // 20. Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
-        ProblemStatus getProblemStatus() const { return mProblemStatusCount; }
-        void setProblemStatus(ProblemStatus v) { mProblemStatusCount = v; }
-        void setProblemStatus(int v);
+        ProblemStatus getStatus() const { return mStatus; }
+        void setStatus(ProblemStatus v) { mStatus = v; }
+        void setStatus(int v);
 
         // get volume number of the problem
-        int getVolume() const { return mProblemNumber / 100; }
+        int getVolume() const { return mNumber / 100; }
         // get the total submissions
         int getTotalSubmission() const;
         // True if default user solved this problem
@@ -99,11 +116,11 @@ namespace uva
 
     private:
         // 0. Problem ID
-        int mProblemID;
+        int mID;
         // 1. Problem Number
-        int mProblemNumber;
+        int mNumber;
         // 2. Problem Title
-        QString mProblemTitle;
+        QString mTitle;
         // 3. Number of Distinct Accepted User (DACU)
         int mDACU;
         // 4. Best Runtime of an Accepted Submission
@@ -139,7 +156,7 @@ namespace uva
         // 19. Time Limit (milliseconds)
         int mRuntimeLimitCount;
         // 20. Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
-        ProblemStatus mProblemStatusCount;
+        ProblemStatus mStatus;
 
         //set true if this problem is solved by default user
         bool mSolved;

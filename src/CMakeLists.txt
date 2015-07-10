@@ -19,8 +19,8 @@ set(HEADERS
     uhunt/categorynode.h
     uhunt/enums.h
     uhunt/judgestatus.h
-    uhunt/probleminfo.h
-    uhunt/uhuntqt.h
+    uhunt/problem.h
+    uhunt/uhunt.h
     uhunt/userinfo.h
     uhunt/userranklist.h
     uhunt/usersubmission.h
@@ -38,9 +38,9 @@ set(SOURCES
     widgets/profileswidget.cpp
     uhunt/categorynode.cpp
     uhunt/judgestatus.cpp
-    uhunt/probleminfo.cpp
+    uhunt/problem.cpp
     uhunt/submissionmessage.cpp
-    uhunt/uhuntqt.cpp
+    uhunt/uhunt.cpp
     uhunt/userinfo.cpp
     uhunt/userranklist.cpp
     uhunt/usersubmission.cpp

@@ -5,9 +5,10 @@ namespace uva
 
     enum ProblemStatus
     {
-        Unavaible = 0,
+        Unavailable = 0,
         Normal = 1,
         Special_Judge = 2,
+        ProblemStatusEnumCount,
     };
 
     enum Language
@@ -17,7 +18,8 @@ namespace uva
         Java = 2,
         CPP = 3,
         Pascal = 4,
-        CPP11 = 5
+        CPP11 = 5,
+        LanguageEnumCount,
     };
 
     enum Verdict
@@ -33,7 +35,8 @@ namespace uva
         MemoryLimit = 60,
         WrongAnswer = 70,
         PresentationError = 80,
-        Accepted = 90
+        Accepted = 90,
+        VerdictEnumCount,
     };
 
 }

@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QFile>
 #include <QTextStream>
+#include <QNetworkAccessManager>
 
 using namespace uva;
 
@@ -21,7 +22,7 @@ int main(int argc, char *argv[])
         a.setStyleSheet(ts.readAll());
     }
 
-    MainWindow w;
+    MainWindow w(std::make_shared<QNetworkAccessManager>());
     w.show();
 
     return a.exec();

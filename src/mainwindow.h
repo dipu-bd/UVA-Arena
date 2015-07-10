@@ -2,6 +2,12 @@
 
 #include "uvalib_global.h"
 #include <QMainWindow>
+#include <QNetworkAccessManager>
+#include <QStandardPaths>
+#include <QString>
+#include <memory>
+
+#include "uhunt/uhunt.h"
 
 namespace uva
 {
@@ -15,11 +21,25 @@ namespace uva
         Q_OBJECT
 
     public:
-        explicit MainWindow(QWidget *parent = 0);
+        explicit MainWindow(std::shared_ptr<QNetworkAccessManager> networkManager,
+                                QWidget *parent = 0);
         ~MainWindow();
 
+    private slots:
+
+        void onProblemListByteArrayDownloaded(QByteArray data);
+
     private:
+
+        void initialize();
+
+        void loadProblemListFromFile(QString fileName);
+
         Ui::MainWindow *ui;
+        std::shared_ptr<QNetworkAccessManager> mNetworkManager;
+        std::shared_ptr<Uhunt> mUhuntApi;
+
+        qint64 mMaxDaysUntilProblemListRedownload;
     };
 
 }

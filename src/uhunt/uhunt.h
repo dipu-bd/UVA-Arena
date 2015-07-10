@@ -47,6 +47,8 @@ namespace uva
         void problemByIdDownloaded(Problem);
         //signal emitted after problem list is downloaded
         void problemListDownloaded(QList<Problem>);
+        // signal emitted after problem list is downloaded
+        void problemListByteArrayDownloaded(QByteArray);
         //signal emitted after judge status is downloaded
         void judgeStatusDownloaded(QList<JudgeStatus>);
         //signal emitted after user id is downloaded
@@ -69,8 +71,15 @@ namespace uva
 
         /**
          * @brief Gets the UVA problem list. Emits problemListDownloaded() when finished.
+         *
+         * Emits problemListByteArrayDownloaded when finished successfully.
          */
         void getProblemList();
+        
+        /**
+         * @brief Gets the UVA problem as a raw  QByteArray. Used for writing to files.
+         */
+        void getProblemListAsByteArray();
 
         /**
          * @brief getJudgeStatus    Gets the status current judging queue.

@@ -66,7 +66,7 @@ void Uhunt::getProblemList()
     if (!mNetworkManager)
         return;
 
-    QNetworkReply* reply = createNetworkRequest(API_PROBLEM_LIST);
+    QNetworkReply *reply = createNetworkRequest(API_PROBLEM_LIST);
 
     if (reply == nullptr)
         return;
@@ -74,14 +74,36 @@ void Uhunt::getProblemList()
     QObject::connect(reply,
         &QNetworkReply::finished,
         [this, reply]() {
-            if (reply->error() == QNetworkReply::NoError)
-            {
+            if (reply->error() == QNetworkReply::NoError) {
                 emit problemListDownloaded(
                     this->problemListFromData(reply->readAll())
                     );
             }
 
             reply->deleteLater();
+        });
+}
+
+void Uhunt::getProblemListAsByteArray()
+{
+    if (!mNetworkManager)
+        return;
+
+    QNetworkReply *reply = createNetworkRequest(API_PROBLEM_LIST);
+
+    if (reply == nullptr)
+        return;
+
+    QObject::connect(reply,
+        &QNetworkReply::finished,
+        [this, reply]() {
+
+            if (reply->error() == QNetworkReply::NoError) {
+
+                emit problemListByteArrayDownloaded(reply->readAll());
+
+            }
+
         });
 }
 

@@ -41,6 +41,21 @@ namespace uva
          */
         static QList<RankInfo> rankListFromData(const QByteArray &data);
 
+        /**
+         * @brief submissionListFromData Converts json data to a list of submission message
+         * @param data Json data to parse.
+         * @return List of SubmissionMessage object
+         */
+        static QList<SubmissionMessage> submissionListFromData(const QByteArray &data);
+
+        /**
+         * @brief userSubsOnProblemFromData Parse the user submission data on a problem
+         * @param userId Id of user involved
+         * @param data Data to parse
+         * @return UserInfo objecet
+         */
+        static UserInfo userSubsOnProblemFromData(int userId, const QByteArray &data);
+
     signals:
 
         //signal emitted after problem is downloaded
@@ -54,13 +69,19 @@ namespace uva
         //signal emitted after user id is downloaded
         void userIdDownloaded(QString userName, int userID);
         //signal emitted after user info is downloaded
-        void userInfoDownloaded(UserInfo);
-        //signal emitted after user info is updated
-        void userInfoUpdated(UserInfo);
+        void userInfoDataDownloaded(const QByteArray& data, int userId, int lastSub);
         //signal emitted after rank by position is downloaded
         void rankByPositionDownloaded(QList<RankInfo>);
         //signal emitted after rank by user is downloaded
         void rankByUserDownloaded(QList<RankInfo>);
+        //signal emitted after submission list on problem is downloaded
+        void submissionOnProblemDownloaded(QList<SubmissionMessage>);
+        //signal emitted after rank list on problem is downloaded
+        void ranklistOnProblemDownloaded(QList<SubmissionMessage>);
+        //signal emitted after user rank on problem is downloaded
+        void userRankOnProblemDownloaded(QList<SubmissionMessage>);
+        //signal emitted after user submissions on problem is downloaded
+        void userSubmissionOnProblemDownloaded(UserInfo);
 
     public slots:
 
@@ -98,14 +119,9 @@ namespace uva
         /**
          * @brief getUserSubmissions Get all submissions of a specific user starting from minId
          * @param userId Userid of user
+         * @param lastSub Submission id from where the list begins
          */
-        void getUserInfo(int userId);
-
-        /**
-         * @brief updatedUserInfo Update the user info to latest data
-         * @param uinfo UserInfo object to be updated
-         */
-        void updateUserInfo(const UserInfo& uinfo);
+        void getUserInfoData(int userId, int lastSub = 0);
 
         /**
          * @brief getRankByUser Gets the ranklist centered on the specific user.
@@ -121,6 +137,39 @@ namespace uva
          * @param count Number of users on the list.
          */
         void getRankByPosition(int startPos = 1, int count = 100);
+
+        /**
+         * @brief getSubmissionOnProblem  Emits submissionOnProblemDownloaded
+         * @param problemId ID of the problem
+         * @param startTime Time from when to start in unix timestamp
+         * @param endTime Time from when to stop in unix timestamp
+         */
+        void getSubmissionOnProblem(int problemId, int startTime, int endTime);
+
+        /**
+         * @brief getRanklistOnProblem Emits ranklistOnProblemDownloaded()
+         * @param problemId ID of the problem
+         * @param startRank Rank to start from
+         * @param count Number of people on the list
+         */
+        void getRanklistOnProblem(int problemId, int startRank = 1, int count = 25);
+
+        /**
+         * @brief getUserRankOnProblem Emits userRankOnProblemDownloaded()
+         * @param problemId ID of problem
+         * @param userId Id of the user
+         * @param nAbove Number of user listed below
+         * @param nBelow Number of user listed above
+         */
+        void getUserRankOnProblem(int problemId, int userId, int nAbove = 10, int nBelow = 10);
+
+        /**
+         * @brief getUserSubmissionOnProblem Emits userSubmissionOnProblemDownloaded()
+         * @param userId Id of the user
+         * @param problemId  ID of problem
+         * @param minSubsID Minimum submission id from where to begin
+         */
+        void getUserSubmissionOnProblem(int userId, int problemId, int minSubsID = 0);
 
     private:
 

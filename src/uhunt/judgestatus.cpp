@@ -4,51 +4,53 @@ using namespace uva;
 
 JudgeStatus::JudgeStatus()
 {
-
+    setUserID(0);
+    setUserName("-");
+    setProblemID(0);
+    setProblemTitle("-");
 }
 
-JudgeStatus::JudgeStatus(const QJsonObject &data)
+JudgeStatus JudgeStatus::fromJsonObject(const QJsonObject &obj)
 {
-    loadData(data);
-}
+    JudgeStatus stat;
 
-void JudgeStatus::loadData(const QJsonObject &obj)
-{
     //id : global id
-    setId(static_cast<qint64>(obj["id"].toDouble()));
+    stat.setId(static_cast<qint64>(obj["id"].toDouble()));
     //type: type of submission
-    setType(obj["type"].toString());
+    stat.setType(obj["type"].toString());
 
     //get msg object
     const QJsonObject& data = obj["msg"].toObject();
 
     //sid: Submission ID
-    setSubmissionID(data["sid"].toInt());
+    stat.setSubmissionID(data["sid"].toInt());
     //uid: user id
-    setUserID(data["uid"].toInt());
+    stat.setUserID(data["uid"].toInt());
     //pid: Problem ID
-    setProblemID(data["pid"].toInt());
+    stat.setProblemID(data["pid"].toInt());
     //ver: Verdict ID
-    setVerdict(data["ver"].toInt());
+    stat.setVerdict(data["ver"].toInt());
     //lan: Language ID
-    setLanguage(data["lan"].toInt());
+    stat.setLanguage(data["lan"].toInt());
     //run : Runtime
-    setRuntime(data["run"].toInt());
+    stat.setRuntime(data["run"].toInt());
     //mem: Memory taken
-    setMemory(data["mem"].toInt());
+    stat.setMemory(data["mem"].toInt());
     //rank: Submission Rank
-    setRank(data["rank"].toInt());
+    stat.setRank(data["rank"].toInt());
     //sbt: Submission Time (UNIX time stamp)
-    setSubmissionTime(data["sbt"].toInt());
+    stat.setSubmissionTime(data["sbt"].toInt());
     //name: full username
-    setFullName(data["name"].toString());
+    stat.setFullName(data["name"].toString());
     //uname: user name
-    setUserName(data["uname"].toString());
+    stat.setUserName(data["uname"].toString());
 
     //set problem number and title
     if(UhuntDatabase::isAvaiable())
     {
-        setProblemNumber(UhuntDatabase::getProblemNumber(getProblemID()));
-        setProblemTitle(UhuntDatabase::getProblemTitleById(getProblemID()));
+        stat.setProblemNumber(UhuntDatabase::getProblemNumber(stat.getProblemID()));
+        stat.setProblemTitle(UhuntDatabase::getProblemTitleById(stat.getProblemID()));
     }
+
+    return stat;
 }

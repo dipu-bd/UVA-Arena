@@ -15,10 +15,9 @@ namespace uva
     {
     public:
         RankInfo();
-        RankInfo(const QJsonObject& data);
 
         //load data from json object
-        void loadData(const QJsonObject& data);
+        static RankInfo fromJsonObject(const QJsonObject& data);
 
         //rank : The rank of the user
         int getRank() { return mRank; }

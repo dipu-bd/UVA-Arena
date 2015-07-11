@@ -18,6 +18,10 @@ const QString API_USER_NAME_TO_ID = API_BASE + "/uname2uid/%1";     //%1 = userN
 const QString API_USER_INFO = API_BASE + "/subs-user/%1/%2";        //%1 = userId, %2 = lastSubmissionId
 const QString API_RANK_BY_USER = API_BASE + "/ranklist/%1/%2/%3";   //%1 = userId, %2 = nabove, %3 = nbelow
 const QString API_RANK_BY_POS = API_BASE + "/rank/%1/%2";           //%1 = startPos, %2 = count
+const QString API_PROBLEM_SUBS = API_PROBLEM_LIST + "/subs/%1/%2/%3";   //%1 = pid, %2 = start time, %3 = end time
+const QString API_PROBLEM_RANK = API_PROBLEM_LIST + "/rank/%1/%2/%3";   //%1 = pid, %2 = starting rank, %3 = count
+const QString API_PROBLEM_USER_RANK = API_PROBLEM_LIST + "/ranklist/%1/%2/%3/%4";    //%1 = pid-csv, %2= userids-csv, %3 = nabove %4 = nbelow
+const QString API_USER_PROBLEM_SUBS = API_BASE + "/subs-pids/%1/%2/%3"; //%1 = userids-csv, %2 = pid-csv, %3 = min-subs-id
 
 Uhunt::Uhunt(std::shared_ptr<QNetworkAccessManager> manager) :
     mNetworkManager(manager)
@@ -36,6 +40,114 @@ QNetworkReply* Uhunt::createNetworkRequest(QString url)
 
     return reply;
 }
+
+//
+// Static functions
+//
+QList<Problem> Uhunt::problemListFromData(const QByteArray& data)
+{
+    QList<Problem> problems;
+
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+
+    if (!doc.isArray())
+        return problems;
+
+    QJsonArray arr = doc.array();
+    QJsonArray::const_iterator it = arr.begin();
+
+    while (it != arr.end())
+    {
+        if (it->isArray())
+            problems.push_back(Problem::fromJsonArray(it->toArray()));
+
+        it++;
+    }
+
+    return problems;
+}
+
+QList<JudgeStatus> Uhunt::judgeStatusFromData(const QByteArray &data)
+{
+    /*
+        The data is a javascript array of dictionary of following format:
+        [{...},{...}]
+     */
+    QList<JudgeStatus> status;
+
+    //get a json document from data
+    QJsonDocument jdoc = QJsonDocument::fromJson(data);
+
+    const QJsonArray& arr = jdoc.array();
+    QJsonArray::const_iterator it = arr.begin();
+
+    while(it != arr.end())
+    {
+        if(it->isObject())
+            status.push_back(JudgeStatus::fromJsonObject(it->toObject()));
+
+        it++;
+    }
+
+    return status;
+}
+
+QList<RankInfo> Uhunt::rankListFromData(const QByteArray &data)
+{
+    QList<RankInfo> ranks;
+
+    //get json document
+    QJsonDocument& jdoc = QJsonDocument::fromJson(data);
+
+    const QJsonArray& arr = jdoc.array();
+    QJsonArray::const_iterator it = arr.begin();
+
+    while(it != arr.end())
+    {
+        if(it->isObject())
+            ranks.push_back(RankInfo::fromJsonObject(it->toObject()));
+
+        it++;
+    }
+
+    return ranks;
+}
+
+QList<SubmissionMessage> Uhunt::submissionListFromData(const QByteArray &data)
+{
+    QList<SubmissionMessage> subs;
+
+    //get json document
+    QJsonDocument& jdoc = QJsonDocument::fromJson(data);
+
+    const QJsonArray& arr = jdoc.array();
+    QJsonArray::const_iterator it = arr.begin();
+
+    while(it != arr.end())
+    {
+        if(it->isObject())
+            subs.push_back(SubmissionMessage::fromJsonObject(it->toObject()));
+
+        it++;
+    }
+
+    return subs;
+}
+
+UserInfo Uhunt::userSubsOnProblemFromData(int userId, const QByteArray &data)
+{
+    //get json document
+    QJsonDocument& doc = QJsonDocument::fromJson(data);
+
+    //get main object
+    const QJsonObject& obj = doc.object();
+
+    //get userinfo object
+    const QJsonObject& user = obj[QString::number(userId)].toObject();
+
+    return UserInfo::fromJsonObject(userId, user);
+}
+
 
 //
 // SLOTS
@@ -134,37 +246,18 @@ void Uhunt::getUserID(const QString &userName)
         });
 }
 
-void Uhunt::getUserInfo(int userId)
-{
-    QNetworkReply* reply = createNetworkRequest(API_USER_INFO.arg(userId).arg(0));
-
-    if (reply == nullptr)
-        return;
-
-    QObject::connect(reply,
-        &QNetworkReply::finished,
-        [this, reply, userId]() {
-            UserInfo uinfo(reply->readAll());
-            uinfo.setUserId(userId);
-            emit this->userInfoDownloaded(uinfo);
-            reply->deleteLater();
-        });
-}
-
-void Uhunt::updateUserInfo(const UserInfo &uinfo)
+void Uhunt::getUserInfoData(int userId, int lastSub)
 {
     QNetworkReply* reply =
-        createNetworkRequest(API_USER_INFO.arg(uinfo.getUserId()).arg(uinfo.getLastSubmissionID()));
+            createNetworkRequest(API_USER_INFO.arg(userId).arg(lastSub));
 
     if (reply == nullptr)
         return;
 
     QObject::connect(reply,
         &QNetworkReply::finished,
-        [this, reply]() {
-            UserInfo info;
-            info.loadData(reply->readAll());
-            emit this->userInfoUpdated(info);
+        [this, reply, userId, lastSub]() {
+            emit this->userInfoDataDownloaded(reply->readAll(), userId, lastSub);
             reply->deleteLater();
         });
 }
@@ -205,69 +298,75 @@ void Uhunt::getRankByPosition(int startPos, int count)
         });
 }
 
-//
-// Other functions
-//
-QList<Problem> Uhunt::problemListFromData(const QByteArray& data)
+void Uhunt::getSubmissionOnProblem(int problemId, int startTime, int endTime)
 {
-    QList<Problem> problems;
+    QNetworkReply* reply =
+            createNetworkRequest(API_PROBLEM_SUBS.arg(problemId).arg(startTime).arg(endTime));
 
-    QJsonDocument doc = QJsonDocument::fromJson(data);
+    if (reply == nullptr)
+        return;
 
-    if (!doc.isArray())
-        return problems;
-
-    QJsonArray arr = doc.array();
-
-    QJsonArray::const_iterator it = arr.begin();
-
-    while (it != arr.end())
-    {
-        if (it->isArray())
-            problems.push_back(Problem::fromJsonArray(it->toArray()));
-
-        it++;
-    }
-
-    return problems;
+    QObject::connect(reply,
+        &QNetworkReply::finished,
+        [this, reply]() {
+            emit this->submissionOnProblemDownloaded(
+                    submissionListFromData(reply->readAll())
+                    );
+            reply->deleteLater();
+        });
 }
 
-QList<JudgeStatus> Uhunt::judgeStatusFromData(const QByteArray &data)
+void Uhunt::getRanklistOnProblem(int problemId, int startRank, int count)
 {
-    /*
-        The data is a javascript array of dictionary of following format:
-        [{...},{...}]
-     */
-    QList<JudgeStatus> status;
+    QNetworkReply* reply =
+            createNetworkRequest(API_PROBLEM_RANK.arg(problemId).arg(startRank).arg(count));
 
-    //get a json document from data
-    QJsonDocument jdoc = QJsonDocument::fromJson(data);
+    if (reply == nullptr)
+        return;
 
-    QJsonArray jarr = jdoc.array();
-    for(int i = 0; i < jarr.count(); ++i)
-    {
-        status.push_back(JudgeStatus(jarr[i].toObject()));
-    }
-
-    return status;
+    QObject::connect(reply,
+        &QNetworkReply::finished,
+        [this, reply]() {
+            emit this->ranklistOnProblemDownloaded(
+                    submissionListFromData(reply->readAll())
+                    );
+            reply->deleteLater();
+        });
 }
 
-QList<RankInfo> Uhunt::rankListFromData(const QByteArray &data)
+void Uhunt::getUserRankOnProblem(int problemId, int userId, int nAbove, int nBelow)
 {
-    /*
-        Data is a javascript array of objects. Formatted like this-
-        [{...},{...}]
-     */
-    QList<RankInfo> ranks;
+    QNetworkReply* reply =
+            createNetworkRequest(API_PROBLEM_USER_RANK.arg(problemId).arg(userId).arg(nAbove).arg(nBelow));
 
-    //get json document
-    QJsonDocument& jdoc = QJsonDocument::fromJson(data);
+    if (reply == nullptr)
+        return;
 
-    const QJsonArray& jarr = jdoc.array();
-    for(int i = 0; i < jarr.count(); ++i)
-    {
-        ranks.push_back(RankInfo(jarr[i].toObject()));
-    }
+    QObject::connect(reply,
+        &QNetworkReply::finished,
+        [this, reply]() {
+            emit this->userRankOnProblemDownloaded(
+                    submissionListFromData(reply->readAll())
+                    );
+            reply->deleteLater();
+        });
+}
 
-    return ranks;
+void Uhunt::getUserSubmissionOnProblem(int userId, int problemId, int minSubsID)
+{
+    QNetworkReply* reply =
+            createNetworkRequest(API_USER_PROBLEM_SUBS.arg(userId).arg(problemId).arg(minSubsID));
+
+    if (reply == nullptr)
+        return;
+
+    QObject::connect(reply,
+        &QNetworkReply::finished,
+        [this, reply, userId]() {
+
+            emit this->userSubmissionOnProblemDownloaded(
+                        userSubsOnProblemFromData(userId, reply->readAll())
+                    );
+            reply->deleteLater();
+        });
 }

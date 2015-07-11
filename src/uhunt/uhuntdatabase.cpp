@@ -66,9 +66,8 @@ Problem UhuntDatabase::getProblemById(int problemId)
 
 Problem UhuntDatabase::getProblemByNumber(int problemNumber)
 {
-    //TODO: decide what to return on invalid problemNumber
     if(!problemMap.contains(problemNumber))
-        return *(new Problem());
+        return Problem();
     return problemMap[problemNumber];
 }
 

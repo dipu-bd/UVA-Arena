@@ -3,31 +3,29 @@
 using namespace uva;
 
 RankInfo::RankInfo()
-{
-
+{    
 }
 
-RankInfo::RankInfo(const QJsonObject& data)
+RankInfo RankInfo::fromJsonObject(const QJsonObject& data)
 {
-    loadData(data);
-}
+    RankInfo rank;
 
-void RankInfo::loadData(const QJsonObject& data)
-{
     //rank : The rank of the user
-    setRank(data["rank"].toInt());
+    rank.setRank(data["rank"].toInt());
     //old : Non zero if the user is an old UVa user that hasn't migrate
-    setOld(data["old"].toBool());
+    rank.setOld(data["old"].toBool());
     //name : The name of the user
-    setFullName(data["name"].toString());
+    rank.setFullName(data["name"].toString());
     //username : The username of the user
-    setUserName(data["username"].toString());
+    rank.setUserName(data["username"].toString());
     //ac : The number of accepted problems
-    setAcceptedCount(data["ac"].toInt());
+    rank.setAcceptedCount(data["ac"].toInt());
     //nos : The number of submissions of the user
-    setTotalSubmission(data["nos"].toInt());
+    rank.setTotalSubmission(data["nos"].toInt());
     //activity : The number of accepted problems of the user in 2 days, 7 days, 31 days, 3 months, and 1 year.
-    setActivity(data["activity"].toArray());
+    rank.setActivity(data["activity"].toArray());
+
+    return rank;
 }
 
 void RankInfo::setActivity(const QJsonArray& data)

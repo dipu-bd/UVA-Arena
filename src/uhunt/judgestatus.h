@@ -10,9 +10,8 @@ namespace uva
     {
     public:
         JudgeStatus();
-        JudgeStatus(const QJsonObject& data);
 
-        void loadData(const QJsonObject& data);
+        static JudgeStatus fromJsonObject(const QJsonObject& data);
 
         //id: Submission ID
         qint64 getId() const { return mID; }

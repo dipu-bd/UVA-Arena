@@ -18,12 +18,10 @@ namespace uva
 
     public:
         UserInfo();
-        UserInfo(const QByteArray& data);
-        UserInfo(const QJsonObject& data);
 
         //load data from the given array
-        void loadData(const QByteArray& data);
-        void loadData(const QJsonObject& data);
+        static UserInfo fromJson(int userId, const QByteArray& data);
+        static UserInfo fromJsonObject(int userId, const QJsonObject& data);
 
         //user id
         int getUserId() const { return mUserID; }
@@ -44,6 +42,7 @@ namespace uva
         UserSubmission& getSubmission(int problemNumber) { return mSubmissions[problemNumber]; }
         const UserSubmission getSubmission(int problemNumber) const { return mSubmissions[problemNumber]; }
         int getTotalSubmissionCount() const { return mSubmissions.count(); }
+
         //accepted list
         QSet<int>& getSolvedList() { return mSolved; }
         int getTotalSolvedCount() const { return mSolved.count(); }
@@ -57,6 +56,11 @@ namespace uva
         bool isTried(int problemNumber) const;
         //check if a problem is tried but not solved by this user
         bool isTriedButNotSolved(int problemNumber) const;
+
+        //add or update a user submission
+        void addUserSubmission(UserSubmission usub);
+        void addUserSubmission(const QByteArray& data);
+        void addUserSubmission(const QJsonArray& data);
 
     private:        
         //user id

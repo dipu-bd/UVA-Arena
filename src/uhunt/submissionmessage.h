@@ -14,9 +14,8 @@ namespace uva
     {
     public:
         SubmissionMessage();
-        SubmissionMessage(const QJsonObject& data);
 
-        void loadData(const QJsonObject& data);
+        static SubmissionMessage fromJsonObject(const QJsonObject& data);
 
         //sid: Submission ID
         int getSubmissionID() const { return mSubmissionID; }

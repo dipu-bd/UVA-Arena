@@ -14,9 +14,8 @@ namespace uva
     {
     public:
         UserSubmission();
-        UserSubmission(const QJsonArray& data);
 
-        void loadData(const QJsonArray& data);
+        static UserSubmission fromJsonArray(const QJsonArray& data);
 
         // true if the verdict is in queue
         bool isInQueue() const;

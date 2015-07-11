@@ -4,12 +4,37 @@ using namespace uva;
 
 UserSubmission::UserSubmission()
 {
-
+    setProblemNumber(0);
+    setProblemTitle("-");
 }
 
-UserSubmission::UserSubmission(const QJsonArray& data)
+UserSubmission UserSubmission::fromJsonArray(const QJsonArray& data)
 {
-    loadData(data);
+    UserSubmission usub;
+
+    //Submission ID
+    usub.setSubmissionID(data[0].toInt());
+    //Problem ID
+    usub.setProblemID(data[1].toInt());
+    //Verdict ID
+    usub.setVerdict(data[2].toInt());
+    //Runtime
+    usub.setRuntime(data[3].toInt());
+    //Submission Time (UNIX time stamp)
+    usub.setSubmissionTime(data[4].toInt());
+    //Language ID (1=ANSI C, 2=Java, 3=C++, 4=Pascal, 5=C++11)
+    usub.setLanguage(data[5].toInt());
+    //Submission Rank
+    usub.setRank(data[6].toInt());
+
+    //set problem number and title
+    if(UhuntDatabase::isAvaiable())
+    {
+        usub.setProblemNumber(UhuntDatabase::getProblemNumber(usub.getProblemID()));
+        usub.setProblemTitle(UhuntDatabase::getProblemTitleById(usub.getProblemID()));
+    }
+
+    return usub;
 }
 
 bool UserSubmission::isInQueue() const
@@ -21,32 +46,6 @@ bool UserSubmission::isAccepted() const
 {
     return (mVerdict == Verdict::Accepted);
 }
-
-void UserSubmission::loadData(const QJsonArray& data)
-{
-    //Submission ID
-    setSubmissionID(data[0].toInt());
-    //Problem ID
-    setProblemID(data[1].toInt());
-    //Verdict ID
-    setVerdict(data[2].toInt());
-    //Runtime
-    setRuntime(data[3].toInt());
-    //Submission Time (UNIX time stamp)
-    setSubmissionTime(data[4].toInt());
-    //Language ID (1=ANSI C, 2=Java, 3=C++, 4=Pascal, 5=C++11)
-    setLanguage(data[5].toInt());
-    //Submission Rank
-    setRank(data[6].toInt());
-
-    //set problem number and title
-    if(UhuntDatabase::isAvaiable())
-    {
-        setProblemNumber(UhuntDatabase::getProblemNumber(getProblemID()));
-        setProblemTitle(UhuntDatabase::getProblemTitleById(getProblemID()));
-    }
-}
-
 
 void UserSubmission::setVerdict(int v)
 {

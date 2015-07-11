@@ -4,58 +4,71 @@ using namespace uva;
 
 UserInfo::UserInfo()
 {
-
+    setUserId(0);
 }
 
-UserInfo::UserInfo(const QJsonObject &data)
+UserInfo UserInfo::fromJson(int userId, const QByteArray &data)
 {
-    loadData(data);
+    QJsonDocument& doc = QJsonDocument::fromJson(data);
+    return UserInfo::fromJsonObject(userId, doc.object());
 }
 
-UserInfo::UserInfo(const QByteArray &data)
+UserInfo UserInfo::fromJsonObject(int userId, const QJsonObject &data)
 {
-    loadData(data);
+    UserInfo info;
+
+    info.setUserId(userId);
+    info.setFullName(data["name"].toString());
+    info.setUserName(data["uname"].toString());
+    info.addUserSubmission(data["subs"].toArray());
+
+    return info;
 }
 
-void UserInfo::loadData(const QByteArray &data)
+void UserInfo::addUserSubmission(const QByteArray& json)
 {
-    loadData(QJsonDocument::fromJson(data).object());
-}
-
-void UserInfo::loadData(const QJsonObject &data)
-{
+    const QJsonDocument& doc = QJsonDocument::fromJson(json);
+    const QJsonObject& data = doc.object();
     setFullName(data["name"].toString());
     setUserName(data["uname"].toString());
+    addUserSubmission(data["subs"].toArray());
+}
 
-    const QJsonArray& jarr = data["subs"].toArray();
-
-    for(int i = 0; i < jarr.count(); ++i)
+void UserInfo::addUserSubmission(const QJsonArray& arr)
+{
+    QJsonArray::const_iterator it = arr.begin();
+    while(it != arr.end())
     {
-        // get instance of user submission
-        UserSubmission usub(jarr[i].toArray());        
+        if(it->isArray())
+            addUserSubmission(UserSubmission::fromJsonArray(it->toArray()));
 
-        //replace the old submission in the qmap
-        mSubmissions[usub.getSubmissionID()] = usub;
+        it++;
+    }
+}
 
-        int pnum = usub.getProblemNumber();
+void UserInfo::addUserSubmission(UserSubmission usub)
+{
+    //replace the old submission in the qmap
+    mSubmissions[usub.getSubmissionID()] = usub;
 
-        //the submission is accepted
-        if(usub.isAccepted())
-        {
-            mSolved.insert(pnum);
-            mTriedButFailed.remove(pnum);
-        }
-        //the submission is not inqueue and the poblem is not accepted
-        else if(!usub.isInQueue() && !isAccepted(pnum))
-        {
-            mTriedButFailed.insert(pnum);
-        }
+    int pnum = usub.getProblemNumber();
 
-        //update the last submission id
-        if(!usub.isInQueue())
-        {
-            mLastSubmissionID = std::max(mLastSubmissionID, usub.getSubmissionID());
-        }
+    //the submission is accepted
+    if(usub.isAccepted())
+    {
+        mSolved.insert(pnum);
+        mTriedButFailed.remove(pnum);
+    }
+    //the submission is not inqueue and the poblem is not accepted
+    else if(!usub.isInQueue() && !isAccepted(pnum))
+    {
+        mTriedButFailed.insert(pnum);
+    }
+
+    //update the last submission id
+    if(!usub.isInQueue())
+    {
+        mLastSubmissionID = std::max(mLastSubmissionID, usub.getSubmissionID());
     }
 }
 

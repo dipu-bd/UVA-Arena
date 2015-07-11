@@ -20,9 +20,12 @@ namespace uva
         static Problem& getProblemById(int problemId);
         static Problem& getProblemByNumber(int problemNumber);
 
+        static bool isAvaiable();
         static QList<Problem> getProblemList();
 
     private:
+        //check avaiability
+        static bool mAvailable;
         //map problem number to problem
         static QMap<int, Problem> problemMap;
         //problem id to problem number

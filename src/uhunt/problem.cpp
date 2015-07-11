@@ -4,6 +4,9 @@ using namespace uva;
 
 Problem::Problem()
 {
+    setID(0);
+    setNumber(0);
+    setTitle("-");
 }
 
 Problem Problem::fromJson(const QByteArray& json)
@@ -121,7 +124,7 @@ Problem Problem::fromJsonArray(const QJsonArray& arr)
     problem.setStatus(arr[20].toInt());
 
     problem.setMarked(false);
-    problem.setMarked(false);
+    problem.setSolved(false);
 
     problem.calculateLevel();
 

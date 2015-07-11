@@ -25,21 +25,21 @@ namespace uva
          * @param data Downloaded javascript array data.
          * @return List of problem info objects.
          */
-        QList<Problem> problemListFromData(const QByteArray &data);
+        static QList<Problem> problemListFromData(const QByteArray &data);
 
         /**
          * @brief judgeStatusFromData   Gets the latest judge status.
          * @param data Downloaded javascript array data.
          * @return List of judge status objects.
          */
-        QList<JudgeStatus> judgeStatusFromData(const QByteArray &data);
+        static QList<JudgeStatus> judgeStatusFromData(const QByteArray &data);
 
         /**
          * @brief rankListFromData Gets the rank list from the json data.
          * @param data JSon string of data.
          * @return List of RankInfo objects.
          */
-        QList<RankInfo> rankListFromData(const QByteArray &data);
+        static QList<RankInfo> rankListFromData(const QByteArray &data);
 
     signals:
 

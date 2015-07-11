@@ -37,14 +37,7 @@ void UserInfo::loadData(const QJsonObject &data)
         //replace the old submission in the qmap
         mSubmissions[usub.getSubmissionID()] = usub;
 
-        int pnum = usub.getProblemID();
-        /* original plan is to use problem number
-         * but as it is not yet avaiable, I used
-         * problem id instead.
-
         int pnum = usub.getProblemNumber();
-
-         */
 
         //the submission is accepted
         if(usub.isAccepted())

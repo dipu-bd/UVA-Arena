@@ -44,4 +44,11 @@ void JudgeStatus::loadData(const QJsonObject &obj)
     setFullName(data["name"].toString());
     //uname: user name
     setUserName(data["uname"].toString());
+
+    //set problem number and title
+    if(UhuntDatabase::isAvaiable())
+    {
+        setProblemNumber(UhuntDatabase::getProblemNumber(getProblemID()));
+        setProblemTitle(UhuntDatabase::getProblemTitleById(getProblemID()));
+    }
 }

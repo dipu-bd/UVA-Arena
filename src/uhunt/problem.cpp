@@ -7,6 +7,9 @@ Problem::Problem()
     setID(0);
     setNumber(0);
     setTitle("-");
+    setStar(false);
+    setMarked(false);
+    setSolved(false);
 }
 
 Problem Problem::fromJson(const QByteArray& json)
@@ -68,9 +71,7 @@ Problem Problem::fromJsonObject(const QJsonObject& object)
     // 20.  Status (0 = unavailable, 1 = normal, 2 = special judge)
     problem.setStatus(object["status"].toInt());
 
-    problem.setSolved(false);
-    problem.setMarked(false);
-
+    //calculate level of the problem
     problem.calculateLevel();
 
     return problem;
@@ -123,9 +124,7 @@ Problem Problem::fromJsonArray(const QJsonArray& arr)
     // 20.  Status (0 = unavailable, 1 = normal, 2 = special judge)
     problem.setStatus(arr[20].toInt());
 
-    problem.setMarked(false);
-    problem.setSolved(false);
-
+    //calculate level of the problem
     problem.calculateLevel();
 
     return problem;

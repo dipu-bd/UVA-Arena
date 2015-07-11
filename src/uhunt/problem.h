@@ -105,6 +105,7 @@ namespace uva
         int getVolume() const { return mNumber / 100; }
         // get the total submissions
         int getTotalSubmission() const;
+
         // True if default user solved this problem
         bool isSolved() const { return mSolved; }
         void setSolved(bool v) { mSolved = v; }
@@ -113,6 +114,13 @@ namespace uva
         // True if problem is marked as favorite
         bool isMarked() const { return mMarked; }
         void setMarked(bool v) { mMarked = v; }
+
+        //True if this is a starred problem
+        bool isStarred() const { return mStar; }
+        void setStar(bool v) { mStar = v; }
+        //notes on this problem
+        QString getNotes() const { return mNotes; }
+        void setNotes(QString v) { mNotes = v; }
 
     private:
         // 0. Problem ID
@@ -163,7 +171,11 @@ namespace uva
         //set true if this problem is marked as favorite
         bool mMarked;
         //set the level of this problem (value between 1 and 10~14)
-        double mLevel;
+        double mLevel;        
+        //set true if this is a starred problem
+        bool mStar;
+        //notes on this problem
+        QString mNotes;
 
         // calculates and sets the level of the problem
         void calculateLevel();

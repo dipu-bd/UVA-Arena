@@ -10,6 +10,7 @@ set(TESTS
     problemswidgettest
     codeswidgettest
     judgestatuswidgettest
+    categorytest
 )
 
 foreach(TEST ${TESTS})

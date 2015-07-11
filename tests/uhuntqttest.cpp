@@ -9,7 +9,9 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
+#include "mainwindow.h"
 #include "uhunt/uhunt.h"
+#include "uhunt/uhuntdatabase.h"
 
 using namespace std;
 using namespace uva;
@@ -57,11 +59,11 @@ void showJudgeStatus(const QList<JudgeStatus>& data)
     {
         if(cnt++ > 20) break;
         cout << "sid=" << stat.getSubmissionID()
-             << "\t pid=" << stat.getProblemID()
+             << "\t pnum=" << stat.getProblemNumber()
              << "\t ver="  << stat.getVerdict()
              << "\t lan=" << stat.getLanguage()
-             << "\t sbt=" << stat.getSubmissionTime()
-             << "\t user=" << stat.getFullName().toStdString()
+             << "\t user=" << stat.getFullName().toStdString()             
+             << "\t ptitle=" << stat.getProblemTitle().toStdString()
              << endl;
     }
     cout << "Judge Status data shown" << endl;
@@ -77,7 +79,7 @@ void ShowUserInfo(const UserInfo& uinfo)
     userInfo = uinfo;
 
     cout << "\nUser Info:\n"
-         << "Uid = " << uinfo.getUserId()
+         << "UID = " << uinfo.getUserId()
          << "\nFull=" << uinfo.getFullName().toStdString()
          << "\nUser=" << uinfo.getUserName().toStdString()
          << "\nTotal=" << uinfo.getTotalSubmissionCount()
@@ -91,10 +93,10 @@ void ShowUserInfo(const UserInfo& uinfo)
         const UserSubmission& usub = uinfo.getSubmission(pnum);
         if(cnt++ > 20) break;
         cout << "sid=" << usub.getSubmissionID()
-             << "\t pid=" << usub.getProblemID()
+             << "\t pnum=" << usub.getProblemNumber()
              << "\t ver="  << usub.getVerdict()
              << "\t lan=" << usub.getLanguage()
-             << "\t sbt=" << usub.getSubmissionTime()
+             << "\t ptitle=" << usub.getProblemTitle().toStdString()
              << endl;
     }
 
@@ -112,8 +114,6 @@ void showRankData(const QList<RankInfo>& data)
         if(cnt++ > 20) break;
         cout << "rank=" << info.getRank()
              << "\t ac=" << info.getAcceptedCount()
-             << "\t 2day="  << info.getPast2day()
-             << "\t 7day=" << info.getPast7day()
              << "\t 3mon=" << info.getPast3month()
              << "\t 1year=" << info.getPast1year()
              << "\t name=" << info.getUserName().toStdString()
@@ -144,6 +144,17 @@ void TestSampleData(Uhunt& api)
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
+
+    //for testing problem list
+    MainWindow w(std::make_shared<QNetworkAccessManager>());
+    if(UhuntDatabase::isAvaiable())
+    {
+        cout << "Problem database is avaiable\n";
+    }
+    else
+    {
+        cout << "Problem database is not avaiable\n";
+    }
 
     //api data
     shared_ptr<QNetworkAccessManager> manager = make_shared<QNetworkAccessManager>();
@@ -216,6 +227,7 @@ int main(int argc, char* argv[])
     QObject::connect(&pushButton8, &QPushButton::clicked, [&]() { api.getProblemById(36); });
 
     frame.show();
+
 
     return app.exec();
 }

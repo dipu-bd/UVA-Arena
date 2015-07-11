@@ -37,11 +37,12 @@ void SubmissionMessage::loadData(const QJsonObject &data)
     //uname: user name
     setUserName(data["uname"].toString());
 
-    /*
-     --> To be added on future edits <--
-    setProblemNumber();
-    setProblemTitle();
-    */
+    //set problem number and title
+    if(UhuntDatabase::isAvaiable())
+    {
+        setProblemNumber(UhuntDatabase::getProblemNumber(getProblemID()));
+        setProblemTitle(UhuntDatabase::getProblemTitleById(getProblemID()));
+    }
 }
 
 void SubmissionMessage::setVerdict(int v)

@@ -5,6 +5,7 @@
 
 #include "uvalib_global.h"
 #include "enums.h"
+#include "uhuntdatabase.h"
 
 namespace uva
 {

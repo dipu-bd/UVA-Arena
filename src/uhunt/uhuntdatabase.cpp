@@ -2,6 +2,7 @@
 
 using namespace uva;
 
+bool UhuntDatabase::mAvailable = false;
 QMap<int, Problem> UhuntDatabase::problemMap = QMap<int, Problem>();
 QMap<int, int> UhuntDatabase::problemIdList = QMap<int, int>();
 
@@ -17,6 +18,14 @@ void UhuntDatabase::setProblemList(const QList<Problem>& problemList)
         problemMap[p.getNumber()] = p;
         problemIdList[p.getID()] = p.getNumber();
     }
+
+    //set avaiability
+    mAvailable = true;
+}
+
+bool UhuntDatabase::isAvaiable()
+{
+    return mAvailable;
 }
 
 QList<Problem> UhuntDatabase::getProblemList()
@@ -59,7 +68,7 @@ Problem& UhuntDatabase::getProblemByNumber(int problemNumber)
 {
     //TODO: decide what to return on invalid problemNumber
     if(!problemMap.contains(problemNumber))
-        return Problem();
+        return *(new Problem());
     return problemMap[problemNumber];
 }
 

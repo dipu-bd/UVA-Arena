@@ -39,11 +39,12 @@ void UserSubmission::loadData(const QJsonArray& data)
     //Submission Rank
     setRank(data[6].toInt());
 
-    /*
-     --> to be edited later <--
-    setProblemNumber();
-    setProblemTitle();
-    */
+    //set problem number and title
+    if(UhuntDatabase::isAvaiable())
+    {
+        setProblemNumber(UhuntDatabase::getProblemNumber(getProblemID()));
+        setProblemTitle(UhuntDatabase::getProblemTitleById(getProblemID()));
+    }
 }
 
 

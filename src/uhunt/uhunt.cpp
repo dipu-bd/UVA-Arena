@@ -63,9 +63,6 @@ void Uhunt::getProblemById(int id)
 
 void Uhunt::getProblemList()
 {
-    if (!mNetworkManager)
-        return;
-
     QNetworkReply *reply = createNetworkRequest(API_PROBLEM_LIST);
 
     if (reply == nullptr)
@@ -86,9 +83,6 @@ void Uhunt::getProblemList()
 
 void Uhunt::getProblemListAsByteArray()
 {
-    if (!mNetworkManager)
-        return;
-
     QNetworkReply *reply = createNetworkRequest(API_PROBLEM_LIST);
 
     if (reply == nullptr)
@@ -109,9 +103,6 @@ void Uhunt::getProblemListAsByteArray()
 
 void Uhunt::getJudgeStatus(int lastSubmissionID)
 {
-    if (!mNetworkManager)
-        return;
-
     QNetworkReply* reply = createNetworkRequest(API_JUDGE_STATUS.arg(lastSubmissionID));
 
     if (reply == nullptr)
@@ -129,9 +120,6 @@ void Uhunt::getJudgeStatus(int lastSubmissionID)
 
 void Uhunt::getUserID(const QString &userName)
 {
-    if (!mNetworkManager)
-        return;
-
     QNetworkReply* reply = createNetworkRequest(API_USER_NAME_TO_ID.arg(userName));
 
     if (reply == nullptr)
@@ -148,9 +136,6 @@ void Uhunt::getUserID(const QString &userName)
 
 void Uhunt::getUserInfo(int userId)
 {
-    if (!mNetworkManager)
-        return;
-
     QNetworkReply* reply = createNetworkRequest(API_USER_INFO.arg(userId).arg(0));
 
     if (reply == nullptr)
@@ -168,9 +153,6 @@ void Uhunt::getUserInfo(int userId)
 
 void Uhunt::updateUserInfo(const UserInfo &uinfo)
 {
-    if (!mNetworkManager)
-        return;
-
     QNetworkReply* reply =
         createNetworkRequest(API_USER_INFO.arg(uinfo.getUserId()).arg(uinfo.getLastSubmissionID()));
 
@@ -189,9 +171,6 @@ void Uhunt::updateUserInfo(const UserInfo &uinfo)
 
 void Uhunt::getRankByUser(int userId, int nAbove, int nBelow)
 {
-    if (!mNetworkManager)
-        return;
-
     QNetworkReply* reply =
         createNetworkRequest(API_RANK_BY_USER.arg(userId).arg(nAbove).arg(nBelow));
 
@@ -210,9 +189,6 @@ void Uhunt::getRankByUser(int userId, int nAbove, int nBelow)
 
 void Uhunt::getRankByPosition(int startPos, int count)
 {
-    if (!mNetworkManager)
-        return;
-
     QNetworkReply* reply =
         createNetworkRequest(API_RANK_BY_POS.arg(startPos).arg(count));
 
@@ -239,7 +215,7 @@ QList<Problem> Uhunt::problemListFromData(const QByteArray& data)
     QJsonDocument doc = QJsonDocument::fromJson(data);
 
     if (!doc.isArray())
-        return QList<Problem>();
+        return problems;
 
     QJsonArray arr = doc.array();
 

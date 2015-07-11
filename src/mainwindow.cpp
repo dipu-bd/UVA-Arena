@@ -36,6 +36,11 @@ MainWindow::MainWindow(std::shared_ptr<QNetworkAccessManager> networkManager, QW
     initialize();
 }
 
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
 void MainWindow::initialize()
 {
     // Initialize problem list
@@ -90,8 +95,8 @@ void MainWindow::loadProblemListFromFile(QString fileName)
     dataStream >> data;
 
     // TODO: do something with the problem list
-    // QList<Problem> problemList = mUhuntApi->problemListFromData(data);
-    
+    UhuntDatabase::setProblemList(Uhunt::problemListFromData(data));
+    statusBar()->showMessage("Problem list loaded.");
 }
 
 void MainWindow::onProblemListByteArrayDownloaded(QByteArray data)
@@ -122,11 +127,6 @@ void MainWindow::onProblemListByteArrayDownloaded(QByteArray data)
     dataStream << data;
 
     // TODO: do something with the problem list
-    // QList<Problem> problems = mUhuntApi->problemListFromData(data);
-}
-
-
-MainWindow::~MainWindow()
-{
-    delete ui;
+    UhuntDatabase::setProblemList(Uhunt::problemListFromData(data));
+    statusBar()->showMessage("Problem list loaded.");
 }

@@ -8,6 +8,7 @@
 #include <memory>
 
 #include "uhunt/uhunt.h"
+#include "uhunt/uhuntdatabase.h"
 
 namespace uva
 {

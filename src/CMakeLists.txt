@@ -25,6 +25,7 @@ set(HEADERS
     uhunt/rankinfo.h
     uhunt/usersubmission.h
     uhunt/submissionmessage.h
+    uhunt/uhuntdatabase.h
 )
 
 set(SOURCES
@@ -44,6 +45,7 @@ set(SOURCES
     uhunt/userinfo.cpp
     uhunt/rankinfo.cpp
     uhunt/usersubmission.cpp
+    uhunt/uhuntdatabase.cpp
 )
 
 qt5_wrap_ui(UI_FILES

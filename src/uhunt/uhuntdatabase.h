@@ -17,8 +17,8 @@ namespace uva
         static int getProblemId(int problemNumber);
         static QString getProblemTitleById(int problemId);
         static QString getProblemTitleByNumber(int problemNumber);
-        static Problem& getProblemById(int problemId);
-        static Problem& getProblemByNumber(int problemNumber);
+        static Problem getProblemById(int problemId);
+        static Problem getProblemByNumber(int problemNumber);
 
         static bool isAvaiable();
         static QList<Problem> getProblemList();

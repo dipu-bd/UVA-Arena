@@ -59,16 +59,16 @@ QString UhuntDatabase::getProblemTitleByNumber(int problemNumber)
     return problemMap[problemNumber].getTitle();
 }
 
-Problem& UhuntDatabase::getProblemById(int problemId)
+Problem UhuntDatabase::getProblemById(int problemId)
 {
     return getProblemByNumber(getProblemNumber(problemId));
 }
 
-Problem& UhuntDatabase::getProblemByNumber(int problemNumber)
+Problem UhuntDatabase::getProblemByNumber(int problemNumber)
 {
     //TODO: decide what to return on invalid problemNumber
     if(!problemMap.contains(problemNumber))
-        return *(new Problem());
+        return Problem();
     return problemMap[problemNumber];
 }
 

@@ -4,45 +4,47 @@ using namespace uva;
 
 SubmissionMessage::SubmissionMessage()
 {
-
+    setUserID(0);
+    setUserName("-");
+    setProblemNumber(0);
+    setProblemTitle("-");
 }
 
-SubmissionMessage::SubmissionMessage(const QJsonObject &data)
+SubmissionMessage SubmissionMessage::fromJsonObject(const QJsonObject& data)
 {
-    loadData(data);
-}
+    SubmissionMessage sub;
 
-void SubmissionMessage::loadData(const QJsonObject &data)
-{
     //sid: Submission ID
-    setSubmissionID(data["sid"].toInt());
+    sub.setSubmissionID(data["sid"].toInt());
     //uid: user id
-    setUserID(data["uid"].toInt());
+    sub.setUserID(data["uid"].toInt());
     //pid: Problem ID
-    setProblemID(data["pid"].toInt());
+    sub.setProblemID(data["pid"].toInt());
     //ver: Verdict ID
-    setVerdict(data["ver"].toInt());
+    sub.setVerdict(data["ver"].toInt());
     //lan: Language ID
-    setLanguage(data["lan"].toInt());
+    sub.setLanguage(data["lan"].toInt());
     //run : Runtime
-    setRuntime(data["run"].toInt());
+    sub.setRuntime(data["run"].toInt());
     //mem: Memory taken
-    setMemory(data["mem"].toInt());
+    sub.setMemory(data["mem"].toInt());
     //rank: Submission Rank
-    setRank(data["rank"].toInt());
+    sub.setRank(data["rank"].toInt());
     //sbt: Submission Time (UNIX time stamp)
-    setSubmissionTime(data["sbt"].toInt());
+    sub.setSubmissionTime(data["sbt"].toInt());
     //name: full username
-    setFullName(data["name"].toString());
+    sub.setFullName(data["name"].toString());
     //uname: user name
-    setUserName(data["uname"].toString());
+    sub.setUserName(data["uname"].toString());
 
     //set problem number and title
     if(UhuntDatabase::isAvaiable())
     {
-        setProblemNumber(UhuntDatabase::getProblemNumber(getProblemID()));
-        setProblemTitle(UhuntDatabase::getProblemTitleById(getProblemID()));
+        sub.setProblemNumber(UhuntDatabase::getProblemNumber(sub.getProblemID()));
+        sub.setProblemTitle(UhuntDatabase::getProblemTitleById(sub.getProblemID()));
     }
+
+    return sub;
 }
 
 void SubmissionMessage::setVerdict(int v)

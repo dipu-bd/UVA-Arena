@@ -16,7 +16,6 @@
 using namespace std;
 using namespace uva;
 
-UserInfo userInfo;
 const QByteArray problemData = "[[40,104,\"this \\\"is\\\" [a] test\",3711,10,1000000000,0,306,0,0,2238,0,2205,5,3538,427,12052,578,6228,3000,2,0],[36,100,\"The 3n + 1 problem\",69204,7,1000000000,0,6669,0,0,102913,0,57933,146,53082,5209,242535,4512,174208,3000,1,0],[37,101,\"The Blocks Problem\",11806,0,1000000000,0,911,0,0,12366,0,19363,6,8576,200,20990,5738,17518,3000,1,0],[38,102,\"Ecological Bin Packing\",21625,0,1000000000,0,1948,0,0,11862,0,4418,6,2810,72,32599,640,33663,3000,1,0],[39,103,\"Stacking Boxes\",6369,0,1000000000,0,36,0,0,9101,0,4407,0,2869,0,11452,1351,9536,3000,2,0],[40,104,\"Arbitrage\",3711,10,1000000000,0,306,0,0,2238,0,2205,5,3538,427,12052,578,6228,3000,2,0]]";
 const QByteArray judgeData = "[{\"id\":1433402181069, \"type\":\"lastsubs\", \"msg\":{\"sid\":15735294,\"uid\":159399,\"pid\":481,\"ver\":0,\"lan\":2,\"run\":0,\"mem\":0,\"rank\":-1,\"sbt\":1436337218,\"name\":\"Jim\",\"uname\":\"vjudge10\"}},{\"id\":1433402181070, \"type\":\"lastsubs\", \"msg\":{\"sid\":15735292,\"uid\":159395,\"pid\":1876,\"ver\":80,\"lan\":5,\"run\":0,\"mem\":0,\"rank\":-1,\"sbt\":1436337213,\"name\":\"Tom\",\"uname\":\"vjudge6\"}},{\"id\":1433402181071, \"type\":\"lastsubs\", \"msg\":{\"sid\":15735293,\"uid\":705089,\"pid\":318,\"ver\":70,\"lan\":1,\"run\":0,\"mem\":0,\"rank\":-1,\"sbt\":1436337215,\"name\":\"Safial Islam Ayon\",\"uname\":\"safialislam302\"}}]";
 const QByteArray dummyUserInfo = "{\"name\":\"Sudipto Chandra\",\"uname\":\"dipu_sust\",\"subs\":[[11555091,96,10,0,1365074607,1,-1],[12112146,382,10,0,1374910525,3,-1],[12112174,382,10,0,1374910892,3,-1],[12113445,382,10,0,1374934476,3,-1],[12113467,382,10,0,1374934867,3,-1],[12115611,382,10,0,1374979816,3,-1],[12115648,382,10,0,1374980298,3,-1]]}";
@@ -74,17 +73,15 @@ void showUserID(QString uname, int id)
     cout << uname.toStdString() << " = " << id << endl;
 }
 
-void ShowUserInfo(const UserInfo& uinfo)
+void showUserInfo(const UserInfo& uinfo)
 {
-    userInfo = uinfo;
-
     cout << "\nUser Info:\n"
          << "UID = " << uinfo.getUserId()
          << "\nFull=" << uinfo.getFullName().toStdString()
          << "\nUser=" << uinfo.getUserName().toStdString()
          << "\nTotal=" << uinfo.getTotalSubmissionCount()
          << "\nAC=" << uinfo.getTotalSolvedCount()
-         << "\nNAC=" <<uinfo.getTriedButFailedCount() << "\n";
+         << "\nLast Sub Id=" << uinfo.getLastSubmissionID()<< "\n";
     cout << "Submissions: \n";
 
     int cnt = 0;
@@ -101,6 +98,21 @@ void ShowUserInfo(const UserInfo& uinfo)
     }
 
     cout << "Userinfo data shown" << endl;
+}
+
+void showUserData(const QByteArray& data, int userId, int lastSub)
+{
+    if(lastSub > 0)
+    {
+        UserInfo ui = UserInfo::fromJson(userId, dummyUserInfo);
+        ui.addUserSubmission(data);
+        showUserInfo(ui);
+    }
+    else
+    {
+        UserInfo ui = UserInfo::fromJson(userId, data);
+        showUserInfo(ui);
+    }
 }
 
 void showRankData(const QList<RankInfo>& data)
@@ -122,6 +134,27 @@ void showRankData(const QList<RankInfo>& data)
     cout << "Judge Status data shown" << endl;
 }
 
+void showSubmissionData(const QList<SubmissionMessage>& data)
+{
+    cout << "\nSubmission Data: "
+         << data.count() << " items" << endl;
+
+    int cnt = 0;
+    for(SubmissionMessage stat : data)
+    {
+        if(cnt++ > 20) break;
+        cout << "sid=" << stat.getSubmissionID()
+             << "\t pnum=" << stat.getProblemNumber()
+             << "\t ver="  << stat.getVerdict()
+             << "\t rank=" << stat.getRank()
+             << "\t sbt=" << stat.getSubmissionTime()
+             << "\t user=" << stat.getUserName().toStdString()
+             << "\t ptitle=" << stat.getProblemTitle().toStdString()
+             << endl;
+    }
+    cout << "Submission data shown" << endl;
+}
+
 void TestSampleData(Uhunt& api)
 {
     //problem list test
@@ -131,9 +164,7 @@ void TestSampleData(Uhunt& api)
     showJudgeStatus(api.judgeStatusFromData(judgeData));
 
     //user info
-    userInfo = UserInfo(dummyUserInfo);
-    userInfo.setUserId(222248);
-    ShowUserInfo(userInfo);
+    showUserInfo(UserInfo::fromJson(222248, dummyUserInfo));
 
     //rank info
     showRankData(api.rankListFromData(rankData));
@@ -165,10 +196,13 @@ int main(int argc, char* argv[])
     QObject::connect(&api, &Uhunt::problemListDownloaded, &showProblemList);
     QObject::connect(&api, &Uhunt::judgeStatusDownloaded, &showJudgeStatus);
     QObject::connect(&api, &Uhunt::userIdDownloaded, &showUserID);
-    QObject::connect(&api, &Uhunt::userInfoDownloaded, &ShowUserInfo);
-    QObject::connect(&api, &Uhunt::userInfoUpdated, &ShowUserInfo);
+    QObject::connect(&api, &Uhunt::userInfoDataDownloaded, &showUserData);
     QObject::connect(&api, &Uhunt::rankByPositionDownloaded, &showRankData);
     QObject::connect(&api, &Uhunt::rankByUserDownloaded, &showRankData);
+    QObject::connect(&api, &Uhunt::submissionOnProblemDownloaded,  &showSubmissionData);
+    QObject::connect(&api, &Uhunt::ranklistOnProblemDownloaded,  &showSubmissionData);
+    QObject::connect(&api, &Uhunt::userRankOnProblemDownloaded,  &showSubmissionData);
+    QObject::connect(&api, &Uhunt::userSubmissionOnProblemDownloaded,  &showUserInfo);
 
     //sample test
     TestSampleData(api);
@@ -184,14 +218,22 @@ int main(int argc, char* argv[])
     QPushButton pushButton6;
     QPushButton pushButton7;
     QPushButton pushButton8;
+    QPushButton pushButton9;
+    QPushButton pushButton10;
+    QPushButton pushButton11;
+    QPushButton pushButton12;
     verticalLayout.addWidget(&pushButton1);
     verticalLayout.addWidget(&pushButton2);
     verticalLayout.addWidget(&pushButton3);
     verticalLayout.addWidget(&pushButton4);
     verticalLayout.addWidget(&pushButton5);
     verticalLayout.addWidget(&pushButton6);
-    verticalLayout.addWidget(&pushButton7);
+    verticalLayout.addWidget(&pushButton7);    
     verticalLayout.addWidget(&pushButton8);
+    verticalLayout.addWidget(&pushButton9);
+    verticalLayout.addWidget(&pushButton10);
+    verticalLayout.addWidget(&pushButton11);
+    verticalLayout.addWidget(&pushButton12);
     frame.setLayout(&verticalLayout);
     frame.setWindowTitle("Unit Test");
 
@@ -212,10 +254,10 @@ int main(int argc, char* argv[])
     QObject::connect(&pushButton3, &QPushButton::clicked, [&]() { api.getProblemList(); } );
 
     pushButton4.setText("Click here to get user info");
-    QObject::connect(&pushButton4, &QPushButton::clicked, [&]() { api.getUserInfo(222248); });
+    QObject::connect(&pushButton4, &QPushButton::clicked, [&]() { api.getUserInfoData(222248); });
 
-    pushButton5.setText("Click here to update user info");
-    QObject::connect(&pushButton5, &QPushButton::clicked, [&]() { api.updateUserInfo(userInfo); });
+    pushButton5.setText("Click here to update user info data");
+    QObject::connect(&pushButton5, &QPushButton::clicked, [&]() { api.getUserInfoData(222248, 12115648); });
 
     pushButton6.setText("Click here to get ranklist of specific user");
     QObject::connect(&pushButton6, &QPushButton::clicked, [&]() { api.getRankByUser(222248); });
@@ -225,6 +267,19 @@ int main(int argc, char* argv[])
 
     pushButton8.setText("Click here to get a problem by it's id");
     QObject::connect(&pushButton8, &QPushButton::clicked, [&]() { api.getProblemById(36); });
+
+    pushButton9.setText("Get submission on a problems");
+    QObject::connect(&pushButton9, &QPushButton::clicked, [&]() { api.getSubmissionOnProblem(36, 1360753885, 1361358685); });
+
+    pushButton10.setText("Get ranklist from a specific position on a problem");
+    QObject::connect(&pushButton10, &QPushButton::clicked, [&]() { api.getRanklistOnProblem(36, 1, 25); });
+
+    pushButton11.setText("Get ranklist of a specific user on a problem");
+    QObject::connect(&pushButton11, &QPushButton::clicked, [&]() { api.getUserRankOnProblem(36, 222248); });
+
+    pushButton12.setText("Get user submission on a problem");
+    QObject::connect(&pushButton12, &QPushButton::clicked, [&]() { api.getUserSubmissionOnProblem(222248, 36); });
+
 
     frame.show();
 

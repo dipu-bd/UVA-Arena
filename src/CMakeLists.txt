@@ -6,16 +6,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(HEADERS
-    uvaarenawidget.h
-    mainwindow.h
-    uvalib_global.h
-    models/arenatablemodel.h
-    models/modelstyle.h
-    widgets/codeswidget.h
-    widgets/judgestatuswidget.h
-    widgets/problemswidget.h
-    widgets/profileswidget.h
+set(UHUNT_SOURCES 
     uhunt/categorynode.h
     uhunt/enums.h
     uhunt/judgestatus.h
@@ -26,17 +17,6 @@ set(HEADERS
     uhunt/usersubmission.h
     uhunt/submissionmessage.h
     uhunt/uhuntdatabase.h
-)
-
-set(SOURCES
-    uvaarenawidget.cpp
-    mainwindow.cpp
-    models/arenatablemodel.cpp
-    models/modelstyle.cpp
-    widgets/codeswidget.cpp
-    widgets/judgestatuswidget.cpp
-    widgets/problemswidget.cpp
-    widgets/profileswidget.cpp
     uhunt/categorynode.cpp
     uhunt/judgestatus.cpp
     uhunt/problem.cpp
@@ -48,7 +28,32 @@ set(SOURCES
     uhunt/uhuntdatabase.cpp
 )
 
-qt5_wrap_ui(UI_FILES
+set(WIDGETS_SOURCES
+    widgets/uvaarenawidget.h
+    widgets/codeswidget.h
+    widgets/judgestatuswidget.h
+    widgets/problemswidget.h
+    widgets/profileswidget.h
+    widgets/uvaarenawidget.cpp
+    widgets/codeswidget.cpp
+    widgets/judgestatuswidget.cpp
+    widgets/problemswidget.cpp
+    widgets/profileswidget.cpp
+)
+
+set(MAIN_SOURCES
+    mainwindow.h
+    mainwindow.cpp
+    uvalib_global.h
+)
+
+set(ALL_SOURCES
+    ${UHUNT_SOURCES}
+    ${WIDGETS_SOURCES}
+    ${MAIN_SOURCES}
+)
+
+set(UI_SOURCES
     mainwindow.ui
     widgets/codeswidget.ui
     widgets/judgestatuswidget.ui
@@ -56,14 +61,26 @@ qt5_wrap_ui(UI_FILES
     widgets/profileswidget.ui
 )
 
+qt5_wrap_ui(UI_FILES
+    ${UI_SOURCES}
+)
+
 option(${TARGET}_SHARED "Build ${TARGET} as a shared library." ON)
 if(${TARGET}_SHARED)
     add_definitions(-DUVA_SHARED)
-    add_library(${TARGET} SHARED ${HEADERS} ${SOURCES} ${UI_FILES} ${UVA_RESOURCES})
+    add_library(${TARGET} SHARED ${ALL_SOURCES} ${UI_FILES} ${UVA_RESOURCES})
 else()
     add_definitions(-DUVA_STATIC)
-    add_library(${TARGET} STATIC ${HEADERS} ${SOURCES} ${UI_FILES} ${UVA_RESOURCES})
+    add_library(${TARGET} STATIC ${ALL_SOURCES} ${UI_FILES} ${UVA_RESOURCES})
 endif()
 
 target_link_libraries(${TARGET} ${UVA_DEPENDENCIES})
 set_target_properties(${TARGET} PROPERTIES FOLDER "UVA-Arena")
+
+source_group("Uhunt" FILES ${UHUNT_SOURCES})
+source_group("Source" FILES ${MAIN_SOURCES})
+source_group("Widgets" FILES ${WIDGETS_SOURCES})
+source_group("UI Files" FILES ${UI_SOURCES})
+source_group("Resources" FILES ${UVA_RESOURCES})
+source_group("Generated Files" FILES ${UI_FILES})
+source_group("Generated Files" REGULAR_EXPRESSION ".*(qrc_|_automoc).*")

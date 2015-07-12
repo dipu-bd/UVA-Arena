@@ -1,21 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QFile>
-#include <QFileInfo>
-#include <QMessageBox>
-#include <QDataStream>
-#include <QDateTime>
-#include <QDir>
+#include <QStandardPaths>
 
 using namespace uva;
-
-const QString DefaultProblemListFileName = "problemlist.json";
 
 MainWindow::MainWindow(std::shared_ptr<QNetworkAccessManager> networkManager, QWidget *parent) :
     QMainWindow(parent),
     mNetworkManager(networkManager),
-    mMaxDaysUntilProblemListRedownload(1),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -24,9 +16,6 @@ MainWindow::MainWindow(std::shared_ptr<QNetworkAccessManager> networkManager, QW
     statusBar()->showMessage("Welcome to UVA-Arena.");
 
     mUhuntApi = std::make_shared<Uhunt>(mNetworkManager);
-
-    QObject::connect(mUhuntApi.get(), &Uhunt::problemListByteArrayDownloaded,
-        this, &MainWindow::onProblemListByteArrayDownloaded);
 
 #ifdef _DEBUG
     // if we're testing, save to test directories
@@ -41,92 +30,54 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVariant metaData)
+{
+    typedef UVAArenaWidget::UVAArenaEvent UVAArenaEvent;
+
+    switch (arenaEvent)
+    {
+    case UVAArenaEvent::UPDATE_STATUS:
+        statusBar()->showMessage(metaData.toString());
+        break;
+
+    default:
+        break;
+    }
+}
+
 void MainWindow::initialize()
 {
-    // Initialize problem list
+    // Initialize all UVAArenaWidgets and connect them
 
-    // check if problem list is already downloaded
-    QString result = QStandardPaths::locate(QStandardPaths::AppDataLocation,
-                        DefaultProblemListFileName);
+    mUVAArenaWidgets.push_back(ui->problemsWidget); 
+    mUVAArenaWidgets.push_back(ui->codesWidget);
+    mUVAArenaWidgets.push_back(ui->judgeStatusWidget);
+    mUVAArenaWidgets.push_back(ui->profilesWidget);
 
-    if (result.isEmpty()) { // file not found
+    for (UVAArenaWidget* widget : mUVAArenaWidgets) {
 
-        // download the problem list and save it
-        mUhuntApi->getProblemListAsByteArray();
+        widget->setNetworkManager(mNetworkManager);
+        widget->setUhuntApi(mUhuntApi);
 
-    } else {
+        widget->setProblemsWidget(ui->problemsWidget);
+        widget->setCodesWidget(ui->codesWidget);
+        widget->setJudgeStatusWidget(ui->judgeStatusWidget);
+        widget->setProfilesWidget(ui->profilesWidget);
 
-        // file found, load the data
-        loadProblemListFromFile(result);
-    }
-}
+        QObject::connect(widget, &UVAArenaWidget::newUVAArenaEvent,
+            this, &MainWindow::onUVAArenaEvent);
 
-void MainWindow::loadProblemListFromFile(QString fileName)
-{
+        // connect this widget's events to all other widgets
+        // don't allow the widget to connect to itself
+        for (UVAArenaWidget* other : mUVAArenaWidgets) {
+            if (widget == other)
+                continue;
 
-    QFile file(fileName);
+            QObject::connect(widget, &UVAArenaWidget::newUVAArenaEvent,
+                other, &UVAArenaWidget::onUVAArenaEvent);
+        }
 
-    if (!file.open(QIODevice::ReadOnly)) {
-
-        // TODO: couldn't open the file
-        QMessageBox::critical(this, "Read failure",
-            "Could not read the default problem list file.");
-
-        return;
-    }
-
-    // make sure the default probelm list file is not too old
-    QFileInfo fileInfo(file);
-    QDateTime lastModified = fileInfo.lastModified();
-    
-    if (lastModified.daysTo(QDateTime::currentDateTime())
-                                        > mMaxDaysUntilProblemListRedownload) {
-        
-        // the problem list file is too old, redownload it
-
-        mUhuntApi->getProblemListAsByteArray();
-
-        return;
+        widget->initialize();
     }
 
-    QDataStream dataStream(&file);
-    QByteArray data;
-
-    dataStream >> data;
-
-    // TODO: do something with the problem list
-    UhuntDatabase::setProblemList(Uhunt::problemListFromData(data));
-    statusBar()->showMessage("Problem list loaded.");
-}
-
-void MainWindow::onProblemListByteArrayDownloaded(QByteArray data)
-{
-    // set the file to save to
-    QString saveDirectory = 
-        QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-
-    if (!QFile::exists(saveDirectory)) {
-        QDir dirToMake;
-        dirToMake.mkpath(saveDirectory);
-    }
-
-    QFile file(saveDirectory + "/" + DefaultProblemListFileName);
-    
-    if (!file.open(QIODevice::WriteOnly)) {
-
-        // couldn't open the file
-        QMessageBox::critical(this, "Write failure", 
-            "Could not write to the default problem list file:\n"
-            + saveDirectory + DefaultProblemListFileName);
-
-        return;
-    }
-
-    // write the problem list data
-    QDataStream dataStream(&file);
-    dataStream << data;
-
-    // TODO: do something with the problem list
-    UhuntDatabase::setProblemList(Uhunt::problemListFromData(data));
-    statusBar()->showMessage("Problem list loaded.");
 }

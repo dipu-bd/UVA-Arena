@@ -3,12 +3,12 @@
 #include "uvalib_global.h"
 #include <QMainWindow>
 #include <QNetworkAccessManager>
-#include <QStandardPaths>
 #include <QString>
 #include <memory>
+#include <vector>
 
 #include "uhunt/uhunt.h"
-#include "uhunt/uhuntdatabase.h"
+#include "widgets/uvaarenawidget.h"
 
 namespace uva
 {
@@ -26,21 +26,20 @@ namespace uva
                                 QWidget *parent = 0);
         ~MainWindow();
 
-    private slots:
+    public slots:
 
-        void onProblemListByteArrayDownloaded(QByteArray data);
+        void onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent, QVariant);
 
     private:
 
         void initialize();
 
-        void loadProblemListFromFile(QString fileName);
+        std::vector<UVAArenaWidget*> mUVAArenaWidgets;
 
         Ui::MainWindow *ui;
         std::shared_ptr<QNetworkAccessManager> mNetworkManager;
         std::shared_ptr<Uhunt> mUhuntApi;
 
-        qint64 mMaxDaysUntilProblemListRedownload;
     };
 
 }

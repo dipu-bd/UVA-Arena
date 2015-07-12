@@ -16,7 +16,6 @@ set(UHUNT_SOURCES
     uhunt/rankinfo.h
     uhunt/usersubmission.h
     uhunt/submissionmessage.h
-    uhunt/uhuntdatabase.h
     uhunt/categorynode.cpp
     uhunt/judgestatus.cpp
     uhunt/problem.cpp
@@ -25,7 +24,6 @@ set(UHUNT_SOURCES
     uhunt/userinfo.cpp
     uhunt/rankinfo.cpp
     uhunt/usersubmission.cpp
-    uhunt/uhuntdatabase.cpp
 )
 
 set(WIDGETS_SOURCES

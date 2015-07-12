@@ -18,6 +18,12 @@ namespace uva
         explicit ProfilesWidget(QWidget *parent = 0);
         ~ProfilesWidget();
 
+        virtual void initialize() override;
+
+    public slots:
+
+        void onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData) override;
+
     private:
         Ui::ProfilesWidget *ui;
     };

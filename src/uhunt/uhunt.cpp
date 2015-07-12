@@ -41,12 +41,9 @@ QNetworkReply* Uhunt::createNetworkRequest(QString url)
     return reply;
 }
 
-//
-// Static functions
-//
-QList<Problem> Uhunt::problemListFromData(const QByteArray& data)
+Uhunt::ProblemMap Uhunt::problemMapFromData(const QByteArray& data)
 {
-    QList<Problem> problems;
+    ProblemMap problems;
 
     QJsonDocument doc = QJsonDocument::fromJson(data);
 
@@ -56,11 +53,12 @@ QList<Problem> Uhunt::problemListFromData(const QByteArray& data)
     QJsonArray arr = doc.array();
     QJsonArray::const_iterator it = arr.begin();
 
-    while (it != arr.end())
-    {
-        if (it->isArray())
-            problems.push_back(Problem::fromJsonArray(it->toArray()));
+    while (it != arr.end()) {
+        if (it->isArray()) {
 
+            Problem problem = Problem::fromJsonArray(it->toArray());
+            problems[problem.getNumber()] = problem;
+        }
         it++;
     }
 
@@ -185,7 +183,7 @@ void Uhunt::getProblemList()
         [this, reply]() {
             if (reply->error() == QNetworkReply::NoError) {
                 emit problemListDownloaded(
-                    this->problemListFromData(reply->readAll())
+                    this->problemMapFromData(reply->readAll())
                     );
             }
 

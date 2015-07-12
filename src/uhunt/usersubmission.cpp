@@ -27,13 +27,6 @@ UserSubmission UserSubmission::fromJsonArray(const QJsonArray& data)
     //Submission Rank
     usub.setRank(data[6].toInt());
 
-    //set problem number and title
-    if(UhuntDatabase::isAvaiable())
-    {
-        usub.setProblemNumber(UhuntDatabase::getProblemNumber(usub.getProblemID()));
-        usub.setProblemTitle(UhuntDatabase::getProblemTitleById(usub.getProblemID()));
-    }
-
     return usub;
 }
 

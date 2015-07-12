@@ -13,6 +13,7 @@ namespace uva
     class CodesWidget;
     class JudgeStatusWidget;
     class ProfilesWidget;
+    class MainWindow;
 
 	/**
 		\brief base class for all UVA-Arena widgets. This class facilitates
@@ -87,6 +88,10 @@ namespace uva
          */
         void setProfilesWidget(ProfilesWidget* profilesWidget);
 
+        MainWindow* mainWindow();
+
+        void setMainWindow(MainWindow* mainWindow);
+
     signals:
 
         /**
@@ -120,6 +125,7 @@ namespace uva
 
     private:
 
+        MainWindow* mMainWindow;
         ProblemsWidget* mProblemsWidget;
         CodesWidget* mCodesWidget;
         JudgeStatusWidget* mJudgeStatusWidget;

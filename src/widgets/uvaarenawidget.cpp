@@ -7,7 +7,8 @@ UVAArenaWidget::UVAArenaWidget(QWidget* parent)
       mProblemsWidget(nullptr),
       mCodesWidget(nullptr),
       mJudgeStatusWidget(nullptr),
-      mProfilesWidget(nullptr)
+      mProfilesWidget(nullptr),
+      mMainWindow(nullptr)
 {
 }
 
@@ -64,4 +65,14 @@ ProfilesWidget* UVAArenaWidget::profilesWidget()
 void UVAArenaWidget::setProfilesWidget(ProfilesWidget* profilesWidget)
 {
     mProfilesWidget = profilesWidget;
+}
+
+MainWindow* UVAArenaWidget::mainWindow()
+{
+    return mMainWindow;
+}
+
+void UVAArenaWidget::setMainWindow(MainWindow* mainWindow)
+{
+    mMainWindow = mainWindow;
 }

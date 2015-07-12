@@ -1,13 +1,24 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QFile>
+#include <QFileInfo>
+#include <QMessageBox>
+#include <QDataStream>
+#include <QDateTime>
+#include <QDir>
 #include <QStandardPaths>
 
 using namespace uva;
 
+const QString DefaultProblemListFileName = "problemlist.json";
+
 MainWindow::MainWindow(std::shared_ptr<QNetworkAccessManager> networkManager, QWidget *parent) :
     QMainWindow(parent),
     mNetworkManager(networkManager),
+    mMaxDaysUntilProblemListRedownload(1),
+    mProblems(new Uhunt::ProblemMap),
+    mProblemIdToNumber(new QMap<int, int>),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -47,9 +58,32 @@ void MainWindow::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVari
 
 void MainWindow::initialize()
 {
-    // Initialize all UVAArenaWidgets and connect them
+    initializeData();
+    initializeWidgets();
+}
 
-    mUVAArenaWidgets.push_back(ui->problemsWidget); 
+void MainWindow::initializeData()
+{
+    QObject::connect(mUhuntApi.get(), &Uhunt::problemListByteArrayDownloaded,
+        this, &MainWindow::onProblemListByteArrayDownloaded);
+
+    // check if problem list is already downloaded
+    QString result = QStandardPaths::locate(QStandardPaths::AppDataLocation,
+        DefaultProblemListFileName);
+
+    if (result.isEmpty()) {
+        // download the problem list and save it
+        mUhuntApi->getProblemListAsByteArray();
+    } else {
+        // file found, load the data
+        loadProblemListFromFile(result);
+    }
+}
+
+void MainWindow::initializeWidgets()
+{
+    // Initialize all UVAArenaWidgets and connect them
+    mUVAArenaWidgets.push_back(ui->problemsWidget);
     mUVAArenaWidgets.push_back(ui->codesWidget);
     mUVAArenaWidgets.push_back(ui->judgeStatusWidget);
     mUVAArenaWidgets.push_back(ui->profilesWidget);
@@ -59,6 +93,7 @@ void MainWindow::initialize()
         widget->setNetworkManager(mNetworkManager);
         widget->setUhuntApi(mUhuntApi);
 
+        widget->setMainWindow(this);
         widget->setProblemsWidget(ui->problemsWidget);
         widget->setCodesWidget(ui->codesWidget);
         widget->setJudgeStatusWidget(ui->judgeStatusWidget);
@@ -79,5 +114,142 @@ void MainWindow::initialize()
 
         widget->initialize();
     }
+}
 
+//get the problem map
+const Uhunt::ProblemMap& MainWindow::getProblemMap()
+{
+    return *mProblems;
+}
+
+//set the problem map
+void MainWindow::setProblemMap(Uhunt::ProblemMap problemMap)
+{
+    *mProblems = std::move(problemMap);
+    mProblemIdToNumber->clear();
+
+    Uhunt::ProblemMap::const_iterator it = mProblems->begin();
+
+    while (it != mProblems->end()) {
+        mProblemIdToNumber->insert(it->getID(), it->getNumber());
+        ++it;
+    }
+
+}
+
+//get problem number by problem id
+int MainWindow::getProblemNumberFromId(int problemId)
+{
+    if (mProblemIdToNumber) {
+        if (mProblemIdToNumber->contains(problemId))
+            return mProblemIdToNumber->value(problemId);
+    }
+
+    return 0;
+}
+
+//get problem id from problem number
+int MainWindow::getProblemIdFromNumber(int problemNumber)
+{
+    if (mProblems) {
+        if (mProblems->contains(problemNumber))
+            return mProblems->value(problemNumber).getID();
+    }
+
+    return 0;
+}
+
+//get problem title by problem number
+QString MainWindow::getProblemTitle(int problemNumber)
+{
+    if (mProblems) {
+        if (mProblems->contains(problemNumber))
+            return mProblems->value(problemNumber).getTitle();
+    }
+
+    return "-";
+}
+
+//get problem by id
+const Problem& MainWindow::getProblemById(int problemId)
+{
+    return getProblemByNumber(getProblemNumberFromId(problemId));
+}
+
+//get problem by problem number
+const Problem& MainWindow::getProblemByNumber(int problemNumber)
+{
+    if (problemNumber) {
+        if (mProblems->contains(problemNumber))
+            return mProblems->value(problemNumber);
+    }
+
+    return Problem();
+}
+
+void MainWindow::loadProblemListFromFile(QString fileName)
+{
+
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::ReadOnly)) {
+
+        // TODO: couldn't open the file
+        QMessageBox::critical(this, "Read failure",
+            "Could not read the default problem list file.");
+
+        return;
+    }
+
+    // make sure the default probelm list file is not too old
+    QFileInfo fileInfo(file);
+    QDateTime lastModified = fileInfo.lastModified();
+
+    if (lastModified.daysTo(QDateTime::currentDateTime())
+                                        > mMaxDaysUntilProblemListRedownload) {
+
+        // the problem list file is too old, redownload it
+        mUhuntApi->getProblemListAsByteArray();
+
+        return;
+    }
+
+    QDataStream dataStream(&file);
+    QByteArray data;
+
+    dataStream >> data;
+
+    setProblemMap(Uhunt::problemMapFromData(data));
+    statusBar()->showMessage("Problem list loaded from file", 2000);
+}
+
+void MainWindow::onProblemListByteArrayDownloaded(QByteArray data)
+{
+    // set the file to save to
+    QString saveDirectory =
+        QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+
+    if (!QFile::exists(saveDirectory)) {
+        QDir dirToMake;
+        dirToMake.mkpath(saveDirectory);
+    }
+
+    QFile file(saveDirectory + "/" + DefaultProblemListFileName);
+
+    if (!file.open(QIODevice::WriteOnly)) {
+
+        // couldn't open the file
+        QMessageBox::critical(this, "Write failure",
+            "Could not write to the default problem list file:\n"
+            + saveDirectory + "/" + DefaultProblemListFileName);
+
+        return;
+    }
+
+    // write the problem list data
+    QDataStream dataStream(&file);
+    dataStream << data;
+
+    setProblemMap(Uhunt::problemMapFromData(data));
+    statusBar()->showMessage("Problem list downloaded", 2000);
 }

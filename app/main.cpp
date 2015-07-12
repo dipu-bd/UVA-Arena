@@ -22,6 +22,10 @@ int main(int argc, char *argv[])
         a.setStyleSheet(ts.readAll());
     }
 
+    QCoreApplication::setOrganizationName("UVA Arena");
+    QCoreApplication::setApplicationName("UVA Arena");
+    QCoreApplication::setApplicationVersion("0.0.0");
+
     MainWindow w(std::make_shared<QNetworkAccessManager>());
     w.show();
 

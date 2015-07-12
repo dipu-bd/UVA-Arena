@@ -42,6 +42,8 @@ set(WIDGETS_SOURCES
 set(MAIN_SOURCES
     mainwindow.h
     mainwindow.cpp
+    uvaarenasettings.h
+    uvaarenasettings.cpp
     uvalib_global.h
 )
 

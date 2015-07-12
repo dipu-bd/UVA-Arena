@@ -10,6 +10,8 @@
 #include "uhunt/uhunt.h"
 #include "widgets/uvaarenawidget.h"
 
+#include "uvaarenasettings.h"
+
 namespace uva
 {
 
@@ -35,9 +37,9 @@ namespace uva
         //get problem title by problem number
         QString getProblemTitle(int problemNumber);
         //get problem by id
-        const Problem& getProblemById(int problemId);
+        Problem getProblemById(int problemId);
         //get problem by problem number
-        const Problem& getProblemByNumber(int problemNumber);
+        Problem getProblemByNumber(int problemNumber);
 
     public slots:
 
@@ -60,11 +62,10 @@ namespace uva
 
         void loadProblemListFromFile(QString fileName);
 
+        UVAArenaSettings mSettings;
+
         std::unique_ptr<Uhunt::ProblemMap> mProblems;
-
         std::unique_ptr<QMap<int, int> > mProblemIdToNumber;
-
-        qint64 mMaxDaysUntilProblemListRedownload;
 
         std::vector<UVAArenaWidget*> mUVAArenaWidgets;
 

@@ -11,7 +11,6 @@
 
 #include "mainwindow.h"
 #include "uhunt/uhunt.h"
-#include "uhunt/uhuntdatabase.h"
 
 using namespace std;
 using namespace uva;
@@ -29,14 +28,13 @@ void showProblemById(Problem problem)
         << "Id: " << problem.getID() << endl << endl;
 }
 
-void showProblemList(const QList<Problem> &data)
+void showProblemList(const Uhunt::ProblemMap &data)
 {
     cout << "\nProblem List data: "
          << data.count() << " items" << endl;
 
     int cnt = 0;
-    for (Problem info : data)
-    {
+    for (Problem info : data) {
         if(cnt++ > 20) break;
         cout << "level=" << info.getLevel()
              << "\t num=" << info.getNumber()
@@ -54,8 +52,7 @@ void showJudgeStatus(const QList<JudgeStatus>& data)
          << data.count() << " items" << endl;
 
     int cnt = 0;
-    for(JudgeStatus stat : data)
-    {
+    for(JudgeStatus stat : data) {
         if(cnt++ > 20) break;
         cout << "sid=" << stat.getSubmissionID()
              << "\t pnum=" << stat.getProblemNumber()
@@ -85,8 +82,7 @@ void showUserInfo(const UserInfo& uinfo)
     cout << "Submissions: \n";
 
     int cnt = 0;
-    for(int pnum : uinfo.getSubmissionList().keys())
-    {
+    for(int pnum : uinfo.getSubmissionList().keys()) {
         const UserSubmission& usub = uinfo.getSubmission(pnum);
         if(cnt++ > 20) break;
         cout << "sid=" << usub.getSubmissionID()
@@ -102,14 +98,11 @@ void showUserInfo(const UserInfo& uinfo)
 
 void showUserData(const QByteArray& data, int userId, int lastSub)
 {
-    if(lastSub > 0)
-    {
+    if(lastSub > 0) {
         UserInfo ui = UserInfo::fromJson(userId, dummyUserInfo);
         ui.addUserSubmission(data);
         showUserInfo(ui);
-    }
-    else
-    {
+    } else {
         UserInfo ui = UserInfo::fromJson(userId, data);
         showUserInfo(ui);
     }
@@ -121,8 +114,7 @@ void showRankData(const QList<RankInfo>& data)
          << data.count() << " items" << endl;
 
     int cnt = 0;
-    for(RankInfo info : data)
-    {
+    for(RankInfo info : data) {
         if(cnt++ > 20) break;
         cout << "rank=" << info.getRank()
              << "\t ac=" << info.getAcceptedCount()
@@ -140,8 +132,7 @@ void showSubmissionData(const QList<SubmissionMessage>& data)
          << data.count() << " items" << endl;
 
     int cnt = 0;
-    for(SubmissionMessage stat : data)
-    {
+    for(SubmissionMessage stat : data) {
         if(cnt++ > 20) break;
         cout << "sid=" << stat.getSubmissionID()
              << "\t pnum=" << stat.getProblemNumber()
@@ -158,7 +149,7 @@ void showSubmissionData(const QList<SubmissionMessage>& data)
 void TestSampleData(Uhunt& api)
 {
     //problem list test
-    showProblemList(api.problemListFromData(problemData));
+    showProblemList(Uhunt::problemMapFromData(problemData));
 
     //judge status test
     showJudgeStatus(api.judgeStatusFromData(judgeData));
@@ -175,17 +166,6 @@ void TestSampleData(Uhunt& api)
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
-
-    //for testing problem list
-    MainWindow w(std::make_shared<QNetworkAccessManager>());
-    if(UhuntDatabase::isAvaiable())
-    {
-        cout << "Problem database is avaiable\n";
-    }
-    else
-    {
-        cout << "Problem database is not avaiable\n";
-    }
 
     //api data
     shared_ptr<QNetworkAccessManager> manager = make_shared<QNetworkAccessManager>();

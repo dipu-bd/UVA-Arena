@@ -14,3 +14,20 @@ JudgeStatusWidget::~JudgeStatusWidget()
 {
     delete ui;
 }
+
+void JudgeStatusWidget::initialize()
+{
+
+}
+
+void JudgeStatusWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)
+{
+    switch (arenaEvent)
+    {
+    case UVAArenaEvent::UPDATE_STATUS:
+        break;
+
+    default:
+        break;
+    }
+}

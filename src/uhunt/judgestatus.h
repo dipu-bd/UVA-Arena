@@ -1,6 +1,5 @@
 #pragma once
 
-#include "uhuntdatabase.h"
 #include "submissionmessage.h"
 
 namespace uva

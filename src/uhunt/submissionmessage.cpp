@@ -37,13 +37,6 @@ SubmissionMessage SubmissionMessage::fromJsonObject(const QJsonObject& data)
     //uname: user name
     sub.setUserName(data["uname"].toString());
 
-    //set problem number and title
-    if(UhuntDatabase::isAvaiable())
-    {
-        sub.setProblemNumber(UhuntDatabase::getProblemNumber(sub.getProblemID()));
-        sub.setProblemTitle(UhuntDatabase::getProblemTitleById(sub.getProblemID()));
-    }
-
     return sub;
 }
 

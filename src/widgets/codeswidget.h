@@ -19,6 +19,12 @@ namespace uva
         explicit CodesWidget(QWidget *parent = 0);
         ~CodesWidget();
 
+        virtual void initialize() override;
+
+    public slots:
+
+        virtual void onUVAArenaEvent(UVAArenaEvent, QVariant = 0) override;
+
     private:
         Ui::CodesWidget *ui;
     };

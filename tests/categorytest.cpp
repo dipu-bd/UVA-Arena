@@ -13,7 +13,6 @@
 
 #include "mainwindow.h"
 #include "uhunt/uhunt.h"
-#include "uhunt/uhuntdatabase.h"
 #include "uhunt/categorynode.h"
 
 using namespace std;
@@ -24,17 +23,6 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    //for testing problem list
-    MainWindow w(std::make_shared<QNetworkAccessManager>());
-    if(UhuntDatabase::isAvaiable())
-    {
-        cout << "Problem database is avaiable\n";
-    }
-    else
-    {
-        cout << "Problem database is not avaiable\n";
-    }
-
     /*
       Category data file
       Download link: https://raw.githubusercontent.com/dipu-bd/uva-problem-category/master/data/CP%20Book3.cat
@@ -44,7 +32,6 @@ int main(int argc, char* argv[])
         cout << "File exist." << endl;
     else
         cout << "File not exist." << endl;
-
 
     //Get category node
     QFile f(file);

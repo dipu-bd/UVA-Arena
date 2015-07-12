@@ -19,6 +19,12 @@ namespace uva
         explicit JudgeStatusWidget(QWidget *parent = 0);
         ~JudgeStatusWidget();
 
+        virtual void initialize() override;
+
+    public slots:
+
+        void onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData) override;
+
     private:
         Ui::JudgeStatusWidget *ui;
     };

@@ -20,3 +20,20 @@ CodesWidget::~CodesWidget()
 {
     delete ui;
 }
+
+void CodesWidget::initialize()
+{
+    
+}
+
+void CodesWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)
+{
+    switch (arenaEvent)
+    {
+    case UVAArenaEvent::UPDATE_STATUS:
+        break;
+
+    default:
+        break;
+    }
+}

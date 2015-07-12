@@ -18,14 +18,16 @@ namespace uva
         Q_OBJECT
     public:
 
+        typedef QMap<int, Problem> ProblemMap;
+
         Uhunt(std::shared_ptr<QNetworkAccessManager> manager);
 
         /**
          * @brief getProblemList Get the list of problem info.
          * @param data Downloaded javascript array data.
-         * @return List of problem info objects.
+         * @return Map of problem info objects.
          */
-        static QList<Problem> problemListFromData(const QByteArray &data);
+        static ProblemMap problemMapFromData(const QByteArray &data);
 
         /**
          * @brief judgeStatusFromData   Gets the latest judge status.
@@ -61,7 +63,7 @@ namespace uva
         //signal emitted after problem is downloaded
         void problemByIdDownloaded(Problem);
         //signal emitted after problem list is downloaded
-        void problemListDownloaded(QList<Problem>);
+        void problemListDownloaded(Uhunt::ProblemMap);
         // signal emitted after problem list is downloaded
         void problemListByteArrayDownloaded(QByteArray);
         //signal emitted after judge status is downloaded

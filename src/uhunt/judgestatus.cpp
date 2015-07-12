@@ -45,12 +45,5 @@ JudgeStatus JudgeStatus::fromJsonObject(const QJsonObject &obj)
     //uname: user name
     stat.setUserName(data["uname"].toString());
 
-    //set problem number and title
-    if(UhuntDatabase::isAvaiable())
-    {
-        stat.setProblemNumber(UhuntDatabase::getProblemNumber(stat.getProblemID()));
-        stat.setProblemTitle(UhuntDatabase::getProblemTitleById(stat.getProblemID()));
-    }
-
     return stat;
 }

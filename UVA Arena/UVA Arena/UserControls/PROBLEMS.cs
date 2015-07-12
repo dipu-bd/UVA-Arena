@@ -323,16 +323,16 @@ namespace UVA_Arena.Elements
         }
         private void problemListView_CellClick(object sender, CellClickEventArgs e)
         {
-            object sel = problemListView.SelectedObject;
-            if (sel == null) return;
-            Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
+            //object sel = problemListView.SelectedObject;
+            //if (sel == null) return;
+            //Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
         }
 
         private void problemListView_ItemActivate(object sender, EventArgs e)
         {
-            object sel = problemListView.SelectedObject;
-            if (sel == null) return;
-            Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
+            //object sel = problemListView.SelectedObject;
+            //if (sel == null) return;
+            //Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
         }
 
         private void problemListView_BeforeSorting(object sender, BeforeSortingEventArgs e)
@@ -481,11 +481,6 @@ namespace UVA_Arena.Elements
         //
         //other simple tasks
         //
-        private void viewPDFToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Interactivity.problemViewer.pdfButton.PerformClick();
-        }
-
         private void openInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Interactivity.problemViewer.externalButton.PerformClick();

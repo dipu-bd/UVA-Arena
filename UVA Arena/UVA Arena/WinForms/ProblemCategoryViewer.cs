@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using UVA_Arena.Structures;
+
+namespace UVA_Arena
+{
+    public partial class ProblemCategoryViewer : Form
+    {
+        public ProblemCategoryViewer(ProblemInfo pinfo)
+        {
+            InitializeComponent();
+            loadData(pinfo);
+        }
+
+        const string title = "{0} - {1}";
+        const string head = @"{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Consolas;}}{\colortbl ;\red0\green77\blue187;\red192\green80\blue77;}\lang9\n";
+        const string tail = "\n}\0";
+        const string catpath = @"\pard\cf1\f1\fs21 {1:00}. {0}\par\n";
+        const string probnote = @"\pard\sa200\li720\qj\cf0\f0\fs19 {0}\par\n";
+
+        void loadData(ProblemInfo pinfo)
+        {
+            titleLabel.Text = string.Format(title, pinfo.pnum, pinfo.ptitle);
+
+            int num = 1;
+            string data = head;            
+            foreach (var node in pinfo.categories)
+            {
+                data += string.Format(catpath, node.Path, num++);
+                data += string.Format(probnote, node.GetCategoryNote(pinfo.pnum));
+            }
+            data += tail;
+            richTextBox1.Rtf = data;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.Close();
+        }
+    }
+}

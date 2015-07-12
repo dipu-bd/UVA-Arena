@@ -46,6 +46,7 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.overallStatus = new System.Windows.Forms.Label();
             this.replaceCombo1 = new System.Windows.Forms.ComboBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +61,7 @@
             this.tableLayoutPanel1.Controls.Add(this.restartButton, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cancelButton, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.startButton, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(232, 147);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(232, 162);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -201,7 +202,7 @@
             this.replaceBox.AutoSize = true;
             this.replaceBox.BackColor = System.Drawing.Color.Transparent;
             this.replaceBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.replaceBox.Location = new System.Drawing.Point(13, 152);
+            this.replaceBox.Location = new System.Drawing.Point(13, 167);
             this.replaceBox.Name = "replaceBox";
             this.replaceBox.Size = new System.Drawing.Size(103, 23);
             this.replaceBox.TabIndex = 9;
@@ -233,6 +234,7 @@
             // 
             // replaceCombo1
             // 
+            this.replaceCombo1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.replaceCombo1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.replaceCombo1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.replaceCombo1.FormattingEnabled = true;
@@ -241,11 +243,25 @@
             "HTML Files",
             "PDF Files",
             "Image Files"});
-            this.replaceCombo1.Location = new System.Drawing.Point(113, 151);
+            this.replaceCombo1.Location = new System.Drawing.Point(113, 166);
             this.replaceCombo1.Name = "replaceCombo1";
             this.replaceCombo1.Size = new System.Drawing.Size(98, 25);
             this.replaceCombo1.TabIndex = 11;
             this.replaceCombo1.SelectedIndexChanged += new System.EventHandler(this.replaceCombo1_SelectedIndexChanged);
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.linkLabel1.Location = new System.Drawing.Point(351, 144);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(181, 13);
+            this.linkLabel1.TabIndex = 12;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Tag = "http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.3/UVA%20Arena%20Da" +
+    "tabase.exe/download";
+            this.linkLabel1.Text = "Download problem list all at once";
             // 
             // DownloadAllForm
             // 
@@ -253,7 +269,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UVA_Arena.Properties.Resources.backimg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(544, 191);
+            this.ClientSize = new System.Drawing.Size(544, 206);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.replaceCombo1);
             this.Controls.Add(this.overallStatus);
             this.Controls.Add(this.replaceBox);
@@ -299,6 +316,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label overallStatus;
         private System.Windows.Forms.ComboBox replaceCombo1;
+        private System.Windows.Forms.LinkLabel linkLabel1;
 
     }
 }

@@ -42,22 +42,6 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region TabControl
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabControl1.SelectedTab == discussTab)
-            {
-                ShowDiscuss();
-            }
-            else if (tabControl1.SelectedTab == submissionTab)
-            {
-                LoadSubmission();
-            }
-        }
-
-        #endregion
-
         #region Load Problem
 
         ProblemInfo current = null;
@@ -97,46 +81,48 @@ namespace UVA_Arena.Elements
             problemWebBrowser.GoHome();
         }
 
-        private void LoadPdfDoc(string pdf, bool force = true)
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                if (force) System.Diagnostics.Process.Start(pdf);
-                Logger.Add(ex.Message, "ShowCurrent_Pdf");
-            }
-        }
-
         private void ShowCurrent()
         {
             if (current == null) return;
 
+            //unload previous data first
+            pdfViewer1.FileName = null;
+            problemWebBrowser.Navigate(string.Empty);
+
+            //load meta info
             LoadTopBar();
             markButton.Checked = current.marked;
 
+            //check pdf and html description files
             string pdf = LocalDirectory.GetProblemPdf(current.pnum);
             string html = LocalDirectory.GetProblemHtml(current.pnum);
+            bool htmlAvail = LocalDirectory.GetFileSize(html) > 100;
+            bool pdfAvail = LocalDirectory.GetFileSize(pdf) > 100;
 
-            if (LocalDirectory.GetFileSize(html) > 100) //html avaiable
+            //show data
+            this.BeginInvoke((MethodInvoker)delegate
             {
-                problemWebBrowser.Navigate(html);
-                DownloadContents(current.pnum);
-                tabControl1.SelectedTab = htmlTab;
-            }
-            else if (LocalDirectory.GetFileSize(pdf) > 100) //pdf avaiable
-            {
-                pdfViewer1.FileName = pdf;
-                tabControl1.SelectedTab = pdfTab;
-            }
-            else
-            {
-                problemWebBrowser.Navigate("about:tabs");
-                DownloadHtml(current.pnum);
-                DownloadPdf(current.pnum);
-            }
+                if (this.tabControl1.SelectedTab == htmlTab)
+                {
+                    problemWebBrowser.Navigate(html);
+                }
+                else if (this.tabControl1.SelectedTab == pdfTab)
+                {
+                    pdfViewer1.FileName = pdf;
+                }
+                else if (htmlAvail)
+                {
+                    this.tabControl1.SelectedTab = htmlTab;
+                }
+                else if (pdfAvail)
+                {
+                    this.tabControl1.SelectedTab = pdfTab;
+                }
+            });
+
+            //download if necessary
+            if (!pdfAvail) DownloadPdf(current.pnum);
+            if (!htmlAvail) DownloadHtml(current.pnum);
         }
 
         private void LoadTopBar()
@@ -154,16 +140,18 @@ namespace UVA_Arena.Elements
                 tried = LocalDatabase.DefaultUser.TriedButUnsolved(current.pnum);
             }
 
-            //level star
+            //check the ac ratio of the problem
             string levelstar = "";
-            double urank = 1.0;
+            double ratio = 1.0;
             if (current.total > 0)
-                urank = (double)current.ac / current.total;
-            if (urank < 0.35) levelstar += '*';
-            if (urank <= 0.15) levelstar += '*';
+            {
+                ratio = (double)current.ac / current.total;
+            }
+            if (ratio < 0.35) levelstar = "*";
+            else if (ratio <= 0.15) levelstar = "**";
             if (current.stared) levelstar += "#";
 
-            //message
+            //status message about the problem
             string msg = "You DID NOT TRY this problem.";
             if (tried) msg = "You TRIED but failed to solve this.";
             if (solved) msg = "You SOLVED this problem.";
@@ -176,13 +164,39 @@ namespace UVA_Arena.Elements
             problemMessage.Text = msg;
         }
 
+        //
+        // Tab Control
+        //
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (e.TabPage == submissionTab && current == null)
+            if (current == null)
             {
                 e.Cancel = true;
                 MessageBox.Show("Select a problem first");
+                return;
             }
+
+            if (e.TabPage == submissionTab)
+            {
+                LoadSubmission();
+            }
+            else if (tabControl1.SelectedTab == discussTab)
+            {
+                ShowDiscuss();
+            }
+            else if (tabControl1.SelectedTab == htmlTab)
+            {
+                problemWebBrowser.Navigate(LocalDirectory.GetProblemHtml(current.pnum));
+            }
+            else if (tabControl1.SelectedTab == pdfTab)
+            {
+                pdfViewer1.FileName = LocalDirectory.GetProblemPdf(current.pnum);
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
         #endregion
@@ -246,29 +260,39 @@ namespace UVA_Arena.Elements
 
         private void DownloadFinished(DownloadTask task)
         {
-            problemWebBrowser.Refresh();
             if (task.Error != null)
             {
                 Logger.Add(task.Error.Message, "ProblemViewer | DownloadFinished()");
                 return;
             }
 
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                problemWebBrowser.Refresh();
+            });
+
             bool finish = false;
             long pnum = (long)task.Token;
-            if (current == null || current.pnum != pnum) finish = true;
+            if (current == null || current.pnum != pnum)
+                finish = true;
 
             if (!finish) //if no error occured
             {
                 string ext = Path.GetExtension(task.FileName);
                 if (ext == ".pdf")
                 {
-                    LoadPdfDoc(task.FileName);
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        pdfViewer1.FileName = task.FileName;
+                    });
                     finish = true;
                 }
                 else if (ext == ".html")
                 {
-                    string file = LocalDirectory.GetProblemHtml(pnum);
-                    problemWebBrowser.Navigate(file);
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        problemWebBrowser.Navigate(task.FileName);
+                    });
                     int cnt = DownloadContents(pnum);
                     if (cnt == 0) finish = true;
                 }
@@ -280,14 +304,27 @@ namespace UVA_Arena.Elements
 
             if (finish)
             {
-                problemWebBrowser.Refresh();
-                reloadButton.Enabled = true;
+                this.BeginInvoke((MethodInvoker)delegate
+                {
+                    reloadButton.Enabled = true;
+                });
             }
         }
 
         #endregion
 
         #region Top bar
+
+        private void tagsOrNoteToolButton_Click(object sender, EventArgs e)
+        {
+            if (current == null)
+            {
+                MessageBox.Show("Select a problem first.");
+                return;
+            }
+            ProblemCategoryViewer pcv = new ProblemCategoryViewer(current);
+            pcv.ShowDialog();
+        }
 
         private void codeButton_Click(object sender, EventArgs e)
         {
@@ -400,6 +437,7 @@ namespace UVA_Arena.Elements
                 up_downButton.Image = Properties.Resources.movedown;
             }
         }
+
 
         #endregion
 
@@ -828,6 +866,7 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
+
 
     }
 }

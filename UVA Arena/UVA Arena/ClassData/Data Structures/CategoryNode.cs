@@ -50,6 +50,7 @@ namespace UVA_Arena.Structures
         public CategoryNode Parent = null;
         /// <summary> List of all problems </summary>
         public Dictionary<long, ProblemInfo> allProbs = new Dictionary<long, ProblemInfo>();
+        public Dictionary<long, string> problemToNote = new Dictionary<long, string>();
 
         /// <summary>
         /// Gets the path to current category node
@@ -78,6 +79,10 @@ namespace UVA_Arena.Structures
                     return 1 + Parent.Level;
             }
         }
+        public int Count
+        {
+            get { return allProbs.Count; }
+        }
 
         //
         // Functions
@@ -96,14 +101,16 @@ namespace UVA_Arena.Structures
                 if (!pinfo.categories.Contains(this))
                     pinfo.categories.Add(this);
                 AddProblem(pinfo, true);
+                problemToNote.Add(p.pnum, p.note);
             }
+            problems.Clear();
         }
 
         public void AddProblem(ProblemInfo p, bool force = false)
         {
             if (allProbs.ContainsKey(p.pnum))
             {
-                if (force) allProbs[p.pnum] = p; 
+                if (force) allProbs[p.pnum] = p;
             }
             else
             {
@@ -130,7 +137,7 @@ namespace UVA_Arena.Structures
 
         public bool RemoveCategory(string name)
         {
-            if (string.IsNullOrEmpty(name)) 
+            if (string.IsNullOrEmpty(name))
                 return false;
             for (int i = 0; i < branches.Count; ++i)
             {
@@ -143,30 +150,14 @@ namespace UVA_Arena.Structures
             return false;
         }
 
-        //
-        // Overrides
-        //
-        public int Count
+        public string GetCategoryNote(long pnum)
         {
-            get { return allProbs.Count; }
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj.GetType() == typeof(string))
-                return name.Equals(obj);
-            else
-                return base.Equals(obj);
-        }
-
-        public override string ToString()
-        {
-            return name;
+            string note = "";
+            if (problemToNote.ContainsKey(pnum))
+                note = problemToNote[pnum];
+            if (note == "")
+                note = "[This problem has no notes]";
+            return note;
         }
     }
 }

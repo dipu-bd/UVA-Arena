@@ -50,8 +50,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.downloadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem(); 
             this.openInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.viewSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -309,8 +308,7 @@
             this.toolStripSeparator2,
             this.downloadAllToolStripMenuItem,
             this.toolStripSeparator4,
-            this.reloadToolStripMenuItem,
-            this.viewPDFToolStripMenuItem,
+            this.reloadToolStripMenuItem, 
             this.openInBrowserToolStripMenuItem,
             this.toolStripSeparator1,
             this.viewSourceToolStripMenuItem,
@@ -351,15 +349,7 @@
             this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
             this.reloadToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.reloadToolStripMenuItem.Text = "Redownload";
-            this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
-            // 
-            // viewPDFToolStripMenuItem
-            // 
-            this.viewPDFToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.pdf;
-            this.viewPDFToolStripMenuItem.Name = "viewPDFToolStripMenuItem";
-            this.viewPDFToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.viewPDFToolStripMenuItem.Text = "View as PDF";
-            this.viewPDFToolStripMenuItem.Click += new System.EventHandler(this.viewPDFToolStripMenuItem_Click);
+            this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);            
             // 
             // openInBrowserToolStripMenuItem
             // 

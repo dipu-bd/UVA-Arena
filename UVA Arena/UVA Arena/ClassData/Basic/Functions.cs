@@ -242,8 +242,7 @@ namespace UVA_Arena
         public static List<DownloadTask> ProcessHtmlContent(long pnum, bool replace)
         {
             try
-            {
-                
+            {                
                 string external = string.Format("http://uva.onlinejudge.org/external/{0}/", pnum / 100);
 
                 string filepath = LocalDirectory.GetProblemHtml(pnum);
@@ -254,7 +253,7 @@ namespace UVA_Arena
 
                 HtmlAgilityPack.HtmlDocument htdoc = new HtmlAgilityPack.HtmlDocument();
                 htdoc.Load(filepath);
-                DFS(htdoc.DocumentNode, urls);
+                GetAllImageFiles(htdoc.DocumentNode, urls);
                 htdoc.Save(filepath);
 
                 foreach (string str in urls)
@@ -284,7 +283,7 @@ namespace UVA_Arena
         /// </summary>
         /// <param name="nod">Current node to search</param>
         /// <param name="urls">Reference to the list of all gathered urls</param>
-        private static void DFS(HtmlAgilityPack.HtmlNode nod, List<string> urls)
+        private static void GetAllImageFiles(HtmlAgilityPack.HtmlNode nod, List<string> urls)
         {
             //process current node
             string name = null;
@@ -306,7 +305,7 @@ namespace UVA_Arena
             //search child nodes
             foreach (var child in nod.ChildNodes)
             {
-                DFS(child, urls);
+                GetAllImageFiles(child, urls);
             }
 
             //remove unnecessary data

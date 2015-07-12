@@ -206,6 +206,12 @@
     <Compile Include="WinForms\ClosingDialogueForm.Designer.cs">
       <DependentUpon>ClosingDialogueForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinForms\ProblemCategoryViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\ProblemCategoryViewer.Designer.cs">
+      <DependentUpon>ProblemCategoryViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\SelectALanguage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -313,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\ClosingDialogueForm.resx">
       <DependentUpon>ClosingDialogueForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\ProblemCategoryViewer.resx">
+      <DependentUpon>ProblemCategoryViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\SelectALanguage.resx">
       <DependentUpon>SelectALanguage.cs</DependentUpon>

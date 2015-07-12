@@ -80,6 +80,7 @@
             this.markButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.reloadButton = new System.Windows.Forms.ToolStripButton();
+            this.tagsOrNoteToolButton = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.up_downButton = new System.Windows.Forms.Button();
             this.titleBox1 = new System.Windows.Forms.Label();
@@ -122,7 +123,6 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(800, 360);
             this.tabControl1.TabIndex = 0;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
             // htmlTab
@@ -652,6 +652,8 @@
             // toolStrip1
             // 
             this.toolStrip1.BackColor = System.Drawing.Color.PowderBlue;
+            this.tableLayoutPanel1.SetColumnSpan(this.toolStrip1, 2);
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backButton,
             this.nextButton,
@@ -662,10 +664,11 @@
             this.submitButton,
             this.markButton,
             this.toolStripSeparator3,
-            this.reloadButton});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 52);
+            this.reloadButton,
+            this.tagsOrNoteToolButton});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 50);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(800, 38);
+            this.toolStrip1.Size = new System.Drawing.Size(768, 38);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.TabStop = true;
             this.toolStrip1.Text = "toolStrip1";
@@ -758,24 +761,37 @@
             this.reloadButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.reloadButton.Click += new System.EventHandler(this.reloadButton_Click);
             // 
+            // tagsOrNoteToolButton
+            // 
+            this.tagsOrNoteToolButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tagsOrNoteToolButton.Image = global::UVA_Arena.Properties.Resources.category;
+            this.tagsOrNoteToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tagsOrNoteToolButton.Name = "tagsOrNoteToolButton";
+            this.tagsOrNoteToolButton.Size = new System.Drawing.Size(81, 35);
+            this.tagsOrNoteToolButton.Text = "Tags + Notes";
+            this.tagsOrNoteToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tagsOrNoteToolButton.ToolTipText = "Tags or Notes";
+            this.tagsOrNoteToolButton.Click += new System.EventHandler(this.tagsOrNoteToolButton_Click);
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.Controls.Add(this.up_downButton, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.problemMessage, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.toolStrip1, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(31, 1);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 50);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 88);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // up_downButton
@@ -786,10 +802,10 @@
             this.up_downButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PowderBlue;
             this.up_downButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.up_downButton.Image = global::UVA_Arena.Properties.Resources.moveup;
-            this.up_downButton.Location = new System.Drawing.Point(736, 0);
+            this.up_downButton.Location = new System.Drawing.Point(738, 0);
             this.up_downButton.Margin = new System.Windows.Forms.Padding(0);
             this.up_downButton.Name = "up_downButton";
-            this.up_downButton.Size = new System.Drawing.Size(32, 29);
+            this.up_downButton.Size = new System.Drawing.Size(30, 29);
             this.up_downButton.TabIndex = 4;
             this.up_downButton.UseVisualStyleBackColor = true;
             this.up_downButton.Click += new System.EventHandler(this.up_downButton_Click);
@@ -804,7 +820,7 @@
             this.titleBox1.Margin = new System.Windows.Forms.Padding(0);
             this.titleBox1.Name = "titleBox1";
             this.titleBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.titleBox1.Size = new System.Drawing.Size(736, 29);
+            this.titleBox1.Size = new System.Drawing.Size(738, 29);
             this.titleBox1.TabIndex = 0;
             this.titleBox1.Text = "No problem selected";
             // 
@@ -832,7 +848,7 @@
             this.expandCollapseButton.Location = new System.Drawing.Point(1, 1);
             this.expandCollapseButton.Margin = new System.Windows.Forms.Padding(0);
             this.expandCollapseButton.Name = "expandCollapseButton";
-            this.expandCollapseButton.Size = new System.Drawing.Size(30, 50);
+            this.expandCollapseButton.Size = new System.Drawing.Size(30, 88);
             this.expandCollapseButton.TabIndex = 3;
             this.expandCollapseButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.expandCollapseButton.UseVisualStyleBackColor = true;
@@ -857,7 +873,7 @@
             this.TopPanel.Location = new System.Drawing.Point(0, 0);
             this.TopPanel.Name = "TopPanel";
             this.TopPanel.Padding = new System.Windows.Forms.Padding(1);
-            this.TopPanel.Size = new System.Drawing.Size(800, 52);
+            this.TopPanel.Size = new System.Drawing.Size(800, 90);
             this.TopPanel.TabIndex = 4;
             // 
             // ProblemViewer
@@ -866,7 +882,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.TopPanel);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -961,5 +976,6 @@
         private ExtendedControls.CustomWebBrowser customWebBrowser1;
         private System.Windows.Forms.TabPage pdfTab;
         private PDFView.PDFViewer pdfViewer1;
+        private System.Windows.Forms.ToolStripButton tagsOrNoteToolButton;
     }
 }

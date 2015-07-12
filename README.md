@@ -1,20 +1,22 @@
-# UVA-Arena
+# UVA-Arena   
 
-![Facebook Icon](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/facebook.png) [Facbook Page](https://www.facebook.com/uvaarena?ref=github)   
+![Facebook Icon](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/facebook.png) [Facbook Page](https://www.facebook.com/uvaarena?ref=github)     
 
+    
+[![UVA Arena Icon](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/Main.png)](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/Main.png)    
 
-[![UVA Arena Icon](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/Main.png)](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/Main.png)
-
-**UVA Arena** (c) 2014, is a windows based, non-commercial, open source utility application to make problem solving easier for the programmers. It is based on popular [UVA Online Judge](http://uva.onlinejudge.org/) and uses APIs from [uHunt](http://uhunt.felix-halim.net/). 
-         
-       
+**UVA Arena** (c) 2014, is a windows based, non-commercial, open source utility application to make problem solving easier for the programmers. It is based on popular [UVA Online Judge](http://uva.onlinejudge.org/) and uses APIs from [uHunt](http://uhunt.felix-halim.net/).        
 
 ### Download  
 To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena/wiki/What's-New)        
 
+#### Version 1.3   
+1. [Download Setup file (EXE File : 10.5MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.2/UVA_Arena_1.3_x86_windows.exe/download)     
+2. [Download Problem Database (EXE File: 238MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.3/UVA_Arena_Database.exe/download)      
+
 ##### Version 1.2
-1. [Download setup file only (EXE File : 1.5MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.2/UVA%20Arena%201.2.exe/download)     
-2. [Download setup including problem description (ZIP File : 238MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.2/UVA%20Arena%201.2%20full.zip/download)     
+1. [Download Setup File (EXE File : 1.5MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.2/UVA%20Arena%201.2.exe/download)     
+2. [Download Setup File with Problem Descriptions (ZIP File : 238MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.2/UVA%20Arena%201.2%20full.zip/download)     
 
 ##### Version 1.1
 1. [For All Platforms](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/All/UVA%20Arena%201.1.exe?raw=true)     
@@ -42,7 +44,7 @@ For any other information contact me at <dipu.sudipta@gmail.com>
 
 ### List of features 
 Here is a brief list of the features that this software provides:    
-* Problem Viewer (also view and edit categories)
+* Problem Viewer (Both HTML and PDF)
 * Code Editor (C, C++ and Java)
 * Judge Status
 * User Statistics with graphs

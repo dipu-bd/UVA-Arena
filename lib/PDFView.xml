@@ -1,0 +1,252 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+PDFView
+</name>
+</assembly>
+<members>
+<member name="P:PDFView.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:PDFView.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:PDFView.My.Resources.Resources.BookmarkHtml">
+	<summary>
+  Looks up a localized string similar to &lt;HTML&gt;
+&lt;HEAD&gt;
+&lt;TITLE&gt;PageIndex&lt;/TITLE&gt;
+&lt;SCRIPT LANGUAGE="JavaScript"&gt;
+function changeImage(filename)
+{
+  parent.pageviewer.document.images['mainimage'].src = filename;
+}
+&lt;/script&gt;
+&lt;/HEAD&gt;
+&lt;BODY bgcolor="#DDDDDD"&gt;{Body}&lt;/BODY&gt;
+&lt;/HTML&gt;.
+</summary>
+</member><member name="P:PDFView.My.Resources.Resources.FrameHtml">
+	<summary>
+  Looks up a localized string similar to &lt;HTML&gt;
+&lt;HEAD&gt;
+&lt;TITLE&gt;PDF to Image Html&lt;/TITLE&gt;
+&lt;/HEAD&gt;
+&lt;FRAMESET ROWS="50,*" FRAMEBORDER=0 BORDER=0 &gt;
+                        &lt;FRAME NAME="top" SRC="content/top.html" MARGINHEIGHT=0 MARGINWIDTH=0 NORESIZE&gt;
+            &lt;FRAMESET COLS="20%,80%" FRAMEBORDER=0 BORDER=0&gt;
+                        &lt;FRAME NAME="left" SRC="content/bookmark.html" MARGINHEIGHT=0 MARGINWIDTH=0 SCROLLING=AUTO NORESIZE&gt;
+                        &lt;FRAMESET ROWS="*,25" FRAMEBORDER=0 BORDER=0 &gt;
+                        	&lt;FRAME NAME="pa [rest of string was truncated]";.
+</summary>
+</member><member name="P:PDFView.My.Resources.Resources.PageHtml">
+	<summary>
+  Looks up a localized string similar to &lt;HTML&gt;
+&lt;HEAD&gt;
+&lt;TITLE&gt;PageViewer&lt;/TITLE&gt;
+&lt;/HEAD&gt;
+&lt;BODY bgcolor="#999999"&gt;&lt;center&gt;&lt;img id="mainimage" src="images/page1.png" width="100%"&gt;&lt;/center&gt;&lt;/BODY&gt;
+&lt;/HTML&gt;.
+</summary>
+</member><member name="P:PDFView.My.Resources.Resources.PagesizeHtml">
+	<summary>
+  Looks up a localized string similar to &lt;HTML&gt;
+&lt;HEAD&gt;
+&lt;TITLE&gt;PageSize&lt;/TITLE&gt;
+&lt;SCRIPT LANGUAGE="JavaScript"&gt;
+function fitScreen()
+{
+parent.pageviewer.document.images['mainimage'].style.height = '100%';
+parent.pageviewer.document.images['mainimage'].style.width = 'auto';
+}
+function fitWidth()
+{
+parent.pageviewer.document.images['mainimage'].style.height = 'auto';
+parent.pageviewer.document.images['mainimage'].style.width = '100%';
+}
+function fitActual()
+{
+parent.pageviewer.document.images['mainimage'].style.height = 'auto';
+parent [rest of string was truncated]";.
+</summary>
+</member><member name="P:PDFView.My.Resources.Resources.TopHtml">
+	<summary>
+  Looks up a localized string similar to &lt;HTML&gt;
+&lt;HEAD&gt;
+&lt;TITLE&gt;DocumentName&lt;/TITLE&gt;
+&lt;/HEAD&gt;
+&lt;BODY bgcolor="#BBBBBB"&gt;{DocumentName}&lt;/BODY&gt;
+&lt;/HTML&gt;.
+</summary>
+</member><member name="T:PDFView.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="F:PDFView.ConvertPDF.PDFConvert.useSimpleAnsiConversion">
+	<summary>Use to check for default transformation</summary>
+</member><member name="F:PDFView.ConvertPDF.PDFConvert.GS_OutputFileFormat">
+	<summary>Thanks to 	tchu_2000 to remind that u should never hardcode strings! :)</summary>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.CopyMemory(System.IntPtr,System.IntPtr,System.UInt32)">
+	<summary>Needed to copy memory from one location to another, used to fill the struct</summary>
+	<param name="Destination"></param>
+	<param name="Source"></param>
+	<param name="Length"></param>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.gsapi_new_instance(System.IntPtr@,System.IntPtr)">
+	<summary>Create a new instance of Ghostscript. This instance is passed to most other gsapi functions. The caller_handle will be provided to callback functions.
+  At this stage, Ghostscript supports only one instance. </summary>
+	<param name="pinstance"></param>
+	<param name="caller_handle"></param>
+	<returns></returns>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.gsapi_init_with_args(System.IntPtr,System.Int32,System.IntPtr)">
+	<summary>This is the important function that will perform the conversion</summary>
+	<param name="instance"></param>
+	<param name="argc"></param>
+	<param name="argv"></param>
+	<returns></returns>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.gsapi_exit(System.IntPtr)">
+	<summary>
+ Exit the interpreter. This must be called on shutdown if gsapi_init_with_args() has been called, and just before gsapi_delete_instance(). 
+ </summary>
+	<param name="instance"></param>
+	<returns></returns>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.gsapi_delete_instance(System.IntPtr)">
+	<summary>
+ Destroy an instance of Ghostscript. Before you call this, Ghostscript must have finished. If Ghostscript has been initialised, you must call gsapi_exit before gsapi_delete_instance. 
+ </summary>
+	<param name="instance"></param>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.gsapi_revision(PDFView.ConvertPDF.GS_Revision@,System.Int32)">
+	<summary>Get info about the version of Ghostscript i'm using</summary>
+	<param name="pGSRevisionInfo"></param>
+	<param name="intLen"></param>
+	<returns></returns>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.gsapi_set_stdio(System.IntPtr,PDFView.ConvertPDF.StdioCallBack,PDFView.ConvertPDF.StdioCallBack,PDFView.ConvertPDF.StdioCallBack)">
+	<summary>Use a different I/O</summary>
+	<param name="lngGSInstance"></param>
+	<param name="gsdll_stdin">Function that menage the Standard INPUT</param>
+	<param name="gsdll_stdout">Function that menage the Standard OUTPUT</param>
+	<param name="gsdll_stderr">Function that menage the Standard ERROR output</param>
+	<returns></returns>
+</member><member name="F:PDFView.ConvertPDF.PDFConvert._iFirstPageToConvert">
+	<summary>The first page to convert in image</summary>
+</member><member name="F:PDFView.ConvertPDF.PDFConvert._iLastPageToConvert">
+	<summary>The last page to conver in an image</summary>
+</member><member name="F:PDFView.ConvertPDF.PDFConvert._iGraphicsAlphaBit">
+	<summary>This parameter is used to control subsample antialiasing of graphics</summary>
+</member><member name="F:PDFView.ConvertPDF.PDFConvert._iTextAlphaBit">
+	<summary>This parameter is used to control subsample antialiasing of text</summary>
+</member><member name="F:PDFView.ConvertPDF.PDFConvert._iRenderingThreads">
+	<summary>In how many thread i should perform the conversion</summary>
+	<remarks>This is a Major innovation since 8.63 NEVER use it with previous version!</remarks>
+</member><member name="P:PDFView.ConvertPDF.PDFConvert.RenderingThreads">
+	<summary>In how many thread i should perform the conversion</summary>
+	<remarks>This is a Major innovation since 8.63 NEVER use it with previous version!</remarks>
+	<value>Set it to 0 made the program set it to Environment.ProcessorCount HT machine could want to perform a check for this..</value>
+</member><member name="F:PDFView.ConvertPDF.PDFConvert._sDefaultPageSize">
+	<summary>The pagesize of the output</summary>
+</member><member name="F:PDFView.ConvertPDF.PDFConvert._didOutputToMultipleFile">
+	<summary>If true i will try to output everypage to a different file!</summary>
+</member><member name="P:PDFView.ConvertPDF.PDFConvert.OutputFormat">
+	<summary>
+ What format to use to convert
+ is suggested to use png256 instead of jpeg for document!
+ they are smaller and better suited!
+ </summary>
+</member><member name="P:PDFView.ConvertPDF.PDFConvert.DefaultPageSize">
+	<summary>The pagesize of the output</summary>
+	<remarks>Without this parameter the output should be letter, complain to USA for this :) if the document specify a different size it will take precedece over this!</remarks>
+</member><member name="P:PDFView.ConvertPDF.PDFConvert.ForcePageSize">
+	<summary>If set to true and page default page size will force the rendering in that output format</summary>
+</member><member name="P:PDFView.ConvertPDF.PDFConvert.GraphicsAlphaBit">
+	<summary>This parameter is used to control subsample antialiasing of graphics</summary>
+	<value>Value MUST BE below or equal 0 if not set, or 1,2,or 4 NO OTHER VALUES!</value>
+</member><member name="P:PDFView.ConvertPDF.PDFConvert.TextAlphaBit">
+	<summary>This parameter is used to control subsample antialiasing of text</summary>
+	<value>Value MUST BE below or equal 0 if not set, or 1,2,or 4 NO OTHER VALUES!</value>
+</member><member name="P:PDFView.ConvertPDF.PDFConvert.JPEGQuality">
+	<summary>Quality of compression of JPG</summary>
+</member><member name="P:PDFView.ConvertPDF.PDFConvert.FirstPageToConvert">
+	<summary>The first page to convert in image</summary>
+</member><member name="P:PDFView.ConvertPDF.PDFConvert.LastPageToConvert">
+	<summary>The last page to conver in an image</summary>
+</member><member name="P:PDFView.ConvertPDF.PDFConvert.ThrowOnlyException">
+	<summary>Set to True if u want the program to never display Messagebox
+ but otherwise throw exception</summary>
+</member><member name="P:PDFView.ConvertPDF.PDFConvert.RedirectIO">
+	<summary>If i should redirect the Output of Ghostscript library somewhere</summary>
+</member><member name="P:PDFView.ConvertPDF.PDFConvert.OutputToMultipleFile">
+	<summary>If true i will try to output everypage to a different file!</summary>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.Convert(System.String,System.String)">
+	<summary>Convert a single file!</summary>
+	<param name="inputFile">The file PDf to convert</param>
+	<param name="outputFile">The image file that will be created</param>
+	<remarks>You must pass all the parameter for the conversion
+ as Proprieties of this class</remarks>
+	<returns>True if the conversion succed!</returns>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.Convert(System.String,System.String,System.String)">
+	<summary>Convert a single file!</summary>
+	<param name="inputFile">The file PDf to convert</param>
+	<param name="outputFile">The image file that will be created</param>
+	<param name="parameters">You must pass all the parameter for the conversion here</param>
+	<remarks>Thanks to 	tchu_2000 for the help!</remarks>
+	<returns>True if the conversion succed!</returns>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.Convert(System.String,System.String,System.Boolean,System.String)">
+	<summary>Convert a single file!</summary>
+	<param name="inputFile">The file PDf to convert</param>
+	<param name="outputFile">The image file that will be created</param>
+	<param name="throwException">if the function should throw an exception
+ or display a message box</param>
+	<remarks>You must pass all the parameter for the conversion
+ as Proprieties of this class</remarks>
+	<returns>True if the conversion succed!</returns>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.ClearParameters(System.Runtime.InteropServices.GCHandle[]@,System.Runtime.InteropServices.GCHandle@)">
+	<summary>Remove the memory allocated</summary>
+	<param name="aGCHandle"></param>
+	<param name="gchandleArgs"></param>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.GetGeneratedArgs(System.String,System.String,System.String)">
+	<summary>This function create the list of parameters to pass to the dll with parameters given directly from the program</summary>
+	<param name="inputFile"></param>
+	<param name="outputFile"></param>
+	<param name="otherParameters">The other parameters i could be interested</param>
+	<remarks>Be very Cautious using this! code provided and modified from tchu_2000</remarks>
+	<returns></returns>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.GetGeneratedArgs(System.String,System.String,System.String[])">
+	<summary>This function create the list of parameters to pass to the dll</summary>
+	<param name="inputFile">the file to convert</param>
+	<param name="outputFile">where to write the image</param>
+	<returns>the list of the arguments</returns>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.StringToAnsiZ(System.String)">
+	<summary>
+ Convert a Unicode string to a null terminated Ansi string for Ghostscript.
+ The result is stored in a byte array
+ </summary>
+	<param name="str">The parameter i want to convert</param>
+	<returns>the byte array that contain the string</returns>
+</member><member name="M:PDFView.ConvertPDF.PDFConvert.AnsiZtoString(System.IntPtr)">
+	<summary>Convert a Pointer to a string to a real string</summary>
+	<param name="strz">the pointer to the string in memory</param>
+	<returns>The string</returns>
+</member><member name="T:PDFView.ConvertPDF.PDFConvert">
+	<summary>
+ Create by : TaGoH
+ URL of the last version: http://www.codeproject.com/KB/cs/GhostScriptUseWithCSharp.aspx
+ Description:
+ Class to convert a pdf to an image using GhostScript DLL
+ A big Credit for this code go to:Rangel Avulso
+ I mainly create a better interface and refactor it to made it ready to use!
+ </summary>
+</member><member name="T:PDFView.ConvertPDF.StdioCallBack">
+	<summary>Delegate used by Ghostscript to perform I/O operations</summary>
+	<param name="handle"></param>
+	<param name="strptr"></param>
+	<param name="count"></param>
+	<returns></returns>
+</member><member name="T:PDFView.ConvertPDF.GS_Revision">
+	<summary>This struct is filled with the information of the version of this ghostscript</summary>
+	<remarks>Have the layout defined cuz i will fill it with a kernel copy memory</remarks>
+</member>
+</members>
+</doc>

@@ -28,11 +28,11 @@
     <SupportUrl>https://github.com/dipu-bd/UVA-Arena</SupportUrl>
     <ProductName>UVA Arena</ProductName>
     <PublisherName>Sudipto Chandra</PublisherName>
-    <ApplicationRevision>17</ApplicationRevision>
-    <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
+    <ApplicationRevision>24</ApplicationRevision>
+    <ApplicationVersion>1.3.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperEnabled>false</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,6 +49,7 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -95,260 +96,250 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Classes\Data Structures\CategoryNode.cs" />
-    <Compile Include="Classes\Data Structures\ContextBook.cs" />
-    <Compile Include="Classes\Data Structures\DownloadTask.cs" />
-    <Compile Include="Classes\Data Structures\UserInfo.cs" />
-    <Compile Include="Classes\Data Structures\UserRanklist.cs" />
-    <Compile Include="Classes\Utilities\UpdateCheck.cs" />
-    <Compile Include="Classes\Utilities\WebBrowserHelper.cs" />
-    <Compile Include="Elements\CodeCompiler.cs" />
-    <Compile Include="Classes\Utilities\Internet.cs">
+    <Compile Include="ClassData\Data Structures\CategoryNode.cs" />
+    <Compile Include="ClassData\Data Structures\DownloadTask.cs" />
+    <Compile Include="ClassData\Data Structures\UserInfo.cs" />
+    <Compile Include="ClassData\Data Structures\UserRanklist.cs" />
+    <Compile Include="ClassData\Utilities\UpdateCheck.cs" />
+    <Compile Include="ClassData\Utilities\WebBrowserHelper.cs" />
+    <Compile Include="UserControls\CodeCompiler.cs" />
+    <Compile Include="ClassData\Utilities\Internet.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Data Structures\UserSubmissions.cs" />
-    <Compile Include="Classes\Utilities\DataCompressor.cs" />
-    <Compile Include="Elements\CodesBrowser.cs">
+    <Compile Include="ClassData\Data Structures\UserSubmissions.cs" />
+    <Compile Include="ClassData\Utilities\DataCompressor.cs" />
+    <Compile Include="UserControls\CodesBrowser.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Elements\CodesBrowser.Designer.cs">
+    <Compile Include="UserControls\CodesBrowser.Designer.cs">
       <DependentUpon>CodesBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Elements\CompareUsers.cs">
+    <Compile Include="UserControls\CompareUsers.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Elements\CompareUsers.Designer.cs">
+    <Compile Include="UserControls\CompareUsers.Designer.cs">
       <DependentUpon>CompareUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Extended Controls\CustomWebBrowser.cs">
+    <Compile Include="Specials\CustomWebBrowser.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Extended Controls\CustomWebBrowser.Designer.cs">
+    <Compile Include="Specials\CustomWebBrowser.Designer.cs">
       <DependentUpon>CustomWebBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Elements\JUDGE_STATUS.cs">
+    <Compile Include="UserControls\JUDGE_STATUS.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Elements\JUDGE_STATUS.Designer.cs">
+    <Compile Include="UserControls\JUDGE_STATUS.Designer.cs">
       <DependentUpon>JUDGE_STATUS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Utilities\DiffFileMerger.cs" />
-    <Compile Include="Classes\Utilities\FileOperations.cs" />
-    <Compile Include="Classes\Utilities\HighlightSyntax.cs" />
-    <Compile Include="Classes\Utilities\NativeMethods.cs" />
-    <Compile Include="Extended Controls\CustomTabControl.cs">
+    <Compile Include="ClassData\Utilities\DiffFileMerger.cs" />
+    <Compile Include="ClassData\Utilities\FileOperations.cs" />
+    <Compile Include="ClassData\Utilities\HighlightSyntax.cs" />
+    <Compile Include="ClassData\Utilities\NativeMethods.cs" />
+    <Compile Include="Specials\CustomTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Extended Controls\CueTextBox.cs">
+    <Compile Include="Specials\CueTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Extended Controls\NativeListView.cs">
+    <Compile Include="Specials\NativeListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Extended Controls\CustomSplitContainer.cs">
+    <Compile Include="Specials\CustomSplitContainer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Extended Controls\CustomStatusButton.cs" />
-    <Compile Include="Extended Controls\NativeTreeView.cs">
+    <Compile Include="Specials\CustomStatusButton.cs" />
+    <Compile Include="Specials\NativeTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Extended Controls\SearchBox.cs">
+    <Compile Include="Specials\SearchBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Extended Controls\SearchBox.Designer.cs">
+    <Compile Include="Specials\SearchBox.Designer.cs">
       <DependentUpon>SearchBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Elements\CODES.cs">
+    <Compile Include="UserControls\CODES.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Elements\CODES.Designer.cs">
+    <Compile Include="UserControls\CODES.Designer.cs">
       <DependentUpon>CODES.cs</DependentUpon>
     </Compile>
-    <Compile Include="Elements\PROBLEMS.cs">
+    <Compile Include="UserControls\PROBLEMS.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Elements\PROBLEMS.Designer.cs">
+    <Compile Include="UserControls\PROBLEMS.Designer.cs">
       <DependentUpon>PROBLEMS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Elements\ProblemViewer.cs">
+    <Compile Include="UserControls\ProblemViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Elements\ProblemViewer.Designer.cs">
+    <Compile Include="UserControls\ProblemViewer.Designer.cs">
       <DependentUpon>ProblemViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Elements\UserProgTracker.cs">
+    <Compile Include="UserControls\UserProgTracker.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Elements\UserProgTracker.Designer.cs">
+    <Compile Include="UserControls\UserProgTracker.Designer.cs">
       <DependentUpon>UserProgTracker.cs</DependentUpon>
     </Compile>
-    <Compile Include="Elements\USER_STAT.cs">
+    <Compile Include="UserControls\USER_STAT.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Elements\USER_STAT.Designer.cs">
+    <Compile Include="UserControls\USER_STAT.Designer.cs">
       <DependentUpon>USER_STAT.cs</DependentUpon>
     </Compile>
-    <Compile Include="Elements\UTILITIES.cs">
+    <Compile Include="UserControls\UTILITIES.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Elements\UTILITIES.Designer.cs">
+    <Compile Include="UserControls\UTILITIES.Designer.cs">
       <DependentUpon>UTILITIES.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CategoryChange.cs">
+    <Compile Include="WinForms\CheckUpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\CategoryChange.Designer.cs">
-      <DependentUpon>CategoryChange.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\CheckUpdateForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\CheckUpdateForm.Designer.cs">
+    <Compile Include="WinForms\CheckUpdateForm.Designer.cs">
       <DependentUpon>CheckUpdateForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ClosingDialogueForm.cs">
+    <Compile Include="WinForms\ClosingDialogueForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ClosingDialogueForm.Designer.cs">
+    <Compile Include="WinForms\ClosingDialogueForm.Designer.cs">
       <DependentUpon>ClosingDialogueForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SelectALanguage.cs">
+    <Compile Include="WinForms\SelectALanguage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SelectALanguage.Designer.cs">
+    <Compile Include="WinForms\SelectALanguage.Designer.cs">
       <DependentUpon>SelectALanguage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DownloadAllForm.cs">
+    <Compile Include="WinForms\DownloadAllForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DownloadAllForm.Designer.cs">
+    <Compile Include="WinForms\DownloadAllForm.Designer.cs">
       <DependentUpon>DownloadAllForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\HelpAbout.cs">
+    <Compile Include="WinForms\HelpAbout.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\HelpAbout.Designer.cs">
+    <Compile Include="WinForms\HelpAbout.Designer.cs">
       <DependentUpon>HelpAbout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\InputForm.cs">
+    <Compile Include="WinForms\InputForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\InputForm.Designer.cs">
+    <Compile Include="WinForms\InputForm.Designer.cs">
       <DependentUpon>InputForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LoggerForm.cs">
+    <Compile Include="WinForms\LoggerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\LoggerForm.Designer.cs">
+    <Compile Include="WinForms\LoggerForm.Designer.cs">
       <DependentUpon>LoggerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainForm.cs">
+    <Compile Include="WinForms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
+    <Compile Include="WinForms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SubmitForm.cs">
+    <Compile Include="WinForms\SubmitForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SubmitForm.Designer.cs">
+    <Compile Include="WinForms\SubmitForm.Designer.cs">
       <DependentUpon>SubmitForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UsernameForm.cs">
+    <Compile Include="WinForms\UsernameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\UsernameForm.Designer.cs">
+    <Compile Include="WinForms\UsernameForm.Designer.cs">
       <DependentUpon>UsernameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Forms\SettingsForm.cs">
+    <Compile Include="WinForms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SettingsForm.Designer.cs">
+    <Compile Include="WinForms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Basic\Functions.cs" />
-    <Compile Include="Classes\Basic\Interactivity.cs" />
-    <Compile Include="Classes\Basic\LocalDirectory.cs" />
-    <Compile Include="Classes\Utilities\Logger.cs" />
-    <Compile Include="Classes\Data Structures\ProblemInfo.cs" />
-    <Compile Include="Classes\Basic\RegistryAccess.cs" />
-    <Compile Include="Classes\Basic\LocalDatabase.cs" />
-    <Compile Include="Classes\Utilities\Stylish.cs" />
-    <Compile Include="Classes\Data Structures\JudgeStatus.cs" />
-    <Compile Include="Classes\Utilities\TaskQueue.cs" />
-    <Compile Include="Classes\Utilities\UnixTimeStamp.cs" />
+    <Compile Include="ClassData\Basic\Functions.cs" />
+    <Compile Include="ClassData\Basic\Interactivity.cs" />
+    <Compile Include="ClassData\Basic\LocalDirectory.cs" />
+    <Compile Include="ClassData\Utilities\Logger.cs" />
+    <Compile Include="ClassData\Data Structures\ProblemInfo.cs" />
+    <Compile Include="ClassData\Basic\RegistryAccess.cs" />
+    <Compile Include="ClassData\Basic\LocalDatabase.cs" />
+    <Compile Include="ClassData\Utilities\Stylish.cs" />
+    <Compile Include="ClassData\Data Structures\JudgeStatus.cs" />
+    <Compile Include="ClassData\Utilities\TaskQueue.cs" />
+    <Compile Include="ClassData\Utilities\UnixTimeStamp.cs" />
     <Compile Include="Settings.cs" />
-    <EmbeddedResource Include="Elements\CodesBrowser.resx">
+    <EmbeddedResource Include="UserControls\CodesBrowser.resx">
       <DependentUpon>CodesBrowser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Extended Controls\CustomWebBrowser.resx">
+    <EmbeddedResource Include="Specials\CustomWebBrowser.resx">
       <DependentUpon>CustomWebBrowser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Extended Controls\SearchBox.resx">
+    <EmbeddedResource Include="Specials\SearchBox.resx">
       <DependentUpon>SearchBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Elements\CODES.resx">
+    <EmbeddedResource Include="UserControls\CODES.resx">
       <DependentUpon>CODES.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Elements\CompareUsers.resx">
+    <EmbeddedResource Include="UserControls\CompareUsers.resx">
       <DependentUpon>CompareUsers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Elements\PROBLEMS.resx">
+    <EmbeddedResource Include="UserControls\PROBLEMS.resx">
       <DependentUpon>PROBLEMS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Elements\ProblemViewer.resx">
+    <EmbeddedResource Include="UserControls\ProblemViewer.resx">
       <DependentUpon>ProblemViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Elements\JUDGE_STATUS.resx">
+    <EmbeddedResource Include="UserControls\JUDGE_STATUS.resx">
       <DependentUpon>JUDGE_STATUS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Elements\UserProgTracker.resx">
+    <EmbeddedResource Include="UserControls\UserProgTracker.resx">
       <DependentUpon>UserProgTracker.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Elements\USER_STAT.resx">
+    <EmbeddedResource Include="UserControls\USER_STAT.resx">
       <DependentUpon>USER_STAT.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Elements\UTILITIES.resx">
+    <EmbeddedResource Include="UserControls\UTILITIES.resx">
       <DependentUpon>UTILITIES.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CategoryChange.resx">
-      <DependentUpon>CategoryChange.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CheckUpdateForm.resx">
+    <EmbeddedResource Include="WinForms\CheckUpdateForm.resx">
       <DependentUpon>CheckUpdateForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ClosingDialogueForm.resx">
+    <EmbeddedResource Include="WinForms\ClosingDialogueForm.resx">
       <DependentUpon>ClosingDialogueForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SelectALanguage.resx">
+    <EmbeddedResource Include="WinForms\SelectALanguage.resx">
       <DependentUpon>SelectALanguage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DownloadAllForm.resx">
+    <EmbeddedResource Include="WinForms\DownloadAllForm.resx">
       <DependentUpon>DownloadAllForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\HelpAbout.resx">
+    <EmbeddedResource Include="WinForms\HelpAbout.resx">
       <DependentUpon>HelpAbout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\InputForm.resx">
+    <EmbeddedResource Include="WinForms\InputForm.resx">
       <DependentUpon>InputForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LoggerForm.resx">
+    <EmbeddedResource Include="WinForms\LoggerForm.resx">
       <DependentUpon>LoggerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
+    <EmbeddedResource Include="WinForms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SettingsForm.resx">
+    <EmbeddedResource Include="WinForms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SubmitForm.resx">
+    <EmbeddedResource Include="WinForms\SubmitForm.resx">
       <DependentUpon>SubmitForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UsernameForm.resx">
+    <EmbeddedResource Include="WinForms\UsernameForm.resx">
       <DependentUpon>UsernameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -394,28 +385,39 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FastColoredTextBox">
-      <HintPath>..\..\External References\FastColoredTextBox.DLL</HintPath>
+      <HintPath>..\..\lib\FastColoredTextBox.DLL</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\External References\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\lib\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\lib\pdfviewer\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\External References\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ObjectListView">
-      <HintPath>..\..\External References\ObjectListView.DLL</HintPath>
+      <HintPath>..\..\lib\ObjectListView.DLL</HintPath>
+    </Reference>
+    <Reference Include="PDFLibNet">
+      <HintPath>..\..\lib\pdfviewer\PDFLibNet.dll</HintPath>
+    </Reference>
+    <Reference Include="PDFView">
+      <HintPath>..\..\lib\pdfviewer\PDFView.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="tessnet2_32">
+      <HintPath>..\..\lib\pdfviewer\tessnet2_32.dll</HintPath>
+    </Reference>
     <Reference Include="ZedGraph">
-      <HintPath>..\..\External References\ZedGraph.dll</HintPath>
+      <HintPath>..\..\lib\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

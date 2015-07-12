@@ -101,11 +101,11 @@
             this.versionLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.productName = new System.Windows.Forms.Label();
-            this.customTabControl1 = new System.Windows.Forms.CustomTabControl();
-            this.problemTab = new System.Windows.Forms.TabPage();
-            this.codesTab = new System.Windows.Forms.TabPage();
-            this.statusTab = new System.Windows.Forms.TabPage();
             this.profileTab = new System.Windows.Forms.TabPage();
+            this.statusTab = new System.Windows.Forms.TabPage();
+            this.codesTab = new System.Windows.Forms.TabPage();
+            this.problemTab = new System.Windows.Forms.TabPage();
+            this.customTabControl1 = new System.Windows.Forms.CustomTabControl();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -735,6 +735,42 @@
             this.productName.Text = "UVA Arena";
             this.productName.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
+            // profileTab
+            // 
+            this.profileTab.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.profileTab.Location = new System.Drawing.Point(4, 33);
+            this.profileTab.Name = "profileTab";
+            this.profileTab.Size = new System.Drawing.Size(836, 353);
+            this.profileTab.TabIndex = 3;
+            this.profileTab.Text = "PROFILES";
+            // 
+            // statusTab
+            // 
+            this.statusTab.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.statusTab.Location = new System.Drawing.Point(4, 33);
+            this.statusTab.Name = "statusTab";
+            this.statusTab.Size = new System.Drawing.Size(836, 353);
+            this.statusTab.TabIndex = 2;
+            this.statusTab.Text = "STATUS";
+            // 
+            // codesTab
+            // 
+            this.codesTab.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.codesTab.Location = new System.Drawing.Point(4, 33);
+            this.codesTab.Name = "codesTab";
+            this.codesTab.Size = new System.Drawing.Size(836, 353);
+            this.codesTab.TabIndex = 1;
+            this.codesTab.Text = "CODES";
+            // 
+            // problemTab
+            // 
+            this.problemTab.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.problemTab.Location = new System.Drawing.Point(4, 33);
+            this.problemTab.Name = "problemTab";
+            this.problemTab.Size = new System.Drawing.Size(836, 353);
+            this.problemTab.TabIndex = 0;
+            this.problemTab.Text = "PROBLEMS";
+            // 
             // customTabControl1
             // 
             this.customTabControl1.AllowDrop = true;
@@ -757,42 +793,6 @@
             this.customTabControl1.Size = new System.Drawing.Size(844, 390);
             this.customTabControl1.TabIndex = 5;
             this.customTabControl1.SelectedIndexChanged += new System.EventHandler(this.customTabControl1_SelectedIndexChanged);
-            // 
-            // problemTab
-            // 
-            this.problemTab.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.problemTab.Location = new System.Drawing.Point(4, 33);
-            this.problemTab.Name = "problemTab";
-            this.problemTab.Size = new System.Drawing.Size(836, 353);
-            this.problemTab.TabIndex = 0;
-            this.problemTab.Text = "PROBLEMS";
-            // 
-            // codesTab
-            // 
-            this.codesTab.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.codesTab.Location = new System.Drawing.Point(4, 33);
-            this.codesTab.Name = "codesTab";
-            this.codesTab.Size = new System.Drawing.Size(836, 353);
-            this.codesTab.TabIndex = 1;
-            this.codesTab.Text = "CODES";
-            // 
-            // statusTab
-            // 
-            this.statusTab.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.statusTab.Location = new System.Drawing.Point(4, 33);
-            this.statusTab.Name = "statusTab";
-            this.statusTab.Size = new System.Drawing.Size(836, 353);
-            this.statusTab.TabIndex = 2;
-            this.statusTab.Text = "STATUS";
-            // 
-            // profileTab
-            // 
-            this.profileTab.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.profileTab.Location = new System.Drawing.Point(4, 33);
-            this.profileTab.Name = "profileTab";
-            this.profileTab.Size = new System.Drawing.Size(836, 353);
-            this.profileTab.TabIndex = 3;
-            this.profileTab.Text = "PROFILES";
             // 
             // MainForm
             // 
@@ -902,11 +902,11 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripMenuItem likeOnFacebookToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fAQToolStripMenuItem;
-        public System.Windows.Forms.CustomTabControl customTabControl1;
-        public System.Windows.Forms.TabPage problemTab;
-        public System.Windows.Forms.TabPage codesTab;
-        public System.Windows.Forms.TabPage statusTab;
         public System.Windows.Forms.TabPage profileTab;
+        public System.Windows.Forms.TabPage statusTab;
+        public System.Windows.Forms.TabPage codesTab;
+        public System.Windows.Forms.TabPage problemTab;
+        public System.Windows.Forms.CustomTabControl customTabControl1;
           
     }
 }

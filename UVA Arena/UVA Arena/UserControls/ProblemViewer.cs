@@ -37,7 +37,7 @@ namespace UVA_Arena.Elements
                 new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 90F));
 
             Stylish.SetGradientBackground(toolStrip1,
-                new Stylish.GradientStyle(Color.LightBlue, Color.PowderBlue, 90F));
+                new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightBlue, 90F));
         }
 
         #endregion
@@ -428,13 +428,17 @@ namespace UVA_Arena.Elements
         {
             bool val = !problemMessage.Visible;
             problemMessage.Visible = val;
+            toolStrip1.Visible = val;
             if (val)
             {
-                up_downButton.Image = Properties.Resources.moveup;
+                up_downButton.Image = Properties.Resources.moveup;                
+                this.tableLayoutPanel1.SetRowSpan(this.up_downButton, 2);
             }
             else
             {
                 up_downButton.Image = Properties.Resources.movedown;
+                this.tableLayoutPanel1.SetRowSpan(this.up_downButton, 1); 
+                up_downButton.Height = 28;
             }
         }
 

@@ -262,6 +262,7 @@
             this.linkLabel1.Tag = "http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.3/UVA%20Arena%20Da" +
     "tabase.exe/download";
             this.linkLabel1.Text = "Download problem list all at once";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // DownloadAllForm
             // 

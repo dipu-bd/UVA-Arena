@@ -37,6 +37,12 @@ SubmissionMessage SubmissionMessage::fromJsonObject(const QJsonObject& data)
     //uname: user name
     sub.setUserName(data["uname"].toString());
 
+    /*
+      TODO:
+        sub.setProblemNumber(...);
+        sub.setProblemTitle(...);
+    */
+
     return sub;
 }
 

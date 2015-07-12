@@ -47,9 +47,60 @@ void ProblemsWidget::initialize()
     }
 }
 
+//get the problem map
 Uhunt::ProblemMap ProblemsWidget::getProblemMap()
 {
     return mProblems;
+}
+
+//set the problem map
+void ProblemsWidget::setProblemMap(Uhunt::ProblemMap pMap)
+{
+    mProblems = pMap;
+    mIdToNumber = QMap<int, int>();
+    Uhunt::ProblemMap::const_iterator it = pMap.begin();
+    for( ; it != pMap.end(); ++it)
+    {
+        mIdToNumber[it.value().getID()] = it.value().getNumber();
+    }
+}
+
+//get problem number by problem id
+int ProblemsWidget::getProblemNumber(int problemId)
+{
+    if(mIdToNumber.contains(problemId))
+        return mIdToNumber[problemId];
+    return 0;
+}
+
+//get problem id from problem number
+int ProblemsWidget::getProblemId(int problemNumber)
+{
+    if(mProblems.contains(problemNumber))
+        return mProblems[problemNumber].getID();
+    return 0;
+}
+
+//get problem title by problem number
+QString ProblemsWidget::getProbelmTitle(int problemNumber)
+{
+    if(mProblems.contains(problemNumber))
+        return mProblems[problemNumber].getTitle();
+    return "-";
+}
+
+//get problem by id
+Problem ProblemsWidget::getProblemById(int problemId)
+{
+    return getProblemByNumber(getProblemNumber(problemId));
+}
+
+//get problem by problem number
+Problem ProblemsWidget::getProblemByNumber(int problemNumber)
+{
+    if(mProblems.contains(problemNumber))
+        return mProblems[problemNumber];
+    return Problem();
 }
 
 void ProblemsWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)
@@ -97,7 +148,7 @@ void ProblemsWidget::loadProblemListFromFile(QString fileName)
 
     dataStream >> data;
 
-    mProblems = Uhunt::problemMapFromData(data);
+    setProblemMap(Uhunt::problemMapFromData(data));
     emit newUVAArenaEvent(UVAArenaEvent::UPDATE_STATUS, "Problem list loaded from file.");
 }
 
@@ -128,7 +179,7 @@ void ProblemsWidget::onProblemListByteArrayDownloaded(QByteArray data)
     QDataStream dataStream(&file);
     dataStream << data;
 
-    mProblems = Uhunt::problemMapFromData(data);
+    setProblemMap(Uhunt::problemMapFromData(data));
     emit newUVAArenaEvent(UVAArenaEvent::UPDATE_STATUS, "Problem list downloaded.");
 }
 

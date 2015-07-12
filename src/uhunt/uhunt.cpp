@@ -67,10 +67,6 @@ Uhunt::ProblemMap Uhunt::problemMapFromData(const QByteArray& data)
 
 QList<JudgeStatus> Uhunt::judgeStatusFromData(const QByteArray &data)
 {
-    /*
-        The data is a javascript array of dictionary of following format:
-        [{...},{...}]
-     */
     QList<JudgeStatus> status;
 
     //get a json document from data
@@ -203,9 +199,7 @@ void Uhunt::getProblemListAsByteArray()
         [this, reply]() {
 
             if (reply->error() == QNetworkReply::NoError) {
-
                 emit problemListByteArrayDownloaded(reply->readAll());
-
             }
 
         });

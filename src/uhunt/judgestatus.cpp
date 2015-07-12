@@ -6,7 +6,7 @@ JudgeStatus::JudgeStatus()
 {
     setUserID(0);
     setUserName("-");
-    setProblemID(0);
+    setProblemNumber(0);
     setProblemTitle("-");
 }
 
@@ -44,6 +44,12 @@ JudgeStatus JudgeStatus::fromJsonObject(const QJsonObject &obj)
     stat.setFullName(data["name"].toString());
     //uname: user name
     stat.setUserName(data["uname"].toString());
+
+    /*
+      TODO:
+        stat.setProblemNumber(...);
+        stat.setProblemTitle(...);
+    */
 
     return stat;
 }

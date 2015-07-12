@@ -16,7 +16,6 @@ const QString DefaultProblemListFileName = "problemlist.json";
 MainWindow::MainWindow(std::shared_ptr<QNetworkAccessManager> networkManager, QWidget *parent) :
     QMainWindow(parent),
     mNetworkManager(networkManager),
-    mMaxDaysUntilProblemListRedownload(1),
     mProblems(new Uhunt::ProblemMap),
     mProblemIdToNumber(new QMap<int, int>),
     ui(new Ui::MainWindow)
@@ -171,13 +170,13 @@ QString MainWindow::getProblemTitle(int problemNumber)
 }
 
 //get problem by id
-const Problem& MainWindow::getProblemById(int problemId)
+Problem MainWindow::getProblemById(int problemId)
 {
     return getProblemByNumber(getProblemNumberFromId(problemId));
 }
 
 //get problem by problem number
-const Problem& MainWindow::getProblemByNumber(int problemNumber)
+Problem MainWindow::getProblemByNumber(int problemNumber)
 {
     if (problemNumber) {
         if (mProblems->contains(problemNumber))
@@ -206,7 +205,7 @@ void MainWindow::loadProblemListFromFile(QString fileName)
     QDateTime lastModified = fileInfo.lastModified();
 
     if (lastModified.daysTo(QDateTime::currentDateTime())
-                                        > mMaxDaysUntilProblemListRedownload) {
+                            > mSettings.maxDaysUntilProblemListRedownload()) {
 
         // the problem list file is too old, redownload it
         mUhuntApi->getProblemListAsByteArray();

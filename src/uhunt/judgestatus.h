@@ -12,12 +12,27 @@ namespace uva
 
         static JudgeStatus fromJsonObject(const QJsonObject& data);
 
-        //id: Submission ID
+        /*!
+          \brief Gets the global submission id.
+         */
         qint64 getId() const { return mID; }
+        /*!
+          \brief Sets the global submission id.
+          \param[v] Global submission id.
+         */
         void setId(qint64 v) { mID = v; }
-        //type: type of the submission
+
+        /*!
+          \brief Get the type of the user.
+                  "old" means the user did not migrate into new system of UVA OJ.
+         */
         QString getType() const { return mType; }
+        /*!
+          \brief Sets the type of the user.
+          \param[v] Type of the user.
+         */
         void setType(QString v) { mType = v; }
+
     private:
         //id: Global submission id
         qint64 mID;

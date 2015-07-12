@@ -27,5 +27,7 @@ CategoryNode CategoryNode::fromJsonObject(const QJsonObject& data)
         }
     }
 
+    //TODO: add problems
+
     return node;
 }

@@ -15,24 +15,24 @@ namespace uva
     public:
         Problem();
 
-        /**
-        * @brief Creates a json object from utf8 formatted data
-        * @param json The json data to read
-        * @return An instance of problem based off the json data
+        /*!
+          \brief Creates a json object from utf8 formatted data
+          \param[json] The json data to read
+          \return An instance of problem based off the json data
         */
         static Problem fromJson(const QByteArray& json);
 
-        /**
-        * @brief Creates a json object from utf8 formatted data
-        * @param object The QJsonObject to use
-        * @return An instance of problem based off the json data
+        /*!
+          \brief Creates a json object from utf8 formatted data
+          \param[object] The QJsonObject to use
+          \return An instance of problem based off the json data
         */
         static Problem fromJsonObject(const QJsonObject& object);
 
-        /**
-        * @brief Creates a json object from utf8 formatted data
-        * @param object The QJSonArray to use
-        * @return An instance of problem based off the json data
+        /*!
+          \brief Creates a json object from utf8 formatted data
+          \param[object] The QJSonArray to use
+          \return An instance of problem based off the json data
         */
         static Problem fromJsonArray(const QJsonArray& arr);
 

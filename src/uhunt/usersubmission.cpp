@@ -27,6 +27,12 @@ UserSubmission UserSubmission::fromJsonArray(const QJsonArray& data)
     //Submission Rank
     usub.setRank(data[6].toInt());
 
+    /*
+      TODO:
+        usub.setProblemNumber(...);
+        usub.setProblemTitle(...);
+    */
+
     return usub;
 }
 

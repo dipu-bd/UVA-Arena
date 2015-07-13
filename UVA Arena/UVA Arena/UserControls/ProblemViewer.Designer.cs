@@ -33,7 +33,7 @@
             this.htmlTab = new System.Windows.Forms.TabPage();
             this.problemWebBrowser = new System.Windows.Forms.WebBrowser();
             this.pdfTab = new System.Windows.Forms.TabPage();
-            this.pdfViewer1 = new PDFView.PDFViewer();
+            this.pdfViewerControl1 = new UVA_Arena.PDFViewerControl();
             this.submissionTab = new System.Windows.Forms.TabPage();
             this.submissionStatus = new BrightIdeasSoftware.FastObjectListView();
             this.sidSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -68,6 +68,7 @@
             this.showUsersRankButton = new System.Windows.Forms.Button();
             this.showUserSubButton = new System.Windows.Forms.Button();
             this.discussTab = new System.Windows.Forms.TabPage();
+            this.customWebBrowser1 = new UVA_Arena.ExtendedControls.CustomWebBrowser();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.backButton = new System.Windows.Forms.ToolStripButton();
             this.nextButton = new System.Windows.Forms.ToolStripButton();
@@ -80,6 +81,11 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.reloadButton = new System.Windows.Forms.ToolStripButton();
             this.tagsOrNoteToolButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.zoomInButton = new System.Windows.Forms.ToolStripButton();
+            this.zoomOutButton = new System.Windows.Forms.ToolStripButton();
+            this.zoomActualButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.up_downButton = new System.Windows.Forms.Button();
             this.titleBox1 = new System.Windows.Forms.Label();
@@ -88,7 +94,6 @@
             this.prevContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.nextContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TopPanel = new System.Windows.Forms.Panel();
-            this.customWebBrowser1 = new UVA_Arena.ExtendedControls.CustomWebBrowser();
             this.tabControl1.SuspendLayout();
             this.htmlTab.SuspendLayout();
             this.pdfTab.SuspendLayout();
@@ -147,7 +152,7 @@
             // 
             // pdfTab
             // 
-            this.pdfTab.Controls.Add(this.pdfViewer1);
+            this.pdfTab.Controls.Add(this.pdfViewerControl1);
             this.pdfTab.Location = new System.Drawing.Point(4, 30);
             this.pdfTab.Name = "pdfTab";
             this.pdfTab.Size = new System.Drawing.Size(792, 322);
@@ -155,16 +160,15 @@
             this.pdfTab.Text = "PDF";
             this.pdfTab.UseVisualStyleBackColor = true;
             // 
-            // pdfViewer1
+            // pdfViewerControl1
             // 
-            this.pdfViewer1.AllowBookmarks = true;
-            this.pdfViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pdfViewer1.FileName = null;
-            this.pdfViewer1.Location = new System.Drawing.Point(0, 0);
-            this.pdfViewer1.Name = "pdfViewer1";
-            this.pdfViewer1.Size = new System.Drawing.Size(792, 322);
-            this.pdfViewer1.TabIndex = 0;
-            this.pdfViewer1.UseXPDF = false;
+            this.pdfViewerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pdfViewerControl1.FileName = null;
+            this.pdfViewerControl1.Location = new System.Drawing.Point(0, 0);
+            this.pdfViewerControl1.Name = "pdfViewerControl1";
+            this.pdfViewerControl1.RenderDPI = 120F;
+            this.pdfViewerControl1.Size = new System.Drawing.Size(792, 322);
+            this.pdfViewerControl1.TabIndex = 0;
             // 
             // submissionTab
             // 
@@ -630,6 +634,25 @@
             this.discussTab.Text = "Discuss";
             this.discussTab.UseVisualStyleBackColor = true;
             // 
+            // customWebBrowser1
+            // 
+            this.customWebBrowser1.BackColor = System.Drawing.Color.PowderBlue;
+            this.customWebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customWebBrowser1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customWebBrowser1.ForeColor = System.Drawing.Color.Black;
+            this.customWebBrowser1.HistoryButtons = false;
+            this.customWebBrowser1.HomeUrl = null;
+            this.customWebBrowser1.Location = new System.Drawing.Point(0, 0);
+            this.customWebBrowser1.Name = "customWebBrowser1";
+            this.customWebBrowser1.Size = new System.Drawing.Size(792, 322);
+            this.customWebBrowser1.StatusBarVisible = false;
+            this.customWebBrowser1.TabIndex = 0;
+            this.customWebBrowser1.TopBarColor = System.Drawing.Color.LightBlue;
+            this.customWebBrowser1.Url = new System.Uri("about:blank", System.UriKind.Absolute);
+            this.customWebBrowser1.UrlBoxFont = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customWebBrowser1.StatusChanged += new UVA_Arena.ExtendedControls.CustomWebBrowser.StatusChangedEventHandler(this.customWebBrowser1_StatusChanged);
+            this.customWebBrowser1.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.customWebBrowser1_ProgressChanged);
+            // 
             // toolStrip1
             // 
             this.toolStrip1.BackColor = System.Drawing.Color.PowderBlue;
@@ -646,7 +669,12 @@
             this.markButton,
             this.toolStripSeparator3,
             this.reloadButton,
-            this.tagsOrNoteToolButton});
+            this.tagsOrNoteToolButton,
+            this.toolStripSeparator4,
+            this.zoomInButton,
+            this.zoomOutButton,
+            this.zoomActualButton,
+            this.toolStripSeparator5});
             this.toolStrip1.Location = new System.Drawing.Point(1, 53);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(766, 38);
@@ -748,11 +776,56 @@
             this.tagsOrNoteToolButton.Image = global::UVA_Arena.Properties.Resources.category;
             this.tagsOrNoteToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tagsOrNoteToolButton.Name = "tagsOrNoteToolButton";
+            this.tagsOrNoteToolButton.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.tagsOrNoteToolButton.Size = new System.Drawing.Size(81, 35);
             this.tagsOrNoteToolButton.Text = "Tags + Notes";
             this.tagsOrNoteToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tagsOrNoteToolButton.ToolTipText = "Tags or Notes";
             this.tagsOrNoteToolButton.Click += new System.EventHandler(this.tagsOrNoteToolButton_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 38);
+            // 
+            // zoomInButton
+            // 
+            this.zoomInButton.Image = global::UVA_Arena.Properties.Resources.zoom_in;
+            this.zoomInButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomInButton.Name = "zoomInButton";
+            this.zoomInButton.Size = new System.Drawing.Size(45, 35);
+            this.zoomInButton.Text = "Bigger";
+            this.zoomInButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.zoomInButton.ToolTipText = "Zoom In";
+            this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
+            // 
+            // zoomOutButton
+            // 
+            this.zoomOutButton.Image = global::UVA_Arena.Properties.Resources.zoom_out;
+            this.zoomOutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomOutButton.Name = "zoomOutButton";
+            this.zoomOutButton.Size = new System.Drawing.Size(50, 35);
+            this.zoomOutButton.Text = "Smaller";
+            this.zoomOutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.zoomOutButton.ToolTipText = "Zoom Out";
+            this.zoomOutButton.Click += new System.EventHandler(this.zoomOutButton_Click);
+            // 
+            // zoomActualButton
+            // 
+            this.zoomActualButton.Image = global::UVA_Arena.Properties.Resources.zoom_actual;
+            this.zoomActualButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomActualButton.Name = "zoomActualButton";
+            this.zoomActualButton.Size = new System.Drawing.Size(45, 35);
+            this.zoomActualButton.Text = "Actual";
+            this.zoomActualButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.zoomActualButton.ToolTipText = "Actual size";
+            this.zoomActualButton.Click += new System.EventHandler(this.zoomActualButton_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 38);
             // 
             // tableLayoutPanel1
             // 
@@ -761,7 +834,7 @@
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.Controls.Add(this.up_downButton, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.problemMessage, 0, 1);
@@ -785,11 +858,11 @@
             this.up_downButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PowderBlue;
             this.up_downButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.up_downButton.Image = global::UVA_Arena.Properties.Resources.moveup;
-            this.up_downButton.Location = new System.Drawing.Point(733, 1);
+            this.up_downButton.Location = new System.Drawing.Point(727, 1);
             this.up_downButton.Margin = new System.Windows.Forms.Padding(0);
             this.up_downButton.Name = "up_downButton";
             this.tableLayoutPanel1.SetRowSpan(this.up_downButton, 2);
-            this.up_downButton.Size = new System.Drawing.Size(34, 51);
+            this.up_downButton.Size = new System.Drawing.Size(40, 51);
             this.up_downButton.TabIndex = 4;
             this.up_downButton.UseVisualStyleBackColor = false;
             this.up_downButton.Click += new System.EventHandler(this.up_downButton_Click);
@@ -804,7 +877,7 @@
             this.titleBox1.Margin = new System.Windows.Forms.Padding(0);
             this.titleBox1.Name = "titleBox1";
             this.titleBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.titleBox1.Size = new System.Drawing.Size(731, 29);
+            this.titleBox1.Size = new System.Drawing.Size(725, 29);
             this.titleBox1.TabIndex = 0;
             this.titleBox1.Text = "No problem selected";
             // 
@@ -818,7 +891,7 @@
             this.problemMessage.Margin = new System.Windows.Forms.Padding(1);
             this.problemMessage.Name = "problemMessage";
             this.problemMessage.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.problemMessage.Size = new System.Drawing.Size(729, 19);
+            this.problemMessage.Size = new System.Drawing.Size(723, 19);
             this.problemMessage.TabIndex = 4;
             this.problemMessage.Tag = "You DID NOT TRY this problem.";
             this.problemMessage.Text = "You DID NOT TRY this problem.";
@@ -858,25 +931,6 @@
             this.TopPanel.Padding = new System.Windows.Forms.Padding(1);
             this.TopPanel.Size = new System.Drawing.Size(800, 94);
             this.TopPanel.TabIndex = 4;
-            // 
-            // customWebBrowser1
-            // 
-            this.customWebBrowser1.BackColor = System.Drawing.Color.PowderBlue;
-            this.customWebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.customWebBrowser1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customWebBrowser1.ForeColor = System.Drawing.Color.Black;
-            this.customWebBrowser1.HistoryButtons = false;
-            this.customWebBrowser1.HomeUrl = null;
-            this.customWebBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.customWebBrowser1.Name = "customWebBrowser1";
-            this.customWebBrowser1.Size = new System.Drawing.Size(792, 322);
-            this.customWebBrowser1.StatusBarVisible = false;
-            this.customWebBrowser1.TabIndex = 0;
-            this.customWebBrowser1.TopBarColor = System.Drawing.Color.LightBlue;
-            this.customWebBrowser1.Url = new System.Uri("about:blank", System.UriKind.Absolute);
-            this.customWebBrowser1.UrlBoxFont = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customWebBrowser1.StatusChanged += new UVA_Arena.ExtendedControls.CustomWebBrowser.StatusChangedEventHandler(this.customWebBrowser1_StatusChanged);
-            this.customWebBrowser1.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.customWebBrowser1_ProgressChanged);
             // 
             // ProblemViewer
             // 
@@ -977,7 +1031,12 @@
         public System.Windows.Forms.Button up_downButton;
         private ExtendedControls.CustomWebBrowser customWebBrowser1;
         private System.Windows.Forms.TabPage pdfTab;
-        private PDFView.PDFViewer pdfViewer1;
         private System.Windows.Forms.ToolStripButton tagsOrNoteToolButton;
+        private PDFViewerControl pdfViewerControl1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton zoomInButton;
+        private System.Windows.Forms.ToolStripButton zoomOutButton;
+        private System.Windows.Forms.ToolStripButton zoomActualButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }

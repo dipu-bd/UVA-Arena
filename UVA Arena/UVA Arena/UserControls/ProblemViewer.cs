@@ -81,12 +81,24 @@ namespace UVA_Arena.Elements
             problemWebBrowser.GoHome();
         }
 
+        private void setPdfFile(string file)
+        {
+            if (file == null || !File.Exists(file))
+            {
+                pdfViewerControl1.CloseFile();
+            }
+            else if (pdfViewerControl1.FileName != file)
+            {
+                pdfViewerControl1.LoadFile(file);
+            }
+        }
+
         private void ShowCurrent()
         {
             if (current == null) return;
 
             //unload previous data first
-            pdfViewer1.FileName = null;
+            setPdfFile(null);
             problemWebBrowser.Navigate(string.Empty);
 
             //load meta info
@@ -97,32 +109,29 @@ namespace UVA_Arena.Elements
             string pdf = LocalDirectory.GetProblemPdf(current.pnum);
             string html = LocalDirectory.GetProblemHtml(current.pnum);
             bool htmlAvail = LocalDirectory.GetFileSize(html) > 100;
-            bool pdfAvail = LocalDirectory.GetFileSize(pdf) > 100;
+            bool pdfAvail = LocalDirectory.GetFileSize(pdf) > 200;
 
-            //show data
-            this.BeginInvoke((MethodInvoker)delegate
+            //show data 
+            if (htmlAvail && this.tabControl1.SelectedTab == htmlTab)
             {
-                if (this.tabControl1.SelectedTab == htmlTab)
-                {
-                    problemWebBrowser.Navigate(html);
-                }
-                else if (this.tabControl1.SelectedTab == pdfTab)
-                {
-                    pdfViewer1.FileName = pdf;
-                }
-                else if (htmlAvail)
-                {
-                    this.tabControl1.SelectedTab = htmlTab;
-                }
-                else if (pdfAvail)
-                {
-                    this.tabControl1.SelectedTab = pdfTab;
-                }
-            });
+                problemWebBrowser.Navigate(html);
+            }
+            else if (pdfAvail && this.tabControl1.SelectedTab == pdfTab)
+            {
+                setPdfFile(pdf);
+            }
+            else if (htmlAvail)
+            {
+                this.tabControl1.SelectedTab = htmlTab;
+            }
+            else if (pdfAvail)
+            {
+                this.tabControl1.SelectedTab = pdfTab;
+            }
 
             //download if necessary
             if (!pdfAvail) DownloadPdf(current.pnum);
-            if (!htmlAvail) DownloadHtml(current.pnum);
+            if (!htmlAvail) DownloadHtml(current.pnum);                        
         }
 
         private void LoadTopBar()
@@ -169,6 +178,10 @@ namespace UVA_Arena.Elements
         //
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
+            zoomInButton.Visible = false;
+            zoomOutButton.Visible = false;
+            zoomActualButton.Visible = false; 
+
             if (current == null)
             {
                 e.Cancel = true;
@@ -190,13 +203,11 @@ namespace UVA_Arena.Elements
             }
             else if (tabControl1.SelectedTab == pdfTab)
             {
-                pdfViewer1.FileName = LocalDirectory.GetProblemPdf(current.pnum);
+                setPdfFile(LocalDirectory.GetProblemPdf(current.pnum));
+                zoomInButton.Visible = true;
+                zoomOutButton.Visible = true;
+                zoomActualButton.Visible = true;
             }
-        }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         #endregion
@@ -210,9 +221,8 @@ namespace UVA_Arena.Elements
                 string format = "http://uva.onlinejudge.org/external/{0}/{1}.pdf"; // 0 = vol; 1 = pnum
                 string url = string.Format(format, pnum / 100, pnum);
                 string file = LocalDirectory.GetProblemPdf(pnum);
-                if (!reloadButton.Enabled || LocalDirectory.GetFileSize(file) < 200)
-                    Downloader.DownloadFileAsync(url, file, pnum,
-                        Internet.Priority.Normal, ProgressChanged, DownloadFinished);
+                Downloader.DownloadFileAsync(url, file, pnum,
+                    Internet.Priority.Normal, ProgressChanged, DownloadFinished);
             }
             catch (Exception ex)
             {
@@ -227,9 +237,8 @@ namespace UVA_Arena.Elements
                 string format = "http://uva.onlinejudge.org/external/{0}/{1}.html"; // 0 = vol; 1 = pnum
                 string url = string.Format(format, pnum / 100, pnum);
                 string file = LocalDirectory.GetProblemHtml(pnum);
-                if (!reloadButton.Enabled || LocalDirectory.GetFileSize(file) < 100)
-                    Downloader.DownloadFileAsync(url, file, pnum,
-                        Internet.Priority.Normal, ProgressChanged, DownloadFinished);
+                Downloader.DownloadFileAsync(url, file, pnum,
+                    Internet.Priority.Normal, ProgressChanged, DownloadFinished);
             }
             catch (Exception ex)
             {
@@ -281,20 +290,21 @@ namespace UVA_Arena.Elements
                 string ext = Path.GetExtension(task.FileName);
                 if (ext == ".pdf")
                 {
-                    this.BeginInvoke((MethodInvoker)delegate
+                    if (LocalDirectory.GetFileSize(task.FileName) > 100)
                     {
-                        pdfViewer1.FileName = task.FileName;
-                    });
-                    finish = true;
+                        setPdfFile(task.FileName);
+                        finish = true;
+                    }
                 }
                 else if (ext == ".html")
                 {
-                    this.BeginInvoke((MethodInvoker)delegate
+                    if (LocalDirectory.GetFileSize(task.FileName) > 100)
                     {
                         problemWebBrowser.Navigate(task.FileName);
-                    });
-                    int cnt = DownloadContents(pnum);
-                    if (cnt == 0) finish = true;
+                        int cnt = DownloadContents(pnum);
+                        if (cnt == 0) finish = true;
+                    };
+
                 }
                 else
                 {
@@ -304,10 +314,7 @@ namespace UVA_Arena.Elements
 
             if (finish)
             {
-                this.BeginInvoke((MethodInvoker)delegate
-                {
-                    reloadButton.Enabled = true;
-                });
+                reloadButton.Enabled = true;
             }
         }
 
@@ -379,8 +386,8 @@ namespace UVA_Arena.Elements
 
         private void reloadButton_Click(object sender, EventArgs e)
         {
-            if (current == null) return;
             reloadButton.Enabled = false;
+            if (current == null) return;
             if (tabControl1.SelectedTab == htmlTab)
                 DownloadHtml(current.pnum);
             if (tabControl1.SelectedTab == pdfTab)
@@ -424,6 +431,31 @@ namespace UVA_Arena.Elements
             markButton.Text = markButton.Checked ? "Unmark" : "Mark";
         }
 
+        //
+        // Zoom buttons
+        //
+        private void zoomInButton_Click(object sender, EventArgs e)
+        {
+            pdfViewerControl1.RenderDPI += 10;
+            pdfViewerControl1.ReloadFile();
+        }
+
+        private void zoomOutButton_Click(object sender, EventArgs e)
+        {
+            pdfViewerControl1.RenderDPI -= 10;
+            pdfViewerControl1.ReloadFile();
+        }
+
+        private void zoomActualButton_Click(object sender, EventArgs e)
+        {
+            pdfViewerControl1.RenderDPI = 120;
+            pdfViewerControl1.ReloadFile();
+        }
+         
+        
+        //
+        // Show hide toolbar
+        //
         private void up_downButton_Click(object sender, EventArgs e)
         {
             bool val = !problemMessage.Visible;
@@ -431,18 +463,16 @@ namespace UVA_Arena.Elements
             toolStrip1.Visible = val;
             if (val)
             {
-                up_downButton.Image = Properties.Resources.moveup;                
+                up_downButton.Image = Properties.Resources.moveup;
                 this.tableLayoutPanel1.SetRowSpan(this.up_downButton, 2);
             }
             else
             {
                 up_downButton.Image = Properties.Resources.movedown;
-                this.tableLayoutPanel1.SetRowSpan(this.up_downButton, 1); 
+                this.tableLayoutPanel1.SetRowSpan(this.up_downButton, 1);
                 up_downButton.Height = 28;
             }
         }
-
-
         #endregion
 
         #region Submission Tab
@@ -870,6 +900,7 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
+
 
 
     }

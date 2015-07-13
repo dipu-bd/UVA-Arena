@@ -28,7 +28,7 @@
     <SupportUrl>https://github.com/dipu-bd/UVA-Arena</SupportUrl>
     <ProductName>UVA Arena</ProductName>
     <PublisherName>Sudipto Chandra</PublisherName>
-    <ApplicationRevision>24</ApplicationRevision>
+    <ApplicationRevision>25</ApplicationRevision>
     <ApplicationVersion>1.3.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -164,6 +164,12 @@
     <Compile Include="UserControls\CODES.Designer.cs">
       <DependentUpon>CODES.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PDFViewerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\PDFViewerControl.Designer.cs">
+      <DependentUpon>PDFViewerControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PROBLEMS.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -280,6 +286,10 @@
     <Compile Include="ClassData\Utilities\TaskQueue.cs" />
     <Compile Include="ClassData\Utilities\UnixTimeStamp.cs" />
     <Compile Include="Settings.cs" />
+    <None Include="Resources\zoom_in.png" />
+    <None Include="Resources\zoom_out.png" />
+    <None Include="Resources\zoom-fit.png" />
+    <None Include="Resources\zoom-actual.png" />
     <EmbeddedResource Include="UserControls\CodesBrowser.resx">
       <DependentUpon>CodesBrowser.cs</DependentUpon>
     </EmbeddedResource>
@@ -295,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\CompareUsers.resx">
       <DependentUpon>CompareUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\PDFViewerControl.resx">
+      <DependentUpon>PDFViewerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\PROBLEMS.resx">
       <DependentUpon>PROBLEMS.cs</DependentUpon>
@@ -399,9 +412,6 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\..\lib\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="itextsharp">
-      <HintPath>..\..\lib\pdfviewer\itextsharp.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
@@ -410,19 +420,13 @@
       <HintPath>..\..\lib\ObjectListView.DLL</HintPath>
     </Reference>
     <Reference Include="PDFLibNet">
-      <HintPath>..\..\lib\pdfviewer\PDFLibNet.dll</HintPath>
-    </Reference>
-    <Reference Include="PDFView">
-      <HintPath>..\..\lib\pdfviewer\PDFView.dll</HintPath>
+      <HintPath>..\..\lib\PDFLibNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="tessnet2_32">
-      <HintPath>..\..\lib\pdfviewer\tessnet2_32.dll</HintPath>
-    </Reference>
     <Reference Include="ZedGraph">
       <HintPath>..\..\lib\ZedGraph.dll</HintPath>
     </Reference>

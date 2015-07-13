@@ -42,7 +42,7 @@ namespace UVA_Arena
             Interactivity.CloseAllOpenedForms();
             Properties.Settings.Default.Save();
 
-            UVA_Arena.Elements.CodeCompiler.ForceStopTask();
+            UVA_Arena.Elements.CodeCompiler.ForceStopTask(); 
         }
     }
 }

@@ -19,6 +19,10 @@ namespace uva
         class MainWindow;
     }
 
+    /*!
+        \brief Main GUI element for the application. Initializes common 
+               resources used by all widgets.
+    */
     class UVA_EXPORT MainWindow : public QMainWindow
     {
         Q_OBJECT
@@ -28,38 +32,97 @@ namespace uva
                                 QWidget *parent = 0);
         ~MainWindow();
 
-        //get the problem map
+        /*!
+            \brief Returns the currently loaded problems
+        */
         const Uhunt::ProblemMap& getProblemMap();
-        //get problem number by problem id
+
+        /*! 
+            \brief Get the problem number via the problem id
+
+            \param[in] problemId The problem id to look up
+        */
         int getProblemNumberFromId(int problemId);
-        //get problem id from problem number
+
+        /*!
+            \brief Get the problem id via the problem number
+
+            \param[in] problemNumber The problem number to look up
+        */
         int getProblemIdFromNumber(int problemNumber);
-        //get problem title by problem number
+        
+        /*!
+            \brief Get the title of a problem via its UVA problem number
+            
+            \param[in] problemNumber The problem number to look up
+        */
         QString getProblemTitle(int problemNumber);
-        //get problem by id
+
+        /*!
+            \brief Get a Problem instance via its UVA problem id
+
+            \param[in] problemId The problem id to look up
+        */
         Problem getProblemById(int problemId);
-        //get problem by problem number
+
+        /*!
+            \brief Get a Problem instance via its UVA problem number
+
+            \param[in] problemNumber The problem number to look up
+        */
         Problem getProblemByNumber(int problemNumber);
 
     public slots:
 
+        /*!
+            \brief Invoked when the newUVAArenaEvent() signal is emitted
+        */
         void onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent, QVariant);
 
     private slots:
 
+        /*!
+            \brief Invoked when Uhunt::getProblemListAsByteArray finished
+        */
         void onProblemListByteArrayDownloaded(QByteArray data);
 
     private:
 
-        //set the problem map
+        /*!
+            \brief Sets the internal problem map and problem number
+                   to id conversion data.
+        */
         void setProblemMap(Uhunt::ProblemMap problemMap);
 
+        /*!
+            \brief Kicks off all initialization necessary for the entire
+                   application. Invokes initializeData() first, and then
+                   initializeWidgets().
+        */
         void initialize();
 
+        /*!
+            \brief Initializes data related parts of the application. This
+                   includes downloading data from the uhunt api and reading
+                   from the files filesystem.
+        */
         void initializeData();
 
+        /*!
+            \brief Connects all UVAArenaWidget signals/slots and invokes
+                   UVAArenaWidget::initialize() on all the appropriate
+                   UVAArenaWidget subclasses.
+        */
         void initializeWidgets();
 
+        /*!
+            \brief Loads the current UVA problem list from a stored file.
+
+            This function can instead redownload the problem list if the
+            file stored in persistent storage is too old.
+
+            \param[in] fileName The file name where the problem list is stored.
+        */
         void loadProblemListFromFile(QString fileName);
 
         UVAArenaSettings mSettings;

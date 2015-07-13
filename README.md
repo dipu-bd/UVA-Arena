@@ -11,15 +11,15 @@
 To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena/wiki/What's-New)        
 
 #### Version 1.3   
-1. [Download Setup file (EXE File : 10.5MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.2/UVA_Arena_1.3_x86_windows.exe/download)     
-2. [Download Problem Database (EXE File: 238MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.3/UVA_Arena_Database.exe/download)      
+1. [Download Setup file (EXE File : 5.MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.2/UVA_Arena_1.3_x86_windows.exe/download)     
+2. [Download Setup file with Problem Descriptions(EXE File: 238MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.3/UVA_Arena_Database.exe/download)      
 
 ##### Version 1.2
-1. [Download Setup File (EXE File : 1.5MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.2/UVA%20Arena%201.2.exe/download)     
+1. [Download Setup File (EXE File : 1.5MB)](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Windows/UVA%20Arena%201.2.exe?raw=true)     
 2. [Download Setup File with Problem Descriptions (ZIP File : 238MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.2/UVA%20Arena%201.2%20full.zip/download)     
 
 ##### Version 1.1
-1. [For All Platforms](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/All/UVA%20Arena%201.1.exe?raw=true)     
+1. [For All Platforms](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Windows/UVA%20Arena%201.1.exe?raw=true)     
 2. [For Windows XP, Vista and 7](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_2.0/UVA%20Arena%201.1.exe?raw=true)     
 3. [For Windows 8 and and later versions](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_4.5/UVA%20Arena%201.1.exe?raw=true)     
      

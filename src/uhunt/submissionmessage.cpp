@@ -46,30 +46,28 @@ SubmissionMessage SubmissionMessage::fromJsonObject(const QJsonObject& data)
     return sub;
 }
 
-void SubmissionMessage::setVerdict(int v)
+void SubmissionMessage::setVerdict(int verdict)
 {
-    switch(v)
-    {
-    case 10: mVerdict = Verdict::SubError; break;
-    case 15: mVerdict = Verdict::CannotBeJudge; break;
-    case 20: mVerdict = Verdict::InQueue; break;
-    case 30: mVerdict = Verdict::CompileError; break;
-    case 35: mVerdict = Verdict::RestrictedFunction; break;
-    case 40: mVerdict = Verdict::RuntimeError; break;
-    case 45: mVerdict = Verdict::OutputLimit; break;
-    case 50: mVerdict = Verdict::TimLimit; break;
-    case 60: mVerdict = Verdict::MemoryLimit; break;
-    case 70: mVerdict = Verdict::WrongAnswer; break;
-    case 80: mVerdict = Verdict::PresentationError; break;
-    case 90: mVerdict = Verdict::Accepted; break;
-    default: mVerdict = Verdict::InQueue; break;
+    switch(verdict) {
+        case 10: mVerdict = Verdict::SubError; break;
+        case 15: mVerdict = Verdict::CannotBeJudge; break;
+        case 20: mVerdict = Verdict::InQueue; break;
+        case 30: mVerdict = Verdict::CompileError; break;
+        case 35: mVerdict = Verdict::RestrictedFunction; break;
+        case 40: mVerdict = Verdict::RuntimeError; break;
+        case 45: mVerdict = Verdict::OutputLimit; break;
+        case 50: mVerdict = Verdict::TimLimit; break;
+        case 60: mVerdict = Verdict::MemoryLimit; break;
+        case 70: mVerdict = Verdict::WrongAnswer; break;
+        case 80: mVerdict = Verdict::PresentationError; break;
+        case 90: mVerdict = Verdict::Accepted; break;
+        default: mVerdict = Verdict::InQueue; break;
     }
 }
 
 void SubmissionMessage::setLanguage(int v)
 {
-    switch(v)
-    {
+    switch(v) {
     case 1: mLanguage = Language::C; break;
     case 2: mLanguage = Language::Java; break;
     case 3: mLanguage = Language::CPP; break;
@@ -80,15 +78,19 @@ void SubmissionMessage::setLanguage(int v)
 }
 
 
-void SubmissionMessage::setRuntime(int v)
+void SubmissionMessage::setRuntime(int runTime)
 {
-    if(v < 0 || v >= 1000000000) v = 0;
-    mRuntime = v;
+    if (runTime < 0 || runTime >= 1000000000)
+        runTime = 0;
+
+    mRuntime = runTime;
 }
 
-void SubmissionMessage::setMemory(int v)
+void SubmissionMessage::setMemory(int memory)
 {
-    if(v < 0 || v >= 1000000000) v = 0;
-    mMemory = v;
+    if (memory < 0 || memory >= 1000000000) 
+        memory = 0;
+
+    mMemory = memory;
 }
 

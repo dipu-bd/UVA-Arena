@@ -18,9 +18,9 @@ namespace UVA_Arena
         }
 
         const string title = "{0} - {1}";
-        const string head = @"{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Consolas;}}{\colortbl ;\red0\green77\blue187;\red192\green80\blue77;}\lang9\n";
+        const string head = @"{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Consolas;}}{\colortbl ;\red152\green70\blue57;}\lang9\n";
         const string tail = "\n}\0";
-        const string catpath = @"\pard\cf1\f1\fs21 {1:00}. {0}\par\n";
+        const string catpath = @"\pard\cf1\f1\fs22 {1:00}. {0}\par\n";
         const string probnote = @"\pard\sa200\li720\qj\cf0\f0\fs19 {0}\par\n";
 
         void loadData(ProblemInfo pinfo)

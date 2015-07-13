@@ -19,10 +19,7 @@ namespace UVA_Arena
 
             productName.Text = Application.ProductName;
             versionLabel.Text = "Version " + Application.ProductVersion;
-
-            //make background transparent
-            //bool set = NativeMethods.ExtendWindowsFrame(this, 3, 2, 58, 2);   //true if works
-
+             
             //load images
             tabImageList.Images.Add("code", Properties.Resources.code);
             tabImageList.Images.Add("live_submission", Properties.Resources.live_submission);
@@ -70,7 +67,7 @@ namespace UVA_Arena
             ClearStatus("");            
             
             //other operations
-            delayOperations(true);
+            DelayOperations(true);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -115,27 +112,23 @@ namespace UVA_Arena
             TaskQueue.AddTask(ClearStatus, Status1.Text, 3000);
         }
 
-        private void delayOperations(object background)
+        private void DelayOperations(object background)
         {
             if ((bool)background)
             {
                 customTabControl1.Visible = false;
-                System.Threading.ThreadPool.QueueUserWorkItem(delayOperations, false);
+                System.Threading.ThreadPool.QueueUserWorkItem(DelayOperations, false);
                 return;
             }
 
             //initialize controls and add them
-            //load or update problem database
             LocalDatabase.LoadOrUpdate();
 
             this.BeginInvoke((MethodInvoker)delegate
             {
                 //add controls
                 AddControls();
-                customTabControl1.Visible = true;
-
-                //add buttons to the top right beside control buttons
-                //AddActiveButtons();
+                customTabControl1.Visible = true; 
 
                 this.Cursor = Cursors.Default;
                 Logger.Add("Initialized all controls", "Main Form");
@@ -187,48 +180,14 @@ namespace UVA_Arena
             Interactivity.userstat = new Elements.USER_STAT();
             Interactivity.userstat.Dock = DockStyle.Fill;
             profileTab.ImageIndex = 3;
-            profileTab.Controls.Add(Interactivity.userstat);
-
-            //load utilities
-            //Interactivity.utilities = new Elements.UTILITIES();
-            //Interactivity.utilities.Dock = DockStyle.Fill;
-            //utilitiesTab.Controls.Add(Interactivity.utilities);
+            profileTab.Controls.Add(Interactivity.userstat); 
 
             customTabControl1.ResumeLayout(false);
 
             //set up context menu
             statusToolStripMenuItem.DropDown = Interactivity.status.updateContextMenu;
             submissionsToolStripMenuItem.DropDown = Interactivity.userstat.MainContextMenu;
-        }
-
-        /*
-        private void AddActiveButtons()
-        {
-            IActiveMenu menu = ActiveMenu.GetInstance(this);
-
-            //settings
-            settings.Image = Resources.tools;
-            settings.ImageAlign = ContentAlignment.MiddleCenter;
-            menu.ToolTip.SetToolTip(settings, "Settings");
-            settings.Click += delegate(object sender, EventArgs e) { Interactivity.ShowSettings(); };
-
-            //log
-            log.Image = Resources.log;
-            log.ImageAlign = ContentAlignment.MiddleCenter;
-            menu.ToolTip.SetToolTip(log, "View Logs");
-            log.Click += delegate(object sender, EventArgs e) { Interactivity.ShowLogger(); };
-
-            //help
-            help.Image = Resources.help;
-            help.ImageAlign = ContentAlignment.MiddleCenter;
-            menu.ToolTip.SetToolTip(help, "Help");
-            help.Click += delegate(object sender, EventArgs e) { Interactivity.ShowHelpAbout(); };
-
-            menu.Items.Add(settings);
-            menu.Items.Add(log);
-            menu.Items.Add(help);
-        }
-        */
+        } 
 
         #endregion
 

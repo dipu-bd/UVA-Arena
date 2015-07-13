@@ -23,14 +23,9 @@ namespace UVA_Arena
         [DefaultValue(typeof(float), "120.0")]
         public float RenderDPI { get; set; }
 
+        private bool cancellationPending = false;
         private PDFLibNet.PDFWrapper pdfWrapper;
         private Queue<String> tempQueue = new Queue<string>();
-
-        public void CloseFile()
-        {
-            FileName = null;
-            ClearPageHolder();
-        }
 
         public void ReloadFile()
         {
@@ -59,19 +54,40 @@ namespace UVA_Arena
             System.Threading.ThreadPool.QueueUserWorkItem(WaitToLoad, file);
         }
 
+        public void CloseFile()
+        {
+            foreach (var c in pdfPageHolder.Controls)
+            {
+                ((PictureBox)c).Image.Dispose();
+                ((PictureBox)c).Dispose();
+            }
+            pdfPageHolder.Controls.Clear();
+        }
+
 
         void WaitToLoad(object file)
         {
             while (pdfWrapper.IsBusy || pdfWrapper.IsJpgBusy)
             {
+                cancellationPending = true;
                 this.BeginInvoke((MethodInvoker)pdfWrapper.CancelJpgExport);
                 System.Threading.Thread.Sleep(100);
             }
 
+            cancellationPending = false;
+            if (FileName != (string)file) return;
+
             Interactivity.SetStatus("Loading pdf file...");
             this.BeginInvoke((MethodInvoker)delegate
             {
-                pdfWrapper.LoadPDF((string)file);
+                try
+                {
+                    pdfWrapper.LoadPDF((string)file);
+                }
+                catch
+                {
+                    CloseFile();
+                }
             });
         }
 
@@ -82,42 +98,44 @@ namespace UVA_Arena
             Interactivity.SetProgress(1, pdfWrapper.PageCount + 1);
 
             //dispose previous controls
-            this.BeginInvoke((MethodInvoker)ClearPageHolder);
+            this.BeginInvoke((MethodInvoker)CloseFile);
 
-            //export and show pages
+            //check if cancellation is pending
+            if (cancellationPending) return;
+
+            //export and show pages 
             ExportPages();
-        }
-
-        public void ClearPageHolder()
-        {
-            foreach (var c in pdfPageHolder.Controls)
-            {
-                ((PictureBox)c).Image.Dispose();
-                ((PictureBox)c).Dispose();
-            }
-            pdfPageHolder.Controls.Clear();
         }
 
         void ExportPages(int index = 1)
         {
             if (index > pdfWrapper.PageCount) return;
+            try
+            {
+                //get temporary file
+                string file = Path.GetTempFileName();
+                File.Delete(file); //delete original temp file
+                file += "." + index.ToString(); //new temp file to write
 
-            //get temporary file
-            string file = Path.GetTempFileName();
-            File.Delete(file); //delete original temp file
-            file += "." + index.ToString(); //new temp file to write
-
-            //enqueue task
-            tempQueue.Enqueue(file);
-            pdfWrapper.ExportJpg(file, index, index, RenderDPI, 100, 1000);
+                //enqueue task
+                tempQueue.Enqueue(file);
+                pdfWrapper.ExportJpg(file, index, index, RenderDPI, 100, 1000);
+            }
+            catch (Exception ex)
+            {
+                Logger.Add(ex.Message, "PdfViewer | Export Pages");
+            }
         }
 
         void pdfWrapper_ExportJpgFinished()
         {
+            if (cancellationPending) return;
+
             try
             {
                 string file = tempQueue.Dequeue();
 
+                //get exported image from file
                 Image img = Bitmap.FromFile(file);   //take image on hold               
                 Bitmap copiedImage = new Bitmap(img.Width, img.Height); //to copy image here
                 Graphics.FromImage((Image)copiedImage).DrawImageUnscaled(img, 0, 0); //draw image here
@@ -129,26 +147,34 @@ namespace UVA_Arena
                 //begin operation
                 this.BeginInvoke((MethodInvoker)delegate
                 {
-                    //show picture 
-                    PictureBox pb = new PictureBox();
-                    pb.Margin = new Padding(0, 0, 0, 0);
-                    pb.SizeMode = PictureBoxSizeMode.AutoSize;
-                    pb.Image = copiedImage;
-                    pdfPageHolder.Controls.Add(pb);
+                    try
+                    {
+                        //show picture 
+                        PictureBox pb = new PictureBox();
+                        pb.Margin = new Padding(1, 1, 1, 1);
+                        pb.SizeMode = PictureBoxSizeMode.AutoSize;
+                        pb.Image = copiedImage;
+                        pdfPageHolder.Controls.Add(pb);
 
-                    Interactivity.SetStatus(index + " PDF page loaded.");
-                    Interactivity.SetProgress(index + 1, pdfWrapper.PageCount + 1);
+                        Interactivity.SetStatus(index + " PDF page loaded. (" + FileName + ")");
+                        Interactivity.SetProgress(index + 1, pdfWrapper.PageCount + 1);
 
-                    //delete used file
-                    File.Delete((string)file);
+                        //delete used file
+                        File.Delete((string)file);
 
-                    //load next page
-                    ExportPages(index + 1);
+                        //load next page
+                        ExportPages(index + 1);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Add("PDF loading failed. " + ex.Message, "PdfViewerControl");
+                    }
                 });
             }
             catch (Exception ex)
             {
                 Interactivity.SetStatus("PDF loading failed. " + ex.Message);
+                Logger.Add("PDF loading failed. " + ex.Message, "PdfViewerControl");
             }
         }
     }

@@ -171,15 +171,20 @@ namespace UVA_Arena.Elements
         // 
         public void LoadCategory()
         {
-            filterBox1.SearchText = "";
-            if (LocalDatabase.categoryRoot == null) return;
-
-            categoryListView.Roots = LocalDatabase.categoryRoot.branches;
-            for (int i = categoryListView.GetItemCount() - 1; i >= 0; --i)
+            try
             {
-                categoryListView.Expand(categoryListView.GetModelObject(i));
+                filterBox1.SearchText = "";
+                if (LocalDatabase.categoryRoot == null) return;
+
+                categoryListView.Roots = LocalDatabase.categoryRoot.branches;
+                foreach (var b in categoryListView.Roots)
+                {
+                    categoryListView.Expand(b);
+                }
+                categoryListView.EnsureVisible(0);
+                categoryListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             }
-            categoryListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            catch { }
         }
 
         public void ShowCategory()
@@ -317,22 +322,22 @@ namespace UVA_Arena.Elements
         //
         private void problemListView_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //object sel = problemListView.SelectedObject;
+            //if (sel == null) return;
+            //Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
+        }
+        private void problemListView_CellClick(object sender, CellClickEventArgs e)
+        {
             object sel = problemListView.SelectedObject;
             if (sel == null) return;
             Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
         }
-        private void problemListView_CellClick(object sender, CellClickEventArgs e)
-        {
-            //object sel = problemListView.SelectedObject;
-            //if (sel == null) return;
-            //Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
-        }
 
         private void problemListView_ItemActivate(object sender, EventArgs e)
         {
-            //object sel = problemListView.SelectedObject;
-            //if (sel == null) return;
-            //Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
+            object sel = problemListView.SelectedObject;
+            if (sel == null) return;
+            Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
         }
 
         private void problemListView_BeforeSorting(object sender, BeforeSortingEventArgs e)
@@ -526,10 +531,11 @@ namespace UVA_Arena.Elements
                 categoryListView.DefaultRenderer = null;
                 categoryListView.AdditionalFilter = null;
                 categoryListView.CollapseAll();
-                for (int i = categoryListView.GetItemCount() - 1; i >= 0; --i)
+                foreach (var b in categoryListView.Roots)
                 {
-                    categoryListView.Expand(categoryListView.GetModelObject(i));
+                    categoryListView.Expand(b);
                 }
+                categoryListView.EnsureVisible(0);
             }
             else
             {

@@ -954,8 +954,7 @@
         public BrightIdeasSoftware.TreeListView categoryListView;
         public System.Windows.Forms.RadioButton favoriteButton;
         public System.Windows.Forms.RadioButton allProbButton;
-        private System.Windows.Forms.ContextMenuStrip problemContextMenu;
-        private System.Windows.Forms.ToolStripMenuItem viewPDFToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip problemContextMenu; 
         private System.Windows.Forms.ToolStripMenuItem openInBrowserToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem viewSourceToolStripMenuItem;

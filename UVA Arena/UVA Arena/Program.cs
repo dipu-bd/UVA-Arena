@@ -14,7 +14,6 @@ namespace UVA_Arena
             //enable application styles
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Properties.Settings.Default.Reload(); 
 
             //add header to log file
             string dat = Environment.NewLine;

@@ -204,7 +204,17 @@ namespace UVA_Arena
         public static void SetStatus(string status = "")
         {
             if (mainForm == null || mainForm.IsDisposed) return;
-            mainForm.BeginInvoke((MethodInvoker)(() => mainForm.Status1.Text = status));
+            mainForm.BeginInvoke((MethodInvoker)delegate
+            {
+                try
+                {
+                    mainForm.Status1.Text = status;
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.Add(ex.Message, "Interactivity|SetStatus()");
+                }
+            });
         }
 
         /// <summary>
@@ -217,10 +227,17 @@ namespace UVA_Arena
             if (mainForm == null || mainForm.IsDisposed) return;
             mainForm.BeginInvoke((MethodInvoker)delegate
             {
-                float val = progress;
-                if (maximum != 0) val = 100 * progress / maximum;
-                if (!(val >= 0 && val <= 100)) val = 0;
-                mainForm.Progress1.Value = (int)val;
+                try
+                {
+                    float val = progress;
+                    if (maximum != 0) val = 100 * progress / maximum;
+                    if (!(val >= 0 && val <= 100)) val = 0;
+                    mainForm.Progress1.Value = (int)val;
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.Add(ex.Message, "Interactivity|SetProgress()");
+                }
             });
         }
 
@@ -230,25 +247,32 @@ namespace UVA_Arena
         /// <param name="user">User-name to show statistics </param>
         public static void ShowUserStat(string user)
         {
-            try
-            {
-                if (!LocalDatabase.ContainsUser(user)) return;
+            if (!LocalDatabase.ContainsUser(user)) return;
 
-                userstat.BeginInvoke((MethodInvoker)delegate
+            userstat.BeginInvoke((MethodInvoker)delegate
+            {
+                try
                 {
                     userstat.ShowUserSub(user);
-                });
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.Add(ex.Message, "Interactivity|ShowUserStat()");
+                }
+            });
 
-                mainForm.BeginInvoke((MethodInvoker)delegate
+            mainForm.BeginInvoke((MethodInvoker)delegate
+            {
+                try
                 {
                     mainForm.customTabControl1.SelectedTab = mainForm.profileTab;
                     mainForm.BringToFront();
-                });
-            }
-            catch (System.Exception ex)
-            {
-                Logger.Add(ex.Message, "Interactivity|ShowUserStat()");
-            }
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.Add(ex.Message, "Interactivity|ShowUserStat()");
+                }
+            });
         }
 
         /// <summary>
@@ -256,18 +280,18 @@ namespace UVA_Arena
         /// </summary>
         public static void ShowJudgeStatus()
         {
-            try
+            mainForm.BeginInvoke((MethodInvoker)delegate
             {
-                mainForm.BeginInvoke((MethodInvoker)delegate
+                try
                 {
                     mainForm.customTabControl1.SelectedTab = mainForm.statusTab;
                     mainForm.BringToFront();
-                });
-            }
-            catch (System.Exception ex)
-            {
-                Logger.Add(ex.Message, "Interactivity|ShowJudgeStatus()");
-            }
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.Add(ex.Message, "Interactivity|ShowJudgeStatus()");
+                }
+            });
         }
 
         /// <summary>
@@ -276,29 +300,36 @@ namespace UVA_Arena
         /// <param name="pnum">Problem Number</param>
         public static void ShowProblem(long pnum)
         {
-            try
-            {
-                if (!LocalDatabase.HasProblem(pnum)) return;
+            if (!LocalDatabase.HasProblem(pnum)) return;
 
-                problems.BeginInvoke((MethodInvoker)delegate
+            problems.BeginInvoke((MethodInvoker)delegate
+            {
+                try
                 {
                     ProblemInfo pinfo = LocalDatabase.GetProblem(pnum);
                     problems.ShowAllProblems();
                     problems.problemListView.SelectedObject = pinfo;
                     problems.problemListView.EnsureVisible(problems.problemListView.SelectedIndex);
                     problemViewer.LoadProblem(pinfo);
-                });
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.Add(ex.Message, "Interactivity|ShowProblem()");
+                }
+            });
 
-                mainForm.BeginInvoke((MethodInvoker)delegate
+            mainForm.BeginInvoke((MethodInvoker)delegate
+            {
+                try
                 {
                     mainForm.customTabControl1.SelectedTab = mainForm.problemTab;
                     mainForm.BringToFront();
-                });
-            }
-            catch (System.Exception ex)
-            {
-                Logger.Add(ex.Message, "Interactivity|ShowProblem()");
-            }
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.Add(ex.Message, "Interactivity|ShowProblem()");
+                }
+            });
         }
 
         /// <summary>
@@ -307,25 +338,32 @@ namespace UVA_Arena
         /// <param name="pnum">Problem Number</param>
         public static void ShowCode(long pnum)
         {
-            try
-            {
-                if (!LocalDatabase.HasProblem(pnum)) return;
+            if (!LocalDatabase.HasProblem(pnum)) return;
 
-                codes.BeginInvoke((MethodInvoker)delegate
+            codes.BeginInvoke((MethodInvoker)delegate
+            {
+                try
                 {
                     codesBrowser.ShowCode(pnum);
-                });
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.Add(ex.Message, "Interactivity|ShowCode()");
+                }
+            });
 
-                mainForm.BeginInvoke((MethodInvoker)delegate
+            mainForm.BeginInvoke((MethodInvoker)delegate
+            {
+                try
                 {
                     mainForm.customTabControl1.SelectedTab = mainForm.codesTab;
                     mainForm.BringToFront();
-                });
-            }
-            catch (System.Exception ex)
-            {
-                Logger.Add(ex.Message, "Interactivity|ShowCode()");
-            }
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.Add(ex.Message, "Interactivity|ShowCode()");
+                }
+            });
         }
 
         /// <summary>
@@ -335,9 +373,9 @@ namespace UVA_Arena
         {
             if (problems == null || problems.IsDisposed) return;
 
-            try
+            problems.BeginInvoke((MethodInvoker)delegate
             {
-                problems.BeginInvoke((MethodInvoker)delegate
+                try
                 {
                     //load problems or refresh
                     if (problems.problemListView.Items.Count == 0)
@@ -348,12 +386,12 @@ namespace UVA_Arena
                     {
                         problems.RefreshProblemList();
                     }
-                });
-            }
-            catch (System.Exception ex)
-            {
-                Logger.Add(ex.Message, "Interactivity|ProblemDatabaseUpdated()");
-            }
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.Add(ex.Message, "Interactivity|ProblemDatabaseUpdated()");
+                }
+            });
         }
 
         /// <summary>
@@ -363,18 +401,18 @@ namespace UVA_Arena
         {
             if (problems == null || problems.IsDisposed) return;
 
-            try
+            problems.BeginInvoke((MethodInvoker)delegate
             {
-                problems.BeginInvoke((MethodInvoker)delegate
+                try
                 {
                     //load volumes or category
-                    problems.LoadCategory(); 
-                });
-            }
-            catch (System.Exception ex)
-            {
-                Logger.Add(ex.Message, "Interactivity|ProblemDatabaseUpdated()");
-            }
-        } 
+                    problems.LoadCategory();
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.Add(ex.Message, "Interactivity|ProblemDatabaseUpdated()");
+                }
+            });
+        }
     }
 }

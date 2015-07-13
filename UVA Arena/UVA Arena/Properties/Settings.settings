@@ -36,10 +36,10 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ProblemMainSplitterDistance" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.3</Value>
+      <Value Profile="(Default)">0.36</Value>
     </Setting>
     <Setting Name="ProblemSubSplitterDistance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">170</Value>
+      <Value Profile="(Default)">195</Value>
     </Setting>
     <Setting Name="HideAcceptedChecked" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

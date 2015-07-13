@@ -108,7 +108,7 @@ namespace UVA_Arena
                 if (!IsAvailable) Internet.Downloader.DownloadProblemDatabase();
             }
 
-            //load default user after database updated            
+            //load default user
             LoadDefaultUser();
 
             //load categories

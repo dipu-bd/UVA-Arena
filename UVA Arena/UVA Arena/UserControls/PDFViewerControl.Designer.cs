@@ -15,7 +15,7 @@
         {
             if (disposing && (components != null))
             {
-                ClearPageHolder();
+                CloseFile();
                 pdfWrapper.Dispose();
                 components.Dispose();
             }

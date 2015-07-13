@@ -10,8 +10,8 @@
 ### Download  
 To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena/wiki/What's-New)        
 
-#### Version 1.3   
-1. [Download Setup file (EXE File : 5.MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.2/UVA_Arena_1.3_x86_windows.exe/download)     
+#### Version 1.4   
+1. [Download Setup file (EXE File : 5.MB)](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Windows/UVA_Arena_1.4_x86_win.exe?raw=true)     
 2. [Download Setup file with Problem Descriptions(EXE File: 238MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.3/UVA_Arena_Database.exe/download)      
 
 ##### Version 1.2

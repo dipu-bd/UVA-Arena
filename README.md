@@ -10,9 +10,8 @@
 ### Download  
 To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena/wiki/What's-New)        
 
-#### Version 1.4   
-1. [Download Setup file (EXE File : 5.MB)](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Windows/UVA_Arena_1.4_x86_win.exe?raw=true)     
-2. [Download Setup file with Problem Descriptions(EXE File: 238MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.3/UVA_Arena_Database.exe/download)      
+##### Version 1.4   
+1. [Download Setup file (EXE File : 4.48MB)](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Windows/UVA_Arena_1.4_x86_win.exe?raw=true)     
 
 ##### Version 1.2
 1. [Download Setup File (EXE File : 1.5MB)](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Windows/UVA%20Arena%201.2.exe?raw=true)     
@@ -69,10 +68,10 @@ This software uses controls from the following sources-
 * [NewtonSoft.JSON](http://james.newtonking.com/json) to parse [JSON](http://en.wikipedia.org/wiki/JSON) data file. 
 * [Object List View](http://objectlistview.sourceforge.net/cs/index.html) is the _most used and notable control_. 
 * Second most used is [Fast Colored Text Box](https://github.com/PavelTorgashov/FastColoredTextBox) for Syntax Highlighting and Code Editing.  
-* To plot graphs in user progress tracker [ZedGraph](http://sourceforge.net/projects/zedgraph/) was used. 
-* To Compress and Decompress Problems data pack [Don Net Zip](https://github.com/eropple/dotnetzip) was used. 
+* To plot graphs in user progress tracker [ZedGraph](http://sourceforge.net/projects/zedgraph/) was used.  
 * Main icon is a licenced as "Free for non-commercial use". Downloaded from [here](http://www.iconarchive.com/show/stark-icons-by-fruityth1ng/Applications-icon.html)  
 * Icon resources are mostly open-source and many of them are downloaded from [IconArchive](http://www.iconarchive.com/). I couldn't look up the licences for all icons. Please inform me if any icon here is under strict copyright protection.
+* Setup project [NSIS (Nullsoft Scriptable Install System)](http://nsis.sourceforge.net/Main_Page)
 
 ## Developer  
 > __Sudipto Chandra Dipu__  

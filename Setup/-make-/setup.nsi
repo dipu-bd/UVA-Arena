@@ -132,7 +132,7 @@ SectionEnd
 Section "Uninstall"
   
   ;Remove registry keys
-  DeleteRegKey /ifempty HKCU "Software\UVA Arena\Category Index"
+  DeleteRegKey HKCU "Software\UVA Arena\Category Index"
   
   ; Remove files and uninstaller
   Delete "$INSTDIR\CategoryEditor.exe"

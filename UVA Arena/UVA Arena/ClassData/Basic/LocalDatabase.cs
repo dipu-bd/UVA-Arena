@@ -41,7 +41,8 @@ namespace UVA_Arena
 
         public static void LoadOrUpdate()
         {
-            const int MINIMUM_ALIVE_DAY = 1;
+            const double PROBLEM_ALIVE_DAY = 1;
+            const double CATEGORY_ALIVE_DAY = 0.4;
 
             RunLoadAsync(false);
 
@@ -50,18 +51,18 @@ namespace UVA_Arena
             if (LocalDirectory.GetFileSize(file) < 100 ||
                 (new TimeSpan((DateTime.Now.Subtract(
                         new FileInfo(file).LastWriteTime
-                    ).Ticks)).TotalDays > MINIMUM_ALIVE_DAY))
+                    ).Ticks)).TotalDays > PROBLEM_ALIVE_DAY))
             {
                 System.Threading.Thread.Sleep(1000);
                 UVA_Arena.Internet.Downloader.DownloadProblemDatabase();
             }
 
             //download category index if too old
-            file = LocalDirectory.GetProblemInfoFile();
+            file = LocalDirectory.GetCategoryIndexFile();
             if (LocalDirectory.GetFileSize(file) < 100 ||
                 (new TimeSpan((DateTime.Now.Subtract(
                         new FileInfo(file).LastWriteTime
-                    ).Ticks)).TotalDays > MINIMUM_ALIVE_DAY))
+                    ).Ticks)).TotalDays > CATEGORY_ALIVE_DAY))
             {
                 System.Threading.Thread.Sleep(1000);
                 UVA_Arena.Internet.Downloader.DownloadCategoryIndex();

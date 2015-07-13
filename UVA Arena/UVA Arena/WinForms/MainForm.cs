@@ -152,6 +152,13 @@ namespace UVA_Arena
                     });
                 }
             }
+
+            //check for update
+            if(Properties.Settings.Default.CheckForUpdate)
+            {
+                System.Threading.Thread.Sleep(5000);
+                UpdateCheck.CheckForUpdate();
+            }
         }
 
         private void AddControls()

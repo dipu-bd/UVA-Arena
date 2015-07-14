@@ -32,6 +32,8 @@ namespace uva
 
         virtual void onUVAArenaEvent(UVAArenaEvent, QVariant) override;
 
+        void setFilterProblemsBy(QString columnName);
+
     private slots:
 
     private:

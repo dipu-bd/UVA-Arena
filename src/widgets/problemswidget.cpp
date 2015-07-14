@@ -75,3 +75,11 @@ void ProblemsWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData
         break;
     }
 }
+
+void ProblemsWidget::setFilterProblemsBy(QString columnName)
+{
+    if (columnName == "Problem Number")
+        mProblemsFilterProxyModel.setFilterKeyColumn(0);
+    else if (columnName == "Problem Title")
+        mProblemsFilterProxyModel.setFilterKeyColumn(1);
+}

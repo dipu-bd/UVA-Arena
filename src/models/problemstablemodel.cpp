@@ -25,7 +25,7 @@ void ProblemsTableModel::setUhuntProblemMap(std::shared_ptr<Uhunt::ProblemMap> p
 
     int row = 0;
     while (it != end) {
-        mRowToNumber.insert(row++, it->getNumber());
+        mRowToId.insert(row++, it->getID());
         it++;
     }
     endResetModel();
@@ -52,31 +52,31 @@ QVariant ProblemsTableModel::getDataAtIndex(const QModelIndex &index) const
 
     switch (index.column()) {
     case 0:
-        return mProblemMap->value(mRowToNumber[index.row()]).getNumber();
+        return mProblemMap->value(mRowToId[index.row()]).getNumber();
 
     case 1:
-        return mProblemMap->value(mRowToNumber[index.row()]).getTitle();
+        return mProblemMap->value(mRowToId[index.row()]).getTitle();
 
     case 2:
-        return mProblemMap->value(mRowToNumber[index.row()]).getLevel();
+        return mProblemMap->value(mRowToId[index.row()]).getLevel();
 
     case 3:
-        return mProblemMap->value(mRowToNumber[index.row()]).getDACU();
+        return mProblemMap->value(mRowToId[index.row()]).getDACU();
 
     case 4:
-        return mProblemMap->value(mRowToNumber[index.row()]).getRuntimeLimit();
+        return mProblemMap->value(mRowToId[index.row()]).getRuntimeLimit();
 
     case 5:
-        return mProblemMap->value(mRowToNumber[index.row()]).getBestRuntime();
+        return mProblemMap->value(mRowToId[index.row()]).getBestRuntime();
 
     case 6:
-        return mProblemMap->value(mRowToNumber[index.row()]).getTotalSubmission();
+        return mProblemMap->value(mRowToId[index.row()]).getTotalSubmission();
 
     case 7:
-        return mProblemMap->value(mRowToNumber[index.row()]).getAcceptedCount();
+        return mProblemMap->value(mRowToId[index.row()]).getAcceptedCount();
 
     case 8:
-        return mProblemMap->value(mRowToNumber[index.row()]).getWrongAnswerCount();
+        return mProblemMap->value(mRowToId[index.row()]).getWrongAnswerCount();
     }
 
     return QVariant();

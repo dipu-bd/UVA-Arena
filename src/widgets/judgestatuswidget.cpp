@@ -53,9 +53,10 @@ void JudgeStatusWidget::initialize()
     ui->statusTableView->setModel(&mStatusTableModel);
 }
 
-void JudgeStatusWidget::setStatusData(std::shared_ptr<QList<JudgeStatus> > statusData)
+void JudgeStatusWidget::setStatusData(std::shared_ptr<QList<JudgeStatus> > statusData,
+                                      std::shared_ptr<Uhunt::ProblemMap> problemMap)
 {
-    mStatusTableModel.setStatusData(statusData);
+    mStatusTableModel.setStatusData(statusData, problemMap);
 }
 
 void JudgeStatusWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)

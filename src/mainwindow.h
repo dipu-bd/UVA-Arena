@@ -37,48 +37,6 @@ namespace uva
         */
         std::shared_ptr<Uhunt::ProblemMap> getProblemMap();
 
-        /*! 
-            \brief Get the problem number via the problem id
-
-            \param[in] problemId The problem id to look up
-        */
-        int getProblemNumberFromId(int problemId);
-
-        /*!
-            \brief Get the problem id via the problem number
-
-            \param[in] problemNumber The problem number to look up
-        */
-        int getProblemIdFromNumber(int problemNumber);
-        
-        /*!
-            \brief Get the title of a problem via its UVA problem number
-            
-            \param[in] problemNumber The problem number to look up
-        */
-        QString getProblemTitleByNumber(int problemNumber);
-
-        /*!
-            \brief Get the title of a problem via its UVA problem id
-
-            \param[in] problemId The problem id to look up
-        */
-        QString getProblemTitleById(int problemId);
-
-        /*!
-            \brief Get a Problem instance via its UVA problem id
-
-            \param[in] problemId The problem id to look up
-        */
-        Problem getProblemById(int problemId);
-
-        /*!
-            \brief Get a Problem instance via its UVA problem number
-
-            \param[in] problemNumber The problem number to look up
-        */
-        Problem getProblemByNumber(int problemNumber);
-
     public slots:
 
         /*!

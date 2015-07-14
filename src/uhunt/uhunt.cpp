@@ -57,7 +57,7 @@ Uhunt::ProblemMap Uhunt::problemMapFromData(const QByteArray& data)
         if (it->isArray()) {
 
             Problem problem = Problem::fromJsonArray(it->toArray());
-            problems[problem.getNumber()] = problem;
+            problems[problem.getID()] = problem;
         }
         it++;
     }

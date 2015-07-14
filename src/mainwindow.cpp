@@ -45,57 +45,6 @@ std::shared_ptr<Uhunt::ProblemMap> MainWindow::getProblemMap()
     return mProblems;
 }
 
-int MainWindow::getProblemNumberFromId(int problemId)
-{
-    if (mProblemIdToNumber) {
-        if (mProblemIdToNumber->contains(problemId))
-            return mProblemIdToNumber->value(problemId);
-    }
-
-    return 0;
-}
-
-int MainWindow::getProblemIdFromNumber(int problemNumber)
-{
-    if (mProblems) {
-        if (mProblems->contains(problemNumber))
-            return mProblems->value(problemNumber).getID();
-    }
-
-    return 0;
-}
-
-QString MainWindow::getProblemTitleByNumber(int problemNumber)
-{
-    if (mProblems) {
-        if (mProblems->contains(problemNumber))
-            return mProblems->value(problemNumber).getTitle();
-    }
-
-    return "-";
-}
-
-QString MainWindow::getProblemTitleById(int problemId)
-{
-    return getProblemTitleByNumber(
-                getProblemNumberFromId(problemId));
-}
-
-Problem MainWindow::getProblemById(int problemId)
-{
-    return getProblemByNumber(getProblemNumberFromId(problemId));
-}
-
-Problem MainWindow::getProblemByNumber(int problemNumber)
-{
-    if (problemNumber) {
-        if (mProblems->contains(problemNumber))
-            return mProblems->value(problemNumber);
-    }
-
-    return Problem();
-}
-
 void MainWindow::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVariant metaData)
 {
     typedef UVAArenaWidget::UVAArenaEvent UVAArenaEvent;
@@ -156,7 +105,6 @@ void MainWindow::setProblemMap(Uhunt::ProblemMap problemMap)
     ui->problemsWidget->setProblemsMap(getProblemMap());
     statusBar()->showMessage("Problem list loaded", 2000);
 }
-
 
 void MainWindow::initialize()
 {

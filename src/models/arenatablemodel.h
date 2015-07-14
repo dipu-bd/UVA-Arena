@@ -29,7 +29,9 @@ namespace uva
 
         virtual void setModelStyle(std::unique_ptr<ModelStyle> style);
 
-        virtual void setMaxRowsToLoad(int maxRowsToLoad);
+        virtual void setMaxRowsToFetch(int maxRowsToFetch);
+
+        virtual void setLoadAllData(bool shouldLoadAll);
 
     protected:
 
@@ -43,7 +45,8 @@ namespace uva
 
     private:
 
-        int mMaxRowsToLoad;
+        bool mLoadAllData;
+        int mMaxRowsToFetch;
         int mDisplayedCount;
         std::unique_ptr<ModelStyle> mModelStyle;
         QStringList mColumnNames;

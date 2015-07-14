@@ -5,7 +5,8 @@ using namespace uva;
 ArenaTableModel::ArenaTableModel()
     : mModelStyle(nullptr),
       mDisplayedCount(0),
-      mMaxRowsToLoad(50)
+      mMaxRowsToFetch(50),
+      mLoadAllData(true)
 {
 }
 
@@ -25,6 +26,9 @@ int ArenaTableModel::columnCount(const QModelIndex & /* parent */) const
 
 int ArenaTableModel::rowCount(const QModelIndex & /* parent */) const
 {
+    if (mLoadAllData)
+        return getDataCount();
+
     return mDisplayedCount;
 }
 
@@ -68,13 +72,21 @@ void ArenaTableModel::setModelStyle(std::unique_ptr<ModelStyle> style)
     mModelStyle = std::move(style);
 }
 
-void ArenaTableModel::setMaxRowsToLoad(int maxRowsToLoad)
+void ArenaTableModel::setMaxRowsToFetch(int maxRowsToFetch)
 {
-    mMaxRowsToLoad = maxRowsToLoad;
+    mMaxRowsToFetch = maxRowsToFetch;
+}
+
+void ArenaTableModel::setLoadAllData(bool shouldLoadAll)
+{
+    mLoadAllData = shouldLoadAll;
 }
 
 bool ArenaTableModel::canFetchMore(const QModelIndex &parent) const
 {
+    if (mLoadAllData)
+        return QAbstractTableModel::canFetchMore(parent);
+
     if (mDisplayedCount < getDataCount())
         return true;
     else
@@ -84,7 +96,7 @@ bool ArenaTableModel::canFetchMore(const QModelIndex &parent) const
 void ArenaTableModel::fetchMore(const QModelIndex &parent)
 {
     int remainingData = getDataCount() - mDisplayedCount;
-    int itemsToFetch = qMin(mMaxRowsToLoad, remainingData);
+    int itemsToFetch = qMin(mMaxRowsToFetch, remainingData);
 
     beginInsertRows(QModelIndex(), mDisplayedCount, mDisplayedCount + itemsToFetch - 1);
     mDisplayedCount += itemsToFetch;

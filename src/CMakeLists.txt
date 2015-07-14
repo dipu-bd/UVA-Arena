@@ -26,6 +26,11 @@ set(UHUNT_SOURCES
     uhunt/usersubmission.cpp
 )
 
+set(OTHER_SOURCES
+    commons/conversion.h
+    commons/conversion.cpp
+)
+
 set(MODELS_SOURCES
     models/arenatablemodel.h
     models/arenatablemodel.cpp
@@ -33,6 +38,8 @@ set(MODELS_SOURCES
     models/problemstablemodel.cpp
     models/modelstyle.h
     models/modelstyle.cpp
+    models/judgestatustablemodel.h
+    models/judgestatustablemodel.cpp
 )
 
 set(WIDGETS_SOURCES
@@ -57,6 +64,7 @@ set(MAIN_SOURCES
 )
 
 set(ALL_SOURCES
+    ${OTHER_SOURCES}
     ${UHUNT_SOURCES}
     ${WIDGETS_SOURCES}
     ${MODELS_SOURCES}

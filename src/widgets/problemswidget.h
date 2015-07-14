@@ -3,6 +3,7 @@
 #include "uvalib_global.h"
 #include "uvaarenawidget.h"
 #include "models/problemstablemodel.h"
+#include <QWidget>
 #include <mupdf-qt.h>
 
 #include <QWidget>

@@ -56,7 +56,14 @@ namespace uva
             
             \param[in] problemNumber The problem number to look up
         */
-        QString getProblemTitle(int problemNumber);
+        QString getProblemTitleByNumber(int problemNumber);
+
+        /*!
+            \brief Get the title of a problem via its UVA problem id
+
+            \param[in] problemId The problem id to look up
+        */
+        QString getProblemTitleById(int problemId);
 
         /*!
             \brief Get a Problem instance via its UVA problem id

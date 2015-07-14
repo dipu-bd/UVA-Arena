@@ -65,7 +65,7 @@ int MainWindow::getProblemIdFromNumber(int problemNumber)
     return 0;
 }
 
-QString MainWindow::getProblemTitle(int problemNumber)
+QString MainWindow::getProblemTitleByNumber(int problemNumber)
 {
     if (mProblems) {
         if (mProblems->contains(problemNumber))
@@ -73,6 +73,12 @@ QString MainWindow::getProblemTitle(int problemNumber)
     }
 
     return "-";
+}
+
+QString MainWindow::getProblemTitleById(int problemId)
+{
+    return getProblemTitleByNumber(
+                getProblemNumberFromId(problemId));
 }
 
 Problem MainWindow::getProblemById(int problemId)

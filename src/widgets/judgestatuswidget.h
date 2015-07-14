@@ -23,7 +23,8 @@ namespace uva
 
         virtual void initialize() override;
 
-        void setStatusData(std::shared_ptr< QList<JudgeStatus> > statusData);
+        void setStatusData(std::shared_ptr<QList<JudgeStatus> > statusData,
+                           std::shared_ptr<Uhunt::ProblemMap> problemMap);
 
     public slots:
 

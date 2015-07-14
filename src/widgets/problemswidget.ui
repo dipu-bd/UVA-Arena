@@ -17,7 +17,7 @@
    <item>
     <widget class="QToolBox" name="toolBox">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="categoryAndProblemsPage">
       <property name="geometry">
@@ -98,13 +98,18 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>98</width>
-        <height>28</height>
+        <width>887</width>
+        <height>447</height>
        </rect>
       </property>
       <attribute name="label">
        <string>Problem View</string>
       </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QGraphicsView" name="mProblemsGraphicsView"/>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

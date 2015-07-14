@@ -7,17 +7,27 @@ JudgeStatusTableModel::JudgeStatusTableModel() :
     mStatusData(nullptr)
 {
     insertColumns({
-                      "SID", "User Name", "Full Name", "Problem Number",
-                      "Problem Title", "Language", "Verdict",
-                      "Runtime", "Rank", "Submission Time"
-                  });
+        "SID", "User Name", "Full Name", "Problem Number",
+        "Problem Title", "Language", "Verdict",
+        "Runtime", "Rank", "Submission Time"
+    });
 }
 
-void JudgeStatusTableModel::setStatusData(std::shared_ptr< QList<JudgeStatus> > statusData)
+void JudgeStatusTableModel::setStatusData(std::shared_ptr<QList<JudgeStatus> > statusData,
+                                          std::shared_ptr<Uhunt::ProblemMap> problemMap)
 {
     beginResetModel();
 
     mStatusData = statusData;
+
+    QList<JudgeStatus>::iterator it = mStatusData->begin();
+    QList<JudgeStatus>::const_iterator end = mStatusData->end();
+
+    while (it != end) {
+        it->setProblemNumber(problemMap->value(it->getId()).getNumber());
+        it->setProblemTitle(problemMap->value(it->getId()).getTitle());
+        ++it;
+    }
 
     endResetModel();
 }

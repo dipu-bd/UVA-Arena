@@ -12,7 +12,8 @@ namespace uva
     public:
         JudgeStatusTableModel();
 
-        void setStatusData(std::shared_ptr< QList<JudgeStatus> > statusData);
+        void setStatusData(std::shared_ptr< QList<JudgeStatus> > statusData,
+            std::shared_ptr<Uhunt::ProblemMap> problemMap);
 
     protected:
 

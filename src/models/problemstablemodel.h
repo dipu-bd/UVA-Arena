@@ -22,7 +22,7 @@ namespace uva
 
     private:
 
-        QList<int> mRowToNumber;
+        QList<int> mRowToId;
         std::shared_ptr<Uhunt::ProblemMap> mProblemMap;
 
     };

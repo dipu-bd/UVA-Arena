@@ -17,7 +17,9 @@ namespace uva
     {
         Q_OBJECT
     public:
-
+        /*!
+            Keys are problem IDs.
+        */
         typedef QMap<int, Problem> ProblemMap;                
 
         /*!

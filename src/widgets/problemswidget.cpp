@@ -47,10 +47,14 @@ ProblemsWidget::~ProblemsWidget()
 
 void ProblemsWidget::initialize()
 {
-    mProblemsTableModel.setUhuntProblemMap(mainWindow()->getProblemMap());
     mProblemsTableModel.setModelStyle(std::make_unique<ProblemModelStyle>());
     mProblemsTableModel.setMaxRowsToLoad(mSettings.maxProblemsTableRowsToLoad());
     ui->problemsTableView->setModel(&mProblemsTableModel);
+}
+
+void ProblemsWidget::setProblemsMap(std::shared_ptr<Uhunt::ProblemMap> problemsMap)
+{
+    mProblemsTableModel.setUhuntProblemMap(problemsMap);
 }
 
 void ProblemsWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)

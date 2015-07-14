@@ -26,6 +26,7 @@ namespace uva
 
     private:
         Ui::ProfilesWidget *ui;
+
     };
 
 }

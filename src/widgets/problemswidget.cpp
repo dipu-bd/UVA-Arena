@@ -3,6 +3,36 @@
 
 using namespace uva;
 
+#include "mainwindow.h"
+
+class ProblemModelStyle : public ModelStyle
+{
+public:
+    virtual QVariant Style(const QModelIndex &index, int role) override
+    {
+        switch (role)
+        {
+        case Qt::ForegroundRole:
+            switch (index.column())
+            {
+            case 0:
+            case 1:
+            case 2:
+                return QBrush(Qt::red);
+
+            case 3:
+                return QBrush(Qt::cyan);
+
+            default:
+                return QBrush(Qt::magenta);
+            }
+
+        default:
+            return ModelStyle::Style(index, role);
+        }
+    }
+};
+
 ProblemsWidget::ProblemsWidget(QWidget *parent) :
     UVAArenaWidget(parent),
     ui(new Ui::ProblemsWidget)
@@ -17,6 +47,10 @@ ProblemsWidget::~ProblemsWidget()
 
 void ProblemsWidget::initialize()
 {
+    mProblemsTableModel.setUhuntProblemMap(mainWindow()->getProblemMap());
+    mProblemsTableModel.setModelStyle(std::make_unique<ProblemModelStyle>());
+    mProblemsTableModel.setMaxRowsToLoad(mSettings.maxProblemsTableRowsToLoad());
+    ui->problemsTableView->setModel(&mProblemsTableModel);
 }
 
 void ProblemsWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)

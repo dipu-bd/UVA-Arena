@@ -94,8 +94,8 @@ namespace uva
         int getAcceptedCount() const { return mAcceptedCount; }
         void setAcceptedCount(int v) { mAcceptedCount = v; }
         // 19. Time Limit (milliseconds)
-        int getRuntimeLimitCount() const { return mRuntimeLimitCount; }
-        void setRuntimeLimitCount(int v) { mRuntimeLimitCount = v; }
+        int getRuntimeLimit() const { return mRuntimeLimit; }
+        void setRuntimeLimit(int time) { mRuntimeLimit = time; }
         // 20. Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
         ProblemStatus getStatus() const { return mStatus; }
         void setStatus(ProblemStatus v) { mStatus = v; }
@@ -162,7 +162,7 @@ namespace uva
         // 18. Number of Accepted
         int mAcceptedCount;
         // 19. Time Limit (milliseconds)
-        int mRuntimeLimitCount;
+        int mRuntimeLimit;
         // 20. Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
         ProblemStatus mStatus;
 

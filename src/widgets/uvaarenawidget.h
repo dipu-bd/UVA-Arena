@@ -5,6 +5,7 @@
 #include <QNetworkAccessManager>
 #include <memory>
 
+#include "uvaarenasettings.h"
 #include "uhunt/uhunt.h"
 
 namespace uva
@@ -147,6 +148,7 @@ namespace uva
 
 	protected:
 
+        UVAArenaSettings mSettings;
         std::shared_ptr<QNetworkAccessManager> mNetworkManager;
         std::shared_ptr<Uhunt> mUhuntApi;
 

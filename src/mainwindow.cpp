@@ -116,9 +116,9 @@ void MainWindow::initializeWidgets()
 }
 
 //get the problem map
-const Uhunt::ProblemMap& MainWindow::getProblemMap()
+std::shared_ptr<Uhunt::ProblemMap> MainWindow::getProblemMap()
 {
-    return *mProblems;
+    return mProblems;
 }
 
 //set the problem map

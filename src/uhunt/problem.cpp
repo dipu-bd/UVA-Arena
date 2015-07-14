@@ -67,7 +67,7 @@ Problem Problem::fromJsonObject(const QJsonObject& object)
     // 18. Number of Accepted solutions
     problem.setAcceptedCount(object["ac"].toInt());
     // 19. Time Limit (milliseconds)
-    problem.setRuntimeLimitCount(object["rtl"].toInt());
+    problem.setRuntimeLimit(object["rtl"].toInt());
     // 20.  Status (0 = unavailable, 1 = normal, 2 = special judge)
     problem.setStatus(object["status"].toInt());
 
@@ -120,7 +120,7 @@ Problem Problem::fromJsonArray(const QJsonArray& arr)
     // 18. Number of Accepted
     problem.setAcceptedCount(arr[18].toInt());
     // 19. Time Limit (milliseconds)
-    problem.setRuntimeLimitCount(arr[19].toInt());
+    problem.setRuntimeLimit(arr[19].toInt());
     // 20.  Status (0 = unavailable, 1 = normal, 2 = special judge)
     problem.setStatus(arr[20].toInt());
 

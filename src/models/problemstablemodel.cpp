@@ -20,8 +20,11 @@ void ProblemsTableModel::setUhuntProblemMap(std::shared_ptr<Uhunt::ProblemMap> p
     Uhunt::ProblemMap::const_iterator it =
         mProblemMap->constBegin();
 
+    Uhunt::ProblemMap::const_iterator end =
+        mProblemMap->constEnd();
+
     int row = 0;
-    while (it != mProblemMap->end()) {
+    while (it != end) {
         mRowToNumber.insert(row++, it->getNumber());
         it++;
     }

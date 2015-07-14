@@ -48,7 +48,7 @@ ProblemsWidget::~ProblemsWidget()
 void ProblemsWidget::initialize()
 {
     mProblemsTableModel.setModelStyle(std::make_unique<ProblemModelStyle>());
-    mProblemsTableModel.setMaxRowsToLoad(mSettings.maxProblemsTableRowsToLoad());
+    mProblemsTableModel.setMaxRowsToFetch(mSettings.maxProblemsTableRowsToLoad());
     ui->problemsTableView->setModel(&mProblemsTableModel);
 }
 

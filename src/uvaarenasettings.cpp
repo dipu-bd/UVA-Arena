@@ -12,8 +12,8 @@ const QString KeyMaxDaysUntilProblemListRedownload =
     "MaxDaysUntilProblemListRedownload";
 const qint64 DefaultMaxDaysUntilProblemListRedownload = 1;
 
-const QString KeyMaxProblemsTableRowsToLoad = "MaxProblemsListRowsToLoad";
-const qint32 DefaultMaxProblemsTableRowsToLoad = 50;
+const QString KeyMaxProblemsTableRowsToFetch = "MaxProblemsListRowsToLoad";
+const qint32 DefaultMaxProblemsTableRowsToFetch = 50;
 
 QString UVAArenaSettings::userName()
 {
@@ -46,13 +46,13 @@ void UVAArenaSettings::setMaxDaysUntilProblemListRedownload(qint64 days)
     settings.setValue(KeyMaxDaysUntilProblemListRedownload, days);
 }
 
-qint32 UVAArenaSettings::maxProblemsTableRowsToLoad()
+qint32 UVAArenaSettings::maxProblemsTableRowsToFetch()
 {
-    return settings.value(KeyMaxProblemsTableRowsToLoad,
-        DefaultMaxProblemsTableRowsToLoad).toInt();
+    return settings.value(KeyMaxProblemsTableRowsToFetch,
+        DefaultMaxProblemsTableRowsToFetch).toInt();
 }
 
-void UVAArenaSettings::setMaxProblemsTableRowsToLoad(qint32 numRows)
+void UVAArenaSettings::setMaxProblemsTableRowsToFetch(qint32 numRows)
 {
-    settings.setValue(KeyMaxProblemsTableRowsToLoad, numRows);
+    settings.setValue(KeyMaxProblemsTableRowsToFetch, numRows);
 }

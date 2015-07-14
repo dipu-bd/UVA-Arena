@@ -2,9 +2,11 @@
 
 #include "uvalib_global.h"
 #include "uvaarenawidget.h"
-#include <QWidget>
 #include "models/problemstablemodel.h"
 #include <mupdf-qt.h>
+
+#include <QWidget>
+#include <QSortFilterProxyModel>
 
 namespace uva
 {
@@ -32,7 +34,7 @@ namespace uva
     private slots:
 
     private:
-
+        QSortFilterProxyModel mProblemsFilterProxyModel;
         ProblemsTableModel mProblemsTableModel;
         Ui::ProblemsWidget *ui;
         MuPDF::Document* pdfDocument;

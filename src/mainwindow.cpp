@@ -16,8 +16,6 @@ const QString DefaultProblemListFileName = "problemlist.json";
 MainWindow::MainWindow(std::shared_ptr<QNetworkAccessManager> networkManager, QWidget *parent) :
     QMainWindow(parent),
     mNetworkManager(networkManager),
-    mProblems(new Uhunt::ProblemMap),
-    mProblemIdToNumber(new QMap<int, int>),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -92,7 +90,9 @@ void MainWindow::onProblemListByteArrayDownloaded(QByteArray data)
 
 void MainWindow::setProblemMap(Uhunt::ProblemMap problemMap)
 {
+    mProblems.reset(new Uhunt::ProblemMap);
     *mProblems = std::move(problemMap);
+    mProblemIdToNumber.reset(new QMap<int, int>);
     mProblemIdToNumber->clear();
 
     Uhunt::ProblemMap::const_iterator it = mProblems->begin();

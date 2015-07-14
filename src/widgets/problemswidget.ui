@@ -17,7 +17,7 @@
    <item>
     <widget class="QToolBox" name="toolBox">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="categoryAndProblemsPage">
       <property name="geometry">
@@ -42,6 +42,23 @@
           </widget>
          </item>
          <item>
+          <widget class="QComboBox" name="searchByComboBox">
+           <property name="frame">
+            <bool>true</bool>
+           </property>
+           <item>
+            <property name="text">
+             <string>Problem Title</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Problem Number</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
           <widget class="QLineEdit" name="searchProblemsLineEdit"/>
          </item>
         </layout>
@@ -60,6 +77,9 @@
          </item>
          <item>
           <widget class="QTableView" name="problemsTableView">
+           <property name="sizeAdjustPolicy">
+            <enum>QAbstractScrollArea::AdjustToContents</enum>
+           </property>
            <property name="editTriggers">
             <set>QAbstractItemView::NoEditTriggers</set>
            </property>
@@ -98,8 +118,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>887</width>
-        <height>447</height>
+        <width>109</width>
+        <height>109</height>
        </rect>
       </property>
       <attribute name="label">
@@ -116,5 +136,25 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>searchByComboBox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>uva::ProblemsWidget</receiver>
+   <slot>setFilterProblemsBy(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>111</x>
+     <y>64</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>454</x>
+     <y>265</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>setFilterProblemsBy(QString)</slot>
+ </slots>
 </ui>

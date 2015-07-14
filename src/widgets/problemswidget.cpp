@@ -38,6 +38,16 @@ ProblemsWidget::ProblemsWidget(QWidget *parent) :
     ui(new Ui::ProblemsWidget)
 {
     ui->setupUi(this);
+    mProblemsTableModel.setModelStyle(std::make_unique<ProblemModelStyle>());
+    mProblemsTableModel.setMaxRowsToFetch(mSettings.maxProblemsTableRowsToFetch());
+    mProblemsFilterProxyModel.setSortCaseSensitivity(Qt::CaseInsensitive);
+    mProblemsFilterProxyModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
+    mProblemsFilterProxyModel.setSourceModel(&mProblemsTableModel);
+    mProblemsFilterProxyModel.setFilterKeyColumn(1); // Problem title column
+    QObject::connect(ui->searchProblemsLineEdit, &QLineEdit::textChanged,
+        &mProblemsFilterProxyModel, &QSortFilterProxyModel::setFilterFixedString);
+
+    ui->problemsTableView->setModel(&mProblemsFilterProxyModel);
 }
 
 ProblemsWidget::~ProblemsWidget()
@@ -47,9 +57,6 @@ ProblemsWidget::~ProblemsWidget()
 
 void ProblemsWidget::initialize()
 {
-    mProblemsTableModel.setModelStyle(std::make_unique<ProblemModelStyle>());
-    mProblemsTableModel.setMaxRowsToFetch(mSettings.maxProblemsTableRowsToLoad());
-    ui->problemsTableView->setModel(&mProblemsTableModel);
 }
 
 void ProblemsWidget::setProblemsMap(std::shared_ptr<Uhunt::ProblemMap> problemsMap)

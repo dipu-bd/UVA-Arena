@@ -3,6 +3,7 @@
 #include "uvalib_global.h"
 #include "uvaarenawidget.h"
 #include <QWidget>
+#include "models/problemstablemodel.h"
 #include <mupdf-qt.h>
 
 namespace uva
@@ -30,6 +31,7 @@ namespace uva
 
     private:
 
+        ProblemsTableModel mProblemsTableModel;
         Ui::ProblemsWidget *ui;
         MuPDF::Document* pdfDocument;
     };

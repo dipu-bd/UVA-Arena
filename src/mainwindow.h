@@ -35,7 +35,7 @@ namespace uva
         /*!
             \brief Returns the currently loaded problems
         */
-        const Uhunt::ProblemMap& getProblemMap();
+        std::shared_ptr<Uhunt::ProblemMap> getProblemMap();
 
         /*! 
             \brief Get the problem number via the problem id
@@ -127,7 +127,7 @@ namespace uva
 
         UVAArenaSettings mSettings;
 
-        std::unique_ptr<Uhunt::ProblemMap> mProblems;
+        std::shared_ptr<Uhunt::ProblemMap> mProblems;
         std::unique_ptr<QMap<int, int> > mProblemIdToNumber;
 
         std::vector<UVAArenaWidget*> mUVAArenaWidgets;

@@ -6,7 +6,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(UHUNT_SOURCES 
+set(UHUNT_SOURCES
     uhunt/categorynode.h
     uhunt/enums.h
     uhunt/judgestatus.h
@@ -24,6 +24,15 @@ set(UHUNT_SOURCES
     uhunt/userinfo.cpp
     uhunt/rankinfo.cpp
     uhunt/usersubmission.cpp
+)
+
+set(MODELS_SOURCES
+    models/arenatablemodel.h
+    models/arenatablemodel.cpp
+    models/problemstablemodel.h
+    models/problemstablemodel.cpp
+    models/modelstyle.h
+    models/modelstyle.cpp
 )
 
 set(WIDGETS_SOURCES
@@ -50,6 +59,7 @@ set(MAIN_SOURCES
 set(ALL_SOURCES
     ${UHUNT_SOURCES}
     ${WIDGETS_SOURCES}
+    ${MODELS_SOURCES}
     ${MAIN_SOURCES}
 )
 
@@ -80,6 +90,7 @@ set_target_properties(${TARGET} PROPERTIES FOLDER "UVA-Arena")
 source_group("Uhunt" FILES ${UHUNT_SOURCES})
 source_group("Source" FILES ${MAIN_SOURCES})
 source_group("Widgets" FILES ${WIDGETS_SOURCES})
+source_group("Models" FILES ${MODELS_SOURCES})
 source_group("UI Files" FILES ${UI_SOURCES})
 source_group("Resources" FILES ${UVA_RESOURCES})
 source_group("Generated Files" FILES ${UI_FILES})

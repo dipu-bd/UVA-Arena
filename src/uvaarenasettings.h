@@ -58,6 +58,10 @@ namespace uva
         */
         void setMaxDaysUntilProblemListRedownload(qint64 days);
 
+        qint32 maxProblemsTableRowsToLoad();
+
+        void setMaxProblemsTableRowsToLoad(qint32 numRows);
+
     private:
         QSettings settings;
     };

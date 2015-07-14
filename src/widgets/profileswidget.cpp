@@ -16,8 +16,7 @@ ProfilesWidget::~ProfilesWidget()
 }
 
 void ProfilesWidget::initialize()
-{
-
+{   
 }
 
 void ProfilesWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)

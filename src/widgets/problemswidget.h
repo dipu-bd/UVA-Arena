@@ -23,6 +23,8 @@ namespace uva
 
         virtual void initialize() override;
 
+        void setProblemsMap(std::shared_ptr<Uhunt::ProblemMap> problemsMap);
+
     public slots:
 
         virtual void onUVAArenaEvent(UVAArenaEvent, QVariant) override;

@@ -40,6 +40,56 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+std::shared_ptr<Uhunt::ProblemMap> MainWindow::getProblemMap()
+{
+    return mProblems;
+}
+
+int MainWindow::getProblemNumberFromId(int problemId)
+{
+    if (mProblemIdToNumber) {
+        if (mProblemIdToNumber->contains(problemId))
+            return mProblemIdToNumber->value(problemId);
+    }
+
+    return 0;
+}
+
+int MainWindow::getProblemIdFromNumber(int problemNumber)
+{
+    if (mProblems) {
+        if (mProblems->contains(problemNumber))
+            return mProblems->value(problemNumber).getID();
+    }
+
+    return 0;
+}
+
+QString MainWindow::getProblemTitle(int problemNumber)
+{
+    if (mProblems) {
+        if (mProblems->contains(problemNumber))
+            return mProblems->value(problemNumber).getTitle();
+    }
+
+    return "-";
+}
+
+Problem MainWindow::getProblemById(int problemId)
+{
+    return getProblemByNumber(getProblemNumberFromId(problemId));
+}
+
+Problem MainWindow::getProblemByNumber(int problemNumber)
+{
+    if (problemNumber) {
+        if (mProblems->contains(problemNumber))
+            return mProblems->value(problemNumber);
+    }
+
+    return Problem();
+}
+
 void MainWindow::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVariant metaData)
 {
     typedef UVAArenaWidget::UVAArenaEvent UVAArenaEvent;
@@ -54,6 +104,53 @@ void MainWindow::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVari
         break;
     }
 }
+
+void MainWindow::onProblemListByteArrayDownloaded(QByteArray data)
+{
+    // set the file to save to
+    QString saveDirectory =
+        QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+
+    if (!QFile::exists(saveDirectory)) {
+        QDir dirToMake;
+        dirToMake.mkpath(saveDirectory);
+    }
+
+    QFile file(saveDirectory + "/" + DefaultProblemListFileName);
+
+    if (!file.open(QIODevice::WriteOnly)) {
+
+        // couldn't open the file
+        QMessageBox::critical(this, "Write failure",
+            "Could not write to the default problem list file:\n"
+            + saveDirectory + "/" + DefaultProblemListFileName);
+
+        return;
+    }
+
+    // write the problem list data to the default problems list file
+    QDataStream dataStream(&file);
+    dataStream << data;
+
+    setProblemMap(Uhunt::problemMapFromData(data));
+}
+
+void MainWindow::setProblemMap(Uhunt::ProblemMap problemMap)
+{
+    *mProblems = std::move(problemMap);
+    mProblemIdToNumber->clear();
+
+    Uhunt::ProblemMap::const_iterator it = mProblems->begin();
+
+    while (it != mProblems->end()) {
+        mProblemIdToNumber->insert(it->getID(), it->getNumber());
+        ++it;
+    }
+
+    ui->problemsWidget->setProblemsMap(getProblemMap());
+    statusBar()->showMessage("Problem list loaded", 2000);
+}
+
 
 void MainWindow::initialize()
 {
@@ -73,7 +170,8 @@ void MainWindow::initializeData()
     if (result.isEmpty()) {
         // download the problem list and save it
         mUhuntApi->getProblemListAsByteArray();
-    } else {
+    }
+    else {
         // file found, load the data
         loadProblemListFromFile(result);
     }
@@ -115,77 +213,6 @@ void MainWindow::initializeWidgets()
     }
 }
 
-//get the problem map
-std::shared_ptr<Uhunt::ProblemMap> MainWindow::getProblemMap()
-{
-    return mProblems;
-}
-
-//set the problem map
-void MainWindow::setProblemMap(Uhunt::ProblemMap problemMap)
-{
-    *mProblems = std::move(problemMap);
-    mProblemIdToNumber->clear();
-
-    Uhunt::ProblemMap::const_iterator it = mProblems->begin();
-
-    while (it != mProblems->end()) {
-        mProblemIdToNumber->insert(it->getID(), it->getNumber());
-        ++it;
-    }
-
-}
-
-//get problem number by problem id
-int MainWindow::getProblemNumberFromId(int problemId)
-{
-    if (mProblemIdToNumber) {
-        if (mProblemIdToNumber->contains(problemId))
-            return mProblemIdToNumber->value(problemId);
-    }
-
-    return 0;
-}
-
-//get problem id from problem number
-int MainWindow::getProblemIdFromNumber(int problemNumber)
-{
-    if (mProblems) {
-        if (mProblems->contains(problemNumber))
-            return mProblems->value(problemNumber).getID();
-    }
-
-    return 0;
-}
-
-//get problem title by problem number
-QString MainWindow::getProblemTitle(int problemNumber)
-{
-    if (mProblems) {
-        if (mProblems->contains(problemNumber))
-            return mProblems->value(problemNumber).getTitle();
-    }
-
-    return "-";
-}
-
-//get problem by id
-Problem MainWindow::getProblemById(int problemId)
-{
-    return getProblemByNumber(getProblemNumberFromId(problemId));
-}
-
-//get problem by problem number
-Problem MainWindow::getProblemByNumber(int problemNumber)
-{
-    if (problemNumber) {
-        if (mProblems->contains(problemNumber))
-            return mProblems->value(problemNumber);
-    }
-
-    return Problem();
-}
-
 void MainWindow::loadProblemListFromFile(QString fileName)
 {
 
@@ -200,7 +227,7 @@ void MainWindow::loadProblemListFromFile(QString fileName)
         return;
     }
 
-    // make sure the default probelm list file is not too old
+    // make sure the default problem list file is not too old
     QFileInfo fileInfo(file);
     QDateTime lastModified = fileInfo.lastModified();
 
@@ -219,36 +246,4 @@ void MainWindow::loadProblemListFromFile(QString fileName)
     dataStream >> data;
 
     setProblemMap(Uhunt::problemMapFromData(data));
-    statusBar()->showMessage("Problem list loaded from file", 2000);
-}
-
-void MainWindow::onProblemListByteArrayDownloaded(QByteArray data)
-{
-    // set the file to save to
-    QString saveDirectory =
-        QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-
-    if (!QFile::exists(saveDirectory)) {
-        QDir dirToMake;
-        dirToMake.mkpath(saveDirectory);
-    }
-
-    QFile file(saveDirectory + "/" + DefaultProblemListFileName);
-
-    if (!file.open(QIODevice::WriteOnly)) {
-
-        // couldn't open the file
-        QMessageBox::critical(this, "Write failure",
-            "Could not write to the default problem list file:\n"
-            + saveDirectory + "/" + DefaultProblemListFileName);
-
-        return;
-    }
-
-    // write the problem list data
-    QDataStream dataStream(&file);
-    dataStream << data;
-
-    setProblemMap(Uhunt::problemMapFromData(data));
-    statusBar()->showMessage("Problem list downloaded", 2000);
 }

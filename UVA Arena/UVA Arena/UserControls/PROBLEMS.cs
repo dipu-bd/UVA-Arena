@@ -460,7 +460,7 @@ namespace UVA_Arena.Elements
         private void updateToolButton_Click(object sender, EventArgs e)
         {
             Downloader.DownloadProblemDatabase();
-            Downloader.DownloadCategoryIndexFiles();
+            Downloader.DownloadCategoryIndex();
         }
 
         private void problemContextMenu_Opening(object sender, CancelEventArgs e)

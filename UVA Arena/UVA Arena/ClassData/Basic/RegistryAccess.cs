@@ -195,31 +195,7 @@ namespace UVA_Arena
                 string dat = JsonConvert.SerializeObject(value);
                 SetValue("Favorites", dat);
             }
-        }
-
-        /// <summary>
-        /// Set category tags of a problem
-        /// </summary>
-        /// <param name="pnum">Problem number</param>
-        /// <param name="category">Category tags to store</param>
-        public static void SetTags(long pnum, List<string> category)
-        {
-            string data = JsonConvert.SerializeObject(category);
-            SetValue(pnum.ToString(), data, "Problem Database", RegistryValueKind.String);
-        }
-
-        /// <summary>
-        /// Get category tags to a problem
-        /// </summary>
-        /// <param name="pnum">Problem number</param>
-        /// <returns>A list of category. Empty list if none found.</returns>
-        public static List<string> GetTags(long pnum)
-        {
-            string data = (string)GetValue(pnum.ToString(), "[]", "Problem Database");
-            List<string> tags = JsonConvert.DeserializeObject<List<string>>(data);
-            if (tags == null) tags = new List<string>();
-            return tags;
-        }
+        } 
 
         public static string MinGWCompilerPath
         {

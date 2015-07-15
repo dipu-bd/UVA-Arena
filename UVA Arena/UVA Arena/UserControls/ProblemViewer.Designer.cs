@@ -33,7 +33,7 @@
             this.htmlTab = new System.Windows.Forms.TabPage();
             this.problemWebBrowser = new System.Windows.Forms.WebBrowser();
             this.pdfTab = new System.Windows.Forms.TabPage();
-            this.pdfViewerControl1 = new UVA_Arena.PDFViewerControl();
+            this.pdfViewer1 = new PdfiumViewer.PdfViewer();
             this.submissionTab = new System.Windows.Forms.TabPage();
             this.submissionStatus = new BrightIdeasSoftware.FastObjectListView();
             this.sidSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -74,6 +74,7 @@
             this.nextButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.externalButton = new System.Windows.Forms.ToolStripButton();
+            this.pdfToolButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.codeButton = new System.Windows.Forms.ToolStripButton();
             this.submitButton = new System.Windows.Forms.ToolStripButton();
@@ -81,10 +82,6 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.reloadButton = new System.Windows.Forms.ToolStripButton();
             this.tagsOrNoteToolButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.zoomInButton = new System.Windows.Forms.ToolStripButton();
-            this.zoomOutButton = new System.Windows.Forms.ToolStripButton();
-            this.zoomActualButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.up_downButton = new System.Windows.Forms.Button();
@@ -152,7 +149,7 @@
             // 
             // pdfTab
             // 
-            this.pdfTab.Controls.Add(this.pdfViewerControl1);
+            this.pdfTab.Controls.Add(this.pdfViewer1);
             this.pdfTab.Location = new System.Drawing.Point(4, 30);
             this.pdfTab.Name = "pdfTab";
             this.pdfTab.Size = new System.Drawing.Size(792, 322);
@@ -160,15 +157,16 @@
             this.pdfTab.Text = "PDF";
             this.pdfTab.UseVisualStyleBackColor = true;
             // 
-            // pdfViewerControl1
+            // pdfViewer1
             // 
-            this.pdfViewerControl1.BackColor = System.Drawing.Color.LightCyan;
-            this.pdfViewerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pdfViewerControl1.FileName = null;
-            this.pdfViewerControl1.Location = new System.Drawing.Point(0, 0);
-            this.pdfViewerControl1.Name = "pdfViewerControl1";
-            this.pdfViewerControl1.Size = new System.Drawing.Size(792, 322);
-            this.pdfViewerControl1.TabIndex = 0;
+            this.pdfViewer1.DefaultDocumentName = null;
+            this.pdfViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pdfViewer1.Document = null;
+            this.pdfViewer1.Location = new System.Drawing.Point(0, 0);
+            this.pdfViewer1.Name = "pdfViewer1";
+            this.pdfViewer1.Size = new System.Drawing.Size(792, 322);
+            this.pdfViewer1.TabIndex = 0;
+            this.pdfViewer1.ZoomMode = PdfiumViewer.PdfViewerZoomMode.FitWidth;
             // 
             // submissionTab
             // 
@@ -662,18 +660,15 @@
             this.backButton,
             this.nextButton,
             this.toolStripSeparator1,
-            this.externalButton,
-            this.toolStripSeparator2,
             this.codeButton,
             this.submitButton,
             this.markButton,
             this.toolStripSeparator3,
+            this.externalButton,
+            this.pdfToolButton,
+            this.toolStripSeparator2,
             this.reloadButton,
             this.tagsOrNoteToolButton,
-            this.toolStripSeparator4,
-            this.zoomInButton,
-            this.zoomOutButton,
-            this.zoomActualButton,
             this.toolStripSeparator5});
             this.toolStrip1.Location = new System.Drawing.Point(1, 53);
             this.toolStrip1.Name = "toolStrip1";
@@ -718,6 +713,16 @@
             this.externalButton.Text = "To Web";
             this.externalButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.externalButton.Click += new System.EventHandler(this.externalButton_Click);
+            // 
+            // pdfToolButton
+            // 
+            this.pdfToolButton.Image = global::UVA_Arena.Properties.Resources.pdf;
+            this.pdfToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pdfToolButton.Name = "pdfToolButton";
+            this.pdfToolButton.Size = new System.Drawing.Size(32, 35);
+            this.pdfToolButton.Text = "PDF";
+            this.pdfToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.pdfToolButton.Click += new System.EventHandler(this.pdfToolButton_Click);
             // 
             // toolStripSeparator2
             // 
@@ -783,44 +788,6 @@
             this.tagsOrNoteToolButton.ToolTipText = "Tags or Notes";
             this.tagsOrNoteToolButton.Click += new System.EventHandler(this.tagsOrNoteToolButton_Click);
             // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 38);
-            // 
-            // zoomInButton
-            // 
-            this.zoomInButton.Image = global::UVA_Arena.Properties.Resources.zoom_in;
-            this.zoomInButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.zoomInButton.Name = "zoomInButton";
-            this.zoomInButton.Size = new System.Drawing.Size(45, 35);
-            this.zoomInButton.Text = "Bigger";
-            this.zoomInButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.zoomInButton.ToolTipText = "Zoom In";
-            this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
-            // 
-            // zoomOutButton
-            // 
-            this.zoomOutButton.Image = global::UVA_Arena.Properties.Resources.zoom_out;
-            this.zoomOutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.zoomOutButton.Name = "zoomOutButton";
-            this.zoomOutButton.Size = new System.Drawing.Size(50, 35);
-            this.zoomOutButton.Text = "Smaller";
-            this.zoomOutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.zoomOutButton.ToolTipText = "Zoom Out";
-            this.zoomOutButton.Click += new System.EventHandler(this.zoomOutButton_Click);
-            // 
-            // zoomActualButton
-            // 
-            this.zoomActualButton.Image = global::UVA_Arena.Properties.Resources.zoom_actual;
-            this.zoomActualButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.zoomActualButton.Name = "zoomActualButton";
-            this.zoomActualButton.Size = new System.Drawing.Size(45, 35);
-            this.zoomActualButton.Text = "Actual";
-            this.zoomActualButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.zoomActualButton.ToolTipText = "Actual size";
-            this.zoomActualButton.Click += new System.EventHandler(this.zoomActualButton_Click);
-            // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -834,7 +801,7 @@
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53F));
             this.tableLayoutPanel1.Controls.Add(this.up_downButton, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.problemMessage, 0, 1);
@@ -858,11 +825,11 @@
             this.up_downButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PowderBlue;
             this.up_downButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.up_downButton.Image = global::UVA_Arena.Properties.Resources.moveup;
-            this.up_downButton.Location = new System.Drawing.Point(725, 1);
+            this.up_downButton.Location = new System.Drawing.Point(714, 1);
             this.up_downButton.Margin = new System.Windows.Forms.Padding(0);
             this.up_downButton.Name = "up_downButton";
             this.tableLayoutPanel1.SetRowSpan(this.up_downButton, 2);
-            this.up_downButton.Size = new System.Drawing.Size(42, 51);
+            this.up_downButton.Size = new System.Drawing.Size(53, 51);
             this.up_downButton.TabIndex = 4;
             this.up_downButton.UseVisualStyleBackColor = false;
             this.up_downButton.Click += new System.EventHandler(this.up_downButton_Click);
@@ -877,7 +844,7 @@
             this.titleBox1.Margin = new System.Windows.Forms.Padding(0);
             this.titleBox1.Name = "titleBox1";
             this.titleBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.titleBox1.Size = new System.Drawing.Size(723, 29);
+            this.titleBox1.Size = new System.Drawing.Size(712, 29);
             this.titleBox1.TabIndex = 0;
             this.titleBox1.Text = "No problem selected";
             // 
@@ -891,7 +858,7 @@
             this.problemMessage.Margin = new System.Windows.Forms.Padding(1);
             this.problemMessage.Name = "problemMessage";
             this.problemMessage.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.problemMessage.Size = new System.Drawing.Size(721, 19);
+            this.problemMessage.Size = new System.Drawing.Size(710, 19);
             this.problemMessage.TabIndex = 4;
             this.problemMessage.Tag = "You DID NOT TRY this problem.";
             this.problemMessage.Text = "You DID NOT TRY this problem.";
@@ -1032,11 +999,8 @@
         private ExtendedControls.CustomWebBrowser customWebBrowser1;
         private System.Windows.Forms.TabPage pdfTab;
         private System.Windows.Forms.ToolStripButton tagsOrNoteToolButton;
-        private PDFViewerControl pdfViewerControl1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripButton zoomInButton;
-        private System.Windows.Forms.ToolStripButton zoomOutButton;
-        private System.Windows.Forms.ToolStripButton zoomActualButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private PdfiumViewer.PdfViewer pdfViewer1;
+        private System.Windows.Forms.ToolStripButton pdfToolButton;
     }
 }

@@ -428,6 +428,15 @@ namespace UVA_Arena.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page {0}.
+        /// </summary>
+        internal static string PageNumber {
+            get {
+                return ResourceManager.GetString("PageNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap pascal {
@@ -463,6 +472,16 @@ namespace UVA_Arena.Properties {
         internal static System.Drawing.Bitmap prev {
             get {
                 object obj = ResourceManager.GetObject("prev", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap printer {
+            get {
+                object obj = ResourceManager.GetObject("printer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -538,11 +557,127 @@ namespace UVA_Arena.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not save the PDF file to the specified location..
+        /// </summary>
+        internal static string SaveAsFailedText {
+            get {
+                return ResourceManager.GetString("SaveAsFailedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not save file.
+        /// </summary>
+        internal static string SaveAsFailedTitle {
+            get {
+                return ResourceManager.GetString("SaveAsFailedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDF Files (*.pdf)|*.pdf|All Files (*.*)|*.*.
+        /// </summary>
+        internal static string SaveAsFilter {
+            get {
+                return ResourceManager.GetString("SaveAsFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save As.
+        /// </summary>
+        internal static string SaveAsTitle {
+            get {
+                return ResourceManager.GetString("SaveAsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap search {
             get {
                 object obj = ResourceManager.GetObject("search", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ShadeBorder_E {
+            get {
+                object obj = ResourceManager.GetObject("ShadeBorder_E", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ShadeBorder_N {
+            get {
+                object obj = ResourceManager.GetObject("ShadeBorder_N", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ShadeBorder_NE {
+            get {
+                object obj = ResourceManager.GetObject("ShadeBorder_NE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ShadeBorder_NW {
+            get {
+                object obj = ResourceManager.GetObject("ShadeBorder_NW", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ShadeBorder_S {
+            get {
+                object obj = ResourceManager.GetObject("ShadeBorder_S", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ShadeBorder_SE {
+            get {
+                object obj = ResourceManager.GetObject("ShadeBorder_SE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ShadeBorder_SW {
+            get {
+                object obj = ResourceManager.GetObject("ShadeBorder_SW", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ShadeBorder_W {
+            get {
+                object obj = ResourceManager.GetObject("ShadeBorder_W", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -636,26 +771,6 @@ namespace UVA_Arena.Properties {
         internal static System.Drawing.Bitmap web {
             get {
                 object obj = ResourceManager.GetObject("web", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap zoom_actual {
-            get {
-                object obj = ResourceManager.GetObject("zoom-actual", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap zoom_fit {
-            get {
-                object obj = ResourceManager.GetObject("zoom-fit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

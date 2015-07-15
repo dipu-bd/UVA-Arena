@@ -102,6 +102,12 @@
     <Compile Include="ClassData\Data Structures\UserRanklist.cs" />
     <Compile Include="ClassData\Utilities\UpdateCheck.cs" />
     <Compile Include="ClassData\Utilities\WebBrowserHelper.cs" />
+    <Compile Include="Specials\PdfViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Specials\PdfViewer.Designer.cs">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CodeCompiler.cs" />
     <Compile Include="ClassData\Utilities\Internet.cs">
       <SubType>Code</SubType>
@@ -163,12 +169,6 @@
     </Compile>
     <Compile Include="UserControls\CODES.Designer.cs">
       <DependentUpon>CODES.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\PDFViewerControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\PDFViewerControl.Designer.cs">
-      <DependentUpon>PDFViewerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\PROBLEMS.cs">
       <SubType>UserControl</SubType>
@@ -280,6 +280,15 @@
     <Compile Include="ClassData\Utilities\TaskQueue.cs" />
     <Compile Include="ClassData\Utilities\UnixTimeStamp.cs" />
     <Compile Include="Settings.cs" />
+    <Content Include="x64\pdfium.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\pdfium.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Specials\PdfViewer.resx">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\CodesBrowser.resx">
       <DependentUpon>CodesBrowser.cs</DependentUpon>
     </EmbeddedResource>
@@ -295,9 +304,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\CompareUsers.resx">
       <DependentUpon>CompareUsers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\PDFViewerControl.resx">
-      <DependentUpon>PDFViewerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\PROBLEMS.resx">
       <DependentUpon>PROBLEMS.cs</DependentUpon>
@@ -406,8 +412,9 @@
     <Reference Include="ObjectListView">
       <HintPath>..\..\lib\ObjectListView.DLL</HintPath>
     </Reference>
-    <Reference Include="PDFLibNet">
-      <HintPath>..\..\lib\PDFLibNet.dll</HintPath>
+    <Reference Include="PdfiumViewer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\PdfiumViewer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

@@ -85,11 +85,12 @@ namespace UVA_Arena.Elements
         {
             if (file == null || !File.Exists(file))
             {
-                pdfViewerControl1.CloseFile();
+                pdfViewer1.Enabled = false;
             }
-            else if (pdfViewerControl1.FileName != file)
+            else 
             {
-                pdfViewerControl1.LoadFile(file);
+                pdfViewer1.Enabled = true;
+                pdfViewer1.Document = PdfiumViewer.PdfDocument.Load(file);
             }
         }
 
@@ -178,10 +179,6 @@ namespace UVA_Arena.Elements
         //
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            zoomInButton.Visible = false;
-            zoomOutButton.Visible = false;
-            zoomActualButton.Visible = false; 
-
             if (current == null)
             {
                 e.Cancel = true;
@@ -203,10 +200,7 @@ namespace UVA_Arena.Elements
             }
             else if (tabControl1.SelectedTab == pdfTab)
             {
-                setPdfFile(LocalDirectory.GetProblemPdf(current.pnum));
-                zoomInButton.Visible = true;
-                zoomOutButton.Visible = true;
-                zoomActualButton.Visible = true;
+                setPdfFile(LocalDirectory.GetProblemPdf(current.pnum)); 
             }
         }
 
@@ -405,6 +399,24 @@ namespace UVA_Arena.Elements
             System.Diagnostics.Process.Start(url);
         }
 
+        private void pdfToolButton_Click(object sender, EventArgs e)
+        {
+            if (current == null)
+            {
+                MessageBox.Show("Select a problem first.");
+                return;
+            }
+            string pdf = LocalDirectory.GetProblemPdf(current.pnum);
+            if (LocalDirectory.GetFileSize(pdf) > 200)
+            {
+                System.Diagnostics.Process.Start(pdf);
+            }
+            else
+            {
+                DownloadPdf(current.pnum);
+            }
+        }
+
         private void markButton_Click(object sender, EventArgs e)
         {
             if (current == null)
@@ -429,29 +441,7 @@ namespace UVA_Arena.Elements
         private void markButton_CheckedChanged(object sender, EventArgs e)
         {
             markButton.Text = markButton.Checked ? "Unmark" : "Mark";
-        }
-
-        //
-        // Zoom buttons
-        //
-        private void zoomInButton_Click(object sender, EventArgs e)
-        {
-            pdfViewerControl1.RenderDPI += 10;
-            pdfViewerControl1.ReloadFile();
-        }
-
-        private void zoomOutButton_Click(object sender, EventArgs e)
-        {
-            pdfViewerControl1.RenderDPI -= 10;
-            pdfViewerControl1.ReloadFile();
-        }
-
-        private void zoomActualButton_Click(object sender, EventArgs e)
-        {
-            pdfViewerControl1.RenderDPI = 120;
-            pdfViewerControl1.ReloadFile();
-        }
-         
+        }     
         
         //
         // Show hide toolbar
@@ -901,7 +891,6 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-
-
+        
     }
 }

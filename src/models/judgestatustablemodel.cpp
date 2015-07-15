@@ -24,8 +24,8 @@ void JudgeStatusTableModel::setStatusData(std::shared_ptr<QList<JudgeStatus> > s
     QList<JudgeStatus>::const_iterator end = mStatusData->end();
 
     while (it != end) {
-        it->setProblemNumber(problemMap->value(it->getId()).getNumber());
-        it->setProblemTitle(problemMap->value(it->getId()).getTitle());
+        it->setProblemNumber(problemMap->value(it->getProblemID()).getNumber());
+        it->setProblemTitle(problemMap->value(it->getProblemID()).getTitle());
         ++it;
     }
 

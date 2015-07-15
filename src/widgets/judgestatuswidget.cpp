@@ -26,7 +26,7 @@ public:
             case 8: //rank
             case 9: //submission time
             default:
-                return QBrush(Qt::white);
+                return QBrush(Qt::blue);
             }
 
         default:
@@ -40,6 +40,8 @@ JudgeStatusWidget::JudgeStatusWidget(QWidget *parent) :
     ui(new Ui::JudgeStatusWidget)
 {
     ui->setupUi(this);
+    mStatusTableModel.setModelStyle(std::make_unique<StatusModelStyle>());
+    ui->statusTableView->setModel(&mStatusTableModel);
 }
 
 JudgeStatusWidget::~JudgeStatusWidget()
@@ -49,8 +51,6 @@ JudgeStatusWidget::~JudgeStatusWidget()
 
 void JudgeStatusWidget::initialize()
 {
-    mStatusTableModel.setModelStyle(std::make_unique<StatusModelStyle>());
-    ui->statusTableView->setModel(&mStatusTableModel);
 }
 
 void JudgeStatusWidget::setStatusData(std::shared_ptr<QList<JudgeStatus> > statusData,

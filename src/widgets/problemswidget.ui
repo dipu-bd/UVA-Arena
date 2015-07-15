@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>909</width>
+    <width>906</width>
     <height>531</height>
    </rect>
   </property>
@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="0">
    <item>
-    <widget class="QToolBox" name="toolBox">
+    <widget class="QToolBox" name="problemsWidgetToolbox">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -24,7 +24,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>887</width>
+        <width>884</width>
         <height>447</height>
        </rect>
       </property>
@@ -113,13 +113,13 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_2">
+     <widget class="QWidget" name="problemViewPage">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>109</width>
-        <height>109</height>
+        <width>884</width>
+        <height>447</height>
        </rect>
       </property>
       <attribute name="label">
@@ -127,7 +127,13 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QGraphicsView" name="mProblemsGraphicsView"/>
+        <widget class="QWebView" name="webView">
+         <property name="url">
+          <url>
+           <string>about:blank</string>
+          </url>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -135,6 +141,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebView</class>
+   <extends>QWidget</extends>
+   <header>QtWebKitWidgets/QWebView</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -153,8 +166,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>problemsTableView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>uva::ProblemsWidget</receiver>
+   <slot>showNewProblem(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>589</x>
+     <y>280</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>452</x>
+     <y>265</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>setFilterProblemsBy(QString)</slot>
+  <slot>showNewProblem(QModelIndex)</slot>
  </slots>
 </ui>

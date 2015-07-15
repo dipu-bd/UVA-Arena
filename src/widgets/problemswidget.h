@@ -34,6 +34,8 @@ namespace uva
 
         void setFilterProblemsBy(QString columnName);
 
+        void showNewProblem(QModelIndex index);
+
     private slots:
 
     private:

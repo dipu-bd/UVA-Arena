@@ -1,6 +1,7 @@
 #pragma once
 
 #include "submissionmessage.h"
+#include <QVariant>
 
 namespace uva
 {
@@ -15,12 +16,12 @@ namespace uva
         /*!
           \brief Gets the global submission id.
          */
-        qint64 getId() const { return mID; }
+        quint64 getId() const { return mID; }
         /*!
           \brief Sets the global submission id.
           \param[v] Global submission id.
          */
-        void setId(qint64 v) { mID = v; }
+        void setId(quint64 v) { mID = v; }
 
         /*!
           \brief Get the type of the user.
@@ -35,7 +36,7 @@ namespace uva
 
     private:
         //id: Global submission id
-        qint64 mID;
+        quint64 mID;
         //type: type of submission
         QString mType;
     };

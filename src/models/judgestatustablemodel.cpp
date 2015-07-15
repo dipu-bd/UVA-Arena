@@ -62,11 +62,9 @@ QVariant JudgeStatusTableModel::getDataAtIndex(const QModelIndex &index) const
         return mStatusData->at(index.row()).getFullName();
 
     case 3:
-       // TODO: Get problem number from id
-       return             mStatusData->at(index.row()).getProblemNumber();
+       return mStatusData->at(index.row()).getProblemNumber();
 
     case 4:
-        //TODO: Get prroblem title from id
         return mStatusData->at(index.row()).getProblemID();
 
     case 5:

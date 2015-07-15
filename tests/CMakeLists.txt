@@ -11,6 +11,7 @@ set(TESTS
     codeswidgettest
     judgestatuswidgettest
     categorytest
+    commonstest
 )
 
 foreach(TEST ${TESTS})

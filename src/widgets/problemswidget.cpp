@@ -5,6 +5,8 @@ using namespace uva;
 
 #include "mainwindow.h"
 
+const QString UVAProblemUrl = "https://uva.onlinejudge.org/external/%1/%2.html"; // 1 = container, 2 = problem number
+
 class ProblemModelStyle : public ModelStyle
 {
 public:
@@ -66,8 +68,7 @@ void ProblemsWidget::setProblemsMap(std::shared_ptr<Uhunt::ProblemMap> problemsM
 
 void ProblemsWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)
 {
-    switch (arenaEvent)
-    {
+    switch (arenaEvent) {
     case UVAArenaEvent::UPDATE_STATUS:
         break;
 
@@ -82,4 +83,14 @@ void ProblemsWidget::setFilterProblemsBy(QString columnName)
         mProblemsFilterProxyModel.setFilterKeyColumn(0);
     else if (columnName == "Problem Title")
         mProblemsFilterProxyModel.setFilterKeyColumn(1);
+}
+
+void ProblemsWidget::showNewProblem(QModelIndex index)
+{
+    index = mProblemsFilterProxyModel.mapToSource(index);
+
+    int selectedProblemNumber = index.sibling(index.row(), 0).data().toInt();
+
+    ui->webView->setUrl(QUrl(UVAProblemUrl.arg(selectedProblemNumber / 100).arg(selectedProblemNumber)));
+    ui->problemsWidgetToolbox->setCurrentWidget(ui->problemViewPage);
 }

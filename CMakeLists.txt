@@ -37,13 +37,14 @@ find_package(Qt5Widgets
             REQUIRED 
             HINTS ${Qt5_HINTS_DIRS})
 find_package(Qt5Network HINTS ${Qt5_HINTS_DIRS})
+find_package(Qt5WebKitWidgets HINTS ${Qt5_HINTS_DIRS})
 
 set(UVA_RESOURCES 
     ${PROJECT_SOURCE_DIR}/submodules/QDarkStyleSheet/qdarkstyle/style.qrc
     ${PROJECT_SOURCE_DIR}/images/images.qrc
 )
 
-set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} Qt5::Widgets Qt5::Network)
+set(UVA_DEPENDENCIES ${UVA_DEPENDENCIES} Qt5::Widgets Qt5::Network Qt5::WebKitWidgets)
 
 set(CMAKE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/submodules/mupdf-qt/)
 add_subdirectory(submodules/mupdf-qt)

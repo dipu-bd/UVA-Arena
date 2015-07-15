@@ -15,15 +15,15 @@ JudgeStatus JudgeStatus::fromJsonObject(const QJsonObject &obj)
     JudgeStatus stat;
 
     //id : global id
-    stat.setId(static_cast<qint64>(obj["id"].toDouble()));
+    stat.setId((obj["id"].toVariant()).toULongLong());
     //type: type of submission
     stat.setType(obj["type"].toString());
 
     //get msg object
-    const QJsonObject& data = obj["msg"].toObject();
+    const QJsonObject& data = obj["msg"].toObject();	
 
     //sid: Submission ID
-    stat.setSubmissionID(data["sid"].toInt());
+	stat.setSubmissionID((data["sid"].toVariant()).toLongLong());
     //uid: user id
     stat.setUserID(data["uid"].toInt());
     //pid: Problem ID
@@ -39,7 +39,7 @@ JudgeStatus JudgeStatus::fromJsonObject(const QJsonObject &obj)
     //rank: Submission Rank
     stat.setRank(data["rank"].toInt());
     //sbt: Submission Time (UNIX time stamp)
-    stat.setSubmissionTime(data["sbt"].toInt());
+	stat.setSubmissionTime((data["sbt"].toVariant()).toULongLong());
     //name: full username
     stat.setFullName(data["name"].toString());
     //uname: user name

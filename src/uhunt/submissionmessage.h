@@ -25,13 +25,13 @@ namespace uva
         /*!
             \brief Gets the id of submission.
          */
-        int getSubmissionID() const { return mSubmissionID; }
+		qint64 getSubmissionID() const { return mSubmissionID; }
 
         /*!
            \brief Sets the id of submission.
            \param[in] id ID of Submission.
          */
-        void setSubmissionID(int id) { mSubmissionID = id; }
+		void setSubmissionID(qint64 id) { mSubmissionID = id; }
 
         /*!
             \brief Gets the id of user.
@@ -130,13 +130,13 @@ namespace uva
         /*!
             \brief Gets the time of submission in UNIX timestamp.
          */
-        int getSubmissionTime() const { return mSubmissionTime; }
+		quint64 getSubmissionTime() const { return mSubmissionTime; }
 
         /*!
            \brief Sets the time of submission in UNIX timestamp.
            \param[in] time Time in UNIX timestamp.
          */
-        void setSubmissionTime(int time) { mSubmissionTime = time; }
+		void setSubmissionTime(quint64 time) { mSubmissionTime = time; }
 
         /*!
             \brief Gets the full name of the user.
@@ -186,7 +186,7 @@ namespace uva
 
     private:
         //sid: Submission ID
-        int mSubmissionID;
+        qint64 mSubmissionID;
         //uid: user id
         int mUserID;
         //pid: Problem ID
@@ -202,7 +202,7 @@ namespace uva
         //rank: Submission Rank
         int mRank;
         //sbt: Submission Time (UNIX time stamp)
-        int mSubmissionTime;
+        quint64 mSubmissionTime;
         //name: full username
         QString mFullName;
         //uname: user name

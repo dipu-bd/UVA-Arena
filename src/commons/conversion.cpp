@@ -61,7 +61,7 @@ QString Conversion::getLangaugeName(Language language)
         return "Pascal";
 
     case Language::CPP11:
-        return "C++ 11";
+        return "C++11";
 
     default:
         return "Other";
@@ -74,13 +74,13 @@ QString Conversion::getRuntime(int runtime)
     return QString::number(time, 'f', 3) + "sec";
 }
 
-QString Conversion::getMemory(int memory)
+QString Conversion::getMemory(qint64 memory)
 {
     int index = 0;
     double mem = static_cast<double>(memory);
     while(mem > 1024.0)
     {
-        memory /= 1024.0;
+        mem /= 1024.0;
         index++;
     }
 
@@ -102,8 +102,90 @@ QString Conversion::getMemory(int memory)
     }
 }
 
-QString Conversion::getSubmissionTime(int unixTime)
+QString Conversion::getSubmissionTime(quint64 unixTime)
 {
-    return QString::number(unixTime);
+	QDateTime unix = QDateTime::fromTime_t(unixTime);
+	QDateTime current = QDateTime::currentDateTime();	
+    return getTimeSpan(current, unix) + " ago";
 }
 
+QString Conversion::getTimeSpan(QDateTime first, QDateTime second)
+{    
+    /*
+        This function returns string like "2 years 5 days" or "1 hour 2 mins" or "5 secs".
+    */
+
+    QString out = "";
+	bool space = false;
+
+    qint64 daysTo = abs(first.daysTo(second));
+    qint64 secsTo = abs(first.secsTo(second));
+
+	if (daysTo >= 1)
+	{
+		qint64 year = (qint64)(daysTo / 365);
+		qint64 month = (qint64)((daysTo - year * 365) / 30);
+		qint64 day = (qint64)(daysTo - year * 365 - month * 30);
+
+		if (year > 0)
+		{
+			space = true;
+			out += QString::number(year);
+			if (year > 1) out += " years";
+			else out += " year";
+		}
+		if (month > 0)
+		{
+			if (space) out += " ";
+			space = true;
+			out += QString::number(month);
+			if (month > 1) out += " months";
+			else out += " month";
+		}
+		//add day when total day is less than 30
+		if (daysTo < 30)
+		{
+			if (day > 0)
+			{
+				if (space) out += " ";
+				space = true;
+				out += QString::number(day);
+				if (day > 1) out += " days";
+				else out += " day";
+			}
+		}
+	}
+	else //add hours and minutes when total day is less than 1
+	{
+		qint64 hour = (qint64)(secsTo / 3600);
+		qint64 minute = (qint64)((secsTo - hour * 3600) / 60);
+
+		if (hour > 0)
+		{
+			if (space) out += " ";
+			space = true;
+			out += QString::number(hour);
+			if (hour > 1) out += " hours";
+			else out += " hour";
+		}
+		if (minute > 0)
+		{
+			if (space) out += " ";
+			space = true;
+			out += QString::number(minute);
+			if (minute > 1) out += " mins";
+			else out += " min";
+		}
+		//add seconds when total secs is less than 60
+		if (secsTo < 60)
+		{
+			if (space) out += " ";
+			space = true;
+			out += QString::number(secsTo);
+			if (secsTo > 1) out += " secs";
+			else out += " sec";
+		}
+	}
+
+	return out;
+}

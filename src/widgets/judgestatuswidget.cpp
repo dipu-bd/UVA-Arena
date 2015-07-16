@@ -26,7 +26,7 @@ public:
             case 8: //rank
             case 9: //submission time
             default:
-                return QBrush(Qt::blue);
+                return QBrush(Qt::white);
             }
 
         default:
@@ -42,21 +42,34 @@ JudgeStatusWidget::JudgeStatusWidget(QWidget *parent) :
     ui->setupUi(this);
     mStatusTableModel.setModelStyle(std::make_unique<StatusModelStyle>());
     ui->statusTableView->setModel(&mStatusTableModel);
+
+    mTimer = new QTimer(this);
+    QObject::connect(mTimer, &QTimer::timeout, this, &JudgeStatusWidget::refreshJudgeStatus);
 }
 
 JudgeStatusWidget::~JudgeStatusWidget()
 {
     delete ui;
+    delete mTimer;
 }
 
 void JudgeStatusWidget::initialize()
 {
+    //connect judge status downloaded signal
+    QObject::connect(mUhuntApi.get(), &Uhunt::judgeStatusDownloaded, this, &JudgeStatusWidget::setStatusData);
+
+    mTimer->start(mSettings.getJudgeStatusUpdateInterval());
 }
 
-void JudgeStatusWidget::setStatusData(std::shared_ptr<QList<JudgeStatus> > statusData,
-                                      std::shared_ptr<Uhunt::ProblemMap> problemMap)
+void JudgeStatusWidget::refreshJudgeStatus()
 {
-    mStatusTableModel.setStatusData(statusData, problemMap);
+    mUhuntApi->getJudgeStatus(mStatusTableModel.getLastSubmissionId());
+}
+
+void JudgeStatusWidget::setStatusData(Uhunt::JudgeStatusMap statusData)
+{
+    mStatusTableModel.setStatusData(statusData, mainWindow()->getProblemMap());
+    emit onUVAArenaEvent(UVAArenaEvent::UPDATE_STATUS, "Judge status data updated.");
 }
 
 void JudgeStatusWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)

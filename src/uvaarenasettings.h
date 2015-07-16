@@ -62,6 +62,18 @@ namespace uva
 
         void setMaxProblemsTableRowsToFetch(qint32 numRows);
 
+        /*!
+          \brief Gets the update interval of judge status list.
+          \return Update interval in milliseconds.
+         */
+        int getJudgeStatusUpdateInterval();
+
+        /*!
+          \brief Sets the update interval of judge status list.
+          \param msecs Update interval in milliseconds.
+         */
+        void setJudgeStatusUpdateInterval(int msecs);
+
     private:
         QSettings settings;
     };

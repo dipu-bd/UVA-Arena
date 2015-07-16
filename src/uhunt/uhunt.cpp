@@ -65,9 +65,9 @@ Uhunt::ProblemMap Uhunt::problemMapFromData(const QByteArray& data)
     return problems;
 }
 
-QList<JudgeStatus> Uhunt::judgeStatusFromData(const QByteArray &data)
+Uhunt::JudgeStatusMap Uhunt::judgeStatusFromData(const QByteArray &data)
 {
-    QList<JudgeStatus> status;
+    Uhunt::JudgeStatusMap status;
 
     //get a json document from data
     QJsonDocument jdoc = QJsonDocument::fromJson(data);
@@ -78,7 +78,10 @@ QList<JudgeStatus> Uhunt::judgeStatusFromData(const QByteArray &data)
     while(it != arr.end())
     {
         if(it->isObject())
-            status.push_back(JudgeStatus::fromJsonObject(it->toObject()));
+        {
+            const JudgeStatus& v = JudgeStatus::fromJsonObject(it->toObject());
+            status[v.getSubmissionID()] = v;
+        }
 
         it++;
     }
@@ -205,9 +208,10 @@ void Uhunt::getProblemListAsByteArray()
         });
 }
 
-void Uhunt::getJudgeStatus(int lastSubmissionID)
+void Uhunt::getJudgeStatus(qint64 lastSubmissionID)
 {
-    QNetworkReply* reply = createNetworkRequest(API_JUDGE_STATUS.arg(lastSubmissionID));
+    QNetworkReply* reply =
+            createNetworkRequest(API_JUDGE_STATUS.arg(lastSubmissionID));
 
     if (reply == nullptr)
         return;

@@ -114,6 +114,7 @@ void MainWindow::initialize()
 
 void MainWindow::initializeData()
 {
+    //connect problem list byte downloaded array signal
     QObject::connect(mUhuntApi.get(), &Uhunt::problemListByteArrayDownloaded,
         this, &MainWindow::onProblemListByteArrayDownloaded);
 

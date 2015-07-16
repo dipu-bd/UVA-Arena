@@ -20,7 +20,11 @@ namespace uva
         /*!
             Keys are problem IDs.
         */
-        typedef QMap<int, Problem> ProblemMap;                
+        typedef QMap<int, Problem> ProblemMap;
+        /*!
+            Keys are problem IDs.
+        */
+        typedef QMap<qint64, JudgeStatus> JudgeStatusMap;
 
         /*!
            \brief Uhunt Initialize a new uhunt api object with a given network access manager.
@@ -40,7 +44,7 @@ namespace uva
            \param[data] JSON data in this format: [ {...}, {...}, ... ]
            \return List of JudgeStatus objects.
          */
-        static QList<JudgeStatus> judgeStatusFromData(const QByteArray &data);
+        static JudgeStatusMap judgeStatusFromData(const QByteArray &data);
 
         /*!
            \brief Converts JSON data into a list of RankInfo objects.
@@ -73,7 +77,7 @@ namespace uva
         // signal emitted after problem list is downloaded
         void problemListByteArrayDownloaded(QByteArray);
         //signal emitted after judge status is downloaded
-        void judgeStatusDownloaded(QList<JudgeStatus>);
+        void judgeStatusDownloaded(Uhunt::JudgeStatusMap);
         //signal emitted after user id is downloaded
         void userIdDownloaded(QString userName, int userID);
         //signal emitted after user info is downloaded
@@ -114,10 +118,10 @@ namespace uva
         /*!
            \brief Gets the status current judging queue.
                   Emits judgeStatusDownloaded() when finished.
-           \param[lastSubmissionID] ID of the submission from where the list should begin.
+           \param[in] lastSubmissionID ID of the submission from where the list should begin.
                   The value 0 means latest 100 submissions.
          */
-        void getJudgeStatus(int lastSubmissionID = 0);
+        void getJudgeStatus(qint64 lastSubmissionID = 0);
 
         /*!
            \brief Gets ID of an user from username.
@@ -137,17 +141,17 @@ namespace uva
 
         /*!
            \brief Gets the ranklist centered on the specific user.
-           \param[userId] ID of the user
-           \param[nAbove] Number of users above the userId
-           \param[nBelow] Number of users below the userId
+           \param[in] userId ID of the user
+           \param[in] nAbove Number of users above the userId
+           \param[in] nBelow Number of users below the userId
          */
         void getRankByUser(int userId, int nAbove = 10, int nBelow = 10);
 
         /*!
            \brief Gets the ranklist starting from a certain position.
                   Emits rankByPositionDownloaded() when finished.
-           \param[startPos] Rank from where the list starts.
-           \param[count] Number of users on the list.
+           \param[in] startPos Rank from where the list starts.
+           \param[in] count Number of users on the list.
          */
         void getRankByPosition(int startPos = 1, int count = 100);
 

@@ -3,8 +3,7 @@
 
 using namespace uva;
 
-JudgeStatusTableModel::JudgeStatusTableModel() :
-    mStatusData(nullptr)
+JudgeStatusTableModel::JudgeStatusTableModel()
 {
     insertColumns({
         "SID", "User Name", "Full Name", "Problem Number",
@@ -13,20 +12,24 @@ JudgeStatusTableModel::JudgeStatusTableModel() :
     });
 }
 
-void JudgeStatusTableModel::setStatusData(std::shared_ptr<QList<JudgeStatus> > statusData,
+void JudgeStatusTableModel::setStatusData(Uhunt::JudgeStatusMap statusData,
                                           std::shared_ptr<Uhunt::ProblemMap> problemMap)
 {
     beginResetModel();
 
-    mStatusData = statusData;
+    updateStatusData(statusData);
 
-    QList<JudgeStatus>::iterator it = mStatusData->begin();
-    QList<JudgeStatus>::const_iterator end = mStatusData->end();
+    mRowToId.clear();
 
-    while (it != end) {
+    Uhunt::JudgeStatusMap::iterator it;
+    for(it = mStatusData.begin(); it != mStatusData.end(); ++it) {
+
+        //push to front to reverse the order
+        mRowToId.push_front(it->getSubmissionID());
+
+        //update number and title
         it->setProblemNumber(problemMap->value(it->getProblemID()).getNumber());
         it->setProblemTitle(problemMap->value(it->getProblemID()).getTitle());
-        ++it;
     }
 
     endResetModel();
@@ -34,15 +37,12 @@ void JudgeStatusTableModel::setStatusData(std::shared_ptr<QList<JudgeStatus> > s
 
 int JudgeStatusTableModel::getDataCount() const
 {
-    if (!mStatusData)
-        return 0;
-
-    return mStatusData->count();
+    return mStatusData.count();
 }
 
 QVariant JudgeStatusTableModel::getDataAtIndex(const QModelIndex &index) const
 {
-    if (!mStatusData)
+    if(mRowToId.count() <= index.row())
         return QVariant();
 
     /*
@@ -53,44 +53,67 @@ QVariant JudgeStatusTableModel::getDataAtIndex(const QModelIndex &index) const
 
     switch (index.column()) {
     case 0:
-        return mStatusData->at(index.row()).getSubmissionID();
+        return mStatusData[mRowToId[index.row()]].getSubmissionID();
 
     case 1:
-        return mStatusData->at(index.row()).getUserName();
+        return mStatusData[mRowToId[index.row()]].getUserName();
 
     case 2:
-        return mStatusData->at(index.row()).getFullName();
+        return mStatusData[mRowToId[index.row()]].getFullName();
 
     case 3:
-       return mStatusData->at(index.row()).getProblemNumber();
+       return mStatusData[mRowToId[index.row()]].getProblemNumber();
 
     case 4:
-        return mStatusData->at(index.row()).getProblemID();
+        return mStatusData[mRowToId[index.row()]].getProblemTitle();
 
     case 5:
         return Conversion::getLangaugeName(
-                    mStatusData->value(index.row()).getLanguage()
+                    mStatusData[mRowToId[index.row()]].getLanguage()
                 );
 
     case 6:
         return Conversion::getVerdictName(
-                    mStatusData->at(index.row()).getVerdict()
+                    mStatusData[mRowToId[index.row()]].getVerdict()
                 );
 
     case 7:
         return Conversion::getRuntime(
-                    mStatusData->at(index.row()).getRuntime()
+                    mStatusData[mRowToId[index.row()]].getRuntime()
                     );
 
     case 8:
-        return mStatusData->at(index.row()).getRank();
+        return mStatusData[mRowToId[index.row()]].getRank();
 
     case 9:
         return Conversion::getSubmissionTime(
-                    mStatusData->at(index.row()).getSubmissionTime()
+                    mStatusData[mRowToId[index.row()]].getSubmissionTime()
                     );
 
     }
 
     return QVariant();
+}
+
+qint64 JudgeStatusTableModel::getLastSubmissionId()
+{
+    if(mStatusData.count() > 0)
+        return mStatusData.lastKey();
+    return 0;
+}
+
+void JudgeStatusTableModel::updateStatusData(Uhunt::JudgeStatusMap statusData)
+{
+    //add new data to the list
+    Uhunt::JudgeStatusMap::iterator it;
+    for (it = statusData.begin(); it != statusData.end(); ++it)
+    {
+        mStatusData[it.key()] = it.value();
+    }
+
+    //remove few if status data is > 100
+    while(mStatusData.count() > 100)
+    {
+        mStatusData.remove(mStatusData.firstKey());
+    }
 }

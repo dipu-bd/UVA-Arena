@@ -46,7 +46,7 @@ void showProblemList(const Uhunt::ProblemMap &data)
     }
     cout << "Problem list data shown" << endl;
 }
-void showJudgeStatus(const QList<JudgeStatus>& data)
+void showJudgeStatus(const Uhunt::JudgeStatusMap& data)
 {
     cout << "\nJudge status data: "
          << data.count() << " items" << endl;

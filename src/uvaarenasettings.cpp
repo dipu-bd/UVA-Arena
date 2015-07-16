@@ -15,6 +15,9 @@ const qint64 DefaultMaxDaysUntilProblemListRedownload = 1;
 const QString KeyMaxProblemsTableRowsToFetch = "MaxProblemsListRowsToLoad";
 const qint32 DefaultMaxProblemsTableRowsToFetch = 50;
 
+const QString KeyJudgeStatusUpdateInterval = "JudgeStatusUpdateInterval";
+const qint32 DefaultJudgeStatusUpdateInterval = 3000;
+
 QString UVAArenaSettings::userName()
 {
     return settings.value(KeyUserName, DefaultUserName).toString();
@@ -55,4 +58,15 @@ qint32 UVAArenaSettings::maxProblemsTableRowsToFetch()
 void UVAArenaSettings::setMaxProblemsTableRowsToFetch(qint32 numRows)
 {
     settings.setValue(KeyMaxProblemsTableRowsToFetch, numRows);
+}
+
+int UVAArenaSettings::getJudgeStatusUpdateInterval()
+{
+    return settings.value(KeyJudgeStatusUpdateInterval,
+        DefaultJudgeStatusUpdateInterval).toInt();
+}
+
+void UVAArenaSettings::setJudgeStatusUpdateInterval(int msecs)
+{
+    settings.setValue(KeyJudgeStatusUpdateInterval, msecs);
 }

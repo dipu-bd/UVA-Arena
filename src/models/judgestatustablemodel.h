@@ -3,6 +3,7 @@
 #include "arenatablemodel.h"
 #include "mainwindow.h"
 #include "Uhunt/uhunt.h"
+#include <QList>
 
 namespace uva
 {
@@ -12,8 +13,9 @@ namespace uva
     public:
         JudgeStatusTableModel();
 
-        void setStatusData(std::shared_ptr< QList<JudgeStatus> > statusData,
-            std::shared_ptr<Uhunt::ProblemMap> problemMap);
+        void setStatusData(Uhunt::JudgeStatusMap statusData, std::shared_ptr<Uhunt::ProblemMap> problemMap);
+
+        qint64 getLastSubmissionId();
 
     protected:
 
@@ -23,7 +25,9 @@ namespace uva
 
     private:
 
-        std::shared_ptr< QList<JudgeStatus> > mStatusData;
+        QList<qint64> mRowToId;
+        Uhunt::JudgeStatusMap mStatusData;
 
+        void updateStatusData(Uhunt::JudgeStatusMap statusData);
     };
 }

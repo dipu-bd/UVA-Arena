@@ -5,6 +5,7 @@
 #include "models/judgestatustablemodel.h"
 
 #include <QWidget>
+#include <QTimer>
 
 namespace uva
 {
@@ -23,8 +24,11 @@ namespace uva
 
         virtual void initialize() override;
 
-        void setStatusData(std::shared_ptr<QList<JudgeStatus> > statusData,
-                           std::shared_ptr<Uhunt::ProblemMap> problemMap);
+        void setStatusData(Uhunt::JudgeStatusMap statusData);
+
+        void refreshJudgeStatus();
+
+    protected:
 
     public slots:
 
@@ -33,6 +37,7 @@ namespace uva
     private:
         Ui::JudgeStatusWidget *ui;
         JudgeStatusTableModel mStatusTableModel;
+        QTimer *mTimer;
     };
 
 }

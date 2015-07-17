@@ -41,9 +41,11 @@ namespace uva
 
     private:
 
-        void showPDFByProblemNumber(int problemNumber);
+        void loadPDFByProblemNumber(int problemNumber);
 
-        void downloadPDF(QString url, QString fileName);
+        void downloadPDF(const QString &url, const QString &saveFileName = QString());
+
+        void savePDF(const QString &fileName, const QByteArray &pdfData);
 
         QSortFilterProxyModel mProblemsFilterProxyModel;
         ProblemsTableModel mProblemsTableModel;

@@ -4,7 +4,6 @@
 #include "uvaarenawidget.h"
 #include "models/problemstablemodel.h"
 #include <QWidget>
-#include <mupdf-qt.h>
 
 #include <QWidget>
 #include <QSortFilterProxyModel>
@@ -34,15 +33,21 @@ namespace uva
 
         void setFilterProblemsBy(QString columnName);
 
-        void showNewProblem(QModelIndex index);
+        void showNewProblem(int problemNumber);
 
     private slots:
 
+        void problemsTableDoubleClicked(QModelIndex index);
+
     private:
+
+        void showPDFByProblemNumber(int problemNumber);
+
+        void downloadPDF(QString url, QString fileName);
+
         QSortFilterProxyModel mProblemsFilterProxyModel;
         ProblemsTableModel mProblemsTableModel;
         Ui::ProblemsWidget *ui;
-        MuPDF::Document* pdfDocument;
     };
 
 }

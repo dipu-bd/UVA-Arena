@@ -61,22 +61,22 @@ void MainWindow::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVari
 void MainWindow::onProblemListByteArrayDownloaded(QByteArray data)
 {
     // set the file to save to
-    QString saveDirectory =
-        QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDir saveDirectory(
+        QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)
+    );
 
-    if (!QFile::exists(saveDirectory)) {
-        QDir dirToMake;
-        dirToMake.mkpath(saveDirectory);
-    }
+    if (!saveDirectory.exists())
+        QDir().mkpath(".");
 
-    QFile file(saveDirectory + "/" + DefaultProblemListFileName);
+    QString fileName = saveDirectory.filePath(DefaultProblemListFileName);
+    QFile file(fileName);
 
     if (!file.open(QIODevice::WriteOnly)) {
 
         // couldn't open the file
         QMessageBox::critical(this, "Write failure",
             "Could not write to the default problem list file:\n"
-            + saveDirectory + "/" + DefaultProblemListFileName);
+            + fileName);
 
         return;
     }

@@ -26,11 +26,6 @@ set(UHUNT_SOURCES
     uhunt/usersubmission.cpp
 )
 
-set(OTHER_SOURCES
-    commons/conversion.h
-    commons/conversion.cpp
-)
-
 set(MODELS_SOURCES
     models/arenatablemodel.h
     models/arenatablemodel.cpp
@@ -53,9 +48,13 @@ set(WIDGETS_SOURCES
     widgets/judgestatuswidget.cpp
     widgets/problemswidget.cpp
     widgets/profileswidget.cpp
+    widgets/pdfviewer.h
+    widgets/pdfviewer.cpp
 )
 
 set(MAIN_SOURCES
+    commons/conversion.h
+    commons/conversion.cpp
     mainwindow.h
     mainwindow.cpp
     uvaarenasettings.h

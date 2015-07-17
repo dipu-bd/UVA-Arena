@@ -1,3 +1,9 @@
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QStandardPaths>
+#include <QDir>
+#include <QFile>
+
 #include "problemswidget.h"
 #include "ui_problemswidget.h"
 
@@ -5,7 +11,20 @@ using namespace uva;
 
 #include "mainwindow.h"
 
-const QString UVAProblemUrl = "https://uva.onlinejudge.org/external/%1/%2.html"; // 1 = container, 2 = problem number
+const QString UVAProblemHTMLUrl = "https://uva.onlinejudge.org/external/%1/%2.html"; // 1 = container, 2 = problem number
+const QString UVAProblemPDFUrl = "https://uva.onlinejudge.org/external/%1/%2.pdf"; // 1 = container, 2 = problem number
+
+const QString DefaultWebViewPageHTML =
+"<html>"
+"<head>"
+"<style>"
+"h1 { color: #FFF; text-align: center; font-family: Lora, Times New Roman, serif; }"
+"</style>"
+"</head>"
+"<body>"
+"<h1>Double click a problem from the problem list to view it here.<h1>"
+"</body>"
+"</html>";
 
 class ProblemModelStyle : public ModelStyle
 {
@@ -50,6 +69,8 @@ ProblemsWidget::ProblemsWidget(QWidget *parent) :
         &mProblemsFilterProxyModel, &QSortFilterProxyModel::setFilterFixedString);
 
     ui->problemsTableView->setModel(&mProblemsFilterProxyModel);
+
+    ui->webView->setHtml(DefaultWebViewPageHTML);
 }
 
 ProblemsWidget::~ProblemsWidget()
@@ -85,12 +106,80 @@ void ProblemsWidget::setFilterProblemsBy(QString columnName)
         mProblemsFilterProxyModel.setFilterKeyColumn(1);
 }
 
-void ProblemsWidget::showNewProblem(QModelIndex index)
+void ProblemsWidget::showNewProblem(int problemNumber)
+{
+typedef UVAArenaSettings::ProblemFormat ProblemFormat;
+
+    if (mSettings.problemFormatPreference() == ProblemFormat::HTML) {
+        ui->webView->setUrl(QUrl(UVAProblemHTMLUrl.arg(problemNumber / 100).arg(problemNumber)));
+        ui->problemsWidgetToolbox->setCurrentWidget(ui->problemViewPage);
+        ui->documentTabWidget->setCurrentWidget(ui->documentHTMLTab);
+    } else { // PDF
+
+        showPDFByProblemNumber(problemNumber);
+        ui->problemsWidgetToolbox->setCurrentWidget(ui->problemViewPage);
+        ui->documentTabWidget->setCurrentWidget(ui->documentPDFTab);
+    }
+}
+
+void ProblemsWidget::problemsTableDoubleClicked(QModelIndex index)
 {
     index = mProblemsFilterProxyModel.mapToSource(index);
-
     int selectedProblemNumber = index.sibling(index.row(), 0).data().toInt();
+    showNewProblem(selectedProblemNumber);
+}
 
-    ui->webView->setUrl(QUrl(UVAProblemUrl.arg(selectedProblemNumber / 100).arg(selectedProblemNumber)));
-    ui->problemsWidgetToolbox->setCurrentWidget(ui->problemViewPage);
+void ProblemsWidget::showPDFByProblemNumber(int problemNumber)
+{
+    QDir saveDirectory(
+        QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)
+    );
+
+    if (!saveDirectory.exists())
+        saveDirectory.mkpath(".");
+
+
+    if (!saveDirectory.cd("problems")) {
+        saveDirectory.mkdir("problems");
+        saveDirectory.cd("problems");
+    }
+
+    QString pdfFileName = 
+        saveDirectory.filePath(tr("%1.pdf").arg(problemNumber));
+
+    if (QFile::exists(pdfFileName)) {
+
+        ui->pdfViewer->loadDocument(pdfFileName);
+    } else {
+
+        downloadPDF(
+            UVAProblemPDFUrl.arg(problemNumber / 100).arg(problemNumber)
+            , pdfFileName
+        );
+    }
+}
+
+void ProblemsWidget::downloadPDF(QString url, QString fileName)
+{
+    QNetworkRequest request;
+    request.setUrl(QUrl(url));
+
+    QNetworkReply *reply = mNetworkManager->get(request);
+
+    QObject::connect(reply, &QNetworkReply::finished,
+        [this, reply, fileName]() {
+
+            QFile file(fileName);
+
+            if (file.open(QIODevice::WriteOnly)) {
+
+                QDataStream dataStream(&file);
+                dataStream << reply->readAll();
+                file.close();
+
+                ui->pdfViewer->loadDocument(fileName);
+            }
+
+            reply->deleteLater();
+        });
 }

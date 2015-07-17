@@ -20,6 +20,11 @@ namespace uva
     {
     public:
 
+        enum class ProblemFormat : int {
+            HTML = 0,
+            PDF = 1
+        };
+
         /*!
             \brief Get the currently stored UVA user name.
                    Default is a blank string.
@@ -62,6 +67,10 @@ namespace uva
 
         void setMaxProblemsTableRowsToFetch(qint32 numRows);
 
+        ProblemFormat problemFormatPreference();
+
+        void setProblemFormatPreference(ProblemFormat format);
+
         /*!
           \brief Gets the update interval of judge status list.
           \return Update interval in milliseconds.
@@ -73,6 +82,10 @@ namespace uva
           \param msecs Update interval in milliseconds.
          */
         void setJudgeStatusUpdateInterval(int msecs);
+
+        bool savePDFDocumentsOnDownload();
+
+        void setSavePDFDocumentsOnDownload(bool autosave);
 
     private:
         QSettings settings;

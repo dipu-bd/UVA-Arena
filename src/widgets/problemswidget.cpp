@@ -3,13 +3,13 @@
 #include <QStandardPaths>
 #include <QDir>
 #include <QFile>
+#include <QMessageBox>
 
 #include "problemswidget.h"
 #include "ui_problemswidget.h"
+#include "mainwindow.h"
 
 using namespace uva;
-
-#include "mainwindow.h"
 
 const QString UVAProblemHTMLUrl = "https://uva.onlinejudge.org/external/%1/%2.html"; // 1 = container, 2 = problem number
 const QString UVAProblemPDFUrl = "https://uva.onlinejudge.org/external/%1/%2.pdf"; // 1 = container, 2 = problem number
@@ -71,6 +71,7 @@ ProblemsWidget::ProblemsWidget(QWidget *parent) :
     ui->problemsTableView->setModel(&mProblemsFilterProxyModel);
 
     ui->webView->setHtml(DefaultWebViewPageHTML);
+
 }
 
 ProblemsWidget::~ProblemsWidget()
@@ -116,7 +117,7 @@ typedef UVAArenaSettings::ProblemFormat ProblemFormat;
         ui->documentTabWidget->setCurrentWidget(ui->documentHTMLTab);
     } else { // PDF
 
-        showPDFByProblemNumber(problemNumber);
+        loadPDFByProblemNumber(problemNumber);
         ui->problemsWidgetToolbox->setCurrentWidget(ui->problemViewPage);
         ui->documentTabWidget->setCurrentWidget(ui->documentPDFTab);
     }
@@ -129,7 +130,7 @@ void ProblemsWidget::problemsTableDoubleClicked(QModelIndex index)
     showNewProblem(selectedProblemNumber);
 }
 
-void ProblemsWidget::showPDFByProblemNumber(int problemNumber)
+void ProblemsWidget::loadPDFByProblemNumber(int problemNumber)
 {
     QDir saveDirectory(
         QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)
@@ -137,7 +138,6 @@ void ProblemsWidget::showPDFByProblemNumber(int problemNumber)
 
     if (!saveDirectory.exists())
         saveDirectory.mkpath(".");
-
 
     if (!saveDirectory.cd("problems")) {
         saveDirectory.mkdir("problems");
@@ -147,39 +147,52 @@ void ProblemsWidget::showPDFByProblemNumber(int problemNumber)
     QString pdfFileName = 
         saveDirectory.filePath(tr("%1.pdf").arg(problemNumber));
 
-    if (QFile::exists(pdfFileName)) {
-
+    if (QFile::exists(pdfFileName))
         ui->pdfViewer->loadDocument(pdfFileName);
-    } else {
-
-        downloadPDF(
-            UVAProblemPDFUrl.arg(problemNumber / 100).arg(problemNumber)
-            , pdfFileName
-        );
-    }
+    else
+        downloadPDF(UVAProblemPDFUrl.arg(problemNumber / 100).arg(problemNumber), pdfFileName);
 }
 
-void ProblemsWidget::downloadPDF(QString url, QString fileName)
+void ProblemsWidget::downloadPDF(const QString &url, const QString &saveFileName)
 {
     QNetworkRequest request;
     request.setUrl(QUrl(url));
 
     QNetworkReply *reply = mNetworkManager->get(request);
 
+    if (reply == nullptr)
+        return;
+
     QObject::connect(reply, &QNetworkReply::finished,
-        [this, reply, fileName]() {
+        [this, reply, saveFileName]() {
 
-            QFile file(fileName);
+            if (reply && reply->error() == QNetworkReply::NoError) {
 
-            if (file.open(QIODevice::WriteOnly)) {
+                QByteArray pdfData = reply->readAll();
+                ui->pdfViewer->loadDocument(pdfData);
 
-                QDataStream dataStream(&file);
-                dataStream << reply->readAll();
-                file.close();
-
-                ui->pdfViewer->loadDocument(fileName);
+                if (mSettings.savePDFDocumentsOnDownload() && !saveFileName.isEmpty())
+                    savePDF(saveFileName, pdfData);
             }
 
             reply->deleteLater();
         });
+}
+
+void ProblemsWidget::savePDF(const QString &fileName, const QByteArray& pdfData)
+{
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::WriteOnly)) {
+
+        // couldn't open the file
+        QMessageBox::critical(this, "Write failure",
+            "Could not save pdf file:\n"
+            + fileName);
+
+        return;
+    }
+
+    QDataStream dataStream(&file);
+    dataStream << pdfData;
 }

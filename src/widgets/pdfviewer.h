@@ -19,11 +19,19 @@ namespace uva
 
         int numPages();
 
+        const QByteArray& getPDFData();
+
     public slots:
 
-        void loadDocument(const QByteArray &data);
+        /*!
+            \brief Load a document from a copy of a PDF File raw data.
 
-        void loadDocument(const QString  &filePath);
+            This is a copy because mupdf does not make its own copy
+            of the PDF data.
+        */
+        void loadDocument(QByteArray data);
+
+        void loadDocument(const QString &filePath);
 
         void setPage(int index);
 
@@ -32,6 +40,7 @@ namespace uva
         virtual void paintEvent(QPaintEvent *event);
 
     private:
+        QByteArray mData;
         int mCurrentPageIndex;
         std::unique_ptr<MuPDF::Document> mPdfDocument;
     };

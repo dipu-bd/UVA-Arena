@@ -21,9 +21,15 @@ int PDFViewer::numPages()
     return 0;
 }
 
-void PDFViewer::loadDocument(const QByteArray &data)
+const QByteArray& PDFViewer::getPDFData()
 {
-    mPdfDocument.reset(MuPDF::loadDocument(data));
+    return mData;
+}
+
+void PDFViewer::loadDocument(QByteArray data)
+{
+    mData = std::move(data);
+    mPdfDocument.reset(MuPDF::loadDocument(mData));
 }
 
 void PDFViewer::loadDocument(const QString &filePath)

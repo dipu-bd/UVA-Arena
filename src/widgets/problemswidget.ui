@@ -126,13 +126,58 @@
        <string>Problem View</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="spacing">
+        <number>7</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
-        <widget class="QWebView" name="webView">
-         <property name="url">
-          <url>
-           <string>about:blank</string>
-          </url>
+        <widget class="QTabWidget" name="documentTabWidget">
+         <property name="tabPosition">
+          <enum>QTabWidget::East</enum>
          </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="documentHTMLTab">
+          <attribute name="title">
+           <string>HTML</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QWebView" name="webView">
+             <property name="url">
+              <url>
+               <string>about:blank</string>
+              </url>
+             </property>
+             <property name="renderHints">
+              <set>QPainter::Antialiasing|QPainter::HighQualityAntialiasing|QPainter::SmoothPixmapTransform|QPainter::TextAntialiasing</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="documentPDFTab">
+          <attribute name="title">
+           <string>PDF</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="PDFViewer" name="pdfViewer" native="true"/>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -146,6 +191,12 @@
    <class>QWebView</class>
    <extends>QWidget</extends>
    <header>QtWebKitWidgets/QWebView</header>
+  </customwidget>
+  <customwidget>
+   <class>PDFViewer</class>
+   <extends>QWidget</extends>
+   <header>widgets/pdfviewer.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -170,7 +221,7 @@
    <sender>problemsTableView</sender>
    <signal>doubleClicked(QModelIndex)</signal>
    <receiver>uva::ProblemsWidget</receiver>
-   <slot>showNewProblem(QModelIndex)</slot>
+   <slot>problemsTableDoubleClicked(QModelIndex)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>589</x>
@@ -185,6 +236,7 @@
  </connections>
  <slots>
   <slot>setFilterProblemsBy(QString)</slot>
-  <slot>showNewProblem(QModelIndex)</slot>
+  <slot>showNewProblem(int)</slot>
+  <slot>problemsTableDoubleClicked(QModelIndex)</slot>
  </slots>
 </ui>

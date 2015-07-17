@@ -15,8 +15,15 @@ const qint64 DefaultMaxDaysUntilProblemListRedownload = 1;
 const QString KeyMaxProblemsTableRowsToFetch = "MaxProblemsListRowsToLoad";
 const qint32 DefaultMaxProblemsTableRowsToFetch = 50;
 
+typedef UVAArenaSettings::ProblemFormat ProblemFormat;
+const QString KeyProblemFormatPreference = "ProblemFormatPreference";
+const ProblemFormat DefaultProblemFormatPreference = ProblemFormat::PDF;
+
 const QString KeyJudgeStatusUpdateInterval = "JudgeStatusUpdateInterval";
 const qint32 DefaultJudgeStatusUpdateInterval = 3000;
+
+const QString KeySavePDFDocumentsOnDownload = "SavePDFDocumentsOnDownload";
+const bool DefaultSavePDFDocumentsOnDownload = true;
 
 QString UVAArenaSettings::userName()
 {
@@ -60,6 +67,17 @@ void UVAArenaSettings::setMaxProblemsTableRowsToFetch(qint32 numRows)
     settings.setValue(KeyMaxProblemsTableRowsToFetch, numRows);
 }
 
+ProblemFormat UVAArenaSettings::problemFormatPreference()
+{
+    return (ProblemFormat)settings.value(KeyProblemFormatPreference,
+        (int)DefaultProblemFormatPreference).toInt();
+}
+
+void UVAArenaSettings::setProblemFormatPreference(ProblemFormat format)
+{
+    settings.setValue(KeyProblemFormatPreference, (int)format);
+}
+
 int UVAArenaSettings::getJudgeStatusUpdateInterval()
 {
     return settings.value(KeyJudgeStatusUpdateInterval,
@@ -69,4 +87,15 @@ int UVAArenaSettings::getJudgeStatusUpdateInterval()
 void UVAArenaSettings::setJudgeStatusUpdateInterval(int msecs)
 {
     settings.setValue(KeyJudgeStatusUpdateInterval, msecs);
+}
+
+bool UVAArenaSettings::savePDFDocumentsOnDownload()
+{
+    return settings.value(KeySavePDFDocumentsOnDownload,
+        DefaultSavePDFDocumentsOnDownload).toBool();
+}
+
+void UVAArenaSettings::setSavePDFDocumentsOnDownload(bool autosave)
+{
+    settings.setValue(KeySavePDFDocumentsOnDownload, autosave);
 }

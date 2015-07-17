@@ -1,9 +1,9 @@
 #include "judgestatuswidget.h"
 #include "ui_judgestatuswidget.h"
 #include "mainwindow.h"
+#include "commons/colorizer.h"
 
 using namespace uva;
-
 
 class StatusModelStyle : public ModelStyle
 {
@@ -16,17 +16,28 @@ public:
             switch (index.column())
             {
             case 0: //submission id
+                return QBrush(Colorizer::tan);
             case 1: //username
+                return QBrush(Colorizer::goldenRod);
             case 2: //full name
+                return QBrush(Colorizer::lightCoral);
             case 3: //number
+                return QBrush(Colorizer::antiqueWhite);
             case 4: //title
+                return QBrush(Colorizer::cyan);
             case 5: //language
+                return QBrush(Colorizer::burlyWood);
             case 6: //verdict
+                //TODO: how to get the verdict?
+                return QBrush(Colorizer::getVerdictColor(static_cast<Verdict>(index.data().toInt())));
             case 7: //runtime
-            case 8: //rank
-            case 9: //submission time
+                return QBrush(Colorizer::cornsilk);
+            case 8: //rank                
+                return QBrush(Colorizer::gold);
+            case 9: //submission time                
+                return QBrush(Colorizer::snow);
             default:
-                return QBrush(Qt::white);
+                return QBrush(Colorizer::white);
             }
 
         default:
@@ -50,7 +61,6 @@ JudgeStatusWidget::JudgeStatusWidget(QWidget *parent) :
 JudgeStatusWidget::~JudgeStatusWidget()
 {
     delete ui;
-    delete mTimer;
 }
 
 void JudgeStatusWidget::initialize()

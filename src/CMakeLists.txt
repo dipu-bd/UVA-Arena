@@ -55,6 +55,8 @@ set(WIDGETS_SOURCES
 set(MAIN_SOURCES
     commons/conversion.h
     commons/conversion.cpp
+    commons/colorizer.h
+    commons/colorizer.cpp
     mainwindow.h
     mainwindow.cpp
     uvaarenasettings.h

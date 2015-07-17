@@ -83,7 +83,10 @@ QVariant JudgeStatusTableModel::getDataAtIndex(const QModelIndex &index) const
                     );
 
     case 8:
-        return mStatusData[mRowToId[index.row()]].getRank();
+        if(mStatusData[mRowToId[index.row()]].getRank() < 0)
+            return "-";
+        else
+            return mStatusData[mRowToId[index.row()]].getRank();
 
     case 9:
         return Conversion::getSubmissionTime(

@@ -5,6 +5,7 @@
 
 namespace uva
 {
+    class ArenaTableModel;
 
     /**
         \brief Parent class for custom styles used with ArenaTableModel.
@@ -13,6 +14,7 @@ namespace uva
     {
     public:
 
+        ModelStyle(ArenaTableModel *owner = nullptr);
         /**
             \brief Controls how an item in a view should be styled.
 
@@ -47,6 +49,8 @@ namespace uva
             */
         virtual QVariant Style(const QModelIndex &index, int role);
 
+    protected:
+        ArenaTableModel* mOwner;
     };
 
 }

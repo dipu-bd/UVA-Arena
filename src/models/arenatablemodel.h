@@ -33,7 +33,11 @@ namespace uva
 
         virtual void setLoadAllData(bool shouldLoadAll);
 
+        virtual QVariant getModelDataAtIndex(const QModelIndex &index) const;
+
     protected:
+
+        virtual QVariant getDataAtIndex(const QModelIndex &index) const = 0;
 
         virtual bool insertColumns(QStringList columnNames);
 
@@ -41,7 +45,6 @@ namespace uva
         virtual void fetchMore(const QModelIndex &parent) override;
 
         virtual int getDataCount() const = 0;
-        virtual QVariant getDataAtIndex(const QModelIndex &index) const = 0;
 
     private:
 

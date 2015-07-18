@@ -105,6 +105,52 @@ qint64 JudgeStatusTableModel::getLastSubmissionId()
     return 0;
 }
 
+QVariant JudgeStatusTableModel::getModelDataAtIndex(const QModelIndex &index) const
+{
+    if (mRowToId.count() <= index.row())
+        return QVariant();
+
+    /*
+    "SID", "User Name", "Full Name", "Problem Number",
+    "Problem Title", "Language", "Verdict",
+    "Runtime", "Rank", "Submission Time"
+    */
+
+    switch (index.column()) {
+    case 0:
+        return mStatusData[mRowToId[index.row()]].getSubmissionID();
+
+    case 1:
+        return mStatusData[mRowToId[index.row()]].getUserName();
+
+    case 2:
+        return mStatusData[mRowToId[index.row()]].getFullName();
+
+    case 3:
+        return mStatusData[mRowToId[index.row()]].getProblemNumber();
+
+    case 4:
+        return mStatusData[mRowToId[index.row()]].getProblemTitle();
+
+    case 5:
+        return mStatusData[mRowToId[index.row()]].getLanguage();
+
+    case 6:
+        return mStatusData[mRowToId[index.row()]].getVerdict();
+
+    case 7:
+        return mStatusData[mRowToId[index.row()]].getRuntime();
+
+    case 8:
+        return mStatusData[mRowToId[index.row()]].getRank();
+
+    case 9:
+        return mStatusData[mRowToId[index.row()]].getSubmissionTime();
+    }
+
+    return ArenaTableModel::getModelDataAtIndex(index);
+}
+
 void JudgeStatusTableModel::updateStatusData(Uhunt::JudgeStatusMap statusData)
 {
     //add new data to the list

@@ -20,7 +20,7 @@ const QString KeyProblemFormatPreference = "ProblemFormatPreference";
 const ProblemFormat DefaultProblemFormatPreference = ProblemFormat::PDF;
 
 const QString KeyJudgeStatusUpdateInterval = "JudgeStatusUpdateInterval";
-const qint32 DefaultJudgeStatusUpdateInterval = 3000;
+const qint32 DefaultJudgeStatusUpdateInterval = 10000;
 
 const QString KeySavePDFDocumentsOnDownload = "SavePDFDocumentsOnDownload";
 const bool DefaultSavePDFDocumentsOnDownload = true;

@@ -8,6 +8,11 @@ using namespace uva;
 class StatusModelStyle : public ModelStyle
 {
 public:
+    StatusModelStyle(ArenaTableModel *owner = nullptr)
+        : ModelStyle(owner)
+    {
+    }
+
     virtual QVariant Style(const QModelIndex &index, int role) override
     {
         switch (role)
@@ -28,7 +33,8 @@ public:
             case 5: //language
                 return QBrush(Colorizer::burlyWood);
             case 6: //verdict
-                //TODO: how to get the verdict?
+                if (mOwner)
+                    return QBrush(Colorizer::getVerdictColor((Verdict)mOwner->getModelDataAtIndex(index).toInt()));
             case 7: //runtime
                 return QBrush(Colorizer::cornsilk);
             case 8: //rank                
@@ -50,7 +56,7 @@ JudgeStatusWidget::JudgeStatusWidget(QWidget *parent) :
     ui(new Ui::JudgeStatusWidget)
 {
     ui->setupUi(this);
-    mStatusTableModel.setModelStyle(std::make_unique<StatusModelStyle>());
+    mStatusTableModel.setModelStyle(std::make_unique<StatusModelStyle>(&mStatusTableModel));
     ui->statusTableView->setModel(&mStatusTableModel);
 
     mTimer = new QTimer(this);
@@ -78,12 +84,7 @@ void JudgeStatusWidget::refreshJudgeStatus()
 void JudgeStatusWidget::setStatusData(Uhunt::JudgeStatusMap statusData)
 {
     mStatusTableModel.setStatusData(statusData, mainWindow()->getProblemMap());
-
-    //if current widget is focused update status
-    if(this == mainWindow()->getFocuedWidget())
-    {
-        mainWindow()->onUVAArenaEvent(UVAArenaEvent::UPDATE_STATUS, "Judge status data updated.");
-    }
+    emit newUVAArenaEvent(UVAArenaEvent::UPDATE_STATUS, "Judge Status updated.");
 }
 
 void JudgeStatusWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)

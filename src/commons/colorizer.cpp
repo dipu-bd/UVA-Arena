@@ -88,8 +88,6 @@ QColor Colorizer::getVerdictColor(Verdict verdict)
         return Colorizer::thistle;
 
     case Verdict::RestrictedFunction:
-
-
     case Verdict::RuntimeError:
         return Colorizer::skyBlue;
 

@@ -48,12 +48,12 @@ namespace uva
 
     private:
 
-        qreal mScale;
-
         void setupPages();
 
-        QByteArray mData;
+        qreal mScale;
         int mCurrentPageIndex;
+
+        QByteArray mData;
         std::unique_ptr<MuPDF::Document> mPDFDocument;
         std::vector<std::unique_ptr<MuPDF::Page> > mPages;
 

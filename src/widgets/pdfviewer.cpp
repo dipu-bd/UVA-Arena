@@ -30,6 +30,7 @@ void PDFViewer::loadDocument(QByteArray data)
     mData = std::move(data);
     mPDFDocument.reset(MuPDF::loadDocument(mData));
     setupPages();
+    setPage(1);
 }
 
 void PDFViewer::loadDocument(const QString &filePath)
@@ -38,6 +39,7 @@ void PDFViewer::loadDocument(const QString &filePath)
 
     mPDFDocument.reset(MuPDF::loadDocument(filePath));
     setupPages();
+    setPage(1);
 }
 
 void PDFViewer::setPage(int pageNum)
@@ -51,14 +53,14 @@ void PDFViewer::setPage(int pageNum)
         return;
 
     mCurrentPageIndex = index;
-    resize(mPages[index]->size().toSize());
+    resize(mPages[index]->size().toSize()*mScale);
+    update();
 }
 
 void PDFViewer::clear()
 {
     mPages.clear();
     mPDFDocument.reset(nullptr);
-    mScale = 1.0f;
     mCurrentPageIndex = 0;
 }
 
@@ -84,10 +86,11 @@ void PDFViewer::zoomOut()
 
 void PDFViewer::setZoom(double amount)
 {
+    mScale = amount;
+
     if (!mPDFDocument)
         return;
 
-    mScale = amount;
     update();
     resize((mPages[mCurrentPageIndex]->size()*mScale).toSize());
 }
@@ -116,6 +119,4 @@ void PDFViewer::setupPages()
 {
     for (int i = 0; i < mPDFDocument->numPages(); ++i)
         mPages.push_back(std::unique_ptr<MuPDF::Page>(mPDFDocument->page(i)));
-
-    setPage(1);
 }

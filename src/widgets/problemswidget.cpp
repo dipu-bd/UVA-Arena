@@ -71,6 +71,7 @@ ProblemsWidget::ProblemsWidget(QWidget *parent) :
     ui->problemsTableView->setModel(&mProblemsFilterProxyModel);
 
     ui->webView->setHtml(DefaultWebViewPageHTML);
+    ui->pdfViewer->setZoom(ui->zoomDoubleSpinBox->value());
 }
 
 ProblemsWidget::~ProblemsWidget()

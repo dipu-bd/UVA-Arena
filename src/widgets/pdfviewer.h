@@ -6,6 +6,7 @@
 #include <mupdf-qt.h>
 
 #include <memory>
+#include <vector>
 
 namespace uva
 {
@@ -19,8 +20,6 @@ namespace uva
 
         int numPages();
 
-        const QByteArray& getPDFData();
-
     public slots:
 
         /*!
@@ -33,15 +32,28 @@ namespace uva
 
         void loadDocument(const QString &filePath);
 
-        void setPage(int index);
+        void setPage(int pageNum);
+
+        void clear();
+
+        void zoomIn();
+
+        void zoomOut();
 
     protected:
 
-        virtual void paintEvent(QPaintEvent *event);
+        virtual void paintEvent(QPaintEvent *event) override;
 
     private:
+
+        qreal mScale;
+
+        void setupPages();
+
         QByteArray mData;
         int mCurrentPageIndex;
-        std::unique_ptr<MuPDF::Document> mPdfDocument;
+        std::unique_ptr<MuPDF::Document> mPDFDocument;
+        std::vector<std::unique_ptr<MuPDF::Page> > mPages;
+
     };
 }

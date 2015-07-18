@@ -16,9 +16,9 @@ namespace uva
 
     protected:
 
-        virtual int getDataCount() const;
-
         virtual QVariant getDataAtIndex(const QModelIndex &index) const;
+
+        virtual int getDataCount() const;
 
     private:
 

@@ -43,11 +43,6 @@ std::shared_ptr<Uhunt::ProblemMap> MainWindow::getProblemMap()
     return mProblems;
 }
 
-UVAArenaWidget* MainWindow::getFocuedWidget()
-{
-    return mUVAArenaWidgets[ui->tabWidget->currentIndex()];
-}
-
 void MainWindow::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVariant metaData)
 {
     typedef UVAArenaWidget::UVAArenaEvent UVAArenaEvent;
@@ -55,7 +50,7 @@ void MainWindow::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVari
     switch (arenaEvent)
     {
     case UVAArenaEvent::UPDATE_STATUS:
-        statusBar()->showMessage(metaData.toString());
+        statusBar()->showMessage(metaData.toString(), 2000);
         break;
 
     case UVAArenaEvent::SHOW_PROBLEM:

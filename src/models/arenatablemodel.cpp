@@ -82,6 +82,11 @@ void ArenaTableModel::setLoadAllData(bool shouldLoadAll)
     mLoadAllData = shouldLoadAll;
 }
 
+QVariant ArenaTableModel::getModelDataAtIndex(const QModelIndex &index) const
+{
+    return QVariant();
+}
+
 bool ArenaTableModel::canFetchMore(const QModelIndex &parent) const
 {
     if (mLoadAllData)

@@ -17,6 +17,8 @@ namespace uva
 
         qint64 getLastSubmissionId();
 
+        virtual QVariant getModelDataAtIndex(const QModelIndex &index) const override;
+
     protected:
 
         virtual int getDataCount() const;

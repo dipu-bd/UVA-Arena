@@ -93,7 +93,6 @@ namespace uva
         UVAArenaSettings mSettings;
 
         std::shared_ptr<Uhunt::ProblemMap> mProblems;
-        std::unique_ptr<QMap<int, int> > mProblemIdToNumber;
 
         std::vector<UVAArenaWidget*> mUVAArenaWidgets;
 

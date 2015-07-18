@@ -37,7 +37,7 @@
        <enum>QTabWidget::North</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <property name="iconSize">
        <size>
@@ -82,6 +82,18 @@
         <string>JUDGE STATUS</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="uva::JudgeStatusWidget" name="judgeStatusWidget" native="true"/>
         </item>
@@ -101,15 +113,6 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_5">
-       <attribute name="icon">
-        <iconset resource="../images/images.qrc">
-         <normaloff>:/uva-arena/utility.png</normaloff>:/uva-arena/utility.png</iconset>
-       </attribute>
-       <attribute name="title">
-        <string>UTILITIES</string>
-       </attribute>
-      </widget>
      </widget>
     </item>
    </layout>
@@ -120,7 +123,7 @@
      <x>0</x>
      <y>0</y>
      <width>831</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

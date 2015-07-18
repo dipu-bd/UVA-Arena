@@ -34,6 +34,11 @@ namespace uva
         */
         enum class UVAArenaEvent : int {
             UPDATE_STATUS,
+            SHOW_PROBLEM,
+            SHOW_PROBLEM_DESCRIPTION,
+            SHOW_CODE,
+            SHOW_STATUS,
+            SHOW_PROFILE,
             TOTAL_EVENTS,
         };
 

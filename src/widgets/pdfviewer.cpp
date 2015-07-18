@@ -57,11 +57,16 @@ void PDFViewer::setPage(int pageNum)
 void PDFViewer::clear()
 {
     mPages.clear();
+    mPDFDocument.reset(nullptr);
+    mScale = 1.0f;
     mCurrentPageIndex = 0;
 }
 
 void PDFViewer::zoomIn()
 {
+    if (!mPDFDocument)
+        return;
+
     mScale += 0.1f;
     update();
     resize((mPages[mCurrentPageIndex]->size()*mScale).toSize());
@@ -69,7 +74,20 @@ void PDFViewer::zoomIn()
 
 void PDFViewer::zoomOut()
 {
+    if (!mPDFDocument)
+        return;
+
     mScale -= 0.1f;
+    update();
+    resize((mPages[mCurrentPageIndex]->size()*mScale).toSize());
+}
+
+void PDFViewer::setZoom(double amount)
+{
+    if (!mPDFDocument)
+        return;
+
+    mScale = amount;
     update();
     resize((mPages[mCurrentPageIndex]->size()*mScale).toSize());
 }

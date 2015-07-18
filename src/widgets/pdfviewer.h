@@ -40,6 +40,8 @@ namespace uva
 
         void zoomOut();
 
+        void setZoom(double amount);
+
     protected:
 
         virtual void paintEvent(QPaintEvent *event) override;

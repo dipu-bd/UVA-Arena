@@ -71,7 +71,6 @@ ProblemsWidget::ProblemsWidget(QWidget *parent) :
     ui->problemsTableView->setModel(&mProblemsFilterProxyModel);
 
     ui->webView->setHtml(DefaultWebViewPageHTML);
-
 }
 
 ProblemsWidget::~ProblemsWidget()

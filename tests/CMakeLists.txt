@@ -6,6 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(TESTS
     modelstest
     uhuntqttest
+    pdfviewertest
     profileswidgettest
     problemswidgettest
     codeswidgettest

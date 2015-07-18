@@ -37,6 +37,12 @@ namespace uva
         */
         std::shared_ptr<Uhunt::ProblemMap> getProblemMap();
 
+        /*!
+         * \brief Gets the widget that is currently focused.
+         * \return UVAArenaWidget focused by user.
+         */
+        UVAArenaWidget* getFocuedWidget();
+
     public slots:
 
         /*!

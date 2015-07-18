@@ -11,9 +11,24 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Judge Status</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QTableView" name="statusTableView">
      <property name="editTriggers">
@@ -28,17 +43,17 @@
      <property name="alternatingRowColors">
       <bool>true</bool>
      </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::ExtendedSelection</enum>
-     </property>
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectRows</enum>
+     <property name="gridStyle">
+      <enum>Qt::DashLine</enum>
      </property>
      <attribute name="horizontalHeaderCascadingSectionResizes">
-      <bool>false</bool>
+      <bool>true</bool>
      </attribute>
-     <attribute name="verticalHeaderVisible">
-      <bool>false</bool>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>120</number>
+     </attribute>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
      </attribute>
     </widget>
    </item>

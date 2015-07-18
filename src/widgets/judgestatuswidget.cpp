@@ -29,7 +29,6 @@ public:
                 return QBrush(Colorizer::burlyWood);
             case 6: //verdict
                 //TODO: how to get the verdict?
-                return QBrush(Colorizer::getVerdictColor(static_cast<Verdict>(index.data().toInt())));
             case 7: //runtime
                 return QBrush(Colorizer::cornsilk);
             case 8: //rank                
@@ -79,7 +78,12 @@ void JudgeStatusWidget::refreshJudgeStatus()
 void JudgeStatusWidget::setStatusData(Uhunt::JudgeStatusMap statusData)
 {
     mStatusTableModel.setStatusData(statusData, mainWindow()->getProblemMap());
-    emit onUVAArenaEvent(UVAArenaEvent::UPDATE_STATUS, "Judge status data updated.");
+
+    //if current widget is focused update status
+    if(this == mainWindow()->getFocuedWidget())
+    {
+        mainWindow()->onUVAArenaEvent(UVAArenaEvent::UPDATE_STATUS, "Judge status data updated.");
+    }
 }
 
 void JudgeStatusWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)

@@ -81,9 +81,14 @@ void JudgeStatusWidget::refreshJudgeStatus()
     mUhuntApi->getJudgeStatus(mStatusTableModel.getLastSubmissionId());
 }
 
+void JudgeStatusWidget::setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemMap)
+{
+    mProblemMap = problemMap;
+}
+
 void JudgeStatusWidget::setStatusData(Uhunt::JudgeStatusMap statusData)
 {
-    mStatusTableModel.setStatusData(statusData, mainWindow()->getProblemMap());
+    mStatusTableModel.setStatusData(statusData, mProblemMap);
     emit newUVAArenaEvent(UVAArenaEvent::UPDATE_STATUS, "Judge Status updated.");
 }
 

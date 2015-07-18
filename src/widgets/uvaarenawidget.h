@@ -10,11 +10,6 @@
 
 namespace uva
 {
-    class ProblemsWidget;
-    class CodesWidget;
-    class JudgeStatusWidget;
-    class ProfilesWidget;
-    class MainWindow;
 
 	/*!
 		\brief base class for all UVA-Arena widgets. This class facilitates
@@ -65,66 +60,6 @@ namespace uva
          */
         virtual void setUhuntApi(std::shared_ptr<Uhunt> uhuntApi);
 
-        /*!
-            \brief Get the problemswidget instance to use across all widgets
-         */
-        ProblemsWidget* problemsWidget();
-
-        /*!
-            \brief Set the problemswidget instance to use across all widgets
-
-            \param[in] problemsWidget The ProblemsWidget instance
-         */
-        void setProblemsWidget(ProblemsWidget* problemsWidget);
-
-        /*!
-            \brief Get the codeswidget instance to use across all widgets
-         */
-        CodesWidget* codesWidget();
-
-        /*!
-            \brief Set the codeswidget instance to use across all widgets
-
-            \param[in] codesWidget The CodesWidget instance
-        */
-        void setCodesWidget(CodesWidget* codesWidget);
-
-        /*!
-             \brief Get the judgestatuswidget instance to use across all widgets
-         */
-        JudgeStatusWidget* judgeStatusWidget();
-
-        /*!
-            \brief Set the judgestatuswidget instance to use across all widgets
-
-            \param[in] judgeStatusWidget the JudgeStatusWidget instance
-        */
-        void setJudgeStatusWidget(JudgeStatusWidget* judgeStatusWidget);
-
-        /*!
-             \brief Get the profileswidget instance to use across all widgets
-         */
-        ProfilesWidget* profilesWidget();
-
-        /*!
-             \brief Set the profileswidget instance to use across all widgets
-
-             \param[in] profilesWidget the ProfilesWidget instance
-         */
-        void setProfilesWidget(ProfilesWidget* profilesWidget);
-
-        /*!
-            \brief Get the current mainWindow instance
-        */
-        MainWindow* mainWindow();
-
-        /*!
-            \brief Set the current mainWindow instance
-
-            \param[in] mainWindow the MainWindow instance
-        */
-        void setMainWindow(MainWindow* mainWindow);
-
     signals:
 
         /*!
@@ -156,14 +91,6 @@ namespace uva
         UVAArenaSettings mSettings;
         std::shared_ptr<QNetworkAccessManager> mNetworkManager;
         std::shared_ptr<Uhunt> mUhuntApi;
-
-    private:
-
-        MainWindow* mMainWindow;
-        ProblemsWidget* mProblemsWidget;
-        CodesWidget* mCodesWidget;
-        JudgeStatusWidget* mJudgeStatusWidget;
-        ProfilesWidget* mProfilesWidget;
 
 	};
 

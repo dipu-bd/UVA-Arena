@@ -82,7 +82,7 @@ void ProblemsWidget::initialize()
 {
 }
 
-void ProblemsWidget::setProblemsMap(std::shared_ptr<Uhunt::ProblemMap> problemsMap)
+void ProblemsWidget::setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemsMap)
 {
     mProblemsTableModel.setUhuntProblemMap(problemsMap);
 }

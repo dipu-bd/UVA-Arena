@@ -24,6 +24,8 @@ namespace uva
 
         virtual void initialize() override;
 
+        void setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemMap);
+
         void setStatusData(Uhunt::JudgeStatusMap statusData);
 
         void refreshJudgeStatus();
@@ -35,6 +37,7 @@ namespace uva
         void onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData) override;
 
     private:
+        std::shared_ptr<Uhunt::ProblemMap> mProblemMap;
         Ui::JudgeStatusWidget *ui;
         JudgeStatusTableModel mStatusTableModel;
         QTimer *mTimer;

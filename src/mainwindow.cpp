@@ -107,17 +107,11 @@ void MainWindow::setProblemMap(Uhunt::ProblemMap problemMap)
 {
     mProblems.reset(new Uhunt::ProblemMap);
     *mProblems = std::move(problemMap);
-    mProblemIdToNumber.reset(new QMap<int, int>);
-    mProblemIdToNumber->clear();
 
     Uhunt::ProblemMap::const_iterator it = mProblems->begin();
 
-    while (it != mProblems->end()) {
-        mProblemIdToNumber->insert(it->getID(), it->getNumber());
-        ++it;
-    }
-
-    ui->problemsWidget->setProblemsMap(getProblemMap());
+    ui->problemsWidget->setProblemMap(getProblemMap());
+    ui->judgeStatusWidget->setProblemMap(getProblemMap());
     statusBar()->showMessage("Problem list loaded", 2000);
 }
 
@@ -140,8 +134,7 @@ void MainWindow::initializeData()
     if (result.isEmpty()) {
         // download the problem list and save it
         mUhuntApi->getProblemListAsByteArray();
-    }
-    else {
+    } else {
         // file found, load the data
         loadProblemListFromFile(result);
     }
@@ -160,24 +153,8 @@ void MainWindow::initializeWidgets()
         widget->setNetworkManager(mNetworkManager);
         widget->setUhuntApi(mUhuntApi);
 
-        widget->setMainWindow(this);
-        widget->setProblemsWidget(ui->problemsWidget);
-        widget->setCodesWidget(ui->codesWidget);
-        widget->setJudgeStatusWidget(ui->judgeStatusWidget);
-        widget->setProfilesWidget(ui->profilesWidget);
-
         QObject::connect(widget, &UVAArenaWidget::newUVAArenaEvent,
             this, &MainWindow::onUVAArenaEvent);
-
-        // connect this widget's events to all other widgets
-        // don't allow the widget to connect to itself
-        for (UVAArenaWidget* other : mUVAArenaWidgets) {
-            if (widget == other)
-                continue;
-
-            QObject::connect(widget, &UVAArenaWidget::newUVAArenaEvent,
-                other, &UVAArenaWidget::onUVAArenaEvent);
-        }
 
         widget->initialize();
     }

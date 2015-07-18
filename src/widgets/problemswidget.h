@@ -25,7 +25,7 @@ namespace uva
 
         virtual void initialize() override;
 
-        void setProblemsMap(std::shared_ptr<Uhunt::ProblemMap> problemsMap);
+        void setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemsMap);
 
     public slots:
 

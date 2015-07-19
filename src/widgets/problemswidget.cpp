@@ -147,10 +147,13 @@ void ProblemsWidget::loadPDFByProblemNumber(int problemNumber)
     QString pdfFileName = 
         saveDirectory.filePath(tr("%1.pdf").arg(problemNumber));
 
-    if (QFile::exists(pdfFileName))
+    if (QFile::exists(pdfFileName)) {
         ui->pdfViewer->loadDocument(pdfFileName);
-    else
+        ui->pageNumSpinBox->setSuffix(tr("/%1").arg(ui->pdfViewer->numPages()));
+        ui->pageNumSpinBox->setMaximum(ui->pdfViewer->numPages());
+    } else {
         downloadPDF(UVAProblemPDFUrl.arg(problemNumber / 100).arg(problemNumber), pdfFileName);
+    }
 }
 
 void ProblemsWidget::downloadPDF(const QString &url, const QString &saveFileName)
@@ -170,6 +173,8 @@ void ProblemsWidget::downloadPDF(const QString &url, const QString &saveFileName
 
                 QByteArray pdfData = reply->readAll();
                 ui->pdfViewer->loadDocument(pdfData);
+                ui->pageNumSpinBox->setSuffix(tr("/%1").arg(ui->pdfViewer->numPages()));
+                ui->pageNumSpinBox->setMaximum(ui->pdfViewer->numPages());
 
                 if (mSettings.savePDFDocumentsOnDownload() && !saveFileName.isEmpty())
                     savePDF(saveFileName, pdfData);

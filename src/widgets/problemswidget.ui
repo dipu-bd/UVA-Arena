@@ -17,15 +17,15 @@
    <item>
     <widget class="QToolBox" name="problemsWidgetToolbox">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="categoryAndProblemsPage">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>272</width>
-        <height>142</height>
+        <width>824</width>
+        <height>511</height>
        </rect>
       </property>
       <attribute name="label">
@@ -224,6 +224,22 @@
                </property>
               </spacer>
              </item>
+             <item>
+              <widget class="QSpinBox" name="pageNumSpinBox">
+               <property name="suffix">
+                <string>/1</string>
+               </property>
+               <property name="prefix">
+                <string>Page:</string>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>1</number>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
            <item>
@@ -354,10 +370,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pageNumSpinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>pdfViewer</receiver>
+   <slot>setPage(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>763</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>297</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>setFilterProblemsBy(QString)</slot>
   <slot>showNewProblem(int)</slot>
   <slot>problemsTableDoubleClicked(QModelIndex)</slot>
+  <slot>setPage(int)</slot>
  </slots>
 </ui>

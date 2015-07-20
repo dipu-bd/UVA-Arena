@@ -43,7 +43,11 @@ void PDFViewer::loadDocument(QByteArray data)
     mData = std::move(data);
     mPDFDocument.reset(MuPDF::loadDocument(mData));
     setupPages();
-    setPage(1);
+
+    if (mRenderAllPages)
+        resizeToDocument();
+    else
+        setPage(1);
 }
 
 void PDFViewer::loadDocument(const QString &filePath)
@@ -52,7 +56,11 @@ void PDFViewer::loadDocument(const QString &filePath)
 
     mPDFDocument.reset(MuPDF::loadDocument(filePath));
     setupPages();
-    setPage(1);
+
+    if (mRenderAllPages)
+        resizeToDocument();
+    else
+        setPage(1);
 }
 
 void PDFViewer::setPage(int pageNum)

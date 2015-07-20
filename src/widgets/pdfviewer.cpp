@@ -11,7 +11,10 @@ PDFViewer::PDFViewer(QWidget *parent)
     : QWidget(parent),
       mPDFDocument(nullptr),
       mCurrentPageIndex(0),
-      mScale(1.0f)
+      mMaxWidth(0),
+      mTotalHeight(0),
+      mScale(1.0f),
+      mRenderAllPages(false)
 {
 }
 
@@ -21,6 +24,16 @@ int PDFViewer::numPages()
         return mPDFDocument->numPages();
 
     return 0;
+}
+
+void PDFViewer::resizeToDocument()
+{
+    update();
+
+    if (mRenderAllPages)
+        QWidget::resize(mMaxWidth*mScale, mTotalHeight*mScale);
+    else
+        QWidget::resize(mWidth*mScale, mHeight*mScale);
 }
 
 void PDFViewer::loadDocument(QByteArray data)
@@ -47,14 +60,18 @@ void PDFViewer::setPage(int pageNum)
     if (!mPDFDocument)
         return;
 
+    if (mRenderAllPages)
+        return;
+
     int index = pageNum - 1;
 
     if (index < 0 || index >= mPDFDocument->numPages())
         return;
 
     mCurrentPageIndex = index;
-    resize(mPages[index]->size().toSize()*mScale);
-    update();
+    mWidth = mPages[index]->size().width();
+    mHeight = mPages[index]->size().height();
+    resizeToDocument();
 }
 
 void PDFViewer::clear()
@@ -70,8 +87,7 @@ void PDFViewer::zoomIn()
         return;
 
     mScale += 0.1f;
-    update();
-    resize((mPages[mCurrentPageIndex]->size()*mScale).toSize());
+    resizeToDocument();
 }
 
 void PDFViewer::zoomOut()
@@ -80,8 +96,7 @@ void PDFViewer::zoomOut()
         return;
 
     mScale -= 0.1f;
-    update();
-    resize((mPages[mCurrentPageIndex]->size()*mScale).toSize());
+    resizeToDocument();
 }
 
 void PDFViewer::setZoom(double amount)
@@ -91,24 +106,47 @@ void PDFViewer::setZoom(double amount)
     if (!mPDFDocument)
         return;
 
-    update();
-    resize((mPages[mCurrentPageIndex]->size()*mScale).toSize());
+    resizeToDocument();
+}
+
+void PDFViewer::setRenderAllPages(bool renderAll)
+{
+    mRenderAllPages = renderAll;
+
+    if (!mPDFDocument)
+        return;
+
+    resizeToDocument();
 }
 
 void PDFViewer::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    painter.setRenderHint(QPainter::RenderHint::TextAntialiasing);
 
     if (mPDFDocument) {
         painter.setRenderHint(QPainter::RenderHint::HighQualityAntialiasing);
 
-        if (mPages[mCurrentPageIndex]) {
-            painter.drawImage(QPoint(),
-                mPages[mCurrentPageIndex]->renderImage(mScale, mScale));
+        if (mRenderAllPages) {
+            qreal curHeight = 0;
+            for (size_t i = 0; i < mPages.size(); ++i) {
+                if (mPages[i]) {
+                    painter.drawImage(QPoint(0, curHeight),
+                        mPages[i]->renderImage(mScale, mScale));
+
+                    curHeight += mPages[i]->size().height() * mScale;
+                }
+            }
+
+        } else {
+
+            if (mPages[mCurrentPageIndex]) {
+                painter.drawImage(QPoint(),
+                    mPages[mCurrentPageIndex]->renderImage(mScale, mScale));
+            }
         }
 
     } else {
+        painter.setRenderHint(QPainter::RenderHint::TextAntialiasing);
         painter.setPen(Qt::white);
         painter.setFont(QFont("consolas", 32));
         painter.drawText(rect(), Qt::AlignCenter, "No PDF document loaded");
@@ -117,6 +155,11 @@ void PDFViewer::paintEvent(QPaintEvent *event)
 
 void PDFViewer::setupPages()
 {
-    for (int i = 0; i < mPDFDocument->numPages(); ++i)
+    mMaxWidth = 0;
+    mTotalHeight = 0;
+    for (int i = 0; i < mPDFDocument->numPages(); ++i) {
         mPages.push_back(std::unique_ptr<MuPDF::Page>(mPDFDocument->page(i)));
+        mMaxWidth = qMax(mPages[i]->size().width(), mMaxWidth);
+        mTotalHeight += mPages[i]->size().height();
+    }
 }

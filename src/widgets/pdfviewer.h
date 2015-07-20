@@ -42,6 +42,8 @@ namespace uva
 
         void setZoom(double amount);
 
+        void setRenderAllPages(bool renderAll);
+
     protected:
 
         virtual void paintEvent(QPaintEvent *event) override;
@@ -49,9 +51,15 @@ namespace uva
     private:
 
         void setupPages();
+        void resizeToDocument();
 
+        qreal mWidth;
+        qreal mHeight;
+        qreal mMaxWidth;
+        qreal mTotalHeight;
         qreal mScale;
         int mCurrentPageIndex;
+        bool mRenderAllPages;
 
         QByteArray mData;
         std::unique_ptr<MuPDF::Document> mPDFDocument;

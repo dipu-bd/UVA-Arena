@@ -72,6 +72,7 @@ ProblemsWidget::ProblemsWidget(QWidget *parent) :
 
     ui->webView->setHtml(DefaultWebViewPageHTML);
     ui->pdfViewer->setZoom(ui->zoomDoubleSpinBox->value());
+    ui->pdfViewer->setRenderAllPages(ui->renderAllPagesCheckBox->isChecked());
 }
 
 ProblemsWidget::~ProblemsWidget()

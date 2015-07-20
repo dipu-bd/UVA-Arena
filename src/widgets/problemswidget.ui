@@ -225,6 +225,13 @@
               </spacer>
              </item>
              <item>
+              <widget class="QCheckBox" name="renderAllPagesCheckBox">
+               <property name="text">
+                <string>Render All Pages</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QSpinBox" name="pageNumSpinBox">
                <property name="suffix">
                 <string>/1</string>
@@ -386,11 +393,44 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>renderAllPagesCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pdfViewer</receiver>
+   <slot>setRenderAllPages(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>655</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>297</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>renderAllPagesCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pageNumSpinBox</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>655</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>763</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>setFilterProblemsBy(QString)</slot>
   <slot>showNewProblem(int)</slot>
   <slot>problemsTableDoubleClicked(QModelIndex)</slot>
   <slot>setPage(int)</slot>
+  <slot>setRenderAllPages(bool)</slot>
  </slots>
 </ui>

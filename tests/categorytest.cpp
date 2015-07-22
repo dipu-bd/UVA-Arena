@@ -27,18 +27,19 @@ int main(int argc, char* argv[])
       Category data file
       Download link: https://raw.githubusercontent.com/dipu-bd/uva-problem-category/master/data/CP%20Book3.cat
      */
-    QString file = "CP Book3.cat";
-    if(QFile::exists(file))
-        cout << "File exist." << endl;
-    else
-        cout << "File not exist." << endl;
-
+    QString file = "CP Book 3.cat";
+    if (!QFile::exists(file)) {
+        cout << "File does not exist." << endl;
+        getchar();
+        return 0;
+    }
+        
     //Get category node
     QFile f(file);
     if (!f.open(QFile::ReadOnly | QFile::Text))
         qDebug() << "Error while reading the file";
-    QByteArray json = f.readAll();
-    const QJsonDocument& jdoc = QJsonDocument::fromJson(json);
+
+    const QJsonDocument& jdoc = QJsonDocument::fromJson(f.readAll());
     CategoryNode node = CategoryNode::fromJsonObject(jdoc.object());
 
     cout << node.getName().toStdString() << endl;

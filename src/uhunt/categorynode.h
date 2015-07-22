@@ -13,6 +13,13 @@ namespace uva
     class UVA_EXPORT CategoryNode
     {
     public:
+
+        struct CategoryProblem {
+            QString note;
+            int number;
+            bool star;
+        };
+
         CategoryNode();
 
         //get a new category node from jsonObject
@@ -26,9 +33,9 @@ namespace uva
         void setNote(QString v) { mNote = v; }
 
         //problems
-        QList<Problem> getProblems() { return mProblems.values(); }
+        QList<CategoryProblem> getProblems() { return mProblems.values(); }
         QList<int> getProblemNumbers() { return mProblems.keys(); }
-        void addProblem(Problem prob) { mProblems[prob.getNumber()] = prob; }
+        void addProblem(CategoryProblem prob) { mProblems[prob.number] = prob; }
 
         //branches
         QList<CategoryNode> getCategorNodes() { return mBranches.values(); }
@@ -41,7 +48,7 @@ namespace uva
         //note
         QString mNote;
         //problems
-        QMap<int, Problem> mProblems;
+        QMap<int, CategoryProblem> mProblems;
         //branches
         QMap<QString, CategoryNode> mBranches;
     };

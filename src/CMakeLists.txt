@@ -7,23 +7,20 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(UHUNT_SOURCES
-    uhunt/categorynode.h
-    uhunt/enums.h
-    uhunt/judgestatus.h
-    uhunt/problem.h
-    uhunt/uhunt.h
-    uhunt/userinfo.h
-    uhunt/rankinfo.h
-    uhunt/usersubmission.h
-    uhunt/submissionmessage.h
-    uhunt/categorynode.cpp
-    uhunt/judgestatus.cpp
-    uhunt/problem.cpp
-    uhunt/submissionmessage.cpp
     uhunt/uhunt.cpp
-    uhunt/userinfo.cpp
-    uhunt/rankinfo.cpp
+    uhunt/uhunt.h
+    uhunt/category.h
+    uhunt/category.cpp
+    uhunt/liveevent.h
+    uhunt/liveevent.cpp
+    uhunt/problem.h
+    uhunt/problem.cpp
+    uhunt/usersubmission.h
     uhunt/usersubmission.cpp
+    uhunt/submission.h
+    uhunt/submission.cpp
+    uhunt/userrank.h
+    uhunt/userrank.cpp
 )
 
 set(MODELS_SOURCES
@@ -33,19 +30,19 @@ set(MODELS_SOURCES
     models/problemstablemodel.cpp
     models/modelstyle.h
     models/modelstyle.cpp
-    models/judgestatustablemodel.h
-    models/judgestatustablemodel.cpp
+    models/liveeventstablemodel.h
+    models/liveeventstablemodel.cpp
 )
 
 set(WIDGETS_SOURCES
     widgets/uvaarenawidget.h
     widgets/codeswidget.h
-    widgets/judgestatuswidget.h
+    widgets/liveeventswidget.h
     widgets/problemswidget.h
     widgets/profileswidget.h
     widgets/uvaarenawidget.cpp
     widgets/codeswidget.cpp
-    widgets/judgestatuswidget.cpp
+    widgets/liveeventswidget.cpp
     widgets/problemswidget.cpp
     widgets/profileswidget.cpp
     widgets/pdfviewer.h
@@ -75,7 +72,7 @@ set(ALL_SOURCES
 set(UI_SOURCES
     mainwindow.ui
     widgets/codeswidget.ui
-    widgets/judgestatuswidget.ui
+    widgets/liveeventswidget.ui
     widgets/problemswidget.ui
     widgets/profileswidget.ui
 )

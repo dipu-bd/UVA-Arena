@@ -74,39 +74,40 @@ QColor Colorizer::white = QColor(255,255,255);
 QColor Colorizer::whiteSmoke = QColor(245,245,245);
 QColor Colorizer::yellowGreen = QColor(154,205,50);
 
-QColor Colorizer::getVerdictColor(Verdict verdict)
+QColor Colorizer::getVerdictColor(Submission::Verdict verdict)
 {
+typedef Submission::Verdict Verdict;
     switch(verdict)
     {
-    case Verdict::SubError:
+    case Verdict::SUBMISSION_ERROR:
         return Colorizer::darkSeaGreen;
 
-    case Verdict::CannotBeJudge:
+    case Verdict::CANNOT_BE_JUDGED:
         return Colorizer::bisque;
 
-    case Verdict::CompileError:
+    case Verdict::COMPILE_ERROR:
         return Colorizer::thistle;
 
-    case Verdict::RestrictedFunction:
-    case Verdict::RuntimeError:
+    case Verdict::RESTRICTED_FUNCTION:
+    case Verdict::RUNTIME_ERROR:
         return Colorizer::skyBlue;
 
-    case Verdict::OutputLimit:
+    case Verdict::OUTPUT_LIMIT:
         return Colorizer::lightCoral;
 
-    case Verdict::TimLimit:
+    case Verdict::TIME_LIMIT:
         return Colorizer::khaki;
 
-    case Verdict::MemoryLimit:
+    case Verdict::MEMORY_LIMIT:
         return Colorizer::pink;
 
-    case Verdict::WrongAnswer:
+    case Verdict::WRONG_ANSWER:
         return Colorizer::lawnGreen;
 
-    case Verdict::PresentationError:
+    case Verdict::PRESENTATION_ERROR:
         return Colorizer::lemonChiffon;
 
-    case Verdict::Accepted:
+    case Verdict::ACCEPTED:
         return Colorizer::floralWhite;
 
     default:

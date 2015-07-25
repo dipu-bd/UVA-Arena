@@ -23,246 +23,48 @@ const QByteArray rankData = "[{\"rank\":1,\"old\":0,\"userid\":1133,\"name\":\"J
 
 void showProblemById(Problem problem)
 {
-    cout << "Downloaded problem: " << problem.getTitle().toStdString() << endl
-        << "Number: " << problem.getNumber() << endl
-        << "Id: " << problem.getID() << endl << endl;
+    cout << "Downloaded problem: " << problem.ProblemTitle.toStdString() << endl
+        << "Number: " << problem.ProblemNumber << endl
+        << "Id: " << problem.ProblemID << endl << endl;
 }
 
-void showProblemList(const Uhunt::ProblemMap &data)
+void showProblemList(const QByteArray &data)
 {
+    Uhunt::ProblemMap problems = Uhunt::problemMapFromJson(data);
     cout << "\nProblem List data: "
-         << data.count() << " items" << endl;
+        << problems.count() << " items" << endl;
 
-    int cnt = 0;
-    for (Problem info : data) {
-        if(cnt++ > 20) break;
-        cout << "level=" << info.getLevel()
-             << "\t num=" << info.getNumber()
-             << "\t dacu=" << info.getDACU()
-             << "\t ac=" << info.getAcceptedCount()
-             << "\t total=" << info.getTotalSubmission()
-             << "\t title=" << info.getTitle().toStdString()
+    int count = 0;
+    for (Problem info : problems) {
+        if(count++ > 20) break;
+        cout << "\t num=" << info.ProblemNumber
+             << "\t dacu=" << info.DACU
+             << "\t ac=" << info.AcceptedCount
+             << "\t title=" << info.ProblemTitle.toStdString()
              << endl;
     }
     cout << "Problem list data shown" << endl;
 }
-void showJudgeStatus(const Uhunt::JudgeStatusMap& data)
+
+void TestSampleData()
 {
-    cout << "\nJudge status data: "
-         << data.count() << " items" << endl;
-
-    int cnt = 0;
-    for(JudgeStatus stat : data) {
-        if(cnt++ > 20) break;
-        cout << "sid=" << stat.getSubmissionID()
-             << "\t pnum=" << stat.getProblemNumber()
-             << "\t ver="  << stat.getVerdict()
-             << "\t lan=" << stat.getLanguage()
-             << "\t user=" << stat.getFullName().toStdString()             
-             << "\t ptitle=" << stat.getProblemTitle().toStdString()
-             << endl;
-    }
-    cout << "Judge Status data shown" << endl;
-}
-
-void showUserID(QString uname, int id)
-{
-    cout << uname.toStdString() << " = " << id << endl;
-}
-
-void showUserInfo(const UserInfo& uinfo)
-{
-    cout << "\nUser Info:\n"
-         << "UID = " << uinfo.getUserId()
-         << "\nFull=" << uinfo.getFullName().toStdString()
-         << "\nUser=" << uinfo.getUserName().toStdString()
-         << "\nTotal=" << uinfo.getTotalSubmissionCount()
-         << "\nAC=" << uinfo.getTotalSolvedCount()
-         << "\nLast Sub Id=" << uinfo.getLastSubmissionID()<< "\n";
-    cout << "Submissions: \n";
-
-    int cnt = 0;
-    for(int pnum : uinfo.getSubmissionList().keys()) {
-        const UserSubmission& usub = uinfo.getSubmission(pnum);
-        if(cnt++ > 20) break;
-        cout << "sid=" << usub.getSubmissionID()
-             << "\t pnum=" << usub.getProblemNumber()
-             << "\t ver="  << usub.getVerdict()
-             << "\t lan=" << usub.getLanguage()
-             << "\t ptitle=" << usub.getProblemTitle().toStdString()
-             << endl;
-    }
-
-    cout << "Userinfo data shown" << endl;
-}
-
-void showUserData(const QByteArray& data, int userId, int lastSub)
-{
-    if(lastSub > 0) {
-        UserInfo ui = UserInfo::fromJson(userId, dummyUserInfo);
-        ui.addUserSubmission(data);
-        showUserInfo(ui);
-    } else {
-        UserInfo ui = UserInfo::fromJson(userId, data);
-        showUserInfo(ui);
-    }
-}
-
-void showRankData(const QList<RankInfo>& data)
-{
-    cout << "\nShowing RankInfo data: "
-         << data.count() << " items" << endl;
-
-    int cnt = 0;
-    for(RankInfo info : data) {
-        if(cnt++ > 20) break;
-        cout << "rank=" << info.getRank()
-             << "\t ac=" << info.getAcceptedCount()
-             << "\t 3mon=" << info.getPast3month()
-             << "\t 1year=" << info.getPast1year()
-             << "\t name=" << info.getUserName().toStdString()
-             << endl;
-    }
-    cout << "Judge Status data shown" << endl;
-}
-
-void showSubmissionData(const QList<SubmissionMessage>& data)
-{
-    cout << "\nSubmission Data: "
-         << data.count() << " items" << endl;
-
-    int cnt = 0;
-    for(SubmissionMessage stat : data) {
-        if(cnt++ > 20) break;
-        cout << "sid=" << stat.getSubmissionID()
-             << "\t pnum=" << stat.getProblemNumber()
-             << "\t ver="  << stat.getVerdict()
-             << "\t rank=" << stat.getRank()
-             << "\t sbt=" << stat.getSubmissionTime()
-             << "\t user=" << stat.getUserName().toStdString()
-             << "\t ptitle=" << stat.getProblemTitle().toStdString()
-             << endl;
-    }
-    cout << "Submission data shown" << endl;
-}
-
-void TestSampleData(Uhunt& api)
-{
-    //problem list test
-    showProblemList(Uhunt::problemMapFromData(problemData));
-
-    //judge status test
-    showJudgeStatus(api.judgeStatusFromData(judgeData));
-
-    //user info
-    showUserInfo(UserInfo::fromJson(222248, dummyUserInfo));
-
-    //rank info
-    showRankData(api.rankListFromData(rankData));
-
-    cout << "Sample data test ended\n\n";
+    showProblemList(problemData);
 }
 
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
-
+    // #todo http://doc.qt.io/qt-5/qttestlib-tutorial1-example.html
     //api data
     shared_ptr<QNetworkAccessManager> manager = make_shared<QNetworkAccessManager>();
     Uhunt api(manager);
-
+    
     //connect signal and slots
     QObject::connect(&api, &Uhunt::problemByIdDownloaded, &showProblemById);
-    QObject::connect(&api, &Uhunt::problemListDownloaded, &showProblemList);
-    QObject::connect(&api, &Uhunt::judgeStatusDownloaded, &showJudgeStatus);
-    QObject::connect(&api, &Uhunt::userIdDownloaded, &showUserID);
-    QObject::connect(&api, &Uhunt::userInfoDataDownloaded, &showUserData);
-    QObject::connect(&api, &Uhunt::rankByPositionDownloaded, &showRankData);
-    QObject::connect(&api, &Uhunt::rankByUserDownloaded, &showRankData);
-    QObject::connect(&api, &Uhunt::submissionOnProblemDownloaded,  &showSubmissionData);
-    QObject::connect(&api, &Uhunt::ranklistOnProblemDownloaded,  &showSubmissionData);
-    QObject::connect(&api, &Uhunt::userRankOnProblemDownloaded,  &showSubmissionData);
-    QObject::connect(&api, &Uhunt::userSubmissionOnProblemDownloaded,  &showUserInfo);
+    QObject::connect(&api, &Uhunt::allProblemsDownloaded, &showProblemList);
 
-    //sample test
-    TestSampleData(api);
-
-    //initialize frame
-    QFrame frame;
-    QVBoxLayout verticalLayout;
-    QPushButton pushButton1;
-    QPushButton pushButton2;
-    QPushButton pushButton3;
-    QPushButton pushButton4;
-    QPushButton pushButton5;
-    QPushButton pushButton6;
-    QPushButton pushButton7;
-    QPushButton pushButton8;
-    QPushButton pushButton9;
-    QPushButton pushButton10;
-    QPushButton pushButton11;
-    QPushButton pushButton12;
-    verticalLayout.addWidget(&pushButton1);
-    verticalLayout.addWidget(&pushButton2);
-    verticalLayout.addWidget(&pushButton3);
-    verticalLayout.addWidget(&pushButton4);
-    verticalLayout.addWidget(&pushButton5);
-    verticalLayout.addWidget(&pushButton6);
-    verticalLayout.addWidget(&pushButton7);    
-    verticalLayout.addWidget(&pushButton8);
-    verticalLayout.addWidget(&pushButton9);
-    verticalLayout.addWidget(&pushButton10);
-    verticalLayout.addWidget(&pushButton11);
-    verticalLayout.addWidget(&pushButton12);
-    frame.setLayout(&verticalLayout);
-    frame.setWindowTitle("Unit Test");
-
-    pushButton1.setText("Click here to get userids");
-    QObject::connect(&pushButton1, &QPushButton::clicked,
-        [&]() {
-            cout << "Userids: " << endl;
-            for(QString x : userNames)
-            {
-                api.getUserID(x);
-            }
-        });
-
-    pushButton2.setText("Click here to get judge status");
-    QObject::connect(&pushButton2, &QPushButton::clicked, [&]() { api.getJudgeStatus(); });
-
-    pushButton3.setText("Click here to get problem list");
-    QObject::connect(&pushButton3, &QPushButton::clicked, [&]() { api.getProblemList(); } );
-
-    pushButton4.setText("Click here to get user info");
-    QObject::connect(&pushButton4, &QPushButton::clicked, [&]() { api.getUserInfoData(222248); });
-
-    pushButton5.setText("Click here to update user info data");
-    QObject::connect(&pushButton5, &QPushButton::clicked, [&]() { api.getUserInfoData(222248, 12115648); });
-
-    pushButton6.setText("Click here to get ranklist of specific user");
-    QObject::connect(&pushButton6, &QPushButton::clicked, [&]() { api.getRankByUser(222248); });
-
-    pushButton7.setText("Click here to get ranklist starting from rank-1");
-    QObject::connect(&pushButton7, &QPushButton::clicked, [&]() { api.getRankByPosition(1, 20); });
-
-    pushButton8.setText("Click here to get a problem by it's id");
-    QObject::connect(&pushButton8, &QPushButton::clicked, [&]() { api.getProblemById(36); });
-
-    pushButton9.setText("Get submission on a problems");
-    QObject::connect(&pushButton9, &QPushButton::clicked, [&]() { api.getSubmissionOnProblem(36, 1360753885, 1361358685); });
-
-    pushButton10.setText("Get ranklist from a specific position on a problem");
-    QObject::connect(&pushButton10, &QPushButton::clicked, [&]() { api.getRanklistOnProblem(36, 1, 25); });
-
-    pushButton11.setText("Get ranklist of a specific user on a problem");
-    QObject::connect(&pushButton11, &QPushButton::clicked, [&]() { api.getUserRankOnProblem(36, 222248); });
-
-    pushButton12.setText("Get user submission on a problem");
-    QObject::connect(&pushButton12, &QPushButton::clicked, [&]() { api.getUserSubmissionOnProblem(222248, 36); });
-
-
-    frame.show();
-
+    api.problemById(36);
+    api.allOnlineJudgeProblems();
 
     return app.exec();
 }

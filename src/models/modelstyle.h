@@ -9,7 +9,9 @@ namespace uva
 
     /**
         \brief Parent class for custom styles used with ArenaTableModel.
-        */
+
+        #TODO Make this a part of ArenaTableModel. This doesn't need to be its own class.
+    */
     class UVA_EXPORT ModelStyle
     {
     public:

@@ -4,10 +4,10 @@
 #include <QNetworkAccessManager>
 
 #include "problem.h"
-#include "judgestatus.h"
-#include "userinfo.h"
-#include "rankinfo.h"
+#include "liveevent.h"
+#include "userrank.h"
 #include "usersubmission.h"
+#include "submission.h"
 #include "uvalib_global.h"
 
 namespace uva
@@ -17,180 +17,205 @@ namespace uva
     {
         Q_OBJECT
     public:
-        /*!
-            Keys are problem IDs.
-        */
-        typedef QMap<int, Problem> ProblemMap;
-        /*!
-            Keys are problem IDs.
-        */
-        typedef QMap<qint64, JudgeStatus> JudgeStatusMap;
+
+        typedef QMap<Problem::Key, Problem> ProblemMap;
+
+        typedef QMap<LiveEvent::Key, LiveEvent> LiveEventMap;
 
         /*!
-           \brief Uhunt Initialize a new uhunt api object with a given network access manager.
-           \param[manager] Network access manager used to download data.
+            \brief Initialize the Uhunt object with the application's
+                   QNetworkAccessManager.
+
+            \param[in] manager Network access manager used for the application.
          */
         Uhunt(std::shared_ptr<QNetworkAccessManager> manager);
 
         /*!
-          \brief Convert JSON data into map of problem number to problem info objects.
-          \param[data] JSON data in this format: [ [...], [...], ... ]
-          \return Map of problem number to problem info objects.
-         */
-        static ProblemMap problemMapFromData(const QByteArray &data);
+            \brief Convert JSON data into a ProblemMap
+
+            \param[in] json utf8 formatted json data
+
+            \return A ProblemMap.
+        */
+        static ProblemMap problemMapFromJson(const QByteArray &json);
 
         /*!
-           \brief Convert JSON data into list of JudgeStatus objects.
-           \param[data] JSON data in this format: [ {...}, {...}, ... ]
-           \return List of JudgeStatus objects.
-         */
-        static JudgeStatusMap judgeStatusFromData(const QByteArray &data);
+            \brief Convert JSON data into a LiveEventMap.
+
+            \param[in] json utf8 formatted json data
+
+            \return  A LiveEventMap.
+        */
+        static LiveEventMap liveEventMapFromJson(const QByteArray &json);
 
         /*!
-           \brief Converts JSON data into a list of RankInfo objects.
-           \param[data] JSON data in this format: [ {...}, {...}, ... ]
-           \return List of RankInfo objects.
-         */
-        static QList<RankInfo> rankListFromData(const QByteArray &data);
+            \brief Converts JSON data into a list of UserRank objects.
+
+            \param[in] json utf8 formatted json data.
+
+            \return List of UserRank structs.
+        */
+        static QList<UserRank> userRankingsFromJson(const QByteArray &json);
 
         /*!
-           \brief Converts JSON data into a list of SubmissionMessage objects.
-           \param[data] JSON data in this format: [ {...}, {...}, ... ]
-           \return List of SubmissionMessage objects.
-         */
-        static QList<SubmissionMessage> submissionListFromData(const QByteArray &data);
+            \brief Converts JSON data into a list of user submissions to problems.
+            \param[in] json utf8 formatted json data.
+            \return List of UserSubmission structs.
+        */
+        static QList<UserSubmission> userSubmissionsFromJson(const QByteArray &json);
 
         /*!
-           \brief Convert JSON data into an UserInfo object.
-           \param[userId] ID of the user.
-           \param[data] JSON data in this format: {.., .., [ [..], [..], ...] }
-           \return An UserInfo object.
-         */
-        static UserInfo userSubsOnProblemFromData(int userId, const QByteArray &data);
+            \brief Converts json data into a list of User Submissions.
+        
+            \param json utf8 formatted json data.
+            \param userID UserID of the user
+
+            \return A QList<UserSubmission>
+        */
+        static QList<UserSubmission> userSubmissionsFromJson(const QByteArray &json, int userID);
 
     signals:
 
-        //signal emitted after problem is downloaded
+
         void problemByIdDownloaded(Problem);
-        //signal emitted after problem list is downloaded
-        void problemListDownloaded(Uhunt::ProblemMap);
-        // signal emitted after problem list is downloaded
-        void problemListByteArrayDownloaded(QByteArray);
-        //signal emitted after judge status is downloaded
-        void judgeStatusDownloaded(Uhunt::JudgeStatusMap);
-        //signal emitted after user id is downloaded
-        void userIdDownloaded(QString userName, int userID);
-        //signal emitted after user info is downloaded
-        void userInfoDataDownloaded(const QByteArray& data, int userId, int lastSub);
-        //signal emitted after rank by position is downloaded
-        void rankByPositionDownloaded(QList<RankInfo>);
-        //signal emitted after rank by user is downloaded
-        void rankByUserDownloaded(QList<RankInfo>);
-        //signal emitted after submission list on problem is downloaded
-        void submissionOnProblemDownloaded(QList<SubmissionMessage>);
-        //signal emitted after rank list on problem is downloaded
-        void ranklistOnProblemDownloaded(QList<SubmissionMessage>);
-        //signal emitted after user rank on problem is downloaded
-        void userRankOnProblemDownloaded(QList<SubmissionMessage>);
-        //signal emitted after user submissions on problem is downloaded
-        void userSubmissionOnProblemDownloaded(UserInfo);
+
+        void allProblemsDownloaded(QByteArray);
+
+        void liveEventsDownloaded(Uhunt::LiveEventMap);
+
+        void userIDDownloaded(QString userName, int userID);
+
+        void userSubmissionsJsonDownloaded(QByteArray, int userId, int lastSub);
+
+        void userSubmissionsByUserIDDownloaded(QList<UserSubmission>);
+
+        void userSubmissionsByProblemIDDownloaded(QList<UserSubmission>);
+
+        void userRanksByPositionDownloaded(QList<UserRank>);
+
+        void userRanksByUserIDDownloaded(QList<UserRank>);
+
+        void userSubmissionsByProblemRankDownloaded(QList<UserSubmission>);
+
+        void userRankOnProblemDownloaded(QList<UserSubmission>);
 
     public slots:
 
         /*!
-           \brief Gets a problem by it's id.
-                  Emits problemByIdDownloaded() when finished successfully.
-         */
-        void getProblemById(int id);
+            \brief Accesses the Uhunt API to get get a problem by its id.
+            
+            Emits problemByIdDownloaded() when finished successfully.
+        */
+        void problemById(int problemID);
 
         /*!
-           \brief Gets the problem list.
-                  Emits problemListDownloaded() when finished successfully.
-         */
-        void getProblemList();
-        
-        /*!
-           \brief Gets the problem list as a raw QByteArray. Used for writing to files.
-                  Emits problemListByteArrayDownloaded() when finished successfully.
-         */
-        void getProblemListAsByteArray();
+            \brief Accesses the Uhunt API to get all problem meta data available
+                    in the UVA Online Judge as Json data. Use 
+                    Uhunt::problemMapFromJson() to convert the data.
+            
+            The downloaded json should be saved to a file. This function
+            should not be called often.
+
+            The download is approximately 500kb. Emits allProblemsDownloaded()
+            when finished successfully.
+        */
+        void allOnlineJudgeProblems();
 
         /*!
-           \brief Gets the status current judging queue.
-                  Emits judgeStatusDownloaded() when finished.
-           \param[in] lastSubmissionID ID of the submission from where the list should begin.
-                  The value 0 means latest 100 submissions.
-         */
-        void getJudgeStatus(qint64 lastSubmissionID = 0);
+            \brief  Accesses the Uhunt API to get the live judging queue.
+                    Use the latest live event ID from the downloaded events
+                    for subsequent calls to this function.
+
+            Emits liveEventsDownloaded() when finished.
+
+            \param[in] lastSubmissionID ID of the submission from where the list
+                        should begin. The value 0 means latest 100 submissions.
+        */
+        void liveEvents(quint64 lastSubmissionID = 0);
 
         /*!
-           \brief Gets ID of an user from username.
-                  Emits userIdDownloaded() when finished.
-           \param[userName] Username of the user
-         */
-        void getUserID(const QString& userName);
+            \brief Accesses the Uhunt API to get the ID of a user from
+                   the username.
+
+            Emits userIDDownloaded() when finished.
+
+            \param[in] userName Username of the user.
+        */
+        void userIDFromUserName(const QString& userName);
 
         /*!
-           \brief Gets submissions of an user.
-                  Emits userInfoDataDownloaded() when finished.
-           \param[userId] ID of the user.
-           \param[lastSub] ID of the submission from where the list should begin.
-                  The value 0 means the list will start from beginning.
-         */
-        void getUserInfoData(int userId, int lastSub = 0);
+            \brief Accesses the Uhunt API to get the submissions to problems
+                   of a user from the user's ID.
+
+            Emits userSubmissionsByUserIDDownloaded() when finished.
+
+            \param[in] userID ID of the user.
+            \param[in] lastSub ID of the submission from where the list should
+                       begin. The value 0 means the list should start from
+                       the very first submission.
+        */
+        void userSubmissionsByUserID(int userID, int lastSubmissionID = 0);
 
         /*!
-           \brief Gets the ranklist centered on the specific user.
-           \param[in] userId ID of the user
-           \param[in] nAbove Number of users above the userId
-           \param[in] nBelow Number of users below the userId
-         */
-        void getRankByUser(int userId, int nAbove = 10, int nBelow = 10);
+            \brief Accesses the Uhunt API to get rankings centered on a
+                   specific user.
+
+            set above and below to 0 to get the user with userID's ranking.
+
+            Emits userRanksByUserIDDownloaded() when finished.
+
+            \param[in] userID ID of the user
+            \param[in] nAbove Number of users above the userId
+            \param[in] nBelow Number of users below the userId
+        */
+        void userRanksByUserID(int userID, int above = 10, int below = 10);
 
         /*!
-           \brief Gets the ranklist starting from a certain position.
-                  Emits rankByPositionDownloaded() when finished.
-           \param[in] startPos Rank from where the list starts.
-           \param[in] count Number of users on the list.
-         */
-        void getRankByPosition(int startPos = 1, int count = 100);
+            \brief Accesses the Uhunt API to get user rankings starting from a
+                   certain position, and ending at the starting rank + count - 1.
+
+             Emits userRanksByPositionDownloaded() when finished.
+
+            \param[in] startPos Rank from where the list starts.
+            \param[in] count Number of rankings to retrieve.
+        */
+        void userRanksByPosition(int startPos = 1, int count = 100);
 
         /*!
-           \brief Gets a list of submissions on a specific problem.
-                  Emits submissionOnProblemDownloaded() when finished.
-           \param[problemId] ID of the problem
-           \param[startTime] Time from when to start in UNIX timestamp
-           \param[endTime] Time from when to stop in UNIX timestamp
-         */
-        void getSubmissionOnProblem(int problemId, int startTime, int endTime);
+            \brief Accesses the Uhunt API to get a list of submissions to a
+                    specific problem.
+            
+            Emits userSubmissionsOnProblemDownloaded() when finished.
+
+            \param[in] problemID ID of the problem
+            \param[in] startTime Time from when to start in UNIX timestamp
+            \param[in] endTime Time from when to stop in UNIX timestamp
+        */
+        void userSubmissionsByProblemID(int problemID, quint64 startTime, quint64 endTime);
 
         /*!
-           \brief Gets a list of submissions on a problem focusing rank.
-                  Emits ranklistOnProblemDownloaded() when finished.
-           \param[problemId] ID of the problem.
-           \param[startRank] Rank to start from.
-           \param[count] Number of submissions on the list.
-         */
-        void getRanklistOnProblem(int problemId, int startRank = 1, int count = 25);
+            \brief Accesses the Uhunt API to get a list of user submissions
+                   to a problem based on the users rank to that problem.
+            
+            Emits userSubmissionsByProblemRankDownloaded() when finished.
+
+            \param[in] problemID ID of the problem.
+            \param[in] startRank Rank to start from.
+            \param[in] count Number of submissions on the list.
+        */
+        void userSubmissionsByProblemRank(int problemId, int startRank = 1, int count = 25);
 
         /*!
-           \brief Gets a list of submissions on a problem focusing the rank of an user.
-                  Emits userRankOnProblemDownloaded() when finished.
-           \param[problemId] ID of problem
-           \param[userId] Id of the user
-           \param[nAbove] Number of user listed below
-           \param[nBelow] Number of user listed above
-         */
-        void getUserRankOnProblem(int problemId, int userId, int nAbove = 10, int nBelow = 10);
+            \brief Gets a list of submissions on a problem focusing the rank of an user.
+            
+            Emits userSubmissionsByProblemRankDownloaded() when finished.
 
-        /*!
-           \brief Gets a list of submissions on a problem by specific user.
-                  Emits userSubmissionOnProblemDownloaded() when finished.
-           \param[userId Id] of the user
-           \param[problemId]  ID of problem
-           \param[minSubsID] Minimum submission id from where to begin
-         */
-        void getUserSubmissionOnProblem(int userId, int problemId, int minSubsID = 0);
+            \param[in] problemID ID of the problem
+            \param[in] userID Id of the user
+            \param[in] above Number of user listed below
+            \param[in] below Number of user listed above
+        */
+        //void userSubmissionsByProblem(int problemID, int userId, int above = 10, int below = 10);
 
     private:
 

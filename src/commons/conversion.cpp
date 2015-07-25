@@ -2,41 +2,43 @@
 
 using namespace uva;
 
-QString Conversion::getVerdictName(Verdict verdict)
+QString uva::Conversion::getVerdictName(Submission::Verdict verdict)
 {
+typedef Submission::Verdict Verdict;
+
     switch(verdict)
     {
-    case Verdict::SubError:
+    case Verdict::SUBMISSION_ERROR:
         return "Submission Error";
 
-    case Verdict::CannotBeJudge:
+    case Verdict::CANNOT_BE_JUDGED:
         return "Can not be judged";
 
-    case Verdict::CompileError:
+    case Verdict::COMPILE_ERROR:
         return "Compile Error";
 
-    case Verdict::RestrictedFunction:
+    case Verdict::RESTRICTED_FUNCTION:
         return "Restricted Function";
 
-    case Verdict::RuntimeError:
+    case Verdict::RUNTIME_ERROR:
         return "Runtime Error";
 
-    case Verdict::OutputLimit:
+    case Verdict::OUTPUT_LIMIT:
         return "Output Limit Exceeded";
 
-    case Verdict::TimLimit:
+    case Verdict::TIME_LIMIT:
         return "Time Limit Exceeded";
 
-    case Verdict::MemoryLimit:
+    case Verdict::MEMORY_LIMIT:
         return "Memory Limit Exceeded";
 
-    case Verdict::WrongAnswer:
+    case Verdict::WRONG_ANSWER:
         return "Wrong Answer";
 
-    case Verdict::PresentationError:
+    case Verdict::PRESENTATION_ERROR:
         return "Presentation Error";
 
-    case Verdict::Accepted:
+    case Verdict::ACCEPTED:
         return "Accepted";
 
     default:
@@ -44,20 +46,21 @@ QString Conversion::getVerdictName(Verdict verdict)
     }
 }
 
-QString Conversion::getLangaugeName(Language language)
+QString uva::Conversion::getLanguageName(Submission::Language language)
 {
+typedef Submission::Language Language;
     switch(language)
     {
     case Language::C:
         return "Ansi C";
 
-    case Language::Java:
+    case Language::JAVA:
         return "Java";
 
     case Language::CPP:
         return "C++";
 
-    case Language::Pascal:
+    case Language::PASCAL:
         return "Pascal";
 
     case Language::CPP11:

@@ -100,7 +100,7 @@ void MainWindow::onProblemListByteArrayDownloaded(QByteArray data)
     QDataStream dataStream(&file);
     dataStream << data;
 
-    setProblemMap(Uhunt::problemMapFromData(data));
+    setProblemMap(Uhunt::problemMapFromJson(data));
 }
 
 void MainWindow::setProblemMap(Uhunt::ProblemMap problemMap)
@@ -111,7 +111,7 @@ void MainWindow::setProblemMap(Uhunt::ProblemMap problemMap)
     Uhunt::ProblemMap::const_iterator it = mProblems->begin();
 
     ui->problemsWidget->setProblemMap(getProblemMap());
-    ui->judgeStatusWidget->setProblemMap(getProblemMap());
+    ui->liveEventsWidget->setProblemMap(getProblemMap());
     statusBar()->showMessage("Problem list loaded", 2000);
 }
 
@@ -124,7 +124,7 @@ void MainWindow::initialize()
 void MainWindow::initializeData()
 {
     //connect problem list byte downloaded array signal
-    QObject::connect(mUhuntApi.get(), &Uhunt::problemListByteArrayDownloaded,
+    QObject::connect(mUhuntApi.get(), &Uhunt::allProblemsDownloaded,
         this, &MainWindow::onProblemListByteArrayDownloaded);
 
     // check if problem list is already downloaded
@@ -133,7 +133,7 @@ void MainWindow::initializeData()
 
     if (result.isEmpty()) {
         // download the problem list and save it
-        mUhuntApi->getProblemListAsByteArray();
+        mUhuntApi->allOnlineJudgeProblems();
     } else {
         // file found, load the data
         loadProblemListFromFile(result);
@@ -145,7 +145,7 @@ void MainWindow::initializeWidgets()
     // Initialize all UVAArenaWidgets and connect them
     mUVAArenaWidgets.push_back(ui->problemsWidget);
     mUVAArenaWidgets.push_back(ui->codesWidget);
-    mUVAArenaWidgets.push_back(ui->judgeStatusWidget);
+    mUVAArenaWidgets.push_back(ui->liveEventsWidget);
     mUVAArenaWidgets.push_back(ui->profilesWidget);
 
     for (UVAArenaWidget* widget : mUVAArenaWidgets) {
@@ -182,7 +182,7 @@ void MainWindow::loadProblemListFromFile(QString fileName)
                             > mSettings.maxDaysUntilProblemListRedownload()) {
 
         // the problem list file is too old, redownload it
-        mUhuntApi->getProblemListAsByteArray();
+        mUhuntApi->allOnlineJudgeProblems();
 
         return;
     }
@@ -192,5 +192,5 @@ void MainWindow::loadProblemListFromFile(QString fileName)
 
     dataStream >> data;
 
-    setProblemMap(Uhunt::problemMapFromData(data));
+    setProblemMap(Uhunt::problemMapFromJson(data));
 }

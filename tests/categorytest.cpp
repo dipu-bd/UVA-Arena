@@ -13,7 +13,7 @@
 
 #include "mainwindow.h"
 #include "uhunt/uhunt.h"
-#include "uhunt/categorynode.h"
+#include "uhunt/category.h"
 
 using namespace std;
 using namespace uva;

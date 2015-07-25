@@ -1,9 +1,9 @@
 #pragma once
 
-#include "uhunt/enums.h"
 #include "uvalib_global.h"
 #include <QVariant>
 #include <QDateTime>
+#include "uhunt/submission.h"
 
 namespace uva
 {
@@ -14,18 +14,18 @@ namespace uva
     class UVA_EXPORT Conversion
     {
     public:
-	
+
 		/*!
 			\brief Get verdict name from Verdict.
 			\param[in] verdict Enum value of verdict.
 		 */
-        static QString getVerdictName(Verdict verdict);
+        static QString getVerdictName(Submission::Verdict verdict);
 
 		/*!
 			\brief Get language name from language.
 			\param[in] language Enum value of language.
 		*/
-        static QString getLangaugeName(Language language);
+        static QString getLanguageName(Submission::Language language);
 
 		/*! 
 			\brief Get runtime converted into second upto three decimal points.

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "uhunt/enums.h"
 #include "uvalib_global.h"
 #include <QVariant>
 #include <QColor>
+#include <uhunt/submission.h>
 
 namespace uva
 {
@@ -93,7 +93,7 @@ namespace uva
           \param[in] verdict Verdict to get color of.
           \return QColor representing the color of the verdict.
          */
-        static QColor getVerdictColor(Verdict verdict);
+        static QColor getVerdictColor(Submission::Verdict verdict);
 
     };
 }

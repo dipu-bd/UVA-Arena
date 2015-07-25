@@ -1,5 +1,5 @@
-#include "judgestatuswidget.h"
-#include "ui_judgestatuswidget.h"
+#include "liveeventswidget.h"
+#include "ui_liveeventswidget.h"
 #include "mainwindow.h"
 #include "commons/colorizer.h"
 
@@ -34,7 +34,7 @@ public:
                 return QBrush(Colorizer::burlyWood);
             case 6: //verdict
                 if (mOwner)
-                    return QBrush(Colorizer::getVerdictColor((Verdict)mOwner->getModelDataAtIndex(index).toInt()));
+                    return QBrush(Colorizer::getVerdictColor((Submission::Verdict)mOwner->getModelDataAtIndex(index).toInt()));
             case 7: //runtime
                 return QBrush(Colorizer::cornsilk);
             case 8: //rank                
@@ -51,48 +51,51 @@ public:
     }
 };
 
-JudgeStatusWidget::JudgeStatusWidget(QWidget *parent) :
+LiveEventsWidget::LiveEventsWidget(QWidget *parent) :
     UVAArenaWidget(parent),
-    ui(new Ui::JudgeStatusWidget)
+    ui(new Ui::LiveEventsWidget)
 {
     ui->setupUi(this);
     mStatusTableModel.setModelStyle(std::make_unique<StatusModelStyle>(&mStatusTableModel));
     ui->statusTableView->setModel(&mStatusTableModel);
 
     mTimer = new QTimer(this);
-    QObject::connect(mTimer, &QTimer::timeout, this, &JudgeStatusWidget::refreshJudgeStatus);
+    QObject::connect(mTimer, &QTimer::timeout, this, &LiveEventsWidget::refreshJudgeStatus);
 }
 
-JudgeStatusWidget::~JudgeStatusWidget()
+LiveEventsWidget::~LiveEventsWidget()
 {
     delete ui;
 }
 
-void JudgeStatusWidget::initialize()
+void LiveEventsWidget::initialize()
 {
     //connect judge status downloaded signal
-    QObject::connect(mUhuntApi.get(), &Uhunt::judgeStatusDownloaded, this, &JudgeStatusWidget::setStatusData);
+    QObject::connect(mUhuntApi.get(), 
+        &Uhunt::liveEventsDownloaded, 
+        this, 
+        &LiveEventsWidget::setStatusData);
 
     mTimer->start(mSettings.getJudgeStatusUpdateInterval());
 }
 
-void JudgeStatusWidget::refreshJudgeStatus()
+void LiveEventsWidget::refreshJudgeStatus()
 {
-    mUhuntApi->getJudgeStatus(mStatusTableModel.getLastSubmissionId());
+    mUhuntApi->liveEvents(mStatusTableModel.getLastSubmissionId());
 }
 
-void JudgeStatusWidget::setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemMap)
+void LiveEventsWidget::setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemMap)
 {
-    mProblemMap = problemMap;
+    mStatusTableModel.setProblemMap(problemMap);
 }
 
-void JudgeStatusWidget::setStatusData(Uhunt::JudgeStatusMap statusData)
+void LiveEventsWidget::setStatusData(Uhunt::LiveEventMap statusData)
 {
-    mStatusTableModel.setStatusData(statusData, mProblemMap);
+    mStatusTableModel.setStatusData(statusData);
     emit newUVAArenaEvent(UVAArenaEvent::UPDATE_STATUS, "Judge Status updated.");
 }
 
-void JudgeStatusWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)
+void LiveEventsWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)
 {
     switch (arenaEvent)
     {

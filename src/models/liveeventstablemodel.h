@@ -4,16 +4,19 @@
 #include "mainwindow.h"
 #include "Uhunt/uhunt.h"
 #include <QList>
+#include <memory>
 
 namespace uva
 {
 
-    class UVA_EXPORT JudgeStatusTableModel : public ArenaTableModel
+    class UVA_EXPORT LiveEventsTableModel : public ArenaTableModel
     {
     public:
-        JudgeStatusTableModel();
+        LiveEventsTableModel();
 
-        void setStatusData(Uhunt::JudgeStatusMap statusData, std::shared_ptr<Uhunt::ProblemMap> problemMap);
+        void setStatusData(Uhunt::LiveEventMap statusData);
+
+        void setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemMap);
 
         qint64 getLastSubmissionId();
 
@@ -28,8 +31,7 @@ namespace uva
     private:
 
         QList<qint64> mRowToId;
-        Uhunt::JudgeStatusMap mStatusData;
-
-        void updateStatusData(Uhunt::JudgeStatusMap statusData);
+        Uhunt::LiveEventMap mStatusData;
+        std::shared_ptr<Uhunt::ProblemMap> mProblemMap;
     };
 }

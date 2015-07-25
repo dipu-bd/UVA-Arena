@@ -6,9 +6,9 @@ ProblemsTableModel::ProblemsTableModel()
     : mProblemMap(nullptr)
 {
     insertColumns({ 
-        "Problem Number", "Problem Title", "Level", "DACU",
-        "Time Limit", "Best", "Total Submissions",
-        "# Accepted", "# Wrong Answers" 
+        "Problem Number", "Problem Title", "DACU",
+        "Time Limit", "Best", "# Accepted",
+        "# Wrong Answers"
     });
 }
 
@@ -25,7 +25,7 @@ void ProblemsTableModel::setUhuntProblemMap(std::shared_ptr<Uhunt::ProblemMap> p
 
     int row = 0;
     while (it != end) {
-        mRowToId.insert(row++, it->getID());
+        mRowToId.insert(row++, it->ProblemID);
         it++;
     }
     endResetModel();
@@ -45,38 +45,33 @@ QVariant ProblemsTableModel::getDataAtIndex(const QModelIndex &index) const
         return QVariant();
 
     /*
-        "Problem Number", "Problem Title", "Level", "DACU",
+        "Problem Number", "Problem Title", "DACU",
        "Time Limit", "Best", "Total Submissions",
        "# Accepted", "# Wrong Answers"
     */
 
+    // #TODO use something better than a switch here
     switch (index.column()) {
     case 0:
-        return mProblemMap->value(mRowToId[index.row()]).getNumber();
+        return mProblemMap->value(mRowToId[index.row()]).ProblemNumber;
 
     case 1:
-        return mProblemMap->value(mRowToId[index.row()]).getTitle();
+        return mProblemMap->value(mRowToId[index.row()]).ProblemTitle;
 
     case 2:
-        return mProblemMap->value(mRowToId[index.row()]).getLevel();
+        return mProblemMap->value(mRowToId[index.row()]).DACU;
 
     case 3:
-        return mProblemMap->value(mRowToId[index.row()]).getDACU();
+        return mProblemMap->value(mRowToId[index.row()]).RuntimeLimit;
 
     case 4:
-        return mProblemMap->value(mRowToId[index.row()]).getRuntimeLimit();
+        return mProblemMap->value(mRowToId[index.row()]).BestRuntime;
 
     case 5:
-        return mProblemMap->value(mRowToId[index.row()]).getBestRuntime();
+        return mProblemMap->value(mRowToId[index.row()]).AcceptedCount;
 
     case 6:
-        return mProblemMap->value(mRowToId[index.row()]).getTotalSubmission();
-
-    case 7:
-        return mProblemMap->value(mRowToId[index.row()]).getAcceptedCount();
-
-    case 8:
-        return mProblemMap->value(mRowToId[index.row()]).getWrongAnswerCount();
+        return mProblemMap->value(mRowToId[index.row()]).WrongAnswerCount;
     }
 
     return QVariant();

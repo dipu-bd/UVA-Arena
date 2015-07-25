@@ -79,7 +79,7 @@
          <normaloff>:/uva-arena/status.png</normaloff>:/uva-arena/status.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>JUDGE STATUS</string>
+        <string>LIVE EVENTS</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <property name="leftMargin">
@@ -95,7 +95,7 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="uva::JudgeStatusWidget" name="judgeStatusWidget" native="true"/>
+         <widget class="uva::LiveEventsWidget" name="liveEventsWidget" native="true"/>
         </item>
        </layout>
       </widget>
@@ -154,9 +154,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>uva::JudgeStatusWidget</class>
+   <class>uva::LiveEventsWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/judgestatuswidget.h</header>
+   <header>widgets/liveeventswidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

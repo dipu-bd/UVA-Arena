@@ -10,7 +10,7 @@ set(TESTS
     profileswidgettest
     problemswidgettest
     codeswidgettest
-    judgestatuswidgettest
+    liveeventswidgettest
     categorytest
     commonstest
 )

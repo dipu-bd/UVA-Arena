@@ -2,31 +2,34 @@
 #include <iostream>
 #include <QDateTime>
 
-#include "uhunt/enums.h"
+#include "uhunt/submission.h"
 #include "commons/conversion.h"
 
 using namespace std;
 using namespace uva;
 
+typedef Submission::Language Language;
+typedef Submission::Verdict Verdict;
+
 int main(int argc, char* argv[])
 {
     cout << "Get Language Name: " << endl;
-    cout << Conversion::getLangaugeName(Language::C).toStdString() << endl;
-    cout << Conversion::getLangaugeName(Language::CPP).toStdString() << endl;
-    cout << Conversion::getLangaugeName(Language::CPP11).toStdString() << endl;
-    cout << Conversion::getLangaugeName(Language::Java).toStdString() << endl;
-    cout << Conversion::getLangaugeName(Language::Pascal).toStdString() << endl;
-    cout << Conversion::getLangaugeName(Language::Other).toStdString() << endl;
-    cout << Conversion::getLangaugeName(static_cast<Language>(342)).toStdString() << endl;
+    cout << Conversion::getLanguageName(Language::C).toStdString() << endl;
+    cout << Conversion::getLanguageName(Language::CPP).toStdString() << endl;
+    cout << Conversion::getLanguageName(Language::CPP11).toStdString() << endl;
+    cout << Conversion::getLanguageName(Language::JAVA).toStdString() << endl;
+    cout << Conversion::getLanguageName(Language::PASCAL).toStdString() << endl;
+    cout << Conversion::getLanguageName(Language::OTHER).toStdString() << endl;
+    cout << Conversion::getLanguageName(static_cast<Language>(342)).toStdString() << endl;
     cout << endl;
 
     cout << "Get Verdict Name: " << endl;
-    cout << Conversion::getVerdictName(Verdict::Accepted).toStdString() << endl;
-    cout << Conversion::getVerdictName(Verdict::WrongAnswer).toStdString() << endl;
-    cout << Conversion::getVerdictName(Verdict::PresentationError).toStdString() << endl;
-    cout << Conversion::getVerdictName(Verdict::TimLimit).toStdString() << endl;
-    cout << Conversion::getVerdictName(Verdict::OutputLimit).toStdString() << endl;
-    cout << Conversion::getVerdictName(Verdict::InQueue).toStdString() << endl;
+    cout << Conversion::getVerdictName(Verdict::ACCEPTED).toStdString() << endl;
+    cout << Conversion::getVerdictName(Verdict::WRONG_ANSWER).toStdString() << endl;
+    cout << Conversion::getVerdictName(Verdict::PRESENTATION_ERROR).toStdString() << endl;
+    cout << Conversion::getVerdictName(Verdict::TIME_LIMIT).toStdString() << endl;
+    cout << Conversion::getVerdictName(Verdict::OUTPUT_LIMIT).toStdString() << endl;
+    cout << Conversion::getVerdictName(Verdict::IN_QUEUE).toStdString() << endl;
     cout << Conversion::getVerdictName(static_cast<Verdict>(342)).toStdString() << endl;
     cout << endl;
 

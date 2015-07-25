@@ -160,6 +160,8 @@ QList<UserSubmission> Uhunt::userSubmissionsFromJson(const QByteArray &json, int
             submission.UserName = userName;
             submission.UserID = userID;
             submission.Submission = Submission::fromJsonArray(it->toArray());
+
+            submissions.push_back(submission);
         }
 
         it++;

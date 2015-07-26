@@ -9,7 +9,7 @@
 
 namespace uva
 {
-
+    // #TODO make member variables for all Uhunt classes camelCase
     struct UVA_EXPORT UserSubmission
     {
 

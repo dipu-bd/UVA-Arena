@@ -32,7 +32,6 @@ void LiveEventsTableModel::setStatusData(Uhunt::LiveEventMap statusData)
 
         //push to front to reverse the order
         mRowToId.push_front(it->LiveEventID);
-        // #TODO fix judge status table model new status data
     }
 
     endResetModel();
@@ -65,7 +64,7 @@ QVariant LiveEventsTableModel::getDataAtIndex(const QModelIndex &index) const
     const LiveEvent &event = mStatusData[mRowToId[index.row()]];
     const UserSubmission &userSubmission = event.UserSubmission;
     const Submission &submission = userSubmission.Submission;
-    // #TODO use something better than a switch here
+
     switch (index.column()) {
     case 0:
         return submission.SubmissionID;
@@ -95,7 +94,7 @@ QVariant LiveEventsTableModel::getDataAtIndex(const QModelIndex &index) const
     case 7:
         return Conversion::getRuntime(
                     submission.Runtime
-                    );
+                );
 
     case 8:
         if(submission.Rank < 0)
@@ -105,8 +104,8 @@ QVariant LiveEventsTableModel::getDataAtIndex(const QModelIndex &index) const
 
     case 9:
         return Conversion::getSubmissionTime(
-                    submission.TimeSubmitted
-                    );
+                   submission.TimeSubmitted
+                );
 
     }
 

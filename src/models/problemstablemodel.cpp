@@ -51,28 +51,29 @@ QVariant ProblemsTableModel::getDataAtIndex(const QModelIndex &index) const
        "# Accepted", "# Wrong Answers"
     */
 
-    // #TODO use something better than a switch here
+    Problem problem = mProblemMap->value(mRowToId[index.row()]);
+
     switch (index.column()) {
     case 0:
-        return mProblemMap->value(mRowToId[index.row()]).ProblemNumber;
+        return problem.ProblemNumber;
 
     case 1:
-        return mProblemMap->value(mRowToId[index.row()]).ProblemTitle;
+        return problem.ProblemTitle;
 
     case 2:
-        return mProblemMap->value(mRowToId[index.row()]).DACU;
+        return problem.DACU;
 
     case 3:
-        return mProblemMap->value(mRowToId[index.row()]).RuntimeLimit;
+        return problem.RuntimeLimit;
 
     case 4:
-        return mProblemMap->value(mRowToId[index.row()]).BestRuntime;
+        return problem.BestRuntime;
 
     case 5:
-        return mProblemMap->value(mRowToId[index.row()]).AcceptedCount;
+        return problem.AcceptedCount;
 
     case 6:
-        return mProblemMap->value(mRowToId[index.row()]).WrongAnswerCount;
+        return problem.WrongAnswerCount;
     }
 
     return QVariant();

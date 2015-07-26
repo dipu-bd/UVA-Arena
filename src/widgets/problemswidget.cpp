@@ -13,23 +13,22 @@ using namespace uva;
 
 ProblemsWidget::ProblemsWidget(QWidget *parent) :
     UVAArenaWidget(parent),
-    ui(new Ui::ProblemsWidget)
+    mUi(new Ui::ProblemsWidget)
 {
-    ui->setupUi(this);
+    mUi->setupUi(this);
     mProblemsTableModel.setMaxRowsToFetch(mSettings.maxProblemsTableRowsToFetch());
     mProblemsFilterProxyModel.setSortCaseSensitivity(Qt::CaseInsensitive);
     mProblemsFilterProxyModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
     mProblemsFilterProxyModel.setSourceModel(&mProblemsTableModel);
     mProblemsFilterProxyModel.setFilterKeyColumn(1); // Problem title column
-    QObject::connect(ui->searchProblemsLineEdit, &QLineEdit::textChanged,
+    QObject::connect(mUi->searchProblemsLineEdit, &QLineEdit::textChanged,
         &mProblemsFilterProxyModel, &QSortFilterProxyModel::setFilterFixedString);
 
-    ui->problemsTableView->setModel(&mProblemsFilterProxyModel);
+    mUi->problemsTableView->setModel(&mProblemsFilterProxyModel);
 }
 
 ProblemsWidget::~ProblemsWidget()
 {
-    delete ui;
 }
 
 void ProblemsWidget::initialize()

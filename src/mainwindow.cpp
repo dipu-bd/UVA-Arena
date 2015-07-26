@@ -31,9 +31,9 @@ const QString DefaultWebViewPageHTML =
 MainWindow::MainWindow(std::shared_ptr<QNetworkAccessManager> networkManager, QWidget *parent) :
     QMainWindow(parent),
     mNetworkManager(networkManager),
-    ui(new Ui::MainWindow)
+    mUi(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+    mUi->setupUi(this);
 
     this->setWindowState(Qt::WindowState::WindowMaximized);
     statusBar()->showMessage("Welcome to UVA-Arena.");
@@ -50,7 +50,6 @@ MainWindow::MainWindow(std::shared_ptr<QNetworkAccessManager> networkManager, QW
 
 MainWindow::~MainWindow()
 {
-    delete ui;
 }
 
 std::shared_ptr<Uhunt::ProblemMap> MainWindow::getProblemMap()
@@ -126,8 +125,8 @@ void MainWindow::setProblemMap(Uhunt::ProblemMap problemMap)
 
     Uhunt::ProblemMap::const_iterator it = mProblems->begin();
 
-    ui->problemsWidget->setProblemMap(getProblemMap());
-    ui->liveEventsWidget->setProblemMap(getProblemMap());
+    mUi->problemsWidget->setProblemMap(getProblemMap());
+    mUi->liveEventsWidget->setProblemMap(getProblemMap());
     statusBar()->showMessage("Problem list loaded", 2000);
 }
 
@@ -158,13 +157,13 @@ void MainWindow::initializeData()
 
 void MainWindow::initializeWidgets()
 {
-    ui->pdfViewer->setSaveOnDownload(mSettings.savePDFDocumentsOnDownload());
+    mUi->pdfViewer->setSaveOnDownload(mSettings.savePDFDocumentsOnDownload());
 
     // Initialize all UVAArenaWidgets and connect them
-    mUVAArenaWidgets.push_back(ui->problemsWidget);
-    mUVAArenaWidgets.push_back(ui->codesWidget);
-    mUVAArenaWidgets.push_back(ui->liveEventsWidget);
-    mUVAArenaWidgets.push_back(ui->profilesWidget);
+    mUVAArenaWidgets.push_back(mUi->problemsWidget);
+    mUVAArenaWidgets.push_back(mUi->editorWidget);
+    mUVAArenaWidgets.push_back(mUi->liveEventsWidget);
+    mUVAArenaWidgets.push_back(mUi->profilesWidget);
 
     for (UVAArenaWidget* widget : mUVAArenaWidgets) {
 
@@ -232,11 +231,11 @@ void MainWindow::loadPDFByProblemNumber(int problemNumber)
 
     if (QFile::exists(pdfFileName)) {
 
-        ui->tabWidget->setCurrentWidget(ui->codesTab);
-        ui->pdfViewer->loadDocument(pdfFileName);
+        mUi->tabWidget->setCurrentWidget(mUi->solveTab);
+        mUi->pdfViewer->loadDocument(pdfFileName);
 
     } else {
-        ui->pdfViewer->downloadPDF(UVAProblemPDFUrl.arg(problemNumber / 100)
+        mUi->pdfViewer->downloadPDF(UVAProblemPDFUrl.arg(problemNumber / 100)
                                                    .arg(problemNumber)
                                                    , pdfFileName);
     }
@@ -250,7 +249,7 @@ void MainWindow::showProblem(int problemNumber)
 
     } else { // PDF
 
-        ui->tabWidget->setCurrentWidget(ui->codesWidget);
+        mUi->tabWidget->setCurrentWidget(mUi->solveTab);
         loadPDFByProblemNumber(problemNumber);
     }
 }

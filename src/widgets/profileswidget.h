@@ -25,7 +25,7 @@ namespace uva
         void onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData) override;
 
     private:
-        Ui::ProfilesWidget *ui;
+        std::unique_ptr<Ui::ProfilesWidget> mUi;
 
     };
 

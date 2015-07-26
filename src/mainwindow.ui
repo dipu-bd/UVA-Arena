@@ -51,7 +51,7 @@
          <normaloff>:/uva-arena/problems.png</normaloff>:/uva-arena/problems.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>PROBLEMS</string>
+        <string>Problems</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
@@ -59,13 +59,13 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="codesTab">
+      <widget class="QWidget" name="solveTab">
        <attribute name="icon">
         <iconset resource="../images/images.qrc">
          <normaloff>:/uva-arena/code.png</normaloff>:/uva-arena/code.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>CODES</string>
+        <string>Solve</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
@@ -74,7 +74,7 @@
            <enum>Qt::Horizontal</enum>
           </property>
           <widget class="PDFViewer" name="pdfViewer" native="true"/>
-          <widget class="uva::CodesWidget" name="codesWidget" native="true"/>
+          <widget class="uva::EditorWidget" name="editorWidget" native="true"/>
          </widget>
         </item>
        </layout>
@@ -85,7 +85,7 @@
          <normaloff>:/uva-arena/status.png</normaloff>:/uva-arena/status.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>LIVE EVENTS</string>
+        <string>Live Events</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <property name="leftMargin">
@@ -111,7 +111,7 @@
          <normaloff>:/uva-arena/profile.png</normaloff>:/uva-arena/profile.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>PROFILES</string>
+        <string>Profiles</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
@@ -154,9 +154,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>uva::CodesWidget</class>
+   <class>uva::EditorWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/codeswidget.h</header>
+   <header>widgets/editorwidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

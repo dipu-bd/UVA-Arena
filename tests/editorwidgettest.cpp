@@ -1,7 +1,7 @@
 #include <QApplication>
 #include <iostream>
 
-#include "widgets/codeswidget.h"
+#include "widgets/editorwidget.h"
 
 using namespace std;
 using namespace uva;
@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    CodesWidget widget;
+    EditorWidget widget;
 
     widget.show();
 

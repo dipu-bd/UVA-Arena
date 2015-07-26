@@ -8,16 +8,16 @@ namespace uva
 {
 
     namespace Ui {
-        class CodesWidget;
+        class EditorWidget;
     }
 
-    class UVA_EXPORT CodesWidget : public UVAArenaWidget
+    class UVA_EXPORT EditorWidget : public UVAArenaWidget
     {
         Q_OBJECT
 
     public:
-        explicit CodesWidget(QWidget *parent = 0);
-        ~CodesWidget();
+        explicit EditorWidget(QWidget *parent = 0);
+        ~EditorWidget();
 
         virtual void initialize() override;
 
@@ -26,7 +26,7 @@ namespace uva
         virtual void onUVAArenaEvent(UVAArenaEvent, QVariant = 0) override;
 
     private:
-        Ui::CodesWidget *ui;
+        std::unique_ptr<Ui::EditorWidget> mUi;
     };
 
 }

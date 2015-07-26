@@ -38,9 +38,9 @@ namespace uva
 
     private:
 
-        Ui::LiveEventsWidget *ui;
+        std::unique_ptr<Ui::LiveEventsWidget> mUi;
         LiveEventsTableModel mStatusTableModel;
-        QTimer *mTimer;
+        QTimer mTimer;
     };
 
 }

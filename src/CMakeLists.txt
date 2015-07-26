@@ -35,8 +35,8 @@ set(MODELS_SOURCES
 set(WIDGETS_SOURCES
     widgets/uvaarenawidget.h
     widgets/uvaarenawidget.cpp
-    widgets/codeswidget.h
-    widgets/codeswidget.cpp
+    widgets/editorwidget.h
+    widgets/editorwidget.cpp
     widgets/liveeventswidget.h
     widgets/liveeventswidget.cpp
     widgets/problemswidget.h
@@ -71,7 +71,7 @@ set(ALL_SOURCES
 
 set(UI_SOURCES
     mainwindow.ui
-    widgets/codeswidget.ui
+    widgets/editorwidget.ui
     widgets/liveeventswidget.ui
     widgets/problemswidget.ui
     widgets/profileswidget.ui

@@ -7,18 +7,16 @@ using namespace uva;
 
 LiveEventsWidget::LiveEventsWidget(QWidget *parent) :
     UVAArenaWidget(parent),
-    ui(new Ui::LiveEventsWidget) // #TODO make all generated ui file code unique_ptrs
+    mUi(new Ui::LiveEventsWidget)
 {
-    ui->setupUi(this);
-    ui->statusTableView->setModel(&mStatusTableModel);
+    mUi->setupUi(this);
+    mUi->statusTableView->setModel(&mStatusTableModel);
 
-    mTimer = new QTimer(this);
-    QObject::connect(mTimer, &QTimer::timeout, this, &LiveEventsWidget::refreshJudgeStatus);
+    QObject::connect(&mTimer, &QTimer::timeout, this, &LiveEventsWidget::refreshJudgeStatus);
 }
 
 LiveEventsWidget::~LiveEventsWidget()
 {
-    delete ui;
 }
 
 void LiveEventsWidget::initialize()
@@ -29,7 +27,7 @@ void LiveEventsWidget::initialize()
         this, 
         &LiveEventsWidget::setStatusData);
 
-    mTimer->start(mSettings.getJudgeStatusUpdateInterval());
+    mTimer.start(mSettings.getJudgeStatusUpdateInterval());
 }
 
 void LiveEventsWidget::refreshJudgeStatus()

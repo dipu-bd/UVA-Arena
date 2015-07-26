@@ -5,14 +5,13 @@ using namespace uva;
 
 ProfilesWidget::ProfilesWidget(QWidget *parent) :
     UVAArenaWidget(parent),
-    ui(new Ui::ProfilesWidget)
+    mUi(new Ui::ProfilesWidget)
 {
-    ui->setupUi(this);
+    mUi->setupUi(this);
 }
 
 ProfilesWidget::~ProfilesWidget()
 {
-    delete ui;
 }
 
 void ProfilesWidget::initialize()

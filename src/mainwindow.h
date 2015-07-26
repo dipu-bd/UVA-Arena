@@ -83,7 +83,7 @@ namespace uva
         /*!
             \brief Loads the current UVA problem list from a stored file.
 
-            This function can instead redownload the problem list if the
+            This function can instead re-download the problem list if the
             file stored in persistent storage is too old.
 
             \param[in] fileName The file name where the problem list is stored.
@@ -101,7 +101,7 @@ namespace uva
         void loadPDFByProblemNumber(int problemNumber);
 
         /*!
-            \brief Loads the HTML/PDF of a problem
+            \brief Loads the HTML/PDF of a problem by the problem's number.
 
             \param problemNumber The problem number of the problem
 
@@ -115,7 +115,7 @@ namespace uva
 
         std::vector<UVAArenaWidget*> mUVAArenaWidgets;
 
-        Ui::MainWindow *ui;
+        std::unique_ptr<Ui::MainWindow> mUi;
         std::shared_ptr<QNetworkAccessManager> mNetworkManager;
         std::shared_ptr<Uhunt> mUhuntApi;
 

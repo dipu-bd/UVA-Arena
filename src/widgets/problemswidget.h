@@ -41,7 +41,7 @@ namespace uva
 
         QSortFilterProxyModel mProblemsFilterProxyModel;
         ProblemsTableModel mProblemsTableModel;
-        Ui::ProblemsWidget *ui;
+        std::unique_ptr<Ui::ProblemsWidget> mUi;
     };
 
 }

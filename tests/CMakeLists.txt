@@ -11,7 +11,7 @@ set(TESTS
     pdfviewertest
     profileswidgettest
     problemswidgettest
-    codeswidgettest
+    editorwidgettest
     liveeventswidgettest
     categorytest
     commonstest

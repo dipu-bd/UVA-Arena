@@ -45,7 +45,7 @@
         <height>24</height>
        </size>
       </property>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="problemsTab">
        <attribute name="icon">
         <iconset resource="../images/images.qrc">
          <normaloff>:/uva-arena/problems.png</normaloff>:/uva-arena/problems.png</iconset>
@@ -59,7 +59,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="codesTab">
        <attribute name="icon">
         <iconset resource="../images/images.qrc">
          <normaloff>:/uva-arena/code.png</normaloff>:/uva-arena/code.png</iconset>
@@ -69,11 +69,17 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="uva::CodesWidget" name="codesWidget" native="true"/>
+         <widget class="QSplitter" name="splitter">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="PDFViewer" name="pdfViewer" native="true"/>
+          <widget class="uva::CodesWidget" name="codesWidget" native="true"/>
+         </widget>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_3">
+      <widget class="QWidget" name="liveEventsTab">
        <attribute name="icon">
         <iconset resource="../images/images.qrc">
          <normaloff>:/uva-arena/status.png</normaloff>:/uva-arena/status.png</iconset>
@@ -99,7 +105,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_4">
+      <widget class="QWidget" name="profilesTab">
        <attribute name="icon">
         <iconset resource="../images/images.qrc">
          <normaloff>:/uva-arena/profile.png</normaloff>:/uva-arena/profile.png</iconset>
@@ -163,6 +169,12 @@
    <class>uva::ProfilesWidget</class>
    <extends>QWidget</extends>
    <header>widgets/profileswidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PDFViewer</class>
+   <extends>QWidget</extends>
+   <header>widgets/pdfviewer.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

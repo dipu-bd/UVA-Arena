@@ -1,69 +1,81 @@
 #pragma once
+#include "QWidget"
+#include <memory>
+#include "QNetworkAccessManager"
 
 #include "uvalib_global.h"
-
-#include <QWidget>
-#include <mupdf-qt.h>
-
-#include <memory>
-#include <vector>
 
 namespace uva
 {
 
+    namespace Ui {
+        class PDFViewer;
+    }
+
     class UVA_EXPORT PDFViewer : public QWidget
     {
         Q_OBJECT
-
     public:
-        PDFViewer(QWidget *parent = 0);
+        explicit PDFViewer(QWidget *parent = 0);
 
-        int numPages();
-
-    public slots:
+        ~PDFViewer();
 
         /*!
-            \brief Load a document from a copy of a PDF File raw data.
-
-            This is a copy because mupdf does not make its own copy
-            of the PDF data.
+            \brief 
+        
+            \param url
+            \param saveFileName
+        
+            \return A void
         */
-        void loadDocument(QByteArray data);
+        void downloadPDF(const QString &url, const QString &saveFileName = QString());
 
-        void loadDocument(const QString &filePath);
+        /*!
+            \brief 
+        
+            \param fileName
+        
+            \return A void
+        */
+        void loadDocument(const QString &fileName);
 
-        void setPage(int pageNum);
+        /*!
+            \brief 
 
-        void clear();
+            \return A bool
+        */
+        bool saveOnDownload() const;
 
-        void zoomIn();
+        /*!
+            \brief 
 
-        void zoomOut();
+            \param val
 
-        void setZoom(double amount);
+            \return A void
+        */
+        void setSaveOnDownload(bool val);
 
-        void setRenderAllPages(bool renderAll);
+        /*!
+            \brief If set, calls to downloadPDF() will downloads PDFs from the
+                   internet. Otherwise, downloadPDF() will do nothing.
+
+            \param val
+
+            \return A void
+        */
+        void setNetworkManager(std::shared_ptr<QNetworkAccessManager> val);
 
     protected:
 
-        virtual void paintEvent(QPaintEvent *event) override;
-
     private:
 
-        void setupPages();
-        void resizeToDocument();
+        std::shared_ptr<QNetworkAccessManager> mNetworkManager;
+        bool mSaveOnDownload;
 
-        qreal mWidth;
-        qreal mHeight;
-        qreal mMaxWidth;
-        qreal mTotalHeight;
-        qreal mScale;
-        int mCurrentPageIndex;
-        bool mRenderAllPages;
+        void savePDF(const QString &fileName, const QByteArray &pdfData);
 
-        QByteArray mData;
-        std::unique_ptr<MuPDF::Document> mPDFDocument;
-        std::vector<std::unique_ptr<MuPDF::Page> > mPages;
-
+        std::unique_ptr<Ui::PDFViewer> mUi;
     };
+
 }
+

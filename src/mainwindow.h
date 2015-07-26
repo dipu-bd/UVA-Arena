@@ -90,6 +90,25 @@ namespace uva
         */
         void loadProblemListFromFile(QString fileName);
 
+        /*!
+            \brief loads the corresponding PDF file of a problem by its
+                   problem number.
+
+            \param problemNumber
+
+            \return A void
+        */
+        void loadPDFByProblemNumber(int problemNumber);
+
+        /*!
+            \brief Loads the HTML/PDF of a problem
+
+            \param problemNumber The problem number of the problem
+
+            \return A void
+        */
+        void showProblem(int problemNumber);
+
         UVAArenaSettings mSettings;
 
         std::shared_ptr<Uhunt::ProblemMap> mProblems;

@@ -1,173 +1,95 @@
-#include <QPainter>
-#include <QDebug>
-#include <QDateTime>
-#include <QWheelEvent>
-
-#include "widgets/pdfviewer.h"
+#include "pdfviewer.h"
+#include "ui_pdfviewer.h"
+#include "QMessageBox"
+#include "QFile"
+#include "QNetworkReply"
 
 using namespace uva;
 
-PDFViewer::PDFViewer(QWidget *parent)
-    : QWidget(parent),
-      mPDFDocument(nullptr),
-      mCurrentPageIndex(0),
-      mMaxWidth(0),
-      mTotalHeight(0),
-      mScale(1.0f),
-      mRenderAllPages(false)
+PDFViewer::PDFViewer(QWidget *parent) :
+    QWidget(parent),
+    mNetworkManager(nullptr),
+    mSaveOnDownload(true),
+    mUi(new Ui::PDFViewer)
 {
+    mUi->setupUi(this);
+    mUi->mupdfWidget->setZoom(mUi->zoomDoubleSpinBox->value());
+    mUi->mupdfWidget->setRenderAllPages(mUi->renderAllPagesCheckBox->isChecked());
 }
 
-int PDFViewer::numPages()
+void PDFViewer::downloadPDF(const QString &url, const QString &saveFileName /*= QString()*/)
 {
-    if (mPDFDocument)
-        return mPDFDocument->numPages();
-
-    return 0;
-}
-
-void PDFViewer::resizeToDocument()
-{
-    update();
-
-    if (mRenderAllPages)
-        QWidget::resize(mMaxWidth*mScale, mTotalHeight*mScale);
-    else
-        QWidget::resize(mWidth*mScale, mHeight*mScale);
-}
-
-void PDFViewer::loadDocument(QByteArray data)
-{
-    clear();
-
-    mData = std::move(data);
-    mPDFDocument.reset(MuPDF::loadDocument(mData));
-    setupPages();
-
-    if (mRenderAllPages)
-        resizeToDocument();
-    else
-        setPage(1);
-}
-
-void PDFViewer::loadDocument(const QString &filePath)
-{
-    clear();
-
-    mPDFDocument.reset(MuPDF::loadDocument(filePath));
-    setupPages();
-
-    if (mRenderAllPages)
-        resizeToDocument();
-    else
-        setPage(1);
-}
-
-void PDFViewer::setPage(int pageNum)
-{
-    if (!mPDFDocument)
+    if (!mNetworkManager)
         return;
 
-    if (mRenderAllPages)
+    QNetworkRequest request;
+    request.setUrl(QUrl(url));
+
+    QNetworkReply *reply = mNetworkManager->get(request);
+
+    if (reply == nullptr)
         return;
 
-    int index = pageNum - 1;
+    QObject::connect(reply, &QNetworkReply::finished,
+        [this, reply, saveFileName]() {
 
-    if (index < 0 || index >= mPDFDocument->numPages())
-        return;
+        if (reply && reply->error() == QNetworkReply::NoError) {
 
-    mCurrentPageIndex = index;
-    mWidth = mPages[index]->size().width();
-    mHeight = mPages[index]->size().height();
-    resizeToDocument();
-}
+            QByteArray pdfData = reply->readAll();
+            mUi->mupdfWidget->loadDocument(pdfData);
+            mUi->pageNumSpinBox->setSuffix(tr("/%1").arg(mUi->mupdfWidget->numPages()));
+            mUi->pageNumSpinBox->setMaximum(mUi->mupdfWidget->numPages());
 
-void PDFViewer::clear()
-{
-    mPages.clear();
-    mPDFDocument.reset(nullptr);
-    mCurrentPageIndex = 0;
-}
-
-void PDFViewer::zoomIn()
-{
-    if (!mPDFDocument)
-        return;
-
-    mScale += 0.1f;
-    resizeToDocument();
-}
-
-void PDFViewer::zoomOut()
-{
-    if (!mPDFDocument)
-        return;
-
-    mScale -= 0.1f;
-    resizeToDocument();
-}
-
-void PDFViewer::setZoom(double amount)
-{
-    mScale = amount;
-
-    if (!mPDFDocument)
-        return;
-
-    resizeToDocument();
-}
-
-void PDFViewer::setRenderAllPages(bool renderAll)
-{
-    mRenderAllPages = renderAll;
-
-    if (!mPDFDocument)
-        return;
-
-    resizeToDocument();
-}
-
-void PDFViewer::paintEvent(QPaintEvent *event)
-{
-    QPainter painter(this);
-
-    if (mPDFDocument) {
-        painter.setRenderHint(QPainter::RenderHint::HighQualityAntialiasing);
-
-        if (mRenderAllPages) {
-            qreal curHeight = 0;
-            for (size_t i = 0; i < mPages.size(); ++i) {
-                if (mPages[i]) {
-                    painter.drawImage(QPoint(0, curHeight),
-                        mPages[i]->renderImage(mScale, mScale));
-
-                    curHeight += mPages[i]->size().height() * mScale;
-                }
-            }
-
-        } else {
-
-            if (mPages[mCurrentPageIndex]) {
-                painter.drawImage(QPoint(),
-                    mPages[mCurrentPageIndex]->renderImage(mScale, mScale));
-            }
+            if (mSaveOnDownload && !saveFileName.isEmpty())
+                savePDF(saveFileName, pdfData);
         }
 
-    } else {
-        painter.setRenderHint(QPainter::RenderHint::TextAntialiasing);
-        painter.setPen(Qt::white);
-        painter.setFont(QFont("consolas", 32));
-        painter.drawText(rect(), Qt::AlignCenter, "No PDF document loaded");
-    }
+        reply->deleteLater();
+    });
 }
 
-void PDFViewer::setupPages()
+void PDFViewer::savePDF(const QString &fileName, const QByteArray &pdfData)
 {
-    mMaxWidth = 0;
-    mTotalHeight = 0;
-    for (int i = 0; i < mPDFDocument->numPages(); ++i) {
-        mPages.push_back(std::unique_ptr<MuPDF::Page>(mPDFDocument->page(i)));
-        mMaxWidth = qMax(mPages[i]->size().width(), mMaxWidth);
-        mTotalHeight += mPages[i]->size().height();
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::WriteOnly)) {
+
+        // couldn't open the file
+        QMessageBox::critical(this, "Write failure",
+            "Could not save pdf file:\n"
+            + fileName);
+
+        return;
     }
+
+    QDataStream dataStream(&file);
+    dataStream << pdfData;
 }
+
+void PDFViewer::loadDocument(const QString &fileName)
+{
+    mUi->mupdfWidget->loadDocument(fileName);
+    mUi->pageNumSpinBox->setSuffix(tr("/%1").arg(mUi->mupdfWidget->numPages()));
+    mUi->pageNumSpinBox->setMaximum(mUi->mupdfWidget->numPages());
+}
+
+uva::PDFViewer::~PDFViewer()
+{
+
+}
+
+bool PDFViewer::saveOnDownload() const
+{
+    return mSaveOnDownload;
+}
+
+void PDFViewer::setSaveOnDownload(bool val)
+{
+    mSaveOnDownload = val;
+}
+
+void PDFViewer::setNetworkManager(std::shared_ptr<QNetworkAccessManager> val)
+{
+    mNetworkManager = val;
+}
+

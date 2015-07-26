@@ -40,12 +40,12 @@ int main(int argc, char* argv[])
         qDebug() << "Error while reading the file";
 
     const QJsonDocument& jdoc = QJsonDocument::fromJson(f.readAll());
-    CategoryNode node = CategoryNode::fromJsonObject(jdoc.object());
+    Category node = Category::fromJsonObject(jdoc.object());
 
-    cout << node.getName().toStdString() << endl;
-    cout << node.getNote().toStdString() << endl;
-    cout << node.getProblems().count() << endl;
-    cout << node.getCategorNodes().count() << endl;
+    cout << node.Name.toStdString() << endl;
+    cout << node.Note.toStdString() << endl;
+    cout << node.Problems.count() << endl;
+    cout << node.Branches.count() << endl;
 
     return app.exec();
 }

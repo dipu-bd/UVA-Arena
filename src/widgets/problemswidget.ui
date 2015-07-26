@@ -13,306 +13,103 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
-    <widget class="QToolBox" name="problemsWidgetToolbox">
-     <property name="currentIndex">
-      <number>0</number>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Search:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="searchByComboBox">
+       <property name="frame">
+        <bool>true</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string>Problem Title</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Problem Number</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="searchProblemsLineEdit"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="lineWidth">
+      <number>6</number>
      </property>
-     <widget class="QWidget" name="categoryAndProblemsPage">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>824</width>
-        <height>511</height>
-       </rect>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QTreeView" name="categoryTreeView"/>
+     <widget class="QTableView" name="problemsTableView">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>0</height>
+       </size>
       </property>
-      <attribute name="label">
-       <string>Category and Problems</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Search:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="searchByComboBox">
-           <property name="frame">
-            <bool>true</bool>
-           </property>
-           <item>
-            <property name="text">
-             <string>Problem Title</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Problem Number</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="searchProblemsLineEdit"/>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,3">
-         <item>
-          <widget class="QTreeView" name="categoryTreeView"/>
-         </item>
-         <item>
-          <widget class="Line" name="line">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTableView" name="problemsTableView">
-           <property name="sizeAdjustPolicy">
-            <enum>QAbstractScrollArea::AdjustToContents</enum>
-           </property>
-           <property name="editTriggers">
-            <set>QAbstractItemView::NoEditTriggers</set>
-           </property>
-           <property name="showDropIndicator" stdset="0">
-            <bool>false</bool>
-           </property>
-           <property name="dragDropOverwriteMode">
-            <bool>false</bool>
-           </property>
-           <property name="alternatingRowColors">
-            <bool>true</bool>
-           </property>
-           <property name="selectionMode">
-            <enum>QAbstractItemView::ExtendedSelection</enum>
-           </property>
-           <property name="selectionBehavior">
-            <enum>QAbstractItemView::SelectRows</enum>
-           </property>
-           <property name="sortingEnabled">
-            <bool>true</bool>
-           </property>
-           <attribute name="horizontalHeaderCascadingSectionResizes">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="verticalHeaderVisible">
-            <bool>false</bool>
-           </attribute>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="problemViewPage">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>824</width>
-        <height>511</height>
-       </rect>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
       </property>
-      <attribute name="label">
-       <string>Problem View</string>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="dragDropOverwriteMode">
+       <bool>false</bool>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>false</bool>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <property name="spacing">
-        <number>7</number>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QTabWidget" name="documentTabWidget">
-         <property name="tabPosition">
-          <enum>QTabWidget::East</enum>
-         </property>
-         <property name="tabShape">
-          <enum>QTabWidget::Triangular</enum>
-         </property>
-         <property name="currentIndex">
-          <number>1</number>
-         </property>
-         <widget class="QWidget" name="documentHTMLTab">
-          <attribute name="title">
-           <string>HTML</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QWebView" name="webView">
-             <property name="url">
-              <url>
-               <string>about:blank</string>
-              </url>
-             </property>
-             <property name="renderHints">
-              <set>QPainter::Antialiasing|QPainter::HighQualityAntialiasing|QPainter::SmoothPixmapTransform|QPainter::TextAntialiasing</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="documentPDFTab">
-          <attribute name="title">
-           <string>PDF</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
-             <item>
-              <widget class="QPushButton" name="zoomInButton">
-               <property name="text">
-                <string>Zoom in</string>
-               </property>
-               <property name="flat">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="zoomOutButton">
-               <property name="text">
-                <string>Zoom Out</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QDoubleSpinBox" name="zoomDoubleSpinBox">
-               <property name="minimum">
-                <double>0.500000000000000</double>
-               </property>
-               <property name="maximum">
-                <double>3.000000000000000</double>
-               </property>
-               <property name="singleStep">
-                <double>0.100000000000000</double>
-               </property>
-               <property name="value">
-                <double>1.800000000000000</double>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="renderAllPagesCheckBox">
-               <property name="text">
-                <string>Render All Pages</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSpinBox" name="pageNumSpinBox">
-               <property name="suffix">
-                <string>/1</string>
-               </property>
-               <property name="prefix">
-                <string>Page:</string>
-               </property>
-               <property name="minimum">
-                <number>1</number>
-               </property>
-               <property name="maximum">
-                <number>1</number>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QScrollArea" name="scrollArea">
-             <property name="alignment">
-              <set>Qt::AlignHCenter|Qt::AlignTop</set>
-             </property>
-             <widget class="PDFViewer" name="pdfViewer">
-              <property name="geometry">
-               <rect>
-                <x>39</x>
-                <y>0</y>
-                <width>700</width>
-                <height>300</height>
-               </rect>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>700</width>
-                <height>300</height>
-               </size>
-              </property>
-             </widget>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-       </item>
-      </layout>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
      </widget>
     </widget>
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QWebView</class>
-   <extends>QWidget</extends>
-   <header>QtWebKitWidgets/QWebView</header>
-  </customwidget>
-  <customwidget>
-   <class>PDFViewer</class>
-   <extends>QWidget</extends>
-   <header>widgets/pdfviewer.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>searchByComboBox</sender>
-   <signal>currentIndexChanged(QString)</signal>
-   <receiver>uva::ProblemsWidget</receiver>
-   <slot>setFilterProblemsBy(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>111</x>
-     <y>64</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>454</x>
-     <y>265</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>problemsTableView</sender>
    <signal>doubleClicked(QModelIndex)</signal>
@@ -330,107 +127,24 @@
    </hints>
   </connection>
   <connection>
-   <sender>zoomInButton</sender>
-   <signal>clicked()</signal>
-   <receiver>zoomDoubleSpinBox</receiver>
-   <slot>stepUp()</slot>
+   <sender>searchByComboBox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>uva::ProblemsWidget</receiver>
+   <slot>setFilterProblemsBy(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>71</x>
-     <y>100</y>
+     <x>111</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>250</x>
-     <y>100</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>zoomOutButton</sender>
-   <signal>clicked()</signal>
-   <receiver>zoomDoubleSpinBox</receiver>
-   <slot>stepDown()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>171</x>
-     <y>100</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>250</x>
-     <y>100</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>zoomDoubleSpinBox</sender>
-   <signal>valueChanged(double)</signal>
-   <receiver>pdfViewer</receiver>
-   <slot>setZoom(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>250</x>
-     <y>100</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>297</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pageNumSpinBox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>pdfViewer</receiver>
-   <slot>setPage(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>763</x>
-     <y>100</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>297</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>renderAllPagesCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>pdfViewer</receiver>
-   <slot>setRenderAllPages(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>655</x>
-     <y>100</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>297</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>renderAllPagesCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>pageNumSpinBox</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>655</x>
-     <y>100</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>763</x>
-     <y>100</y>
+     <x>454</x>
+     <y>265</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>setFilterProblemsBy(QString)</slot>
-  <slot>showNewProblem(int)</slot>
   <slot>problemsTableDoubleClicked(QModelIndex)</slot>
-  <slot>setPage(int)</slot>
-  <slot>setRenderAllPages(bool)</slot>
  </slots>
 </ui>

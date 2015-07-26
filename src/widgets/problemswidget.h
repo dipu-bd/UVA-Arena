@@ -33,19 +33,11 @@ namespace uva
 
         void setFilterProblemsBy(QString columnName);
 
-        void showNewProblem(int problemNumber);
-
     private slots:
 
         void problemsTableDoubleClicked(QModelIndex index);
 
     private:
-
-        void loadPDFByProblemNumber(int problemNumber);
-
-        void downloadPDF(const QString &url, const QString &saveFileName = QString());
-
-        void savePDF(const QString &fileName, const QByteArray &pdfData);
 
         QSortFilterProxyModel mProblemsFilterProxyModel;
         ProblemsTableModel mProblemsTableModel;

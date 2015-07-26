@@ -36,15 +36,17 @@ set(MODELS_SOURCES
 
 set(WIDGETS_SOURCES
     widgets/uvaarenawidget.h
-    widgets/codeswidget.h
-    widgets/liveeventswidget.h
-    widgets/problemswidget.h
-    widgets/profileswidget.h
     widgets/uvaarenawidget.cpp
+    widgets/codeswidget.h
     widgets/codeswidget.cpp
+    widgets/liveeventswidget.h
     widgets/liveeventswidget.cpp
+    widgets/problemswidget.h
     widgets/problemswidget.cpp
+    widgets/profileswidget.h
     widgets/profileswidget.cpp
+    widgets/mupdfwidget.h
+    widgets/mupdfwidget.cpp
     widgets/pdfviewer.h
     widgets/pdfviewer.cpp
 )
@@ -75,6 +77,7 @@ set(UI_SOURCES
     widgets/liveeventswidget.ui
     widgets/problemswidget.ui
     widgets/profileswidget.ui
+    widgets/pdfviewer.ui
 )
 
 qt5_wrap_ui(UI_FILES

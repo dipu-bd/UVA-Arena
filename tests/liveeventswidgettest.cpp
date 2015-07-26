@@ -2,7 +2,7 @@
 #include <iostream>
 #include <QNetworkAccessManager>
 
-#include "widgets/judgestatuswidget.h"
+#include "widgets/liveeventswidget.h"
 #include "uhunt/uhunt.h"
 
 using namespace std;
@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    JudgeStatusWidget widget;
+    LiveEventsWidget widget;
     widget.show();
 
     return app.exec();

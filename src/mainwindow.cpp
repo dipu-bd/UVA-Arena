@@ -13,6 +13,21 @@ using namespace uva;
 
 const QString DefaultProblemListFileName = "problemlist.json";
 
+const QString UVAProblemHTMLUrl = "https://uva.onlinejudge.org/external/%1/%2.html"; // 1 = container, 2 = problem number
+const QString UVAProblemPDFUrl = "https://uva.onlinejudge.org/external/%1/%2.pdf"; // 1 = container, 2 = problem number
+
+const QString DefaultWebViewPageHTML =
+"<html>"
+"<head>"
+"<style>"
+"h1 { color: #FFF; text-align: center; font-family: Lora, Times New Roman, serif; }"
+"</style>"
+"</head>"
+"<body>"
+"<h1>Double click a problem from the problem list to view it here.<h1>"
+"</body>"
+"</html>";
+
 MainWindow::MainWindow(std::shared_ptr<QNetworkAccessManager> networkManager, QWidget *parent) :
     QMainWindow(parent),
     mNetworkManager(networkManager),
@@ -54,6 +69,7 @@ void MainWindow::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVari
         break;
 
     case UVAArenaEvent::SHOW_PROBLEM:
+        showProblem(metaData.toInt());
         break;
 
     case UVAArenaEvent::SHOW_PROBLEM_DESCRIPTION:
@@ -142,6 +158,8 @@ void MainWindow::initializeData()
 
 void MainWindow::initializeWidgets()
 {
+    ui->pdfViewer->setSaveOnDownload(mSettings.savePDFDocumentsOnDownload());
+
     // Initialize all UVAArenaWidgets and connect them
     mUVAArenaWidgets.push_back(ui->problemsWidget);
     mUVAArenaWidgets.push_back(ui->codesWidget);
@@ -193,4 +211,46 @@ void MainWindow::loadProblemListFromFile(QString fileName)
     dataStream >> data;
 
     setProblemMap(Uhunt::problemMapFromJson(data));
+}
+
+void MainWindow::loadPDFByProblemNumber(int problemNumber)
+{
+    QDir saveDirectory(
+        QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)
+        );
+
+    if (!saveDirectory.exists())
+        saveDirectory.mkpath(".");
+
+    if (!saveDirectory.cd("problems")) {
+        saveDirectory.mkdir("problems");
+        saveDirectory.cd("problems");
+    }
+
+    QString pdfFileName =
+        saveDirectory.filePath(tr("%1.pdf").arg(problemNumber));
+
+    if (QFile::exists(pdfFileName)) {
+
+        ui->tabWidget->setCurrentWidget(ui->codesTab);
+        ui->pdfViewer->loadDocument(pdfFileName);
+
+    } else {
+        ui->pdfViewer->downloadPDF(UVAProblemPDFUrl.arg(problemNumber / 100)
+                                                   .arg(problemNumber)
+                                                   , pdfFileName);
+    }
+}
+
+void MainWindow::showProblem(int problemNumber)
+{
+    typedef UVAArenaSettings::ProblemFormat ProblemFormat;
+
+    if (mSettings.problemFormatPreference() == ProblemFormat::HTML) {
+
+    } else { // PDF
+
+        ui->tabWidget->setCurrentWidget(ui->codesWidget);
+        loadPDFByProblemNumber(problemNumber);
+    }
 }

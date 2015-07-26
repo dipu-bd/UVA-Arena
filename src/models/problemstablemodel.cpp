@@ -1,4 +1,5 @@
 #include "problemstablemodel.h"
+#include "QBrush"
 
 using namespace uva;
 
@@ -72,6 +73,29 @@ QVariant ProblemsTableModel::getDataAtIndex(const QModelIndex &index) const
 
     case 6:
         return mProblemMap->value(mRowToId[index.row()]).WrongAnswerCount;
+    }
+
+    return QVariant();
+}
+
+QVariant uva::ProblemsTableModel::style(const QModelIndex &index, int role) const
+{
+    switch (role)
+    {
+    case Qt::ForegroundRole:
+        switch (index.column())
+        {
+        case 0:
+        case 1:
+        case 2:
+            return QBrush(Qt::red);
+
+        case 3:
+            return QBrush(Qt::cyan);
+
+        default:
+            return QBrush(Qt::magenta);
+        }
     }
 
     return QVariant();

@@ -1,5 +1,6 @@
 #include "liveeventstablemodel.h"
 #include "commons/conversion.h"
+#include "commons/colorizer.h"
 
 using namespace uva;
 
@@ -118,55 +119,41 @@ qint64 LiveEventsTableModel::getLastSubmissionId()
         return mStatusData.lastKey();
     return 0;
 }
-//#TODO figure out a better way to separate presentation data and raw data
-QVariant LiveEventsTableModel::getModelDataAtIndex(const QModelIndex &index) const
+
+QVariant uva::LiveEventsTableModel::style(const QModelIndex &index, int role) const
 {
-    if (mRowToId.count() <= index.row())
-        return QVariant();
-
-    /*
-    "SID", "User Name", "Full Name", "Problem Number",
-    "Problem Title", "Language", "Verdict",
-    "Runtime", "Rank", "Submission Time"
-    */
-
-    const LiveEvent &event = mStatusData[mRowToId[index.row()]];
-    const UserSubmission &userSubmission = event.UserSubmission;
-    const Submission &submission = userSubmission.Submission;
-    // #TODO use something better than a switch here
-    switch (index.column()) {
-    case 0:
-        return submission.SubmissionID;
-
-    case 1:
-        return userSubmission.UserName;
-
-    case 2:
-        return userSubmission.FullName;
-
-    case 3:
-        return mProblemMap->value(submission.ProblemID).ProblemNumber;
-
-    case 4:
-        return mProblemMap->value(submission.ProblemID).ProblemTitle;
-
-    case 5:
-        return (int)submission.SubmissionLanguage;
-
-    case 6:
-        return (int)submission.SubmissionVerdict;
-
-    case 7:
-        return submission.Runtime;
-
-    case 8:
-            return submission.Rank;
-
-    case 9:
-        return submission.TimeSubmitted;
-
+    switch (role)
+    {
+    case Qt::ForegroundRole:
+        switch (index.column())
+        {
+        case 0: //submission id
+            return QBrush(Colorizer::tan);
+        case 1: //username
+            return QBrush(Colorizer::goldenRod);
+        case 2: //full name
+            return QBrush(Colorizer::lightCoral);
+        case 3: //number
+            return QBrush(Colorizer::antiqueWhite);
+        case 4: //title
+            return QBrush(Colorizer::cyan);
+        case 5: //language
+            return QBrush(Colorizer::burlyWood);
+        case 6: //verdict
+                return QBrush(Colorizer::getVerdictColor(
+                    (Submission::Verdict)mStatusData[mRowToId[index.row()]]
+                    .UserSubmission.Submission
+                    .SubmissionVerdict));
+        case 7: //runtime
+            return QBrush(Colorizer::cornsilk);
+        case 8: //rank
+            return QBrush(Colorizer::gold);
+        case 9: //submission time
+            return QBrush(Colorizer::snow);
+        default:
+            return QBrush(Colorizer::white);
+        }
     }
 
-
-    return ArenaTableModel::getModelDataAtIndex(index);
+    return QVariant();
 }

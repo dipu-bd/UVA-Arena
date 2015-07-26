@@ -16,9 +16,11 @@ namespace uva
 
     protected:
 
-        virtual QVariant getDataAtIndex(const QModelIndex &index) const;
+        virtual QVariant getDataAtIndex(const QModelIndex &index) const override;
 
-        virtual int getDataCount() const;
+        virtual QVariant style(const QModelIndex &index, int role) const override;
+
+        virtual int getDataCount() const override;
 
     private:
 

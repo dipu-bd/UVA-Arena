@@ -5,58 +5,11 @@
 
 using namespace uva;
 
-class StatusModelStyle : public ModelStyle
-{
-public:
-    StatusModelStyle(ArenaTableModel *owner = nullptr)
-        : ModelStyle(owner)
-    {
-    }
-
-    virtual QVariant Style(const QModelIndex &index, int role) override
-    {
-        switch (role)
-        {
-        case Qt::ForegroundRole:
-            switch (index.column())
-            {
-            case 0: //submission id
-                return QBrush(Colorizer::tan);
-            case 1: //username
-                return QBrush(Colorizer::goldenRod);
-            case 2: //full name
-                return QBrush(Colorizer::lightCoral);
-            case 3: //number
-                return QBrush(Colorizer::antiqueWhite);
-            case 4: //title
-                return QBrush(Colorizer::cyan);
-            case 5: //language
-                return QBrush(Colorizer::burlyWood);
-            case 6: //verdict
-                if (mOwner)
-                    return QBrush(Colorizer::getVerdictColor((Submission::Verdict)mOwner->getModelDataAtIndex(index).toInt()));
-            case 7: //runtime
-                return QBrush(Colorizer::cornsilk);
-            case 8: //rank                
-                return QBrush(Colorizer::gold);
-            case 9: //submission time                
-                return QBrush(Colorizer::snow);
-            default:
-                return QBrush(Colorizer::white);
-            }
-
-        default:
-            return ModelStyle::Style(index, role);
-        }
-    }
-};
-
 LiveEventsWidget::LiveEventsWidget(QWidget *parent) :
     UVAArenaWidget(parent),
-    ui(new Ui::LiveEventsWidget)
+    ui(new Ui::LiveEventsWidget) // #TODO make all generated ui file code unique_ptrs
 {
     ui->setupUi(this);
-    mStatusTableModel.setModelStyle(std::make_unique<StatusModelStyle>(&mStatusTableModel));
     ui->statusTableView->setModel(&mStatusTableModel);
 
     mTimer = new QTimer(this);

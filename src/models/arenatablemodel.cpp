@@ -3,10 +3,9 @@
 using namespace uva;
 
 ArenaTableModel::ArenaTableModel()
-    : mModelStyle(nullptr),
-      mDisplayedCount(0),
+    : mRowsFetchedCount(0),
       mMaxRowsToFetch(50),
-      mLoadAllData(true)
+      mFetchAllRows(true)
 {
 }
 
@@ -26,10 +25,10 @@ int ArenaTableModel::columnCount(const QModelIndex & /* parent */) const
 
 int ArenaTableModel::rowCount(const QModelIndex & /* parent */) const
 {
-    if (mLoadAllData)
+    if (mFetchAllRows)
         return getDataCount();
 
-    return mDisplayedCount;
+    return mRowsFetchedCount;
 }
 
 QVariant ArenaTableModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -57,19 +56,10 @@ QVariant ArenaTableModel::data(const QModelIndex &index, int role) const
     if (index.column() >= mColumnNames.size() || index.column() < 0)
         return QVariant();
 
-    if (role != Qt::DisplayRole) {
-        if (mModelStyle)
-            return mModelStyle->Style(index, role);
-        else
-            return QVariant();
-    }
+    if (role != Qt::DisplayRole)
+        return style(index, role);
 
     return getDataAtIndex(index);
-}
-
-void ArenaTableModel::setModelStyle(std::unique_ptr<ModelStyle> style)
-{
-    mModelStyle = std::move(style);
 }
 
 void ArenaTableModel::setMaxRowsToFetch(int maxRowsToFetch)
@@ -77,22 +67,17 @@ void ArenaTableModel::setMaxRowsToFetch(int maxRowsToFetch)
     mMaxRowsToFetch = maxRowsToFetch;
 }
 
-void ArenaTableModel::setLoadAllData(bool shouldLoadAll)
+void ArenaTableModel::setFetchAllRows(bool shouldLoadAll)
 {
-    mLoadAllData = shouldLoadAll;
-}
-
-QVariant ArenaTableModel::getModelDataAtIndex(const QModelIndex &index) const
-{
-    return QVariant();
+    mFetchAllRows = shouldLoadAll;
 }
 
 bool ArenaTableModel::canFetchMore(const QModelIndex &parent) const
 {
-    if (mLoadAllData)
+    if (mFetchAllRows)
         return QAbstractTableModel::canFetchMore(parent);
 
-    if (mDisplayedCount < getDataCount())
+    if (mRowsFetchedCount < getDataCount())
         return true;
     else
         return false;
@@ -100,10 +85,10 @@ bool ArenaTableModel::canFetchMore(const QModelIndex &parent) const
 
 void ArenaTableModel::fetchMore(const QModelIndex &parent)
 {
-    int remainingData = getDataCount() - mDisplayedCount;
+    int remainingData = getDataCount() - mRowsFetchedCount;
     int itemsToFetch = qMin(mMaxRowsToFetch, remainingData);
 
-    beginInsertRows(QModelIndex(), mDisplayedCount, mDisplayedCount + itemsToFetch - 1);
-    mDisplayedCount += itemsToFetch;
+    beginInsertRows(QModelIndex(), mRowsFetchedCount, mRowsFetchedCount + itemsToFetch - 1);
+    mRowsFetchedCount += itemsToFetch;
     endInsertRows();
 }

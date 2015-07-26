@@ -28,8 +28,6 @@ set(MODELS_SOURCES
     models/arenatablemodel.cpp
     models/problemstablemodel.h
     models/problemstablemodel.cpp
-    models/modelstyle.h
-    models/modelstyle.cpp
     models/liveeventstablemodel.h
     models/liveeventstablemodel.cpp
 )

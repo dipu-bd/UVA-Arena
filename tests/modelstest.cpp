@@ -8,41 +8,9 @@
 #include <iostream>
 
 #include "models/problemstablemodel.h"
-#include "models/modelstyle.h"
 
 using namespace std;
 using namespace uva;
-
-class MyCustomModelStyle : public ModelStyle
-{
-public:
-
-    virtual QVariant Style(const QModelIndex &index, int role) override
-    {
-        switch (role)
-        {
-        case Qt::ForegroundRole:
-            switch (index.column())
-            {
-            case 0:
-            case 1:
-            case 2:
-                return QBrush(Qt::red);
-
-            case 3:
-                return QBrush(Qt::cyan);
-
-            default:
-                return QBrush(Qt::magenta);
-            }
-
-        default:
-            return ModelStyle::Style(index, role);
-        }
-    }
-
-};
-
 
 int main(int argc, char* argv[])
 {
@@ -55,8 +23,6 @@ int main(int argc, char* argv[])
     ProblemsTableModel submissions;
 
     // add data here
-
-    submissions.setModelStyle(std::make_unique<MyCustomModelStyle>());
 
     QSortFilterProxyModel proxy;
     proxy.setSortCaseSensitivity(Qt::CaseInsensitive);

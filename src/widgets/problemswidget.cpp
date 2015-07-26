@@ -11,40 +11,11 @@
 
 using namespace uva;
 
-class ProblemModelStyle : public ModelStyle
-{
-public:
-    virtual QVariant Style(const QModelIndex &index, int role) override
-    {
-        switch (role)
-        {
-        case Qt::ForegroundRole:
-            switch (index.column())
-            {
-            case 0:
-            case 1:
-            case 2:
-                return QBrush(Qt::red);
-
-            case 3:
-                return QBrush(Qt::cyan);
-
-            default:
-                return QBrush(Qt::magenta);
-            }
-
-        default:
-            return ModelStyle::Style(index, role);
-        }
-    }
-};
-
 ProblemsWidget::ProblemsWidget(QWidget *parent) :
     UVAArenaWidget(parent),
     ui(new Ui::ProblemsWidget)
 {
     ui->setupUi(this);
-    mProblemsTableModel.setModelStyle(std::make_unique<ProblemModelStyle>());
     mProblemsTableModel.setMaxRowsToFetch(mSettings.maxProblemsTableRowsToFetch());
     mProblemsFilterProxyModel.setSortCaseSensitivity(Qt::CaseInsensitive);
     mProblemsFilterProxyModel.setFilterCaseSensitivity(Qt::CaseInsensitive);

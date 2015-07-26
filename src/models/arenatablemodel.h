@@ -10,8 +10,6 @@
 
 #include "uhunt/uhunt.h"
 
-#include "modelstyle.h"
-
 namespace uva
 {
 
@@ -27,13 +25,9 @@ namespace uva
         virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
         virtual QVariant data(const QModelIndex &index, int role) const override;
 
-        virtual void setModelStyle(std::unique_ptr<ModelStyle> style);
-
         virtual void setMaxRowsToFetch(int maxRowsToFetch);
 
-        virtual void setLoadAllData(bool shouldLoadAll);
-
-        virtual QVariant getModelDataAtIndex(const QModelIndex &index) const;
+        virtual void setFetchAllRows(bool shouldLoadAll);
 
     protected:
 
@@ -46,12 +40,14 @@ namespace uva
 
         virtual int getDataCount() const = 0;
 
+        virtual QVariant style(const QModelIndex &index, int role) const = 0;
+
     private:
 
-        bool mLoadAllData;
+        bool mFetchAllRows;
         int mMaxRowsToFetch;
-        int mDisplayedCount;
-        std::unique_ptr<ModelStyle> mModelStyle;
+        int mRowsFetchedCount;
+
         QStringList mColumnNames;
     };
 

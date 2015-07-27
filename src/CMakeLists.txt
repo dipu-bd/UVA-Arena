@@ -30,6 +30,8 @@ set(MODELS_SOURCES
     models/problemstablemodel.cpp
     models/liveeventstablemodel.h
     models/liveeventstablemodel.cpp
+    models/categorytreemodel.h
+    models/categorytreemodel.cpp
 )
 
 set(WIDGETS_SOURCES

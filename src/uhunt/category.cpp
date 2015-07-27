@@ -2,20 +2,27 @@
 
 using namespace uva;
 
-Category Category::fromJsonObject(const QJsonObject& jsonObject)
+Category::~Category()
 {
-    Category node;
+    qDeleteAll(Problems);
+    qDeleteAll(Branches);
+}
+
+Category *Category::fromJsonObject(const QJsonObject& jsonObject)
+{
+    Category *node = new Category;
+    node->Parent = nullptr;
     QJsonArray::const_iterator it;
 
-    node.Name = jsonObject["name"].toString();
-    node.Note = jsonObject["note"].toString();
+    node->Name = jsonObject["name"].toString();
+    node->Note = jsonObject["note"].toString();
 
     QJsonArray problems = jsonObject["problems"].toArray();
 
     for (it = problems.begin(); it != problems.end(); ++it) {
         QJsonObject problemJson = it->toObject();
         int problemNumber = problemJson["pnum"].toInt();
-        node.Problems.insert(problemNumber, {
+        node->Problems.insert(problemNumber, new CategoryProblem {
             problemNumber
             , problemJson["note"].toString()
             , problemJson["star"].toBool()
@@ -24,14 +31,11 @@ Category Category::fromJsonObject(const QJsonObject& jsonObject)
 
     //add branches
     QJsonArray branch = jsonObject["branches"].toArray();
+    int row = 0;
     for(it = branch.begin(); it != branch.end(); ++it) {
-        Category child = Category::fromJsonObject(it->toObject());
-        node.Branches.insert(child.Name, child);
-
-        //also add problems from this sub branch to main branch
-        for(CategoryProblem problem : child.Problems)
-            node.Problems.insert(problem.Number, problem);
-
+        Category *child = Category::fromJsonObject(it->toObject());
+        child->Parent = node;
+        node->Branches.insert(child->Name, child);
     }
 
     return node;

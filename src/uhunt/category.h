@@ -13,6 +13,7 @@ namespace uva
 
     struct UVA_EXPORT Category
     {
+        ~Category();
         struct CategoryProblem 
         {
             int Number;
@@ -27,13 +28,15 @@ namespace uva
 
             \return A CategoryNode struct with values filled in from jsonObject.
         */
-        static Category fromJsonObject(const QJsonObject& jsonObject);
+        static Category *fromJsonObject(const QJsonObject& jsonObject);
 
         QString Name;
         QString Note;
+        Category *Parent;
         // Key = Problem Number
-        QMap<int, CategoryProblem> Problems;
+        QMap<int, CategoryProblem*> Problems;
         // Key = Category Name
-        QHash<QString, Category> Branches;
+        QHash<QString, Category*> Branches;
+
     };
 }

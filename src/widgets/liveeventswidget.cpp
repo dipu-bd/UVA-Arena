@@ -27,7 +27,7 @@ void LiveEventsWidget::initialize()
         this, 
         &LiveEventsWidget::setStatusData);
 
-    mTimer.start(mSettings.getJudgeStatusUpdateInterval());
+   // mTimer.start(mSettings.getJudgeStatusUpdateInterval());
 }
 
 void LiveEventsWidget::refreshJudgeStatus()

@@ -49,7 +49,7 @@ namespace uva
         /*!
             \brief Invoked when Uhunt::getProblemListAsByteArray finished
         */
-        void onProblemListByteArrayDownloaded(QByteArray data);
+        void onAllProblemsDownloaded(QByteArray data);
 
     private:
 

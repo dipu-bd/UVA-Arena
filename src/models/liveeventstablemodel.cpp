@@ -1,6 +1,7 @@
 #include "liveeventstablemodel.h"
 #include "commons/conversion.h"
 #include "commons/colorizer.h"
+#include "categorytreemodel.h"
 
 using namespace uva;
 

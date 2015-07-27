@@ -3,6 +3,8 @@
 #include "uvalib_global.h"
 #include "uvaarenawidget.h"
 #include "models/problemstablemodel.h"
+#include "models/categorytreemodel.h"
+
 #include <QWidget>
 
 #include <QWidget>
@@ -39,8 +41,12 @@ namespace uva
 
     private:
 
+        void downloadCategoryIndex();
+        void loadCategoryIndexFromFile(QString result);
+
         QSortFilterProxyModel mProblemsFilterProxyModel;
         ProblemsTableModel mProblemsTableModel;
+        CategoryTreeModel mCategoryTreeModel;
         std::unique_ptr<Ui::ProblemsWidget> mUi;
     };
 

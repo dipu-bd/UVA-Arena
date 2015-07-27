@@ -88,7 +88,7 @@ void MainWindow::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVari
     }
 }
 
-void MainWindow::onProblemListByteArrayDownloaded(QByteArray data)
+void MainWindow::onAllProblemsDownloaded(QByteArray data)
 {
     // set the file to save to
     QDir saveDirectory(
@@ -96,7 +96,7 @@ void MainWindow::onProblemListByteArrayDownloaded(QByteArray data)
     );
 
     if (!saveDirectory.exists())
-        QDir().mkpath(".");
+        saveDirectory.mkpath(saveDirectory.path());
 
     QString fileName = saveDirectory.filePath(DefaultProblemListFileName);
     QFile file(fileName);
@@ -140,7 +140,7 @@ void MainWindow::initializeData()
 {
     //connect problem list byte downloaded array signal
     QObject::connect(mUhuntApi.get(), &Uhunt::allProblemsDownloaded,
-        this, &MainWindow::onProblemListByteArrayDownloaded);
+        this, &MainWindow::onAllProblemsDownloaded);
 
     // check if problem list is already downloaded
     QString result = QStandardPaths::locate(QStandardPaths::AppDataLocation,

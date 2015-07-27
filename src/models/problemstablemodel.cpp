@@ -51,7 +51,7 @@ QVariant ProblemsTableModel::getDataAtIndex(const QModelIndex &index) const
        "# Accepted", "# Wrong Answers"
     */
 
-    Problem problem = mProblemMap->value(mRowToId[index.row()]);
+    const Problem problem = mProblemMap->value(mRowToId[index.row()]);
 
     switch (index.column()) {
     case 0:

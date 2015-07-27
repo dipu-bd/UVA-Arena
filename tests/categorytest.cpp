@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
       Category data file
       Download link: https://raw.githubusercontent.com/dipu-bd/uva-problem-category/master/data/CP%20Book3.cat
      */
-    QString file = "CP Book 3.cat";
+    QString file = "CP-Book-3.cat";
     if (!QFile::exists(file)) {
         cout << "File does not exist." << endl;
         getchar();
@@ -40,12 +40,12 @@ int main(int argc, char* argv[])
         qDebug() << "Error while reading the file";
 
     const QJsonDocument& jdoc = QJsonDocument::fromJson(f.readAll());
-    Category node = Category::fromJsonObject(jdoc.object());
+    std::unique_ptr<Category> node(Category::fromJsonObject(jdoc.object()));
 
-    cout << node.Name.toStdString() << endl;
-    cout << node.Note.toStdString() << endl;
-    cout << node.Problems.count() << endl;
-    cout << node.Branches.count() << endl;
+    cout << node->Name.toStdString() << endl;
+    cout << node->Note.toStdString() << endl;
+    cout << node->Problems.count() << endl;
+    cout << node->Branches.count() << endl;
 
     return app.exec();
 }

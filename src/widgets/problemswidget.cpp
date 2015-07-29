@@ -3,7 +3,9 @@
 #include <QStandardPaths>
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QMessageBox>
+#include <QDateTime>
 
 #include "problemswidget.h"
 #include "ui_problemswidget.h"
@@ -102,9 +104,15 @@ void ProblemsWidget::downloadCategoryIndex()
 
 void uva::ProblemsWidget::loadCategoryIndexFromFile()
 {
-    // #TODO check if the category index file is out of date
     QFile categoryIndexFile(QStandardPaths::locate(QStandardPaths::AppDataLocation,
         DefaultCategoryIndexFileName));
+
+    QFileInfo fileInfo(categoryIndexFile);
+    if (fileInfo.lastModified().daysTo(QDateTime::currentDateTime())
+                        > mSettings.maxDaysUntilCategoryIndexRedownload()) {
+        // the category index file is too old, redownload it
+        downloadCategoryIndex();
+    }
 
     if (!categoryIndexFile.open(QIODevice::ReadOnly)) {
         QMessageBox::critical(this, "Read failure",

@@ -63,12 +63,32 @@ namespace uva
         */
         void setMaxDaysUntilProblemListRedownload(qint64 days);
 
+        /**
+            Maximum problems table rows to fetch.
+        
+            \return A qint32.
+        */
         qint32 maxProblemsTableRowsToFetch();
 
+        /**
+            Sets maximum problems table rows to fetch.
+        
+            \param  numRows Number of rows.
+        */
         void setMaxProblemsTableRowsToFetch(qint32 numRows);
 
+        /**
+            Problem format preference.
+        
+            \return A ProblemFormat.
+        */
         ProblemFormat problemFormatPreference();
 
+        /**
+            Sets problem format preference.
+        
+            \param  format  Describes the format to use.
+        */
         void setProblemFormatPreference(ProblemFormat format);
 
         /*!
@@ -83,9 +103,28 @@ namespace uva
          */
         void setJudgeStatusUpdateInterval(int msecs);
 
+        /**
+            Saves PDF documents on download.
+        
+            \return true if it succeeds, false if it fails.
+        */
         bool savePDFDocumentsOnDownload();
 
+        /**
+            Sets save PDF documents on download.
+        
+            \param  autosave    true to autosave.
+        */
         void setSavePDFDocumentsOnDownload(bool autosave);
+
+        /**
+            Maximum days until category index redownload.
+        
+            \return A qint64.
+        */
+        qint64 maxDaysUntilCategoryIndexRedownload();
+
+        void setMaxDaysUntilCategoryIndexRedownload(qint64 days);
 
     private:
         QSettings settings;

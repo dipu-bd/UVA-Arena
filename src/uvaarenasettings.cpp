@@ -25,6 +25,11 @@ const qint32 DefaultJudgeStatusUpdateInterval = 10000;
 const QString KeySavePDFDocumentsOnDownload = "SavePDFDocumentsOnDownload";
 const bool DefaultSavePDFDocumentsOnDownload = true;
 
+QString KeyMaxDaysUntilCategoryIndexRedownload =
+    "MaxDaysUntilCategoryIndexRedownload";
+qint64 DefaultMaxDaysUntilCategoryIndexRedownload = 31;
+
+
 QString UVAArenaSettings::userName()
 {
     return settings.value(KeyUserName, DefaultUserName).toString();
@@ -98,4 +103,15 @@ bool UVAArenaSettings::savePDFDocumentsOnDownload()
 void UVAArenaSettings::setSavePDFDocumentsOnDownload(bool autosave)
 {
     settings.setValue(KeySavePDFDocumentsOnDownload, autosave);
+}
+
+qint64 UVAArenaSettings::maxDaysUntilCategoryIndexRedownload()
+{
+    return settings.value(KeyMaxDaysUntilCategoryIndexRedownload,
+        DefaultMaxDaysUntilCategoryIndexRedownload).toLongLong();
+}
+
+void UVAArenaSettings::setMaxDaysUntilCategoryIndexRedownload(qint64 days)
+{
+    settings.setValue(KeyMaxDaysUntilCategoryIndexRedownload, days);
 }

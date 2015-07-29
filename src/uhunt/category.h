@@ -21,6 +21,16 @@ namespace uva
             bool IsStarred;
         };
 
+        /**
+            Initializes this object from the given from JSON.
+
+            \param[in]  json    The JSON data.
+
+            \return null if it fails, else a Category*.
+        */
+
+        static Category *fromJson(const QByteArray &json);
+
         /*!
             \brief Creates a CategoryNode from a QJsonObject.
 
@@ -30,13 +40,11 @@ namespace uva
         */
         static Category *fromJsonObject(const QJsonObject& jsonObject);
 
-        QString Name;
-        QString Note;
-        Category *Parent;
-        // Key = Problem Number
-        QMap<int, CategoryProblem*> Problems;
-        // Key = Category Name
-        QHash<QString, Category*> Branches;
+        QString Name;                            ///< The name
+        QString Note;                            ///< The note
+        Category *Parent;                        ///< The parent
+        QMap<int, CategoryProblem*> Problems;    ///< The problems. Key = problem number
+        QHash<QString, Category*> Branches;      ///< The branches. Key = Name
 
     };
 }

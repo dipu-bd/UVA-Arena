@@ -158,7 +158,7 @@ void MainWindow::initializeData()
 void MainWindow::initializeWidgets()
 {
     mUi->pdfViewer->setSaveOnDownload(mSettings.savePDFDocumentsOnDownload());
-
+    mUi->pdfViewer->setNetworkManager(mNetworkManager);
     // Initialize all UVAArenaWidgets and connect them
     mUVAArenaWidgets.push_back(mUi->problemsWidget);
     mUVAArenaWidgets.push_back(mUi->editorWidget);

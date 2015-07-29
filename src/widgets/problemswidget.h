@@ -25,24 +25,87 @@ namespace uva
         explicit ProblemsWidget(QWidget *parent = 0);
         ~ProblemsWidget();
 
+        /** Initializes this object. */
         virtual void initialize() override;
 
+        /**
+            Sets problem map.
+        
+            \param  problemsMap The problems map.
+        */
         void setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemsMap);
 
     public slots:
 
         virtual void onUVAArenaEvent(UVAArenaEvent, QVariant) override;
 
+        /**
+            Sets filter problems by.
+        
+            \param  columnName  Name of the column.
+        */
         void setFilterProblemsBy(QString columnName);
 
     private slots:
 
+        /**
+            Invoked when the Problems table is double clicked.
+        
+            \param  index   which row in the model the user clicked
+        */
         void problemsTableDoubleClicked(QModelIndex index);
 
     private:
 
+        /**
+            Queries if the category index file exists.
+        
+            \return true if it succeeds, false if it fails.
+        */
+        bool categoryIndexFileExists();
+
+        /** Downloads the category index. */
         void downloadCategoryIndex();
-        void loadCategoryIndexFromFile(QString result);
+        /** Loads category index from file. */
+        void loadCategoryIndexFromFile();
+
+        /**
+            Executes the category index downloaded action.
+        
+            \param  data    The downloaded data.
+        */
+        void onCategoryIndexDownloaded(QByteArray data);
+
+        /**
+            Downloads the categories described by categories.
+        
+            \param  categories  The categories.
+        */
+        void downloadCategories(QList<QPair<QString, int> > categories);
+
+        /**
+            Category index JSON to list.
+        
+            \param  data    The data.
+        
+            \return A list of.
+        */
+        QList<QPair<QString, int> > categoryIndexJsonToList(QByteArray data);
+
+        /**
+            Should be invoked when a new category is loaded.
+        
+            \param [in] category    If non-null, the category.
+        */
+        void newCategoryLoaded(Category *category);
+
+        /**
+            Saves a category file.
+        
+            \param  categoryJson    The category JSON.
+            \param  fileName        Filename of the file.
+        */
+        void saveCategoryFile(const QByteArray &categoryJson, QString fileName);
 
         QSortFilterProxyModel mProblemsFilterProxyModel;
         ProblemsTableModel mProblemsTableModel;

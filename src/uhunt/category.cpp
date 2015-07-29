@@ -8,6 +8,15 @@ Category::~Category()
     qDeleteAll(Branches);
 }
 
+Category * uva::Category::fromJson(const QByteArray &json)
+{
+    QJsonDocument document = QJsonDocument::fromJson(json);
+    if (document.isNull() || !document.isObject())
+        return nullptr;
+
+    return fromJsonObject(document.object());
+}
+
 Category *Category::fromJsonObject(const QJsonObject& jsonObject)
 {
     Category *node = new Category;

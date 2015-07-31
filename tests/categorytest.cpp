@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
         qDebug() << "Error while reading the file";
 
     const QJsonDocument& jdoc = QJsonDocument::fromJson(f.readAll());
-    std::unique_ptr<Category> node(Category::fromJsonObject(jdoc.object()));
+    std::shared_ptr<Category> node(Category::fromJsonObject(jdoc.object()));
 
     cout << node->Name.toStdString() << endl;
     cout << node->Note.toStdString() << endl;

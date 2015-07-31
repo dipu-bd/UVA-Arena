@@ -55,6 +55,8 @@ namespace uva
         */
         void problemsTableDoubleClicked(QModelIndex index);
 
+        void categoryTreeViewClicked(QModelIndex index);
+
     private:
 
         /**
@@ -97,7 +99,7 @@ namespace uva
         
             \param [in] category    If non-null, the category.
         */
-        void newCategoryLoaded(Category *category);
+        void newCategoryLoaded(std::shared_ptr<Category> category);
 
         /**
             Saves a category file.
@@ -108,6 +110,7 @@ namespace uva
         void saveCategoryFile(const QByteArray &categoryJson, QString fileName);
 
         QSortFilterProxyModel mProblemsFilterProxyModel;
+        QSortFilterProxyModel mCategoryFilterProxyModel;
         ProblemsTableModel mProblemsTableModel;
         CategoryTreeModel mCategoryTreeModel;
         std::unique_ptr<Ui::ProblemsWidget> mUi;

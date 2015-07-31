@@ -25,7 +25,7 @@ namespace uva
 
         virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-        void addCategory(Category *category);
+        void addCategory(std::shared_ptr<Category> category);
 
         virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
@@ -33,7 +33,7 @@ namespace uva
 
     private:
 
-        Category *mRoot;
+        std::shared_ptr<Category> mRoot;
 
     };
 

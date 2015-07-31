@@ -37,7 +37,8 @@ ProblemsWidget::ProblemsWidget(QWidget *parent) :
 
     mUi->problemsTableView->setModel(&mProblemsFilterProxyModel);
 
-    mUi->categoryTreeView->setModel(&mCategoryTreeModel);
+    mCategoryFilterProxyModel.setSourceModel(&mCategoryTreeModel);
+    mUi->categoryTreeView->setModel(&mCategoryFilterProxyModel);
 }
 
 ProblemsWidget::~ProblemsWidget()
@@ -102,6 +103,14 @@ void ProblemsWidget::downloadCategoryIndex()
     });
 }
 
+void ProblemsWidget::categoryTreeViewClicked(QModelIndex index)
+{
+    Category *category = static_cast<Category*>(
+        mCategoryFilterProxyModel.mapToSource(index).internalPointer());
+
+    // #TODO do something with the clicked category
+}
+
 void uva::ProblemsWidget::loadCategoryIndexFromFile()
 {
     QFile categoryIndexFile(QStandardPaths::locate(QStandardPaths::AppDataLocation,
@@ -112,6 +121,8 @@ void uva::ProblemsWidget::loadCategoryIndexFromFile()
                         > mSettings.maxDaysUntilCategoryIndexRedownload()) {
         // the category index file is too old, redownload it
         downloadCategoryIndex();
+
+        return;
     }
 
     if (!categoryIndexFile.open(QIODevice::ReadOnly)) {
@@ -244,7 +255,7 @@ QList<QPair<QString, int> > uva::ProblemsWidget::categoryIndexJsonToList(QByteAr
     return categories;
 }
 
-void uva::ProblemsWidget::newCategoryLoaded(Category * category)
+void uva::ProblemsWidget::newCategoryLoaded(std::shared_ptr<Category> category)
 {
     if (category == nullptr)
         return;
@@ -252,6 +263,7 @@ void uva::ProblemsWidget::newCategoryLoaded(Category * category)
     mCategoryTreeModel.addCategory(category);
     // resize the first column
     mUi->categoryTreeView->resizeColumnToContents(0);
+    mCategoryFilterProxyModel.sort(0, Qt::AscendingOrder);
 }
 
 void uva::ProblemsWidget::saveCategoryFile(const QByteArray &categoryJson, QString fileName)

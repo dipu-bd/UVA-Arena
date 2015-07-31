@@ -8,14 +8,21 @@
 #include "uvalib_global.h"
 #include "problem.h"
 
+#include <memory>
+
 namespace uva
 {
 
-    struct UVA_EXPORT Category
+    struct UVA_EXPORT Category : public std::enable_shared_from_this<Category>
     {
-        ~Category();
-        struct CategoryProblem 
+
+        struct CategoryProblem  : public std::enable_shared_from_this<CategoryProblem>
         {
+            CategoryProblem(int number, QString note, bool starred)
+                : Number(number), Note(note), IsStarred(starred)
+            {
+
+            }
             int Number;
             QString Note;
             bool IsStarred;
@@ -28,8 +35,7 @@ namespace uva
 
             \return null if it fails, else a Category*.
         */
-
-        static Category *fromJson(const QByteArray &json);
+        static std::shared_ptr<Category> fromJson(const QByteArray &json);
 
         /*!
             \brief Creates a CategoryNode from a QJsonObject.
@@ -38,13 +44,13 @@ namespace uva
 
             \return A CategoryNode struct with values filled in from jsonObject.
         */
-        static Category *fromJsonObject(const QJsonObject& jsonObject);
+        static std::shared_ptr<Category> fromJsonObject(const QJsonObject& jsonObject);
 
         QString Name;                            ///< The name
         QString Note;                            ///< The note
-        Category *Parent;                        ///< The parent
-        QMap<int, CategoryProblem*> Problems;    ///< The problems. Key = problem number
-        QHash<QString, Category*> Branches;      ///< The branches. Key = Name
+        std::weak_ptr<Category> Parent;                        ///< The parent
+        QMap<int, std::shared_ptr<CategoryProblem> > Problems;    ///< The problems. Key = problem number
+        QHash<QString, std::shared_ptr<Category> > Branches;      ///< The branches. Key = Name
 
     };
 }

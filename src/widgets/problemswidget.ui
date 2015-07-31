@@ -78,6 +78,9 @@
       <property name="uniformRowHeights">
        <bool>true</bool>
       </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QTableView" name="problemsTableView">
       <property name="minimumSize">
@@ -152,9 +155,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>categoryTreeView</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>uva::ProblemsWidget</receiver>
+   <slot>categoryTreeViewClicked(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>163</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>297</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>setFilterProblemsBy(QString)</slot>
-  <slot>problemsTableDoubleClicked(QModelIndex)</slot>
+  <slot>categoryTreeViewClicked(QModelIndex)</slot>
  </slots>
 </ui>

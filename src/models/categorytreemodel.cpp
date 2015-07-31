@@ -10,7 +10,7 @@ CategoryTreeModel::CategoryTreeModel()
 
 CategoryTreeModel::~CategoryTreeModel()
 {
-    delete mRoot;
+
 }
 
 QModelIndex CategoryTreeModel::index(int row, int column, const QModelIndex &parent /*= QModelIndex()*/) const
@@ -23,9 +23,9 @@ QModelIndex CategoryTreeModel::index(int row, int column, const QModelIndex &par
     if (parent.isValid())
         parentCategory = static_cast<Category*>(parent.internalPointer());
     else
-        parentCategory = mRoot;
+        parentCategory = mRoot.get();
 
-    Category *childCategory = parentCategory->Branches.values().at(row);
+    Category *childCategory = parentCategory->Branches.values().at(row).get();
 
     if (childCategory)
         return createIndex(row, column, childCategory);
@@ -40,12 +40,12 @@ QModelIndex CategoryTreeModel::parent(const QModelIndex &child) const
         return QModelIndex();
 
     Category *childCategory = static_cast<Category*>(child.internalPointer());
-    Category *parent = childCategory->Parent;
+    Category *parent = childCategory->Parent.lock().get();
 
-    if (parent == mRoot)
+    if (parent == mRoot.get())
         return QModelIndex();
 
-    return createIndex(parent->Branches.values().indexOf(childCategory), 0, parent);
+    return createIndex(parent->Branches.keys().indexOf(childCategory->Name), 0, parent);
 }
 
 int CategoryTreeModel::rowCount(const QModelIndex &parent /*= QModelIndex()*/) const
@@ -57,14 +57,14 @@ int CategoryTreeModel::rowCount(const QModelIndex &parent /*= QModelIndex()*/) c
     if (parent.isValid())
         parentCategory = static_cast<Category*>(parent.internalPointer());
     else
-        parentCategory = mRoot;
+        parentCategory = mRoot.get();
 
     return parentCategory->Branches.count();
 }
 
 int CategoryTreeModel::columnCount(const QModelIndex &parent /*= QModelIndex()*/) const
 {
-    return 2;
+    return 1;
 }
 
 QVariant CategoryTreeModel::data(const QModelIndex &index, int role /*= Qt::DisplayRole*/) const
@@ -72,20 +72,22 @@ QVariant CategoryTreeModel::data(const QModelIndex &index, int role /*= Qt::Disp
     if (!index.isValid())
         return QVariant();
 
-    if (role != Qt::DisplayRole)
-        return QVariant();
 
     Category *category = static_cast<Category*>(index.internalPointer());
 
-    if (index.column() == 0)
-        return category->Name;
-    else if (index.column() == 1)
+    if (role == Qt::ToolTipRole)
+        return tr("%1 problems (including subcategories)").arg(category->Problems.count());
+
+    if (role == Qt::StatusTipRole)
         return category->Note;
+
+    if (role == Qt::DisplayRole) 
+        return category->Name;
 
     return QVariant();
 }
 
-void CategoryTreeModel::addCategory(Category *category)
+void uva::CategoryTreeModel::addCategory(std::shared_ptr<Category> category)
 {
     category->Parent = mRoot;
     beginInsertRows(QModelIndex(), mRoot->Branches.count(), mRoot->Branches.count());
@@ -96,12 +98,7 @@ void CategoryTreeModel::addCategory(Category *category)
 QVariant CategoryTreeModel::headerData(int section, Qt::Orientation orientation, int role /*= Qt::DisplayRole*/) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-    {
-        if (section == 0)
-            return "Category";
-        else if (section == 1)
-            return "Note";
-    }
+        return "Category";
 
     return QVariant();
 }

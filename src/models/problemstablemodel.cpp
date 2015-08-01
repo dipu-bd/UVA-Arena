@@ -89,6 +89,7 @@ void uva::ProblemsTableModel::setCategoryRoot(std::shared_ptr<Category> root)
 QVariant uva::ProblemsTableModel::style(const QModelIndex &index, int role) const
 {
     // #TODO Style things aesthetically
+    // #TODO Style rows based on the category it belongs to
     // Try to find the problem in the category tree
     typedef Category::CategoryProblem CategoryProblem;
     const Problem problem = mProblemMap->value(mRowToId[index.row()]);

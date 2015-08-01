@@ -1,41 +1,31 @@
-# This branch of UVA-Arena is still UNDER DEVELOPMENT
+# This fork of UVA Arena is still UNDER DEVELOPMENT
 
 # UVA-Arena
 
-![Facebook Icon](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/facebook.png) [Facbook Page](https://www.facebook.com/uvaarena?ref=github)   
+![Facebook Icon](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/facebook.png) [Facbook Page](https://www.facebook.com/uvaarena?ref=github)
 
+**UVA Arena** is a cross-platform, non-commercial, open source application made to help programmers become better programmers. UVA Arena uses the [UVA Online Judge](http://uva.onlinejudge.org/) and APIs from [uHunt](http://uhunt.felix-halim.net/) to provide programmers with lots of contest programming problems.
 
-[![UVA Arena Icon](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/Main.png)](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/Main.png)
+### What's different about this fork?
 
-**UVA Arena** (c) 2014, is a cross-platform, non-commercial, open source utility application to make problem solving easier for the programmers. It is based on popular [UVA Online Judge](http://uva.onlinejudge.org/) and uses APIs from [uHunt](http://uhunt.felix-halim.net/). 
+This fork of **UVA Arena** is an alternative to the [original **UVA Arena** application](https://github.com/dipu-bd/UVA-Arena) developed by [Sudipto Chandra](https://github.com/dipu-bd). Development on this fork concentrates on compatibility with all major operating systems. Cross-compatibility is achieved through the [Qt GUI framework](http://www.qt.io/developers/). This fork also attempts to provide a simple, modern GUI interface while maintaining most of the features available from the original UVA Arena application.
 
+### Feature request
 
-### Short Info
-Main target of this software is to provide a useful and informative tool to the users to help them with their programming practice. Today programming has become a very competitive field. You need to keep track of your progress daily, learn new things, and of-course solve new problems as fast as you can. Problem picking and managing your codes is a time consuming process. You can minimize this wasting of time as much as possible using **UVA Arena**.  
+To request a feature, submit a new issue.
 
-Almost every features of [uHunt](http://uhunt.felix-halim.net/) has been included in this software. It also has many other useful features.   
-
-This is a software for heavy users and serious programmers. It might seem too much to take at first glance. But once you get used to it, I think you will find it very easy and helpful.  
-
-### Getting Help
-You will find the wiki page for this software [here](https://github.com/dipu-bd/UVA-Arena/wiki)  
-
-If you need to report any bugs or suggest any new feature post it [here](https://github.com/dipu-bd/UVA-Arena/issues)  
-
-For any other information contact me at <dipu.sudipta@gmail.com>  
-
-###Licence Information
+### Licence Information
 `This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License, version 3.0 as published by the Free Software Foundation.`  
 
 `This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.`  
 
-You should have received a copy of the GNU General Public License along with this program. If no see <http://www.gnu.org/licenses/>   
+You should have received a copy of the GNU General Public License along with this program. If no see <http://www.gnu.org/licenses/>
 
 ## Building from source
 
 __You will only have to do the following once!__
 
-To build UVA-Arena from source, you will need [Qt5](http://www.qt.io/), [git](https://git-scm.com/), and [CMake](http://www.cmake.org/). 
+To build UVA-Arena from source, you will need [Qt5](http://www.qt.io/), [git](https://git-scm.com/), and [CMake](http://www.cmake.org/).
 
 Clone this repository to a preferred directory, and update all submodules with this command:
 
@@ -43,7 +33,7 @@ Clone this repository to a preferred directory, and update all submodules with t
 
 This will download all of UVA-Arena's dependencies.
 
-Now mupdf must be be built before proceeding. 
+Now mupdf must be be built before proceeding.
 
 On windows, go to this directory:
 
@@ -76,7 +66,7 @@ C:\Qt\Qt5.4.1\5.4\msvc2013_opengl\lib\cmake
 set this directory as the value to Qt5_CMAKE_DIR, and then in the CMake gui click configure again, and then click generate.
 You will receive warnings in red text, but this is due to the mupdf-qt dependency. To ignore these warnings, click Options->Suppress dev Warnings in the CMake gui.
 
-You should now have all the build files necessary to compile UVA-Arena within the build folder. 
+You should now have all the build files necessary to compile UVA-Arena within the build folder.
 
 ### Trouble with CMake?
 

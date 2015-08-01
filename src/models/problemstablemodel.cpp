@@ -1,16 +1,18 @@
 #include "problemstablemodel.h"
 #include "QBrush"
 #include "QFont"
+#include "commons\colorizer.h"
 
 using namespace uva;
 
 ProblemsTableModel::ProblemsTableModel()
     : mProblemMap(nullptr)
+    , mMaxDacu(-1)
 {
     insertColumns({ 
-        "Problem Number", "Problem Title", "DACU",
-        "Time Limit", "Best", "# Accepted",
-        "# Wrong Answers"
+        "Problem Number", "Problem Title", "# Distinct accepted users"
+        , "# Accepted", "# Wrong Answers"
+        , "Time Limit (seconds)", "Best Runtime (seconds)"
     });
 }
 
@@ -27,6 +29,9 @@ void ProblemsTableModel::setUhuntProblemMap(std::shared_ptr<Uhunt::ProblemMap> p
 
     int row = 0;
     while (it != end) {
+        if (it->DACU > mMaxDacu)
+            mMaxDacu = it->DACU;
+
         mRowToId.insert(row++, it->ProblemID);
         it++;
     }
@@ -47,9 +52,9 @@ QVariant ProblemsTableModel::getDataAtIndex(const QModelIndex &index) const
         return QVariant();
 
     /*
-        "Problem Number", "Problem Title", "DACU",
-       "Time Limit", "Best", "Total Submissions",
-       "# Accepted", "# Wrong Answers"
+    "Problem Number", "Problem Title", "# Distinct accepted users"
+    , "# Accepted", "# Wrong Answers"
+    , "Time Limit (seconds)", "Best Runtime (seconds)"
     */
 
     const Problem problem = mProblemMap->value(mRowToId[index.row()]);
@@ -65,16 +70,16 @@ QVariant ProblemsTableModel::getDataAtIndex(const QModelIndex &index) const
         return problem.DACU;
 
     case 3:
-        return problem.RuntimeLimit;
-
-    case 4:
-        return problem.BestRuntime;
-
-    case 5:
         return problem.AcceptedCount;
 
-    case 6:
+    case 4:
         return problem.WrongAnswerCount;
+
+    case 5:
+        return problem.RuntimeLimit / 1000.0f;
+
+    case 6:
+        return problem.BestRuntime / 1000.0f;
     }
 
     return QVariant();
@@ -90,7 +95,7 @@ void uva::ProblemsTableModel::setCategoryRoot(std::shared_ptr<Category> root)
 QVariant uva::ProblemsTableModel::style(const QModelIndex &index, int role) const
 {
     // #TODO Style things aesthetically
-    // #TODO Style rows based on the category it belongs to
+
     // Try to find the problem in the category tree
     typedef Category::CategoryProblem CategoryProblem;
     const Problem problem = mProblemMap->value(mRowToId[index.row()]);
@@ -122,6 +127,11 @@ QVariant uva::ProblemsTableModel::style(const QModelIndex &index, int role) cons
             else
                 break;
         }
+    }
+
+    if (role == Qt::BackgroundRole) {
+        return QColor(48, 47 + 40 * problem.DACU / mMaxDacu, 47);
+
     }
 
     return QVariant();

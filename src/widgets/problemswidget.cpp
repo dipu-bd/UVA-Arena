@@ -98,8 +98,14 @@ void ProblemsWidget::downloadCategoryIndex()
 
 void ProblemsWidget::categoryTreeViewClicked(QModelIndex index)
 {
+    if (!index.parent().isValid())
+        mProblemsFilterProxyModel.setProblemFilter(QList<int>());
+
     Category *category = static_cast<Category*>(
         mCategoryFilterProxyModel.mapToSource(index).internalPointer());
+
+    if (category == nullptr)
+        return;
 
     mProblemsFilterProxyModel.setProblemFilter(category->Problems.keys());
 }

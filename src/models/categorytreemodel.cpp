@@ -3,9 +3,12 @@
 using namespace uva;
 
 CategoryTreeModel::CategoryTreeModel()
-    : mRoot(new Category)
+    : mInvisibleRoot(new Category)
+    , mVisibleRoot(new Category)
 {
-    mRoot->Name = "All Problem Categories";
+    mVisibleRoot->Name = "All UVA Online Judge Problems";
+    mVisibleRoot->Note = 
+        "These are all of the problems available within the UVA Online Judge.";
 }
 
 CategoryTreeModel::~CategoryTreeModel()
@@ -23,7 +26,7 @@ QModelIndex CategoryTreeModel::index(int row, int column, const QModelIndex &par
     if (parent.isValid())
         parentCategory = static_cast<Category*>(parent.internalPointer());
     else
-        parentCategory = mRoot.get();
+        parentCategory = mInvisibleRoot.get();
 
     Category *childCategory = parentCategory->Branches.values().at(row).get();
 
@@ -41,7 +44,7 @@ QModelIndex CategoryTreeModel::parent(const QModelIndex &child) const
     Category *childCategory = static_cast<Category*>(child.internalPointer());
     Category *parent = childCategory->Parent.lock().get();
 
-    if (parent == mRoot.get())
+    if (parent == mInvisibleRoot.get())
         return QModelIndex();
 
     return createIndex(parent->Branches.keys().indexOf(childCategory->Name), 0, parent);
@@ -49,14 +52,15 @@ QModelIndex CategoryTreeModel::parent(const QModelIndex &child) const
 
 int CategoryTreeModel::rowCount(const QModelIndex &parent /*= QModelIndex()*/) const
 {
-    Category *parentCategory;
     if (parent.column() > 0)
         return 0;
+
+    Category *parentCategory;
 
     if (parent.isValid())
         parentCategory = static_cast<Category*>(parent.internalPointer());
     else
-        parentCategory = mRoot.get();
+        parentCategory = mInvisibleRoot.get();
 
     return parentCategory->Branches.count();
 }
@@ -88,20 +92,27 @@ QVariant CategoryTreeModel::data(const QModelIndex &index, int role /*= Qt::Disp
 
 void uva::CategoryTreeModel::addCategory(std::shared_ptr<Category> category)
 {
-    category->Parent = mRoot;
-    beginInsertRows(QModelIndex(), mRoot->Branches.count(), mRoot->Branches.count());
-    mRoot->Branches.insert(category->Name, category);
+    if (mVisibleRoot->Parent.expired()) {
+        mVisibleRoot->Parent = mInvisibleRoot;
+        beginInsertRows(QModelIndex(), 0, 0);
+        mInvisibleRoot->Branches.insert(mVisibleRoot->Name, mVisibleRoot);
+        endInsertRows();
+    }
+
+    category->Parent = mVisibleRoot;
+    beginInsertRows(index(0, 0), mVisibleRoot->Branches.count(), mVisibleRoot->Branches.count());
+    mVisibleRoot->Branches.insert(category->Name, category);
 
     for (auto problem : category->Problems)
-        if (!mRoot->Problems.contains(problem->Number))
-            mRoot->Problems.insert(problem->Number, problem);
+        if (!mVisibleRoot->Problems.contains(problem->Number))
+            mVisibleRoot->Problems.insert(problem->Number, problem);
 
     endInsertRows();
 }
 
 std::shared_ptr<Category> CategoryTreeModel::categoryRoot() const
 {
-    return mRoot;
+    return mVisibleRoot;
 }
 
 QVariant CategoryTreeModel::headerData(int section, Qt::Orientation orientation, int role /*= Qt::DisplayRole*/) const

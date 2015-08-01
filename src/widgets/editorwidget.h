@@ -10,7 +10,7 @@ namespace uva
     namespace Ui {
         class EditorWidget;
     }
-
+    //#TODO update GUI to make this into a code scratchpad. This widget is only for convenience.
     class UVA_EXPORT EditorWidget : public UVAArenaWidget
     {
         Q_OBJECT

@@ -35,8 +35,8 @@ namespace uva
 
     private:
 
-        std::shared_ptr<Category> mRoot;
-
+        std::shared_ptr<Category> mInvisibleRoot;
+        std::shared_ptr<Category> mVisibleRoot;
     };
 
 }

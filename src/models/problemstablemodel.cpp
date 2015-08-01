@@ -1,5 +1,6 @@
 #include "problemstablemodel.h"
 #include "QBrush"
+#include "QFont"
 
 using namespace uva;
 
@@ -104,33 +105,22 @@ QVariant uva::ProblemsTableModel::style(const QModelIndex &index, int role) cons
         }
     }
 
-    switch (role)
-    {
-    case Qt::BackgroundRole:
-        if (categoryProblem && categoryProblem->IsStarred)
-            return QBrush(Qt::blue);
-        else
-            break;
-
-    case Qt::ToolTipRole:
-        if (categoryProblem && !categoryProblem->Note.isEmpty())
-            return categoryProblem->Note;
-        else
-            break;
-
-    case Qt::ForegroundRole:
-        switch (index.column())
+    if (categoryProblem) {
+        static QFont font;
+        font.setBold(true);
+        switch (role)
         {
-        case 0:
-        case 1:
-        case 2:
-            return QBrush(Qt::red);
+        case Qt::FontRole:
+            if (categoryProblem->IsStarred)
+                return font;
+            else
+                break;
 
-        case 3:
-            return QBrush(Qt::cyan);
-
-        default:
-            return QBrush(Qt::magenta);
+        case Qt::ToolTipRole:
+            if (!categoryProblem->Note.isEmpty())
+                return categoryProblem->Note;
+            else
+                break;
         }
     }
 

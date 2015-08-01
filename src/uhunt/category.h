@@ -13,10 +13,10 @@
 namespace uva
 {
 
-    struct UVA_EXPORT Category : public std::enable_shared_from_this<Category>
+    struct UVA_EXPORT Category
     {
 
-        struct CategoryProblem  : public std::enable_shared_from_this<CategoryProblem>
+        struct CategoryProblem
         {
             CategoryProblem(int number, QString note, bool starred)
                 : Number(number), Note(note), IsStarred(starred)

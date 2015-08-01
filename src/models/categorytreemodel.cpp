@@ -31,7 +31,6 @@ QModelIndex CategoryTreeModel::index(int row, int column, const QModelIndex &par
         return createIndex(row, column, childCategory);
     else
         return QModelIndex();
-
 }
 
 QModelIndex CategoryTreeModel::parent(const QModelIndex &child) const
@@ -92,7 +91,17 @@ void uva::CategoryTreeModel::addCategory(std::shared_ptr<Category> category)
     category->Parent = mRoot;
     beginInsertRows(QModelIndex(), mRoot->Branches.count(), mRoot->Branches.count());
     mRoot->Branches.insert(category->Name, category);
+
+    for (auto problem : category->Problems)
+        if (!mRoot->Problems.contains(problem->Number))
+            mRoot->Problems.insert(problem->Number, problem);
+
     endInsertRows();
+}
+
+std::shared_ptr<Category> CategoryTreeModel::categoryRoot() const
+{
+    return mRoot;
 }
 
 QVariant CategoryTreeModel::headerData(int section, Qt::Orientation orientation, int role /*= Qt::DisplayRole*/) const

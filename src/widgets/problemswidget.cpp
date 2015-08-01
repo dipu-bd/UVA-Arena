@@ -27,11 +27,11 @@ ProblemsWidget::ProblemsWidget(QWidget *parent) :
     mUi(new Ui::ProblemsWidget)
 {
     mUi->setupUi(this);
+    mProblemsTableModel.setCategoryRoot(mCategoryTreeModel.categoryRoot());
     mProblemsTableModel.setMaxRowsToFetch(mSettings.maxProblemsTableRowsToFetch());
     mProblemsFilterProxyModel.setSortCaseSensitivity(Qt::CaseInsensitive);
     mProblemsFilterProxyModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
     mProblemsFilterProxyModel.setSourceModel(&mProblemsTableModel);
-    mProblemsFilterProxyModel.setFilterKeyColumn(1); // Problem title column
     QObject::connect(mUi->searchProblemsLineEdit, &QLineEdit::textChanged,
         &mProblemsFilterProxyModel, &QSortFilterProxyModel::setFilterFixedString);
 
@@ -57,6 +57,7 @@ void ProblemsWidget::initialize()
 void ProblemsWidget::setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemsMap)
 {
     mProblemsTableModel.setUhuntProblemMap(problemsMap);
+    mUi->problemsTableView->sortByColumn(0, Qt::AscendingOrder);
     mUi->problemsTableView->resizeColumnsToContents();
 }
 
@@ -69,14 +70,6 @@ void ProblemsWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData
     default:
         break;
     }
-}
-
-void ProblemsWidget::setFilterProblemsBy(QString columnName)
-{
-    if (columnName == "Problem Number")
-        mProblemsFilterProxyModel.setFilterKeyColumn(0);
-    else if (columnName == "Problem Title")
-        mProblemsFilterProxyModel.setFilterKeyColumn(1);
 }
 
 void ProblemsWidget::problemsTableDoubleClicked(QModelIndex index)
@@ -108,7 +101,7 @@ void ProblemsWidget::categoryTreeViewClicked(QModelIndex index)
     Category *category = static_cast<Category*>(
         mCategoryFilterProxyModel.mapToSource(index).internalPointer());
 
-    // #TODO do something with the clicked category
+    mProblemsFilterProxyModel.setProblemFilter(category->Problems.keys());
 }
 
 void uva::ProblemsWidget::loadCategoryIndexFromFile()
@@ -257,7 +250,7 @@ QList<QPair<QString, int> > uva::ProblemsWidget::categoryIndexJsonToList(QByteAr
 
 void uva::ProblemsWidget::newCategoryLoaded(std::shared_ptr<Category> category)
 {
-    if (category == nullptr)
+    if (!category)
         return;
 
     mCategoryTreeModel.addCategory(category);

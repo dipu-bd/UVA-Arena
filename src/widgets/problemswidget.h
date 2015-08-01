@@ -4,6 +4,7 @@
 #include "uvaarenawidget.h"
 #include "models/problemstablemodel.h"
 #include "models/categorytreemodel.h"
+#include "models/problemsproxymodel.h"
 
 #include <QWidget>
 
@@ -38,13 +39,6 @@ namespace uva
     public slots:
 
         virtual void onUVAArenaEvent(UVAArenaEvent, QVariant) override;
-
-        /**
-            Sets filter problems by.
-        
-            \param  columnName  Name of the column.
-        */
-        void setFilterProblemsBy(QString columnName);
 
     private slots:
 
@@ -109,7 +103,7 @@ namespace uva
         */
         void saveCategoryFile(const QByteArray &categoryJson, QString fileName);
 
-        QSortFilterProxyModel mProblemsFilterProxyModel;
+        ProblemsProxyModel mProblemsFilterProxyModel;
         QSortFilterProxyModel mCategoryFilterProxyModel;
         ProblemsTableModel mProblemsTableModel;
         CategoryTreeModel mCategoryTreeModel;

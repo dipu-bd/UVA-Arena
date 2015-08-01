@@ -36,23 +36,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="searchByComboBox">
-       <property name="frame">
-        <bool>true</bool>
-       </property>
-       <item>
-        <property name="text">
-         <string>Problem Title</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Problem Number</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item>
       <widget class="QLineEdit" name="searchProblemsLineEdit"/>
      </item>
     </layout>
@@ -140,22 +123,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>searchByComboBox</sender>
-   <signal>currentIndexChanged(QString)</signal>
-   <receiver>uva::ProblemsWidget</receiver>
-   <slot>setFilterProblemsBy(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>111</x>
-     <y>64</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>454</x>
-     <y>265</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>categoryTreeView</sender>
    <signal>clicked(QModelIndex)</signal>
    <receiver>uva::ProblemsWidget</receiver>
@@ -173,7 +140,6 @@
   </connection>
  </connections>
  <slots>
-  <slot>setFilterProblemsBy(QString)</slot>
   <slot>categoryTreeViewClicked(QModelIndex)</slot>
  </slots>
 </ui>

@@ -79,10 +79,44 @@ QVariant ProblemsTableModel::getDataAtIndex(const QModelIndex &index) const
     return QVariant();
 }
 
+void uva::ProblemsTableModel::setCategoryRoot(std::shared_ptr<Category> root)
+{
+    beginResetModel();
+    mCategoryRoot = root;
+    endResetModel();
+}
+
 QVariant uva::ProblemsTableModel::style(const QModelIndex &index, int role) const
 {
+    // #TODO Style things aesthetically
+    // Try to find the problem in the category tree
+    typedef Category::CategoryProblem CategoryProblem;
+    const Problem problem = mProblemMap->value(mRowToId[index.row()]);
+    CategoryProblem *categoryProblem = nullptr;
+
+    if (mCategoryRoot)
+    {
+        auto it = mCategoryRoot->Problems.find(problem.ProblemNumber);
+        if (it != mCategoryRoot->Problems.end())
+        {
+            categoryProblem = it->get();
+        }
+    }
+
     switch (role)
     {
+    case Qt::BackgroundRole:
+        if (categoryProblem && categoryProblem->IsStarred)
+            return QBrush(Qt::blue);
+        else
+            break;
+
+    case Qt::ToolTipRole:
+        if (categoryProblem && !categoryProblem->Note.isEmpty())
+            return categoryProblem->Note;
+        else
+            break;
+
     case Qt::ForegroundRole:
         switch (index.column())
         {

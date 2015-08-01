@@ -29,6 +29,8 @@ namespace uva
 
         virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
+        std::shared_ptr<Category> categoryRoot() const;
+
     protected:
 
     private:

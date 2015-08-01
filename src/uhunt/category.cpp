@@ -43,12 +43,12 @@ using namespace std;
     for(it = branch.begin(); it != branch.end(); ++it) {
         std::shared_ptr<Category> child = Category::fromJsonObject(it->toObject());
         child->Parent = node;
-        node->Branches.insert(child->Name, child->shared_from_this());
+        node->Branches.insert(child->Name, child);
 
         // add all of the child's problems
         
         for (auto problem : child->Problems)
-            node->Problems.insert(problem->Number, problem->shared_from_this());
+            node->Problems.insert(problem->Number, problem);
 
     }
 

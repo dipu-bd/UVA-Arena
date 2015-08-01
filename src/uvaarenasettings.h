@@ -6,6 +6,7 @@
 
 namespace uva
 {
+    // #TODO add a GUI interface for this class
     /*!
         \brief Convenience class that wraps QSettings with
                application-specific settings.

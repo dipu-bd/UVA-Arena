@@ -1,7 +1,8 @@
 #pragma once
 
 #include "arenatablemodel.h"
-#include "Uhunt/uhunt.h"
+#include "uhunt/uhunt.h"
+#include "uhunt/category.h"
 
 namespace uva
 {
@@ -13,6 +14,8 @@ namespace uva
         ProblemsTableModel();
 
         void setUhuntProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemMap);
+
+        void setCategoryRoot(std::shared_ptr<Category> root);
 
     protected:
 
@@ -26,6 +29,6 @@ namespace uva
 
         QList<int> mRowToId;
         std::shared_ptr<Uhunt::ProblemMap> mProblemMap;
-
+        std::shared_ptr<Category> mCategoryRoot;
     };
 }

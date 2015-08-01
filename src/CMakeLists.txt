@@ -32,6 +32,8 @@ set(MODELS_SOURCES
     models/liveeventstablemodel.cpp
     models/categorytreemodel.h
     models/categorytreemodel.cpp
+    models/problemsproxymodel.h
+    models/problemsproxymodel.cpp
 )
 
 set(WIDGETS_SOURCES

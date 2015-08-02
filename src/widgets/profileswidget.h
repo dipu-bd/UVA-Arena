@@ -22,8 +22,6 @@ namespace uva
 
     public slots:
 
-        void onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData) override;
-
     private:
         std::unique_ptr<Ui::ProfilesWidget> mUi;
 

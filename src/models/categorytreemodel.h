@@ -31,12 +31,15 @@ namespace uva
 
         std::shared_ptr<Category> categoryRoot() const;
 
+        void setTotalProblems(int val);
+
     protected:
 
     private:
 
         std::shared_ptr<Category> mInvisibleRoot;
         std::shared_ptr<Category> mVisibleRoot;
+        int mTotalProblems;
     };
 
 }

@@ -96,13 +96,17 @@ namespace uva
           \brief Gets the update interval of judge status list.
           \return Update interval in milliseconds.
          */
-        int getJudgeStatusUpdateInterval();
+        int liveEventsUpdateInterval();
 
         /*!
           \brief Sets the update interval of judge status list.
           \param msecs Update interval in milliseconds.
          */
-        void setJudgeStatusUpdateInterval(int msecs);
+        void setLiveEventsUpdateInterval(int msecs);
+
+        bool liveEventsAutoStart();
+
+        void setLiveEventsAutoStart(bool autostart);
 
         /**
             Saves PDF documents on download.

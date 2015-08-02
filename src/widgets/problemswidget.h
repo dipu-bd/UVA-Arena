@@ -38,8 +38,6 @@ namespace uva
 
     public slots:
 
-        virtual void onUVAArenaEvent(UVAArenaEvent, QVariant) override;
-
     private slots:
 
         /**

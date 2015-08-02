@@ -78,8 +78,12 @@ QVariant CategoryTreeModel::data(const QModelIndex &index, int role /*= Qt::Disp
 
     Category *category = static_cast<Category*>(index.internalPointer());
 
-    if (role == Qt::ToolTipRole)
-        return tr("%1 problems (including subcategories)").arg(category->Problems.count());
+    if (role == Qt::ToolTipRole) {
+        if (category == mVisibleRoot.get())
+            return tr("%1 problems").arg(mTotalProblems);
+        else
+            return tr("%1 problems (including subcategories)").arg(category->Problems.count());
+    }
 
     if (role == Qt::StatusTipRole)
         return category->Note;
@@ -108,6 +112,11 @@ void uva::CategoryTreeModel::addCategory(std::shared_ptr<Category> category)
             mVisibleRoot->Problems.insert(problem->Number, problem);
 
     endInsertRows();
+}
+
+void uva::CategoryTreeModel::setTotalProblems(int val)
+{
+    mTotalProblems = val;
 }
 
 std::shared_ptr<Category> CategoryTreeModel::categoryRoot() const

@@ -10,9 +10,10 @@ LiveEventsWidget::LiveEventsWidget(QWidget *parent) :
     mUi(new Ui::LiveEventsWidget)
 {
     mUi->setupUi(this);
-    mUi->statusTableView->setModel(&mStatusTableModel);
+    mLiveEventsTableModel.setFetchAllRows(false);
+    mUi->statusTableView->setModel(&mLiveEventsTableModel);
 
-    QObject::connect(&mTimer, &QTimer::timeout, this, &LiveEventsWidget::refreshJudgeStatus);
+    QObject::connect(&mTimer, &QTimer::timeout, this, &LiveEventsWidget::refreshLiveEvents);
 }
 
 LiveEventsWidget::~LiveEventsWidget()
@@ -25,35 +26,35 @@ void LiveEventsWidget::initialize()
     QObject::connect(mUhuntApi.get(), 
         &Uhunt::liveEventsDownloaded, 
         this, 
-        &LiveEventsWidget::setStatusData);
+        &LiveEventsWidget::setLiveEventMap);
 
-   // mTimer.start(mSettings.getJudgeStatusUpdateInterval());
+    if (mSettings.liveEventsAutoStart())
+        mTimer.start(mSettings.liveEventsUpdateInterval());
 }
 
-void LiveEventsWidget::refreshJudgeStatus()
+void uva::LiveEventsWidget::setAutomaticallyUpdate(bool autoupdate)
 {
-    mUhuntApi->liveEvents(mStatusTableModel.getLastSubmissionId());
+    mSettings.setLiveEventsAutoStart(autoupdate);
+
+    if (autoupdate)
+        mTimer.start(mSettings.liveEventsUpdateInterval());
+    else
+        mTimer.stop();
+}
+
+void LiveEventsWidget::refreshLiveEvents()
+{
+    mUhuntApi->liveEvents(mLiveEventsTableModel.getLastSubmissionId());
 }
 
 void LiveEventsWidget::setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemMap)
 {
-    mStatusTableModel.setProblemMap(problemMap);
+    mLiveEventsTableModel.setProblemMap(problemMap);
 }
 
-void LiveEventsWidget::setStatusData(Uhunt::LiveEventMap statusData)
+void LiveEventsWidget::setLiveEventMap(Uhunt::LiveEventMap statusData)
 {
-    mStatusTableModel.setStatusData(statusData);
+    mLiveEventsTableModel.setLiveEventMap(statusData);
+    mUi->statusTableView->resizeColumnsToContents();
     emit newUVAArenaEvent(UVAArenaEvent::UPDATE_STATUS, "Judge Status updated.");
-}
-
-void LiveEventsWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)
-{
-    switch (arenaEvent)
-    {
-    case UVAArenaEvent::UPDATE_STATUS:
-        break;
-
-    default:
-        break;
-    }
 }

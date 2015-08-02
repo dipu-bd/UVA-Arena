@@ -17,15 +17,3 @@ ProfilesWidget::~ProfilesWidget()
 void ProfilesWidget::initialize()
 {   
 }
-
-void ProfilesWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)
-{
-    switch (arenaEvent)
-    {
-    case UVAArenaEvent::UPDATE_STATUS:
-        break;
-
-    default:
-        break;
-    }
-}

@@ -26,7 +26,7 @@ namespace uva
         virtual int getDataCount() const override;
 
     private:
-        int mMaxDacu;
+        quint64 mAverageDACU;
         QList<int> mRowToId;
         std::shared_ptr<Uhunt::ProblemMap> mProblemMap;
         std::shared_ptr<Category> mCategoryRoot;

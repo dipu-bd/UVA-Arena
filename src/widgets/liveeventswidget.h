@@ -26,20 +26,20 @@ namespace uva
 
         void setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemMap);
 
-        void setStatusData(Uhunt::LiveEventMap statusData);
+    public slots:
 
-        void refreshJudgeStatus();
+        void setAutomaticallyUpdate(bool autoupdate);
+
+        void refreshLiveEvents();
 
     protected:
 
-    public slots:
-
-        void onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData) override;
-
     private:
 
+        void setLiveEventMap(Uhunt::LiveEventMap statusData);
+
         std::unique_ptr<Ui::LiveEventsWidget> mUi;
-        LiveEventsTableModel mStatusTableModel;
+        LiveEventsTableModel mLiveEventsTableModel;
         QTimer mTimer;
     };
 

@@ -57,19 +57,9 @@ void ProblemsWidget::initialize()
 void ProblemsWidget::setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemsMap)
 {
     mProblemsTableModel.setUhuntProblemMap(problemsMap);
+    mCategoryTreeModel.setTotalProblems(problemsMap->count());
     mUi->problemsTableView->sortByColumn(0, Qt::AscendingOrder);
     mUi->problemsTableView->resizeColumnsToContents();
-}
-
-void ProblemsWidget::onUVAArenaEvent(UVAArenaEvent arenaEvent, QVariant metaData)
-{
-    switch (arenaEvent) {
-    case UVAArenaEvent::UPDATE_STATUS:
-        break;
-
-    default:
-        break;
-    }
 }
 
 void ProblemsWidget::problemsTableDoubleClicked(QModelIndex index)

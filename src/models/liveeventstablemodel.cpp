@@ -14,7 +14,7 @@ LiveEventsTableModel::LiveEventsTableModel()
     });
 }
 
-void LiveEventsTableModel::setStatusData(Uhunt::LiveEventMap statusData)
+void LiveEventsTableModel::setLiveEventMap(Uhunt::LiveEventMap statusData)
 {
     beginResetModel();
 

@@ -14,7 +14,7 @@ namespace uva
     public:
         LiveEventsTableModel();
 
-        void setStatusData(Uhunt::LiveEventMap statusData);
+        void setLiveEventMap(Uhunt::LiveEventMap statusData);
 
         void setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemMap);
 

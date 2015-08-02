@@ -19,8 +19,11 @@ typedef UVAArenaSettings::ProblemFormat ProblemFormat;
 const QString KeyProblemFormatPreference = "ProblemFormatPreference";
 const ProblemFormat DefaultProblemFormatPreference = ProblemFormat::PDF;
 
-const QString KeyJudgeStatusUpdateInterval = "JudgeStatusUpdateInterval";
-const qint32 DefaultJudgeStatusUpdateInterval = 10000;
+const QString KeyLiveEventsUpdateInterval = "JudgeStatusUpdateInterval";
+const qint32 DefaultLiveEventsUpdateInterval = 10000;
+
+QString KeyLiveEventsAutoStart = "LiveEventsAutoStart";
+bool DefaultLiveEventsAutoStart = false;
 
 const QString KeySavePDFDocumentsOnDownload = "SavePDFDocumentsOnDownload";
 const bool DefaultSavePDFDocumentsOnDownload = true;
@@ -83,15 +86,26 @@ void UVAArenaSettings::setProblemFormatPreference(ProblemFormat format)
     settings.setValue(KeyProblemFormatPreference, (int)format);
 }
 
-int UVAArenaSettings::getJudgeStatusUpdateInterval()
+int UVAArenaSettings::liveEventsUpdateInterval()
 {
-    return settings.value(KeyJudgeStatusUpdateInterval,
-        DefaultJudgeStatusUpdateInterval).toInt();
+    return settings.value(KeyLiveEventsUpdateInterval,
+        DefaultLiveEventsUpdateInterval).toInt();
 }
 
-void UVAArenaSettings::setJudgeStatusUpdateInterval(int msecs)
+void UVAArenaSettings::setLiveEventsUpdateInterval(int msecs)
 {
-    settings.setValue(KeyJudgeStatusUpdateInterval, msecs);
+    settings.setValue(KeyLiveEventsUpdateInterval, msecs);
+}
+
+bool uva::UVAArenaSettings::liveEventsAutoStart()
+{
+    return settings.value(KeyLiveEventsAutoStart
+        , DefaultLiveEventsAutoStart).toBool();
+}
+
+void uva::UVAArenaSettings::setLiveEventsAutoStart(bool autostart)
+{
+    settings.setValue(KeyLiveEventsAutoStart, autostart);
 }
 
 bool UVAArenaSettings::savePDFDocumentsOnDownload()

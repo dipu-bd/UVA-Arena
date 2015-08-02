@@ -7,7 +7,7 @@ using namespace uva;
 
 ProblemsTableModel::ProblemsTableModel()
     : mProblemMap(nullptr)
-    , mMaxDacu(-1)
+    , mAverageDACU(-1)
 {
     insertColumns({ 
         "Problem Number", "Problem Title", "# Distinct accepted users"
@@ -28,13 +28,18 @@ void ProblemsTableModel::setUhuntProblemMap(std::shared_ptr<Uhunt::ProblemMap> p
         mProblemMap->constEnd();
 
     int row = 0;
+    int dacuRows = 0;
     while (it != end) {
-        if (it->DACU > mMaxDacu)
-            mMaxDacu = it->DACU;
-
+        if (it->DACU > 1e3) { // hard cut-off to preserve average
+            dacuRows++;
+            mAverageDACU += it->DACU;
+        }
         mRowToId.insert(row++, it->ProblemID);
         it++;
     }
+
+    mAverageDACU /= dacuRows;
+
     endResetModel();
 }
 
@@ -94,8 +99,6 @@ void uva::ProblemsTableModel::setCategoryRoot(std::shared_ptr<Category> root)
 
 QVariant uva::ProblemsTableModel::style(const QModelIndex &index, int role) const
 {
-    // #TODO Style things aesthetically
-
     // Try to find the problem in the category tree
     typedef Category::CategoryProblem CategoryProblem;
     const Problem problem = mProblemMap->value(mRowToId[index.row()]);
@@ -130,7 +133,9 @@ QVariant uva::ProblemsTableModel::style(const QModelIndex &index, int role) cons
     }
 
     if (role == Qt::BackgroundRole) {
-        return QColor(48, 47 + 40 * problem.DACU / mMaxDacu, 47);
+        return QColor(48
+            , 47 + qMin((int)(40 * problem.DACU / mAverageDACU), 40)
+            , 47);
 
     }
 

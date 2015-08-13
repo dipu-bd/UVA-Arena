@@ -351,7 +351,13 @@ namespace UVA_Arena.Elements
                 else
                 {
                     //show list 
-                    ShowDataByTab();
+                    ShowDataByTab();                    
+                }
+
+                //if auto update is off download once
+                if (!AutoUpdateStatus)
+                {
+                    DownloadUserSubs(user);
                 }
 
                 //select user
@@ -716,7 +722,7 @@ namespace UVA_Arena.Elements
 
         private void showUser_Click(object sender, EventArgs e)
         {
-            ShowWorldRank(rankSelector.Value);
+            ShowWorldRank((int)rankSelector.Value);
         }
 
         private void worldRanklist_MouseClick(object sender, MouseEventArgs e)
@@ -724,7 +730,10 @@ namespace UVA_Arena.Elements
             if (worldRanklist.GetItemCount() == 0) ShowWorldRank(-1);
         }
 
-
+        /// <summary>
+        /// Runs a background thread to download and show world rank data.
+        /// </summary>
+        /// <param name="from">Integer type objects </param>
         private void ShowWorldRank(object from)
         {
             if (currentUser == null) return;

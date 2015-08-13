@@ -60,27 +60,25 @@ namespace UVA_Arena
             /// </summary>
             FO_RENAME = 0x0004,
         }
-
+         
         /// <summary>
         /// SHFILEOPSTRUCT for SHFileOperation from COM
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 1)]
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
         private struct SHFILEOPSTRUCT
         {
             public IntPtr hwnd;
             [MarshalAs(UnmanagedType.U4)]
             public FileOperationType wFunc;
-            [MarshalAs(UnmanagedType.AsAny)]
             public string pFrom;
-            [MarshalAs(UnmanagedType.AsAny)]
             public string pTo;
             public FileOperationFlags fFlags;
             [MarshalAs(UnmanagedType.Bool)]
             public bool fAnyOperationsAborted;
             public IntPtr hNameMappings;
-            [MarshalAs(UnmanagedType.AsAny)]
             public string lpszProgressTitle;
         }
+
 
         [DllImport("shell32.dll", CharSet = CharSet.Auto)]
         private static extern int SHFileOperation(ref SHFILEOPSTRUCT FileOp);

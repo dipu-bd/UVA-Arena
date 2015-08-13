@@ -21,15 +21,23 @@ namespace UVA_Arena.Elements
             InitializeProblemList();
             InitializeCategoryList();
 
-            problemViewSplitContainer.SplitterDistance = Properties.Settings.Default.ProblemSubSplitterDistance;
+            problemViewSplitContainer.SplitterDistance = 
+                (int)Math.Round(problemViewSplitContainer.Width * Properties.Settings.Default.CategoryListSplitterRatio);
 
             mainSplitContainer.SplitterDistance =
-                (int)Math.Round(mainSplitContainer.Width * Properties.Settings.Default.ProblemMainSplitterDistance);
+                (int)Math.Round(mainSplitContainer.Width * Properties.Settings.Default.ProblemListSplitterRatio);
 
             //add problem viewer
             Interactivity.problemViewer = new Elements.ProblemViewer();
             Interactivity.problemViewer.Dock = DockStyle.Fill;
             mainSplitContainer.Panel2.Controls.Add(Interactivity.problemViewer);
+
+            categoryListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+
+            if (Properties.Settings.Default.ProblemViewExpandCollapse)
+            {
+                CollapsePanel2View();
+            }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -100,27 +108,52 @@ namespace UVA_Arena.Elements
                 if ((long)key < 100) return "-";
                 else return Functions.FormatMemory((long)key);
             };
+            statProb.AspectToStringConverter = delegate(object key)
+            {
+                return key.ToString().Replace("_", " ");
+            };
+
+            ptitleProb.ImageGetter = delegate(object data)
+            {
+                if (((ProblemInfo)data).marked)
+                    return Properties.Resources.favorite;
+                else if (((ProblemInfo)data).solved)
+                    return Properties.Resources.accept; 
+                else if (((ProblemInfo)data).starred)
+                    return Properties.Resources.star;
+                else
+                    return Properties.Resources.file;
+            };
+
+            nameCat.ImageGetter = delegate(object data)
+            {
+                if (((CategoryNode)data).Level == 0)
+                    return Properties.Resources.root;
+                else
+                    return Properties.Resources.open;
+            };
         }
 
         #endregion
 
         #region Global Task
 
-        public bool ExpandCollapseView()
+        public void CollapsePanel1View()
+        {            
+            mainSplitContainer.Panel1Collapsed = !mainSplitContainer.Panel1Collapsed;
+            this.showHideButton.Image
+                = mainSplitContainer.Panel2Collapsed ? UVA_Arena.Properties.Resources.hide : UVA_Arena.Properties.Resources.show;
+            Interactivity.problemViewer.expandCollapseButton.Image
+                    = mainSplitContainer.Panel1Collapsed ? UVA_Arena.Properties.Resources.show : UVA_Arena.Properties.Resources.hide;            
+        }
+        public void CollapsePanel2View()
         {
-            bool val = !mainSplitContainer.Panel1Collapsed;
-            if (val)
-            {
-                Interactivity.problemViewer.expandCollapseButton.Image
-                            = UVA_Arena.Properties.Resources.show;
-            }
-            else
-            {
-                Interactivity.problemViewer.expandCollapseButton.Image
-                            = UVA_Arena.Properties.Resources.hide;
-            }
-            mainSplitContainer.Panel1Collapsed = val;
-            return val;
+            mainSplitContainer.Panel2Collapsed = !mainSplitContainer.Panel2Collapsed;
+            this.showHideButton.Image
+                = mainSplitContainer.Panel2Collapsed ? UVA_Arena.Properties.Resources.hide : UVA_Arena.Properties.Resources.show;
+            Interactivity.problemViewer.expandCollapseButton.Image
+                    = mainSplitContainer.Panel1Collapsed ? UVA_Arena.Properties.Resources.show : UVA_Arena.Properties.Resources.hide;
+            Properties.Settings.Default.ProblemViewExpandCollapse = mainSplitContainer.Panel2Collapsed;
         }
 
         public void RefreshProblemList()
@@ -136,7 +169,7 @@ namespace UVA_Arena.Elements
             }
             if (plistLabel.Tag == null)
             {
-                if (favoriteButton.Checked)
+                if (markedButton.Checked)
                     ShowFavorites();
                 else
                     ShowAllProblems();
@@ -153,13 +186,14 @@ namespace UVA_Arena.Elements
 
         private void mainSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
         {
-            Properties.Settings.Default.ProblemMainSplitterDistance =
+            Properties.Settings.Default.ProblemListSplitterRatio =
                 (double)mainSplitContainer.SplitterDistance / mainSplitContainer.Width;
         }
 
         private void problemViewSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
         {
-            Properties.Settings.Default.ProblemSubSplitterDistance = problemViewSplitContainer.SplitterDistance;
+            Properties.Settings.Default.CategoryListSplitterRatio =
+                (double)problemViewSplitContainer.SplitterDistance / problemViewSplitContainer.Width;
         }
 
         #endregion
@@ -181,8 +215,9 @@ namespace UVA_Arena.Elements
                 {
                     categoryListView.Expand(b);
                 }
+                categoryListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+
                 categoryListView.EnsureVisible(0);
-                categoryListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             }
             catch { }
         }
@@ -193,7 +228,7 @@ namespace UVA_Arena.Elements
             if (sel == null) return;
 
             allProbButton.Checked = false;
-            favoriteButton.Checked = false;
+            markedButton.Checked = false;
 
             var nod = (CategoryNode)sel;
             plistLabel.Tag = nod;
@@ -211,7 +246,7 @@ namespace UVA_Arena.Elements
             deepSearchCheckBox.Checked = false;
             searchBox1.SearchText = "";
             allProbButton.Checked = true;
-            favoriteButton.Checked = false;
+            markedButton.Checked = false;
             plistLabel.Text = "All Problems";
             plistLabel.Tag = null;
 
@@ -225,7 +260,7 @@ namespace UVA_Arena.Elements
             deepSearchCheckBox.Checked = false;
             searchBox1.SearchText = "";
             allProbButton.Checked = false;
-            favoriteButton.Checked = true;
+            markedButton.Checked = true;
             plistLabel.Text = "Marked Problems";
             plistLabel.Tag = null;
 
@@ -289,7 +324,7 @@ namespace UVA_Arena.Elements
 
         private void favoriteButton_Click(object sender, EventArgs e)
         {
-            if (!favoriteButton.Checked) ShowFavorites();
+            if (!markedButton.Checked) ShowFavorites();
         }
 
         private void allProbButton_Click(object sender, EventArgs e)
@@ -314,30 +349,35 @@ namespace UVA_Arena.Elements
 
         private void categoryListView_Expanded(object sender, TreeBranchExpandedEventArgs e)
         {
-            nameCat.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+            categoryListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         //
         // Problem List Events
         //
-        private void problemListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //object sel = problemListView.SelectedObject;
-            //if (sel == null) return;
-            //Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
-        }
-        private void problemListView_CellClick(object sender, CellClickEventArgs e)
+        private void showProblem()
         {
             object sel = problemListView.SelectedObject;
             if (sel == null) return;
             Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
+            if (mainSplitContainer.Panel2Collapsed)
+            {
+                CollapsePanel2View(); 
+            }
+        }
+
+        private void problemListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //showProblem();
+        }
+        private void problemListView_CellClick(object sender, CellClickEventArgs e)
+        {
+            showProblem();
         }
 
         private void problemListView_ItemActivate(object sender, EventArgs e)
         {
-            object sel = problemListView.SelectedObject;
-            if (sel == null) return;
-            Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
+            showProblem();
         }
 
         private void problemListView_BeforeSorting(object sender, BeforeSortingEventArgs e)
@@ -452,69 +492,6 @@ namespace UVA_Arena.Elements
             e.SubItem.ForeColor = fore;
         }
 
-
-        #endregion
-
-        #region  Context Menu
-
-        private void updateToolButton_Click(object sender, EventArgs e)
-        {
-            Downloader.DownloadProblemDatabase();
-            Downloader.DownloadCategoryIndex();
-        }
-
-        private void problemContextMenu_Opening(object sender, CancelEventArgs e)
-        {
-            bool marked = false;
-            if (problemListView.SelectedObject != null)
-            {
-                ProblemInfo pinfo = (ProblemInfo)problemListView.SelectedObject;
-                marked = pinfo.marked;
-            }
-            if (marked) markAsFavorite.Text = "Remove From Favorite";
-            else markAsFavorite.Text = "Mark As Favorite";
-        }
-
-        //
-        // Major Tasks
-        //
-        private void downloadAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Interactivity.ShowDownloadAllForm();
-        }
-
-        //
-        //other simple tasks
-        //
-        private void openInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Interactivity.problemViewer.externalButton.PerformClick();
-        }
-
-        private void viewSourceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Interactivity.problemViewer.codeButton.PerformClick();
-        }
-
-        private void submitCodeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Interactivity.problemViewer.submitButton.PerformClick();
-        }
-
-        private void markAsFavoriteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Interactivity.problemViewer.markButton.PerformClick();
-        }
-
-        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Interactivity.problemViewer.reloadButton.PerformClick();
-        }
-
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            problemListView.Refresh();
-        }
 
         #endregion
 
@@ -642,7 +619,7 @@ namespace UVA_Arena.Elements
             this.BeginInvoke((MethodInvoker)delegate
             {
                 allProbButton.Checked = false;
-                favoriteButton.Checked = false;
+                markedButton.Checked = false;
                 plistLabel.Text = "Deep Search Result";
                 problemListView.AdditionalFilter = null;
 
@@ -738,6 +715,93 @@ namespace UVA_Arena.Elements
 
         #endregion
 
+        #region  Context Menus and others
+
+        private void showHideViewButton_Click(object sender, EventArgs e)
+        {
+            CollapsePanel2View();
+        }
+
+
+        // Category list context men
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            problemListView.Refresh();
+        }
+
+        private void refreshToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            LocalDatabase.RunLoadAsync(true);
+        }
+
+        private void expandAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            categoryListView.ExpandAll();
+            categoryListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+        }
+
+        private void collapseAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            categoryListView.CollapseAll();
+        }
+        private void updateToolButton_Click(object sender, EventArgs e)
+        {
+            Downloader.DownloadProblemDatabase();
+            Downloader.DownloadCategoryIndex();
+        }
+
+        //problem list context menus
+
+        private void problemContextMenu_Opening(object sender, CancelEventArgs e)
+        {
+            bool marked = false;
+            if (problemListView.SelectedObject != null)
+            {
+                ProblemInfo pinfo = (ProblemInfo)problemListView.SelectedObject;
+                marked = pinfo.marked;
+            }
+            if (marked) markAsFavorite.Text = "Remove From Favorite";
+            else markAsFavorite.Text = "Mark As Favorite";
+        }
+
+        //
+        // Major Tasks
+        //
+        private void downloadAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.ShowDownloadAllForm();
+        }
+
+        //
+        //other simple tasks
+        //
+        private void openInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.problemViewer.externalButton.PerformClick();
+        }
+
+        private void viewSourceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.problemViewer.codeButton.PerformClick();
+        }
+
+        private void submitCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.problemViewer.submitButton.PerformClick();
+        }
+
+        private void markAsFavoriteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.problemViewer.markButton.PerformClick();
+        }
+
+        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Interactivity.problemViewer.reloadButton.PerformClick();
+        }
+
+
+        #endregion
 
     }
 }

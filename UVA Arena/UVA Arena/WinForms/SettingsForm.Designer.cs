@@ -161,7 +161,7 @@
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(384, 34);
-            this.tableLayoutPanel3.TabIndex = 2;
+            this.tableLayoutPanel3.TabIndex = 1;
             // 
             // closeButton
             // 
@@ -169,7 +169,7 @@
             this.closeButton.Location = new System.Drawing.Point(267, 3);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(114, 28);
-            this.closeButton.TabIndex = 1;
+            this.closeButton.TabIndex = 0;
             this.closeButton.Text = "OK";
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
@@ -187,7 +187,7 @@
             this.tabControl1.Padding = new System.Drawing.Point(20, 5);
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(384, 457);
-            this.tabControl1.TabIndex = 3;
+            this.tabControl1.TabIndex = 0;
             // 
             // generalTab
             // 
@@ -198,7 +198,6 @@
             this.generalTab.Controls.Add(this.groupBox4);
             this.generalTab.Location = new System.Drawing.Point(4, 26);
             this.generalTab.Name = "generalTab";
-            this.generalTab.Padding = new System.Windows.Forms.Padding(3);
             this.generalTab.Size = new System.Drawing.Size(376, 427);
             this.generalTab.TabIndex = 0;
             this.generalTab.Text = "General";
@@ -211,7 +210,7 @@
             this.groupBox11.Location = new System.Drawing.Point(8, 78);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(360, 93);
-            this.groupBox11.TabIndex = 17;
+            this.groupBox11.TabIndex = 1;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "General :";
             // 
@@ -237,7 +236,7 @@
             this.checkBox2.Location = new System.Drawing.Point(14, 22);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(134, 17);
-            this.checkBox2.TabIndex = 1;
+            this.checkBox2.TabIndex = 0;
             this.checkBox2.Text = "Always ask username";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
@@ -249,7 +248,7 @@
             this.checkBox1.Location = new System.Drawing.Point(14, 44);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(143, 17);
-            this.checkBox1.TabIndex = 0;
+            this.checkBox1.TabIndex = 1;
             this.checkBox1.Text = "Don\'t show exit dialog";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
@@ -262,7 +261,7 @@
             this.groupBox6.Location = new System.Drawing.Point(8, 179);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(360, 97);
-            this.groupBox6.TabIndex = 16;
+            this.groupBox6.TabIndex = 2;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Change Code Directory";
             // 
@@ -273,7 +272,7 @@
             this.currentCodeDir.Location = new System.Drawing.Point(72, 24);
             this.currentCodeDir.Name = "currentCodeDir";
             this.currentCodeDir.Size = new System.Drawing.Size(282, 28);
-            this.currentCodeDir.TabIndex = 14;
+            this.currentCodeDir.TabIndex = 1;
             this.currentCodeDir.TabStop = true;
             this.currentCodeDir.Text = "linkLabel1";
             this.currentCodeDir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -288,7 +287,7 @@
             this.changeCodeButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.changeCodeButton.Name = "changeCodeButton";
             this.changeCodeButton.Size = new System.Drawing.Size(160, 28);
-            this.changeCodeButton.TabIndex = 11;
+            this.changeCodeButton.TabIndex = 2;
             this.changeCodeButton.Text = "Change Code Directory";
             this.changeCodeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.changeCodeButton.UseVisualStyleBackColor = true;
@@ -301,7 +300,7 @@
             this.formatCodeButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.formatCodeButton.Name = "formatCodeButton";
             this.formatCodeButton.Size = new System.Drawing.Size(160, 28);
-            this.formatCodeButton.TabIndex = 12;
+            this.formatCodeButton.TabIndex = 3;
             this.formatCodeButton.Text = "Format Code Directory";
             this.formatCodeButton.UseVisualStyleBackColor = true;
             this.formatCodeButton.Click += new System.EventHandler(this.formatCodeButton_Click);
@@ -313,7 +312,7 @@
             this.label34.Margin = new System.Windows.Forms.Padding(3);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(52, 13);
-            this.label34.TabIndex = 13;
+            this.label34.TabIndex = 0;
             this.label34.Text = "Current :";
             // 
             // groupBox5
@@ -324,10 +323,10 @@
             this.groupBox5.Controls.Add(this.downloadAll);
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.label2);
-            this.groupBox5.Location = new System.Drawing.Point(6, 283);
+            this.groupBox5.Location = new System.Drawing.Point(8, 280);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(360, 133);
-            this.groupBox5.TabIndex = 15;
+            this.groupBox5.Size = new System.Drawing.Size(361, 133);
+            this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Problem Data :";
             // 
@@ -338,7 +337,7 @@
             this.backupRegistryButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.backupRegistryButton.Name = "backupRegistryButton";
             this.backupRegistryButton.Size = new System.Drawing.Size(250, 28);
-            this.backupRegistryButton.TabIndex = 9;
+            this.backupRegistryButton.TabIndex = 3;
             this.backupRegistryButton.Text = "Backup Registry Settings";
             this.backupRegistryButton.UseVisualStyleBackColor = true;
             this.backupRegistryButton.Click += new System.EventHandler(this.backupRegistryButton_Click);
@@ -350,7 +349,7 @@
             this.downloadAll.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.downloadAll.Name = "downloadAll";
             this.downloadAll.Size = new System.Drawing.Size(250, 28);
-            this.downloadAll.TabIndex = 3;
+            this.downloadAll.TabIndex = 1;
             this.downloadAll.Text = "Problem Downloader";
             this.downloadAll.UseVisualStyleBackColor = true;
             this.downloadAll.Click += new System.EventHandler(this.downloadAll_Click);
@@ -361,7 +360,7 @@
             this.label1.Location = new System.Drawing.Point(14, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(189, 13);
-            this.label1.TabIndex = 6;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Make off-line copy of all problems :";
             // 
             // label2
@@ -370,7 +369,7 @@
             this.label2.Location = new System.Drawing.Point(13, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(187, 13);
-            this.label2.TabIndex = 7;
+            this.label2.TabIndex = 2;
             this.label2.Text = "Backup data stored in the registry :";
             // 
             // groupBox4
@@ -380,7 +379,7 @@
             this.groupBox4.Location = new System.Drawing.Point(8, 16);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(360, 52);
-            this.groupBox4.TabIndex = 14;
+            this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Default Username :";
             // 
@@ -407,7 +406,7 @@
             this.groupBox3.Location = new System.Drawing.Point(8, 260);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(360, 62);
-            this.groupBox3.TabIndex = 64;
+            this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Colors :";
             // 
@@ -440,7 +439,7 @@
             this.groupBox2.Location = new System.Drawing.Point(8, 14);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(360, 90);
-            this.groupBox2.TabIndex = 61;
+            this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Font :";
             // 
@@ -451,7 +450,7 @@
             this.button1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(84, 26);
-            this.button1.TabIndex = 2;
+            this.button1.TabIndex = 1;
             this.button1.Text = "Change";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -463,7 +462,7 @@
             this.fontname.Location = new System.Drawing.Point(3, 18);
             this.fontname.Name = "fontname";
             this.fontname.Size = new System.Drawing.Size(265, 69);
-            this.fontname.TabIndex = 1;
+            this.fontname.TabIndex = 0;
             this.fontname.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fontname.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -482,7 +481,7 @@
             this.groupBox1.Location = new System.Drawing.Point(10, 122);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(358, 120);
-            this.groupBox1.TabIndex = 56;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Check Values :";
             // 
@@ -492,7 +491,7 @@
             this.showHints.Location = new System.Drawing.Point(205, 93);
             this.showHints.Name = "showHints";
             this.showHints.Size = new System.Drawing.Size(130, 17);
-            this.showHints.TabIndex = 10;
+            this.showHints.TabIndex = 7;
             this.showHints.Text = "Show Compile Hints";
             this.showHints.UseVisualStyleBackColor = true;
             this.showHints.CheckedChanged += new System.EventHandler(this.showHints_CheckedChanged);
@@ -506,7 +505,7 @@
             this.highlightFoldingIndicator.Location = new System.Drawing.Point(12, 93);
             this.highlightFoldingIndicator.Name = "highlightFoldingIndicator";
             this.highlightFoldingIndicator.Size = new System.Drawing.Size(167, 17);
-            this.highlightFoldingIndicator.TabIndex = 9;
+            this.highlightFoldingIndicator.TabIndex = 3;
             this.highlightFoldingIndicator.Text = "Highlight Folding Indicator";
             this.highlightFoldingIndicator.UseVisualStyleBackColor = true;
             // 
@@ -518,7 +517,7 @@
             this.autoCompleteBrackets.Location = new System.Drawing.Point(12, 24);
             this.autoCompleteBrackets.Name = "autoCompleteBrackets";
             this.autoCompleteBrackets.Size = new System.Drawing.Size(149, 17);
-            this.autoCompleteBrackets.TabIndex = 3;
+            this.autoCompleteBrackets.TabIndex = 0;
             this.autoCompleteBrackets.Text = "Auto Complete Brackets";
             this.autoCompleteBrackets.UseVisualStyleBackColor = true;
             // 
@@ -531,7 +530,7 @@
             this.showFoldingLines.Location = new System.Drawing.Point(12, 47);
             this.showFoldingLines.Name = "showFoldingLines";
             this.showFoldingLines.Size = new System.Drawing.Size(127, 17);
-            this.showFoldingLines.TabIndex = 4;
+            this.showFoldingLines.TabIndex = 1;
             this.showFoldingLines.Text = "Show Folding Lines";
             this.showFoldingLines.UseVisualStyleBackColor = true;
             // 
@@ -543,7 +542,7 @@
             this.wordWraps.Location = new System.Drawing.Point(205, 24);
             this.wordWraps.Name = "wordWraps";
             this.wordWraps.Size = new System.Drawing.Size(86, 17);
-            this.wordWraps.TabIndex = 5;
+            this.wordWraps.TabIndex = 4;
             this.wordWraps.Text = "Word Wrap";
             this.wordWraps.UseVisualStyleBackColor = true;
             // 
@@ -556,7 +555,7 @@
             this.showLineNumbers.Location = new System.Drawing.Point(12, 70);
             this.showLineNumbers.Name = "showLineNumbers";
             this.showLineNumbers.Size = new System.Drawing.Size(128, 17);
-            this.showLineNumbers.TabIndex = 6;
+            this.showLineNumbers.TabIndex = 2;
             this.showLineNumbers.Text = "Show Line Numbers";
             this.showLineNumbers.UseVisualStyleBackColor = true;
             // 
@@ -569,7 +568,7 @@
             this.caretBlinking.Location = new System.Drawing.Point(205, 47);
             this.caretBlinking.Name = "caretBlinking";
             this.caretBlinking.Size = new System.Drawing.Size(99, 17);
-            this.caretBlinking.TabIndex = 7;
+            this.caretBlinking.TabIndex = 5;
             this.caretBlinking.Text = "Caret Blinking";
             this.caretBlinking.UseVisualStyleBackColor = true;
             // 
@@ -581,7 +580,7 @@
             this.autoIndentChars.Location = new System.Drawing.Point(205, 70);
             this.autoIndentChars.Name = "autoIndentChars";
             this.autoIndentChars.Size = new System.Drawing.Size(120, 17);
-            this.autoIndentChars.TabIndex = 8;
+            this.autoIndentChars.TabIndex = 6;
             this.autoIndentChars.Text = "Auto Indent Chars";
             this.autoIndentChars.UseVisualStyleBackColor = true;
             // 
@@ -593,7 +592,7 @@
             this.groupBox7.Location = new System.Drawing.Point(8, 346);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(360, 57);
-            this.groupBox7.TabIndex = 63;
+            this.groupBox7.TabIndex = 3;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Shortcuts :";
             // 
@@ -634,7 +633,7 @@
             this.groupBox10.Location = new System.Drawing.Point(11, 351);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(350, 65);
-            this.groupBox10.TabIndex = 22;
+            this.groupBox10.TabIndex = 12;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Java Compiler Options";
             // 
@@ -658,7 +657,7 @@
             this.groupBox9.Location = new System.Drawing.Point(11, 280);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(350, 65);
-            this.groupBox9.TabIndex = 22;
+            this.groupBox9.TabIndex = 11;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "C++ Comopiler Options";
             // 
@@ -682,7 +681,7 @@
             this.groupBox8.Location = new System.Drawing.Point(12, 210);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(350, 65);
-            this.groupBox8.TabIndex = 21;
+            this.groupBox8.TabIndex = 10;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "C Compiler Options";
             // 
@@ -718,7 +717,7 @@
             this.linkLabel2.Location = new System.Drawing.Point(1, 29);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(328, 15);
-            this.linkLabel2.TabIndex = 12;
+            this.linkLabel2.TabIndex = 9;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Tag = "";
             this.linkLabel2.Text = "http://www.oracle.com/technetwork/java/javase/downloads";
@@ -732,7 +731,7 @@
             this.label8.Location = new System.Drawing.Point(0, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(344, 48);
-            this.label8.TabIndex = 16;
+            this.label8.TabIndex = 8;
             this.label8.Text = "Check out this directory \"C:\\Program Files\\Java\\jdk~\". Otherwise download and ins" +
     "tall it from here -";
             // 
@@ -742,7 +741,7 @@
             this.label6.Location = new System.Drawing.Point(8, 111);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(80, 13);
-            this.label6.TabIndex = 9;
+            this.label6.TabIndex = 5;
             this.label6.Text = "JDK Directory :";
             // 
             // jdkLocation
@@ -757,7 +756,7 @@
             this.jdkLocation.Name = "jdkLocation";
             this.jdkLocation.ReadOnly = true;
             this.jdkLocation.Size = new System.Drawing.Size(255, 25);
-            this.jdkLocation.TabIndex = 20;
+            this.jdkLocation.TabIndex = 6;
             this.jdkLocation.Text = "C:\\Program Files\\Java\\jdk~";
             // 
             // minGWLocation
@@ -772,7 +771,7 @@
             this.minGWLocation.Name = "minGWLocation";
             this.minGWLocation.ReadOnly = true;
             this.minGWLocation.Size = new System.Drawing.Size(255, 25);
-            this.minGWLocation.TabIndex = 19;
+            this.minGWLocation.TabIndex = 1;
             this.minGWLocation.Text = "C:\\Program Files\\CodeBlocks\\MinGW";
             // 
             // button2
@@ -781,7 +780,7 @@
             this.button2.Location = new System.Drawing.Point(277, 126);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(85, 26);
-            this.button2.TabIndex = 8;
+            this.button2.TabIndex = 7;
             this.button2.Text = "Browse";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.jdkLOC_Click);
@@ -792,7 +791,7 @@
             this.button3.Location = new System.Drawing.Point(277, 27);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(85, 26);
-            this.button3.TabIndex = 5;
+            this.button3.TabIndex = 2;
             this.button3.Text = "Browse";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.minGW_Click);
@@ -803,7 +802,7 @@
             this.label5.Location = new System.Drawing.Point(11, 12);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(101, 13);
-            this.label5.TabIndex = 3;
+            this.label5.TabIndex = 0;
             this.label5.Text = "MinGW Directory :";
             // 
             // panel1
@@ -824,7 +823,7 @@
             this.linkLabel1.Location = new System.Drawing.Point(63, 30);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(219, 15);
-            this.linkLabel1.TabIndex = 12;
+            this.linkLabel1.TabIndex = 4;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Tag = "";
             this.linkLabel1.Text = "http://sourceforge.net/projects/mingw/";
@@ -837,7 +836,7 @@
             this.label26.Location = new System.Drawing.Point(0, 0);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(344, 48);
-            this.label26.TabIndex = 16;
+            this.label26.TabIndex = 3;
             this.label26.Text = "Check out directories like \"C:\\MinGW\" or  \"C:\\Program Files\\CodeBlocks\\MinGW\". Ot" +
     "herwise download and install it from here -";
             // 
@@ -866,7 +865,7 @@
             this.label9.Location = new System.Drawing.Point(63, 369);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(235, 15);
-            this.label9.TabIndex = 11;
+            this.label9.TabIndex = 3;
             this.label9.Text = "Codes are automatically stored as you type.";
             // 
             // button4
@@ -875,7 +874,7 @@
             this.button4.Location = new System.Drawing.Point(8, 393);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(105, 25);
-            this.button4.TabIndex = 10;
+            this.button4.TabIndex = 4;
             this.button4.Text = "Open";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.openCodeFile_Click);
@@ -893,7 +892,7 @@
             this.panel2.Location = new System.Drawing.Point(8, 9);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(360, 40);
-            this.panel2.TabIndex = 9;
+            this.panel2.TabIndex = 0;
             // 
             // PascalRadioButton
             // 
@@ -926,7 +925,7 @@
             this.label4.Location = new System.Drawing.Point(7, 11);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 17);
-            this.label4.TabIndex = 2;
+            this.label4.TabIndex = 0;
             this.label4.Text = "Language :";
             // 
             // cppRadioButton
@@ -936,7 +935,7 @@
             this.cppRadioButton.Location = new System.Drawing.Point(153, 9);
             this.cppRadioButton.Name = "cppRadioButton";
             this.cppRadioButton.Size = new System.Drawing.Size(52, 21);
-            this.cppRadioButton.TabIndex = 1;
+            this.cppRadioButton.TabIndex = 2;
             this.cppRadioButton.Text = "C++";
             this.cppRadioButton.UseVisualStyleBackColor = true;
             this.cppRadioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
@@ -949,7 +948,7 @@
             this.ansiCradioButton.Location = new System.Drawing.Point(85, 9);
             this.ansiCradioButton.Name = "ansiCradioButton";
             this.ansiCradioButton.Size = new System.Drawing.Size(66, 21);
-            this.ansiCradioButton.TabIndex = 0;
+            this.ansiCradioButton.TabIndex = 1;
             this.ansiCradioButton.TabStop = true;
             this.ansiCradioButton.Text = "ANSI C";
             this.ansiCradioButton.UseVisualStyleBackColor = true;
@@ -961,7 +960,7 @@
             this.saveCodeButton.Location = new System.Drawing.Point(119, 393);
             this.saveCodeButton.Name = "saveCodeButton";
             this.saveCodeButton.Size = new System.Drawing.Size(105, 25);
-            this.saveCodeButton.TabIndex = 4;
+            this.saveCodeButton.TabIndex = 5;
             this.saveCodeButton.Text = "Save";
             this.saveCodeButton.UseVisualStyleBackColor = true;
             this.saveCodeButton.Click += new System.EventHandler(this.saveCodeButton_Click);
@@ -972,7 +971,7 @@
             this.cancelCodeButton.Location = new System.Drawing.Point(263, 393);
             this.cancelCodeButton.Name = "cancelCodeButton";
             this.cancelCodeButton.Size = new System.Drawing.Size(105, 25);
-            this.cancelCodeButton.TabIndex = 3;
+            this.cancelCodeButton.TabIndex = 6;
             this.cancelCodeButton.Text = "Restore";
             this.cancelCodeButton.UseVisualStyleBackColor = true;
             this.cancelCodeButton.Click += new System.EventHandler(this.cancelCodeButton_Click);

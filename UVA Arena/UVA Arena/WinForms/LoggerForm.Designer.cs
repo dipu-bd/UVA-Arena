@@ -93,7 +93,7 @@
             this.activityList.ShowGroups = false;
             this.activityList.ShowItemCountOnGroups = true;
             this.activityList.ShowItemToolTips = true;
-            this.activityList.Size = new System.Drawing.Size(744, 310);
+            this.activityList.Size = new System.Drawing.Size(776, 344);
             this.activityList.TabIndex = 0;
             this.activityList.UseCellFormatEvents = true;
             this.activityList.UseCompatibleStateImageBehavior = false;
@@ -136,31 +136,31 @@
             this.forceStopToolStripMenuItem,
             this.forceStartToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(138, 76);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(137, 76);
             // 
             // cancelTaskToolStripMenuItem
             // 
             this.cancelTaskToolStripMenuItem.Name = "cancelTaskToolStripMenuItem";
-            this.cancelTaskToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.cancelTaskToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.cancelTaskToolStripMenuItem.Text = "Cancel Task";
             this.cancelTaskToolStripMenuItem.Click += new System.EventHandler(this.cancelTaskToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(134, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(133, 6);
             // 
             // forceStopToolStripMenuItem
             // 
             this.forceStopToolStripMenuItem.Name = "forceStopToolStripMenuItem";
-            this.forceStopToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.forceStopToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.forceStopToolStripMenuItem.Text = "Force Stop";
             this.forceStopToolStripMenuItem.Click += new System.EventHandler(this.forceStopToolStripMenuItem_Click);
             // 
             // forceStartToolStripMenuItem
             // 
             this.forceStartToolStripMenuItem.Name = "forceStartToolStripMenuItem";
-            this.forceStartToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.forceStartToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.forceStartToolStripMenuItem.Text = "Force Start";
             this.forceStartToolStripMenuItem.Click += new System.EventHandler(this.forceStartToolStripMenuItem_Click);
             // 
@@ -168,7 +168,7 @@
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(635, 3);
+            this.button1.Location = new System.Drawing.Point(667, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(114, 25);
             this.button1.TabIndex = 1;
@@ -180,7 +180,7 @@
             // 
             this.gotoEndButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gotoEndButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gotoEndButton.Location = new System.Drawing.Point(515, 3);
+            this.gotoEndButton.Location = new System.Drawing.Point(547, 3);
             this.gotoEndButton.Name = "gotoEndButton";
             this.gotoEndButton.Size = new System.Drawing.Size(114, 25);
             this.gotoEndButton.TabIndex = 2;
@@ -198,8 +198,8 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(50, 8);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(752, 346);
-            this.tabControl1.TabIndex = 3;
+            this.tabControl1.Size = new System.Drawing.Size(784, 380);
+            this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
@@ -207,7 +207,7 @@
             this.tabPage1.Controls.Add(this.activityList);
             this.tabPage1.Location = new System.Drawing.Point(4, 32);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(744, 310);
+            this.tabPage1.Size = new System.Drawing.Size(776, 344);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Activity Log";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -217,7 +217,7 @@
             this.tabPage2.Controls.Add(this.downloadQueue1);
             this.tabPage2.Location = new System.Drawing.Point(4, 32);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(744, 310);
+            this.tabPage2.Size = new System.Drawing.Size(776, 344);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Download Queue";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -255,8 +255,8 @@
             this.downloadQueue1.ShowGroups = false;
             this.downloadQueue1.ShowItemCountOnGroups = true;
             this.downloadQueue1.ShowItemToolTips = true;
-            this.downloadQueue1.Size = new System.Drawing.Size(744, 310);
-            this.downloadQueue1.TabIndex = 2;
+            this.downloadQueue1.Size = new System.Drawing.Size(776, 344);
+            this.downloadQueue1.TabIndex = 0;
             this.downloadQueue1.UseCellFormatEvents = true;
             this.downloadQueue1.UseCompatibleStateImageBehavior = false;
             this.downloadQueue1.UseCustomSelectionColors = true;
@@ -319,7 +319,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 32);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(744, 310);
+            this.tabPage3.Size = new System.Drawing.Size(776, 344);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Pending Task";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -343,8 +343,8 @@
             this.taskQueue1.Name = "taskQueue1";
             this.taskQueue1.ShowGroups = false;
             this.taskQueue1.ShowItemToolTips = true;
-            this.taskQueue1.Size = new System.Drawing.Size(738, 304);
-            this.taskQueue1.TabIndex = 1;
+            this.taskQueue1.Size = new System.Drawing.Size(770, 338);
+            this.taskQueue1.TabIndex = 0;
             this.taskQueue1.UseCompatibleStateImageBehavior = false;
             this.taskQueue1.UseCustomSelectionColors = true;
             this.taskQueue1.UseTranslucentSelection = true;
@@ -370,11 +370,11 @@
             this.tableLayoutPanel1.Controls.Add(this.Status1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.checkBox1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 346);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 380);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(752, 31);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 31);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // Status1
@@ -384,7 +384,7 @@
             this.Status1.Location = new System.Drawing.Point(120, 1);
             this.Status1.Margin = new System.Windows.Forms.Padding(10, 1, 3, 1);
             this.Status1.Name = "Status1";
-            this.Status1.Size = new System.Drawing.Size(389, 29);
+            this.Status1.Size = new System.Drawing.Size(421, 29);
             this.Status1.TabIndex = 3;
             this.Status1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -398,7 +398,7 @@
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.checkBox1.Size = new System.Drawing.Size(104, 17);
-            this.checkBox1.TabIndex = 4;
+            this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "Stay on top";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
@@ -408,7 +408,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PaleTurquoise;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(752, 377);
+            this.ClientSize = new System.Drawing.Size(784, 411);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.DataBindings.Add(new System.Windows.Forms.Binding("TopMost", global::UVA_Arena.Properties.Settings.Default, "LoggerIsTopMost", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));

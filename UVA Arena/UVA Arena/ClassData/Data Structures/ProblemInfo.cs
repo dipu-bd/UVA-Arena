@@ -64,7 +64,7 @@ namespace UVA_Arena.Structures
         //formatted special values 
         public int volume { get; set; }
         public long total { get; set; }
-        public bool stared { get; set; }
+        public bool starred { get; set; }
         public bool solved { get; set; }        
         public bool marked { get; set; }
         public int priority { get; set;}

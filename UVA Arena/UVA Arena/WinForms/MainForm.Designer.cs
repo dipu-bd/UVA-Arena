@@ -76,7 +76,6 @@
             this.submissionOverTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.submissionPerVerdictrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.submissionLanguagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rankCloudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.worldRankToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -134,6 +133,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(844, 24);
             this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.TabStop = true;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
@@ -150,7 +150,7 @@
             this.toolStripSeparator2,
             this.closeToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.fileToolStripMenuItem.Text = "UVA Arena";
             // 
             // setDefaultUserToolStripMenuItem
@@ -426,19 +426,19 @@
             // 
             this.addUserToolStripMenuItem.Image = global::UVA_Arena.Properties.Resources.add;
             this.addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
-            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.addUserToolStripMenuItem.Text = "Add User";
             this.addUserToolStripMenuItem.Click += new System.EventHandler(this.addUserToolStripMenuItem_Click);
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(158, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(157, 6);
             // 
             // submissionsToolStripMenuItem
             // 
             this.submissionsToolStripMenuItem.Name = "submissionsToolStripMenuItem";
-            this.submissionsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.submissionsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.submissionsToolStripMenuItem.Text = "Submissions";
             // 
             // progressTrackerToolStripMenuItem
@@ -447,10 +447,9 @@
             this.basicInfoToolStripMenuItem,
             this.submissionOverTimeToolStripMenuItem,
             this.submissionPerVerdictrToolStripMenuItem,
-            this.submissionLanguagesToolStripMenuItem,
-            this.rankCloudToolStripMenuItem});
+            this.submissionLanguagesToolStripMenuItem});
             this.progressTrackerToolStripMenuItem.Name = "progressTrackerToolStripMenuItem";
-            this.progressTrackerToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.progressTrackerToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.progressTrackerToolStripMenuItem.Text = "Progress Tracker";
             // 
             // basicInfoToolStripMenuItem
@@ -481,24 +480,17 @@
             this.submissionLanguagesToolStripMenuItem.Text = "Submission Languages";
             this.submissionLanguagesToolStripMenuItem.Click += new System.EventHandler(this.submissionLanguagesToolStripMenuItem_Click);
             // 
-            // rankCloudToolStripMenuItem
-            // 
-            this.rankCloudToolStripMenuItem.Name = "rankCloudToolStripMenuItem";
-            this.rankCloudToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.rankCloudToolStripMenuItem.Text = "Rank Cloud";
-            this.rankCloudToolStripMenuItem.Click += new System.EventHandler(this.rankCloudToolStripMenuItem_Click);
-            // 
             // worldRankToolStripMenuItem
             // 
             this.worldRankToolStripMenuItem.Name = "worldRankToolStripMenuItem";
-            this.worldRankToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.worldRankToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.worldRankToolStripMenuItem.Text = "World Rank";
             this.worldRankToolStripMenuItem.Click += new System.EventHandler(this.worldRankToolStripMenuItem_Click);
             // 
             // compareToolStripMenuItem
             // 
             this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
-            this.compareToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.compareToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.compareToolStripMenuItem.Text = "Compare Users";
             this.compareToolStripMenuItem.Click += new System.EventHandler(this.compareToolStripMenuItem_Click);
             // 
@@ -579,7 +571,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Status1,
             this.Progress1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 414);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 413);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(844, 28);
             this.statusStrip1.SizingGrip = false;
@@ -616,7 +608,8 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(90, 24);
-            this.tableLayoutPanel1.TabIndex = 1;
+            this.tableLayoutPanel1.TabIndex = 2;
+            this.tableLayoutPanel1.TabStop = true;
             // 
             // settingsButton
             // 
@@ -677,7 +670,7 @@
             this.loadingPanel.Controls.Add(this.versionLabel);
             this.loadingPanel.Controls.Add(this.panel1);
             this.loadingPanel.Controls.Add(this.productName);
-            this.loadingPanel.Location = new System.Drawing.Point(300, 150);
+            this.loadingPanel.Location = new System.Drawing.Point(300, 149);
             this.loadingPanel.Name = "loadingPanel";
             this.loadingPanel.Size = new System.Drawing.Size(300, 150);
             this.loadingPanel.TabIndex = 4;
@@ -696,6 +689,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DarkSlateBlue;
             this.label1.Location = new System.Drawing.Point(51, 10);
@@ -706,6 +700,7 @@
             // 
             // versionLabel
             // 
+            this.versionLabel.BackColor = System.Drawing.Color.Transparent;
             this.versionLabel.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.versionLabel.ForeColor = System.Drawing.Color.DarkRed;
             this.versionLabel.Location = new System.Drawing.Point(131, 72);
@@ -717,6 +712,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.BackgroundImage = global::UVA_Arena.Properties.Resources.Main;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel1.Location = new System.Drawing.Point(5, 6);
@@ -726,6 +722,7 @@
             // 
             // productName
             // 
+            this.productName.BackColor = System.Drawing.Color.Transparent;
             this.productName.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.productName.ForeColor = System.Drawing.Color.Indigo;
             this.productName.Location = new System.Drawing.Point(125, 27);
@@ -767,7 +764,7 @@
             this.problemTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.problemTab.Location = new System.Drawing.Point(4, 33);
             this.problemTab.Name = "problemTab";
-            this.problemTab.Size = new System.Drawing.Size(836, 353);
+            this.problemTab.Size = new System.Drawing.Size(836, 352);
             this.problemTab.TabIndex = 0;
             this.problemTab.Text = "PROBLEMS";
             // 
@@ -790,8 +787,8 @@
             this.customTabControl1.Padding = new System.Drawing.Point(30, 7);
             this.customTabControl1.SelectedFontStyle = System.Drawing.FontStyle.Italic;
             this.customTabControl1.SelectedIndex = 0;
-            this.customTabControl1.Size = new System.Drawing.Size(844, 390);
-            this.customTabControl1.TabIndex = 5;
+            this.customTabControl1.Size = new System.Drawing.Size(844, 389);
+            this.customTabControl1.TabIndex = 1;
             this.customTabControl1.SelectedIndexChanged += new System.EventHandler(this.customTabControl1_SelectedIndexChanged);
             // 
             // MainForm
@@ -799,7 +796,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
-            this.ClientSize = new System.Drawing.Size(844, 442);
+            this.ClientSize = new System.Drawing.Size(844, 441);
             this.Controls.Add(this.loadingPanel);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.customTabControl1);
@@ -883,7 +880,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripMenuItem worldRankToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compareToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rankCloudToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editorSettingToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;

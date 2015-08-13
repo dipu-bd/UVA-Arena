@@ -68,7 +68,7 @@
             this.productName.Location = new System.Drawing.Point(0, 258);
             this.productName.Name = "productName";
             this.productName.Size = new System.Drawing.Size(332, 36);
-            this.productName.TabIndex = 0;
+            this.productName.TabIndex = 1;
             this.productName.Text = "UVA Arena";
             this.productName.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
@@ -85,7 +85,7 @@
             this.tabControl1.Padding = new System.Drawing.Point(30, 5);
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(340, 397);
-            this.tabControl1.TabIndex = 1;
+            this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -111,7 +111,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(332, 258);
-            this.panel1.TabIndex = 3;
+            this.panel1.TabIndex = 0;
             // 
             // linkLabel4
             // 
@@ -121,7 +121,7 @@
             this.linkLabel4.Location = new System.Drawing.Point(0, 294);
             this.linkLabel4.Name = "linkLabel4";
             this.linkLabel4.Size = new System.Drawing.Size(332, 18);
-            this.linkLabel4.TabIndex = 4;
+            this.linkLabel4.TabIndex = 2;
             this.linkLabel4.TabStop = true;
             this.linkLabel4.Tag = "mailto:uva.arena@gmail.com";
             this.linkLabel4.Text = "uva.arena@gmail.com";
@@ -137,7 +137,7 @@
             this.versionLabel.Location = new System.Drawing.Point(0, 312);
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(332, 25);
-            this.versionLabel.TabIndex = 1;
+            this.versionLabel.TabIndex = 3;
             this.versionLabel.Text = "Version 1.0";
             this.versionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -149,7 +149,7 @@
             this.label3.Location = new System.Drawing.Point(0, 337);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(332, 30);
-            this.label3.TabIndex = 2;
+            this.label3.TabIndex = 4;
             this.label3.Text = "Copyright (c) 2014 by Sudipto Chandra.";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -170,13 +170,14 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.PowderBlue;
+            this.panel2.Controls.Add(this.linkLabel1);
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.linkLabel1);
             this.panel2.Location = new System.Drawing.Point(10, 40);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(310, 70);
-            this.panel2.TabIndex = 5;
+            this.panel2.TabIndex = 1;
+            this.panel2.TabStop = true;
             // 
             // button2
             // 
@@ -185,7 +186,7 @@
             this.button2.Location = new System.Drawing.Point(223, 5);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(81, 58);
-            this.button2.TabIndex = 3;
+            this.button2.TabIndex = 4;
             this.button2.Tag = "https://github.com/dipu-bd";
             this.toolTip1.SetToolTip(this.button2, "https://github.com/dipu-bd");
             this.button2.UseVisualStyleBackColor = true;
@@ -199,7 +200,7 @@
             this.label5.Location = new System.Drawing.Point(11, 6);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(206, 38);
-            this.label5.TabIndex = 1;
+            this.label5.TabIndex = 2;
             this.label5.Text = "Sudipto Chandra";
             // 
             // linkLabel1
@@ -210,7 +211,7 @@
             this.linkLabel1.Location = new System.Drawing.Point(11, 35);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(208, 25);
-            this.linkLabel1.TabIndex = 2;
+            this.linkLabel1.TabIndex = 3;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Tag = "mailto:dipu.sudipta@gmail.com";
             this.linkLabel1.Text = "dipu.sudipta@gmail.com";
@@ -228,7 +229,7 @@
             this.licenceText.ReadOnly = true;
             this.licenceText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.licenceText.Size = new System.Drawing.Size(315, 206);
-            this.licenceText.TabIndex = 4;
+            this.licenceText.TabIndex = 3;
             this.licenceText.Text = resources.GetString("licenceText.Text");
             // 
             // label6
@@ -239,7 +240,7 @@
             this.label6.Location = new System.Drawing.Point(11, 119);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(133, 19);
-            this.label6.TabIndex = 3;
+            this.label6.TabIndex = 2;
             this.label6.Text = "Licence description :";
             // 
             // label4
@@ -277,7 +278,7 @@
             this.label9.Location = new System.Drawing.Point(12, 323);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(304, 26);
-            this.label9.TabIndex = 6;
+            this.label9.TabIndex = 5;
             this.label9.Text = "Wish you all the Accepted! Happy Coding!!!";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -302,7 +303,7 @@
             this.linkLabel3.Location = new System.Drawing.Point(120, 111);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(103, 19);
-            this.linkLabel3.TabIndex = 2;
+            this.linkLabel3.TabIndex = 3;
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Tag = "mailto:uva.arena@gmail.com";
             this.linkLabel3.Text = "Report an issue";
@@ -317,7 +318,7 @@
             this.linkLabel2.Location = new System.Drawing.Point(96, 51);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(176, 19);
-            this.linkLabel2.TabIndex = 0;
+            this.linkLabel2.TabIndex = 1;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Tag = "https://github.com/dipu-bd/UVA-Arena/wiki";
             this.linkLabel2.Text = "Online help documentation";
@@ -332,7 +333,7 @@
             this.label1.Location = new System.Drawing.Point(12, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(304, 46);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 0;
             this.label1.Text = "You will find an online documentation of UVA Arena here -";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -344,7 +345,7 @@
             this.label2.Location = new System.Drawing.Point(12, 88);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(304, 46);
-            this.label2.TabIndex = 3;
+            this.label2.TabIndex = 2;
             this.label2.Text = "Report any problems, bugs, suggestions or ask questions here -";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 

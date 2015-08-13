@@ -62,6 +62,8 @@ namespace UVA_Arena
                 new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
             Stylish.SetGradientBackground(tableLayoutPanel1,
                 new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
+            Stylish.SetGradientBackground(loadingPanel,
+              new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
 
             //start status cleaner
             ClearStatus("");            
@@ -138,21 +140,7 @@ namespace UVA_Arena
                 //set some properties to the form
                 SetFormProperties();                
             });
-
-            //update user submissions if not available
-            if (LocalDatabase.ContainsUser(RegistryAccess.DefaultUsername))
-            {
-                string file = LocalDirectory.GetUserSubPath(RegistryAccess.DefaultUsername);
-                if (LocalDirectory.GetFileSize(file) < 50)
-                {
-                    System.Threading.Thread.Sleep(1000);
-                    this.BeginInvoke((MethodInvoker)delegate
-                    {
-                        Interactivity.userstat.DownloadUserSubs(RegistryAccess.DefaultUsername);
-                    });
-                }
-            }
-
+                      
             //check for update
             if(Properties.Settings.Default.CheckForUpdate)
             {
@@ -310,7 +298,7 @@ namespace UVA_Arena
         private void expandViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             customTabControl1.SelectedTab = problemTab;
-            Interactivity.problems.ExpandCollapseView();
+            Interactivity.problems.CollapsePanel1View();
         }
 
         private void viewCodeFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -409,14 +397,7 @@ namespace UVA_Arena
             Interactivity.userstat.tabControl1.SelectedTab = Interactivity.userstat.progtrackerTab;
             customTabControl1.SelectedTab = profileTab;
         }
-
-        private void rankCloudToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Interactivity.progTracker.tabControl1.SelectedTab = Interactivity.progTracker.rankCloudTab;
-            Interactivity.userstat.tabControl1.SelectedTab = Interactivity.userstat.progtrackerTab;
-            customTabControl1.SelectedTab = profileTab;
-        }
-
+        
         #endregion user status
 
         #region help menu

@@ -85,6 +85,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(737, 40);
             this.panel1.TabIndex = 0;
+            this.panel1.TabStop = true;
             // 
             // label2
             // 
@@ -95,7 +96,7 @@
             this.label2.Location = new System.Drawing.Point(340, 7);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 25);
-            this.label2.TabIndex = 3;
+            this.label2.TabIndex = 2;
             this.label2.Text = "and";
             // 
             // secondUser
@@ -108,7 +109,7 @@
             this.secondUser.Location = new System.Drawing.Point(388, 6);
             this.secondUser.Name = "secondUser";
             this.secondUser.Size = new System.Drawing.Size(160, 27);
-            this.secondUser.TabIndex = 2;
+            this.secondUser.TabIndex = 3;
             this.secondUser.SelectedIndexChanged += new System.EventHandler(this.user_SelectedIndexChanged);
             // 
             // firstUser
@@ -165,7 +166,7 @@
             this.groupBox1.Location = new System.Drawing.Point(537, 40);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(200, 398);
-            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Comparison Tools";
             // 
@@ -178,7 +179,7 @@
             this.label5.Location = new System.Drawing.Point(9, 121);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(155, 19);
-            this.label5.TabIndex = 7;
+            this.label5.TabIndex = 2;
             this.label5.Text = "Show submissions that-";
             // 
             // tableLayoutPanel2
@@ -198,7 +199,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(180, 180);
-            this.tableLayoutPanel2.TabIndex = 6;
+            this.tableLayoutPanel2.TabIndex = 3;
             // 
             // secondsRank
             // 
@@ -262,7 +263,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(180, 60);
-            this.tableLayoutPanel1.TabIndex = 5;
+            this.tableLayoutPanel1.TabIndex = 1;
             // 
             // allsubRadio
             // 
@@ -353,7 +354,7 @@
             this.label8.Location = new System.Drawing.Point(167, 56);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(67, 19);
-            this.label8.TabIndex = 4;
+            this.label8.TabIndex = 2;
             this.label8.Text = "Accepted";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -366,7 +367,7 @@
             this.label11.Location = new System.Drawing.Point(301, 56);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(67, 19);
-            this.label11.TabIndex = 7;
+            this.label11.TabIndex = 4;
             this.label11.Text = "Unsolved";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -380,7 +381,7 @@
             this.acceptedLabel.Location = new System.Drawing.Point(147, 8);
             this.acceptedLabel.Name = "acceptedLabel";
             this.acceptedLabel.Size = new System.Drawing.Size(107, 37);
-            this.acceptedLabel.TabIndex = 6;
+            this.acceptedLabel.TabIndex = 3;
             this.acceptedLabel.Tag = "{0}|{1}";
             this.acceptedLabel.Text = "[0|0]";
             // 
@@ -394,7 +395,7 @@
             this.triednacLabel.Location = new System.Drawing.Point(281, 8);
             this.triednacLabel.Name = "triednacLabel";
             this.triednacLabel.Size = new System.Drawing.Size(107, 37);
-            this.triednacLabel.TabIndex = 3;
+            this.triednacLabel.TabIndex = 5;
             this.triednacLabel.Tag = "{0}|{1}";
             this.triednacLabel.Text = "[0|0]";
             // 
@@ -408,7 +409,7 @@
             this.totalsubLabel.Location = new System.Drawing.Point(415, 8);
             this.totalsubLabel.Name = "totalsubLabel";
             this.totalsubLabel.Size = new System.Drawing.Size(107, 37);
-            this.totalsubLabel.TabIndex = 1;
+            this.totalsubLabel.TabIndex = 7;
             this.totalsubLabel.Tag = "{0}|{1}";
             this.totalsubLabel.Text = "[0|0]";
             // 
@@ -422,7 +423,7 @@
             this.probInListLabel.Location = new System.Drawing.Point(31, 8);
             this.probInListLabel.Name = "probInListLabel";
             this.probInListLabel.Size = new System.Drawing.Size(71, 37);
-            this.probInListLabel.TabIndex = 2;
+            this.probInListLabel.TabIndex = 1;
             this.probInListLabel.Tag = "{0}";
             this.probInListLabel.Text = "[0]";
             // 
@@ -435,7 +436,7 @@
             this.label7.Location = new System.Drawing.Point(15, 56);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(103, 19);
-            this.label7.TabIndex = 5;
+            this.label7.TabIndex = 0;
             this.label7.Text = "Problem In List";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -448,7 +449,7 @@
             this.label6.Location = new System.Drawing.Point(411, 56);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(116, 19);
-            this.label6.TabIndex = 0;
+            this.label6.TabIndex = 6;
             this.label6.Text = "Total Submission";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -490,7 +491,7 @@
             this.lastSubmissions1.ShowCommandMenuOnRightClick = true;
             this.lastSubmissions1.ShowGroups = false;
             this.lastSubmissions1.Size = new System.Drawing.Size(537, 318);
-            this.lastSubmissions1.TabIndex = 3;
+            this.lastSubmissions1.TabIndex = 1;
             this.lastSubmissions1.UseCellFormatEvents = true;
             this.lastSubmissions1.UseCompatibleStateImageBehavior = false;
             this.lastSubmissions1.UseCustomSelectionColors = true;

@@ -55,6 +55,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(410, 70);
             this.tableLayoutPanel1.TabIndex = 0;
+            this.tableLayoutPanel1.TabStop = true;
             // 
             // ok_button1
             // 
@@ -64,7 +65,7 @@
             this.ok_button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ok_button1.Name = "ok_button1";
             this.ok_button1.Size = new System.Drawing.Size(94, 27);
-            this.ok_button1.TabIndex = 2;
+            this.ok_button1.TabIndex = 1;
             this.ok_button1.Text = "OK";
             this.ok_button1.UseVisualStyleBackColor = true;
             this.ok_button1.Click += new System.EventHandler(this.ok_button1_Click);
@@ -79,7 +80,7 @@
             this.info_text.Margin = new System.Windows.Forms.Padding(3);
             this.info_text.Name = "info_text";
             this.info_text.Size = new System.Drawing.Size(404, 33);
-            this.info_text.TabIndex = 3;
+            this.info_text.TabIndex = 2;
             this.info_text.Text = "Input : ";
             this.info_text.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
@@ -91,7 +92,7 @@
             this.inputText1.Location = new System.Drawing.Point(3, 42);
             this.inputText1.Name = "inputText1";
             this.inputText1.Size = new System.Drawing.Size(304, 25);
-            this.inputText1.TabIndex = 4;
+            this.inputText1.TabIndex = 0;
             // 
             // InputForm
             // 

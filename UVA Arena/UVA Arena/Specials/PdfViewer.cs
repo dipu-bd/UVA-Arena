@@ -1,8 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using PdfiumViewer;
 
-namespace PdfiumViewer
+namespace UVA_Arena
 {
     /// <summary>
     /// Control to host PDF documents with support for printing.

@@ -11,12 +11,26 @@ namespace UVA_Arena.Elements
 {
     public partial class ProblemViewer : UserControl
     {
+        UVA_Arena.PdfViewer pdfViewer1 = new PdfViewer();
 
         #region Top Level
 
         public ProblemViewer()
         {
             InitializeComponent();
+
+            // 
+            // pdfViewer1
+            // 
+            this.pdfViewer1.DefaultDocumentName = null;
+            this.pdfViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pdfViewer1.Document = null;
+            this.pdfViewer1.Location = new System.Drawing.Point(0, 0);
+            this.pdfViewer1.Name = "pdfViewer1";
+            this.pdfViewer1.Size = new System.Drawing.Size(792, 321);
+            this.pdfViewer1.TabIndex = 0;
+            this.pdfViewer1.ZoomMode = PdfiumViewer.PdfViewerZoomMode.FitWidth;
+            this.pdfTab.Controls.Add(this.pdfViewer1);
         }
 
         protected override void OnBackColorChanged(EventArgs e)
@@ -83,14 +97,14 @@ namespace UVA_Arena.Elements
 
         private void setPdfFile(string file)
         {
-            if (file == null || !File.Exists(file))
+            try
             {
-                pdfViewer1.Enabled = false;
-            }
-            else 
-            {
-                pdfViewer1.Enabled = true;
+                pdfViewer1.Visible = true;
                 pdfViewer1.Document = PdfiumViewer.PdfDocument.Load(file);
+            }
+            catch
+            {
+                pdfViewer1.Visible = false;
             }
         }
 
@@ -132,7 +146,7 @@ namespace UVA_Arena.Elements
 
             //download if necessary
             if (!pdfAvail) DownloadPdf(current.pnum);
-            if (!htmlAvail) DownloadHtml(current.pnum);                        
+            if (!htmlAvail) DownloadHtml(current.pnum);
         }
 
         private void LoadTopBar()
@@ -159,7 +173,7 @@ namespace UVA_Arena.Elements
             }
             if (ratio < 0.35) levelstar = "*";
             else if (ratio <= 0.15) levelstar = "**";
-            if (current.stared) levelstar += "#";
+            if (current.starred) levelstar += "#";
 
             //status message about the problem
             string msg = "You DID NOT TRY this problem.";
@@ -200,7 +214,7 @@ namespace UVA_Arena.Elements
             }
             else if (tabControl1.SelectedTab == pdfTab)
             {
-                setPdfFile(LocalDirectory.GetProblemPdf(current.pnum)); 
+                setPdfFile(LocalDirectory.GetProblemPdf(current.pnum));
             }
         }
 
@@ -316,6 +330,19 @@ namespace UVA_Arena.Elements
 
         #region Top bar
 
+        private void tagsEditorToolButton_Click(object sender, EventArgs e)
+        {
+            string path = Path.Combine(Application.StartupPath, "CategoryEditor.exe");
+            try
+            {
+                System.Diagnostics.Process.Start(path);
+            }
+            catch  
+            {
+                MessageBox.Show("Could not found category editor at: \r\n" + path);
+            }
+        }
+
         private void tagsOrNoteToolButton_Click(object sender, EventArgs e)
         {
             if (current == null)
@@ -349,7 +376,7 @@ namespace UVA_Arena.Elements
 
         private void expandViewButton1_Click(object sender, EventArgs e)
         {
-            Interactivity.problems.ExpandCollapseView();
+            Interactivity.problems.CollapsePanel1View();
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -434,15 +461,15 @@ namespace UVA_Arena.Elements
 
             current.marked = markButton.Checked;
 
-            if (Interactivity.problems.favoriteButton.Checked)
+            if (Interactivity.problems.markedButton.Checked)
                 Interactivity.problems.ShowFavorites();
         }
 
         private void markButton_CheckedChanged(object sender, EventArgs e)
         {
             markButton.Text = markButton.Checked ? "Unmark" : "Mark";
-        }     
-        
+        }
+
         //
         // Show hide toolbar
         //
@@ -699,27 +726,27 @@ namespace UVA_Arena.Elements
 
         private void AssignAspectToSubList()
         {
-            subtimeSUB.AspectToStringConverter = delegate(object dat)
+            subtimeSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 return UnixTimestamp.FormatUnixTime((long)dat);
             };
-            lanSUB.AspectToStringConverter = delegate(object dat)
+            lanSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 return Functions.GetLanguage((Language)((long)dat));
             };
-            verSUB.AspectToStringConverter = delegate(object dat)
+            verSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 return Functions.GetVerdict((Verdict)((long)dat));
             };
-            runSUB.AspectToStringConverter = delegate(object dat)
+            runSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 return Functions.FormatRuntime((long)dat);
             };
-            rankSUB.AspectToStringConverter = delegate(object dat)
+            rankSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 if ((long)dat == -1) return "-";
@@ -741,7 +768,8 @@ namespace UVA_Arena.Elements
                 else
                 {
                     if (MessageBox.Show("Add \"" + list.uname + "\" to your favorite list?", "Add User",
-                        MessageBoxButtons.YesNo) == DialogResult.No) return;
+                        MessageBoxButtons.YesNo) == DialogResult.No)
+                        return;
                     RegistryAccess.AddUserid(list.uname, list.uid.ToString());
                     Interactivity.ShowUserStat(list.uname);
                 }
@@ -891,6 +919,6 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        
+
     }
 }

@@ -35,11 +35,11 @@
     <Setting Name="EditorShowHints" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ProblemMainSplitterDistance" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.36</Value>
+    <Setting Name="ProblemListSplitterRatio" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.4</Value>
     </Setting>
-    <Setting Name="ProblemSubSplitterDistance" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">195</Value>
+    <Setting Name="CategoryListSplitterRatio" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.3</Value>
     </Setting>
     <Setting Name="HideAcceptedChecked" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -54,7 +54,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="AutoUpdateUserStat" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="AutoUpdateJudgeStatus" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -79,6 +79,9 @@
     </Setting>
     <Setting Name="CheckForUpdate" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ProblemViewExpandCollapse" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

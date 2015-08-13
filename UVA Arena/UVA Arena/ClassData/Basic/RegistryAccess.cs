@@ -295,21 +295,21 @@ namespace UVA_Arena
         /// <summary>
         /// Gets the category file version
         /// </summary> 
-        public static int GetCategoryVersion(string category)
+        public static long GetCategoryVersion(string category)
         {
             RegistryKey key = DEFAULT.CreateSubKey("Category Index");
             object ob = key.GetValue(category);
-            if (ob == null || ob.GetType() != typeof(int))
+            if (ob == null || ob.GetType() != typeof(long))
                 return -1;
-            return (int)ob;
+            return (long)ob;
         }
         /// <summary>
         /// Sets the category file version
         /// </summary> 
-        public static void SetCategoryVersion(string category, int version)
+        public static void SetCategoryVersion(string category, long version)
         {
             RegistryKey key = DEFAULT.CreateSubKey("Category Index");
-            key.SetValue(category, version, RegistryValueKind.DWord);
+            key.SetValue(category, version, RegistryValueKind.QWord);
         }
     }
 }

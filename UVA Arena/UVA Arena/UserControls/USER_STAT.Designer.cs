@@ -52,8 +52,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.acceptedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notAcceptedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.noneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
@@ -183,7 +183,6 @@
             // 
             this.autoUpdateToolMenu.Checked = global::UVA_Arena.Properties.Settings.Default.AutoUpdateUserStat;
             this.autoUpdateToolMenu.CheckOnClick = true;
-            this.autoUpdateToolMenu.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autoUpdateToolMenu.Name = "autoUpdateToolMenu";
             this.autoUpdateToolMenu.Size = new System.Drawing.Size(141, 22);
             this.autoUpdateToolMenu.Text = "Auto Update";
@@ -296,7 +295,7 @@
             this.acceptedToolStripMenuItem,
             this.notAcceptedToolStripMenuItem});
             this.viewContextMenu.Name = "viewContextMenu";
-            this.viewContextMenu.OwnerItem = this.toolStripSplitButton2;
+            this.viewContextMenu.OwnerItem = this.viewToolStripMenuItem;
             this.viewContextMenu.Size = new System.Drawing.Size(148, 148);
             // 
             // allToolStripMenuItem
@@ -359,13 +358,6 @@
             this.notAcceptedToolStripMenuItem.Text = "Not Accepted";
             this.notAcceptedToolStripMenuItem.Click += new System.EventHandler(this.viewMenuItem_Click);
             // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.DropDown = this.viewContextMenu;
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
             // toolStripSplitButton2
             // 
             this.toolStripSplitButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -374,6 +366,13 @@
             this.toolStripSplitButton2.Name = "toolStripSplitButton2";
             this.toolStripSplitButton2.Size = new System.Drawing.Size(45, 20);
             this.toolStripSplitButton2.Text = "View";
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDown = this.viewContextMenu;
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.viewToolStripMenuItem.Text = "View";
             // 
             // groupContextMenu
             // 
@@ -676,7 +675,7 @@
             this.usernameList.Name = "usernameList";
             this.usernameList.ShowGroups = false;
             this.usernameList.Size = new System.Drawing.Size(146, 310);
-            this.usernameList.TabIndex = 5;
+            this.usernameList.TabIndex = 1;
             this.usernameList.UseCellFormatEvents = true;
             this.usernameList.UseCompatibleStateImageBehavior = false;
             this.usernameList.UseCustomSelectionColors = true;
@@ -711,7 +710,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(146, 35);
-            this.panel1.TabIndex = 3;
+            this.panel1.TabIndex = 0;
             // 
             // label1
             // 
@@ -732,7 +731,7 @@
             this.groupBox1.Location = new System.Drawing.Point(0, 345);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(146, 77);
-            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Add User";
             // 
@@ -804,7 +803,7 @@
             this.tabControl1.Padding = new System.Drawing.Point(25, 6);
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(583, 384);
-            this.tabControl1.TabIndex = 0;
+            this.tabControl1.TabIndex = 1;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // submissionTab
@@ -856,7 +855,7 @@
             this.lastSubmissions1.ShowItemCountOnGroups = true;
             this.lastSubmissions1.Size = new System.Drawing.Size(575, 325);
             this.lastSubmissions1.Sorting = System.Windows.Forms.SortOrder.Descending;
-            this.lastSubmissions1.TabIndex = 2;
+            this.lastSubmissions1.TabIndex = 0;
             this.lastSubmissions1.UseAlternatingBackColors = true;
             this.lastSubmissions1.UseCellFormatEvents = true;
             this.lastSubmissions1.UseCompatibleStateImageBehavior = false;
@@ -954,7 +953,7 @@
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 2, 1, 0);
             this.toolStrip1.Size = new System.Drawing.Size(575, 25);
-            this.toolStrip1.TabIndex = 3;
+            this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // refreshSubmissions
@@ -1055,7 +1054,7 @@
             this.worldRanklist.ShowItemToolTips = true;
             this.worldRanklist.Size = new System.Drawing.Size(575, 320);
             this.worldRanklist.Sorting = System.Windows.Forms.SortOrder.Descending;
-            this.worldRanklist.TabIndex = 3;
+            this.worldRanklist.TabIndex = 0;
             this.worldRanklist.UseAlternatingBackColors = true;
             this.worldRanklist.UseCellFormatEvents = true;
             this.worldRanklist.UseCompatibleStateImageBehavior = false;
@@ -1187,7 +1186,7 @@
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(575, 30);
-            this.tableLayoutPanel2.TabIndex = 4;
+            this.tableLayoutPanel2.TabIndex = 1;
             // 
             // reloadRankButton
             // 
@@ -1277,7 +1276,7 @@
             this.titleBackPanel.Location = new System.Drawing.Point(0, 0);
             this.titleBackPanel.Name = "titleBackPanel";
             this.titleBackPanel.Size = new System.Drawing.Size(583, 38);
-            this.titleBackPanel.TabIndex = 4;
+            this.titleBackPanel.TabIndex = 0;
             // 
             // userNameTitle
             // 

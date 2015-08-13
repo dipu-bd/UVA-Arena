@@ -247,7 +247,7 @@
             this.submissionStatus.ShowItemToolTips = true;
             this.submissionStatus.Size = new System.Drawing.Size(715, 379);
             this.submissionStatus.Sorting = System.Windows.Forms.SortOrder.Descending;
-            this.submissionStatus.TabIndex = 1;
+            this.submissionStatus.TabIndex = 0;
             this.submissionStatus.UseCellFormatEvents = true;
             this.submissionStatus.UseCompatibleStateImageBehavior = false;
             this.submissionStatus.UseCustomSelectionColors = true;
@@ -380,7 +380,8 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(715, 35);
-            this.panel1.TabIndex = 2;
+            this.panel1.TabIndex = 1;
+            this.panel1.TabStop = true;
             // 
             // button1
             // 
@@ -408,7 +409,7 @@
             this.label1.ForeColor = System.Drawing.Color.Navy;
             this.label1.Location = new System.Drawing.Point(5, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(278, 25);
+            this.label1.Size = new System.Drawing.Size(277, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Judge Status - Last Submissions";
             // 

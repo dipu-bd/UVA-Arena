@@ -1118,7 +1118,7 @@ namespace UVA_Arena.Elements
         {
             inputTextBox.Paste();
         }
-
+        
         //
         //Load Default 
         // 
@@ -1137,7 +1137,7 @@ namespace UVA_Arena.Elements
                     "[Warning: It might be wrong. Please check to be sure.]");
             }
         }
-
+        
         //
         // Output Text Box
         //
@@ -1294,14 +1294,14 @@ namespace UVA_Arena.Elements
                         fctb1.AppendText(line.line + Environment.NewLine);
                         fctb2.AppendText(line.line + Environment.NewLine);
                         break;
-                    case DiffMergeStuffs.DiffType.Inserted:
-                        fctb1.AppendText(Environment.NewLine);
-                        fctb2.AppendText(line.line + Environment.NewLine, HighlightSyntax.GreenLineStyle);
-                        match = false;
-                        break;
                     case DiffMergeStuffs.DiffType.Deleted:
                         fctb1.AppendText(line.line + Environment.NewLine, HighlightSyntax.RedLineStyle);
                         fctb2.AppendText(Environment.NewLine);
+                        match = false;
+                        break;
+                    case DiffMergeStuffs.DiffType.Inserted:
+                        fctb1.AppendText(Environment.NewLine);
+                        fctb2.AppendText(line.line + Environment.NewLine, HighlightSyntax.GreenLineStyle);
                         match = false;
                         break;
                 }
@@ -1385,8 +1385,8 @@ namespace UVA_Arena.Elements
             Interactivity.SetStatus("uDebug Browser: " + e.Status);
         }
 
-        #endregion
 
+        #endregion
 
     }
 }

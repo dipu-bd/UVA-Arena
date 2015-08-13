@@ -38,11 +38,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.updateLink = new System.Windows.Forms.LinkLabel();
             this.updateMessage = new System.Windows.Forms.TextBox();
+            this.autoUpdateCheck = new System.Windows.Forms.CheckBox();
             this.cancelButton = new System.Windows.Forms.Button();
             this.updateButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.checkUpdateButton = new System.Windows.Forms.Button();
-            this.autoUpdateCheck = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,7 +67,7 @@
             this.curVersion.Location = new System.Drawing.Point(118, 2);
             this.curVersion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.curVersion.Name = "curVersion";
-            this.curVersion.Size = new System.Drawing.Size(346, 21);
+            this.curVersion.Size = new System.Drawing.Size(339, 21);
             this.curVersion.TabIndex = 1;
             this.curVersion.Text = "label2";
             this.curVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -90,7 +90,7 @@
             this.tableLayoutPanel1.Controls.Add(this.updateLink, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.updateMessage, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.autoUpdateCheck, 1, 4);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 48);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 39);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -98,8 +98,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(467, 168);
-            this.tableLayoutPanel1.TabIndex = 2;
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(460, 171);
+            this.tableLayoutPanel1.TabIndex = 1;
             // 
             // label6
             // 
@@ -107,10 +107,10 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(38, 101);
+            this.label6.Location = new System.Drawing.Point(38, 103);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(74, 15);
-            this.label6.TabIndex = 5;
+            this.label6.TabIndex = 6;
             this.label6.Text = "Change Log:";
             // 
             // newVersion
@@ -122,7 +122,7 @@
             this.newVersion.Location = new System.Drawing.Point(118, 27);
             this.newVersion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.newVersion.Name = "newVersion";
-            this.newVersion.Size = new System.Drawing.Size(346, 21);
+            this.newVersion.Size = new System.Drawing.Size(339, 21);
             this.newVersion.TabIndex = 3;
             this.newVersion.Text = "label4";
             this.newVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -148,7 +148,7 @@
             this.label7.Location = new System.Drawing.Point(38, 55);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(74, 15);
-            this.label7.TabIndex = 6;
+            this.label7.TabIndex = 4;
             this.label7.Text = "Update link :";
             // 
             // updateLink
@@ -160,8 +160,8 @@
             this.updateLink.Location = new System.Drawing.Point(118, 52);
             this.updateLink.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.updateLink.Name = "updateLink";
-            this.updateLink.Size = new System.Drawing.Size(346, 21);
-            this.updateLink.TabIndex = 8;
+            this.updateLink.Size = new System.Drawing.Size(339, 21);
+            this.updateLink.TabIndex = 5;
             this.updateLink.TabStop = true;
             this.updateLink.Text = "linkLabel1";
             this.updateLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -177,16 +177,32 @@
             this.updateMessage.Name = "updateMessage";
             this.updateMessage.ReadOnly = true;
             this.updateMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.updateMessage.Size = new System.Drawing.Size(346, 62);
+            this.updateMessage.Size = new System.Drawing.Size(339, 65);
             this.updateMessage.TabIndex = 7;
+            // 
+            // autoUpdateCheck
+            // 
+            this.autoUpdateCheck.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.autoUpdateCheck.AutoSize = true;
+            this.autoUpdateCheck.Checked = global::UVA_Arena.Properties.Settings.Default.CheckForUpdate;
+            this.autoUpdateCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autoUpdateCheck.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "CheckForUpdate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.autoUpdateCheck.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.autoUpdateCheck.Location = new System.Drawing.Point(234, 147);
+            this.autoUpdateCheck.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.autoUpdateCheck.Name = "autoUpdateCheck";
+            this.autoUpdateCheck.Size = new System.Drawing.Size(223, 23);
+            this.autoUpdateCheck.TabIndex = 8;
+            this.autoUpdateCheck.Text = "Automatically check for updates";
+            this.autoUpdateCheck.UseVisualStyleBackColor = true;
             // 
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelButton.Location = new System.Drawing.Point(354, 222);
+            this.cancelButton.Location = new System.Drawing.Point(347, 225);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(125, 28);
-            this.cancelButton.TabIndex = 4;
+            this.cancelButton.TabIndex = 3;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -194,11 +210,11 @@
             // updateButton
             // 
             this.updateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.updateButton.Location = new System.Drawing.Point(223, 222);
+            this.updateButton.Location = new System.Drawing.Point(216, 225);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(125, 28);
-            this.updateButton.TabIndex = 5;
-            this.updateButton.Text = "Update";
+            this.updateButton.TabIndex = 2;
+            this.updateButton.Text = "Download";
             this.updateButton.UseVisualStyleBackColor = true;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
@@ -208,38 +224,23 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.label2.Location = new System.Drawing.Point(27, 24);
+            this.label2.Location = new System.Drawing.Point(27, 17);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(428, 19);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "A new version has been released. Click Update to download it now.";
+            this.label2.Size = new System.Drawing.Size(425, 19);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "A new version has been released. Click Download to go to the link.";
             // 
             // checkUpdateButton
             // 
             this.checkUpdateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkUpdateButton.Location = new System.Drawing.Point(12, 222);
+            this.checkUpdateButton.Location = new System.Drawing.Point(5, 225);
             this.checkUpdateButton.Name = "checkUpdateButton";
             this.checkUpdateButton.Size = new System.Drawing.Size(125, 28);
-            this.checkUpdateButton.TabIndex = 7;
+            this.checkUpdateButton.TabIndex = 4;
             this.checkUpdateButton.Text = "Check";
             this.checkUpdateButton.UseVisualStyleBackColor = true;
             this.checkUpdateButton.Click += new System.EventHandler(this.checkUpdateButton_Click);
             this.checkUpdateButton.MouseHover += new System.EventHandler(this.checkUpdateButton_MouseHover);
-            // 
-            // autoUpdateCheck
-            // 
-            this.autoUpdateCheck.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.autoUpdateCheck.AutoSize = true;
-            this.autoUpdateCheck.Checked = global::UVA_Arena.Properties.Settings.Default.CheckForUpdate;
-            this.autoUpdateCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoUpdateCheck.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::UVA_Arena.Properties.Settings.Default, "CheckForUpdate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.autoUpdateCheck.Location = new System.Drawing.Point(274, 147);
-            this.autoUpdateCheck.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.autoUpdateCheck.Name = "autoUpdateCheck";
-            this.autoUpdateCheck.Size = new System.Drawing.Size(190, 17);
-            this.autoUpdateCheck.TabIndex = 9;
-            this.autoUpdateCheck.Text = "Automatically check for updates";
-            this.autoUpdateCheck.UseVisualStyleBackColor = true;
             // 
             // CheckUpdateForm
             // 
@@ -248,7 +249,7 @@
             this.BackColor = System.Drawing.Color.PaleTurquoise;
             this.BackgroundImage = global::UVA_Arena.Properties.Resources.backimg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(491, 258);
+            this.ClientSize = new System.Drawing.Size(484, 261);
             this.Controls.Add(this.checkUpdateButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.updateButton);
@@ -262,7 +263,7 @@
             this.MaximizeBox = false;
             this.Name = "CheckUpdateForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Check Update";
+            this.Text = "New Update Arrived!!";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

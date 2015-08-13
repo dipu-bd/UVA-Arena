@@ -42,16 +42,16 @@ namespace UVA_Arena
         public static void LoadOrUpdate()
         {
             const double PROBLEM_ALIVE_DAY = 1;
-            const double CATEGORY_ALIVE_DAY = 0.4;
+            const double CATEGORY_ALIVE_DAY = 0.5;
+            const double USER_SUB_ALIVE_DAY = 0.5;
 
             RunLoadAsync(false);
 
             //if database file is too old redownload            
             string file = LocalDirectory.GetProblemInfoFile();
+            long fileAge = DateTime.Now.Ticks - new FileInfo(file).LastWriteTime.Ticks;
             if (LocalDirectory.GetFileSize(file) < 100 ||
-                (new TimeSpan((DateTime.Now.Subtract(
-                        new FileInfo(file).LastWriteTime
-                    ).Ticks)).TotalDays > PROBLEM_ALIVE_DAY))
+                (new TimeSpan(fileAge).TotalDays > PROBLEM_ALIVE_DAY))
             {
                 System.Threading.Thread.Sleep(1000);
                 UVA_Arena.Internet.Downloader.DownloadProblemDatabase();
@@ -59,14 +59,30 @@ namespace UVA_Arena
 
             //download category index if too old
             file = LocalDirectory.GetCategoryIndexFile();
+            fileAge = DateTime.Now.Ticks - new FileInfo(file).LastWriteTime.Ticks;
             if (LocalDirectory.GetFileSize(file) < 100 ||
-                (new TimeSpan((DateTime.Now.Subtract(
-                        new FileInfo(file).LastWriteTime
-                    ).Ticks)).TotalDays > CATEGORY_ALIVE_DAY))
+                (new TimeSpan(fileAge).TotalDays > CATEGORY_ALIVE_DAY))
             {
                 System.Threading.Thread.Sleep(1000);
                 UVA_Arena.Internet.Downloader.DownloadCategoryIndex();
             }
+
+            //update user submissions if not available
+            if (LocalDatabase.ContainsUser(RegistryAccess.DefaultUsername))
+            {
+                file = LocalDirectory.GetUserSubPath(RegistryAccess.DefaultUsername);
+                fileAge = DateTime.Now.Ticks - new FileInfo(file).LastWriteTime.Ticks;
+                if (LocalDirectory.GetFileSize(file) < 50 ||
+                    (new TimeSpan(fileAge).TotalDays > USER_SUB_ALIVE_DAY))
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    long sid = 0;
+                    if (LocalDatabase.DefaultUser != null)
+                        sid = LocalDatabase.DefaultUser.LastSID;
+                    UVA_Arena.Internet.Downloader.DownloadDefaultUserInfo(sid);
+                }
+            }
+
         }
 
         public static void RunLoadAsync(object background)
@@ -119,11 +135,11 @@ namespace UVA_Arena
             Interactivity.CategoryDataUpdated();
             Interactivity.ProblemDatabaseUpdated();
         }
-
-
+        
         private static void LoadList(List<List<object>> datalist)
         {
-            Dictionary<int, List<ProblemInfo>> catData = new Dictionary<int, List<ProblemInfo>>();
+            SortedDictionary<int, List<ProblemInfo>> catData 
+                = new SortedDictionary<int, List<ProblemInfo>>();
 
             //Load problem from list
             foreach (List<object> lst in datalist)
@@ -149,7 +165,7 @@ namespace UVA_Arena
 
             //add volume category
             var volCat = new CategoryNode("Volumes", "Problem list by volumes");
-            categoryRoot.branches.Add(volCat);
+            categoryRoot.branches.Add(volCat);            
             foreach (var data in catData.Values)
             {
                 string vol = string.Format("Volume {0:000}", data[0].volume);
@@ -220,7 +236,7 @@ namespace UVA_Arena
             }
             catch (Exception ex)
             {
-                Logger.Add("Error:" + ex.Message, "LoadCategoryData(" + filename + ")");
+                Logger.Add(ex.Message, "LoadCategoryData(" + filename + ")");
                 return false;
             }
         }

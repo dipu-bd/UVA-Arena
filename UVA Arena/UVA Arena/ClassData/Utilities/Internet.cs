@@ -217,6 +217,9 @@ namespace UVA_Arena.Internet
 
         #region Problem Database and Category Downloader
 
+        //
+        // Problem Database
+        //
         private static bool _DownloadingProblemDatabase = false;
 
         public static void DownloadProblemDatabase()
@@ -229,56 +232,7 @@ namespace UVA_Arena.Internet
             string file = LocalDirectory.GetProblemInfoFile();
             DownloadFileAsync(url, file, false, Priority.High,
                 __DownloadProblemDatabaseProgress, __DownloadProblemDatabaseCompleted, 1);
-            
-        }
 
-        public static void DownloadCategoryIndex()
-        { 
-            //problem category index
-            string url = "https://raw.githubusercontent.com/dipu-bd/uva-problem-category/master/data/INDEX ";
-            string file = LocalDirectory.GetCategoryIndexFile();
-            DownloadFileAsync(url, file, true, Priority.Normal,
-                __DownloadProblemDatabaseProgress, __DownloadProblemCategoryCompleted, 1);
-        }
-
-        public static void DownloadCategoryIndexFiles()
-        {
-            string url = "https://raw.githubusercontent.com/dipu-bd/uva-problem-category/master/data/";
-             
-            var index = Functions.getCategoryIndex();
-            foreach(string key in index.Keys)
-            {
-                int old = RegistryAccess.GetCategoryVersion(key);
-                if(old < index[key])
-                {
-                    //problem category file      
-                    string file = LocalDirectory.GetCategoryDataFile(key);               
-                    DownloadFileAsync(url + key, file, key, Priority.Low,
-                        __DownloadProblemCategoryProgress, __DownloadCategoryFileCompleted, 1);
-                }
-            }
-        }
-
-        private static void __DownloadProblemDatabaseProgress(DownloadTask task)
-        {
-            string msg = "Downloading problem list... [{0}/{1} completed]";
-            if ((bool)task.Token) msg = "Downloading category index... [{0}/{1} completed]";
-            msg = string.Format(msg, Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
-            Interactivity.SetStatus(msg);
-
-            int percent = task.ProgressPercentage; 
-            Interactivity.SetProgress(task.ProgressPercentage);
-
-        }
-        private static void __DownloadProblemCategoryProgress(DownloadTask task)
-        {
-            string msg = "Downloading category file: {2} ... [{0}/{1} completed]";
-            msg = string.Format(msg,  Functions.FormatMemory(task.Received), 
-                Functions.FormatMemory(task.Total), task.Token);
-            Interactivity.SetStatus(msg);
-
-            int percent = task.ProgressPercentage;
-            Interactivity.SetProgress(task.ProgressPercentage);
         }
 
         private static void __DownloadProblemDatabaseCompleted(DownloadTask task)
@@ -290,48 +244,151 @@ namespace UVA_Arena.Internet
             {
                 LocalDatabase.LoadDatabase();
                 msg = "Problem list is successfully updated.";
-                Logger.Add("Downloaded problem database file", "Downloader");
+                Logger.Add("Downloaded problem database file", "__DownloadProblemDatabaseCompleted");
             }
             else if (task.Error != null)
             {
-                Logger.Add(task.Error.Message, "DownloadProblemDatabaseCompleted");
+                Logger.Add(task.Error.Message, "__DownloadProblemDatabaseCompleted");
             }
 
             Interactivity.SetStatus(msg);
             Interactivity.SetProgress(0);
+        }
+
+        private static void __DownloadProblemDatabaseProgress(DownloadTask task)
+        {
+            string msg = "Downloading problem list... [{0}/{1} completed]";
+            if ((bool)task.Token) msg = "Downloading category index... [{0}/{1} completed]";
+            msg = string.Format(msg, Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
+            Interactivity.SetStatus(msg);
+
+            int percent = task.ProgressPercentage;
+            Interactivity.SetProgress(task.ProgressPercentage);
+
+        }
+
+        //
+        // Problem Category Index
+        //
+        public static void DownloadCategoryIndex()
+        { 
+            //problem category index
+            string url = "https://raw.githubusercontent.com/dipu-bd/uva-problem-category/master/data/INDEX ";
+            string file = LocalDirectory.GetCategoryIndexFile();
+            DownloadFileAsync(url, file, true, Priority.Normal,
+                __DownloadProblemDatabaseProgress, __DownloadProblemCategoryCompleted, 1);
         }
 
         private static void __DownloadProblemCategoryCompleted(DownloadTask task)
         {
             string msg = "Failed to downloaded category list.";
             if (task.Status == ProgressStatus.Completed)
-            { 
+            {
                 DownloadCategoryIndexFiles();
                 msg = "Downloaded category list.";
-                Logger.Add("Downloaded problem's categories.", "Downloader");
+                Logger.Add("Downloaded problem's categories.", "__DownloadProblemCategoryCompleted");
             }
             else if (task.Error != null)
             {
-                Logger.Add(task.Error.Message, "DownloadProblemCategoryCompleted");
+                Logger.Add(task.Error.Message, "__DownloadProblemCategoryCompleted");
             }
 
             Interactivity.SetStatus(msg);
             Interactivity.SetProgress(0);
         }
 
+        private static void __DownloadProblemCategoryProgress(DownloadTask task)
+        {
+            string msg = "Downloading category file: {2} ... [{0}/{1} completed]";
+            msg = string.Format(msg, Functions.FormatMemory(task.Received),
+                Functions.FormatMemory(task.Total), task.Token);
+            Interactivity.SetStatus(msg);
+
+            int percent = task.ProgressPercentage;
+            Interactivity.SetProgress(task.ProgressPercentage);
+        }
+
+
+        //
+        // Download Category files
+        //
+        public static void DownloadCategoryIndexFiles()
+        {
+            string url = "https://raw.githubusercontent.com/dipu-bd/uva-problem-category/master/data/";
+
+            var index = Functions.getCategoryIndex();
+            foreach (string key in index.Keys)
+            {
+                long version = RegistryAccess.GetCategoryVersion(key);
+                if (version < index[key])
+                {
+                    //problem category file      
+                    string file = LocalDirectory.GetCategoryDataFile(key);
+                    DownloadFileAsync(url + key, file, key, Priority.Low,
+                        __DownloadProblemCategoryProgress, __DownloadCategoryFileCompleted, 1);
+                }
+            }
+        }
+        
         private static void __DownloadCategoryFileCompleted(DownloadTask task)
         {
             string msg = "Failed to downloaded category list.";
             if (task.Status == ProgressStatus.Completed)
             {
                 LocalDatabase.LoadCategoryData((string)task.Token);
-                msg = "Downloaded Category file: " + (string)task.Token;
-                Logger.Add(msg, "DownloadCategoryFileCompleted");
                 Interactivity.CategoryDataUpdated();
+
+                msg = "Downloaded Category file: " + (string)task.Token;
+                Logger.Add(msg, "__DownloadCategoryFileCompleted");
             }
             else if (task.Error != null)
             {
-                Logger.Add(task.Error.Message, "Downloader");
+                Logger.Add(task.Error.Message, "__DownloadCategoryFileCompleted");
+            }
+
+            Interactivity.SetStatus(msg);
+            Interactivity.SetProgress(0);
+        }
+
+        //
+        // Download User Info
+        //
+
+        public static void DownloadDefaultUserInfo(long LastSID = 0)
+        {
+            //user submission info
+            string url = "http://uhunt.felix-halim.net/api/subs-user/{0}/{1}";
+            url = string.Format(url, LocalDatabase.GetUserid(RegistryAccess.DefaultUsername), LastSID);
+            string file = LocalDirectory.GetUserSubPath(RegistryAccess.DefaultUsername);
+            DownloadFileAsync(url, file, RegistryAccess.DefaultUsername, Priority.Normal,
+                __DownloadUserInfoProgress, __DownloadUserInfoCompleted, 1);
+        }
+
+        private static void __DownloadUserInfoProgress(DownloadTask task)
+        {
+            string msg = "Downloading {0}'s submissions... [{1}/{2} completed]"; 
+            msg = string.Format(msg, task.Token,
+                Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
+            Interactivity.SetStatus(msg);
+
+            int percent = task.ProgressPercentage;
+            Interactivity.SetProgress(task.ProgressPercentage);
+        }
+
+        private static void __DownloadUserInfoCompleted(DownloadTask task)
+        {
+            string msg = "Failed to downloaded user submissions.";
+            if (task.Status == ProgressStatus.Completed)
+            {
+                if (LocalDatabase.DefaultUser == null)
+                    LocalDatabase.DefaultUser = new Structures.UserInfo();
+                LocalDatabase.DefaultUser.AddSubmissions(task.Result);
+
+                msg = "Downloaded user submissions.";
+            }
+            else if (task.Error != null)
+            {
+                Logger.Add(task.Error.Message, "__DownloadUserInfoCompleted");
             }
 
             Interactivity.SetStatus(msg);

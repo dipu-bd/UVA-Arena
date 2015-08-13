@@ -119,10 +119,10 @@ namespace UVA_Arena
         /// <summary>
         /// Parse a Category Index data file and returns a dictonary
         /// </summary>
-        public static Dictionary<string, int> getCategoryIndex()
+        public static Dictionary<string, long> getCategoryIndex()
         {
             string file = LocalDirectory.GetCategoryIndexFile();            
-            var result = new Dictionary<string, int>();
+            var result = new Dictionary<string, long>();
             try
             {
                 if (!File.Exists(file)) return result;
@@ -132,7 +132,7 @@ namespace UVA_Arena
                 {
                     result.Add(
                         tok.Value<string>("file"),
-                        tok.Value<int>("ver"));
+                        tok.Value<long>("ver"));
                 }
                 return result;
             }

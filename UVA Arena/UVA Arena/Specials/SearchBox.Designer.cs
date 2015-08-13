@@ -54,6 +54,7 @@
             this.table1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.table1.Size = new System.Drawing.Size(200, 26);
             this.table1.TabIndex = 0;
+            this.table1.TabStop = true;
             // 
             // search_text
             // 

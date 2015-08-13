@@ -46,7 +46,7 @@
             this.label1.Location = new System.Drawing.Point(118, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(191, 17);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 1;
             this.label1.Text = "You are about to close UA Arena";
             // 
             // yesButton
@@ -56,7 +56,7 @@
             this.yesButton.Location = new System.Drawing.Point(145, 7);
             this.yesButton.Name = "yesButton";
             this.yesButton.Size = new System.Drawing.Size(94, 26);
-            this.yesButton.TabIndex = 2;
+            this.yesButton.TabIndex = 1;
             this.yesButton.Text = "Yes";
             this.yesButton.UseVisualStyleBackColor = true;
             this.yesButton.Click += new System.EventHandler(this.yesButton_Click);
@@ -67,7 +67,7 @@
             this.noButton.Location = new System.Drawing.Point(245, 7);
             this.noButton.Name = "noButton";
             this.noButton.Size = new System.Drawing.Size(94, 26);
-            this.noButton.TabIndex = 3;
+            this.noButton.TabIndex = 2;
             this.noButton.Text = "No";
             this.noButton.UseVisualStyleBackColor = true;
             this.noButton.Click += new System.EventHandler(this.noButton_Click);
@@ -83,13 +83,13 @@
             this.dontShowCheckBox.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.dontShowCheckBox.Name = "dontShowCheckBox";
             this.dontShowCheckBox.Size = new System.Drawing.Size(129, 19);
-            this.dontShowCheckBox.TabIndex = 1;
+            this.dontShowCheckBox.TabIndex = 0;
             this.dontShowCheckBox.Text = "Don\'t show again";
             this.dontShowCheckBox.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.PowderBlue;
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.LightBlue;
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
@@ -103,7 +103,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(342, 40);
-            this.tableLayoutPanel1.TabIndex = 4;
+            this.tableLayoutPanel1.TabIndex = 3;
             // 
             // label2
             // 
@@ -113,7 +113,7 @@
             this.label2.Location = new System.Drawing.Point(118, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(195, 21);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 2;
             this.label2.Text = "Are you sure to exit now?";
             // 
             // panel1
@@ -123,7 +123,7 @@
             this.panel1.Location = new System.Drawing.Point(8, 8);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(104, 75);
-            this.panel1.TabIndex = 6;
+            this.panel1.TabIndex = 0;
             // 
             // ClosingDialogueForm
             // 

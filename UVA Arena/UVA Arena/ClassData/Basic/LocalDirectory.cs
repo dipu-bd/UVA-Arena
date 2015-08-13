@@ -216,7 +216,7 @@ namespace UVA_Arena
         }
 
         /// <summary>
-        /// Get the path where codes for a problem are saved
+        /// Get the directory where codes for a problem are saved
         /// </summary>
         /// <param name="pnum">Problem Number</param>
         /// <returns>

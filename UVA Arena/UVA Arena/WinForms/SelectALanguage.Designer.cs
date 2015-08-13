@@ -62,6 +62,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(176, 117);
             this.tableLayoutPanel1.TabIndex = 0;
+            this.tableLayoutPanel1.TabStop = true;
             // 
             // cPPradio
             // 
@@ -73,7 +74,7 @@
             this.cPPradio.Margin = new System.Windows.Forms.Padding(10, 1, 10, 1);
             this.cPPradio.Name = "cPPradio";
             this.cPPradio.Size = new System.Drawing.Size(154, 26);
-            this.cPPradio.TabIndex = 3;
+            this.cPPradio.TabIndex = 1;
             this.cPPradio.TabStop = true;
             this.cPPradio.Text = "C++";
             this.cPPradio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -88,7 +89,7 @@
             this.ansiCradio.Margin = new System.Windows.Forms.Padding(10, 1, 10, 1);
             this.ansiCradio.Name = "ansiCradio";
             this.ansiCradio.Size = new System.Drawing.Size(154, 26);
-            this.ansiCradio.TabIndex = 2;
+            this.ansiCradio.TabIndex = 0;
             this.ansiCradio.Text = "ANSI C";
             this.ansiCradio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.ansiCradio.UseVisualStyleBackColor = true;
@@ -102,7 +103,7 @@
             this.pascalRadio.Margin = new System.Windows.Forms.Padding(10, 1, 10, 1);
             this.pascalRadio.Name = "pascalRadio";
             this.pascalRadio.Size = new System.Drawing.Size(154, 26);
-            this.pascalRadio.TabIndex = 5;
+            this.pascalRadio.TabIndex = 3;
             this.pascalRadio.Text = "Pascal";
             this.pascalRadio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.pascalRadio.UseVisualStyleBackColor = true;
@@ -116,7 +117,7 @@
             this.javaRadio.Margin = new System.Windows.Forms.Padding(10, 1, 10, 1);
             this.javaRadio.Name = "javaRadio";
             this.javaRadio.Size = new System.Drawing.Size(154, 26);
-            this.javaRadio.TabIndex = 4;
+            this.javaRadio.TabIndex = 2;
             this.javaRadio.Text = "Java";
             this.javaRadio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.javaRadio.UseVisualStyleBackColor = true;
@@ -127,7 +128,7 @@
             this.ok_button.Location = new System.Drawing.Point(104, 180);
             this.ok_button.Name = "ok_button";
             this.ok_button.Size = new System.Drawing.Size(85, 26);
-            this.ok_button.TabIndex = 0;
+            this.ok_button.TabIndex = 2;
             this.ok_button.Text = "OK";
             this.ok_button.UseVisualStyleBackColor = true;
             this.ok_button.Click += new System.EventHandler(this.button1_Click);
@@ -139,7 +140,7 @@
             this.cancel_button.Location = new System.Drawing.Point(13, 180);
             this.cancel_button.Name = "cancel_button";
             this.cancel_button.Size = new System.Drawing.Size(85, 26);
-            this.cancel_button.TabIndex = 1;
+            this.cancel_button.TabIndex = 3;
             this.cancel_button.Text = "Cancel";
             this.cancel_button.UseVisualStyleBackColor = true;
             this.cancel_button.Click += new System.EventHandler(this.button2_Click);

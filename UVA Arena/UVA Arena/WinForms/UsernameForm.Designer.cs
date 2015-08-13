@@ -45,7 +45,7 @@
             this.set_button1.Location = new System.Drawing.Point(169, 328);
             this.set_button1.Name = "set_button1";
             this.set_button1.Size = new System.Drawing.Size(100, 28);
-            this.set_button1.TabIndex = 2;
+            this.set_button1.TabIndex = 1;
             this.set_button1.Text = "Set";
             this.set_button1.UseVisualStyleBackColor = true;
             this.set_button1.Click += new System.EventHandler(this.set_button1_Click);
@@ -61,7 +61,7 @@
             this.Status.Location = new System.Drawing.Point(16, 282);
             this.Status.Name = "Status";
             this.Status.Size = new System.Drawing.Size(253, 18);
-            this.Status.TabIndex = 3;
+            this.Status.TabIndex = 4;
             this.Status.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // cancel_button2
@@ -71,7 +71,7 @@
             this.cancel_button2.Location = new System.Drawing.Point(63, 328);
             this.cancel_button2.Name = "cancel_button2";
             this.cancel_button2.Size = new System.Drawing.Size(100, 28);
-            this.cancel_button2.TabIndex = 4;
+            this.cancel_button2.TabIndex = 2;
             this.cancel_button2.Text = "Cancel";
             this.cancel_button2.UseVisualStyleBackColor = true;
             this.cancel_button2.Click += new System.EventHandler(this.cancel_button2_Click);
@@ -112,7 +112,7 @@
             this.checkBox1.Location = new System.Drawing.Point(16, 302);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(225, 17);
-            this.checkBox1.TabIndex = 7;
+            this.checkBox1.TabIndex = 3;
             this.checkBox1.Text = "Ask me everytime the application starts";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 

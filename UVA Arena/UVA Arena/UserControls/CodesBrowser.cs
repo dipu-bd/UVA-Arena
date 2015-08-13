@@ -74,6 +74,8 @@ namespace UVA_Arena.Elements
 
             IsReady = false;
 
+            Interactivity.SetStatus("Formatting code directory started...");
+
             this.BeginInvoke((MethodInvoker)delegate
             {
                 selectDirectoryPanel.Visible = false;
@@ -101,6 +103,7 @@ namespace UVA_Arena.Elements
 
             IsReady = true;
             LoadCodeFolder(false);
+            Interactivity.SetStatus("Formatting code directory finished.");
         }
 
         /// <summary>
@@ -110,22 +113,21 @@ namespace UVA_Arena.Elements
         /// <param name="background">True to run the loading process as a separate thread</param>
         public void LoadCodeFolder(object background)
         {
+            //go to background
             if (!IsReady) return;
-
-            //get code path
-            string path = RegistryAccess.CodesPath;
-            if (path == null || !Directory.Exists(path)) return;
-
             if ((bool)background)
             {
                 System.Threading.ThreadPool.QueueUserWorkItem(LoadCodeFolder, false);
                 return;
             }
-
-            //fist turn off some values
             IsReady = false;
+
             try
             {
+                //get code path
+                string path = RegistryAccess.CodesPath;
+                if (path == null || !Directory.Exists(path)) return;
+
                 this.BeginInvoke((MethodInvoker)delegate
                 {
                     selectDirectoryPanel.Visible = false;
@@ -196,7 +198,85 @@ namespace UVA_Arena.Elements
             finally
             {
                 IsReady = true;
+                Interactivity.SetStatus("Code directory loaded.");
             }
+        }
+
+        /// <summary>
+        /// Import old uva codes into new folder
+        /// </summary> 
+        public void ImportOldCodes(object state)
+        { 
+            if (!IsReady) return;
+             
+            object[] data = (object[])state;
+            bool background = (bool)data[0];
+            string oldpath = (string)data[1]; 
+            if (background)
+            {
+                data[0] = false;
+                System.Threading.ThreadPool.QueueUserWorkItem(ImportOldCodes, data);
+                return;
+            }
+            IsReady = false;
+           
+            try
+            {
+                Interactivity.SetStatus("Importing codes...");
+
+                //get current path
+                string path = RegistryAccess.CodesPath;
+                if (!Directory.Exists(path)) return;
+
+                //copy all files
+                foreach (string file in Directory.GetFiles(oldpath, "*.*", SearchOption.AllDirectories))
+                {
+                    //get problem number guesses
+                    List<int> guesses = new List<int>();
+                    int tmp = 0;
+                    foreach (char ch in Path.GetFileNameWithoutExtension(file))
+                    {
+                        if (char.IsNumber(ch))
+                        {
+                            tmp = tmp * 10 + ch - '0';
+                        }
+                        else
+                        {
+                            if (tmp > 0) guesses.Add(tmp);
+                            tmp = 0;
+                        }
+                    }
+
+                    //check if a guess matches
+                    Structures.ProblemInfo pinfo = null;
+                    foreach (int item in guesses)
+                    {
+                        pinfo = LocalDatabase.GetProblem(item);
+                        if (pinfo != null) break;
+                    }
+                    if (pinfo == null) continue;
+
+                    //copy this file to guessed problem directory
+                    string code = CreateFile(
+                        LocalDirectory.GetCodesPath(pinfo.pnum),
+                        Path.GetFileNameWithoutExtension(file),
+                        Path.GetExtension(file));
+                    if (code == null) continue;
+                    File.Copy(file, code, true);
+                    Interactivity.SetStatus("Importing codes... [" + pinfo.pnum.ToString() + "]");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Add(ex.Message, "ImportCodes()|CodesBrowser");
+            }
+            finally
+            {
+                Interactivity.SetStatus("Finished importing codes.");
+                IsReady = true;
+            }
+
+            LoadCodeFolder(false);
         }
 
         /// <summary>
@@ -304,7 +384,7 @@ namespace UVA_Arena.Elements
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.Description = "Select a folder that stores code files.";
             if (fbd.ShowDialog() == DialogResult.OK)
-            {
+            { 
                 RegistryAccess.CodesPath = fbd.SelectedPath;
                 try
                 {
@@ -552,10 +632,16 @@ namespace UVA_Arena.Elements
             node.EnsureVisible();
         }
 
-
-        public static void CreateFile(string par, string name, string ext, bool trial = true)
+        /// <summary>
+        /// Creates a new file in the directory
+        /// </summary>
+        /// <param name="par">Full path to directory</param>
+        /// <param name="name">Name of the file</param>
+        /// <param name="ext">Extension of the file</param>
+        /// <param name="trial">True to run trial check if a file already exist</param>
+        public static string CreateFile(string par, string name, string ext, bool trial = true)
         {
-            if (string.IsNullOrEmpty(par)) return;
+            if (string.IsNullOrEmpty(par)) return null;
 
             int tcount = 1;
             string path = Path.Combine(par, name + ext);
@@ -565,9 +651,17 @@ namespace UVA_Arena.Elements
                 ++tcount;
             }
             LocalDirectory.CreateFile(path);
+
+            return path;
         }
 
-        public static void CreateDirectory(string par, string name, bool trial = true)
+        /// <summary>
+        /// Creates a new directory in the parent directory
+        /// </summary>
+        /// <param name="par">Full path to parent directory</param>
+        /// <param name="name">Name of the directory</param> 
+        /// <param name="trial">True to run trial check if a file already exist</param>
+        public static string CreateDirectory(string par, string name, bool trial = true)
         {
             if (par == null) par = RegistryAccess.CodesPath;
 
@@ -579,6 +673,8 @@ namespace UVA_Arena.Elements
                 ++tcount;
             }
             LocalDirectory.CreateDirectory(path);
+
+            return path;
         }
 
 
@@ -725,7 +821,7 @@ namespace UVA_Arena.Elements
                 {
                     tn = AddTreeNode(new FileInfo(e.FullPath));
                 }
-                if(tn == null) return;
+                if (tn == null) return;
 
                 if (path == RegistryAccess.CodesPath)
                 {
@@ -1183,8 +1279,17 @@ namespace UVA_Arena.Elements
             }
         }
 
-        #endregion
+        private void importOldCodesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "Import old codes";
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                ImportOldCodes(new object[] { true, fbd.SelectedPath });
+            }
+        }
 
+        #endregion
 
     }
 }

@@ -52,6 +52,7 @@ namespace UVA_Arena.Structures
 
             name = ui.name;
             uname = ui.uname;
+            uid = ui.uid; 
             ProcessListData(ui.subs, true);
         }
 

@@ -185,7 +185,7 @@ namespace UVA_Arena.Elements
                 BuildSubPerLangGraph();
                 BuildSubPerDateGraph();
                 BuildSubPerVerGraph();
-                BuildRankCloud();
+                //BuildRankCloud();
             });
         }
 
@@ -324,6 +324,9 @@ namespace UVA_Arena.Elements
             this.subPerVerTab.Controls.Add(zg1);
         }
 
+        /* 
+         * Rank cloud is diabled
+         *
         private void BuildRankCloud()
         {
             ZedGraph.ZedGraphControl zg1 = new ZedGraph.ZedGraphControl();
@@ -365,9 +368,9 @@ namespace UVA_Arena.Elements
             this.rankCloudTab.Controls.Clear();
             this.rankCloudTab.Controls.Add(zg1);
         }
+        */
 
         #endregion
-
 
     }
 }

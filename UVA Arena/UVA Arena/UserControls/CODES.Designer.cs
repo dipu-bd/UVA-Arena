@@ -100,9 +100,9 @@
             this.copyOutputTool = new System.Windows.Forms.ToolStripButton();
             this.saveOutputTool = new System.Windows.Forms.ToolStripButton();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.compareOutputButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.loadDefaultInput = new System.Windows.Forms.Button();
-            this.compareOutputButton = new System.Windows.Forms.Button();
             this.uDebugTab = new System.Windows.Forms.TabPage();
             this.customWebBrowser1 = new UVA_Arena.ExtendedControls.CustomWebBrowser();
             this.compilerOutput = new FastColoredTextBoxNS.FastColoredTextBox();
@@ -411,7 +411,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.filenamePanel);
             this.splitContainer1.Panel2.Controls.Add(this.BottomToolbar);
             this.splitContainer1.Size = new System.Drawing.Size(800, 432);
-            this.splitContainer1.SplitterDistance = 190;
+            this.splitContainer1.SplitterDistance = 200;
             this.splitContainer1.TabIndex = 0;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
@@ -430,7 +430,7 @@
             // 
             this.compilerSplitContainer1.Panel2.Controls.Add(this.compilerOutput);
             this.compilerSplitContainer1.Panel2.Controls.Add(this.toolStrip1);
-            this.compilerSplitContainer1.Size = new System.Drawing.Size(606, 359);
+            this.compilerSplitContainer1.Size = new System.Drawing.Size(596, 359);
             this.compilerSplitContainer1.SplitterDistance = 265;
             this.compilerSplitContainer1.TabIndex = 0;
             this.compilerSplitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.compilerSplitContainer1_SplitterMoved);
@@ -445,8 +445,8 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(25, 5);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(606, 265);
-            this.tabControl1.TabIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(596, 265);
+            this.tabControl1.TabIndex = 1;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
@@ -458,7 +458,7 @@
             this.codeTAB.Location = new System.Drawing.Point(4, 26);
             this.codeTAB.Name = "codeTAB";
             this.codeTAB.Padding = new System.Windows.Forms.Padding(3);
-            this.codeTAB.Size = new System.Drawing.Size(598, 235);
+            this.codeTAB.Size = new System.Drawing.Size(588, 235);
             this.codeTAB.TabIndex = 0;
             this.codeTAB.Text = "Source Code";
             // 
@@ -507,7 +507,7 @@
             this.codeTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("codeTextBox.ServiceColors")));
             this.codeTextBox.ShowFoldingLines = global::UVA_Arena.Properties.Settings.Default.EditorShowFoldingLines;
             this.codeTextBox.ShowLineNumbers = global::UVA_Arena.Properties.Settings.Default.EditorShowLineNumbers;
-            this.codeTextBox.Size = new System.Drawing.Size(592, 191);
+            this.codeTextBox.Size = new System.Drawing.Size(582, 191);
             this.codeTextBox.SourceTextBox = this.codeTextBox;
             this.codeTextBox.TabIndex = 0;
             this.codeTextBox.WordWrap = global::UVA_Arena.Properties.Settings.Default.EditorWordWrap;
@@ -545,7 +545,7 @@
             this.TopToolBar.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.TopToolBar.Location = new System.Drawing.Point(3, 3);
             this.TopToolBar.Name = "TopToolBar";
-            this.TopToolBar.Size = new System.Drawing.Size(592, 38);
+            this.TopToolBar.Size = new System.Drawing.Size(582, 38);
             this.TopToolBar.TabIndex = 1;
             this.TopToolBar.TabStop = true;
             this.TopToolBar.Text = "toolStrip1";
@@ -736,7 +736,7 @@
             this.ioTAB.Location = new System.Drawing.Point(4, 26);
             this.ioTAB.Name = "ioTAB";
             this.ioTAB.Padding = new System.Windows.Forms.Padding(1);
-            this.ioTAB.Size = new System.Drawing.Size(598, 235);
+            this.ioTAB.Size = new System.Drawing.Size(588, 235);
             this.ioTAB.TabIndex = 1;
             this.ioTAB.Text = "Input and Output";
             // 
@@ -757,8 +757,8 @@
             this.IOContainer1.Panel2.BackColor = System.Drawing.Color.Ivory;
             this.IOContainer1.Panel2.Controls.Add(this.tableLayoutPanel5);
             this.IOContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.IOContainer1.Size = new System.Drawing.Size(596, 203);
-            this.IOContainer1.SplitterDistance = 276;
+            this.IOContainer1.Size = new System.Drawing.Size(586, 203);
+            this.IOContainer1.SplitterDistance = 271;
             this.IOContainer1.TabIndex = 0;
             // 
             // inputOutputTabControl
@@ -770,7 +770,7 @@
             this.inputOutputTabControl.Location = new System.Drawing.Point(0, 0);
             this.inputOutputTabControl.Name = "inputOutputTabControl";
             this.inputOutputTabControl.SelectedIndex = 0;
-            this.inputOutputTabControl.Size = new System.Drawing.Size(276, 203);
+            this.inputOutputTabControl.Size = new System.Drawing.Size(271, 203);
             this.inputOutputTabControl.TabIndex = 0;
             // 
             // inputTab
@@ -779,7 +779,7 @@
             this.inputTab.Location = new System.Drawing.Point(4, 25);
             this.inputTab.Name = "inputTab";
             this.inputTab.Padding = new System.Windows.Forms.Padding(3);
-            this.inputTab.Size = new System.Drawing.Size(268, 174);
+            this.inputTab.Size = new System.Drawing.Size(263, 174);
             this.inputTab.TabIndex = 0;
             this.inputTab.Text = "Input Data";
             this.inputTab.UseVisualStyleBackColor = true;
@@ -819,7 +819,7 @@
             this.inputTextBox.ReadOnly = true;
             this.inputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.inputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("inputTextBox.ServiceColors")));
-            this.inputTextBox.Size = new System.Drawing.Size(262, 168);
+            this.inputTextBox.Size = new System.Drawing.Size(257, 168);
             this.inputTextBox.TabIndex = 0;
             this.inputTextBox.Zoom = 100;
             this.inputTextBox.SelectionChanged += new System.EventHandler(this.FCTB_SelectionChanged);
@@ -831,7 +831,7 @@
             this.correctOutputTab.Location = new System.Drawing.Point(4, 25);
             this.correctOutputTab.Name = "correctOutputTab";
             this.correctOutputTab.Padding = new System.Windows.Forms.Padding(3);
-            this.correctOutputTab.Size = new System.Drawing.Size(268, 174);
+            this.correctOutputTab.Size = new System.Drawing.Size(79, 9);
             this.correctOutputTab.TabIndex = 1;
             this.correctOutputTab.Text = "Correct Output Data";
             this.correctOutputTab.UseVisualStyleBackColor = true;
@@ -852,7 +852,7 @@
             this.correctOutputTextBox.AutoIndent = false;
             this.correctOutputTextBox.AutoIndentChars = false;
             this.correctOutputTextBox.AutoIndentExistingLines = false;
-            this.correctOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.correctOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
             this.correctOutputTextBox.BackBrush = null;
             this.correctOutputTextBox.BackColor = System.Drawing.Color.Snow;
             this.correctOutputTextBox.CharHeight = 14;
@@ -871,7 +871,7 @@
             this.correctOutputTextBox.ReadOnly = true;
             this.correctOutputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.correctOutputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("correctOutputTextBox.ServiceColors")));
-            this.correctOutputTextBox.Size = new System.Drawing.Size(262, 168);
+            this.correctOutputTextBox.Size = new System.Drawing.Size(73, 3);
             this.correctOutputTextBox.TabIndex = 0;
             this.correctOutputTextBox.Zoom = 100;
             this.correctOutputTextBox.SelectionChanged += new System.EventHandler(this.tb_VisibleRangeChanged);
@@ -892,7 +892,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(316, 203);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(311, 203);
             this.tableLayoutPanel5.TabIndex = 1;
             // 
             // outputTextBox
@@ -928,7 +928,7 @@
             this.outputTextBox.ReadOnly = true;
             this.outputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.outputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("outputTextBox.ServiceColors")));
-            this.outputTextBox.Size = new System.Drawing.Size(310, 175);
+            this.outputTextBox.Size = new System.Drawing.Size(305, 175);
             this.outputTextBox.TabIndex = 0;
             this.outputTextBox.Zoom = 100;
             this.outputTextBox.SelectionChanged += new System.EventHandler(this.tb_VisibleRangeChanged);
@@ -944,7 +944,7 @@
             this.saveOutputTool});
             this.ouputToolBar.Location = new System.Drawing.Point(0, 0);
             this.ouputToolBar.Name = "ouputToolBar";
-            this.ouputToolBar.Size = new System.Drawing.Size(316, 22);
+            this.ouputToolBar.Size = new System.Drawing.Size(311, 22);
             this.ouputToolBar.TabIndex = 1;
             this.ouputToolBar.Text = "toolStrip4";
             // 
@@ -979,14 +979,25 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.compareOutputButton);
             this.panel4.Controls.Add(this.button2);
             this.panel4.Controls.Add(this.loadDefaultInput);
-            this.panel4.Controls.Add(this.compareOutputButton);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel4.Location = new System.Drawing.Point(1, 204);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(596, 30);
+            this.panel4.Size = new System.Drawing.Size(586, 30);
             this.panel4.TabIndex = 3;
+            // 
+            // compareOutputButton
+            // 
+            this.compareOutputButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.compareOutputButton.Location = new System.Drawing.Point(433, 1);
+            this.compareOutputButton.Name = "compareOutputButton";
+            this.compareOutputButton.Size = new System.Drawing.Size(150, 28);
+            this.compareOutputButton.TabIndex = 0;
+            this.compareOutputButton.Text = "Compare";
+            this.compareOutputButton.UseVisualStyleBackColor = true;
+            this.compareOutputButton.Click += new System.EventHandler(this.compareOutputButton_Click);
             // 
             // button2
             // 
@@ -1010,24 +1021,13 @@
             this.loadDefaultInput.UseVisualStyleBackColor = true;
             this.loadDefaultInput.Click += new System.EventHandler(this.loadDefaultInput_Click);
             // 
-            // compareOutputButton
-            // 
-            this.compareOutputButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.compareOutputButton.Location = new System.Drawing.Point(443, 1);
-            this.compareOutputButton.Name = "compareOutputButton";
-            this.compareOutputButton.Size = new System.Drawing.Size(150, 28);
-            this.compareOutputButton.TabIndex = 0;
-            this.compareOutputButton.Text = "Compare";
-            this.compareOutputButton.UseVisualStyleBackColor = true;
-            this.compareOutputButton.Click += new System.EventHandler(this.compareOutputButton_Click);
-            // 
             // uDebugTab
             // 
             this.uDebugTab.BackColor = System.Drawing.Color.Transparent;
             this.uDebugTab.Controls.Add(this.customWebBrowser1);
             this.uDebugTab.Location = new System.Drawing.Point(4, 26);
             this.uDebugTab.Name = "uDebugTab";
-            this.uDebugTab.Size = new System.Drawing.Size(598, 235);
+            this.uDebugTab.Size = new System.Drawing.Size(588, 235);
             this.uDebugTab.TabIndex = 3;
             this.uDebugTab.Text = "uDebug";
             // 
@@ -1041,7 +1041,7 @@
             this.customWebBrowser1.HomeUrl = null;
             this.customWebBrowser1.Location = new System.Drawing.Point(0, 0);
             this.customWebBrowser1.Name = "customWebBrowser1";
-            this.customWebBrowser1.Size = new System.Drawing.Size(598, 235);
+            this.customWebBrowser1.Size = new System.Drawing.Size(588, 235);
             this.customWebBrowser1.StatusBarVisible = false;
             this.customWebBrowser1.TabIndex = 0;
             this.customWebBrowser1.TopBarColor = System.Drawing.Color.Tan;
@@ -1085,7 +1085,7 @@
             this.compilerOutput.ReadOnly = true;
             this.compilerOutput.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.compilerOutput.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("compilerOutput.ServiceColors")));
-            this.compilerOutput.Size = new System.Drawing.Size(606, 65);
+            this.compilerOutput.Size = new System.Drawing.Size(596, 65);
             this.compilerOutput.TabIndex = 0;
             this.compilerOutput.Zoom = 100;
             this.compilerOutput.SelectionChanged += new System.EventHandler(this.FCTB_SelectionChanged);
@@ -1102,8 +1102,9 @@
             this.showHideOutput});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(606, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(596, 25);
             this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.TabStop = true;
             this.toolStrip1.Text = "toolStrip4";
             this.toolStrip1.Click += new System.EventHandler(this.showOrHideOutput_Click);
             // 
@@ -1131,7 +1132,7 @@
             this.filenamePanel.Location = new System.Drawing.Point(0, 0);
             this.filenamePanel.Margin = new System.Windows.Forms.Padding(1);
             this.filenamePanel.Name = "filenamePanel";
-            this.filenamePanel.Size = new System.Drawing.Size(606, 35);
+            this.filenamePanel.Size = new System.Drawing.Size(596, 35);
             this.filenamePanel.TabIndex = 2;
             // 
             // fileNameLabel
@@ -1144,7 +1145,7 @@
             this.fileNameLabel.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.fileNameLabel.Name = "fileNameLabel";
             this.fileNameLabel.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.fileNameLabel.Size = new System.Drawing.Size(606, 35);
+            this.fileNameLabel.Size = new System.Drawing.Size(596, 35);
             this.fileNameLabel.TabIndex = 0;
             this.fileNameLabel.Text = "No Opened File";
             this.fileNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1171,7 +1172,7 @@
             this.BottomToolbar.Location = new System.Drawing.Point(0, 394);
             this.BottomToolbar.Name = "BottomToolbar";
             this.BottomToolbar.ShowItemToolTips = false;
-            this.BottomToolbar.Size = new System.Drawing.Size(606, 38);
+            this.BottomToolbar.Size = new System.Drawing.Size(596, 38);
             this.BottomToolbar.TabIndex = 1;
             this.BottomToolbar.TabStop = true;
             this.BottomToolbar.Text = "toolStrip2";
@@ -1279,7 +1280,7 @@
             this.runtestToolButton.Image = global::UVA_Arena.Properties.Resources.runtest;
             this.runtestToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.runtestToolButton.Name = "runtestToolButton";
-            this.runtestToolButton.Size = new System.Drawing.Size(57, 35);
+            this.runtestToolButton.Size = new System.Drawing.Size(56, 35);
             this.runtestToolButton.Text = "Run Test";
             this.runtestToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.runtestToolButton.ToolTipText = "Run program on given input";
@@ -1447,7 +1448,6 @@
         private System.Windows.Forms.TabControl inputOutputTabControl;
         private System.Windows.Forms.TabPage inputTab;
         private System.Windows.Forms.TabPage correctOutputTab;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7; 
-
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
     }
 }

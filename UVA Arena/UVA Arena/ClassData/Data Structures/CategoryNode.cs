@@ -98,10 +98,21 @@ namespace UVA_Arena.Structures
             foreach (CategoryProblem p in problems)
             {
                 ProblemInfo pinfo = LocalDatabase.GetProblem(p.pnum);
+                if (pinfo == null)
+                {
+                    Logger.Add("Problem Not Found: \"" + this.Path + "\" : " + p.pnum.ToString(), "CategoryNode.ProcessData()");
+                    continue;
+                }
+
                 if (!pinfo.categories.Contains(this))
                     pinfo.categories.Add(this);
                 AddProblem(pinfo, true);
-                problemToNote.Add(p.pnum, p.note);
+
+                if (p.star) pinfo.starred = true;
+                if (problemToNote.ContainsKey(p.pnum))
+                    problemToNote[p.pnum] = p.note;
+                else
+                    problemToNote.Add(p.pnum, p.note);
             }
             problems.Clear();
         }

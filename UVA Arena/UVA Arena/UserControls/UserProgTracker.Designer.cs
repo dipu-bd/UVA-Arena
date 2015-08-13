@@ -68,7 +68,6 @@
             this.subPerDateTab = new System.Windows.Forms.TabPage();
             this.subPerVerTab = new System.Windows.Forms.TabPage();
             this.subPerLanTab = new System.Windows.Forms.TabPage();
-            this.rankCloudTab = new System.Windows.Forms.TabPage();
             this.subCounterPanel.SuspendLayout();
             this.namePanel.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -103,7 +102,7 @@
             this.subCounterPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.subCounterPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.subCounterPanel.Size = new System.Drawing.Size(603, 89);
-            this.subCounterPanel.TabIndex = 0;
+            this.subCounterPanel.TabIndex = 1;
             // 
             // totalTriedLabel
             // 
@@ -114,7 +113,7 @@
             this.totalTriedLabel.Location = new System.Drawing.Point(491, 10);
             this.totalTriedLabel.Name = "totalTriedLabel";
             this.totalTriedLabel.Size = new System.Drawing.Size(71, 37);
-            this.totalTriedLabel.TabIndex = 6;
+            this.totalTriedLabel.TabIndex = 7;
             this.totalTriedLabel.Text = "[0]";
             // 
             // triednacLabel
@@ -126,7 +125,7 @@
             this.triednacLabel.Location = new System.Drawing.Point(340, 10);
             this.triednacLabel.Name = "triednacLabel";
             this.triednacLabel.Size = new System.Drawing.Size(71, 37);
-            this.triednacLabel.TabIndex = 3;
+            this.triednacLabel.TabIndex = 5;
             this.triednacLabel.Text = "[0]";
             // 
             // acceptedLabel
@@ -138,7 +137,7 @@
             this.acceptedLabel.Location = new System.Drawing.Point(190, 10);
             this.acceptedLabel.Name = "acceptedLabel";
             this.acceptedLabel.Size = new System.Drawing.Size(71, 37);
-            this.acceptedLabel.TabIndex = 2;
+            this.acceptedLabel.TabIndex = 3;
             this.acceptedLabel.Text = "[0]";
             // 
             // label1
@@ -173,7 +172,7 @@
             this.label11.Location = new System.Drawing.Point(342, 63);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(67, 19);
-            this.label11.TabIndex = 7;
+            this.label11.TabIndex = 4;
             this.label11.Text = "Unsolved";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -185,7 +184,7 @@
             this.label6.Location = new System.Drawing.Point(489, 63);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 19);
-            this.label6.TabIndex = 5;
+            this.label6.TabIndex = 6;
             this.label6.Text = "Total Tried";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -197,7 +196,7 @@
             this.label5.Location = new System.Drawing.Point(192, 63);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 19);
-            this.label5.TabIndex = 4;
+            this.label5.TabIndex = 2;
             this.label5.Text = "Accepted";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -226,7 +225,7 @@
             this.namePanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.namePanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.namePanel.Size = new System.Drawing.Size(603, 114);
-            this.namePanel.TabIndex = 1;
+            this.namePanel.TabIndex = 0;
             // 
             // fullnameLabel
             // 
@@ -250,7 +249,7 @@
             this.usernameLabel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.usernameLabel.Name = "usernameLabel";
             this.usernameLabel.Size = new System.Drawing.Size(474, 23);
-            this.usernameLabel.TabIndex = 4;
+            this.usernameLabel.TabIndex = 3;
             this.usernameLabel.Text = "[ - ]";
             // 
             // label9
@@ -263,7 +262,7 @@
             this.label9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(62, 19);
-            this.label9.TabIndex = 2;
+            this.label9.TabIndex = 0;
             this.label9.Text = "User ID :";
             // 
             // label8
@@ -276,7 +275,7 @@
             this.label8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(81, 19);
-            this.label8.TabIndex = 1;
+            this.label8.TabIndex = 4;
             this.label8.Text = "Full Name :";
             // 
             // label7
@@ -289,7 +288,7 @@
             this.label7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 19);
-            this.label7.TabIndex = 0;
+            this.label7.TabIndex = 2;
             this.label7.Text = "Username :";
             // 
             // useridLabel
@@ -302,7 +301,7 @@
             this.useridLabel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.useridLabel.Name = "useridLabel";
             this.useridLabel.Size = new System.Drawing.Size(474, 22);
-            this.useridLabel.TabIndex = 3;
+            this.useridLabel.TabIndex = 1;
             this.useridLabel.Text = "[-]";
             // 
             // accountAge
@@ -366,7 +365,7 @@
             this.prevTabButton.Margin = new System.Windows.Forms.Padding(0);
             this.prevTabButton.Name = "prevTabButton";
             this.prevTabButton.Size = new System.Drawing.Size(30, 448);
-            this.prevTabButton.TabIndex = 1;
+            this.prevTabButton.TabIndex = 2;
             this.prevTabButton.UseVisualStyleBackColor = false;
             this.prevTabButton.Click += new System.EventHandler(this.prevTabButton_Click);
             // 
@@ -384,7 +383,7 @@
             this.nextTabButton.Margin = new System.Windows.Forms.Padding(0);
             this.nextTabButton.Name = "nextTabButton";
             this.nextTabButton.Size = new System.Drawing.Size(32, 448);
-            this.nextTabButton.TabIndex = 0;
+            this.nextTabButton.TabIndex = 1;
             this.nextTabButton.UseVisualStyleBackColor = false;
             this.nextTabButton.Click += new System.EventHandler(this.nextTabButton_Click);
             // 
@@ -395,14 +394,13 @@
             this.tabControl1.Controls.Add(this.subPerDateTab);
             this.tabControl1.Controls.Add(this.subPerVerTab);
             this.tabControl1.Controls.Add(this.subPerLanTab);
-            this.tabControl1.Controls.Add(this.rankCloudTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(35, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(16, 6);
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(678, 442);
-            this.tabControl1.TabIndex = 2;
+            this.tabControl1.TabIndex = 0;
             // 
             // basicInfoTab
             // 
@@ -447,7 +445,7 @@
             this.label4.Location = new System.Drawing.Point(275, 6);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(234, 19);
-            this.label4.TabIndex = 4;
+            this.label4.TabIndex = 2;
             this.label4.Text = "Last Activity (Submissions per time)";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -499,7 +497,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(414, 80);
-            this.tableLayoutPanel2.TabIndex = 5;
+            this.tableLayoutPanel2.TabIndex = 3;
             // 
             // label2
             // 
@@ -510,7 +508,7 @@
             this.label2.Location = new System.Drawing.Point(218, 54);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(80, 19);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 4;
             this.label2.Text = "Last Month";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -523,7 +521,7 @@
             this.label10.Location = new System.Drawing.Point(115, 54);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(80, 19);
-            this.label10.TabIndex = 4;
+            this.label10.TabIndex = 2;
             this.label10.Text = "Last 7 Days";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -549,7 +547,7 @@
             this.last3MonthLabel.Location = new System.Drawing.Point(326, 6);
             this.last3MonthLabel.Name = "last3MonthLabel";
             this.last3MonthLabel.Size = new System.Drawing.Size(71, 37);
-            this.last3MonthLabel.TabIndex = 6;
+            this.last3MonthLabel.TabIndex = 7;
             this.last3MonthLabel.Text = "[0]";
             // 
             // label18
@@ -561,7 +559,7 @@
             this.label18.Location = new System.Drawing.Point(315, 54);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(92, 19);
-            this.label18.TabIndex = 7;
+            this.label18.TabIndex = 6;
             this.label18.Text = "Last 3 Month";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -586,7 +584,7 @@
             this.lastMonthLabel.Location = new System.Drawing.Point(222, 6);
             this.lastMonthLabel.Name = "lastMonthLabel";
             this.lastMonthLabel.Size = new System.Drawing.Size(71, 37);
-            this.lastMonthLabel.TabIndex = 3;
+            this.lastMonthLabel.TabIndex = 5;
             this.lastMonthLabel.Text = "[0]";
             // 
             // last7Dayslabel
@@ -598,7 +596,7 @@
             this.last7Dayslabel.Location = new System.Drawing.Point(119, 6);
             this.last7Dayslabel.Name = "last7Dayslabel";
             this.last7Dayslabel.Size = new System.Drawing.Size(71, 37);
-            this.last7Dayslabel.TabIndex = 2;
+            this.last7Dayslabel.TabIndex = 3;
             this.last7Dayslabel.Text = "[0]";
             // 
             // label13
@@ -610,7 +608,7 @@
             this.label13.Location = new System.Drawing.Point(185, 119);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(414, 17);
-            this.label13.TabIndex = 6;
+            this.label13.TabIndex = 4;
             this.label13.Text = "Visit the world rank tab to get updated rank information";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -640,15 +638,6 @@
             this.subPerLanTab.Size = new System.Drawing.Size(670, 410);
             this.subPerLanTab.TabIndex = 0;
             this.subPerLanTab.Text = "Submission per Language";
-            // 
-            // rankCloudTab
-            // 
-            this.rankCloudTab.BackColor = System.Drawing.Color.Honeydew;
-            this.rankCloudTab.Location = new System.Drawing.Point(4, 4);
-            this.rankCloudTab.Name = "rankCloudTab";
-            this.rankCloudTab.Size = new System.Drawing.Size(670, 410);
-            this.rankCloudTab.TabIndex = 3;
-            this.rankCloudTab.Text = "Rank Cloud";
             // 
             // UserProgTracker
             // 
@@ -717,7 +706,6 @@
         public System.Windows.Forms.TabPage subPerLanTab;
         public System.Windows.Forms.TabPage subPerDateTab;
         public System.Windows.Forms.TabPage subPerVerTab;
-        public System.Windows.Forms.TabPage rankCloudTab;
         public System.Windows.Forms.TabPage basicInfoTab;
         private System.Windows.Forms.Label label13; 
     }

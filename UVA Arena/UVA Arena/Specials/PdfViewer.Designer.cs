@@ -1,4 +1,4 @@
-﻿namespace PdfiumViewer
+﻿namespace UVA_Arena 
 {
     partial class PdfViewer
     {
@@ -57,6 +57,7 @@
             this._toolStrip.Name = "_toolStrip";
             this._toolStrip.Size = new System.Drawing.Size(723, 25);
             this._toolStrip.TabIndex = 1;
+            this._toolStrip.TabStop = true;
             // 
             // _zoomInButton
             // 
@@ -81,15 +82,17 @@
             // 
             // _fitWidthButton
             // 
+            this._fitWidthButton.Image = global::UVA_Arena.Properties.Resources.fit_width;
             this._fitWidthButton.Name = "_fitWidthButton";
-            this._fitWidthButton.Size = new System.Drawing.Size(59, 22);
+            this._fitWidthButton.Size = new System.Drawing.Size(75, 22);
             this._fitWidthButton.Text = "Fit Width";
             this._fitWidthButton.Click += new System.EventHandler(this._fitWidthButton_Click);
             // 
             // _fitHeightButton
             // 
+            this._fitHeightButton.Image = global::UVA_Arena.Properties.Resources.fit_height;
             this._fitHeightButton.Name = "_fitHeightButton";
-            this._fitHeightButton.Size = new System.Drawing.Size(63, 22);
+            this._fitHeightButton.Size = new System.Drawing.Size(79, 22);
             this._fitHeightButton.Text = "Fit Height";
             this._fitHeightButton.Click += new System.EventHandler(this._fitHeightButton_Click);
             // 
@@ -100,15 +103,17 @@
             // 
             // _rotateLeftButton
             // 
+            this._rotateLeftButton.Image = global::UVA_Arena.Properties.Resources.rotate_left;
             this._rotateLeftButton.Name = "_rotateLeftButton";
-            this._rotateLeftButton.Size = new System.Drawing.Size(68, 22);
+            this._rotateLeftButton.Size = new System.Drawing.Size(84, 22);
             this._rotateLeftButton.Text = "Rotate Left";
             this._rotateLeftButton.Click += new System.EventHandler(this._rotateLeftButton_Click);
             // 
             // _rotateRightButton
             // 
+            this._rotateRightButton.Image = global::UVA_Arena.Properties.Resources.rotate_right;
             this._rotateRightButton.Name = "_rotateRightButton";
-            this._rotateRightButton.Size = new System.Drawing.Size(76, 22);
+            this._rotateRightButton.Size = new System.Drawing.Size(92, 22);
             this._rotateRightButton.Text = "Rotate Right";
             this._rotateRightButton.Click += new System.EventHandler(this._rotateRightButton_Click);
             // 
@@ -130,6 +135,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this._renderer);
             this.Controls.Add(this._toolStrip);
+            this.DoubleBuffered = true;
             this.Name = "PdfViewer";
             this.Size = new System.Drawing.Size(723, 408);
             this._toolStrip.ResumeLayout(false);

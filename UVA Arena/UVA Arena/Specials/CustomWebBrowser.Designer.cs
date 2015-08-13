@@ -99,7 +99,7 @@
             this.nextButton.Margin = new System.Windows.Forms.Padding(1);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(35, 28);
-            this.nextButton.TabIndex = 4;
+            this.nextButton.TabIndex = 3;
             this.nextButton.UseVisualStyleBackColor = true;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
@@ -113,7 +113,7 @@
             this.backButton.Margin = new System.Windows.Forms.Padding(1);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(35, 28);
-            this.backButton.TabIndex = 3;
+            this.backButton.TabIndex = 2;
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
@@ -156,7 +156,7 @@
             this.homeButton.Margin = new System.Windows.Forms.Padding(1);
             this.homeButton.Name = "homeButton";
             this.homeButton.Size = new System.Drawing.Size(35, 28);
-            this.homeButton.TabIndex = 2;
+            this.homeButton.TabIndex = 4;
             this.homeButton.UseVisualStyleBackColor = true;
             this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             // 
@@ -206,12 +206,12 @@
             this.loadingForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.21476F));
             this.loadingForm.Controls.Add(this.panel1, 0, 0);
             this.loadingForm.Controls.Add(this.label1, 0, 1);
-            this.loadingForm.Location = new System.Drawing.Point(113, 48);
+            this.loadingForm.Location = new System.Drawing.Point(155, 54);
             this.loadingForm.Name = "loadingForm";
             this.loadingForm.RowCount = 2;
             this.loadingForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.loadingForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
-            this.loadingForm.Size = new System.Drawing.Size(300, 200);
+            this.loadingForm.Size = new System.Drawing.Size(250, 180);
             this.loadingForm.TabIndex = 3;
             // 
             // panel1
@@ -223,7 +223,7 @@
             this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(298, 155);
+            this.panel1.Size = new System.Drawing.Size(248, 135);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -231,9 +231,9 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(4, 165);
+            this.label1.Location = new System.Drawing.Point(4, 145);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(292, 25);
+            this.label1.Size = new System.Drawing.Size(242, 25);
             this.label1.TabIndex = 1;
             this.label1.Text = "Loading...";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

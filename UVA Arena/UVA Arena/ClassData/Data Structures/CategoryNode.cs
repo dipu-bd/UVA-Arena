@@ -91,28 +91,32 @@ namespace UVA_Arena.Structures
         {
             foreach (CategoryNode b in branches)
             {
-                b.Parent = this;
-                b.ProcessData();
-                AddProblemsFrom(b);
+                try
+                {
+                    b.Parent = this;
+                    b.ProcessData();
+                    AddProblemsFrom(b);
+                }
+                catch { }
             }
             foreach (CategoryProblem p in problems)
             {
-                ProblemInfo pinfo = LocalDatabase.GetProblem(p.pnum);
-                if (pinfo == null)
+                try
                 {
-                    Logger.Add("Problem Not Found: \"" + this.Path + "\" : " + p.pnum.ToString(), "CategoryNode.ProcessData()");
-                    continue;
+                    ProblemInfo pinfo = LocalDatabase.GetProblem(p.pnum);
+                    if (pinfo == null) continue;
+
+                    if (!pinfo.categories.Contains(this))
+                        pinfo.categories.Add(this);
+                    AddProblem(pinfo, true);
+
+                    if (p.star) pinfo.starred = true;
+                    if (problemToNote.ContainsKey(p.pnum))
+                        problemToNote[p.pnum] = p.note;
+                    else
+                        problemToNote.Add(p.pnum, p.note);
                 }
-
-                if (!pinfo.categories.Contains(this))
-                    pinfo.categories.Add(this);
-                AddProblem(pinfo, true);
-
-                if (p.star) pinfo.starred = true;
-                if (problemToNote.ContainsKey(p.pnum))
-                    problemToNote[p.pnum] = p.note;
-                else
-                    problemToNote.Add(p.pnum, p.note);
+                catch { }
             }
             problems.Clear();
         }

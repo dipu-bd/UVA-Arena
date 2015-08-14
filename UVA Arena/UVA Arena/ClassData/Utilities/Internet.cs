@@ -5,7 +5,7 @@ using System.IO;
 using System.Net;
 
 namespace UVA_Arena.Internet
-{ 
+{
     internal static class Downloader
     {
         #region Check Connections
@@ -224,15 +224,16 @@ namespace UVA_Arena.Internet
 
         public static void DownloadProblemDatabase()
         {
-            if (_DownloadingProblemDatabase) return;             
+            if (_DownloadingProblemDatabase) return;
             _DownloadingProblemDatabase = true;
-            
+
             //problem database
             string url = "http://uhunt.felix-halim.net/api/p";
-            string file = LocalDirectory.GetProblemInfoFile();
-            DownloadFileAsync(url, file, false, Priority.High,
-                __DownloadProblemDatabaseProgress, __DownloadProblemDatabaseCompleted, 1);
+            string alternate = "https://raw.githubusercontent.com/dipu-bd/uva-problem-category/master/problems.json";
 
+            string file = LocalDirectory.GetProblemInfoFile();
+            DownloadFileAsync(url, file, alternate, Priority.High,
+                __DownloadProblemDatabaseProgress, __DownloadProblemDatabaseCompleted, 0);
         }
 
         private static void __DownloadProblemDatabaseCompleted(DownloadTask task)
@@ -248,7 +249,15 @@ namespace UVA_Arena.Internet
             }
             else if (task.Error != null)
             {
-                Logger.Add(task.Error.Message, "__DownloadProblemDatabaseCompleted");
+                if (task.Token == null)
+                {
+                    Logger.Add(task.Error.Message, "__DownloadProblemDatabaseCompleted");
+                }
+                else
+                {
+                    DownloadFileAsync((string)task.Token, task.FileName, null, Priority.High,
+                        __DownloadProblemDatabaseProgress, __DownloadProblemDatabaseCompleted, 0);
+                }
             }
 
             Interactivity.SetStatus(msg);
@@ -257,8 +266,7 @@ namespace UVA_Arena.Internet
 
         private static void __DownloadProblemDatabaseProgress(DownloadTask task)
         {
-            string msg = "Downloading problem list... [{0}/{1} completed]";
-            if ((bool)task.Token) msg = "Downloading category index... [{0}/{1} completed]";
+            string msg = "Downloading problem list... [{0}/{1} completed]"; 
             msg = string.Format(msg, Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
             Interactivity.SetStatus(msg);
 
@@ -271,12 +279,22 @@ namespace UVA_Arena.Internet
         // Problem Category Index
         //
         public static void DownloadCategoryIndex()
-        { 
+        {
             //problem category index
-            string url = "https://raw.githubusercontent.com/dipu-bd/uva-problem-category/master/data/INDEX ";
+            string url = "https://raw.githubusercontent.com/dipu-bd/uva-problem-category/master/data/INDEX";
             string file = LocalDirectory.GetCategoryIndexFile();
-            DownloadFileAsync(url, file, true, Priority.Normal,
-                __DownloadProblemDatabaseProgress, __DownloadProblemCategoryCompleted, 1);
+            DownloadFileAsync(url, file, null, Priority.Normal,
+                __DownloadCategoryIndexProgress, __DownloadProblemCategoryCompleted, 1);
+        }
+        private static void __DownloadCategoryIndexProgress(DownloadTask task)
+        {
+            string msg = msg = "Downloading category index... [{0}/{1} completed]";
+            msg = string.Format(msg, Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
+            Interactivity.SetStatus(msg);
+
+            int percent = task.ProgressPercentage;
+            Interactivity.SetProgress(task.ProgressPercentage);
+
         }
 
         private static void __DownloadProblemCategoryCompleted(DownloadTask task)
@@ -297,17 +315,6 @@ namespace UVA_Arena.Internet
             Interactivity.SetProgress(0);
         }
 
-        private static void __DownloadProblemCategoryProgress(DownloadTask task)
-        {
-            string msg = "Downloading category file: {2} ... [{0}/{1} completed]";
-            msg = string.Format(msg, Functions.FormatMemory(task.Received),
-                Functions.FormatMemory(task.Total), task.Token);
-            Interactivity.SetStatus(msg);
-
-            int percent = task.ProgressPercentage;
-            Interactivity.SetProgress(task.ProgressPercentage);
-        }
-
 
         //
         // Download Category files
@@ -325,11 +332,22 @@ namespace UVA_Arena.Internet
                     //problem category file      
                     string file = LocalDirectory.GetCategoryDataFile(key);
                     DownloadFileAsync(url + key, file, key, Priority.Low,
-                        __DownloadProblemCategoryProgress, __DownloadCategoryFileCompleted, 1);
+                        __DownloadCategoryFileProgress, __DownloadCategoryFileCompleted, 1);
                 }
             }
         }
-        
+
+        private static void __DownloadCategoryFileProgress(DownloadTask task)
+        {
+            string msg = "Downloading category file: {2} ... [{0}/{1} completed]";
+            msg = string.Format(msg, Functions.FormatMemory(task.Received),
+                Functions.FormatMemory(task.Total), task.Token);
+            Interactivity.SetStatus(msg);
+
+            int percent = task.ProgressPercentage;
+            Interactivity.SetProgress(task.ProgressPercentage);
+        }
+
         private static void __DownloadCategoryFileCompleted(DownloadTask task)
         {
             string msg = "Failed to downloaded category list.";
@@ -366,7 +384,7 @@ namespace UVA_Arena.Internet
 
         private static void __DownloadUserInfoProgress(DownloadTask task)
         {
-            string msg = "Downloading {0}'s submissions... [{1}/{2} completed]"; 
+            string msg = "Downloading {0}'s submissions... [{1}/{2} completed]";
             msg = string.Format(msg, task.Token,
                 Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
             Interactivity.SetStatus(msg);
@@ -380,10 +398,7 @@ namespace UVA_Arena.Internet
             string msg = "Failed to downloaded user submissions.";
             if (task.Status == ProgressStatus.Completed)
             {
-                if (LocalDatabase.DefaultUser == null)
-                    LocalDatabase.DefaultUser = new Structures.UserInfo();
-                LocalDatabase.DefaultUser.AddSubmissions(task.Result);
-
+                LocalDatabase.LoadDefaultUser();
                 msg = "Downloaded user submissions.";
             }
             else if (task.Error != null)

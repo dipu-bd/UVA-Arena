@@ -444,18 +444,5 @@ namespace UVA_Arena
 
         #endregion
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                System.Diagnostics.Process.Start((string)linkLabel1.Tag);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Sorry, something went wrong! Please try again or restart the application.");
-                Logger.Add(ex.Message, "DownloadAllForm | Link");
-            }
-        }
-
     }
 }

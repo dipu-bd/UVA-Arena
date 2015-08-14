@@ -128,38 +128,43 @@ namespace UVA_Arena.Internet
         }
 
         void webClient_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
-        {
+        {            
             //write download to file or string
             this.Error = e.Error;
             if (this.Error == null && this.Status == ProgressStatus.Running)
-            {
+            { 
                 try
                 {
                     this.Result = System.Text.Encoding.UTF8.GetString(e.Result);
                     if (this.IsSaveToFile)
                         File.WriteAllBytes(this.FileName, e.Result);
                     this.Status = ProgressStatus.Completed;
+                    this.Error = null;
                 }
                 catch (Exception ex) { this.Error = ex; }
             }
             if (this.Error != null)
+            {
                 this.Status = ProgressStatus.Failed;
+            }
 
             //retry if couldn't complete
-            if (this.Status != ProgressStatus.Completed &&
-                this.Status != ProgressStatus.Cancelled &&
-                this.RetryCount > 0)
+            if (this.RetryCount > 0 &&
+                !(this.Status == ProgressStatus.Completed ||
+                this.Status == ProgressStatus.Cancelled))
             {
-                --this.RetryCount;
+                this.RetryCount--;
                 this.Error = null;
                 this.Status = ProgressStatus.Running;
                 Downloader.DownloadNext();
-                return;
             }
-
-            //send completion report          
-            this.ReportComplete();
-            Downloader.DownloadNext();
+            else
+            {
+                //send completion report                   
+                this.RetryCount = 0;
+                this.ReportComplete();
+                Downloader.DownloadNext();
+            }
         }
 
 

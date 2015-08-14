@@ -46,7 +46,6 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.overallStatus = new System.Windows.Forms.Label();
             this.replaceCombo1 = new System.Windows.Forms.ComboBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +60,7 @@
             this.tableLayoutPanel1.Controls.Add(this.restartButton, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cancelButton, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.startButton, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(232, 162);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(222, 147);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -124,7 +123,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalProgress.Location = new System.Drawing.Point(12, 30);
             this.totalProgress.Name = "totalProgress";
-            this.totalProgress.Size = new System.Drawing.Size(520, 30);
+            this.totalProgress.Size = new System.Drawing.Size(510, 30);
             this.totalProgress.TabIndex = 2;
             // 
             // currentProgress
@@ -133,7 +132,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentProgress.Location = new System.Drawing.Point(11, 93);
             this.currentProgress.Name = "currentProgress";
-            this.currentProgress.Size = new System.Drawing.Size(520, 20);
+            this.currentProgress.Size = new System.Drawing.Size(510, 20);
             this.currentProgress.TabIndex = 4;
             // 
             // label2
@@ -151,7 +150,7 @@
             // 
             this.totalPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.totalPercentage.BackColor = System.Drawing.Color.Transparent;
-            this.totalPercentage.Location = new System.Drawing.Point(473, 11);
+            this.totalPercentage.Location = new System.Drawing.Point(463, 11);
             this.totalPercentage.Name = "totalPercentage";
             this.totalPercentage.Size = new System.Drawing.Size(59, 16);
             this.totalPercentage.TabIndex = 5;
@@ -162,7 +161,7 @@
             // 
             this.currentPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.currentPercentage.BackColor = System.Drawing.Color.Transparent;
-            this.currentPercentage.Location = new System.Drawing.Point(473, 74);
+            this.currentPercentage.Location = new System.Drawing.Point(463, 74);
             this.currentPercentage.Name = "currentPercentage";
             this.currentPercentage.Size = new System.Drawing.Size(59, 16);
             this.currentPercentage.TabIndex = 6;
@@ -176,7 +175,7 @@
             this.StatusLabel.BackColor = System.Drawing.Color.Transparent;
             this.StatusLabel.Location = new System.Drawing.Point(12, 116);
             this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(520, 13);
+            this.StatusLabel.Size = new System.Drawing.Size(510, 13);
             this.StatusLabel.TabIndex = 7;
             this.StatusLabel.Text = "no status...";
             this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -201,10 +200,10 @@
             this.replaceBox.AutoCheck = false;
             this.replaceBox.AutoSize = true;
             this.replaceBox.BackColor = System.Drawing.Color.Transparent;
-            this.replaceBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.replaceBox.Location = new System.Drawing.Point(13, 167);
+            this.replaceBox.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.replaceBox.Location = new System.Drawing.Point(13, 154);
             this.replaceBox.Name = "replaceBox";
-            this.replaceBox.Size = new System.Drawing.Size(103, 23);
+            this.replaceBox.Size = new System.Drawing.Size(100, 21);
             this.replaceBox.TabIndex = 9;
             this.replaceBox.Text = "Redownload";
             this.replaceBox.UseVisualStyleBackColor = false;
@@ -243,26 +242,11 @@
             "HTML Files",
             "PDF Files",
             "Image Files"});
-            this.replaceCombo1.Location = new System.Drawing.Point(113, 166);
+            this.replaceCombo1.Location = new System.Drawing.Point(109, 151);
             this.replaceCombo1.Name = "replaceCombo1";
             this.replaceCombo1.Size = new System.Drawing.Size(98, 25);
             this.replaceCombo1.TabIndex = 11;
             this.replaceCombo1.SelectedIndexChanged += new System.EventHandler(this.replaceCombo1_SelectedIndexChanged);
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel1.Location = new System.Drawing.Point(351, 144);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(181, 13);
-            this.linkLabel1.TabIndex = 12;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Tag = "http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.3/UVA%20Arena%20Da" +
-    "tabase.exe/download";
-            this.linkLabel1.Text = "Download problem list all at once";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // DownloadAllForm
             // 
@@ -270,8 +254,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UVA_Arena.Properties.Resources.backimg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(544, 206);
-            this.Controls.Add(this.linkLabel1);
+            this.ClientSize = new System.Drawing.Size(534, 191);
             this.Controls.Add(this.replaceCombo1);
             this.Controls.Add(this.overallStatus);
             this.Controls.Add(this.replaceBox);
@@ -317,7 +300,6 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label overallStatus;
         private System.Windows.Forms.ComboBox replaceCombo1;
-        private System.Windows.Forms.LinkLabel linkLabel1;
 
     }
 }

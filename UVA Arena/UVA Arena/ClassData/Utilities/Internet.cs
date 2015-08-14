@@ -316,7 +316,7 @@ namespace UVA_Arena.Internet
         {
             string url = "https://raw.githubusercontent.com/dipu-bd/uva-problem-category/master/data/";
 
-            var index = Functions.getCategoryIndex();
+            var index = Functions.GetCategoryIndex();
             foreach (string key in index.Keys)
             {
                 long version = RegistryAccess.GetCategoryVersion(key);

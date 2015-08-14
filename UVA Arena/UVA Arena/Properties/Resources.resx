@@ -271,10 +271,10 @@
   </data>
   <data name="fit_width" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAABwSURBVDhPY6AGWAzEK8nEIL1ghg4Qi0ExiE0sAOml3IBHUAY5GKQXzCAXgPUOIwPmArEAEK8H
-        87ADkBwXEIPUggCKAauAOAaIn0LZ2PAzIHaDskEAxYBUKJ0PpbGBYigNU4tiADmAOgZQnJkoAAwMAIoV
-        O7StA+XXAAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAHBJREFUOE9j
+        oAZYDMQrycQgvWCGDhCLQTGITSwA6aXcgEdQBjkYpBfMIBeA9Q4jA+YCsQAQrwfzsAOQHBcQg9SCAIoB
+        q4A4BoifQtnY8DMgdoOyQQDFgFQonQ+lsYFiKA1Ti2IAOYA6BlCcmSgADAwAihU7tK0D5dcAAAAASUVO
+        RK5CYII=
 </value>
   </data>
   <data name="prev" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -2226,7 +2226,7 @@ You should have received a copy of the GNU General Public License along with thi
         yq1WSzmVDWKVIQ78LacdYOwPuNr01LYDDEUAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="failed" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="tried" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAjNJREFUOE9j
         oBm4HK+y/Gamju35CJWYC9HKM6DC+MHFCAXp60kqZ86GKdW9rtb+D8Sf3tRqf35RpvnzYrxmyZVY5fNX
@@ -2405,10 +2405,10 @@ You should have received a copy of the GNU General Public License along with thi
   </data>
   <data name="fit_height" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAACLSURBVDhPY6AGWAzEK8nEIL1ghg4Qi0ExiE0sAOml3IBHUAY5GKQXzCAXgPXiMsAIiEOB2B/M
-        ww4IGrAWiOPAPOwArwHlQPwYiDeAedgBXgNAAJ8cCOA1gB+IQXIgGhfAa0AGEL8D4lVgHnaA1wBQILYD
-        cRCYhx0QNCAEiP3APOwArJfizEQBYGAAAOzmOQVg10+nAAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAItJREFUOE9j
+        oAZYDMQrycQgvWCGDhCLQTGITSwA6aXcgEdQBjkYpBfMIBeA9eIywAiIQ4HYH8zDDggasBaI48A87ACv
+        AeVA/BiIN4B52AFeA0AAnxwI4DWAH4hBciAaF8BrQAYQvwPiVWAedoDXAFAgtgNxEJiHHRA0IASI/cA8
+        7ACsl+LMRAFgYAAA7OY5BWDXT6cAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="zoom_out" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -2488,22 +2488,22 @@ You should have received a copy of the GNU General Public License along with thi
   </data>
   <data name="rotate_right" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAECSURBVDhPndM9TgJRFIbhAY0UGDQUdHRWJNramCgLEElIIGgtJY2RisrGEBNdAAkdQTEW0lDQ
-        07AFGrfACni/O1xyHX5nvuTJnHMnOTM5MN6OPOLML6PlC7/Imy5CNOAIbdR0EDYaYNPABw5MtyGneMA7
-        upjCTQHfODGdkzia+EEZWRwihmAuMMS/5XZw75d7JYMBbtToiU8qQuYSExV67YSKEKngEyk1WoobLfIK
-        RdzqwIl29YoXLPdjf6pr9KF91FHFGDYarPsl0znRgGe8IakDJ3Z4Dtr8uekC+UPLL1eiAXfQntI6WJcZ
-        gk+26UFvtvXfN1pc1+V4cd0afbIR43lzbF0ilASYwbUAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAQJJREFUOE+d
+        0z1OAlEUhuEBjRQYNBR0dFYk2tqYKAsQSUggaC0ljZGKysYQE10ACR1BMRbSUNDTsAUat8AKeL87XHId
+        fme+5Mmccyc5Mzkw3o484swvo+ULv8ibLkI04Aht1HQQNhpg08AHDky3Iad4wDu6mMJNAd84MZ2TOJr4
+        QRlZHCKGYC4wxL/ldnDvl3slgwFu1OiJTypC5hITFXrthIoQqeATKTVaihst8gpF3OrAiXb1ihcs92N/
+        qmv0oX3UUcUYNhqs+yXTOdGAZ7whqQMndngO2vy56QL5Q8svV6IBd9Ce0jpYlxmCT7bpQW+29d83WlzX
+        5Xhx3Rp9shHjeXNsXSKUBJjBtQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="rotate_left" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAD9SURBVDhPndK/TgJBEMfxBY0WGDUUdHZUBGoaE/UBgBASDFCfpQ2BiorGGBN4ABM6g4AW0FjY
-        0/gKNryCT8B3Zi+ncsef5Zd8sjPJ5m7n9syWpOHZ0j03mGKknWPu8IwjOD3gAH20tbPZ+QFnmKCo3W++
-        8YIeGjhHKPKxPpDT7n9iOMQFqnhHB3ForjFDSrvdUsfAlsZ8IW9LpzQhJzKneMWtNA45hoyjkTm7eEAw
-        m58CyrjE6gd889cgFYzxd+McNdxD5pabuoIk8oqzkBvJaBfelMATWlj7jyQh85WwbtMjFraMjvyV8qah
-        duHISX5suTkn/hqVT3/dN8ZbAkP+IpWsi6DWAAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAP1JREFUOE+d
+        0r9OAkEQx/EFjRYYNRR0dlQEahoT9QGAEBIMUJ+lDYGKisYYE3gAEzqDgBbQWNjT+Ao2vIJPwHdmL6dy
+        x5/ll3yyM8nmbuf2zJak4dnSPTeYYqSdY+7wjCM4PeAAfbS1s9n5AWeYoKjdb77xgh4aOEco8rE+kNPu
+        f2I4xAWqeEcHcWiuMUNKu91Sx8CWxnwhb0unNCEnMqd4xa00DjmGjKORObt4QDCbnwLKuMTqB3zz1yAV
+        jPF34xw13EPmlpu6giTyirOQG8loF96UwBNaWPuPJCHzlbBu0yMWtoyO/JXypqF24chJfmy5OSf+GpVP
+        f903xlsCQ/4ilayLoNYAAAAASUVORK5CYII=
 </value>
   </data>
 </root>

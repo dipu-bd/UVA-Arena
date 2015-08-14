@@ -119,7 +119,7 @@ namespace UVA_Arena
         /// <summary>
         /// Parse a Category Index data file and returns a dictonary
         /// </summary>
-        public static Dictionary<string, long> getCategoryIndex()
+        public static Dictionary<string, long> GetCategoryIndex()
         {
             string file = LocalDirectory.GetCategoryIndexFile();            
             var result = new Dictionary<string, long>();
@@ -204,7 +204,7 @@ namespace UVA_Arena
             else
                 return System.Drawing.Color.Black;
         }
-
+        
         /// <summary>
         /// Get color for given verdict
         /// </summary>

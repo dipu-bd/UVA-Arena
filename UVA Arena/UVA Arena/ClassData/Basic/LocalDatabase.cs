@@ -214,11 +214,14 @@ namespace UVA_Arena
 
         public static void LoadCategories()
         {
-            var index = Functions.getCategoryIndex();
+            var index = Functions.GetCategoryIndex(); 
             foreach (string key in index.Keys)
-            {
+            {                
                 bool ok = LoadCategoryData(key);
-                if (ok) RegistryAccess.SetCategoryVersion(key, index[key]);
+                if (ok)
+                {
+                    RegistryAccess.SetCategoryVersion(key, index[key]);
+                }
             }
         }
 

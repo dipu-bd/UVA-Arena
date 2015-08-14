@@ -21,23 +21,15 @@ namespace UVA_Arena.Elements
             InitializeProblemList();
             InitializeCategoryList();
 
-            problemViewSplitContainer.SplitterDistance = 
-                (int)Math.Round(problemViewSplitContainer.Width * Properties.Settings.Default.CategoryListSplitterRatio);
-
-            mainSplitContainer.SplitterDistance =
-                (int)Math.Round(mainSplitContainer.Width * Properties.Settings.Default.ProblemListSplitterRatio);
-
             //add problem viewer
             Interactivity.problemViewer = new Elements.ProblemViewer();
             Interactivity.problemViewer.Dock = DockStyle.Fill;
             mainSplitContainer.Panel2.Controls.Add(Interactivity.problemViewer);
 
-            categoryListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
-
-            if (Properties.Settings.Default.ProblemViewExpandCollapse)
-            {
-                CollapsePanel2View();
-            }
+            problemViewSplitContainer.SplitterDistance =
+                (int)Math.Round(problemViewSplitContainer.Width * Properties.Settings.Default.CategoryListSplitterRatio);
+            mainSplitContainer.SplitterDistance =
+                (int)Math.Round(mainSplitContainer.Width * Properties.Settings.Default.ProblemListSplitterRatio);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -53,6 +45,11 @@ namespace UVA_Arena.Elements
 
             Stylish.SetGradientBackground(plistPanel,
                 new Stylish.GradientStyle(Color.LightCyan, Color.PaleTurquoise, -90F));
+
+            if (Properties.Settings.Default.ProblemViewExpandCollapse)
+            {
+                CollapsePanel2View();
+            }
         }
 
 
@@ -115,12 +112,17 @@ namespace UVA_Arena.Elements
 
             ptitleProb.ImageGetter = delegate(object data)
             {
-                if (((ProblemInfo)data).marked)
+                if (data == null || data.GetType() != typeof(ProblemInfo))
+                    return null;
+
+                var prob = (ProblemInfo)data;
+                if (prob.marked)
                     return Properties.Resources.favorite;
-                else if (((ProblemInfo)data).solved)
-                    return Properties.Resources.accept; 
-                else if (((ProblemInfo)data).starred)
-                    return Properties.Resources.star;
+                else if (prob.solved)
+                    return Properties.Resources.accept;
+                else if (LocalDatabase.DefaultUser != null && 
+                         LocalDatabase.DefaultUser.TriedButUnsolved(prob.pnum))
+                    return Properties.Resources.tried;
                 else
                     return Properties.Resources.file;
             };
@@ -139,12 +141,12 @@ namespace UVA_Arena.Elements
         #region Global Task
 
         public void CollapsePanel1View()
-        {            
+        {
             mainSplitContainer.Panel1Collapsed = !mainSplitContainer.Panel1Collapsed;
             this.showHideButton.Image
                 = mainSplitContainer.Panel2Collapsed ? UVA_Arena.Properties.Resources.hide : UVA_Arena.Properties.Resources.show;
             Interactivity.problemViewer.expandCollapseButton.Image
-                    = mainSplitContainer.Panel1Collapsed ? UVA_Arena.Properties.Resources.show : UVA_Arena.Properties.Resources.hide;            
+                    = mainSplitContainer.Panel1Collapsed ? UVA_Arena.Properties.Resources.show : UVA_Arena.Properties.Resources.hide;
         }
         public void CollapsePanel2View()
         {
@@ -362,7 +364,7 @@ namespace UVA_Arena.Elements
             Interactivity.problemViewer.LoadProblem((ProblemInfo)sel);
             if (mainSplitContainer.Panel2Collapsed)
             {
-                CollapsePanel2View(); 
+                CollapsePanel2View();
             }
         }
 

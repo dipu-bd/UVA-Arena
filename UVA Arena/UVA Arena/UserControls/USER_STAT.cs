@@ -113,7 +113,7 @@ namespace UVA_Arena.Elements
 
         #endregion
 
-        #region Settings
+        #region Properties
 
         public static int ViewOption
         {
@@ -351,7 +351,7 @@ namespace UVA_Arena.Elements
                 else
                 {
                     //show list 
-                    ShowDataByTab();                    
+                    ShowDataByTab();
                 }
 
                 //if auto update is off download once
@@ -593,7 +593,7 @@ namespace UVA_Arena.Elements
             }
 
             lastSubmissions1.ShowGroups = false;
-            lastSubmissions1.SetObjects(list, true);            
+            lastSubmissions1.SetObjects(list, true);
             SetGroupBy();
         }
 
@@ -637,6 +637,22 @@ namespace UVA_Arena.Elements
                 if (dat == null) return "";
                 if ((long)dat == -1) return "-";
                 return ((long)dat).ToString();
+            };
+
+            ptitleSUB.ImageGetter = delegate(object data)
+            {
+                if (data == null || data.GetType() != typeof(UserSubmission))
+                    return null;
+
+                UserSubmission usub = (UserSubmission)data;
+                if (LocalDatabase.DefaultUser == null)
+                    return Properties.Resources.file;
+                if (LocalDatabase.DefaultUser.IsSolved(usub.pnum))
+                    return Properties.Resources.accept;
+                else if (LocalDatabase.DefaultUser.TriedButUnsolved(usub.pnum))
+                    return Properties.Resources.tried;
+                else
+                    return Properties.Resources.file;
             };
         }
         private void lastSubmissions1_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)

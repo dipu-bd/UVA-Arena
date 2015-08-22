@@ -257,9 +257,15 @@ void Uhunt::userSubmissionsByUserID(int userID, int lastSubmissionID)
 
     QObject::connect(reply,
         &QNetworkReply::finished,
-        [this, reply, userID]() {
+        [this, reply, userID, lastSubmissionID]() {
+
+        QByteArray data = reply->readAll();
+
+        emit this->userSubmissionsJsonDownloaded(data, userID, lastSubmissionID);
+
             emit this->userSubmissionsByUserIDDownloaded(
                 userSubmissionsFromJson(reply->readAll(), userID));
+
             reply->deleteLater();
         });
 }

@@ -31,14 +31,14 @@ namespace uva
 
     protected:
 
-        virtual QVariant getDataAtIndex(const QModelIndex &index) const = 0;
+        virtual QVariant dataAtIndex(const QModelIndex &index) const = 0;
 
         virtual bool insertColumns(QStringList columnNames);
 
         virtual bool canFetchMore(const QModelIndex &parent) const override;
         virtual void fetchMore(const QModelIndex &parent) override;
 
-        virtual int getDataCount() const = 0;
+        virtual int dataCount() const = 0;
 
         virtual QVariant style(const QModelIndex &index, int role) const = 0;
 

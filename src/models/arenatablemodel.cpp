@@ -26,7 +26,7 @@ int ArenaTableModel::columnCount(const QModelIndex & /* parent */) const
 int ArenaTableModel::rowCount(const QModelIndex & /* parent */) const
 {
     if (mFetchAllRows)
-        return getDataCount();
+        return dataCount();
 
     return mRowsFetchedCount;
 }
@@ -50,7 +50,7 @@ QVariant ArenaTableModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (index.row() >= getDataCount() || index.row() < 0)
+    if (index.row() >= dataCount() || index.row() < 0)
         return QVariant();
 
     if (index.column() >= mColumnNames.size() || index.column() < 0)
@@ -59,7 +59,7 @@ QVariant ArenaTableModel::data(const QModelIndex &index, int role) const
     if (role != Qt::DisplayRole)
         return style(index, role);
 
-    return getDataAtIndex(index);
+    return dataAtIndex(index);
 }
 
 void ArenaTableModel::setMaxRowsToFetch(int maxRowsToFetch)
@@ -77,7 +77,7 @@ bool ArenaTableModel::canFetchMore(const QModelIndex &parent) const
     if (mFetchAllRows)
         return QAbstractTableModel::canFetchMore(parent);
 
-    if (mRowsFetchedCount < getDataCount())
+    if (mRowsFetchedCount < dataCount())
         return true;
     else
         return false;
@@ -85,7 +85,7 @@ bool ArenaTableModel::canFetchMore(const QModelIndex &parent) const
 
 void ArenaTableModel::fetchMore(const QModelIndex &parent)
 {
-    int remainingData = getDataCount() - mRowsFetchedCount;
+    int remainingData = dataCount() - mRowsFetchedCount;
     int itemsToFetch = qMin(mMaxRowsToFetch, remainingData);
 
     beginInsertRows(QModelIndex(), mRowsFetchedCount, mRowsFetchedCount + itemsToFetch - 1);

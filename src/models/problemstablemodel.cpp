@@ -43,7 +43,7 @@ void ProblemsTableModel::setUhuntProblemMap(std::shared_ptr<Uhunt::ProblemMap> p
     endResetModel();
 }
 
-int ProblemsTableModel::getDataCount() const
+int ProblemsTableModel::dataCount() const
 {
     if (!mProblemMap)
         return 0;
@@ -51,7 +51,7 @@ int ProblemsTableModel::getDataCount() const
     return mProblemMap->count();
 }
 
-QVariant ProblemsTableModel::getDataAtIndex(const QModelIndex &index) const
+QVariant ProblemsTableModel::dataAtIndex(const QModelIndex &index) const
 {
     if (!mProblemMap)
         return QVariant();

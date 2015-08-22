@@ -43,12 +43,12 @@ void LiveEventsTableModel::setProblemMap(std::shared_ptr<Uhunt::ProblemMap> prob
     mProblemMap = problemMap;
 }
 
-int LiveEventsTableModel::getDataCount() const
+int LiveEventsTableModel::dataCount() const
 {
     return mStatusData.count();
 }
 
-QVariant LiveEventsTableModel::getDataAtIndex(const QModelIndex &index) const
+QVariant LiveEventsTableModel::dataAtIndex(const QModelIndex &index) const
 {
     if (!mProblemMap)
         return QVariant();

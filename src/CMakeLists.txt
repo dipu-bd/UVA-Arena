@@ -34,6 +34,8 @@ set(MODELS_SOURCES
     models/categorytreemodel.cpp
     models/problemsproxymodel.h
     models/problemsproxymodel.cpp
+    models/submissionstablemodel.h
+    models/submissionstablemodel.cpp
 )
 
 set(WIDGETS_SOURCES

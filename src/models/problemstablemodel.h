@@ -19,11 +19,11 @@ namespace uva
 
     protected:
 
-        virtual QVariant getDataAtIndex(const QModelIndex &index) const override;
+        virtual QVariant dataAtIndex(const QModelIndex &index) const override;
 
         virtual QVariant style(const QModelIndex &index, int role) const override;
 
-        virtual int getDataCount() const override;
+        virtual int dataCount() const override;
 
     private:
         quint64 mAverageDACU;

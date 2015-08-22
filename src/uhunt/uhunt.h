@@ -76,7 +76,6 @@ namespace uva
 
     signals:
 
-
         void problemByIdDownloaded(Problem);
 
         void allProblemsDownloaded(QByteArray);
@@ -85,7 +84,7 @@ namespace uva
 
         void userIDDownloaded(QString userName, int userID);
 
-        void userSubmissionsJsonDownloaded(QByteArray, int userId, int lastSub);
+        void userSubmissionsJsonDownloaded(const QByteArray&, int userId, int lastSub);
 
         void userSubmissionsByUserIDDownloaded(QList<UserSubmission>);
 

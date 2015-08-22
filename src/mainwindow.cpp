@@ -248,10 +248,23 @@ void MainWindow::showProblem(int problemNumber)
 void MainWindow::openSettings()
 {
     SettingsDialog dialog;
-
+    QString oldUserName = mSettings.userName();
     if (dialog.exec() == QDialog::Accepted) {
         // emit new uva arena event
         mUi->pdfViewer->setSaveOnDownload(mSettings.savePDFDocumentsOnDownload());
-        emit newUVAArenaEvent(UVAArenaWidget::UVAArenaEvent::UPDATE_SETTINGS, QVariant());
+        QString newUserName = mSettings.userName();
+        if (oldUserName != newUserName) {// new user, get the id
+
+            QObject::connect(mUhuntApi.get(), &Uhunt::userIDDownloaded,
+                [this, newUserName](QString userName, int userId) {
+                if (userName == newUserName) { // Make sure we're talking about the same person
+                    this->mSettings.setUserId(userId);
+                }
+
+                emit newUVAArenaEvent(UVAArenaWidget::UVAArenaEvent::UPDATE_SETTINGS, QVariant());
+            });
+
+            mUhuntApi->userIDFromUserName(mSettings.userName());
+        }
     }
 }

@@ -3,6 +3,8 @@
 #include "uvalib_global.h"
 #include "uvaarenawidget.h"
 #include <QWidget>
+#include "models\submissionstablemodel.h"
+#include "QSortFilterProxyModel"
 
 namespace uva
 {
@@ -21,11 +23,22 @@ namespace uva
 
         virtual void initialize() override;
 
+        bool userSubmissionsDirectoryExists(int userID);
+
         virtual void onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent, QVariant) override;
 
     public slots:
 
+        void onUserSubmissionsDownloaded(const QByteArray& data, int userID, int lastSubmissionID);
+
+        QString userSubmissionsFileName(int userID);
+        void loadUserSubmissionsFromFile(QString fileName, qint32 userId = -1);
+
     private:
+
+        QSortFilterProxyModel mSubmissionsProxyModel;
+        SubmissionsTableModel mSubmissionsTableModel;
+
         std::unique_ptr<Ui::ProfilesWidget> mUi;
 
     };

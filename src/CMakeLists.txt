@@ -60,6 +60,8 @@ set(MAIN_SOURCES
     commons/colorizer.cpp
     mainwindow.h
     mainwindow.cpp
+    settingsdialog.h
+    settingsdialog.cpp
     uvaarenasettings.h
     uvaarenasettings.cpp
     uvalib_global.h
@@ -75,6 +77,7 @@ set(ALL_SOURCES
 
 set(UI_SOURCES
     mainwindow.ui
+    settingsdialog.ui
     widgets/editorwidget.ui
     widgets/liveeventswidget.ui
     widgets/problemswidget.ui

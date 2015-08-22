@@ -101,6 +101,8 @@ namespace uva
         */
         void saveCategoryFile(const QByteArray &categoryJson, QString fileName);
 
+        virtual void onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent, QVariant) override;
+
         ProblemsProxyModel mProblemsFilterProxyModel;
         QSortFilterProxyModel mCategoryFilterProxyModel;
         ProblemsTableModel mProblemsTableModel;

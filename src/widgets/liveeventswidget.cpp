@@ -42,6 +42,24 @@ void uva::LiveEventsWidget::setAutomaticallyUpdate(bool autoupdate)
         mTimer.stop();
 }
 
+void uva::LiveEventsWidget::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVariant)
+{
+    switch (arenaEvent)
+    {
+    case UVAArenaWidget::UVAArenaEvent::UPDATE_SETTINGS:
+        mTimer.setInterval(mSettings.liveEventsUpdateInterval());
+        mUi->autoStartCheckBox->setChecked(mSettings.liveEventsAutoStart());
+
+        if (mSettings.liveEventsAutoStart() && !mTimer.isActive())
+            mTimer.start();
+
+        if (!mSettings.liveEventsAutoStart())
+            mTimer.stop();
+
+        break;
+    }
+}
+
 void LiveEventsWidget::refreshLiveEvents()
 {
     mUhuntApi->liveEvents(mLiveEventsTableModel.getLastSubmissionId());

@@ -17,3 +17,15 @@ ProfilesWidget::~ProfilesWidget()
 void ProfilesWidget::initialize()
 {   
 }
+
+void uva::ProfilesWidget::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVariant)
+{
+    switch (arenaEvent)
+    {
+    case uva::UVAArenaWidget::UVAArenaEvent::UPDATE_SETTINGS:
+        break;
+
+    default:
+        break;
+    }
+}

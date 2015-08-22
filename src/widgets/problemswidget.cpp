@@ -28,6 +28,7 @@ ProblemsWidget::ProblemsWidget(QWidget *parent) :
 {
     mUi->setupUi(this);
     mProblemsTableModel.setCategoryRoot(mCategoryTreeModel.categoryRoot());
+    mProblemsTableModel.setFetchAllRows(mSettings.fetchAllProblemsTableRows());
     mProblemsTableModel.setMaxRowsToFetch(mSettings.maxProblemsTableRowsToFetch());
     mProblemsFilterProxyModel.setSortCaseSensitivity(Qt::CaseInsensitive);
     mProblemsFilterProxyModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
@@ -107,7 +108,7 @@ void uva::ProblemsWidget::loadCategoryIndexFromFile()
 
     QFileInfo fileInfo(categoryIndexFile);
     if (fileInfo.lastModified().daysTo(QDateTime::currentDateTime())
-                        > mSettings.maxDaysUntilCategoryIndexRedownload()) {
+                        > mSettings.categoriesUpdateInterval()) {
         // the category index file is too old, redownload it
         downloadCategoryIndex();
 
@@ -266,6 +267,20 @@ void uva::ProblemsWidget::saveCategoryFile(const QByteArray &categoryJson, QStri
     categoryFile.write(categoryJson);
     categoryFile.flush();
     categoryFile.close();
+}
+
+void uva::ProblemsWidget::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVariant)
+{
+    switch (arenaEvent)
+    {
+    case uva::UVAArenaWidget::UVAArenaEvent::UPDATE_SETTINGS:
+        mProblemsTableModel.setFetchAllRows(mSettings.fetchAllProblemsTableRows());
+        mProblemsTableModel.setMaxRowsToFetch(mSettings.maxProblemsTableRowsToFetch());
+        break;
+
+    default:
+        break;
+    }
 }
 
 void uva::ProblemsWidget::downloadCategories(QList<QPair<QString, int> > categories)

@@ -8,9 +8,9 @@ const QString DefaultUserName = "";
 const QString KeyUserId = "UserId";
 const qint32 DefaultUserId = -1;
 
-const QString KeyMaxDaysUntilProblemListRedownload =
-    "MaxDaysUntilProblemListRedownload";
-const qint64 DefaultMaxDaysUntilProblemListRedownload = 1;
+const QString KeyProblemsUpdateInterval =
+    "ProblemsUpdateInterval";
+const qint64 DefaultProblemsUpdateInterval = 7;
 
 const QString KeyMaxProblemsTableRowsToFetch = "MaxProblemsListRowsToLoad";
 const qint32 DefaultMaxProblemsTableRowsToFetch = 50;
@@ -28,10 +28,12 @@ bool DefaultLiveEventsAutoStart = false;
 const QString KeySavePDFDocumentsOnDownload = "SavePDFDocumentsOnDownload";
 const bool DefaultSavePDFDocumentsOnDownload = true;
 
-QString KeyMaxDaysUntilCategoryIndexRedownload =
-    "MaxDaysUntilCategoryIndexRedownload";
+QString KeyCategoryUpdateInterval =
+    "CategoryUpdateInterval";
 qint64 DefaultMaxDaysUntilCategoryIndexRedownload = 31;
 
+const QString KeyFetchAllProblemsTableRows = "FetchAllProblems";
+const bool DefaultFetchAllProblemsTableRows = true;
 
 QString UVAArenaSettings::userName()
 {
@@ -53,15 +55,15 @@ void UVAArenaSettings::setUserId(qint32 userId)
     settings.setValue(KeyUserId, userId);
 }
 
-qint64 UVAArenaSettings::maxDaysUntilProblemListRedownload()
+qint64 UVAArenaSettings::problemsUpdateInterval()
 {
-    return settings.value(KeyMaxDaysUntilProblemListRedownload,
-        DefaultMaxDaysUntilProblemListRedownload).toLongLong();
+    return settings.value(KeyProblemsUpdateInterval,
+        DefaultProblemsUpdateInterval).toLongLong();
 }
 
-void UVAArenaSettings::setMaxDaysUntilProblemListRedownload(qint64 days)
+void UVAArenaSettings::setProblemsUpdateInterval(qint64 days)
 {
-    settings.setValue(KeyMaxDaysUntilProblemListRedownload, days);
+    settings.setValue(KeyProblemsUpdateInterval, days);
 }
 
 qint32 UVAArenaSettings::maxProblemsTableRowsToFetch()
@@ -108,6 +110,17 @@ void uva::UVAArenaSettings::setLiveEventsAutoStart(bool autostart)
     settings.setValue(KeyLiveEventsAutoStart, autostart);
 }
 
+bool uva::UVAArenaSettings::fetchAllProblemsTableRows()
+{
+    return settings.value(KeyFetchAllProblemsTableRows,
+        DefaultFetchAllProblemsTableRows).toBool();
+}
+
+void uva::UVAArenaSettings::setFetchAllProblemsTableRows(bool fetch)
+{
+    settings.setValue(KeyFetchAllProblemsTableRows, fetch);
+}
+
 bool UVAArenaSettings::savePDFDocumentsOnDownload()
 {
     return settings.value(KeySavePDFDocumentsOnDownload,
@@ -119,13 +132,13 @@ void UVAArenaSettings::setSavePDFDocumentsOnDownload(bool autosave)
     settings.setValue(KeySavePDFDocumentsOnDownload, autosave);
 }
 
-qint64 UVAArenaSettings::maxDaysUntilCategoryIndexRedownload()
+qint64 UVAArenaSettings::categoriesUpdateInterval()
 {
-    return settings.value(KeyMaxDaysUntilCategoryIndexRedownload,
+    return settings.value(KeyCategoryUpdateInterval,
         DefaultMaxDaysUntilCategoryIndexRedownload).toLongLong();
 }
 
-void UVAArenaSettings::setMaxDaysUntilCategoryIndexRedownload(qint64 days)
+void UVAArenaSettings::setCategoryUpdateInterval(qint64 days)
 {
-    settings.setValue(KeyMaxDaysUntilCategoryIndexRedownload, days);
+    settings.setValue(KeyCategoryUpdateInterval, days);
 }

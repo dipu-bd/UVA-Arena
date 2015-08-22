@@ -9,7 +9,8 @@ namespace uva
     namespace Ui {
         class ProfilesWidget;
     }
-
+    // #TODO Create GUI interface to allow user to see their submissions
+    // and rankings
     class UVA_EXPORT ProfilesWidget : public UVAArenaWidget
     {
         Q_OBJECT
@@ -19,6 +20,8 @@ namespace uva
         ~ProfilesWidget();
 
         virtual void initialize() override;
+
+        virtual void onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent, QVariant) override;
 
     public slots:
 

@@ -89,7 +89,7 @@ void uva::EditorWidget::setCFamilyLexer()
     QFont defaultFont("consolas");
     defaultFont.setFixedPitch(true);
     defaultFont.setPointSize(10);
-
+    // #TODO change color of quoted strings and string literals
     curLexer->setFont(defaultFont);
     curLexer->setDefaultColor(QColor(220, 220, 220));
     curLexer->setColor(QColor(220, 220, 220), QsciLexerCPP::Default);
@@ -126,6 +126,15 @@ void uva::EditorWidget::setPascalLexer()
     curLexer->setDefaultPaper(QColor(30, 30, 30));
 
     mUi->editor->setLexer(curLexer);
+}
+
+void uva::EditorWidget::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVariant)
+{
+    switch (arenaEvent)
+    {
+    case UVAArenaWidget::UVAArenaEvent::UPDATE_SETTINGS:
+        break;
+    }
 }
 
 void EditorWidget::setJavaLexer()

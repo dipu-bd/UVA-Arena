@@ -37,6 +37,16 @@ namespace uva
         */
         std::shared_ptr<Uhunt::ProblemMap> getProblemMap();
 
+    signals:
+
+        /*!
+            \brief Emitted when MainWindow must inform all UVAArenaWidgets of
+                   a change (E.g, the user settings have changed).
+
+            See the UVAArenaEvent enum for all possible events.
+        */
+        void newUVAArenaEvent(UVAArenaWidget::UVAArenaEvent, QVariant);
+
     public slots:
 
         /*!
@@ -50,6 +60,9 @@ namespace uva
             \brief Invoked when Uhunt::getProblemListAsByteArray finished
         */
         void onAllProblemsDownloaded(QByteArray data);
+
+        /*! Opens the settings dialog. */
+        void openSettings();
 
     private:
 

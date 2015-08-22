@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "settingsdialog.h"
 
 #include <QFile>
 #include <QFileInfo>
@@ -8,6 +9,8 @@
 #include <QDateTime>
 #include <QDir>
 #include <QStandardPaths>
+#include <QUrl>
+#include <QPushButton>
 
 using namespace uva;
 
@@ -15,18 +18,6 @@ const QString DefaultProblemListFileName = "problemlist.json";
 
 const QString UVAProblemHTMLUrl = "https://uva.onlinejudge.org/external/%1/%2.html"; // 1 = container, 2 = problem number
 const QString UVAProblemPDFUrl = "https://uva.onlinejudge.org/external/%1/%2.pdf"; // 1 = container, 2 = problem number
-
-const QString DefaultWebViewPageHTML =
-"<html>"
-"<head>"
-"<style>"
-"h1 { color: #FFF; text-align: center; font-family: Lora, Times New Roman, serif; }"
-"</style>"
-"</head>"
-"<body>"
-"<h1>Double click a problem from the problem list to view it here.<h1>"
-"</body>"
-"</html>";
 
 MainWindow::MainWindow(std::shared_ptr<QNetworkAccessManager> networkManager, QWidget *parent) :
     QMainWindow(parent),
@@ -69,18 +60,6 @@ void MainWindow::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEvent, QVari
 
     case UVAArenaEvent::SHOW_PROBLEM:
         showProblem(metaData.toInt());
-        break;
-
-    case UVAArenaEvent::SHOW_PROBLEM_DESCRIPTION:
-        break;
-
-    case UVAArenaEvent::SHOW_CODE:
-        break;
-
-    case UVAArenaEvent::SHOW_STATUS:
-        break;
-
-    case UVAArenaEvent::SHOW_PROFILE:
         break;
 
     default:
@@ -157,6 +136,11 @@ void MainWindow::initializeData()
 
 void MainWindow::initializeWidgets()
 {
+    QPushButton *settingsButton = new QPushButton(mUi->tabWidget);
+    settingsButton->setText("Settings");
+    QObject::connect(settingsButton, &QPushButton::clicked, this, &MainWindow::openSettings);
+    mUi->tabWidget->setCornerWidget(settingsButton);
+
     mUi->pdfViewer->setSaveOnDownload(mSettings.savePDFDocumentsOnDownload());
     mUi->pdfViewer->setNetworkManager(mNetworkManager);
     // Initialize all UVAArenaWidgets and connect them
@@ -170,8 +154,13 @@ void MainWindow::initializeWidgets()
         widget->setNetworkManager(mNetworkManager);
         widget->setUhuntApi(mUhuntApi);
 
+        // Allow each widget to communicate with the MainWindow
         QObject::connect(widget, &UVAArenaWidget::newUVAArenaEvent,
             this, &MainWindow::onUVAArenaEvent);
+
+        // Allow MainWindow to communicate with each widget
+        QObject::connect(this, &MainWindow::newUVAArenaEvent,
+            widget, &UVAArenaWidget::onUVAArenaEvent);
 
         widget->initialize();
     }
@@ -196,7 +185,7 @@ void MainWindow::loadProblemListFromFile(QString fileName)
     QDateTime lastModified = fileInfo.lastModified();
 
     if (lastModified.daysTo(QDateTime::currentDateTime())
-                            > mSettings.maxDaysUntilProblemListRedownload()) {
+                            > mSettings.problemsUpdateInterval()) {
 
         // the problem list file is too old, redownload it
         mUhuntApi->allOnlineJudgeProblems();
@@ -240,16 +229,29 @@ void MainWindow::loadPDFByProblemNumber(int problemNumber)
                                                    , pdfFileName);
     }
 }
-
+#include <QDesktopServices>
 void MainWindow::showProblem(int problemNumber)
 {
     typedef UVAArenaSettings::ProblemFormat ProblemFormat;
 
     if (mSettings.problemFormatPreference() == ProblemFormat::HTML) {
 
+        QDesktopServices::openUrl(QUrl(UVAProblemHTMLUrl.arg(problemNumber / 100).arg(problemNumber)));
+
     } else { // PDF
 
         mUi->tabWidget->setCurrentWidget(mUi->solveTab);
         loadPDFByProblemNumber(problemNumber);
+    }
+}
+
+void MainWindow::openSettings()
+{
+    SettingsDialog dialog;
+
+    if (dialog.exec() == QDialog::Accepted) {
+        // emit new uva arena event
+        mUi->pdfViewer->setSaveOnDownload(mSettings.savePDFDocumentsOnDownload());
+        emit newUVAArenaEvent(UVAArenaWidget::UVAArenaEvent::UPDATE_SETTINGS, QVariant());
     }
 }

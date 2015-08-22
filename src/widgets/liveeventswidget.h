@@ -38,6 +38,8 @@ namespace uva
 
         void setLiveEventMap(Uhunt::LiveEventMap statusData);
 
+        virtual void onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent, QVariant) override;
+
         std::unique_ptr<Ui::LiveEventsWidget> mUi;
         LiveEventsTableModel mLiveEventsTableModel;
         QTimer mTimer;

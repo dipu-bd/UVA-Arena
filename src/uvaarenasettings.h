@@ -56,13 +56,13 @@ namespace uva
             \brief Get the maximum number of days to wait until the
                    problem list is redownloaded. Default is 1 day.
         */
-        qint64 maxDaysUntilProblemListRedownload();
+        qint64 problemsUpdateInterval();
 
         /*!
             \brief Set the maximum number of days to wwait until the
                    problem list is redownloaded.
         */
-        void setMaxDaysUntilProblemListRedownload(qint64 days);
+        void setProblemsUpdateInterval(qint64 days);
 
         /**
             Maximum problems table rows to fetch.
@@ -104,6 +104,11 @@ namespace uva
          */
         void setLiveEventsUpdateInterval(int msecs);
 
+        /*!
+            Determines if we can live events automatic start.
+        
+            \return true if it succeeds, false if it fails.
+        */
         bool liveEventsAutoStart();
 
         void setLiveEventsAutoStart(bool autostart);
@@ -127,9 +132,28 @@ namespace uva
         
             \return A qint64.
         */
-        qint64 maxDaysUntilCategoryIndexRedownload();
+        qint64 categoriesUpdateInterval();
 
-        void setMaxDaysUntilCategoryIndexRedownload(qint64 days);
+        /*!
+            Sets maximum days until category index redownload.
+        
+            \param  days    The days.
+        */
+        void setCategoryUpdateInterval(qint64 days);
+
+        /*!
+            Fetches all rows in the ProblemsTable.
+        
+            \return true if it succeeds, false if it fails.
+        */
+        bool fetchAllProblemsTableRows();
+
+        /*!
+            Sets fetch all problems table rows.
+        
+            \param  fetch   true to fetch.
+        */
+        void setFetchAllProblemsTableRows(bool fetch);
 
     private:
         QSettings settings;

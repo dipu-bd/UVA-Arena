@@ -36,6 +36,8 @@ namespace uva
 
         void setPascalLexer();
 
+        virtual void onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent, QVariant) override;
+
         Submission::Language mCurrentLanguage;
 
         std::unique_ptr<Ui::EditorWidget> mUi;

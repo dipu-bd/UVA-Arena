@@ -22,7 +22,12 @@ namespace uva
     public:
 
         /*!
-            \brief Events that all UVAArenaWidget subclasses should emit
+            \brief Events that all UVAArenaWidget subclasses should emit or
+                   receive.
+
+            UVAArenaEvents are global events that have the potential to affect
+            all UVAArenaWidgets. This includes changing user settings or
+            displaying a problem from the Online Judge.
 
             If a UVAArenaWidget needs to notify other widgets of an event,
             the newUVAArenaEvent() signal should be emitted.
@@ -30,11 +35,7 @@ namespace uva
         enum class UVAArenaEvent : int {
             UPDATE_STATUS,
             SHOW_PROBLEM,
-            SHOW_PROBLEM_DESCRIPTION,
-            SHOW_CODE,
-            SHOW_STATUS,
-            SHOW_PROFILE,
-            TOTAL_EVENTS,
+            UPDATE_SETTINGS,
         };
 
         explicit UVAArenaWidget(QWidget *parent = 0);
@@ -75,7 +76,13 @@ namespace uva
             */
         void newUVAArenaEvent(UVAArenaEvent, QVariant);
 
-        public slots:
+    public slots:
+
+        /*!
+            \brief Invoked when the newUVAArenaEvent() signal is emitted and
+                   connected to this slot.
+        */
+        virtual void onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent, QVariant) = 0;
 
     protected:
 

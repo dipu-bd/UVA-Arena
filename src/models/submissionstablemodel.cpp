@@ -1,5 +1,6 @@
 #include "submissionstablemodel.h"
 #include "commons\conversion.h"
+#include "commons\colorizer.h"
 
 uva::SubmissionsTableModel::SubmissionsTableModel()
 {
@@ -52,5 +53,15 @@ int uva::SubmissionsTableModel::dataCount() const
 
 QVariant uva::SubmissionsTableModel::style(const QModelIndex &index, int role) const
 {
+    UserSubmission userSubmission = mSubmissions[index.row()];
+    switch (role)
+    {
+    case Qt::TextColorRole:
+        if (index.column() == 4)
+            return Colorizer::getVerdictColor(userSubmission.Submission.SubmissionVerdict);
+    default:
+        break;
+    }
+
     return QVariant();
 }

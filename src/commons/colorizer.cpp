@@ -80,7 +80,7 @@ typedef Submission::Verdict Verdict;
     switch(verdict)
     {
     case Verdict::SUBMISSION_ERROR:
-        return Colorizer::darkSeaGreen;
+        return Colorizer::darkSalmon;
 
     case Verdict::CANNOT_BE_JUDGED:
         return Colorizer::bisque;
@@ -102,13 +102,13 @@ typedef Submission::Verdict Verdict;
         return Colorizer::pink;
 
     case Verdict::WRONG_ANSWER:
-        return Colorizer::lawnGreen;
+        return QColor(Qt::red);
 
     case Verdict::PRESENTATION_ERROR:
         return Colorizer::lemonChiffon;
 
     case Verdict::ACCEPTED:
-        return Colorizer::floralWhite;
+        return Colorizer::lawnGreen;
 
     default:
         return Qt::white;

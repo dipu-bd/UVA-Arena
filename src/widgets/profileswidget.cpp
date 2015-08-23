@@ -1,9 +1,10 @@
 #include "profileswidget.h"
 #include "ui_profileswidget.h"
-#include "QFile"
-#include "QDir"
-#include "QStandardPaths"
-#include "QMessageBox"
+#include <QFile>
+#include <QDir>
+#include <QStandardPaths>
+#include <QMessageBox>
+#include <QPushButton>
 
 using namespace uva;
 
@@ -27,6 +28,9 @@ void ProfilesWidget::initialize()
 
     QObject::connect(mUhuntApi.get(), &Uhunt::userSubmissionsJsonDownloaded,
         this, &ProfilesWidget::onUserSubmissionsDownloaded);
+
+    QObject::connect(mUi->refreshSubmissionsButton, &QPushButton::clicked,
+        [this] () { mUhuntApi->userSubmissionsByUserID(mSettings.userId()); });
 
     qint32 userId = mSettings.userId();
 
@@ -117,13 +121,14 @@ void uva::ProfilesWidget::loadUserSubmissionsFromFile(QString fileName, qint32 u
     file.close();
 
     mUi->tableView->sortByColumn(2, Qt::DescendingOrder);
+    mUi->tableView->resizeColumnsToContents();
 }
 
 void uva::ProfilesWidget::onUserSubmissionsDownloaded(const QByteArray& data, int userID, int lastSubmissionID)
 {
     mSubmissionsTableModel.setSubmissionsList(Uhunt::userSubmissionsFromJson(data, userID));
     mUi->tableView->sortByColumn(2, Qt::DescendingOrder);
-
+    mUi->tableView->resizeColumnsToContents();
     // save the data
     
     //create/overwrite file

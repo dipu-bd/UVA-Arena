@@ -1,4 +1,3 @@
-# This fork of UVA Arena is still UNDER DEVELOPMENT
 
 # UVA-Arena
 
@@ -9,6 +8,12 @@
 ### What's different about this fork?
 
 This fork of **UVA Arena** is an alternative to the [original **UVA Arena** application](https://github.com/dipu-bd/UVA-Arena) developed by [Sudipto Chandra](https://github.com/dipu-bd). Development on this fork concentrates on compatibility with all major operating systems. Cross-compatibility is achieved through the [Qt GUI framework](http://www.qt.io/developers/). This fork also attempts to provide a simple, modern GUI interface while maintaining most of the features available from the original UVA Arena application.
+
+Screenshots:
+
+![](http://i.imgur.com/mzS4Gm0.png)
+
+![](http://i.imgur.com/minwAUc.png)
 
 ### Feature request
 

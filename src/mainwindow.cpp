@@ -136,6 +136,9 @@ void MainWindow::initializeData()
 
 void MainWindow::initializeWidgets()
 {
+    if (mSettings.userId() != -1)
+        setWindowTitle("UVA Arena - " + mSettings.userName());
+
     QPushButton *settingsButton = new QPushButton(mUi->tabWidget);
     settingsButton->setText("Settings");
     QObject::connect(settingsButton, &QPushButton::clicked, this, &MainWindow::openSettings);
@@ -259,6 +262,7 @@ void MainWindow::openSettings()
                 [this, newUserName](QString userName, int userId) {
                 if (userName == newUserName) { // Make sure we're talking about the same person
                     this->mSettings.setUserId(userId);
+                    setWindowTitle("UVA Arena - " + mSettings.userName());
                 }
 
                 emit newUVAArenaEvent(UVAArenaWidget::UVAArenaEvent::UPDATE_SETTINGS, QVariant());

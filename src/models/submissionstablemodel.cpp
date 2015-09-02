@@ -4,9 +4,8 @@
 
 uva::SubmissionsTableModel::SubmissionsTableModel()
 {
-    insertColumns({ "User ID", "Username", "Submission ID"
-        , "Problem ID", "Verdict ID"
-        , "Runtime", "Language", "Rank" });
+    insertColumns({ "Submission ID", "Problem Number", "Problem Title"
+        , "Verdict ID", "Runtime", "Language", "Rank" });
 }
 
 void uva::SubmissionsTableModel::setSubmissionsList(QList<UserSubmission> submissions)
@@ -18,25 +17,30 @@ void uva::SubmissionsTableModel::setSubmissionsList(QList<UserSubmission> submis
 
 QVariant uva::SubmissionsTableModel::dataAtIndex(const QModelIndex &index) const
 {
+    if (!mProblemMap)
+        return QVariant();
+
     UserSubmission userSubmission = mSubmissions[index.row()];
+    Problem problem = mProblemMap->value(userSubmission.Submission.ProblemID);
+
+    //"Submission ID", "Problem Number", "Problem Title"
+    //    , "Verdict ID", "Runtime", "Language", "Rank"
 
     switch (index.column())
     {
     case 0:
-        return userSubmission.UserID;
-    case 1:
-        return userSubmission.UserName;
-    case 2:
         return userSubmission.Submission.SubmissionID;
+    case 1:
+        return problem.ProblemNumber;
+    case 2:
+        return problem.ProblemTitle;
     case 3:
-        return userSubmission.Submission.ProblemID;
-    case 4:
         return Conversion::getVerdictName(userSubmission.Submission.SubmissionVerdict);
-    case 5:
+    case 4:
         return Conversion::getRuntime(userSubmission.Submission.Runtime);
-    case 6:
+    case 5:
         return Conversion::getLanguageName(userSubmission.Submission.SubmissionLanguage);
-    case 7:
+    case 6:
         return userSubmission.Submission.Rank;
 
     default:
@@ -57,11 +61,16 @@ QVariant uva::SubmissionsTableModel::style(const QModelIndex &index, int role) c
     switch (role)
     {
     case Qt::TextColorRole:
-        if (index.column() == 4)
+        if (index.column() == 3)
             return Colorizer::getVerdictColor(userSubmission.Submission.SubmissionVerdict);
     default:
         break;
     }
 
     return QVariant();
+}
+
+void uva::SubmissionsTableModel::setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemMap)
+{
+    mProblemMap = problemMap;
 }

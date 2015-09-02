@@ -102,10 +102,9 @@ void MainWindow::setProblemMap(Uhunt::ProblemMap problemMap)
     mProblems.reset(new Uhunt::ProblemMap);
     *mProblems = std::move(problemMap);
 
-    Uhunt::ProblemMap::const_iterator it = mProblems->begin();
-
-    mUi->problemsWidget->setProblemMap(getProblemMap());
-    mUi->liveEventsWidget->setProblemMap(getProblemMap());
+    mUi->problemsWidget->setProblemMap(mProblems);
+    mUi->liveEventsWidget->setProblemMap(mProblems);
+    mUi->profilesWidget->setProblemMap(mProblems);
     statusBar()->showMessage("Problem list loaded", 2000);
 }
 

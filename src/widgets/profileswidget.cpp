@@ -17,6 +17,7 @@ ProfilesWidget::ProfilesWidget(QWidget *parent) :
     mUi->setupUi(this);
     mSubmissionsProxyModel.setSourceModel(&mSubmissionsTableModel);
     mUi->tableView->setModel(&mSubmissionsProxyModel);
+    mUi->tableView->sortByColumn(0, Qt::DescendingOrder);
 }
 
 ProfilesWidget::~ProfilesWidget()
@@ -38,7 +39,6 @@ void ProfilesWidget::initialize()
 
         mUi->userNameLabel->setText(mSettings.userName());
         mUi->rankLabel->setText("");
-
 
         if (userSubmissionsDirectoryExists(userId)) {
             QString submissionsFileName = userSubmissionsFileName(userId);
@@ -84,6 +84,11 @@ void uva::ProfilesWidget::onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent arenaEve
     }
 }
 
+void uva::ProfilesWidget::setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemMap)
+{
+    mSubmissionsTableModel.setProblemMap(problemMap);
+}
+
 QString uva::ProfilesWidget::userSubmissionsFileName(int userID)
 {
     QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
@@ -105,7 +110,6 @@ QString uva::ProfilesWidget::userSubmissionsFileName(int userID)
 
 void uva::ProfilesWidget::loadUserSubmissionsFromFile(QString fileName, qint32 userId /*= -1*/)
 {
-    // #TODO: check if it's too old and redownload
     if (userId == -1)
         userId = mSettings.userId();
 
@@ -120,21 +124,18 @@ void uva::ProfilesWidget::loadUserSubmissionsFromFile(QString fileName, qint32 u
 
     file.close();
 
-    mUi->tableView->sortByColumn(2, Qt::DescendingOrder);
     mUi->tableView->resizeColumnsToContents();
 }
 
 void uva::ProfilesWidget::onUserSubmissionsDownloaded(const QByteArray& data, int userID, int lastSubmissionID)
 {
     mSubmissionsTableModel.setSubmissionsList(Uhunt::userSubmissionsFromJson(data, userID));
-    mUi->tableView->sortByColumn(2, Qt::DescendingOrder);
     mUi->tableView->resizeColumnsToContents();
-    // save the data
-    
+
     //create/overwrite file
-    
+
     QFile userSubmissionsFile(userSubmissionsFileName(userID));
-    
+
     if (!userSubmissionsFile.open(QIODevice::WriteOnly)) {
         // couldn't write file
         QMessageBox::critical(this, "Couldn't save file", "Could not save user submission file");

@@ -27,6 +27,8 @@ namespace uva
 
         virtual void onUVAArenaEvent(UVAArenaWidget::UVAArenaEvent, QVariant) override;
 
+        void setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemMap);
+
     public slots:
 
         void onUserSubmissionsDownloaded(const QByteArray& data, int userID, int lastSubmissionID);

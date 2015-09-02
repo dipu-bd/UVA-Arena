@@ -18,7 +18,10 @@ namespace uva
 
         virtual QVariant style(const QModelIndex &index, int role) const override;
 
+        void setProblemMap(std::shared_ptr<Uhunt::ProblemMap> problemMap);
+
     private:
         QList<UserSubmission> mSubmissions;
+        std::shared_ptr<Uhunt::ProblemMap> mProblemMap;
     };
 }

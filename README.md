@@ -1,7 +1,7 @@
 # UVA-Arena   
 
 ![Facebook Icon](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/facebook.png) [Facbook Page](https://www.facebook.com/uvaarena?ref=github)     
-    
+   
 [![UVA Arena Icon](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/Main.png)](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/Main.png)    
 
 **UVA Arena** (c) 2014, is a windows based, non-commercial, open source utility application to make problem solving easier for the programmers. It is based on popular [UVA Online Judge](http://uva.onlinejudge.org/) and uses APIs from [uHunt](http://uhunt.felix-halim.net/).        
@@ -11,6 +11,8 @@ To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena
 
 ##### Version 1.6
 1. [Download Setup file (EXE File : 4.34MB)](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Windows/UVA_Arena_1.6.exe?raw=true)     
+2. [Download Setup file with problem archive (EXE File: 336MB)](http://www.mediafire.com/download/c3zi0zz7e18c98l/UVA_Arena_1.6_archive.exe)
+3. [Download Setup file with problem archive (Torrent File)](https://kat.cr/torrents/uva-arena-1-6-with-problems-archive-t11431233/)
 
 ##### Version 1.5   
 1. [Download Setup file (EXE File : 4.33MB)](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Windows/UVA_Arena_1.5_x86_win.exe?raw=true)     

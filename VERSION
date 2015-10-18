@@ -1,5 +1,5 @@
 {
-	"version":"1.5",
-	"link":"https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Windows/UVA_Arena_1.5_x86_win.exe?raw=true",
-	"message":"Following changes were made-\r\n\t1. Some bugs on category viewer is fixed.\r\n\t2. Replaced PDF Viewer with a fast and smooth.\r\n\t3. Redefined startup tasks for better performance.\r\n\t4. Fixed some other minor bugs.\r\nVisit What's New section for detailed change log."
+	"version":"1.6",
+	"link":"http://dipu-bd.github.io/UVA-Arena/#version-16",
+	"message":"Following changes were made:\r\n\t * Problem category viewer design changed\r\n\t * "User profile won't download" - fixed.\r\n\t * "World Rank not working" - fixed.\r\n\t * "User ID not showing in progress tracker tab" - fixed."
 }

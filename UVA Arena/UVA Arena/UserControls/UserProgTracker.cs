@@ -55,6 +55,7 @@ namespace UVA_Arena.Elements
         {
             if (currentUser == null)
             {
+                //currentUser = LocalDatabase.DefaultUser;
                 currentUser = new UserInfo();
                 currentUser.uid = currentUser.uname = currentUser.name = "[-]";
                 currentUser.subs = new List<List<long>>();

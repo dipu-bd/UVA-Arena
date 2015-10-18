@@ -334,7 +334,7 @@ namespace UVA_Arena.Elements
                 //if no data could found, create a new instance
                 if (currentUser == null)
                 {
-                    currentUser = new UserInfo(user);
+                    currentUser = new UserInfo(user); 
                     if (user == RegistryAccess.DefaultUsername)
                         LocalDatabase.DefaultUser = currentUser;
                 }

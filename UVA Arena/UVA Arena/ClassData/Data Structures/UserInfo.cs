@@ -11,6 +11,7 @@ namespace UVA_Arena.Structures
         {
             name = user;
             uname = user;
+            uid = LocalDatabase.GetUserid(user);
             subs = new List<List<long>>();
         }
 
@@ -51,8 +52,7 @@ namespace UVA_Arena.Structures
             if (ui == null || ui.subs == null) return;
 
             name = ui.name;
-            uname = ui.uname;
-            uid = ui.uid; 
+            uname = ui.uname; 
             ProcessListData(ui.subs, true);
         }
 
@@ -89,7 +89,7 @@ namespace UVA_Arena.Structures
         private void ProcessListData(List<List<long>> allsub, bool addToDef = false)
         {
             if (subs == null) subs = new List<List<long>>();
-
+            
             bool needToSort = false;
             bool isdef = (this.uname == RegistryAccess.DefaultUsername);
             foreach (List<long> lst in allsub)

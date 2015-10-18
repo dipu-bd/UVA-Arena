@@ -28,8 +28,8 @@
     <SupportUrl>https://github.com/dipu-bd/UVA-Arena</SupportUrl>
     <ProductName>UVA Arena</ProductName>
     <PublisherName>Sudipto Chandra</PublisherName>
-    <ApplicationRevision>40</ApplicationRevision>
-    <ApplicationVersion>1.5.1.%2a</ApplicationVersion>
+    <ApplicationRevision>44</ApplicationRevision>
+    <ApplicationVersion>1.6.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>false</BootstrapperEnabled>

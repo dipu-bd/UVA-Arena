@@ -698,9 +698,9 @@ namespace UVA_Arena.Elements
             {
                 e.Cancel = !(e.TabPage == codeTAB || e.TabPage == uDebugTab);
             }
-            if (e.Cancel && CurrentFile != null)
+            if (e.Cancel)
             {
-                MessageBox.Show("Select a problem's code to enable this feature.");
+                MessageBox.Show("Select a problem's source code to enable this feature.");
             }
         }
 

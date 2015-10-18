@@ -27,7 +27,7 @@ namespace UVA_Arena.Structures
     /// </summary>
     public class CategoryNode
     {
-        const string SEPARATOR = "::";
+        //const string SEPARATOR = "::";
 
         public CategoryNode(string name = "", string note = "", CategoryNode par = null)
         {
@@ -60,9 +60,19 @@ namespace UVA_Arena.Structures
             get
             {
                 if (Parent == null)
+                {
                     return name;
+                }
                 else
-                    return Parent.Path + SEPARATOR + name;
+                {
+                    string path = Parent.Path + Environment.NewLine;
+                    for(int i = Level; i > 0; --i)
+                    {
+                        path += " ";
+                    }
+                    path += "=> " + this.name;
+                    return path;
+                }
             }
         }
 

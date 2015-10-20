@@ -26,22 +26,30 @@ namespace UVA_Arena
             if (string.IsNullOrEmpty(RegistryAccess.DefaultUsername) ||
                 Properties.Settings.Default.AskForUsernameEverytime)
             {
-                UsernameForm uf = new UsernameForm();                
+                UsernameForm uf = new UsernameForm();
                 Application.Run(uf);
             }
 
             //task queue
             TaskQueue.StartTimer();
 
-            //launch application
-            Interactivity.mainForm = new MainForm();
-            Application.Run(Interactivity.mainForm);
+            try
+            {
+                //launch application
+                Interactivity.mainForm = new MainForm();
+                Application.Run(Interactivity.mainForm);
+            }
+            catch (Exception ex)
+            {
+                Logger.Add("Error in main form => ", ex.Message + " => " + ex.StackTrace);
+                Application.Exit();
+            }
 
             //end of application works
             Interactivity.CloseAllOpenedForms();
             Properties.Settings.Default.Save();
 
-            UVA_Arena.Elements.CodeCompiler.ForceStopTask(); 
+            UVA_Arena.Elements.CodeCompiler.ForceStopTask();
         }
     }
 }

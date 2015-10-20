@@ -80,11 +80,11 @@ namespace UVA_Arena.Elements
 
             pnumProb.GroupKeyGetter = delegate(object row)
             {
-                return ((ProblemInfo)row).volume;
+                return ((ProblemInfo)row).Volume;
             };
             levelProb.GroupKeyGetter = delegate(object row)
             {
-                return Math.Round(((ProblemInfo)row).level);
+                return Math.Round(((ProblemInfo)row).Level);
             };
             rtlProb.AspectToStringConverter = delegate(object key)
             {
@@ -116,9 +116,9 @@ namespace UVA_Arena.Elements
                     return null;
 
                 var prob = (ProblemInfo)data;
-                if (prob.marked)
+                if (prob.Marked)
                     return Properties.Resources.favorite;
-                else if (prob.solved)
+                else if (prob.Solved)
                     return Properties.Resources.accept;
                 else if (LocalDatabase.DefaultUser != null && 
                          LocalDatabase.DefaultUser.TriedButUnsolved(prob.pnum))
@@ -645,10 +645,10 @@ namespace UVA_Arena.Elements
             foreach (ProblemInfo prob in LocalDatabase.problemList)
             {
                 if (_CancelSearch) break;
-                prob.priority = 0;
+                prob.Priority = 0;
 
                 //search in problem data
-                prob.priority += regex.Matches(prob.ToString()).Count;
+                prob.Priority += regex.Matches(prob.ToString()).Count;
 
                 //search in problem description
                 try
@@ -660,13 +660,13 @@ namespace UVA_Arena.Elements
                         hdoc.Load(file);
                         string dat = hdoc.DocumentNode.Element("body").InnerText;
                         //string dat = System.IO.File.ReadAllText(file);
-                        prob.priority += regex.Matches(dat).Count;
+                        prob.Priority += regex.Matches(dat).Count;
                     }
                 }
                 catch { }
 
                 //add to list
-                if (prob.priority > 0)
+                if (prob.Priority > 0)
                     _deepSearchRes.Add(prob);
                 _DeepSearchProgress++;
             }
@@ -760,7 +760,7 @@ namespace UVA_Arena.Elements
             if (problemListView.SelectedObject != null)
             {
                 ProblemInfo pinfo = (ProblemInfo)problemListView.SelectedObject;
-                marked = pinfo.marked;
+                marked = pinfo.Marked;
             }
             if (marked) markAsFavorite.Text = "Remove From Favorite";
             else markAsFavorite.Text = "Mark As Favorite";

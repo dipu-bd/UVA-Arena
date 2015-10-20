@@ -6,13 +6,17 @@ namespace UVA_Arena.Structures
 {
     public class UserInfo
     {
-        public UserInfo() { LastSID = 0; }
+        public UserInfo()
+        {
+            LastSID = 0;
+            subs = new List<List<long>>();
+        }
         public UserInfo(string user)
         {
             name = user;
             uname = user;
-            uid = LocalDatabase.GetUserid(user);
             subs = new List<List<long>>();
+            uid = LocalDatabase.GetUserid(user);
         }
 
         public string name { get; set; }
@@ -42,7 +46,7 @@ namespace UVA_Arena.Structures
             TryList = new Dictionary<long, UserSubmission>();
             sidToSub = new Dictionary<long, UserSubmission>();
 
-            ProcessListData(subs); 
+            ProcessListData(subs);
         }
 
         public void AddSubmissions(string json)
@@ -52,7 +56,7 @@ namespace UVA_Arena.Structures
             if (ui == null || ui.subs == null) return;
 
             name = ui.name;
-            uname = ui.uname; 
+            uname = ui.uname;
             ProcessListData(ui.subs, true);
         }
 
@@ -89,44 +93,48 @@ namespace UVA_Arena.Structures
         private void ProcessListData(List<List<long>> allsub, bool addToDef = false)
         {
             if (subs == null) subs = new List<List<long>>();
-            
+
             bool needToSort = false;
             bool isdef = (this.uname == RegistryAccess.DefaultUsername);
             foreach (List<long> lst in allsub)
             {
-                UserSubmission usub = new UserSubmission(lst);
-
-                //remove usub if already existed
-                if (sidToSub.ContainsKey(usub.sid))
+                try
                 {
-                    if (usub.IsInQueue()) continue;
-                    submissions.Remove(sidToSub[usub.sid]);
-                    sidToSub.Remove(usub.sid);
-                }
+                    UserSubmission usub = new UserSubmission(lst);
 
-                //set the properties to usub add add to list
-                usub.name = name;
-                usub.uname = uname;
-                submissions.Add(usub);
-                sidToSub.Add(usub.sid, usub);
-                needToSort = true;
-
-                //if usub is not in the queue add it
-                if (!usub.IsInQueue())
-                {
-                    if (addToDef) subs.Add(lst);
-                    if (this.LastSID < usub.sid)
+                    //remove usub if already existed
+                    if (sidToSub.ContainsKey(usub.sid))
                     {
-                        this.LastSID = usub.sid;
+                        if (usub.IsInQueue()) continue;
+                        submissions.Remove(sidToSub[usub.sid]);
+                        sidToSub.Remove(usub.sid);
+                    }
+
+                    //set the properties to usub add add to list
+                    usub.name = name;
+                    usub.uname = uname;
+                    submissions.Add(usub);
+                    sidToSub.Add(usub.sid, usub);
+                    needToSort = true;
+
+                    //if usub is not in the queue add it
+                    if (!usub.IsInQueue())
+                    {
+                        if (addToDef) subs.Add(lst);
+                        if (this.LastSID < usub.sid)
+                        {
+                            this.LastSID = usub.sid;
+                        }
+                    }
+
+                    SetTried(usub);
+                    if (isdef && IsSolved(usub.pnum))
+                    {
+                        ProblemInfo prob = LocalDatabase.GetProblem(usub.pnum);
+                        if (prob != null) prob.Solved = true;
                     }
                 }
-
-                SetTried(usub);
-                if (isdef && IsSolved(usub.pnum))
-                {
-                    ProblemInfo prob = LocalDatabase.GetProblem(usub.pnum);
-                    if (prob != null) prob.solved = true;
-                }
+                catch { }
             }
 
             //sort by sid

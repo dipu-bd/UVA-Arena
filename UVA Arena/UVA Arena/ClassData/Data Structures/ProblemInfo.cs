@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace UVA_Arena.Structures
-{ 
+{
     public enum ProblemStatus
     {
         Unavailable,
@@ -13,7 +13,7 @@ namespace UVA_Arena.Structures
     };
 
     [StructLayout(LayoutKind.Sequential)]
-    public class ProblemInfo 
+    public class ProblemInfo
     {
         public ProblemInfo() { }
         public ProblemInfo(List<object> data) { SetData(data); }
@@ -62,52 +62,97 @@ namespace UVA_Arena.Structures
         public long stat { get; set; }
 
         //formatted special values 
-        public int volume { get; set; }
-        public long total { get; set; }
-        public bool starred { get; set; }
-        public bool solved { get; set; }        
-        public bool marked { get; set; }
-        public int priority { get; set;}
-        public long fileSize { get; set; }
-        public double level { get; set; } 
-        public ProblemStatus status { get; set; }
+        public int Volume { get; set; }
+        public long Total { get; set; }
+        public bool Starred { get; set; }
+        public bool Solved { get; set; }
+        public bool Marked { get; set; }
+        public int Priority { get; set; }
+        public long FileSize { get; set; }
+        public double Level { get; set; }
+        public ProblemStatus Status { get; set; }
 
         public List<CategoryNode> categories = new List<CategoryNode>();
 
         public override string ToString()
         {
-            return string.Format(" {0} {1} {2} ", pnum, ptitle, status);
+            return string.Format(" {0} {1} {2} ", pnum, ptitle, Status);
         }
 
         public void SetData(List<object> data)
         {
             //number of property to be assign
-            const int number_of_property = 20;
+            //const int number_of_property = 20;
 
-            Type t = typeof(ProblemInfo);
-            PropertyInfo[] pcol = t.GetProperties();            
-            for (int i = 0; i <= number_of_property; ++i)
-            {
-                pcol[i].SetValue(this, data[i], null);
-            }
+            //Type t = typeof(ProblemInfo);
+            //PropertyInfo[] pcol = t.GetProperties();            
+            //for (int i = 0; i <= number_of_property; ++i)
+            //{
+            //    pcol[i].SetValue(this, data[i], null);
+            //}
 
-            solved = false; //default is false
-            volume = (int)(pnum / 100);
+            //assign properties
+            //Problem ID
+            pid = (long)data[0];
+            //Problem Number
+            pnum = (long)data[1];
+            //Problem Title
+            ptitle = (string)data[2];
+            //Number of Distinct Accepted User (DACU)
+            dacu = (long)data[3];
+            //Best Runtime of an Accepted Submission
+            run = (long)data[4];
+            //Best Memory used of an Accepted Submission
+            mem = (long)data[5];
+            //Number of No Verdict Given (can be ignored)
+            nver = (long)data[6];
+            //Number of Submission Error
+            sube = (long)data[7];
+            //Number of Can't be Judged
+            cbj = (long)data[8];
+            //Number of In Queue
+            inq = (long)data[9];
+            //Number of Compilation Error
+            ce = (long)data[10];
+            //Number of Restricted Function
+            resf = (long)data[11];
+            //Number of Runtime Error
+            re = (long)data[12];
+            //Number of Output Limit Exceeded
+            ole = (long)data[13];
+            //Number of Time Limit Exceeded
+            tle = (long)data[14];
+            //Number of Memory Limit Exceeded
+            mle = (long)data[15];
+            //Number of Wrong Answer
+            wa = (long)data[16];
+            //Number of Presentation Error
+            pe = (long)data[17];
+            //Number of Accepted
+            ac = (long)data[18];
+            //Problem Run-Time Limit (milliseconds)
+            rtl = (long)data[19];
+            //Problem Status (0 = unavailable, 1 = normal, 2 = special judge)
+            stat = (long)data[20];
+
+            //load other
+            Solved = false; //default is false
+            Volume = (int)(pnum / 100);
             if (run >= 1000000000) run = -1;
             if (mem >= 1000000000) mem = -1;
-            
-            total = ac + wa + cbj + ce + mle + tle + ole + nver + pe + re + resf + sube;
 
-            if (stat == 0) status = ProblemStatus.Unavailable;
-            else if (stat == 1) status = ProblemStatus.Normal;
-            else status = ProblemStatus.Special_Judge; 
+            Total = ac + wa + cbj + ce + mle + tle + ole + nver + pe + re + resf + sube;
+
+            if (stat == 0) Status = ProblemStatus.Unavailable;
+            else if (stat == 1) Status = ProblemStatus.Normal;
+            else Status = ProblemStatus.Special_Judge;
 
             //set level
             const int MAX_LEVEL = 9;
-            this.level = 1 + MAX_LEVEL;
+            this.Level = 1 + MAX_LEVEL;
             if (this.dacu > 0)
             {
-                this.level -= Math.Min(MAX_LEVEL, Math.Floor(Math.Log(this.dacu)));
+                this.Level -= Math.Min(MAX_LEVEL, Math.Floor(Math.Log(this.dacu)));
             }
         }
     }

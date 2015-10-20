@@ -11,6 +11,9 @@ namespace UVA_Arena.Elements
 {
     public partial class USER_STAT : UserControl
     {
+        public UserInfo currentUser = null;
+        private List<UserRanklist> worldRanks;
+
         #region Top Level
 
         private WebClient webClient1 = new WebClient();
@@ -282,10 +285,6 @@ namespace UVA_Arena.Elements
             {
                 ShowWorldRank(-1);
             }
-            else if (tabControl1.SelectedTab == compareTab)
-            {
-                // implement compare tab functionality here
-            }
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -297,8 +296,6 @@ namespace UVA_Arena.Elements
         #endregion
 
         #region Load User's Submissions
-
-        public UserInfo currentUser = null;
 
         /// <summary>
         /// Load user submissions information to currentUser
@@ -334,7 +331,7 @@ namespace UVA_Arena.Elements
                 //if no data could found, create a new instance
                 if (currentUser == null)
                 {
-                    currentUser = new UserInfo(user); 
+                    currentUser = new UserInfo(user);
                     if (user == RegistryAccess.DefaultUsername)
                         LocalDatabase.DefaultUser = currentUser;
                 }
@@ -571,29 +568,36 @@ namespace UVA_Arena.Elements
                 case -1: //all submissions
                     list = currentUser.submissions;
                     break;
-                case -10: //acc submissions
+
+                case -10: //ac submissions
                     foreach (UserSubmission usub in currentUser.submissions)
                     {
                         if (currentUser.IsSolved(usub.pnum))
                             list.Add(usub);
                     }
                     break;
-                case -20: //not acc submission
+
+                case -20: //not ac submission
                     foreach (UserSubmission usub in currentUser.submissions)
                     {
                         if (currentUser.TriedButUnsolved(usub.pnum))
                             list.Add(usub);
                     }
                     break;
-                default: //ViewOption-ps submissions
+
+                default: //ViewOption submissions
                     int cnt = ViewOption;
                     for (int i = currentUser.submissions.Count - 1; i >= 0 && cnt > 0; --i, --cnt)
+                    {
                         list.Add(currentUser.submissions[i]);
+                    }
                     break;
             }
 
+            bool empty = (lastSubmissions1.GetItemCount() == 0);
             lastSubmissions1.ShowGroups = false;
             lastSubmissions1.SetObjects(list, true);
+            if (empty) lastSubmissions1.Sort(sidSUB, SortOrder.Descending);
             SetGroupBy();
         }
 
@@ -786,8 +790,6 @@ namespace UVA_Arena.Elements
             Interactivity.SetStatus(string.Format("Downloading rank-list... [{0} out of {1}]",
                 Functions.FormatMemory(e.BytesReceived), Functions.FormatMemory(e.TotalBytesToReceive)));
         }
-
-        List<UserRanklist> worldRanks;
 
         void webClient2_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {

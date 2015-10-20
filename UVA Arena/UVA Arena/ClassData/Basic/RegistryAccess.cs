@@ -114,7 +114,11 @@ namespace UVA_Arena
                 foreach (string name in key.GetValueNames())
                 {
                     if (dic.ContainsKey(name)) continue;
-                    dic.Add(name, key.GetValue(name).ToString());
+                    string uid = key.GetValue(name).ToString();
+                    long test = 0;
+                    if (!long.TryParse(uid, out test)) continue;
+                    if (uid != test.ToString()) continue;
+                    dic.Add(name, uid);
                 }
             }
             catch { }
@@ -195,7 +199,7 @@ namespace UVA_Arena
                 string dat = JsonConvert.SerializeObject(value);
                 SetValue("Favorites", dat);
             }
-        } 
+        }
 
         public static string MinGWCompilerPath
         {
@@ -308,8 +312,12 @@ namespace UVA_Arena
         /// </summary> 
         public static void SetCategoryVersion(string category, long version)
         {
-            RegistryKey key = DEFAULT.CreateSubKey("Category Index");
-            key.SetValue(category, version, RegistryValueKind.QWord);
+            try
+            {
+                RegistryKey key = DEFAULT.CreateSubKey("Category Index");
+                key.SetValue(category, version, RegistryValueKind.QWord);
+            }
+            catch { }
         }
     }
 }

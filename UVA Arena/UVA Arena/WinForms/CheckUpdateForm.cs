@@ -19,13 +19,13 @@ namespace UVA_Arena
         {
             try
             {
+                Application.Exit();
+            }
+            finally
+            {
+
                 System.Diagnostics.Process.Start(updateLink.Text);
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
 

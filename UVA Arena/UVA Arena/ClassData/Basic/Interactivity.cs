@@ -23,8 +23,7 @@ namespace UVA_Arena
         public static ProblemViewer problemViewer;
         public static CODES codes;
         public static STATUS status;
-        public static USER_STAT userstat;
-        //public static UTILITIES utilities;
+        public static USER_STAT userstat; 
         public static UserProgTracker progTracker;
         public static CompareUsers compareUser;
         public static CodesBrowser codesBrowser;

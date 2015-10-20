@@ -46,7 +46,7 @@ namespace UVA_Arena.Elements
         private UserRanklist userRank;
         private int _solvedCount, _unsolvedCount, _tryCount, _totalSubmission;
         private int _subInAnsiC, _subInCPP, _subInCPP11, _subInJava, _subInPascal;
-        double _acCount, _waCount, _tleCount, _reCount, _peCount, _ceCount, _oleCount, _subeCount, _mleCount;
+        private double _acCount, _waCount, _tleCount, _reCount, _peCount, _ceCount, _oleCount, _subeCount, _mleCount;
         private ZedGraph.PointPairList _subOverTime = new ZedGraph.PointPairList();
         private ZedGraph.PointPairList _acOverTime = new ZedGraph.PointPairList();
         private ZedGraph.PointPairList _RankCount = new ZedGraph.PointPairList();
@@ -162,31 +162,35 @@ namespace UVA_Arena.Elements
 
             this.BeginInvoke((MethodInvoker)delegate
             {
-                //normal text
-                useridLabel.Text = currentUser.uid;
-                usernameLabel.Text = currentUser.uname;
-                fullnameLabel.Text = currentUser.name;
-                totalsubLabel.Text = _totalSubmission.ToString();
-                acceptedLabel.Text = _solvedCount.ToString();
-                triednacLabel.Text = _unsolvedCount.ToString();
-                totalTriedLabel.Text = _tryCount.ToString();
+                try
+                {
+                    //normal text
+                    useridLabel.Text = currentUser.uid;
+                    usernameLabel.Text = currentUser.uname;
+                    fullnameLabel.Text = currentUser.name;
+                    totalsubLabel.Text = _totalSubmission.ToString();
+                    acceptedLabel.Text = _solvedCount.ToString();
+                    triednacLabel.Text = _unsolvedCount.ToString();
+                    totalTriedLabel.Text = _tryCount.ToString();
 
-                //account age
-                if (_firstSub == long.MaxValue) accountAge.Text = "[-]";
-                else accountAge.Text = Functions.FormatTimeSpan(UnixTimestamp.GetTimeSpan(_firstSub));
+                    //account age
+                    if (_firstSub == long.MaxValue) accountAge.Text = "[-]";
+                    else accountAge.Text = Functions.FormatTimeSpan(UnixTimestamp.GetTimeSpan(_firstSub));
 
-                //user rank
-                worldRankLabel.Text = userRank.rank.ToString();
-                last2DaysLabel.Text = userRank.day2.ToString();
-                last7Dayslabel.Text = userRank.day7.ToString();
-                lastMonthLabel.Text = userRank.day31.ToString();
-                last3MonthLabel.Text = userRank.month3.ToString();
+                    //user rank
+                    worldRankLabel.Text = userRank.rank.ToString();
+                    last2DaysLabel.Text = userRank.day2.ToString();
+                    last7Dayslabel.Text = userRank.day7.ToString();
+                    lastMonthLabel.Text = userRank.day31.ToString();
+                    last3MonthLabel.Text = userRank.month3.ToString();
 
-                //draw graphs
-                BuildSubPerLangGraph();
-                BuildSubPerDateGraph();
-                BuildSubPerVerGraph();
-                //BuildRankCloud();
+                    //draw graphs
+                    BuildSubPerLangGraph();
+                    BuildSubPerDateGraph();
+                    BuildSubPerVerGraph();
+                    //BuildRankCloud();
+                }
+                catch { }
             });
         }
 

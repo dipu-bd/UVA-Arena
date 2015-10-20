@@ -853,6 +853,7 @@
             this.lastSubmissions1.ShowCommandMenuOnRightClick = true;
             this.lastSubmissions1.ShowGroups = false;
             this.lastSubmissions1.ShowItemCountOnGroups = true;
+            this.lastSubmissions1.ShowItemToolTips = true;
             this.lastSubmissions1.Size = new System.Drawing.Size(575, 325);
             this.lastSubmissions1.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.lastSubmissions1.TabIndex = 0;

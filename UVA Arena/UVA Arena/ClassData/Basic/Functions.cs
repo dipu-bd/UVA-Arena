@@ -121,10 +121,10 @@ namespace UVA_Arena
         /// </summary>
         public static Dictionary<string, long> GetCategoryIndex()
         {
-            string file = LocalDirectory.GetCategoryIndexFile();            
             var result = new Dictionary<string, long>();
             try
             {
+                string file = LocalDirectory.GetCategoryIndexFile();
                 if (!File.Exists(file)) return result;
 
                 var arr = (JArray)JsonConvert.DeserializeObject(File.ReadAllText(file));
@@ -134,12 +134,9 @@ namespace UVA_Arena
                         tok.Value<string>("file"),
                         tok.Value<long>("ver"));
                 }
-                return result;
             }
-            catch
-            {
-                return result;
-            }
+            catch { }
+            return result;
         }
 
         #endregion Formatter Functions
@@ -204,7 +201,7 @@ namespace UVA_Arena
             else
                 return System.Drawing.Color.Black;
         }
-        
+
         /// <summary>
         /// Get color for given verdict
         /// </summary>
@@ -242,7 +239,7 @@ namespace UVA_Arena
         public static List<DownloadTask> ProcessHtmlContent(long pnum, bool replace)
         {
             try
-            {                
+            {
                 string external = string.Format("http://uva.onlinejudge.org/external/{0}/", pnum / 100);
 
                 string filepath = LocalDirectory.GetProblemHtml(pnum);

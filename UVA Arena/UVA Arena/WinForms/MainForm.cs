@@ -19,7 +19,7 @@ namespace UVA_Arena
 
             productName.Text = Application.ProductName;
             versionLabel.Text = "Version " + Application.ProductVersion;
-             
+
             //load images
             tabImageList.Images.Add("code", Properties.Resources.code);
             tabImageList.Images.Add("live_submission", Properties.Resources.live_submission);
@@ -66,8 +66,8 @@ namespace UVA_Arena
               new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
 
             //start status cleaner
-            ClearStatus("");            
-            
+            ClearStatus("");
+
             //other operations
             DelayOperations(true);
         }
@@ -123,14 +123,12 @@ namespace UVA_Arena
                 return;
             }
 
-            //initialize controls and add them
-            LocalDatabase.LoadOrUpdate();
-
+            System.Threading.Thread.Sleep(200);
             this.BeginInvoke((MethodInvoker)delegate
             {
                 //add controls
                 AddControls();
-                customTabControl1.Visible = true; 
+                customTabControl1.Visible = true;
 
                 this.Cursor = Cursors.Default;
                 Logger.Add("Initialized all controls", "Main Form");
@@ -138,11 +136,17 @@ namespace UVA_Arena
                 loadingPanel.Visible = false;
 
                 //set some properties to the form
-                SetFormProperties();                
+                SetFormProperties();
             });
-                      
+
+            //initialize controls and add them
+            if (LocalDatabase.UpdateAll())
+            {
+                LocalDatabase.LoadDatabase();
+            }
+
             //check for update
-            if(Properties.Settings.Default.CheckForUpdate)
+            if (Properties.Settings.Default.CheckForUpdate)
             {
                 System.Threading.Thread.Sleep(5000);
                 UpdateCheck.CheckForUpdate();
@@ -175,14 +179,14 @@ namespace UVA_Arena
             Interactivity.userstat = new Elements.USER_STAT();
             Interactivity.userstat.Dock = DockStyle.Fill;
             profileTab.ImageIndex = 3;
-            profileTab.Controls.Add(Interactivity.userstat); 
+            profileTab.Controls.Add(Interactivity.userstat);
 
             customTabControl1.ResumeLayout(false);
 
             //set up context menu
             statusToolStripMenuItem.DropDown = Interactivity.status.updateContextMenu;
             submissionsToolStripMenuItem.DropDown = Interactivity.userstat.MainContextMenu;
-        } 
+        }
 
         #endregion
 
@@ -397,7 +401,7 @@ namespace UVA_Arena
             Interactivity.userstat.tabControl1.SelectedTab = Interactivity.userstat.progtrackerTab;
             customTabControl1.SelectedTab = profileTab;
         }
-        
+
         #endregion user status
 
         #region help menu

@@ -26,9 +26,7 @@ namespace UVA_Arena.Structures
     /// File System like structure for categorize problems
     /// </summary>
     public class CategoryNode
-    {
-        //const string SEPARATOR = "::";
-
+    { 
         public CategoryNode(string name = "", string note = "", CategoryNode par = null)
         {
             this.name = name;
@@ -51,31 +49,7 @@ namespace UVA_Arena.Structures
         /// <summary> List of all problems </summary>
         public Dictionary<long, ProblemInfo> allProbs = new Dictionary<long, ProblemInfo>();
         public Dictionary<long, string> problemToNote = new Dictionary<long, string>();
-
-        /// <summary>
-        /// Gets the path to current category node
-        /// </summary>
-        public string Path
-        {
-            get
-            {
-                if (Parent == null)
-                {
-                    return name;
-                }
-                else
-                {
-                    string path = Parent.Path + Environment.NewLine;
-                    for(int i = Level; i > 0; --i)
-                    {
-                        path += " ";
-                    }
-                    path += "=> " + this.name;
-                    return path;
-                }
-            }
-        }
-
+        
         /// <summary>
         /// Gets the level of current node int the tree
         /// </summary>
@@ -120,7 +94,7 @@ namespace UVA_Arena.Structures
                         pinfo.categories.Add(this);
                     AddProblem(pinfo, true);
 
-                    if (p.star) pinfo.starred = true;
+                    if (p.star) pinfo.Starred = true;
                     if (problemToNote.ContainsKey(p.pnum))
                         problemToNote[p.pnum] = p.note;
                     else

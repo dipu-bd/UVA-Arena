@@ -632,8 +632,8 @@
             // 
             this.problemListView.AllColumns.Add(this.pnumProb);
             this.problemListView.AllColumns.Add(this.ptitleProb);
-            this.problemListView.AllColumns.Add(this.levelProb);
             this.problemListView.AllColumns.Add(this.dacuProb);
+            this.problemListView.AllColumns.Add(this.levelProb);
             this.problemListView.AllColumns.Add(this.rtlProb);
             this.problemListView.AllColumns.Add(this.runProb);
             this.problemListView.AllColumns.Add(this.memProb);
@@ -660,8 +660,8 @@
             this.problemListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.pnumProb,
             this.ptitleProb,
-            this.levelProb,
             this.dacuProb,
+            this.levelProb,
             this.rtlProb,
             this.runProb,
             this.totalProb,
@@ -726,8 +726,9 @@
             // 
             // levelProb
             // 
-            this.levelProb.AspectName = "level";
+            this.levelProb.AspectName = "Level";
             this.levelProb.AspectToStringFormat = "{0:0}";
+            this.levelProb.DisplayIndex = 2;
             this.levelProb.GroupWithItemCountFormat = "Level {0:0} [{1} Problems]";
             this.levelProb.GroupWithItemCountSingularFormat = "Level {0:0} [{1} Problem]";
             this.levelProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -741,6 +742,7 @@
             // dacuProb
             // 
             this.dacuProb.AspectName = "dacu";
+            this.dacuProb.DisplayIndex = 3;
             this.dacuProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dacuProb.Searchable = false;
             this.dacuProb.Text = "DACU";
@@ -769,7 +771,7 @@
             // 
             // totalProb
             // 
-            this.totalProb.AspectName = "total";
+            this.totalProb.AspectName = "Total";
             this.totalProb.Groupable = false;
             this.totalProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.totalProb.Searchable = false;
@@ -801,7 +803,7 @@
             // 
             // statProb
             // 
-            this.statProb.AspectName = "status";
+            this.statProb.AspectName = "Status";
             this.statProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.statProb.Searchable = false;
             this.statProb.Text = "Status";
@@ -812,7 +814,7 @@
             // 
             // priorityProb
             // 
-            this.priorityProb.AspectName = "priority";
+            this.priorityProb.AspectName = "Priority";
             this.priorityProb.AspectToStringFormat = "{0} match";
             this.priorityProb.GroupWithItemCountFormat = "Problems with {0} matches [{1} items]";
             this.priorityProb.GroupWithItemCountSingularFormat = "Problem with {0} matches";
@@ -825,7 +827,7 @@
             // 
             // fileSizeProb
             // 
-            this.fileSizeProb.AspectName = "fileSize";
+            this.fileSizeProb.AspectName = "FileSize";
             this.fileSizeProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.fileSizeProb.Text = "File Size";
             this.fileSizeProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;

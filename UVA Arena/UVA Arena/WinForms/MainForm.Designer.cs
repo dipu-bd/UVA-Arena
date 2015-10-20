@@ -687,16 +687,16 @@
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.label1.Location = new System.Drawing.Point(51, 10);
+            this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(195, 17);
+            this.label1.Size = new System.Drawing.Size(298, 40);
             this.label1.TabIndex = 11;
-            this.label1.Text = "Loading UVA Arena. Please wait...";
+            this.label1.Text = "Loading problem database. Please wait...";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // versionLabel
             // 
@@ -737,7 +737,7 @@
             this.profileTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.profileTab.Location = new System.Drawing.Point(4, 33);
             this.profileTab.Name = "profileTab";
-            this.profileTab.Size = new System.Drawing.Size(836, 353);
+            this.profileTab.Size = new System.Drawing.Size(836, 352);
             this.profileTab.TabIndex = 3;
             this.profileTab.Text = "PROFILES";
             // 
@@ -746,7 +746,7 @@
             this.statusTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.statusTab.Location = new System.Drawing.Point(4, 33);
             this.statusTab.Name = "statusTab";
-            this.statusTab.Size = new System.Drawing.Size(836, 353);
+            this.statusTab.Size = new System.Drawing.Size(836, 352);
             this.statusTab.TabIndex = 2;
             this.statusTab.Text = "STATUS";
             // 
@@ -755,7 +755,7 @@
             this.codesTab.BackColor = System.Drawing.Color.PaleTurquoise;
             this.codesTab.Location = new System.Drawing.Point(4, 33);
             this.codesTab.Name = "codesTab";
-            this.codesTab.Size = new System.Drawing.Size(836, 353);
+            this.codesTab.Size = new System.Drawing.Size(836, 352);
             this.codesTab.TabIndex = 1;
             this.codesTab.Text = "CODES";
             // 
@@ -819,7 +819,6 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.loadingPanel.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.customTabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

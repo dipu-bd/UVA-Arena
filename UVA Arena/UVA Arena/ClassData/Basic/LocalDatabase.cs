@@ -6,7 +6,7 @@ using UVA_Arena.Structures;
 
 namespace UVA_Arena
 {
-    internal static class LocalDatabase
+    public static class LocalDatabase
     {
         public const string VolRoot = "[Volumes]";
         public const string CatRoot = "Categories";
@@ -39,13 +39,12 @@ namespace UVA_Arena
             RunLoadAsync(true);
         }
 
-        public static void LoadOrUpdate()
+        public static bool UpdateAll()
         {
             const double PROBLEM_ALIVE_DAY = 1;
-            const double CATEGORY_ALIVE_DAY = 0.5;
             const double USER_SUB_ALIVE_DAY = 0.5;
 
-            RunLoadAsync(false);
+            bool result = true;
 
             //if database file is too old redownload            
             string file = LocalDirectory.GetProblemInfoFile();
@@ -54,19 +53,8 @@ namespace UVA_Arena
                     DateTime.Now.Ticks - new FileInfo(file).LastWriteTime.Ticks
                     ).TotalDays > PROBLEM_ALIVE_DAY))
             {
-                System.Threading.Thread.Sleep(1000);
                 UVA_Arena.Internet.Downloader.DownloadProblemDatabase();
-            }
-
-            //download category index if too old
-            file = LocalDirectory.GetCategoryIndexFile();
-            if (LocalDirectory.GetFileSize(file) < 100 ||
-                (new TimeSpan(
-                    DateTime.Now.Ticks - new FileInfo(file).LastWriteTime.Ticks
-                    ).TotalDays > CATEGORY_ALIVE_DAY))
-            {
-                System.Threading.Thread.Sleep(1000);
-                UVA_Arena.Internet.Downloader.DownloadCategoryIndex();
+                result = false;
             }
 
             //update user submissions if not available
@@ -78,7 +66,6 @@ namespace UVA_Arena
                     DateTime.Now.Ticks - new FileInfo(file).LastWriteTime.Ticks
                     ).TotalDays > USER_SUB_ALIVE_DAY))
                 {
-                    System.Threading.Thread.Sleep(1000);
                     long sid = 0;
                     if (LocalDatabase.DefaultUser != null)
                         sid = LocalDatabase.DefaultUser.LastSID;
@@ -86,6 +73,10 @@ namespace UVA_Arena
                 }
             }
 
+            //download category index if too old  
+            UVA_Arena.Internet.Downloader.DownloadCategoryIndex();
+
+            return result;
         }
 
         public static void RunLoadAsync(object background)
@@ -120,7 +111,6 @@ namespace UVA_Arena
 
                 data.Clear();
                 IsAvailable = true;
-
             }
             catch (Exception ex)
             {
@@ -128,11 +118,11 @@ namespace UVA_Arena
                 if (!IsAvailable) Internet.Downloader.DownloadProblemDatabase();
             }
 
-            //load default user
-            LoadDefaultUser();
-
             //load categories
             LoadCategories();
+
+            //load default user
+            LoadDefaultUser();
 
             IsReady = true;
             Interactivity.CategoryDataUpdated();
@@ -153,17 +143,17 @@ namespace UVA_Arena
                 //set the file size
                 string file = LocalDirectory.GetProblemHtml(plist.pnum);
                 if (File.Exists(file))
-                    plist.fileSize = (new System.IO.FileInfo(file)).Length;
+                    plist.FileSize = (new System.IO.FileInfo(file)).Length;
 
                 SetProblem(plist.pnum, plist);
                 SetNumber(plist.pid, plist.pnum);
 
                 //Categorize
-                if (!catData.ContainsKey(plist.volume))
+                if (!catData.ContainsKey(plist.Volume))
                 {
-                    catData.Add(plist.volume, new List<ProblemInfo>());
+                    catData.Add(plist.Volume, new List<ProblemInfo>());
                 }
-                catData[plist.volume].Add(plist);
+                catData[plist.Volume].Add(plist);
             }
 
             //add volume category
@@ -171,7 +161,7 @@ namespace UVA_Arena
             categoryRoot.branches.Add(volCat);
             foreach (var data in catData.Values)
             {
-                string vol = string.Format("Volume {0:000}", data[0].volume);
+                string vol = string.Format("Volume {0:000}", data[0].Volume);
                 var nod = new CategoryNode(vol, "", volCat);
                 volCat.branches.Add(nod);
                 foreach (var p in data)
@@ -191,7 +181,7 @@ namespace UVA_Arena
             {
                 if (HasProblem(pnum))
                 {
-                    GetProblem(pnum).marked = true;
+                    GetProblem(pnum).Marked = true;
                 }
             }
         }
@@ -225,14 +215,18 @@ namespace UVA_Arena
                 {
                     RegistryAccess.SetCategoryVersion(key, index[key]);
                 }
+                else
+                {
+                    RegistryAccess.SetCategoryVersion(key, 0);
+                }
             }
         }
 
-        public static bool LoadCategoryData(string filename)
+        public static bool LoadCategoryData(string key)
         {
             try
             {
-                string file = LocalDirectory.GetCategoryDataFile(filename);
+                string file = LocalDirectory.GetCategoryDataFile(key);
                 string json = File.ReadAllText(file);
                 var node = (CategoryNode)JsonConvert.DeserializeObject<CategoryNode>(json);
                 node.ProcessData();
@@ -242,7 +236,7 @@ namespace UVA_Arena
             }
             catch (Exception ex)
             {
-                Logger.Add(ex.Message, "LoadCategoryData(" + filename + ")");
+                Logger.Add(ex.Message, "LoadCategoryData(" + key + ")");
                 return false;
             }
         }

@@ -33,12 +33,33 @@ namespace UVA_Arena
             string data = head;
             foreach (var node in pinfo.categories)
             {
-                string path = node.Path.Replace(Environment.NewLine, @"\par\n\pard ");
+                string path = getPath(node).Replace(Environment.NewLine, @"\par\n\pard ");
                 data += string.Format(catpath, path, num++);
                 data += string.Format(probnote, node.GetCategoryNote(pinfo.pnum));
             }
             data += tail;
             richTextBox1.Rtf = data;
+        }
+
+        /// <summary>
+        /// Gets the path to current category node
+        /// </summary> 
+        string getPath(CategoryNode nod)
+        {
+            if (nod.Parent == null)
+            {
+                return nod.name;
+            }
+            else
+            {
+                string path = getPath(nod.Parent) + Environment.NewLine;
+                for (int i = nod.Level; i > 0; --i)
+                {
+                    path += " ";
+                }
+                path += "=> " + nod.name;
+                return path;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

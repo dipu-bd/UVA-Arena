@@ -59,17 +59,32 @@ namespace UVA_Arena.Structures
 
         public void LoadData(List<long> data)
         {
-            this.data = data;
+            //this.data = data;
 
-            Type t = typeof(UserSubmission);
-            PropertyInfo[] pcol = t.GetProperties();
-            for (int i = 0; i < data.Count; ++i)
-            {
-                pcol[i].SetValue(this, data[i], null);
-            }
+            //Type t = typeof(UserSubmission);
+            //PropertyInfo[] pcol = t.GetProperties();
+            //for (int i = 0; i < data.Count; ++i)
+            //{
+            //    pcol[i].SetValue(this, data[i], null);
+            //}
+
+            //Submission ID
+            sid = (long)data[0];
+            //Problem ID
+            pid = (long)data[1];
+            //Verdict ID
+            ver = (long)data[2];
+            //Runtime
+            run = (long)data[3];
+            //Submission Time (unix timestamp)
+            sbt = (long)data[4];
+            //Language ID (1=ANSI C, 2=Java, 3=C++, 4=Pascal, 5=C++11)
+            lan = (long)data[5];
+            //Submission Rank
+            rank = (long)data[6];
 
             pnum = LocalDatabase.GetNumber(pid);
             ptitle = LocalDatabase.GetTitle(pnum);
         }
-    } 
+    }
 }

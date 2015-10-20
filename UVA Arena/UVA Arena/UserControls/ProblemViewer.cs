@@ -118,7 +118,7 @@ namespace UVA_Arena.Elements
 
             //load meta info
             LoadTopBar();
-            markButton.Checked = current.marked;
+            markButton.Checked = current.Marked;
 
             //check pdf and html description files
             string pdf = LocalDirectory.GetProblemPdf(current.pnum);
@@ -167,24 +167,24 @@ namespace UVA_Arena.Elements
             //check the ac ratio of the problem
             string levelstar = "";
             double ratio = 1.0;
-            if (current.total > 0)
+            if (current.Total > 0)
             {
-                ratio = (double)current.ac / current.total;
+                ratio = (double)current.ac / current.Total;
             }
             if (ratio < 0.35) levelstar = "*";
             else if (ratio <= 0.15) levelstar = "**";
-            if (current.starred) levelstar += "#";
+            if (current.Starred) levelstar += "#";
 
             //status message about the problem
             string msg = "You DID NOT TRY this problem.";
             if (tried) msg = "You TRIED but failed to solve this.";
             if (solved) msg = "You SOLVED this problem.";
-            if (current.marked) msg += " | This problem is MARKED.";
+            if (current.Marked) msg += " | This problem is MARKED.";
             msg += string.Format(" | Time-limit = {0}", Functions.FormatRuntime(current.rtl));
-            msg += string.Format(" | Level = {0:0}{1}", current.level, levelstar);
+            msg += string.Format(" | Level = {0:0}{1}", current.Level, levelstar);
             msg += string.Format(" | Dacu = {0}", current.dacu);
-            msg += string.Format(" | AC Ratio = {0:0.00}%", 100.0 * current.ac / current.total);
-            msg += string.Format(" | Status = {0}", current.status);
+            msg += string.Format(" | AC Ratio = {0:0.00}%", 100.0 * current.ac / current.Total);
+            msg += string.Format(" | Status = {0}", current.Status);
             problemMessage.Text = msg;
         }
 
@@ -422,7 +422,7 @@ namespace UVA_Arena.Elements
                 MessageBox.Show("Select a problem first.");
                 return;
             }
-            string url = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.html", current.volume, current.pnum);
+            string url = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.html", current.Volume, current.pnum);
             System.Diagnostics.Process.Start(url);
         }
 
@@ -453,13 +453,13 @@ namespace UVA_Arena.Elements
             }
 
             List<long> fav = RegistryAccess.FavoriteProblems;
-            if (current.marked) fav.Remove(current.pnum);
+            if (current.Marked) fav.Remove(current.pnum);
             else fav.Add(current.pnum);
 
             RegistryAccess.FavoriteProblems = fav;
             markButton.Checked = !markButton.Checked;
 
-            current.marked = markButton.Checked;
+            current.Marked = markButton.Checked;
 
             if (Interactivity.problems.markedButton.Checked)
                 Interactivity.problems.ShowFavorites();

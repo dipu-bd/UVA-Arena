@@ -172,8 +172,7 @@ namespace UVA_Arena.ExtendedControls
             if (webBrowser1.ReadyState == WebBrowserReadyState.Complete)
             {
                 if (DocumentCompleted != null)
-                    DocumentCompleted(sender, e);
-                loadingForm.Visible = webBrowser1.IsBusy;
+                    DocumentCompleted(sender, e); 
             }
         }
 
@@ -182,8 +181,7 @@ namespace UVA_Arena.ExtendedControls
             try
             {
                 Progress1.Value = (int)e.CurrentProgress;
-                if (ProgressChanged != null) ProgressChanged(sender, e);
-                loadingForm.Visible = webBrowser1.IsBusy;
+                if (ProgressChanged != null) ProgressChanged(sender, e); 
             }
             catch { }
         }
@@ -194,8 +192,7 @@ namespace UVA_Arena.ExtendedControls
             {
                 Status1.Text = webBrowser1.StatusText;
                 if (StatusChanged != null)
-                    StatusChanged(sender, new StatusChangedEventArgs(webBrowser1.StatusText));
-                loadingForm.Visible = webBrowser1.IsBusy;
+                    StatusChanged(sender, new StatusChangedEventArgs(webBrowser1.StatusText)); 
             }
             catch { }
         }

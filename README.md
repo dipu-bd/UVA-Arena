@@ -9,7 +9,7 @@
 ### Download  
 To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena/wiki/What's-New)        
 
-##### Version 1.6
+##### Version 1.6.1
 1. [Download Setup file (EXE File : 4.34MB)](http://www.mediafire.com/download/kh7he74cceuxu3j/UVA_Arena_1.6.1.exe)     
 2. [Download Setup file with problem archive (EXE File: 336MB)](http://www.mediafire.com/download/c3zi0zz7e18c98l/UVA_Arena_1.6_archive.exe) 
 

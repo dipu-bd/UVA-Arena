@@ -9,7 +9,7 @@
 ### Download  
 To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena/wiki/What's-New)        
 
-##### Version 1.6.1
+##### Version 1.6 [Fix 1]
 1. [Download Setup file (EXE File : 4.34MB)](http://www.mediafire.com/download/kh7he74cceuxu3j/UVA_Arena_1.6.1.exe)     
 2. [Download Setup file with problem archive (EXE File: 336MB)](http://www.mediafire.com/download/c3zi0zz7e18c98l/UVA_Arena_1.6_archive.exe) 
 
@@ -24,14 +24,8 @@ To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena
 2. [Download Setup File with Problem Descriptions (ZIP File : 238MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.2/UVA%20Arena%201.2%20full.zip/download)     
 
 ##### Version 1.1
-1. [For All Platforms](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Windows/UVA%20Arena%201.1.exe?raw=true)     
-2. [For Windows XP, Vista and 7](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_2.0/UVA%20Arena%201.1.exe?raw=true)     
-3. [For Windows 8 and and later versions](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_4.5/UVA%20Arena%201.1.exe?raw=true)     
+1. [For All Platforms](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Windows/UVA_Arena_1.1.exe?raw=true)     
      
-##### Version 1.0  
-1. [For Windows XP, Vista and 7](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_2.0/UVA%20Arena%201.0.exe?raw=true)     
-2. [For Windows 8 and and later versions](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Net_4.5/UVA%20Arena%201.0.exe?raw=true)  
-      
 	  
 ### Short Info
 Main target of this software is to provide a useful and informative tool to the users to help them with their programming practice. Today programming has become a very competitive field. You need to keep track of your progress daily, learn new things, and of-course solve new problems as fast as you can. Problem picking and managing your codes is a time consuming process. You can minimize this wasting of time as much as possible using **UVA Arena**.  

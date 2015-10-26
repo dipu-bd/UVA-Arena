@@ -251,6 +251,7 @@ namespace UVA_Arena.Internet
             {
                 if (task.Token == null)
                 {
+                    LocalDatabase.LoadDatabase();
                     Logger.Add(task.Error.Message, "__DownloadProblemDatabaseCompleted");
                 }
                 else

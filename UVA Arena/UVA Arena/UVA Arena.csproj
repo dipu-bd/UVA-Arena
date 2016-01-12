@@ -81,7 +81,7 @@
     <ManifestKeyFile>UVA Arena_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -108,7 +108,7 @@
     <Compile Include="Specials\PdfViewer.Designer.cs">
       <DependentUpon>PdfViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CodeCompiler.cs" />
+    <Compile Include="ClassData\Utilities\CodeCompiler.cs" />
     <Compile Include="ClassData\Utilities\Internet.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -379,7 +379,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="UVA Arena_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />

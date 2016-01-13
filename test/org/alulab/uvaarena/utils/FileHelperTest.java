@@ -1,31 +1,22 @@
 /*
- * Copyright (c) 2016, Dipu
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * Copyright (c) 2016, Sudipto Chandra
+ * 
+ * Permission to use, copy, modify, and/or distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 package org.alulab.uvaarena.utils;
 
 import java.io.File;
+import java.io.IOException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -67,58 +58,22 @@ public class FileHelperTest {
 
         String path, expResult, result;
 
-        path = "Cas-=23\\23[3'mao<><<>to";
-        expResult = "Cas-=23_23[3'mao_to";
+        path = "good file.txt";
+        expResult = "good file.txt";
         result = FileHelper.cleanFileName(path);
         assertEquals(expResult, result);
-    }
 
-    /**
-     * Test of joinPath method, of class FileHelper.
-     */
-    @Test
-    public void testJoinPath_StringArr() {
-        System.out.println("joinPath");
-        String[] parts;
-        String expResult, result;
-
-        parts = new String[]{"te", "ww", "as", "ssd"};
-        expResult = "te\\ww\\as\\ssd";
-        result = FileHelper.joinPath(parts);
+        path = "Cas-=23\\23[3'mao<><<>to";
+        expResult = "Cas-=23 23[3'mao to";
+        result = FileHelper.cleanFileName(path);
+        System.out.println(result);
         assertEquals(expResult, result);
 
-        parts = new String[]{"te", "ww", "as", " "};
-        expResult = "te\\ww\\as";
-        result = FileHelper.joinPath(parts);
+        path = "very _ +  <   bad > ? >/ ~`1 file :;;;. ../? txt ";
+        expResult = "very _ + bad ~`1 file ;;;. .. txt";
+        result = FileHelper.cleanFileName(path);
+        System.out.println(result);
         assertEquals(expResult, result);
-
-        parts = new String[]{"  ", "ww", "as", "ssd"};
-        expResult = "ww\\as\\ssd";
-        result = FileHelper.joinPath(parts);
-        assertEquals(expResult, result);
-
-        parts = new String[]{" ", "ww", null, " "};
-        expResult = "ww";
-        result = FileHelper.joinPath(parts);
-        assertEquals(expResult, result);
-
-        parts = new String[]{"C:\\", "  www  ", "as\\", "tt "};
-        expResult = "C:\\\\www\\as\\\\tt";
-        result = FileHelper.joinPath(parts);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of joinPath method, of class FileHelper.
-     */
-    @Test
-    public void testJoinPath_File_StringArr() {
-        System.out.println("joinPath");
-        File file = new File("C:\\Users\\Dipu\\Desktop");
-        String[] parts = { " e ", "  ", null, " hello", " ", "no need " };
-        File expResult = new File("C:\\Users\\Dipu\\Desktop\\e\\hello\\no need");
-        File result = FileHelper.joinPath(file, parts);
-        assertEquals(expResult, result); 
     }
 
     /**
@@ -132,16 +87,6 @@ public class FileHelperTest {
         FileHelper.copyFiles(destination, sources);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getUserHome method, of class FileHelper.
-     */
-    @Test
-    public void testGetUserHome() {
-        System.out.println("getUserHome"); 
-        String result = FileHelper.getUserHome();
-        System.out.println(result);
     }
 
     /**
@@ -162,6 +107,25 @@ public class FileHelperTest {
         System.out.println("getDefaultCodeFolder");
         String result = FileHelper.getDefaultCodeFolder();
         System.out.println(result);
+    }
+
+    @Test
+    public void testRenameFile() {
+        System.out.println("renameFile");
+        String destName;
+        File sourceFile, result;
+
+        sourceFile = new File("E:\\Projects\\GitHub\\UVA-Arena\\build\\dest.txt");
+        destName = "wat/sd\\for test.cpp";
+        result = FileHelper.renameFile(sourceFile, destName);
+        System.out.println("Destination: " + result);
+
+        if (result == null) {
+            sourceFile = new File("E:\\Projects\\GitHub\\UVA-Arena\\build\\for test.cpp");
+            destName = "wat/sd\\dest.txt";
+            result = FileHelper.renameFile(sourceFile, destName);
+            System.out.println("Destination: " + result);
+        }
     }
 
 }

@@ -13,14 +13,12 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-package org.alulab.uvaarena.utils;
+package org.alulab.uvaarena.uhuntapi;
 
 /**
- * Download Manager to control downloading tasks.
+ *
+ * @author Dipu
  */
-public class Downloader {
+public class UHuntAPI {
     
-    public Downloader() {
-        
-    }
 }

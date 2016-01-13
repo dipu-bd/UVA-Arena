@@ -1,36 +1,25 @@
 /*
- * Copyright (c) 2016, Dipu
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * Copyright (c) 2016, Sudipto Chandra
+ * 
+ * Permission to use, copy, modify, and/or distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 package org.alulab.uvaarena.utils;
 
-import com.sun.deploy.util.StringUtils;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.Arrays;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  *
@@ -45,62 +34,45 @@ public final class FileHelper {
     }
 
     /**
+     * Gets the default directory where all data is stored.
+     *
+     * @return USER_HOME/Arena Suite/UVA Arena
+     */
+    public static String getDefaultWorkingFolder() {
+        return FileUtils.getFile(FileUtils.getUserDirectory(), "Arena Suite", "UVA Arena").toString();
+    }
+
+    /**
+     * Gets the default directory to store code files.
+     *
+     * @return USER_HOME/Arena Suite/UVA Arena/Codes
+     */
+    public static String getDefaultCodeFolder() {
+        return FileUtils.getFile(getDefaultWorkingFolder(), "Codes").toString();
+    }
+
+    /**
      * Replace unsupported characters with underscore(_) and returns a valid
      * path.
      *
-     * @param path path to clean.
+     * @param badFileName file name to clean.
      * @return
      */
     public static String cleanFileName(String badFileName) {
         StringBuilder cleanName = new StringBuilder();
-        boolean lastIsValid = true;
         int len = badFileName.codePointCount(0, badFileName.length());
+        int lastPoint = 0;
         for (int i = 0; i < len; i++) {
             int c = badFileName.codePointAt(i);
-            if (Arrays.binarySearch(illegalChars, c) < 0) {  // not illegal
-                lastIsValid = true;
+            if (Arrays.binarySearch(illegalChars, c) >= 0) {  // illegal
+                c = ' ';
+            }
+            if (!(c == ' ' && lastPoint == ' ')) {
                 cleanName.appendCodePoint(c);
-            } else {
-                if (lastIsValid) { // last found character was not valid
-                    cleanName.appendCodePoint('_');
-                }
-                lastIsValid = false;
             }
+            lastPoint = c;
         }
-        return cleanName.toString();
-    }
-
-    /**
-     * Joins parts of file path together.
-     *
-     * @param parts Parts of files listed sequentially.
-     * @return
-     */
-    public static String joinPath(String... parts) {
-        String file = "";
-        for (String suffix : parts) {
-            if (suffix != null && !suffix.trim().isEmpty()) {
-                if (!file.isEmpty()) {
-                    file += File.separator;
-                }
-                file += suffix.trim();
-            }
-        }
-        return file;
-    }
-
-    /**
-     * Joins parts of file paths together.
-     *
-     * @param file Parent file.
-     * @param parts Parts of path listed sequentially.
-     * @return
-     */
-    public static File joinPath(File file, String... parts) {
-        String[] temp = new String[parts.length + 1];
-        temp[0] = file.getAbsolutePath();
-        System.arraycopy(parts, 0, temp, 1, parts.length);
-        return new File(joinPath(temp));
+        return cleanName.toString().trim();
     }
 
     /**
@@ -125,29 +97,49 @@ public final class FileHelper {
     }
 
     /**
-     * Gets the home directory of the current user.
+     * Moves all <code>source</code> file or folders into the
+     * <code>destination</code> folder. <br/>
+     * If the source is a directory, it copies all of its content recursively
+     * into the destination folder.
      *
-     * @return
+     * @param destination Folder to copy files.
+     * @param sources List of source files, can be either a Directory or File.
      */
-    public static String getUserHome() {
-        return System.getProperty("user.home");
+    public static void moveFiles(File destination, File... sources) throws IOException {
+        for (File file : sources) {
+            if (file.exists()) {
+                if (file.isFile()) {
+                    FileUtils.moveFileToDirectory(file, destination, true);
+                } else {
+                    FileUtils.moveDirectoryToDirectory(file, destination, true);
+                }
+            }
+        }
     }
 
     /**
-     * Gets the default directory where all data is stored.
+     * Renames a file to the given file name
      *
-     * @return USER_HOME/Arena Suite/UVA Arena
+     * @param sourceFile Source file.
+     * @param destFileName Destination file name.
+     * @return The destination file if renamed successfully, null otherwise.
      */
-    public static String getDefaultWorkingFolder() {
-        return joinPath(getUserHome(), "Arena Suite", "UVA Arena");
+    public static File renameFile(File sourceFile, String destFileName) {
+        try {
+            File dest = sourceFile.getParentFile();
+            destFileName = FilenameUtils.getName(destFileName);
+            if (dest == null) {
+                dest = new File(destFileName);
+            } else {
+                dest = new File(sourceFile.getParent() + File.separator + destFileName);
+            }
+
+            if (sourceFile.renameTo(dest)) {
+                return dest;
+            }
+        } catch (Exception ex) {
+        }
+        return null;
     }
 
-    /**
-     * Gets the default directory to store code files.
-     *
-     * @return USER_HOME/Arena Suite/UVA Arena/Codes
-     */
-    public static String getDefaultCodeFolder() {
-        return joinPath(getDefaultWorkingFolder(), "Codes");
-    }
 }

@@ -13,14 +13,36 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-package org.alulab.uvaarena.utils;
+package org.alulab.uvaarena;
+      
+import javafx.stage.Stage;
+import org.alulab.uvaarena.utils.Downloader;
+import org.alulab.uvaarena.utils.Settings;
 
 /**
- * Download Manager to control downloading tasks.
+ * Core object for interactivity among all the components of the application.
  */
-public class Downloader {
+public class Core {
+
+    private final Stage mPrimaryStage;
+    private final Settings mSetting;
+    private final Downloader mDownloader;
     
-    public Downloader() {
+    public Core(Stage stage) {
+        mPrimaryStage = stage;      
+        mSetting = new Settings();       
+        mDownloader = new Downloader();
+    }
         
+    public final Stage primaryStage() {
+        return mPrimaryStage;
+    }
+    
+    public final Settings setting() {
+        return mSetting;
+    }
+    
+    public final Downloader downloader() {
+        return mDownloader;
     }
 }

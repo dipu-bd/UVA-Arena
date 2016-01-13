@@ -5,6 +5,7 @@
         <group>
             <file>file:/E:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/utils/FileHelper.java</file>
             <file>file:/E:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/Launcher.java</file>
+            <file>file:/E:/Projects/GitHub/UVA-Arena/test/org/alulab/uvaarena/utils/FileHelperTest.java</file>
             <file>file:/E:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/models/Core.java</file>
             <file>file:/E:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/utils/Settings.java</file>
         </group>

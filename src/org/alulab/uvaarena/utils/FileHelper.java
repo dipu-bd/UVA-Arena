@@ -23,32 +23,40 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.alulab.uvaarena;
+package org.alulab.uvaarena.utils;
 
-import static javafx.application.Application.launch; 
-import javafx.application.Application;
-import javafx.stage.Stage;
-import org.alulab.uvaarena.models.Core;
+import com.sun.deploy.util.StringUtils;
+import java.io.File;
+import java.nio.file.Path;
 
 /**
- * Start point of the application.
+ *
+ * @author Dipu
  */
-public class Launcher extends Application {
-    
-    private Core mCore;    
+public final class FileHelper {
 
-    @Override
-    public void start(Stage stage) throws Exception {        
-        mCore = new Core(stage);
-                
-        stage.show();
-    }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
+    public static String getUserHome() {
+        return System.getProperty("user.home");
     }
 
+    public static String joinPath(String prefix, String... parts) {
+        prefix = (prefix + "").trim();
+        for (String suffix : parts) {
+            if (!(suffix + "").trim().isEmpty()) {
+                if (!prefix.isEmpty()) {
+                    prefix += File.separator;
+                }
+                prefix += suffix.trim();
+            }
+        }
+        return prefix;
+    }
+    
+    public static File joinPath(File file, String... parts) {
+        return new File(joinPath(file.toString(), parts));
+    }
+
+    public static String getDefaultWorkingFolder() {
+        return joinPath(getUserHome(), "Arena Suite", "UVA Arena");
+    }
 }

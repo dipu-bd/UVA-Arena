@@ -23,32 +23,25 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.alulab.uvaarena;
-
-import static javafx.application.Application.launch; 
-import javafx.application.Application;
+package org.alulab.uvaarena.models;
+      
 import javafx.stage.Stage;
-import org.alulab.uvaarena.models.Core;
+import org.alulab.uvaarena.utils.Settings;
 
 /**
- * Start point of the application.
+ * Core object for interactivity among all the components of the application.
  */
-public class Launcher extends Application {
-    
-    private Core mCore;    
+public class Core {
 
-    @Override
-    public void start(Stage stage) throws Exception {        
-        mCore = new Core(stage);
-                
-        stage.show();
+    private final Stage mPrimaryStage;
+    private final Settings mSetting;
+    
+    public Core(Stage stage) {
+        mPrimaryStage = stage;      
+        mSetting = new Settings();        
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
+    public final Settings Setting() {
+        return mSetting;
     }
-
 }

@@ -15,6 +15,7 @@
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>UVA Arena</name>
             <source-roots>
+                <root id="src.resource.dir" name="Resources"/>
                 <root id="src.dir"/>
             </source-roots>
             <test-roots>

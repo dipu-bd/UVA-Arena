@@ -23,32 +23,34 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.alulab.uvaarena;
+package org.alulab.uvaarena.utils;
 
-import static javafx.application.Application.launch; 
-import javafx.application.Application;
-import javafx.stage.Stage;
-import org.alulab.uvaarena.models.Core;
+import java.io.File;
+import java.util.prefs.Preferences;
+import javax.imageio.stream.FileImageOutputStream;
+import org.alulab.uvaarena.Launcher;
 
 /**
- * Start point of the application.
+ * Connector with preferences to store settings.
  */
-public class Launcher extends Application {
+public class Settings {
     
-    private Core mCore;    
-
-    @Override
-    public void start(Stage stage) throws Exception {        
-        mCore = new Core(stage);
-                
-        stage.show();
+    final String KEY_WORKING_DIR = "Working Folder";
+    
+    private final Preferences mPreference;
+    
+    public Settings() {
+        mPreference = Preferences.userNodeForPackage(Launcher.class);
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
+    public final Preferences getPreferences() {
+        return mPreference;        
     }
-
+    
+    public String getWorkingFolder() {
+        return mPreference.get(KEY_WORKING_DIR, FileHelper.getDefaultWorkingFolder());        
+    }
+    public void setWorkingFolder(String dir) {
+        mPreference.put(KEY_WORKING_DIR, dir);        
+    }
 }

@@ -38,36 +38,10 @@ import org.apache.commons.io.FileUtils;
  */
 public final class FileHelper {
 
-    /**
-     * Collected from
-     * <a href="http://stackoverflow.com/questions/1155107">StackOverflow</a>.
-     */
-    private static class FileNameCleaner {
+    private final static int[] illegalChars = {34, 60, 62, 124, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 58, 42, 63, 92, 47};
 
-        final static int[] illegalChars = {34, 60, 62, 124, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 58, 42, 63, 92, 47};
-
-        static {
-            Arrays.sort(illegalChars);
-        }
-
-        public static String cleanFileName(String badFileName) {
-            StringBuilder cleanName = new StringBuilder();
-            boolean lastIsValid = true;
-            int len = badFileName.codePointCount(0, badFileName.length());
-            for (int i = 0; i < len; i++) {
-                int c = badFileName.codePointAt(i);
-                if (Arrays.binarySearch(illegalChars, c) < 0) {  // not illegal
-                    lastIsValid = true;
-                    cleanName.appendCodePoint(c);
-                } else {
-                    if (!lastIsValid) { // last found character was not valid
-                        cleanName.appendCodePoint('_');
-                    }
-                    lastIsValid = false;
-                }
-            }
-            return cleanName.toString();
-        }
+    static {
+        Arrays.sort(illegalChars);
     }
 
     /**
@@ -77,20 +51,35 @@ public final class FileHelper {
      * @param path path to clean.
      * @return
      */
-    public static String cleanPath(String path) {
-        return FileNameCleaner.cleanFileName(path);
+    public static String cleanFileName(String badFileName) {
+        StringBuilder cleanName = new StringBuilder();
+        boolean lastIsValid = true;
+        int len = badFileName.codePointCount(0, badFileName.length());
+        for (int i = 0; i < len; i++) {
+            int c = badFileName.codePointAt(i);
+            if (Arrays.binarySearch(illegalChars, c) < 0) {  // not illegal
+                lastIsValid = true;
+                cleanName.appendCodePoint(c);
+            } else {
+                if (lastIsValid) { // last found character was not valid
+                    cleanName.appendCodePoint('_');
+                }
+                lastIsValid = false;
+            }
+        }
+        return cleanName.toString();
     }
 
     /**
      * Joins parts of file path together.
      *
      * @param parts Parts of files listed sequentially.
-     * @return  
+     * @return
      */
     public static String joinPath(String... parts) {
         String file = "";
         for (String suffix : parts) {
-            if (!(suffix + "").trim().isEmpty()) {
+            if (suffix != null && !suffix.trim().isEmpty()) {
                 if (!file.isEmpty()) {
                     file += File.separator;
                 }
@@ -105,7 +94,7 @@ public final class FileHelper {
      *
      * @param file Parent file.
      * @param parts Parts of path listed sequentially.
-     * @return  
+     * @return
      */
     public static File joinPath(File file, String... parts) {
         String[] temp = new String[parts.length + 1];
@@ -138,7 +127,7 @@ public final class FileHelper {
     /**
      * Gets the home directory of the current user.
      *
-     * @return  
+     * @return
      */
     public static String getUserHome() {
         return System.getProperty("user.home");

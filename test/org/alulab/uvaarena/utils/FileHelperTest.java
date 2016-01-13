@@ -38,22 +38,22 @@ import static org.junit.Assert.*;
  * @author Dipu
  */
 public class FileHelperTest {
-    
+
     public FileHelperTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -62,14 +62,15 @@ public class FileHelperTest {
      * Test of cleanPath method, of class FileHelper.
      */
     @Test
-    public void testCleanPath() {
+    public void testCleanFileName() {
         System.out.println("cleanPath");
-        String path = "";
-        String expResult = "";
-        String result = FileHelper.cleanPath(path);
+
+        String path, expResult, result;
+
+        path = "Cas-=23\\23[3'mao<><<>to";
+        expResult = "Cas-=23_23[3'mao_to";
+        result = FileHelper.cleanFileName(path);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -78,12 +79,33 @@ public class FileHelperTest {
     @Test
     public void testJoinPath_StringArr() {
         System.out.println("joinPath");
-        String[] parts = null;
-        String expResult = "";
-        String result = FileHelper.joinPath(parts);
+        String[] parts;
+        String expResult, result;
+
+        parts = new String[]{"te", "ww", "as", "ssd"};
+        expResult = "te\\ww\\as\\ssd";
+        result = FileHelper.joinPath(parts);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        parts = new String[]{"te", "ww", "as", " "};
+        expResult = "te\\ww\\as";
+        result = FileHelper.joinPath(parts);
+        assertEquals(expResult, result);
+
+        parts = new String[]{"  ", "ww", "as", "ssd"};
+        expResult = "ww\\as\\ssd";
+        result = FileHelper.joinPath(parts);
+        assertEquals(expResult, result);
+
+        parts = new String[]{" ", "ww", null, " "};
+        expResult = "ww";
+        result = FileHelper.joinPath(parts);
+        assertEquals(expResult, result);
+
+        parts = new String[]{"C:\\", "  www  ", "as\\", "tt "};
+        expResult = "C:\\\\www\\as\\\\tt";
+        result = FileHelper.joinPath(parts);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -92,13 +114,11 @@ public class FileHelperTest {
     @Test
     public void testJoinPath_File_StringArr() {
         System.out.println("joinPath");
-        File file = null;
-        String[] parts = null;
-        File expResult = null;
+        File file = new File("C:\\Users\\Dipu\\Desktop");
+        String[] parts = { " e ", "  ", null, " hello", " ", "no need " };
+        File expResult = new File("C:\\Users\\Dipu\\Desktop\\e\\hello\\no need");
         File result = FileHelper.joinPath(file, parts);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result); 
     }
 
     /**
@@ -119,12 +139,9 @@ public class FileHelperTest {
      */
     @Test
     public void testGetUserHome() {
-        System.out.println("getUserHome");
-        String expResult = "";
+        System.out.println("getUserHome"); 
         String result = FileHelper.getUserHome();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println(result);
     }
 
     /**
@@ -133,11 +150,8 @@ public class FileHelperTest {
     @Test
     public void testGetDefaultWorkingFolder() {
         System.out.println("getDefaultWorkingFolder");
-        String expResult = "";
         String result = FileHelper.getDefaultWorkingFolder();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println(result);
     }
 
     /**
@@ -146,11 +160,8 @@ public class FileHelperTest {
     @Test
     public void testGetDefaultCodeFolder() {
         System.out.println("getDefaultCodeFolder");
-        String expResult = "";
         String result = FileHelper.getDefaultCodeFolder();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println(result);
     }
-    
+
 }

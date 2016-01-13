@@ -27,7 +27,10 @@ package org.alulab.uvaarena.utils;
 
 import com.sun.deploy.util.StringUtils;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -35,28 +38,127 @@ import java.nio.file.Path;
  */
 public final class FileHelper {
 
+    /**
+     * Collected from
+     * <a href="http://stackoverflow.com/questions/1155107">StackOverflow</a>.
+     */
+    private static class FileNameCleaner {
+
+        final static int[] illegalChars = {34, 60, 62, 124, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 58, 42, 63, 92, 47};
+
+        static {
+            Arrays.sort(illegalChars);
+        }
+
+        public static String cleanFileName(String badFileName) {
+            StringBuilder cleanName = new StringBuilder();
+            boolean lastIsValid = true;
+            int len = badFileName.codePointCount(0, badFileName.length());
+            for (int i = 0; i < len; i++) {
+                int c = badFileName.codePointAt(i);
+                if (Arrays.binarySearch(illegalChars, c) < 0) {  // not illegal
+                    lastIsValid = true;
+                    cleanName.appendCodePoint(c);
+                } else {
+                    if (!lastIsValid) { // last found character was not valid
+                        cleanName.appendCodePoint('_');
+                    }
+                    lastIsValid = false;
+                }
+            }
+            return cleanName.toString();
+        }
+    }
+
+    /**
+     * Replace unsupported characters with underscore(_) and returns a valid
+     * path.
+     *
+     * @param path path to clean.
+     * @return
+     */
+    public static String cleanPath(String path) {
+        return FileNameCleaner.cleanFileName(path);
+    }
+
+    /**
+     * Joins parts of file path together.
+     *
+     * @param parts Parts of files listed sequentially.
+     * @return  
+     */
+    public static String joinPath(String... parts) {
+        String file = "";
+        for (String suffix : parts) {
+            if (!(suffix + "").trim().isEmpty()) {
+                if (!file.isEmpty()) {
+                    file += File.separator;
+                }
+                file += suffix.trim();
+            }
+        }
+        return file;
+    }
+
+    /**
+     * Joins parts of file paths together.
+     *
+     * @param file Parent file.
+     * @param parts Parts of path listed sequentially.
+     * @return  
+     */
+    public static File joinPath(File file, String... parts) {
+        String[] temp = new String[parts.length + 1];
+        temp[0] = file.getAbsolutePath();
+        System.arraycopy(parts, 0, temp, 1, parts.length);
+        return new File(joinPath(temp));
+    }
+
+    /**
+     * Copies all <code>source</code> file or folders into the
+     * <code>destination</code> folder. <br/>
+     * If the source is a directory, it copies all of its content recursively
+     * into the destination folder.
+     *
+     * @param destination Folder to copy files.
+     * @param sources List of source files, can be either a Directory or File.
+     */
+    public static void copyFiles(File destination, File... sources) throws IOException {
+        for (File file : sources) {
+            if (file.exists()) {
+                if (file.isFile()) {
+                    FileUtils.copyFileToDirectory(file, destination, true);
+                } else {
+                    FileUtils.copyDirectoryToDirectory(file, destination);
+                }
+            }
+        }
+    }
+
+    /**
+     * Gets the home directory of the current user.
+     *
+     * @return  
+     */
     public static String getUserHome() {
         return System.getProperty("user.home");
     }
 
-    public static String joinPath(String prefix, String... parts) {
-        prefix = (prefix + "").trim();
-        for (String suffix : parts) {
-            if (!(suffix + "").trim().isEmpty()) {
-                if (!prefix.isEmpty()) {
-                    prefix += File.separator;
-                }
-                prefix += suffix.trim();
-            }
-        }
-        return prefix;
-    }
-    
-    public static File joinPath(File file, String... parts) {
-        return new File(joinPath(file.toString(), parts));
-    }
-
+    /**
+     * Gets the default directory where all data is stored.
+     *
+     * @return USER_HOME/Arena Suite/UVA Arena
+     */
     public static String getDefaultWorkingFolder() {
         return joinPath(getUserHome(), "Arena Suite", "UVA Arena");
+    }
+
+    /**
+     * Gets the default directory to store code files.
+     *
+     * @return USER_HOME/Arena Suite/UVA Arena/Codes
+     */
+    public static String getDefaultCodeFolder() {
+        return joinPath(getDefaultWorkingFolder(), "Codes");
     }
 }

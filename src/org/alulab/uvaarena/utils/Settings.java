@@ -36,6 +36,7 @@ import org.alulab.uvaarena.Launcher;
 public class Settings {
     
     final String KEY_WORKING_DIR = "Working Folder";
+    final String KEY_CODE_DIR = "Code Folder";
     
     private final Preferences mPreference;
     
@@ -52,5 +53,12 @@ public class Settings {
     }
     public void setWorkingFolder(String dir) {
         mPreference.put(KEY_WORKING_DIR, dir);        
+    }
+    
+    public String getCodeFolder() {
+        return mPreference.get(KEY_CODE_DIR, FileHelper.getDefaultCodeFolder());        
+    }
+    public void setCodeFolder(String dir) {
+        mPreference.put(KEY_CODE_DIR, dir);
     }
 }

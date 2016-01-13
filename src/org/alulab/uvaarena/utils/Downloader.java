@@ -23,29 +23,14 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.alulab.uvaarena.models;
-      
-import javafx.stage.Stage;
-import org.alulab.uvaarena.utils.Settings;
+package org.alulab.uvaarena.utils;
 
 /**
- * Core object for interactivity among all the components of the application.
+ * Download Manager to control downloading tasks.
  */
-public class Core {
-
-    private final Stage mPrimaryStage;
-    private final Settings mSetting;
+public class Downloader {
     
-    public Core(Stage stage) {
-        mPrimaryStage = stage;      
-        mSetting = new Settings();        
-    }
-    
-    public final Settings setting() {
-        return mSetting;
-    }
-    
-    public final Stage primaryStage() {
-        return mPrimaryStage;
+    public Downloader() {
+                
     }
 }

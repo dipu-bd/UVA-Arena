@@ -21,4 +21,10 @@ package org.alulab.uvaarena.uhuntapi;
  */
 public class UHuntAPI {
     
+    public String value = "";
+    
+    public UHuntAPI()
+    {
+        
+    }
 }

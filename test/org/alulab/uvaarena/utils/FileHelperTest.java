@@ -15,6 +15,7 @@
  */
 package org.alulab.uvaarena.utils;
 
+import org.alulab.uvaarena.util.FileHelper;
 import java.io.File;
 import java.io.IOException;
 import org.junit.After;

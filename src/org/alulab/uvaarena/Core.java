@@ -16,8 +16,9 @@
 package org.alulab.uvaarena;
       
 import javafx.stage.Stage;
-import org.alulab.uvaarena.utils.Downloader;
-import org.alulab.uvaarena.utils.Settings;
+import org.alulab.uvaarena.uhuntapi.UHuntAPI;
+import org.alulab.uvaarena.webapi.DownloadManager;
+import org.alulab.uvaarena.util.Settings;
 
 /**
  * Core object for interactivity among all the components of the application.
@@ -26,23 +27,29 @@ public class Core {
 
     private final Stage mPrimaryStage;
     private final Settings mSetting;
-    private final Downloader mDownloader;
+    private final DownloadManager mDownloader;
+    private final UHuntAPI mUhuntApi;
     
     public Core(Stage stage) {
         mPrimaryStage = stage;      
         mSetting = new Settings();       
-        mDownloader = new Downloader();
+        mUhuntApi = new UHuntAPI();
+        mDownloader = new DownloadManager();
     }
         
-    public final Stage primaryStage() {
+    public Stage primaryStage() {
         return mPrimaryStage;
     }
     
-    public final Settings setting() {
+    public Settings setting() {
         return mSetting;
     }
     
-    public final Downloader downloader() {
+    public DownloadManager downloader() {
         return mDownloader;
+    }
+    
+    public UHuntAPI uhunt() {
+        return mUhuntApi;
     }
 }

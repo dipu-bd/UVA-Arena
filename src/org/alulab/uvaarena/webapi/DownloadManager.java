@@ -13,33 +13,15 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-package org.alulab.uvaarena;
-
-import static javafx.application.Application.launch; 
-import javafx.application.Application;
-import javafx.stage.Stage;
+package org.alulab.uvaarena.webapi;
 
 /**
- * Start point of the application.
+ * 
  */
-public class Launcher extends Application {
-    
-    private Core mCore;    
+public final class DownloadManager {
 
-    @Override
-    public void start(Stage stage) throws Exception {        
-        mCore = new Core(stage);
+    public DownloadManager() {
         
-        mCore.uhunt().value = "Hello";
-        
-        stage.show();
-    }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
     }
 
 }

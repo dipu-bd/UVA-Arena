@@ -15,58 +15,64 @@
  */
 package org.alulab.uvaarena.webapi;
 
-import java.io.IOException;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
-import org.apache.commons.io.IOUtils;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import org.apache.commons.io.FileUtils;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 /**
- * Extends the DownloadTask class to download string data.
+ *
+ * @author Dipu
  */
-public class DownloadString extends DownloadTask {
+public class DownloadFile extends DownloadTask {
 
-    private String mResult = "";
-    private final ByteArrayOutputStream mBAOS;
+    private File mFile = null;
+    private FileOutputStream mFIS;
 
-    public DownloadString(CloseableHttpClient client, String url) {
+    public DownloadFile(CloseableHttpClient client, String url, File file) {
         super(client, url);
-        mBAOS = new ByteArrayOutputStream();
+        mFile = file;
     }
 
-    /**
-     * Gets the result string of the download. If download did not succeed an
-     * empty string is returned.
-     *
-     * @return
-     */
-    public String getResult() {
-        if (isSuccess()) {
-            return mResult;
+    public File getFile() {
+        return mFile;
+    }
+
+    public void setFile(File file) throws IllegalAccessError {
+        if (isRunning()) {
+            throw new IllegalAccessError("Can not change file while download task is running");
         } else {
-            return "";
+            mFile = file;
         }
     }
 
     @Override
-    HttpUriRequest getUriRequest() {                    
+    HttpUriRequest getUriRequest() {
         return new HttpGet(this.getUrl());
     }
 
     @Override
-    void beforeDownloadStart() {
-        mBAOS.reset();
+    void beforeDownloadStart() throws IOException {
+        if (mFIS != null) {
+            mFIS.close();
+        }
+        mFIS = FileUtils.openOutputStream(mFile);
     }
 
     @Override
     void processByte(byte[] data) throws IOException {
-        mBAOS.write(data);
+        mFIS.write(data);
     }
 
     @Override
     void afterDownloadSucceed() throws IOException {
-        mResult = IOUtils.toString(mBAOS.toByteArray(), getEncoding());
+        mFIS.flush();
+        mFIS.close();
+        mFIS = null;
     }
-
 }

@@ -16,17 +16,12 @@
 package org.alulab.uvaarena.webapi;
 
 /**
- * 
+ *
+ * @author Dipu
  */
-public class Downloader extends DownloadTask {
-    
-    public Downloader()
-    {
-        
-    }
+public interface TaskMonitor {
 
-    @Override
-    public void run() {
-        
-    }
+    public void statusChanged(DownloadTask task);
+
+    public void downloadFinished(DownloadTask task);
 }

@@ -15,13 +15,61 @@
  */
 package org.alulab.uvaarena.webapi;
 
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+import org.apache.http.HttpHost;
+import org.apache.http.conn.routing.HttpRoute;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+
 /**
- * 
+ *
  */
 public final class DownloadManager {
 
+    final int DEFAULT_MAX_TOTAL = 20;
+
+    private int mPerRoute;
+    private final CloseableHttpClient mClient;
+    private final PoolingHttpClientConnectionManager mHttpPool;
+
     public DownloadManager() {
-        
+        mHttpPool = new PoolingHttpClientConnectionManager();
+        mClient = HttpClients.custom().setConnectionManager(mHttpPool).build();
+
+        mHttpPool.setMaxTotal(DEFAULT_MAX_TOTAL);
+    }
+
+    /**
+     * Sets the number of maximum concurrent connection to a specific host
+     *
+     * @param host
+     * @param maxConn
+     */
+    public void setMaxPerRoute(String host, int maxConn) {
+        mHttpPool.setMaxPerRoute(new HttpRoute(new HttpHost(host)), maxConn);
+    }
+
+    /**
+     * Gets the client to make HTTP connection and download data.
+     *
+     * @return
+     */
+    public CloseableHttpClient getHttpClient() {
+        return mClient;
+    }
+
+    /**
+     * Creates a new download string task and returns its instance. It does not
+     * starts the download. Call startDownload() method to start the download.
+     *
+     * @param url URL to download
+     * @return
+     */
+    public DownloadString downloadString(String url) {
+        return new DownloadString(mClient, url);
     }
 
 }

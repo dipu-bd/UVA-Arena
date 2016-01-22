@@ -46,10 +46,117 @@ public class DownloadManagerTest {
     @After
     public void tearDown() {
     }
-
+    
     @Test
     public void testSomeMethod() {
         
     }
     
+    int finished = 0;
+    
+    @Test
+    public void testDownloadString() throws InterruptedException {
+        
+        DownloadManager instance = new DownloadManager();
+        String urls[] = new String[]{
+            "https://www.google.com",
+            "https://www.facebook.com",
+            "http://uhunt.felix-halim.net",
+            "http://uva.online-judge.org",
+            "https://image.google.com",
+            "http://uhunt.felix-halim.net/id/222248",
+            "https://www.facebook.com/sdipu.fb",
+            "http://uhunt.felix-halim.net/id/2222",
+            "https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=9",
+            "http://video.google.com",
+            "http://uhunt.felix-halim.net/id/326",
+            "https://www.google.com",
+            "https://www.facebook.com",
+            "http://uhunt.felix-halim.net",
+            "http://uva.online-judge.org",
+            "https://image.google.com",
+            "http://uhunt.felix-halim.net/id/222248",
+            "https://www.facebook.com/sdipu.fb",
+            "http://uhunt.felix-halim.net/id/2222",
+            "https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=9",
+            "http://video.google.com",
+            "http://uhunt.felix-halim.net/id/326",
+            "https://www.google.com",
+            "https://www.facebook.com",
+            "http://uhunt.felix-halim.net",
+            "http://uva.online-judge.org",
+            "https://image.google.com",
+            "http://uhunt.felix-halim.net/id/222248",
+            "https://www.facebook.com/sdipu.fb",
+            "http://uhunt.felix-halim.net/id/2222",
+            "https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=9",
+            "http://video.google.com",
+            "http://uhunt.felix-halim.net/id/326","https://www.google.com",
+            "https://www.facebook.com",
+            "http://uhunt.felix-halim.net",
+            "http://uva.online-judge.org",
+            "https://image.google.com",
+            "http://uhunt.felix-halim.net/id/222248",
+            "https://www.facebook.com/sdipu.fb",
+            "http://uhunt.felix-halim.net/id/2222",
+            "https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=9",
+            "http://video.google.com",
+            "http://uhunt.felix-halim.net/id/326",
+            "https://www.google.com",
+            "https://www.facebook.com",
+            "http://uhunt.felix-halim.net",
+            "http://uva.online-judge.org",
+            "https://image.google.com",
+            "http://uhunt.felix-halim.net/id/222248",
+            "https://www.facebook.com/sdipu.fb",
+            "http://uhunt.felix-halim.net/id/2222",
+            "https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=9",
+            "http://video.google.com",
+            "http://uhunt.felix-halim.net/id/326",
+            "https://www.google.com",
+            "https://www.facebook.com",
+            "http://uhunt.felix-halim.net",
+            "http://uva.online-judge.org",
+            "https://image.google.com",
+            "http://uhunt.felix-halim.net/id/222248",
+            "https://www.facebook.com/sdipu.fb",
+            "http://uhunt.felix-halim.net/id/2222",
+            "https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=9",
+            "http://video.google.com",
+            "http://uhunt.felix-halim.net/id/326",};
+        
+        finished = 0;
+        System.out.println("DownloadString test");
+        System.out.println("---------------------------------");
+        
+        TaskMonitor tm = new TaskMonitor() {
+            
+            @Override
+            public void statusChanged(DownloadTask task) {
+                //System.out.println(task);
+            }
+            
+            @Override
+            public void downloadFinished(DownloadTask task) {
+                finished++;
+                long len = 0;
+                if (task instanceof DownloadString) {
+                    len = ((DownloadString) task).getResult().length();
+                }
+                System.out.printf("%s | [%d]\n", task, len);
+            }
+        };
+        
+        for (String url : urls) {
+            DownloadString result = instance.downloadString(url);
+            result.addTaskMonitor(tm);
+            result.startDownload();    
+        }        
+        
+        while (finished < urls.length) {
+            Thread.sleep(100);
+        }
+        
+        assertEquals(finished, urls.length);
+    }
 }

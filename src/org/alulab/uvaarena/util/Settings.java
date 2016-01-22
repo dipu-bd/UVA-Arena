@@ -15,9 +15,7 @@
  */
 package org.alulab.uvaarena.util;
 
-import java.io.File;
-import java.util.prefs.Preferences;
-import javax.imageio.stream.FileImageOutputStream;
+import java.util.prefs.Preferences; 
 import org.alulab.uvaarena.Launcher;
 
 /**

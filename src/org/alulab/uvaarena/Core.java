@@ -23,7 +23,7 @@ import org.alulab.uvaarena.util.Settings;
 /**
  * Core object for interactivity among all the components of the application.
  */
-public class Core {
+public final class Core {
 
     private final Stage mPrimaryStage;
     private final Settings mSetting;
@@ -33,8 +33,8 @@ public class Core {
     public Core(Stage stage) {
         mPrimaryStage = stage;      
         mSetting = new Settings();       
-        mUhuntApi = new UHuntAPI();
-        mDownloader = new DownloadManager();
+        mDownloader = new DownloadManager();        
+        mUhuntApi = new UHuntAPI(this);
     }
         
     public Stage primaryStage() {

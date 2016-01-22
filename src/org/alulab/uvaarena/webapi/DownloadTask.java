@@ -15,172 +15,388 @@
  */
 package org.alulab.uvaarena.webapi;
 
-import java.util.Observable;
+import java.io.IOException;
+import java.util.ArrayList;
 import org.alulab.uvaarena.util.Commons;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.CloseableHttpClient;
 
 /**
  * Download Manager to control downloading tasks.
  */
-public abstract class DownloadTask extends Observable implements Runnable {
+public abstract class DownloadTask {
 
     final int WAITING = 0;
     final int RUNNING = 1;
     final int STOPPING = 2;
+    final int FINISHED = 3;
 
-    private String mUrl = null;
-    private long mTotalBytes = 0;
-    private long mDownloadedBytes = 0;
-    private Exception mError = null;
-    private int mTimeout = 3000;
-    private int mRetryCount = 0;
-    private int mStatus = WAITING;
-    private Thread mThread = null;
-    private int mPriority = Thread.NORM_PRIORITY;
+    private volatile int mStatus;
+    private String mUrl;
+    private int mRetryCount;
+    private long mTotalBytes;
+    private long mDownloadedBytes;
+    private Exception mError;
+    private final DownloadThread mThread;
+    private final CloseableHttpClient mClient;
+    private final ArrayList<TaskMonitor> mTaskMonitors;
 
-    public DownloadTask() {
+    /**
+     * Gets the HTTP URI Request to download data from.
+     *
+     * @return
+     */
+    public abstract HttpUriRequest getUriRequest();
 
+    /**
+     * Process the response received by the client.
+     *
+     * @param response
+     * @throws java.io.IOException
+     */
+    public abstract void processResponse(CloseableHttpResponse response) throws IOException;
+
+    /**
+     * Handles the task to download data
+     */
+    private final class DownloadThread extends Thread {
+
+        @Override
+        public void run() {
+            mStatus = RUNNING;
+            for (int i = 0; mStatus == RUNNING; ++i) {
+                // reset download progress
+                resetCounter();
+                // get response
+                try (CloseableHttpResponse response = mClient.execute(getUriRequest())) {
+                    //process response
+                    processResponse(response);
+                    // report download finished
+                    mStatus = FINISHED;
+                    reportProgress();
+                    return;
+                } catch (IOException ex) {
+                    // stop download when retry count is exceeded
+                    if (i == getRetryCount()) {
+                        mError = ex;
+                        mStatus = FINISHED;
+                        reportProgress();
+                        return;
+                    }
+                    // increase priority on failure
+                    this.setPriority(Math.min(Thread.MAX_PRIORITY, this.getPriority() + 1));
+                }
+            }
+            // when loop ended before the download could finish
+            mStatus = FINISHED;
+            mError = new InterruptedException("Download was interrupted before it had finished.");
+            reportProgress();
+        }
     }
 
-    private void reportProgress() {
-        setChanged();
+    /**
+     * Initializes an instance of this class
+     *
+     * @param client
+     */
+    public DownloadTask(CloseableHttpClient client) {
+        mStatus = WAITING;
+        mClient = client;
+        mUrl = null;
+        mRetryCount = 0;
+        mTotalBytes = 0;
+        mDownloadedBytes = 0;
+        mError = null;
+        mTaskMonitors = new ArrayList<>();
+        mThread = new DownloadThread();
     }
 
-    @Override
-    public void finalize() throws Throwable {
-        stopDownload();
-        super.finalize();
-    }
-
+    /**
+     * Starts the download. If download is running it ignores the request.
+     */
     public void startDownload() {
-        if (mStatus == WAITING) {
-            mError = null;
-            mThread = new Thread(this);
-            mThread.setPriority(mPriority);
+        if (!mThread.isAlive()) {
             mThread.start();
         }
     }
 
+    /**
+     * Stops the download. If download is not ongoing it ignores the request.
+     */
     public void stopDownload() {
-        if (mStatus != WAITING) {
+        if (mThread.isAlive()) {
             mStatus = STOPPING;
         }
     }
 
-    public double downloadProgress() {
-        if (mTotalBytes == 0) {
-            return 0;
-        } else {
-            return (double) mDownloadedBytes / mTotalBytes;
-        }
+    /**
+     * Reports the current progress to all observers.
+     */
+    protected void reportProgress() {
+        mTaskMonitors.forEach((TaskMonitor runnable) -> {
+            if (isFinished()) {
+                runnable.downloadFinished(this);
+            } else {
+                runnable.statusChanged(this);
+            }
+        });
     }
 
-    public String downloadProgress(int precission) {
-        String args = "%f";
-        if (precission > 0) {
-            args = "%." + String.valueOf(precission) + "f";
-        }
-        return String.format(args, downloadProgress());
-    }
-    
-    public void resetCounter() {
+    /**
+     * Resets all the counters and make it ready for another download.
+     */
+    protected void resetCounter() {
+        mError = null;
         mTotalBytes = 0;
         mDownloadedBytes = 0;
-        mError = null;        
     }
-    
+
+    /**
+     * Gets the thread controlling the download
+     *
+     * @return
+     */
+    public Thread getDownloadThread() {
+        return mThread;
+    }
+
+    /**
+     * Gets the URL of the download task
+     *
+     * @return
+     */
     public String getUrl() {
         return mUrl;
     }
 
-    public void setUrl(String url) {
+    /**
+     * Sets the URL of the download task
+     *
+     * @param url
+     */
+    protected void setUrl(String url) {
         mUrl = url;
     }
 
+    /**
+     * Gets the total bytes to be downloaded.
+     *
+     * @return
+     */
     public long getTotalBytes() {
         return mTotalBytes;
     }
-    public void setTotalBytes(long bytes) {
-        mTotalBytes = bytes;
-    }
+
+    /**
+     * Gets the length of total byte in well formatted string.
+     *
+     * @return
+     */
     public String getTotalByteLength() {
         return Commons.formatByteLength(mTotalBytes);
     }
-    
-    public long getDownloadedBytes() {
-        return mDownloadedBytes;                
-    }            
-    public void setDownloadedBytes(long bytes) {
-        mDownloadedBytes = bytes;
+
+    /**
+     * Set the total bytes to be downloaded.
+     *
+     * @param bytes
+     */
+    protected void setTotalBytes(long bytes) {
+        mTotalBytes = bytes;
     }
-    public void addDownloadedBytes(long bytesToAdd) {
+
+    /**
+     * Gets the number of bytes downloaded.
+     *
+     * @return
+     */
+    public long getDownloadedBytes() {
+        return mDownloadedBytes;
+    }
+
+    /**
+     * Adds the number of bytes with current downloaded bytes.
+     *
+     * @param bytesToAdd
+     */
+    protected void addDownloadedBytes(long bytesToAdd) {
         mDownloadedBytes += bytesToAdd;
-    }    
+    }
+
+    /**
+     * Gets the length of downloaded bytes in a well formatted string.
+     *
+     * @return
+     */
     public String getDownloadedByteLength() {
         return Commons.formatByteLength(mDownloadedBytes);
     }
 
-    public int getPriority() {
-        return mPriority;
+    /**
+     * Sets the number of bytes downloaded.
+     *
+     * @param bytes
+     */
+    protected void setDownloadedBytes(long bytes) {
+        mDownloadedBytes = bytes;
     }
-    public void setPriority(int threadPriority) {
-        mPriority = threadPriority;
+
+    /**
+     * Gets the current progress of download in percentage.
+     *
+     * @return
+     */
+    public double getDownloadProgress() {
+        if (mTotalBytes == 0) {
+            return 1E-14;
+        } else {
+            return (double) mDownloadedBytes * 100.0 / (double) mTotalBytes + 1E-14;
+        }
     }
-    
+
+    /**
+     * Gets the current progress of download valid upto a fixed precision.
+     *
+     * @param precision Precision of the download progress.
+     * @return
+     */
+    public String getDownloadProgress(int precision) {
+        String args = "%f";
+        if (precision > 0) {
+            args = "%." + String.valueOf(precision) + "f";
+        }
+        return String.format(args, getDownloadProgress());
+    }
+
+    /**
+     * Get the number of times to retry on failure.
+     *
+     * @return
+     */
     public int getRetryCount() {
         return mRetryCount;
     }
+
+    /**
+     * Sets the number of times to retry on failure.
+     *
+     * @param count
+     */
     public void setRetryCount(int count) {
-        mRetryCount = count;
+        mRetryCount = Math.max(0, count);
     }
 
-    public int getTimeout() {
-        return mTimeout;
-    }
-    public void setTimeout(int value) {
-        mTimeout = value;
-    }
-    
+    /**
+     * Gets the error message. If no error, "No Error" is returned.
+     *
+     * @return
+     */
     public String getErrorMessage() {
         return (mError != null) ? mError.getMessage() : "No Error";
     }
 
+    /**
+     * Gets the Error. If none, a null value is returned.
+     *
+     * @return
+     */
     public Exception getError() {
         return mError;
-    }    
-    public Thread getThread() {
-        return mThread;
-    }    
+    }
 
+    /**
+     * Sets the task monitor to monitor progress of the download
+     *
+     * @param taskMonitor
+     */
+    protected void addTaskMonitor(TaskMonitor taskMonitor) {
+        if (taskMonitor != null) {
+            mTaskMonitors.add(taskMonitor);
+        }
+    }
+
+    /**
+     * Sets the status of this task.
+     *
+     * @param value
+     */
     protected void setStatusCode(int value) {
         mStatus = value;
     }
+
+    /**
+     * Gets the current status code of the task.
+     *
+     * @return
+     */
     public int getStatusCode() {
         return mStatus;
     }
-    
-    public boolean isStopped() {
+
+    /**
+     * True if the task is stopped and waiting to be called.
+     *
+     * @return
+     */
+    public boolean isWaiting() {
         return mStatus == WAITING;
     }
 
+    /**
+     * True if the task is running.
+     *
+     * @return
+     */
     public boolean isRunning() {
-        return mStatus != WAITING;
+        return mStatus == RUNNING || mStatus == STOPPING;
     }
 
-    public boolean hasFailed() {
-        return mStatus == WAITING && mError != null;
+    /**
+     * True if the task has finished.
+     *
+     * @return
+     */
+    public boolean isFinished() {
+        return mStatus == FINISHED;
     }
-    
+
+    /**
+     * True if the task has finished successfully.
+     *
+     * @return
+     */
+    public boolean isSuccess() {
+        return mStatus == FINISHED && mError == null;
+    }
+
+    /**
+     * True if the task has failed to download properly.
+     *
+     * @return
+     */
+    public boolean isFailed() {
+        return mStatus == FINISHED && mError != null;
+    }
+
     @Override
     public String toString() {
         String status = "WAITING";
         if (mStatus == RUNNING) {
-            status = "RUNNING";
+            status = "DOWNLOADING";
         } else if (mStatus == STOPPING) {
             status = "STOPPING";
-        } else {
+        } else if (mError != null) {
             status = "ERROR";
+        } else if (mStatus == FINISHED) {
+            status = "SUCCESS";
         }
-        return String.format("[%s,%d,%d,%s,%d]", mUrl, mDownloadedBytes, mTotalBytes, status, mRetryCount);
+        String out = String.format("%s : %s%% [%s of %s] ~~ %s",
+                mUrl, getDownloadProgress(2), getDownloadedByteLength(), getTotalByteLength(), status);
+        if (mError != null) {
+            out += " : " + mError.getMessage();
+        }
+        return out;
     }
 
 }

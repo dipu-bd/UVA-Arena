@@ -20,8 +20,18 @@ package org.alulab.uvaarena.webapi;
  * @author Dipu
  */
 public interface TaskMonitor {
-
+ 
+    /**
+     * Method that is called when the download progress is changed or updated.
+     *
+     * @param task
+     */
     public void statusChanged(DownloadTask task);
 
+    /**
+     * Method that is called after the download is finished.
+     *
+     * @param task
+     */
     public void downloadFinished(DownloadTask task);
 }

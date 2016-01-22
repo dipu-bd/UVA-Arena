@@ -15,69 +15,58 @@
  */
 package org.alulab.uvaarena.webapi;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 /**
- *
+ * Extends the DownloadTask class to download string data.
  */
 public class DownloadString extends DownloadTask {
 
-    private String mResult;
+    private String mResult = "";
+    private final ByteArrayOutputStream mBAOS;
 
     public DownloadString(CloseableHttpClient client, String url) {
-        super(client);
-        mResult = "";
-        this.setUrl(url);
+        super(client, url);
+        mBAOS = new ByteArrayOutputStream();
     }
 
-    @Override
-    public HttpUriRequest getUriRequest() {
-        return new HttpGet(this.getUrl());
-    }
-
-    @Override
-    public void processResponse(CloseableHttpResponse response) throws IOException, InterruptedException {
-        // get entity
-        HttpEntity entity = response.getEntity();
-        long total = Math.max(0, entity.getContentLength());
-        setTotalBytes(total);
-        reportProgress();
-        // get content           
-        final int BUFFER_SIZE = 1024;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] data = new byte[BUFFER_SIZE];
-        try (InputStream is = entity.getContent()) {
-            for (int b; (b = is.read(data)) > 0;) {
-                baos.write(data);
-                addDownloadedBytes(b);
-                reportProgress();
-                if (getStatusCode() != RUNNING) {
-                    throw new InterruptedException("Download was interrupted before it had finished.");
-                }
-            }
-        }
-        // convert result
-        // mResult = EntityUtils.toString(entity);     
-        String encoding = (entity.getContentEncoding() == null)
-                ? null : entity.getContentEncoding().getValue();
-        mResult = IOUtils.toString(baos.toByteArray(), encoding);
-        reportProgress();
-    }
-
+    /**
+     * Gets the result string of the download. If download did not succeed an
+     * empty string is returned.
+     *
+     * @return
+     */
     public String getResult() {
-        if (this.isFinished()) {
+        if (isSuccess()) {
             return mResult;
         } else {
             return "";
         }
+    }
+
+    @Override
+    HttpUriRequest getUriRequest() {
+        return new HttpGet(this.getUrl());
+    }
+
+    @Override
+    void beforeDownloadStart() {
+        mBAOS.reset();
+    }
+
+    @Override
+    void processByte(byte[] data) throws IOException {
+        mBAOS.write(data);
+    }
+
+    @Override
+    void afterDownloadSucceed() throws IOException {
+        mResult = IOUtils.toString(mBAOS.toByteArray(), getEncoding());
     }
 
 }

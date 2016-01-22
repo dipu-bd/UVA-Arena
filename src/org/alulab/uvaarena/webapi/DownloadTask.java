@@ -16,14 +16,16 @@
 package org.alulab.uvaarena.webapi;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import org.alulab.uvaarena.util.Commons;
+import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 /**
- * Download Manager to control downloading tasks.
+ * Abstract class to handle downloading task.
  */
 public abstract class DownloadTask {
 
@@ -31,89 +33,120 @@ public abstract class DownloadTask {
     final int RUNNING = 1;
     final int STOPPING = 2;
     final int FINISHED = 3;
+    final int BUFFER_SIZE = 2048;
     final int REPORT_INTERVAL_MILLIS = 100;
 
-    private volatile int mStatus;
-    private String mUrl;
-    private int mRetryCount;
-    private long mTotalBytes;
-    private long mDownloadedBytes;
-    private Exception mError;
+    private volatile int mStatus = WAITING;
+    private int mRetryCount = 0;
+    private long mTotalBytes = 0;
+    private long mDownloadedBytes = 0;
+    private Exception mError = null;
+    private long mLastReportTime = 0;
+    private String mEncoding = null;
+    private boolean mChunked = false;
+
+    private final String mUrl;
     private final DownloadThread mThread;
     private final CloseableHttpClient mClient;
     private final ArrayList<TaskMonitor> mTaskMonitors;
-    private long mLastReportTime;
 
     /**
-     * Gets the HTTP URI Request to download data from.
+     * Initializes an instance of this class
      *
-     * @return
+     * @param client
+     * @param url
      */
-    public abstract HttpUriRequest getUriRequest();
+    public DownloadTask(CloseableHttpClient client, String url) {
+        mUrl = url;
+        mClient = client;
+        mTaskMonitors = new ArrayList<>();
+        mThread = new DownloadThread();
+    }
 
-    /**
-     * Process the response received by the client.
-     *
-     * @param response
-     * @throws java.io.IOException
-     * @throws java.lang.InterruptedException
-     */
-    public abstract void processResponse(CloseableHttpResponse response) throws IOException, InterruptedException;
+    abstract HttpUriRequest getUriRequest();
+
+    abstract void beforeDownloadStart() throws IOException;
+
+    abstract void processByte(byte[] data) throws IOException;
+
+    abstract void afterDownloadSucceed() throws IOException;
 
     /**
      * Handles the task to download data
      */
     private final class DownloadThread extends Thread {
 
+        public DownloadThread() {
+            this.setPriority(Thread.MIN_PRIORITY);
+        }
+
         @Override
         public void run() {
             mStatus = RUNNING;
             for (int i = 0; mStatus == RUNNING; ++i) {
-                // reset download progress
-                resetCounter();
+                // reset some data
+                mError = null;
+                mTotalBytes = 0;
+                mDownloadedBytes = 0;
                 reportProgress();
-                // get response
-                try (CloseableHttpResponse response = mClient.execute(getUriRequest())) {
-                    //process response
+                // get response       
+                HttpUriRequest uriRequest = getUriRequest();
+                try (CloseableHttpResponse response = mClient.execute(uriRequest)) {
+                    // process response
+                    beforeDownloadStart();
                     processResponse(response);
-                    // report download finished
+                    afterDownloadSucceed();
+                    // report finish on success
                     mStatus = FINISHED;
                     reportFinish();
                     return;
                 } catch (Exception ex) {
-                    // stop download when retry count is exceeded
-                    if (i == getRetryCount()) {
+                    // stop download when retry slot is empty
+                    if (i == getRetryCount() || mStatus != RUNNING) {
                         mError = ex;
+                        // report finish on failure
                         mStatus = FINISHED;
                         reportFinish();
                         return;
                     }
-                    // increase priority on failure
-                    this.setPriority(Math.min(Thread.MAX_PRIORITY, this.getPriority() + 1));
+                    // increase priority of this thread on failure
+                    if (this.getPriority() < Thread.MAX_PRIORITY) {
+                        this.setPriority(this.getPriority() + 1);
+                    }
                 }
             }
-            // when loop ended before the download could finish
-            mStatus = FINISHED;
+            // report finish on end of loop
             mError = new Exception("Download Failed");
+            mStatus = FINISHED;
             reportFinish();
         }
-    }
 
-    /**
-     * Initializes an instance of this class
-     *
-     * @param client
-     */
-    public DownloadTask(CloseableHttpClient client) {
-        mStatus = WAITING;
-        mClient = client;
-        mUrl = null;
-        mRetryCount = 0;
-        mTotalBytes = 0;
-        mDownloadedBytes = 0;
-        mError = null;
-        mTaskMonitors = new ArrayList<>();
-        mThread = new DownloadThread();
+        void processResponse(CloseableHttpResponse response) throws IOException, InterruptedException {
+            // get entity
+            HttpEntity entity = response.getEntity();
+            mChunked = entity.isChunked();
+            // get total bytes 
+            mTotalBytes = Math.max(0, entity.getContentLength());
+            reportProgress();
+            // get content  
+            byte[] data = new byte[BUFFER_SIZE];
+            try (InputStream is = entity.getContent()) {
+                for (int b; (b = is.read(data)) > 0;) {
+                    processByte(data);
+                    addDownloadedBytes(b);
+                    reportProgress();
+                    // check if download should continue
+                    if (mStatus != RUNNING) {
+                        throw new InterruptedException("Download was interrupted before it was finished.");
+                    }
+                }
+            }
+            // get encoding
+            if (entity.getContentEncoding() != null) {
+                mEncoding = entity.getContentEncoding().getValue();
+            }
+        }
+
     }
 
     /**
@@ -137,33 +170,36 @@ public abstract class DownloadTask {
     /**
      * Reports the current progress to all observers.
      */
-    protected void reportProgress() {
+    private void reportProgress() {
         long curtime = System.currentTimeMillis();
-        if (curtime - mLastReportTime < REPORT_INTERVAL_MILLIS) {
-            return;
+        if (curtime - mLastReportTime >= REPORT_INTERVAL_MILLIS) {
+            mLastReportTime = curtime;
+            mTaskMonitors.forEach((TaskMonitor runnable) -> {
+                runnable.statusChanged(this);
+            });
         }
-        mLastReportTime = curtime;
-        mTaskMonitors.forEach((TaskMonitor runnable) -> {
-            runnable.statusChanged(this);
-        });
-    }
-
-    protected void reportFinish() {
-        if (!isFinished()) {
-            return;
-        }
-        mTaskMonitors.forEach((TaskMonitor runnable) -> {
-            runnable.downloadFinished(this);
-        });
     }
 
     /**
-     * Resets all the counters and make it ready for another download.
+     * Reports that the download is finished to all observers.
      */
-    protected void resetCounter() {
-        mError = null;
-        mTotalBytes = 0;
-        mDownloadedBytes = 0;
+    private void reportFinish() {
+        if (isFinished()) {
+            mTaskMonitors.forEach((TaskMonitor runnable) -> {
+                runnable.downloadFinished(this);
+            });
+        }
+    }
+
+    /**
+     * Sets the task monitor to monitor progress of the download
+     *
+     * @param taskMonitor
+     */
+    public void addTaskMonitor(TaskMonitor taskMonitor) {
+        if (taskMonitor != null) {
+            mTaskMonitors.add(taskMonitor);
+        }
     }
 
     /**
@@ -182,15 +218,6 @@ public abstract class DownloadTask {
      */
     public String getUrl() {
         return mUrl;
-    }
-
-    /**
-     * Sets the URL of the download task
-     *
-     * @param url
-     */
-    protected void setUrl(String url) {
-        mUrl = url;
     }
 
     /**
@@ -321,23 +348,22 @@ public abstract class DownloadTask {
     }
 
     /**
-     * Sets the task monitor to monitor progress of the download
+     * Gets the content encoding. If encoding is unknown a NULL value is
+     * returned indicating the default encoding should be used.
      *
-     * @param taskMonitor
+     * @return
      */
-    protected void addTaskMonitor(TaskMonitor taskMonitor) {
-        if (taskMonitor != null) {
-            mTaskMonitors.add(taskMonitor);
-        }
+    public String getEncoding() {
+        return mEncoding;
     }
 
     /**
-     * Sets the status of this task.
+     * True if the last attempt to download received InputStream in chunk.
      *
-     * @param value
+     * @return
      */
-    protected void setStatusCode(int value) {
-        mStatus = value;
+    public boolean isChunked() {
+        return mChunked;
     }
 
     /**
@@ -347,6 +373,30 @@ public abstract class DownloadTask {
      */
     public int getStatusCode() {
         return mStatus;
+    }
+
+    /**
+     * Gets the status message of the current task.
+     *
+     * @return
+     */
+    public String getStatusMessage() {
+        switch (mStatus) {
+            case WAITING:
+                return "Waiting";
+            case RUNNING:
+                return "Running";
+            case STOPPING:
+                return "Stopping";
+            case FINISHED:
+                if (mError == null) {
+                    return "Success";
+                } else {
+                    return "Failed : " + mError.getMessage();
+                }
+            default:
+                return "Unknown";
+        }
     }
 
     /**
@@ -396,38 +446,8 @@ public abstract class DownloadTask {
 
     @Override
     public String toString() {
-        String status = "WAITING";
-        if (mStatus == RUNNING) {
-            status = "DOWNLOADING";
-        } else if (mStatus == STOPPING) {
-            status = "STOPPING";
-        } else if (mError != null) {
-            status = "ERROR";
-        } else if (mStatus == FINISHED) {
-            status = "SUCCESS";
-        }
-        String out = String.format("%s : %s%% [%s of %s] ~~ %s",
-                mUrl, getDownloadProgress(2), getDownloadedByteLength(), getTotalByteLength(), status);
-        if (mError != null) {
-            out += " : " + mError.getMessage();
-        }
-        return out;
+        return String.format("%s : %s%% [%s of %s] ~ %s",
+                mUrl, getDownloadProgress(2), getDownloadedByteLength(), getTotalByteLength(), getStatusMessage());
     }
 
 }
-
-/*
- * STATE TRANSITION GRAPH --------------------------------------- 
- * waiting -> running 
- * running -> error, stopping, waiting 
- * stopping -> error, waiting 
- * error -> running, waiting 
- * --------------------------------------- 
- * GROUP1 : OUT OF THREAD : WAITING 
- * GROUP2 : IN_THREAD : STOPPING, RUNNING, ERROR 
- * GROUP3 : INTERNAL_IN_THREAD : RUNNING, ERROR 
- * ---------------------------------------
- * GROUP1 -> GROUP3 
- * GROUP3 -> GROUP1, GROUP2 
- * GROUP2 -> GROUP1
- */

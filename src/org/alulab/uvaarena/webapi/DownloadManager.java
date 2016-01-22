@@ -15,6 +15,7 @@
  */
 package org.alulab.uvaarena.webapi;
 
+import java.io.File;
 import org.apache.http.HttpHost;
 import org.apache.http.conn.routing.HttpRoute;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -22,7 +23,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
 /**
- *
+ * This class handles all downloading tasks.
  */
 public final class DownloadManager {
 
@@ -32,11 +33,33 @@ public final class DownloadManager {
     private final CloseableHttpClient mClient;
     private final PoolingHttpClientConnectionManager mHttpPool;
 
+    /**
+     * Initializes this instance of download manager
+     */
     public DownloadManager() {
         mHttpPool = new PoolingHttpClientConnectionManager();
         mClient = HttpClients.custom().setConnectionManager(mHttpPool).build();
 
         mHttpPool.setMaxTotal(DEFAULT_MAX_TOTAL);
+    }
+
+    /**
+     * Sets the number of maximum total concurrent connections. Default value is
+     * 20.
+     *
+     * @param maxTotal
+     */
+    public void setMaxTotal(int maxTotal) {
+        mHttpPool.setMaxTotal(maxTotal);
+    }
+
+    /**
+     * Gets the number of maximum total concurrent connections.
+     *
+     * @return
+     */
+    public int getMaxTotal() {
+        return mHttpPool.getMaxTotal();
     }
 
     /**
@@ -81,6 +104,33 @@ public final class DownloadManager {
         DownloadString ds = new DownloadString(mClient, url);
         ds.addTaskMonitor(taskMonitor);
         return ds;
+    }
+
+    /**
+     * Creates a new download file task and returns its instance. It does not
+     * starts the download. Call startDownload() method to start the download.
+     *
+     * @param url URL to download
+     * @param storeFile File to store downloaded data
+     * @return
+     */
+    public DownloadFile downloadFile(String url, File storeFile) {
+        return new DownloadFile(mClient, url, storeFile);
+    }
+
+    /**
+     * Creates a new download file task and returns its instance. It does not
+     * starts the download. Call startDownload() method to start the download.
+     *
+     * @param url URL to download
+     * @param storeFile File to store downloaded data
+     * @param taskMonitor TaskMonitor object to monitor download progress.
+     * @return
+     */
+    public DownloadFile downloadString(String url, File storeFile, TaskMonitor taskMonitor) {
+        DownloadFile df = new DownloadFile(mClient, url, storeFile);
+        df.addTaskMonitor(taskMonitor);
+        return df;
     }
 
 }

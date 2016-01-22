@@ -5,7 +5,6 @@
         <group>
             <file>file:/Z:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/webapi/DownloadString.java</file>
             <file>file:/Z:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/webapi/DownloadTask.java</file>
-            <file>file:/Z:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/webapi/DownloadFile.java</file>
             <file>file:/Z:/Projects/GitHub/UVA-Arena/test/org/alulab/uvaarena/webapi/DownloadManagerTest.java</file>
             <file>file:/Z:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/webapi/DownloadManager.java</file>
         </group>

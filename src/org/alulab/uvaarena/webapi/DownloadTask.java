@@ -31,6 +31,7 @@ public abstract class DownloadTask {
     final int RUNNING = 1;
     final int STOPPING = 2;
     final int FINISHED = 3;
+    final int REPORT_INTERVAL_MILLIS = 100;
 
     private volatile int mStatus;
     private String mUrl;
@@ -41,6 +42,7 @@ public abstract class DownloadTask {
     private final DownloadThread mThread;
     private final CloseableHttpClient mClient;
     private final ArrayList<TaskMonitor> mTaskMonitors;
+    private long mLastReportTime;
 
     /**
      * Gets the HTTP URI Request to download data from.
@@ -54,8 +56,9 @@ public abstract class DownloadTask {
      *
      * @param response
      * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
      */
-    public abstract void processResponse(CloseableHttpResponse response) throws IOException;
+    public abstract void processResponse(CloseableHttpResponse response) throws IOException, InterruptedException;
 
     /**
      * Handles the task to download data
@@ -68,20 +71,21 @@ public abstract class DownloadTask {
             for (int i = 0; mStatus == RUNNING; ++i) {
                 // reset download progress
                 resetCounter();
+                reportProgress();
                 // get response
                 try (CloseableHttpResponse response = mClient.execute(getUriRequest())) {
                     //process response
                     processResponse(response);
                     // report download finished
                     mStatus = FINISHED;
-                    reportProgress();
+                    reportFinish();
                     return;
-                } catch (IOException ex) {
+                } catch (Exception ex) {
                     // stop download when retry count is exceeded
                     if (i == getRetryCount()) {
                         mError = ex;
                         mStatus = FINISHED;
-                        reportProgress();
+                        reportFinish();
                         return;
                     }
                     // increase priority on failure
@@ -90,8 +94,8 @@ public abstract class DownloadTask {
             }
             // when loop ended before the download could finish
             mStatus = FINISHED;
-            mError = new InterruptedException("Download was interrupted before it had finished.");
-            reportProgress();
+            mError = new Exception("Download Failed");
+            reportFinish();
         }
     }
 
@@ -134,12 +138,22 @@ public abstract class DownloadTask {
      * Reports the current progress to all observers.
      */
     protected void reportProgress() {
+        long curtime = System.currentTimeMillis();
+        if (curtime - mLastReportTime < REPORT_INTERVAL_MILLIS) {
+            return;
+        }
+        mLastReportTime = curtime;
         mTaskMonitors.forEach((TaskMonitor runnable) -> {
-            if (isFinished()) {
-                runnable.downloadFinished(this);
-            } else {
-                runnable.statusChanged(this);
-            }
+            runnable.statusChanged(this);
+        });
+    }
+
+    protected void reportFinish() {
+        if (!isFinished()) {
+            return;
+        }
+        mTaskMonitors.forEach((TaskMonitor runnable) -> {
+            runnable.downloadFinished(this);
         });
     }
 
@@ -216,12 +230,22 @@ public abstract class DownloadTask {
     }
 
     /**
+     * Sets the number of bytes downloaded.
+     *
+     * @param bytes
+     */
+    protected void setDownloadedBytes(long bytes) {
+        mDownloadedBytes = bytes;
+        mTotalBytes = Math.max(bytes, mTotalBytes);
+    }
+
+    /**
      * Adds the number of bytes with current downloaded bytes.
      *
      * @param bytesToAdd
      */
     protected void addDownloadedBytes(long bytesToAdd) {
-        mDownloadedBytes += bytesToAdd;
+        setDownloadedBytes(mDownloadedBytes + bytesToAdd);
     }
 
     /**
@@ -231,15 +255,6 @@ public abstract class DownloadTask {
      */
     public String getDownloadedByteLength() {
         return Commons.formatByteLength(mDownloadedBytes);
-    }
-
-    /**
-     * Sets the number of bytes downloaded.
-     *
-     * @param bytes
-     */
-    protected void setDownloadedBytes(long bytes) {
-        mDownloadedBytes = bytes;
     }
 
     /**

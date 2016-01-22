@@ -15,6 +15,7 @@
  */
 package org.alulab.uvaarena.webapi;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
@@ -23,7 +24,6 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.util.EntityUtils;
 
 /**
  *
@@ -44,19 +44,32 @@ public class DownloadString extends DownloadTask {
     }
 
     @Override
-    public void processResponse(CloseableHttpResponse response) throws IOException {
+    public void processResponse(CloseableHttpResponse response) throws IOException, InterruptedException {
         // get entity
         HttpEntity entity = response.getEntity();
         long total = Math.max(0, entity.getContentLength());
-        // report start progress
         setTotalBytes(total);
-        setDownloadedBytes(0);
         reportProgress();
-        // get content
-        mResult = EntityUtils.toString(entity);
-        // report finish progress
-        setDownloadedBytes(total);
-        reportProgress(); 
+        // get content           
+        final int BUFFER_SIZE = 1024;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] data = new byte[BUFFER_SIZE];
+        try (InputStream is = entity.getContent()) {
+            for (int b; (b = is.read(data)) > 0;) {
+                baos.write(data);
+                addDownloadedBytes(b);
+                reportProgress();
+                if (getStatusCode() != RUNNING) {
+                    throw new InterruptedException("Download was interrupted before it had finished.");
+                }
+            }
+        }
+        // convert result
+        // mResult = EntityUtils.toString(entity);     
+        String encoding = (entity.getContentEncoding() == null)
+                ? null : entity.getContentEncoding().getValue();
+        mResult = IOUtils.toString(baos.toByteArray(), encoding);
+        reportProgress();
     }
 
     public String getResult() {

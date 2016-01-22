@@ -27,36 +27,36 @@ import static org.junit.Assert.*;
  * @author Dipu
  */
 public class DownloadManagerTest {
-    
+
     public DownloadManagerTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
-    
+
     @Test
     public void testSomeMethod() {
-        
+
     }
-    
+
     int finished = 0;
-    
+
     @Test
     public void testDownloadString() throws InterruptedException {
-        
+
         DownloadManager instance = new DownloadManager();
         String urls[] = new String[]{
             "https://www.google.com",
@@ -91,7 +91,7 @@ public class DownloadManagerTest {
             "http://uhunt.felix-halim.net/id/2222",
             "https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=9",
             "http://video.google.com",
-            "http://uhunt.felix-halim.net/id/326","https://www.google.com",
+            "http://uhunt.felix-halim.net/id/326", "https://www.google.com",
             "https://www.facebook.com",
             "http://uhunt.felix-halim.net",
             "http://uva.online-judge.org",
@@ -123,19 +123,20 @@ public class DownloadManagerTest {
             "http://uhunt.felix-halim.net/id/2222",
             "https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=9",
             "http://video.google.com",
-            "http://uhunt.felix-halim.net/id/326",};
-        
+            "http://uhunt.felix-halim.net/id/326"
+        };
+
         finished = 0;
         System.out.println("DownloadString test");
         System.out.println("---------------------------------");
-        
+
         TaskMonitor tm = new TaskMonitor() {
-            
+
             @Override
             public void statusChanged(DownloadTask task) {
-                //System.out.println(task);
+                System.out.println(task);
             }
-            
+
             @Override
             public void downloadFinished(DownloadTask task) {
                 finished++;
@@ -146,17 +147,20 @@ public class DownloadManagerTest {
                 System.out.printf("%s | [%d]\n", task, len);
             }
         };
-        
+
+        int task = 0;
         for (String url : urls) {
+            ++task;
             DownloadString result = instance.downloadString(url);
             result.addTaskMonitor(tm);
-            result.startDownload();    
-        }        
+            result.startDownload();
+        }
+        System.out.println("Running " + task + " tasks");
         
-        while (finished < urls.length) {
+        while (finished < task) {
             Thread.sleep(100);
         }
         
-        assertEquals(finished, urls.length);
+        assertEquals(finished, task);
     }
 }

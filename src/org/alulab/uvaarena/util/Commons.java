@@ -30,20 +30,41 @@ public final class Commons {
      * does not matter. Default is 2.
      * @return
      */
-    public static String formatByteLength(long byteLength, int precission) {
-        int suffix = 0;
-        double val = (double) byteLength;
-        while (val >= 1024.0) {
+    public static String formatByteLength(double byteLength, int precission) {
+        int suffix = 0; 
+        while (byteLength >= 1024.0) {
             suffix++;
-            val /= 1024.0;
+            byteLength /= 1024.0;
         }
         String args = "%." + String.valueOf(precission) + "f %s";
         if (precission < 0) {
             args = "%.12f %s";
         }
-        return String.format(args, val, BYTE_LENGTH_SUFFIX[suffix]);
+        return String.format(args, byteLength, BYTE_LENGTH_SUFFIX[suffix]);
+    }
+    
+    /**
+     * Converts a given byte length into suitable format.
+     *
+     * @param byteLength Length in bytes.
+     * @param precission Number of placed to display after decimal point. -1 if
+     * does not matter. Default is 2.
+     * @return
+     */
+    public static String formatByteLength(long byteLength, int precission) {
+        return formatByteLength((double)byteLength, precission);
     }
 
+    /**
+     * Converts a given byte length into suitable format.
+     *
+     * @param byteLength Length in bytes.
+     * @return
+     */
+    public static String formatByteLength(double byteLength) {
+        return formatByteLength(byteLength, 2);
+    }    
+    
     /**
      * Converts a given byte length into suitable format.
      *
@@ -53,4 +74,5 @@ public final class Commons {
     public static String formatByteLength(long byteLength) {
         return formatByteLength(byteLength, 2);
     }
+     
 }

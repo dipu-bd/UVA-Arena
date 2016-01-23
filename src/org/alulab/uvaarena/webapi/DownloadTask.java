@@ -41,9 +41,10 @@ public abstract class DownloadTask {
     private long mTotalBytes = 0;
     private long mDownloadedBytes = 0;
     private Exception mError = null;
-    private long mLastReportTime = 0;
     private String mEncoding = null;
     private boolean mChunked = false;
+    private long mLastReportTime = 0;
+    private long mIntervalPassed = 0;
 
     private final String mUrl;
     private final DownloadThread mThread;
@@ -63,12 +64,35 @@ public abstract class DownloadTask {
         mThread = new DownloadThread();
     }
 
+    /**
+     * Gets the URI Request that is used to receive response.
+     *
+     * @return
+     */
     abstract HttpUriRequest getUriRequest();
 
+    /**
+     * Method that gets called before the starting to process the response.
+     *
+     * @throws IOException
+     */
     abstract void beforeDownloadStart() throws IOException;
 
+    /**
+     * Method that gets called after receiving a chunk of data. Usually intended
+     * to process and save the data in the way the sub class wants.
+     *
+     * @param data
+     * @throws IOException
+     */
     abstract void processByte(byte[] data) throws IOException;
 
+    /**
+     * Method that gets called after all content of response has been received
+     * successfully.
+     *
+     * @throws IOException
+     */
     abstract void afterDownloadSucceed() throws IOException;
 
     /**
@@ -87,7 +111,8 @@ public abstract class DownloadTask {
                 // reset some data
                 mError = null;
                 mTotalBytes = 0;
-                mDownloadedBytes = 0;
+                mDownloadedBytes = 0;                
+                mIntervalPassed = 0;
                 reportProgress();
                 // get response       
                 HttpUriRequest uriRequest = getUriRequest();
@@ -121,6 +146,9 @@ public abstract class DownloadTask {
             reportFinish();
         }
 
+        /**
+         * Processes the response and receive contents in chunk
+         */
         void processResponse(CloseableHttpResponse response) throws IOException, InterruptedException {
             // get entity
             HttpEntity entity = response.getEntity();
@@ -128,12 +156,14 @@ public abstract class DownloadTask {
             // get total bytes 
             mTotalBytes = Math.max(0, entity.getContentLength());
             reportProgress();
-            // get content  
+            // get content   
+            long start = System.currentTimeMillis();
             byte[] data = new byte[BUFFER_SIZE];
             try (InputStream is = entity.getContent()) {
                 for (int b; (b = is.read(data)) > 0;) {
                     processByte(data);
                     addDownloadedBytes(b);
+                    mIntervalPassed = System.currentTimeMillis() - start;
                     reportProgress();
                     // check if download should continue
                     if (mStatus != RUNNING) {
@@ -173,7 +203,6 @@ public abstract class DownloadTask {
     private void reportProgress() {
         long curtime = System.currentTimeMillis();
         if (curtime - mLastReportTime >= REPORT_INTERVAL_MILLIS) {
-            mLastReportTime = curtime;
             mTaskMonitors.forEach((TaskMonitor runnable) -> {
                 runnable.statusChanged(this);
             });
@@ -312,6 +341,47 @@ public abstract class DownloadTask {
     }
 
     /**
+     * Gets the raw download speed in bytes/seconds
+     *
+     * @return
+     */
+    public double getDownloadSpeed() {
+        double download = (double) mDownloadedBytes;
+        double seconds = (double) mIntervalPassed / 1000.0;
+        double speed = (seconds == 0) ? 0.0 : download / seconds;
+        return (speed < download) ? speed : download;
+    }
+
+    /**
+     * Gets well formatted download speed in bytes/seconds
+     *
+     * @param precission Precision of the download speed.
+     * @return
+     */
+    public String getDownloadSpeedFormatted(int precission) {
+        return Commons.formatByteLength(getDownloadSpeed(), precission) + "/s";
+    }
+
+    /**
+     * Gets well formatted download speed in bytes/seconds upto 2 digits after
+     * decimal point.
+     *
+     * @return
+     */
+    public String getDownloadSpeedFormatted() {
+        return getDownloadSpeedFormatted(2);
+    }
+
+    /**
+     * Gets the total time required to download total data in milliseconds.
+     *
+     * @return
+     */
+    public long getDownloadTimeMillis() {
+        return mIntervalPassed;
+    }
+
+    /**
      * Get the number of times to retry on failure.
      *
      * @return
@@ -446,8 +516,9 @@ public abstract class DownloadTask {
 
     @Override
     public String toString() {
-        return String.format("%s : %s%% [%s of %s] ~ %s",
-                mUrl, getDownloadProgress(2), getDownloadedByteLength(), getTotalByteLength(), getStatusMessage());
+        return String.format("%s : %s: %s%% [%s of %s] ~~ %s",
+                getStatusMessage(), mUrl, getDownloadProgress(2),
+                getDownloadedByteLength(), getTotalByteLength(), getDownloadSpeedFormatted());
     }
 
 }

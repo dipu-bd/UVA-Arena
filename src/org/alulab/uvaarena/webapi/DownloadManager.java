@@ -127,10 +127,11 @@ public final class DownloadManager {
      * @param taskMonitor TaskMonitor object to monitor download progress.
      * @return
      */
-    public DownloadFile downloadString(String url, File storeFile, TaskMonitor taskMonitor) {
+    public DownloadFile downloadFile(String url, File storeFile, TaskMonitor taskMonitor) {
         DownloadFile df = new DownloadFile(mClient, url, storeFile);
         df.addTaskMonitor(taskMonitor);
         return df;
     }
+ 
 
 }

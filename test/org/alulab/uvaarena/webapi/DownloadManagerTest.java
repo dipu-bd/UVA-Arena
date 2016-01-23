@@ -15,6 +15,7 @@
  */
 package org.alulab.uvaarena.webapi;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -27,10 +28,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpOptions;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.util.EntityUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -168,8 +166,8 @@ public class DownloadManagerTest {
     public void testFluentAPI() throws IOException {
         System.out.println("Fluet API Test");
         long startTime = System.currentTimeMillis();
-        Request.Get("http://uhunt.felix-halim.net/api/poll/0").execute().returnContent().asString();       
-               
+        Request.Get("http://uhunt.felix-halim.net/api/poll/0").execute().returnContent().asString();
+
         long stopTime = System.currentTimeMillis();
         System.out.printf("------ Time : %.3f seconds -------\n", (stopTime - startTime) / 1000.0);
     }
@@ -230,6 +228,7 @@ public class DownloadManagerTest {
                     len = ((DownloadString) task).getResult().length();
                 }
                 System.out.printf("%s | [%d]\n", task, len);
+                System.out.printf("Total Download Time : %.3f seconds\n", task.getDownloadTimeMillis() / 1000.0);
 
                 System.out.println("------------ Content -------------");
                 System.out.println(((DownloadString) task).getResult());
@@ -255,5 +254,36 @@ public class DownloadManagerTest {
         long stopTime = System.currentTimeMillis();
         System.out.printf("------ Time : %.3f seconds -------\n", (stopTime - startTime) / 1000.0);
         assertEquals(finished, task);
+    }
+
+    @Test
+    public void testDownloadFile() throws InterruptedException {
+
+        System.out.println("Download File Test");
+        DownloadManager instance = new DownloadManager();
+
+        File store = new File("C:\\Users\\Dipu\\Desktop\\Data\\httpclient.tar.gz");
+        String url = "http://www.us.apache.org/dist//httpcomponents/httpclient/binary/httpcomponents-client-4.5.1-bin.tar.gz";
+
+        TaskMonitor tm = new TaskMonitor() {
+
+            @Override
+            public void statusChanged(DownloadTask task) {
+                System.out.println(task);
+            }
+
+            @Override
+            public void downloadFinished(DownloadTask task) {
+                System.out.println(task);
+                System.out.printf("Total Download Time : %.3f seconds\n", task.getDownloadTimeMillis() / 1000.0);
+            }
+        };
+
+        DownloadFile df = instance.downloadFile(url, store, tm);
+
+        df.startDownload();
+        df.getDownloadThread().join();
+
+        assertTrue(df.isSuccess());
     }
 }

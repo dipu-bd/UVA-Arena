@@ -239,7 +239,7 @@ public class DownloadManagerTest {
             DownloadString result = instance.downloadString(url);
             result.addTaskMonitor(tm);
             result.startDownload();
-            if (task == 5) {
+            if (task == 10) {
                 break;
             }
         }
@@ -260,8 +260,8 @@ public class DownloadManagerTest {
         System.out.println("Download File Test");
         DownloadManager instance = new DownloadManager();
 
-        File store = new File("C:\\Users\\Dipu\\Desktop\\Data\\virtual-judge.zip");
-        String url = "https://github.com/chaoshxxu/virtual-judge/archive/master.zip";
+        File store = new File("C:\\Users\\Dipu\\Desktop\\Data\\jsoup-1.8.3-sources.jar");
+        String url = "http://jsoup.org/packages/jsoup-1.8.3-sources.jar";
 
         TaskMonitor tm = new TaskMonitor() {
 

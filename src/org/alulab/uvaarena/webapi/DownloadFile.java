@@ -14,62 +14,66 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 package org.alulab.uvaarena.webapi;
- 
+
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;  
+import java.io.FileOutputStream; 
+import java.io.IOException;
+import org.apache.commons.io.FileUtils; 
+import org.apache.commons.io.IOUtils; 
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest; 
 
 /**
- *
- * @author Dipu
+ * 
  */
 public class DownloadFile extends DownloadTask {
 
     private File mFile = null;
-    private FileOutputStream mFIS;
-    
+    private File mTmpFile = null;
+    private FileOutputStream mFOS = null;
+
     public DownloadFile(String url, File file) {
-        super(url);        
-        mFile = file;
+        setFile(file);
+        setUriRequest(new HttpGet(url));
     }
 
     public File getFile() {
         return mFile;
     }
 
-    public void setFile(File file) throws IllegalAccessError {
-        if (isRunning()) {
-            throw new IllegalAccessError("Can not change file while download task is running");
-        } else {
-            mFile = file;
+    public final void setFile(File file) {
+        mFile = file;        
+        mTmpFile = getTempFile();
+    }
+
+    private File getTempFile() {
+        File tmp = null;
+        String num = "";
+        String name = mFile.getAbsoluteFile() + ".dfdump";
+        for (int i = 1; (tmp = new File(name + num)).exists(); ++i) {
+            num = "_" + i;
         }
+        return tmp;
     }
 
     @Override
-    HttpUriRequest getUriRequest() {
-        HttpGet httpGet = new HttpGet(this.getUrl());
-        httpGet.setConfig(DownloadManager.getRequestConfig());
-        return httpGet;
-    }
-
-    @Override
-    void beforeDownloadStart() throws IOException {
-        if (mFIS != null) {
-            mFIS.close();
-        }        
-        mFIS = new FileOutputStream(mFile);
+    void beforeProcessingResponse() throws IOException {
+        IOUtils.closeQuietly(mFOS);
+        mFOS = new FileOutputStream(mTmpFile);            
     }
 
     @Override
     void processByte(byte[] data, int size) throws IOException {
-        mFIS.write(data, 0, size);
+        mFOS.write(data, 0, size);
     }
 
     @Override
-    void afterDownloadSucceed() throws IOException {
-        mFIS.flush();
-        mFIS.close(); 
+    void afterProcessingResponse() throws IOException {
+        mFOS.close();
+        FileUtils.moveFile(mTmpFile, mFile);
     }
-}
+    
+    @Override
+    void onDownloadFailed(Exception ex) { 
+        FileUtils.deleteQuietly(mTmpFile);
+    }            
+} 

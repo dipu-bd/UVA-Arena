@@ -22,6 +22,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import static javafx.application.Application.launch;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker.State;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+import org.alulab.uvaarena.Launcher;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -35,6 +43,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.html.HTMLFormElement;
 
 /**
  *
@@ -66,9 +79,8 @@ public class DownloadManagerTest {
         System.out.println("Response Header Test");
         long startTime = System.currentTimeMillis();
 
-        DownloadManager instance = new DownloadManager();
         // process request
-        HttpUriRequest req = new HttpGet("https://dl.dropboxusercontent.com/content_link/WvoJNFNxV9gQceUPFeXvh1vCaU8XxIrthK1Vm9c8f87jibAsAxmW7rBbzgZvSN68/file?dl=1");
+        HttpUriRequest req = new HttpGet("http://uhunt.felix-halim.net/api/poll/0");
         System.out.println("------------ Request -------------");
         System.out.println(req.getURI().toString());
         if (req.getProtocolVersion() != null) {
@@ -80,7 +92,7 @@ public class DownloadManagerTest {
             }
         }
         // get response   
-        try (CloseableHttpResponse response = instance.getHttpClient().execute(req)) {
+        try (CloseableHttpResponse response = DownloadManager.getHttpClient().execute(req)) {
             // process response
             System.out.println("------------ Response -------------");
             System.out.println(response.getLocale());
@@ -109,7 +121,7 @@ public class DownloadManagerTest {
             System.out.println("------------- Content --------------");
             String output = IOUtils.toString(entity.getContent());
             System.out.println(output);
-        }  
+        }
 
         long stopTime = System.currentTimeMillis();
         System.out.printf("------ Time : %.3f seconds -------\n", (stopTime - startTime) / 1000.0);
@@ -175,7 +187,6 @@ public class DownloadManagerTest {
     @Test
     public void testDownloadString() throws InterruptedException {
 
-        DownloadManager instance = new DownloadManager();
         String urls[] = new String[]{
             "http://uhunt.felix-halim.net/api/poll/0",
             "https://www.google.com",
@@ -211,35 +222,36 @@ public class DownloadManagerTest {
 
         long startTime = System.currentTimeMillis();
 
-        TaskMonitor tm = new TaskMonitor() {
+        TaskMonitor<DownloadString> tm = new TaskMonitor<DownloadString>() {
 
             @Override
-            public void statusChanged(DownloadTask task) {
-                //System.out.println(task);
+            public void statusChanged(DownloadString task) {
+                System.out.println(task);
             }
 
             @Override
-            public void downloadFinished(DownloadTask task) {
+            public void downloadFinished(DownloadString task) {
                 finished++;
                 long len = 0;
                 if (task instanceof DownloadString) {
                     len = ((DownloadString) task).getResult().length();
                 }
-                System.out.printf("%s | [%d]\n", task, len);
+                System.out.printf("%s | [%s]\n", task, task.getCharset());
                 System.out.printf("Total Download Time : %.3f seconds\n", task.getDownloadTimeMillis() / 1000.0);
 
-                //System.out.println("------------ Content -------------");
-                //System.out.println(((DownloadString) task).getResult());
+                System.out.println("------------ Content -------------");
+                System.out.println(task.getResult());
             }
+
         };
 
         int task = 0;
         for (String url : urls) {
             ++task;
-            DownloadString result = instance.downloadString(url);
+            DownloadString result = DownloadManager.downloadString(url);
             result.addTaskMonitor(tm);
             result.startDownload();
-            if (task == 10) {
+            if (task == 3) {
                 break;
             }
         }
@@ -258,30 +270,79 @@ public class DownloadManagerTest {
     public void testDownloadFile() throws InterruptedException {
 
         System.out.println("Download File Test");
-        DownloadManager instance = new DownloadManager();
 
-        File store = new File("C:\\Users\\Dipu\\Desktop\\Data\\jsoup-1.8.3-sources.jar");
-        String url = "http://jsoup.org/packages/jsoup-1.8.3-sources.jar";
+        File store = new File("C:\\Users\\Dipu\\Desktop\\Data\\uvaarena.zip");
+        String url = "https://github.com/dipu-bd/UVA-Arena/archive/javafx.zip";
 
-        TaskMonitor tm = new TaskMonitor() {
+        TaskMonitor<DownloadFile> tm = new TaskMonitor<DownloadFile>() {
 
             @Override
-            public void statusChanged(DownloadTask task) {
+            public void statusChanged(DownloadFile task) {
                 System.out.println(task);
             }
 
             @Override
-            public void downloadFinished(DownloadTask task) {
+            public void downloadFinished(DownloadFile task) {
                 System.out.println(task);
                 System.out.printf("Total Download Time : %.3f seconds\n", task.getDownloadTimeMillis() / 1000.0);
             }
         };
 
-        DownloadFile df = instance.downloadFile(url, store, tm);
+        DownloadFile df = DownloadManager.downloadFile(url, store, tm);
 
         df.startDownload();
         df.getDownloadThread().join();
 
         assertTrue(df.isSuccess());
     }
+ 
+    @Test
+    public static void testDownloadPage() throws InterruptedException, IOException {
+  
+        // TODO: its impossible via this method. Now host a WebBrowser and use its WebEngine for login.
+        String formname = "mod_loginform";
+        String unameid = "username";
+        String passid = "passwd";
+        String problemid = "localid";
+        String language = "language";
+        String code = "code";
+        String file = "codeupl";
+
+        String mainurl = "https://uva.onlinejudge.org";
+        String loginurl = "https://uva.onlinejudge.org/index.php?option=com_comprofiler&task=login";
+        String submiturl = "https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=25";
+       
+        WebEngine webEngine = new WebEngine();
+
+        webEngine.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> observable, State oldValue, State newValue) -> {
+            if (newValue == State.SUCCEEDED) {
+
+                Document doc = webEngine.getDocument();
+
+                System.out.println("-------- Content ----------");
+                System.out.println(doc.getElementById("col3_content").getTextContent());
+
+                try {
+                    HTMLFormElement loginform = (HTMLFormElement) doc.getElementById(formname);
+                    NodeList list = loginform.getElementsByTagName("input");
+                    for (int i = 0; i < list.getLength(); ++i) {
+                        Element elem = (Element) list.item(i);
+                        if (elem.getAttribute("name").equals(unameid)) {
+                            elem.setAttribute("value", "dipu_sust");
+                        } else if (elem.getAttribute("name").equals(passid)) {
+                            elem.setAttribute("value", "sd.19.93");
+                        }
+                    }
+                    System.out.println("...submitting login form...");
+                    loginform.submit();
+                } catch (Exception ex) {
+                    System.out.println(ex); 
+                }
+            }
+        });
+
+        webEngine.load(mainurl); 
+    }
+    
+    
 }

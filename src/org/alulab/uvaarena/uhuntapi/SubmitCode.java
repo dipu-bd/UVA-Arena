@@ -13,24 +13,12 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-package org.alulab.uvaarena.webapi;
+package org.alulab.uvaarena.uhuntapi;
 
 /**
  *
  * @author Dipu
- * @param <T>
  */
-public interface TaskMonitor <T extends DownloadTask> {
- 
-    /**
-     * Method that is called when the download progress is changed or updated.    
-     * @param task
-     */
-    public void statusChanged(T task);
-
-    /**
-     * Method that is called after the download is finished. 
-     * @param task
-     */
-    public void downloadFinished(T task);
+public class SubmitCode {
+    
 }

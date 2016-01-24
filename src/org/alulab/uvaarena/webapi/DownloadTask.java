@@ -21,15 +21,15 @@ import java.util.ArrayList;
 import org.alulab.uvaarena.util.Commons;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.cache.HttpCacheContext;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.CloseableHttpClient;
 
 /**
  * Abstract class to handle downloading task.
  */
 public abstract class DownloadTask {
+
+    private static final String DEFAULT_CHARSET = "UTF-8";
 
     final int WAITING = 0;
     final int RUNNING = 1;
@@ -43,42 +43,35 @@ public abstract class DownloadTask {
     private long mTotalBytes = 0;
     private long mDownloadedBytes = 0;
     private Exception mError = null;
-    private String mEncoding = null;
     private boolean mChunked = false;
     private long mLastReportTime = 0;
     private long mIntervalPassed = 0;
+    private String mContentCharset = null;
     private int mPriority = Thread.MIN_PRIORITY;
+    private HttpUriRequest mUriRequest = null;
 
-    private String mUrl;
+    private final String mHashCode;
     private final DownloadThread mThread;
     private final HttpCacheContext mCacheContext;
-    private final ArrayList<TaskMonitor> mTaskMonitors;
+    private final ArrayList<TaskMonitor<? extends DownloadTask>> mTaskMonitors;
 
     /**
      * Initializes an instance of this class
-     *
-     * @param url
      */
-    public DownloadTask(String url) {
-        mUrl = url;
+    public DownloadTask() {
         mThread = new DownloadThread();
         mTaskMonitors = new ArrayList<>();
+        mHashCode = Commons.generateHashString();
         mCacheContext = HttpCacheContext.create();
+        mCacheContext.setCookieStore(DownloadManager.getCookieStore());
     }
-
-    /**
-     * Gets the URI Request that is used to receive response.
-     *
-     * @return
-     */
-    abstract HttpUriRequest getUriRequest();
 
     /**
      * Method that gets called before the starting to process the response.
      *
      * @throws IOException
      */
-    abstract void beforeDownloadStart() throws IOException;
+    abstract void beforeProcessingResponse() throws IOException;
 
     /**
      * Method that gets called after receiving a chunk of data. Usually intended
@@ -95,7 +88,12 @@ public abstract class DownloadTask {
      *
      * @throws IOException
      */
-    abstract void afterDownloadSucceed() throws IOException;
+    abstract void afterProcessingResponse() throws IOException;
+
+    /**
+     * Method that gets called when the download has failed.
+     */
+    abstract void onDownloadFailed(Exception ex);
 
     /**
      * Handles the task to download data
@@ -116,14 +114,13 @@ public abstract class DownloadTask {
                 mDownloadedBytes = 0;
                 mIntervalPassed = 0;
                 reportProgress();
-                // get response
-                HttpUriRequest uriRequest = getUriRequest();
+                // get response 
                 try (CloseableHttpResponse response
-                        = DownloadManager.getHttpClient().execute(uriRequest, mCacheContext)) {
-                    // process response
-                    beforeDownloadStart();
+                        = DownloadManager.getHttpClient().execute(mUriRequest, mCacheContext)) {
+                    // process response 
+                    beforeProcessingResponse();
                     processResponse(response);
-                    afterDownloadSucceed();
+                    afterProcessingResponse();
                     // report finish on success
                     mStatus = FINISHED;
                     reportFinish();
@@ -132,6 +129,7 @@ public abstract class DownloadTask {
                     // stop download when retry slot is empty
                     if (i == getRetryCount() || mStatus != RUNNING) {
                         mError = ex;
+                        onDownloadFailed(ex);
                         // report finish on failure
                         mStatus = FINISHED;
                         reportFinish();
@@ -152,7 +150,7 @@ public abstract class DownloadTask {
         /**
          * Processes the response and receive contents in chunk
          */
-        void processResponse(CloseableHttpResponse response) throws IOException, InterruptedException {
+        private void processResponse(CloseableHttpResponse response) throws IOException, InterruptedException {
             // get entity
             HttpEntity entity = response.getEntity();
             mChunked = entity.isChunked();
@@ -175,10 +173,17 @@ public abstract class DownloadTask {
                     }
                 }
             }
-            // get encoding
             mIntervalPassed = System.currentTimeMillis() - start;
-            if (entity.getContentEncoding() != null) {
-                mEncoding = entity.getContentEncoding().getValue();
+            // get encoding
+            mContentCharset = DEFAULT_CHARSET;
+            if (entity.getContentType() != null) {
+                String contentType = entity.getContentType().getValue();
+                String charsetKey = "charset=";
+                int index = contentType.indexOf(charsetKey);
+                if (index >= 0) {
+                    int last = Math.max(contentType.indexOf(";", index), contentType.length());
+                    mContentCharset = contentType.substring(index + charsetKey.length(), last);
+                }
             }
         }
     }
@@ -232,7 +237,7 @@ public abstract class DownloadTask {
      * @param taskMonitor
      * @return
      */
-    public DownloadTask addTaskMonitor(TaskMonitor taskMonitor) {
+    public DownloadTask addTaskMonitor(TaskMonitor<? extends DownloadTask> taskMonitor) {
         if (taskMonitor != null) {
             mTaskMonitors.add(taskMonitor);
         }
@@ -240,13 +245,13 @@ public abstract class DownloadTask {
     }
 
     /**
-     * Sets the URL of the download task.
+     * Sets the URI request which is send to the server to download data.
      *
-     * @param url
+     * @param uriRequest
      * @return
      */
-    protected DownloadTask setUrl(String url) {
-        mUrl = url;
+    public DownloadTask setUriRequest(HttpUriRequest uriRequest) {
+        mUriRequest = uriRequest;
         return this;
     }
 
@@ -287,7 +292,16 @@ public abstract class DownloadTask {
      * @return
      */
     public String getUrl() {
-        return mUrl;
+        return mUriRequest.getURI().toString();
+    }
+
+    /**
+     * Gets the URI Request of the download task.
+     *
+     * @return
+     */
+    public HttpUriRequest getUriRequest() {
+        return mUriRequest;
     }
 
     /**
@@ -436,8 +450,8 @@ public abstract class DownloadTask {
      *
      * @return
      */
-    public String getEncoding() {
-        return mEncoding;
+    public String getCharset() {
+        return mContentCharset;
     }
 
     /**
@@ -527,10 +541,19 @@ public abstract class DownloadTask {
         return mStatus == FINISHED && mError != null;
     }
 
+    /**
+     * Gets a unique hash code for this object
+     *
+     * @return
+     */
+    public String getHashCode() {
+        return mHashCode;
+    }
+
     @Override
     public String toString() {
         return String.format("%s : %s%% [%s of %s] @ %s ~ %s",
-                mUrl, getDownloadProgress(2), getDownloadedByteLength(),
+                mUriRequest, getDownloadProgress(2), getDownloadedByteLength(),
                 getTotalByteLength(), getDownloadSpeedFormatted(), getStatusMessage());
     }
 

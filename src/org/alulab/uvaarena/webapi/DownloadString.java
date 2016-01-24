@@ -17,21 +17,19 @@ package org.alulab.uvaarena.webapi;
 
 import java.io.IOException;
 import java.io.ByteArrayOutputStream;
-import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
 
 /**
  * Extends the DownloadTask class to download string data.
  */
 public class DownloadString extends DownloadTask {
 
-    private String mResult = "";    
+    private String mResult = "";
     private final ByteArrayOutputStream mBAOS;
 
     public DownloadString(String url) {
-        super(url); 
         mBAOS = new ByteArrayOutputStream();
+        setUriRequest(new HttpGet(url));
     }
 
     /**
@@ -49,14 +47,7 @@ public class DownloadString extends DownloadTask {
     }
 
     @Override
-    HttpUriRequest getUriRequest() {
-        HttpGet httpGet = new HttpGet(this.getUrl());
-        httpGet.setConfig(DownloadManager.getRequestConfig());
-        return httpGet;
-    }
-
-    @Override
-    void beforeDownloadStart() {
+    void beforeProcessingResponse() throws IOException {
         mBAOS.reset();
     }
 
@@ -66,8 +57,12 @@ public class DownloadString extends DownloadTask {
     }
 
     @Override
-    void afterDownloadSucceed() throws IOException {
-        mResult = IOUtils.toString(mBAOS.toByteArray(), getEncoding());
+    void afterProcessingResponse() throws IOException {
+        mBAOS.flush();
+        mResult = mBAOS.toString(getCharset());
     }
 
+    @Override
+    void onDownloadFailed(Exception ex) {
+    }
 }

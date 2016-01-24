@@ -16,10 +16,14 @@
 package org.alulab.uvaarena.webapi;
 
 import java.io.File;
+import java.util.List;
 import org.apache.http.HttpHost;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.conn.routing.HttpRoute;
+import org.apache.http.conn.routing.HttpRoute; 
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.cache.CacheConfig;
 import org.apache.http.impl.client.cache.CachingHttpClients;
@@ -30,17 +34,20 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
  */
 public final class DownloadManager {
 
-    private static final int DEFAULT_MAX_TOTAL = 20;
-
+    private static final int DEFAULT_MAX_TOTAL = 20; 
+    
     private static final CacheConfig mCacheConfig;
     private static final RequestConfig mRequestConfig;
     private static final CloseableHttpClient mClient;
     private static final PoolingHttpClientConnectionManager mHttpPool;
+    private static final CookieStore mCookieStore;
 
     /**
      * Initializes this instance of download manager
      */
     static {
+
+        mCookieStore = new BasicCookieStore();
 
         mHttpPool = new PoolingHttpClientConnectionManager();
         mHttpPool.setMaxTotal(DEFAULT_MAX_TOTAL);
@@ -51,7 +58,7 @@ public final class DownloadManager {
                 .build();
 
         mRequestConfig = RequestConfig.custom()
-                .setCookieSpec(CookieSpecs.DEFAULT)
+                .setCookieSpec(CookieSpecs.STANDARD)
                 .setConnectTimeout(30000)
                 .setSocketTimeout(30000)
                 .build();
@@ -59,7 +66,8 @@ public final class DownloadManager {
         mClient = CachingHttpClients.custom()
                 .setCacheConfig(mCacheConfig)
                 .setDefaultRequestConfig(mRequestConfig)
-                .setConnectionManager(mHttpPool)
+                .setConnectionManager(mHttpPool)                
+                .setDefaultCookieStore(mCookieStore) 
                 .build();
     }
 
@@ -70,6 +78,15 @@ public final class DownloadManager {
      */
     public static CloseableHttpClient getHttpClient() {
         return mClient;
+    }
+
+    /**
+     * Gets the default cookie store used by the HTTP client.
+     *
+     * @return
+     */
+    public static CookieStore getCookieStore() {
+        return mCookieStore;
     }
 
     /**
@@ -156,6 +173,58 @@ public final class DownloadManager {
      */
     public static DownloadFile downloadFile(String url, File storeFile, TaskMonitor taskMonitor) {
         return (DownloadFile) downloadFile(url, storeFile).addTaskMonitor(taskMonitor);
+    }
+
+    /**
+     * Creates a new download page task and returns its instance. It does not
+     * starts the download. Call startDownload() method to start the download.
+     *
+     * @param url URL to download
+     * @return
+     */
+    public static DownloadPage downloadPage(String url) {
+        return new DownloadPage(url);
+    }
+
+    /**
+     * Creates a new download file task and returns its instance. It does not
+     * starts the download. Call startDownload() method to start the download.
+     *
+     * @param url URL to download
+     * @param taskMonitor TaskMonitor object to monitor download progress.
+     * @return
+     */
+    public static DownloadPage downloadPage(String url, TaskMonitor taskMonitor) {
+        return (DownloadPage) downloadPage(url).addTaskMonitor(taskMonitor);
+    }
+
+    /**
+     * Creates a new download page task and returns its instance. It does not
+     * starts the download. Call startDownload() method to start the download.
+     * <br/>
+     * It uses post method to send the given form data.
+     *
+     * @param url URL to download
+     * @param form
+     * @return
+     */
+    public static DownloadPage downloadPage(String url, List<NameValuePair> form) {
+        return new DownloadPage(url, form);
+    }
+
+    /**
+     * Creates a new download file task and returns its instance. It does not
+     * starts the download. Call startDownload() method to start the download.
+     * <br/>
+     * It uses post method to send the given form data.
+     *
+     * @param url URL to download
+     * @param form
+     * @param taskMonitor TaskMonitor object to monitor download progress.
+     * @return
+     */
+    public static DownloadPage downloadPage(String url, List<NameValuePair> form, TaskMonitor taskMonitor) {
+        return (DownloadPage) downloadPage(url, form).addTaskMonitor(taskMonitor);
     }
 
 }

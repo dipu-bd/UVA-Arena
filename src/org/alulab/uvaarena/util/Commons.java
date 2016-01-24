@@ -15,12 +15,16 @@
  */
 package org.alulab.uvaarena.util;
 
+import java.math.BigInteger;
+import org.apache.commons.codec.binary.Base64;
+
 /**
  *
  */
 public final class Commons {
 
-    static final String[] BYTE_LENGTH_SUFFIX = {"B", "KB", "MB", "GB", "TB", "PB"};
+    private static final String[] BYTE_LENGTH_SUFFIX = {"B", "KB", "MB", "GB", "TB", "PB"};
+    private static BigInteger mCurrentHash = BigInteger.valueOf(System.currentTimeMillis() << 3);
 
     /**
      * Converts a given byte length into suitable format.
@@ -31,7 +35,7 @@ public final class Commons {
      * @return
      */
     public static String formatByteLength(double byteLength, int precission) {
-        int suffix = 0; 
+        int suffix = 0;
         while (byteLength >= 1024.0) {
             suffix++;
             byteLength /= 1024.0;
@@ -42,7 +46,7 @@ public final class Commons {
         }
         return String.format(args, byteLength, BYTE_LENGTH_SUFFIX[suffix]);
     }
-    
+
     /**
      * Converts a given byte length into suitable format.
      *
@@ -52,7 +56,7 @@ public final class Commons {
      * @return
      */
     public static String formatByteLength(long byteLength, int precission) {
-        return formatByteLength((double)byteLength, precission);
+        return formatByteLength((double) byteLength, precission);
     }
 
     /**
@@ -63,8 +67,8 @@ public final class Commons {
      */
     public static String formatByteLength(double byteLength) {
         return formatByteLength(byteLength, 2);
-    }    
-    
+    }
+
     /**
      * Converts a given byte length into suitable format.
      *
@@ -74,5 +78,20 @@ public final class Commons {
     public static String formatByteLength(long byteLength) {
         return formatByteLength(byteLength, 2);
     }
-     
+
+    /**
+     * Generates a unique string hash value
+     *
+     * @return
+     */
+    public static String generateHashString() {
+        mCurrentHash = mCurrentHash.add(BigInteger.ONE);
+        byte[] data = new byte[6];
+        byte[] cur = mCurrentHash.toByteArray();
+        for (int i = 0; i < 6; ++i) {
+            data[i] = i < cur.length ? cur[i] : 0;
+        }
+        return Base64.encodeBase64String(data);
+    }
+
 }

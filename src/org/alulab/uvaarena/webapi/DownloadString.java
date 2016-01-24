@@ -60,8 +60,8 @@ public class DownloadString extends DownloadTask {
     }
 
     @Override
-    void processByte(byte[] data) throws IOException {
-        mBAOS.write(data);
+    void processByte(byte[] data, int size) throws IOException {
+        mBAOS.write(data, 0, size);
     }
 
     @Override

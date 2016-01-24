@@ -17,8 +17,7 @@ package org.alulab.uvaarena.webapi;
  
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import org.apache.commons.io.FileUtils;
+import java.io.IOException; 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -58,19 +57,18 @@ public class DownloadFile extends DownloadTask {
     void beforeDownloadStart() throws IOException {
         if (mFIS != null) {
             mFIS.close();
-        }
-        mFIS = FileUtils.openOutputStream(mFile);
+        }        
+        mFIS = new FileOutputStream(mFile);
     }
 
     @Override
-    void processByte(byte[] data) throws IOException {
-        mFIS.write(data);
+    void processByte(byte[] data, int size) throws IOException {
+        mFIS.write(data, 0, size);
     }
 
     @Override
     void afterDownloadSucceed() throws IOException {
         mFIS.flush();
-        mFIS.close();
-        mFIS = null;
+        mFIS.close(); 
     }
 }

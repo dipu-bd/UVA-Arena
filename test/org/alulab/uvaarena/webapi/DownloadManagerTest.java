@@ -62,7 +62,7 @@ public class DownloadManagerTest {
     }
 
     @Test
-    public void testDownlaodClient() {
+    public void testDownlaodClient() throws IOException {
         System.out.println("Response Header Test");
         long startTime = System.currentTimeMillis();
 
@@ -109,9 +109,7 @@ public class DownloadManagerTest {
             System.out.println("------------- Content --------------");
             String output = IOUtils.toString(entity.getContent());
             System.out.println(output);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        }  
 
         long stopTime = System.currentTimeMillis();
         System.out.printf("------ Time : %.3f seconds -------\n", (stopTime - startTime) / 1000.0);
@@ -217,7 +215,7 @@ public class DownloadManagerTest {
 
             @Override
             public void statusChanged(DownloadTask task) {
-                System.out.println(task);
+                //System.out.println(task);
             }
 
             @Override
@@ -230,8 +228,8 @@ public class DownloadManagerTest {
                 System.out.printf("%s | [%d]\n", task, len);
                 System.out.printf("Total Download Time : %.3f seconds\n", task.getDownloadTimeMillis() / 1000.0);
 
-                System.out.println("------------ Content -------------");
-                System.out.println(((DownloadString) task).getResult());
+                //System.out.println("------------ Content -------------");
+                //System.out.println(((DownloadString) task).getResult());
             }
         };
 
@@ -241,7 +239,7 @@ public class DownloadManagerTest {
             DownloadString result = instance.downloadString(url);
             result.addTaskMonitor(tm);
             result.startDownload();
-            if (task == 1) {
+            if (task == 5) {
                 break;
             }
         }
@@ -262,8 +260,8 @@ public class DownloadManagerTest {
         System.out.println("Download File Test");
         DownloadManager instance = new DownloadManager();
 
-        File store = new File("C:\\Users\\Dipu\\Desktop\\Data\\httpclient.tar.gz");
-        String url = "http://www.us.apache.org/dist//httpcomponents/httpclient/binary/httpcomponents-client-4.5.1-bin.tar.gz";
+        File store = new File("C:\\Users\\Dipu\\Desktop\\Data\\virtual-judge.zip");
+        String url = "https://github.com/chaoshxxu/virtual-judge/archive/master.zip";
 
         TaskMonitor tm = new TaskMonitor() {
 

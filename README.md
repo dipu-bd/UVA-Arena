@@ -20,7 +20,7 @@ Here is a brief list of the features that this software provides:
 * Discuss and uDebug browser 
 
 ### About This Branch    
-Rebuilding of UVA Arena is on progress. The selected technology is **JavaFX**. From this onward it is going to be version 2.0+ and shall support multiple platforms.
+This is a rebuild of the former project to support all platforms- Windows, Linux and MacOS. The technology selected is JavaFX. This project will contain basic building blocks for the next big project - *Coding Arena* which will support various online judges. 
 
 ### Building    
 Requires -     

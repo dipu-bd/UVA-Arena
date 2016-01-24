@@ -17,9 +17,12 @@ package org.alulab.uvaarena.webapi;
 
 import java.io.File;
 import org.apache.http.HttpHost;
+import org.apache.http.client.config.CookieSpecs;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.routing.HttpRoute;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.cache.CacheConfig;
+import org.apache.http.impl.client.cache.CachingHttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
 /**
@@ -30,17 +33,52 @@ public final class DownloadManager {
     final int DEFAULT_MAX_TOTAL = 20;
 
     private int mPerRoute;
-    private final CloseableHttpClient mClient;
+    private final CacheConfig mCacheConfig;
+    private final RequestConfig mRequestConfig;
+    private final CloseableHttpClient mClient;    
     private final PoolingHttpClientConnectionManager mHttpPool;
 
     /**
      * Initializes this instance of download manager
      */
     public DownloadManager() {
-        mHttpPool = new PoolingHttpClientConnectionManager();
-        mClient = HttpClients.custom().setConnectionManager(mHttpPool).build();
-
+        
+        mHttpPool = new PoolingHttpClientConnectionManager();        
         mHttpPool.setMaxTotal(DEFAULT_MAX_TOTAL);
+        
+        mCacheConfig = CacheConfig.custom()
+                .setMaxCacheEntries(1000)
+                .setMaxObjectSize(8192)
+                .build();
+        
+        mRequestConfig = RequestConfig.custom()
+                .setCookieSpec(CookieSpecs.DEFAULT)
+                .setConnectTimeout(30000)
+                .setSocketTimeout(30000)
+                .build();
+
+        mClient = CachingHttpClients.custom()
+                .setCacheConfig(mCacheConfig)
+                .setDefaultRequestConfig(mRequestConfig)
+                .setConnectionManager(mHttpPool)
+                .build();
+    }
+
+    /**
+     * Gets the client to make HTTP connection and download data.
+     *
+     * @return
+     */
+    public CloseableHttpClient getHttpClient() {
+        return mClient;
+    }
+
+    /**
+     * Gets the request configuration for connection.
+     * @return 
+     */
+    public RequestConfig getRequestConfig() {
+        return mRequestConfig;
     }
 
     /**
@@ -73,15 +111,6 @@ public final class DownloadManager {
     }
 
     /**
-     * Gets the client to make HTTP connection and download data.
-     *
-     * @return
-     */
-    public CloseableHttpClient getHttpClient() {
-        return mClient;
-    }
-
-    /**
      * Creates a new download string task and returns its instance. It does not
      * starts the download. Call startDownload() method to start the download.
      *
@@ -89,7 +118,7 @@ public final class DownloadManager {
      * @return
      */
     public DownloadString downloadString(String url) {
-        return new DownloadString(mClient, url);
+        return new DownloadString(url, mClient, mRequestConfig);
     }
 
     /**
@@ -101,9 +130,7 @@ public final class DownloadManager {
      * @return
      */
     public DownloadString downloadString(String url, TaskMonitor taskMonitor) {
-        DownloadString ds = new DownloadString(mClient, url);
-        ds.addTaskMonitor(taskMonitor);
-        return ds;
+        return (DownloadString)downloadString(url).addTaskMonitor(taskMonitor);
     }
 
     /**
@@ -115,9 +142,9 @@ public final class DownloadManager {
      * @return
      */
     public DownloadFile downloadFile(String url, File storeFile) {
-        return new DownloadFile(mClient, url, storeFile);
+        return new DownloadFile(url, storeFile, mClient, mRequestConfig);
     }
-
+    
     /**
      * Creates a new download file task and returns its instance. It does not
      * starts the download. Call startDownload() method to start the download.
@@ -128,10 +155,7 @@ public final class DownloadManager {
      * @return
      */
     public DownloadFile downloadFile(String url, File storeFile, TaskMonitor taskMonitor) {
-        DownloadFile df = new DownloadFile(mClient, url, storeFile);
-        df.addTaskMonitor(taskMonitor);
-        return df;
+        return (DownloadFile)downloadFile(url, storeFile).addTaskMonitor(taskMonitor);
     }
-
 
 }

@@ -18,6 +18,7 @@ package org.alulab.uvaarena.webapi;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException; 
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -30,9 +31,11 @@ public class DownloadFile extends DownloadTask {
 
     private File mFile = null;
     private FileOutputStream mFIS;
+    private final RequestConfig mRequestConfig;
 
-    public DownloadFile(CloseableHttpClient client, String url, File file) {
-        super(client, url);
+    public DownloadFile(String url, File file, CloseableHttpClient client, RequestConfig requestConfig) {
+        super(url, client);        
+        mRequestConfig = requestConfig;
         mFile = file;
     }
 
@@ -50,7 +53,9 @@ public class DownloadFile extends DownloadTask {
 
     @Override
     HttpUriRequest getUriRequest() {
-        return new HttpGet(this.getUrl());
+        HttpGet httpGet = new HttpGet(this.getUrl());
+        httpGet.setConfig(mRequestConfig);
+        return httpGet;
     }
 
     @Override

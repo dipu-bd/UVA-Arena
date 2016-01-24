@@ -16,8 +16,7 @@
 package org.alulab.uvaarena;
       
 import javafx.stage.Stage;
-import org.alulab.uvaarena.uhuntapi.UHuntAPI;
-import org.alulab.uvaarena.webapi.DownloadManager;
+import org.alulab.uvaarena.uhuntapi.UHuntAPI; 
 import org.alulab.uvaarena.util.Settings;
 
 /**
@@ -26,14 +25,12 @@ import org.alulab.uvaarena.util.Settings;
 public final class Core {
 
     private final Stage mPrimaryStage;
-    private final Settings mSetting;
-    private final DownloadManager mDownloader;
+    private final Settings mSetting; 
     private final UHuntAPI mUhuntApi;
     
     public Core(Stage stage) {
         mPrimaryStage = stage;      
-        mSetting = new Settings();       
-        mDownloader = new DownloadManager();        
+        mSetting = new Settings();            
         mUhuntApi = new UHuntAPI(this);
     }
         
@@ -44,11 +41,7 @@ public final class Core {
     public Settings setting() {
         return mSetting;
     }
-    
-    public DownloadManager downloader() {
-        return mDownloader;
-    }
-    
+         
     public UHuntAPI uhunt() {
         return mUhuntApi;
     }

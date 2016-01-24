@@ -51,22 +51,19 @@ public abstract class DownloadTask {
 
     private String mUrl;
     private final DownloadThread mThread;
-    private final CloseableHttpClient mClient;
     private final HttpCacheContext mCacheContext;
     private final ArrayList<TaskMonitor> mTaskMonitors;
 
     /**
      * Initializes an instance of this class
      *
-     * @param client
-     * @param url 
+     * @param url
      */
-    public DownloadTask(String url, CloseableHttpClient client) {
+    public DownloadTask(String url) {
         mUrl = url;
-        mClient = client;
         mThread = new DownloadThread();
         mTaskMonitors = new ArrayList<>();
-        mCacheContext = HttpCacheContext.create();        
+        mCacheContext = HttpCacheContext.create();
     }
 
     /**
@@ -99,7 +96,7 @@ public abstract class DownloadTask {
      * @throws IOException
      */
     abstract void afterDownloadSucceed() throws IOException;
- 
+
     /**
      * Handles the task to download data
      */
@@ -121,7 +118,8 @@ public abstract class DownloadTask {
                 reportProgress();
                 // get response
                 HttpUriRequest uriRequest = getUriRequest();
-                try (CloseableHttpResponse response = mClient.execute(uriRequest, mCacheContext)) {
+                try (CloseableHttpResponse response
+                        = DownloadManager.getHttpClient().execute(uriRequest, mCacheContext)) {
                     // process response
                     beforeDownloadStart();
                     processResponse(response);
@@ -185,7 +183,6 @@ public abstract class DownloadTask {
         }
     }
 
-    
     /**
      * Starts the download. If download is running it ignores the request.
      */
@@ -242,7 +239,6 @@ public abstract class DownloadTask {
         return this;
     }
 
-    
     /**
      * Sets the URL of the download task.
      *
@@ -275,8 +271,7 @@ public abstract class DownloadTask {
         mPriority = priority;
         return this;
     }
-    
- 
+
     /**
      * Gets the thread controlling the download
      *
@@ -337,10 +332,10 @@ public abstract class DownloadTask {
      * @return
      */
     public double getDownloadProgress() {
-        if (mTotalBytes == 0) {
-            return 1E-14;
+        if (mTotalBytes == 0 || mTotalBytes < mDownloadedBytes) {
+            return 0;
         } else {
-            return (double) mDownloadedBytes * 100.0 / (double) mTotalBytes + 1E-14;
+            return (double) mDownloadedBytes * 100.0 / (double) mTotalBytes;
         }
     }
 
@@ -355,7 +350,7 @@ public abstract class DownloadTask {
         if (precision > 0) {
             args = "%." + String.valueOf(precision) + "f";
         }
-        return String.format(args, getDownloadProgress());
+        return String.format(args, getDownloadProgress() + 1E-14);
     }
 
     /**
@@ -476,9 +471,8 @@ public abstract class DownloadTask {
             default:
                 return "Unknown";
         }
-    } 
-    
- 
+    }
+
     /**
      * True if the last attempt to download received InputStream in chunk.
      *
@@ -533,7 +527,6 @@ public abstract class DownloadTask {
         return mStatus == FINISHED && mError != null;
     }
 
-        
     @Override
     public String toString() {
         return String.format("%s : %s%% [%s of %s] @ %s ~ %s",

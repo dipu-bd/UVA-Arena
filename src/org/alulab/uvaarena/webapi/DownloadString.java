@@ -18,10 +18,8 @@ package org.alulab.uvaarena.webapi;
 import java.io.IOException;
 import java.io.ByteArrayOutputStream;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.CloseableHttpClient;
 
 /**
  * Extends the DownloadTask class to download string data.
@@ -29,12 +27,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 public class DownloadString extends DownloadTask {
 
     private String mResult = "";    
-    private final RequestConfig mRequestConfig;
     private final ByteArrayOutputStream mBAOS;
 
-    public DownloadString(String url, CloseableHttpClient client, RequestConfig requestConfig) {
-        super(url, client);
-        mRequestConfig = requestConfig;
+    public DownloadString(String url) {
+        super(url); 
         mBAOS = new ByteArrayOutputStream();
     }
 
@@ -55,7 +51,7 @@ public class DownloadString extends DownloadTask {
     @Override
     HttpUriRequest getUriRequest() {
         HttpGet httpGet = new HttpGet(this.getUrl());
-        httpGet.setConfig(mRequestConfig);
+        httpGet.setConfig(DownloadManager.getRequestConfig());
         return httpGet;
     }
 

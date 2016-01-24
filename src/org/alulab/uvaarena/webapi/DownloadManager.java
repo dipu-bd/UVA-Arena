@@ -30,27 +30,26 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
  */
 public final class DownloadManager {
 
-    final int DEFAULT_MAX_TOTAL = 20;
+    private static final int DEFAULT_MAX_TOTAL = 20;
 
-    private int mPerRoute;
-    private final CacheConfig mCacheConfig;
-    private final RequestConfig mRequestConfig;
-    private final CloseableHttpClient mClient;    
-    private final PoolingHttpClientConnectionManager mHttpPool;
+    private static final CacheConfig mCacheConfig;
+    private static final RequestConfig mRequestConfig;
+    private static final CloseableHttpClient mClient;
+    private static final PoolingHttpClientConnectionManager mHttpPool;
 
     /**
      * Initializes this instance of download manager
      */
-    public DownloadManager() {
-        
-        mHttpPool = new PoolingHttpClientConnectionManager();        
+    static {
+
+        mHttpPool = new PoolingHttpClientConnectionManager();
         mHttpPool.setMaxTotal(DEFAULT_MAX_TOTAL);
-        
+
         mCacheConfig = CacheConfig.custom()
                 .setMaxCacheEntries(1000)
                 .setMaxObjectSize(8192)
                 .build();
-        
+
         mRequestConfig = RequestConfig.custom()
                 .setCookieSpec(CookieSpecs.DEFAULT)
                 .setConnectTimeout(30000)
@@ -69,15 +68,16 @@ public final class DownloadManager {
      *
      * @return
      */
-    public CloseableHttpClient getHttpClient() {
+    public static CloseableHttpClient getHttpClient() {
         return mClient;
     }
 
     /**
      * Gets the request configuration for connection.
-     * @return 
+     *
+     * @return
      */
-    public RequestConfig getRequestConfig() {
+    public static RequestConfig getRequestConfig() {
         return mRequestConfig;
     }
 
@@ -87,7 +87,7 @@ public final class DownloadManager {
      *
      * @param maxTotal
      */
-    public void setMaxTotal(int maxTotal) {
+    public static void setMaxTotal(int maxTotal) {
         mHttpPool.setMaxTotal(maxTotal);
     }
 
@@ -96,7 +96,7 @@ public final class DownloadManager {
      *
      * @return
      */
-    public int getMaxTotal() {
+    public static int getMaxTotal() {
         return mHttpPool.getMaxTotal();
     }
 
@@ -106,7 +106,7 @@ public final class DownloadManager {
      * @param host
      * @param maxConn
      */
-    public void setMaxPerRoute(String host, int maxConn) {
+    public static void setMaxPerRoute(String host, int maxConn) {
         mHttpPool.setMaxPerRoute(new HttpRoute(new HttpHost(host)), maxConn);
     }
 
@@ -117,8 +117,8 @@ public final class DownloadManager {
      * @param url URL to download
      * @return
      */
-    public DownloadString downloadString(String url) {
-        return new DownloadString(url, mClient, mRequestConfig);
+    public static DownloadString downloadString(String url) {
+        return new DownloadString(url);
     }
 
     /**
@@ -129,8 +129,8 @@ public final class DownloadManager {
      * @param taskMonitor TaskMonitor object to monitor download progress.
      * @return
      */
-    public DownloadString downloadString(String url, TaskMonitor taskMonitor) {
-        return (DownloadString)downloadString(url).addTaskMonitor(taskMonitor);
+    public static DownloadString downloadString(String url, TaskMonitor taskMonitor) {
+        return (DownloadString) downloadString(url).addTaskMonitor(taskMonitor);
     }
 
     /**
@@ -141,10 +141,10 @@ public final class DownloadManager {
      * @param storeFile File to store downloaded data
      * @return
      */
-    public DownloadFile downloadFile(String url, File storeFile) {
-        return new DownloadFile(url, storeFile, mClient, mRequestConfig);
+    public static DownloadFile downloadFile(String url, File storeFile) {
+        return new DownloadFile(url, storeFile);
     }
-    
+
     /**
      * Creates a new download file task and returns its instance. It does not
      * starts the download. Call startDownload() method to start the download.
@@ -154,8 +154,8 @@ public final class DownloadManager {
      * @param taskMonitor TaskMonitor object to monitor download progress.
      * @return
      */
-    public DownloadFile downloadFile(String url, File storeFile, TaskMonitor taskMonitor) {
-        return (DownloadFile)downloadFile(url, storeFile).addTaskMonitor(taskMonitor);
+    public static DownloadFile downloadFile(String url, File storeFile, TaskMonitor taskMonitor) {
+        return (DownloadFile) downloadFile(url, storeFile).addTaskMonitor(taskMonitor);
     }
 
 }

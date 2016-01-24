@@ -18,14 +18,15 @@ package org.alulab.uvaarena.uhuntapi;
 import java.util.HashMap;
 import java.util.Map.Entry; 
 import org.alulab.uvaarena.Core;
+import org.alulab.uvaarena.webapi.DownloadManager;
 
 /**
  *
  */
 public class UHuntAPI {
 
-    public final int MAX_CONNECTION_TO_UVA = 2;
-    public final int MAX_CONNECTION_TO_UHUNT = 6;
+    public final int MAX_CONNECTION_TO_UVA = 1;
+    public final int MAX_CONNECTION_TO_UHUNT = 4;
     public final String WEBHOST_UVA = "uva.onlinejudge.org";
     public final String WEBHOST_UHUNT = "uhunt.felix-halim.net";
     
@@ -43,8 +44,8 @@ public class UHuntAPI {
     public UHuntAPI(Core core) {
         mCore = core;
         mUserNameToID = new HashMap<>();
-        core.downloader().setMaxPerRoute(WEBHOST_UVA, MAX_CONNECTION_TO_UVA);
-        core.downloader().setMaxPerRoute(WEBHOST_UHUNT, MAX_CONNECTION_TO_UHUNT);
+        DownloadManager.setMaxPerRoute(WEBHOST_UVA, MAX_CONNECTION_TO_UVA);
+        DownloadManager.setMaxPerRoute(WEBHOST_UHUNT, MAX_CONNECTION_TO_UHUNT);
     }
 
     /**

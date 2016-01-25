@@ -17,8 +17,7 @@ package org.alulab.uvaarena.uhuntapi;
 
 import java.util.HashMap;
 import java.util.Map.Entry; 
-import org.alulab.uvaarena.Core;
-import org.alulab.uvaarena.uvaapi.LoginFormData;
+import org.alulab.uvaarena.Core; 
 import org.alulab.uvaarena.webapi.DownloadManager;
 
 /**

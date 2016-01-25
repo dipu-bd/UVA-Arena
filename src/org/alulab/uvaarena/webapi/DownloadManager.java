@@ -19,9 +19,7 @@ import java.io.File;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
-import java.util.List;
 import org.apache.http.HttpHost;
-import org.apache.http.NameValuePair; 
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
@@ -183,28 +181,4 @@ public abstract class DownloadManager {
     public static DownloadFile downloadFile(String url, File storeFile, TaskMonitor taskMonitor) {
         return (DownloadFile) downloadFile(url, storeFile).addTaskMonitor(taskMonitor);
     }
-
-    /**
-     * Creates a new download page task and returns its instance. It does not
-     * starts the download. Call startDownload() method to start the download.
-     *
-     * @param url URL to download
-     * @return
-     */
-    public static DownloadPage downloadPage(String url) {
-        return new DownloadPage(url);
-    }
-
-    /**
-     * Creates a new download file task and returns its instance. It does not
-     * starts the download. Call startDownload() method to start the download.
-     *
-     * @param url URL to download
-     * @param taskMonitor TaskMonitor object to monitor download progress.
-     * @return
-     */
-    public static DownloadPage downloadPage(String url, TaskMonitor taskMonitor) {
-        return (DownloadPage) downloadPage(url).addTaskMonitor(taskMonitor);
-    }
- 
 }

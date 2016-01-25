@@ -118,8 +118,7 @@ public class DownloadManagerTest {
     public void testUrlConnection() throws MalformedURLException, IOException {
         System.out.println("URL Connection test");
         long startTime = System.currentTimeMillis();
-
-        DownloadManager instance = new DownloadManager();
+ 
         // process request
         URL url = new URL("http://uhunt.felix-halim.net/api/poll/0");
         System.out.println("------------ URL -------------");

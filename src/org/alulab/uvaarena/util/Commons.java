@@ -104,28 +104,4 @@ public abstract class Commons {
         return Base64.encodeBase64String(data);
     }
 
-    /**
-     * Converts URL into a map of (key, value) pair of query data.
-     *
-     * @param Url URL to parse
-     * @return KeyValue pair of queries. Empty if none.
-     */
-    public static Map<String, String> splitQuery(String Url) {
-        Map<String, String> query_pairs = new LinkedHashMap<>();
-        try {
-            URL url = new URL(Url);
-            String query = url.getQuery();
-            String[] pairs = query.split("&");
-            for (String pair : pairs) {
-                int idx = pair.indexOf("=");
-                String key = URLDecoder.decode(pair.substring(0, idx), "UTF-8");
-                String value = URLDecoder.decode(pair.substring(idx + 1), "UTF-8");
-                query_pairs.put(key, value);
-            }
-        } catch (MalformedURLException | UnsupportedEncodingException ex) {
-            logger.log(Level.SEVERE, null, ex);
-        }
-        return query_pairs;
-    }
-
 }

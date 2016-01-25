@@ -14,25 +14,13 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 package org.alulab.uvaarena;
-
-import java.io.IOException;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
-import org.alulab.uvaarena.webapi.DownloadManagerTest;
+ 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.html.HTMLFormElement;
 
 /**
  *
@@ -58,18 +46,7 @@ public class LauncherTest {
     @After
     public void tearDown() {
     }
-
-    /**
-     * Test of start method, of class Launcher.
-     */
-    @Test
-    public void testStart() throws Exception {
-        System.out.println("start");
-        Stage stage = null;
-        Launcher instance = new Launcher();        
-        instance.start(stage);         
-    }
-
+ 
     /**
      * Test of main method, of class Launcher.
      */

@@ -15,7 +15,6 @@
  */
 package org.alulab.uvaarena;
 
-import java.awt.GridLayout;
 import java.io.IOException;
 import static javafx.application.Application.launch;
 import javafx.application.Application;
@@ -30,7 +29,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.html.HTMLCollection;
+import org.w3c.dom.html.HTMLDivElement;
 import org.w3c.dom.html.HTMLFormElement;
+import org.w3c.dom.html.HTMLInputElement;
+import org.w3c.dom.html.HTMLTextAreaElement;
 
 /**
  * Start point of the application.
@@ -65,14 +68,9 @@ public class Launcher extends Application {
 
         System.out.println("---- TEST DOWNLOAD PAGE ----");
 
-        String login = "mod_loginform";
-        String unameid = "username";
-        String passid = "passwd";
-        String problemid = "localid";
-        String language = "language";
-        String code = "code";
-        String file = "codeupl";
         String submiturl = "https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=25";
+        String submitaction = "index.php?option=com_onlinejudge&Itemid=25&page=save_submission";
+        String loginaction = "https://uva.onlinejudge.org/index.php?option=com_comprofiler&task=login";
 
         WebEngine webEngine = webView.getEngine();
         webEngine.getLoadWorker().stateProperty().addListener((ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) -> {
@@ -83,59 +81,97 @@ public class Launcher extends Application {
                 System.out.println(".... content received ...");
 
                 try {
-                    Element elem = doc.getElementById(login);
-                    if (elem != null) {
-                        int wassetto = 0;
-                        HTMLFormElement loginform = (HTMLFormElement) elem;
-                        NodeList list = loginform.getElementsByTagName("input");
+                    // first get the message
+                    Element content = doc.getElementById("col3_content_wrapper");
+                    if (content != null) {
+                        NodeList list = content.getElementsByTagName("div");
                         for (int i = 0; i < list.getLength(); ++i) {
-                            elem = (Element) list.item(i);
-                            if (elem.getAttribute("name").equals(unameid)) {
-                                elem.setAttribute("value", "dipu_sust");
-                                ++wassetto;
-                            } else if (elem.getAttribute("name").equals(passid)) {
-                                elem.setAttribute("value", "sd.19.93");
-                                ++wassetto;
+                            HTMLDivElement div = (HTMLDivElement) list.item(i);
+                            if (div.getClassName() != null
+                                    && div.getClassName().equals("message")) {
+                                String message = div.getTextContent();
+                                System.out.println(message);
+                                if (message.startsWith("Submission received with ID")) {
+                                    return;
+                                }
                             }
                         }
-                        if (wassetto != 2) {
-                            throw new Exception();
+                    }
+
+                    // then proceed to form
+                    NodeList allforms = doc.getElementsByTagName("form");
+                    System.out.println("--- form count: " + allforms.getLength() + " --- ");
+                    HTMLFormElement submitform = null, loginform = null;
+                    for (int i = 0; i < allforms.getLength(); ++i) {
+                        HTMLFormElement form = (HTMLFormElement) allforms.item(i);
+                        if (form.getAction().endsWith(loginaction)) {
+                            loginform = form;
+                        } else if (form.getAction().endsWith(submitaction)) {
+                            submitform = form;
                         }
-                        System.out.println("...submitting login form...");
-                        loginform.submit();
-                    } else {
+                    }
+
+                    // first try to login
+                    if (loginform != null) {
                         int wassetto = 0;
-                        System.out.println(doc.getElementsByTagName("form").getLength());
-                        Node nod = doc.getElementsByTagName("form").item(1);
-                        HTMLFormElement submitform = (HTMLFormElement) nod;
-                        NodeList list = submitform.getChildNodes();
+                        HTMLCollection list = loginform.getElements();
                         for (int i = 0; i < list.getLength(); ++i) {
-                            if (list.item(i) instanceof Element) {
-                                elem = (Element) list.item(i);
-                                if (elem.getAttribute("name").equals(problemid)) {
-                                    elem.setAttribute("value", "100");
+                            if (list.item(i) instanceof HTMLInputElement) {
+                                HTMLInputElement input = (HTMLInputElement) list.item(i);
+                                if (input.getType().equals("text")
+                                        && input.getName().equals("username")) {
+                                    input.setValue("dipu_sust");
                                     ++wassetto;
-                                } else if (elem.getAttribute("name").equals(code)) {
-                                    elem.setAttribute("value", "Hello World");
-                                    ++wassetto;
-                                } else if (elem.getAttribute("name").equals(language)) {
-                                    if (elem.getAttribute("value").equals("3")) {
-                                        elem.setAttribute("checked", "true");
-                                    }
+                                } else if (input.getType().equals("password")
+                                        && input.getName().equals("passwd")) {
+                                    input.setValue("sd.19.93");
                                     ++wassetto;
                                 }
                             }
                         }
-                        if (wassetto != 3) {
-                            throw new Exception("...could not fill submit form...");
+                        System.out.println("...submitting login form...");
+                        if (wassetto == 2) {
+                            loginform.submit();
                         } else {
-                            System.out.println("...filled the submit form...");
+                            throw new Exception("~~ could not fill login form ~~");
                         }
+                    } // if logged in then try to submit
+                    else if (submitform != null) {
+                        int wassetto = 0;
+                        HTMLCollection list = submitform.getElements();
+                        for (int i = 0; i < list.getLength(); ++i) {
+                            if (list.item(i) instanceof HTMLInputElement) {
+                                HTMLInputElement input = (HTMLInputElement) list.item(i);
+                                if (input.getType().equals("text")
+                                        && input.getName().equals("localid")) {
+                                    input.setValue("100");
+                                    ++wassetto;
+                                } else if (input.getType().equals("radio")
+                                        && input.getName().equals("language")
+                                        && input.getValue().equals("4")) {
+                                    input.setChecked(true);
+                                    ++wassetto;
+                                }
+                            } else if (list.item(i) instanceof HTMLTextAreaElement) {
+                                HTMLTextAreaElement code = (HTMLTextAreaElement) list.item(i);
+                                if (code.getName().equals("code")) {
+                                    code.setTextContent("Hello World!");
+                                    ++wassetto;
+                                }
+                            }
+                        }
+                        if (wassetto == 3) {
+                            System.out.println("... filled the submit form ...");
+                            //submitform.submit();
+                        } else {
+                            throw new Exception("~~ could not fill submit form ~~");
+                        }
+                    } // if logged in but could not submit then reload page
+                    else {
+                        webEngine.load(submiturl);
                     }
                 } catch (Exception ex) {
-                    System.out.println(ex);
-                    webEngine.load(submiturl);
-                    System.out.println("...redirecting to submit form...");
+                    ex.printStackTrace();
                 }
             }
         });

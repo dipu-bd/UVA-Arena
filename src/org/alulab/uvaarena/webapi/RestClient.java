@@ -15,81 +15,116 @@
  */
 package org.alulab.uvaarena.webapi;
 
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.message.BasicNameValuePair;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.FormElement; 
+import org.jsoup.nodes.FormElement;
 
 /**
  * A customized REST client for the web
  *
  * @author Dipu
  */
-public class RestClient extends DownloadPage {
+public class RestClient {
+
+    private static final Logger logger = Logger.getLogger(RestClient.class.getName());
+    private static final Document EMPTY_DOCUMENT = Jsoup.parse("<!DOCTYPE html><html></html>");
+
+    private String mUrl;
+    private Document mDocument;
+    private final Map<String, String> mHeaders;
+    private final Map<String, String> mCookies;
 
     public RestClient() {
-        super("");
+        mHeaders = new HashMap<>();
+        mCookies = new HashMap<>();
+        mDocument = EMPTY_DOCUMENT.clone();
     }
 
-    public void load(String url) {
-        HttpGet httpGet = new HttpGet(url);
-        httpGet.setConfig(DownloadManager.getRequestConfig());
-        setUriRequest(httpGet);
-        startDownload();
-    }
-
-    public void submitForm(String url, List<NameValuePair> data) throws UnsupportedEncodingException {
-        HttpPost httpPost = new HttpPost(url);
-        // add header                
-        httpPost.setHeader("User-Agent", DownloadManager.USER_AGENT);
-        httpPost.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-        httpPost.setHeader("Accept-Language", "en-US,en;q=0.5");
-        httpPost.setHeader("Cookie", getCookies());
-        httpPost.setHeader("Referer", getUrl());
-        httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-        // set entity
-        httpPost.setEntity(new UrlEncodedFormEntity(data));
-        // start download
-        setUriRequest(httpPost);
-        startDownload();
-    }
-
-    public void submitForm(FormElement form) throws UnsupportedEncodingException {
-        HttpPost httpPost = new HttpPost(form.absUrl("action"));
-        // add header                
-        httpPost.setHeader("User-Agent", DownloadManager.USER_AGENT);
-        httpPost.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-        httpPost.setHeader("Accept-Language", "en-US,en;q=0.5");
-        httpPost.setHeader("Cookie", getCookies());
-        httpPost.setHeader("Referer", getUrl());
-        // set content type        
-        String type = form.attr("enctype");
-        httpPost.setHeader("Content-Type", (type == null) ? "application/x-www-form-urlencoded" : type);
-        // set entity         
-        List<NameValuePair> data = new ArrayList<>();
-        form.formData().forEach((kv) -> {
-            data.add(new BasicNameValuePair(kv.key(), kv.value()));
-        });
-        httpPost.setEntity(new UrlEncodedFormEntity(data));
-        // start download
-        setUriRequest(httpPost);
-        startDownload();
+    private synchronized void openResponse(Connection connection) {
+        try {
+            mHeaders.clear();
+            Connection.Response response;
+            response = connection
+                    .timeout(5000)
+                    .cookies(mCookies)
+                    .userAgent(DownloadManager.USER_AGENT)
+                    .execute();
+            mUrl = response.url().toString();
+            mCookies.putAll(response.cookies());
+            mHeaders.putAll(response.headers());
+            mDocument = response.parse();
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, null, ex);
+            mUrl = null;
+            mDocument = EMPTY_DOCUMENT.clone();
+        }
     }
 
     /**
-     * Gets a list of all form elements of this document
+     * Navigate to the given URL
      *
-     * @return
+     * @param url URL to navigate to.
      */
-    public List<FormElement> getAllForms() {
-        return getDocument().getElementsByTag("form").forms();
+    public synchronized void load(String url) {
+        openResponse(Jsoup.connect(url));
+    }
+
+    /**
+     * Submits a form element.
+     *
+     * @param form Form Element to submit.
+     */
+    public synchronized void submitForm(FormElement form) {
+        openResponse(form.submit().method(Connection.Method.POST));
+    }
+
+    /**
+     * Gets the URL of the client
+     *
+     * @return URL object of NULL if none.
+     */
+    public String getURL() {
+        return mUrl;
+    }
+
+    /**
+     * Gets the lists of cookies that are active now.
+     *
+     * @return Map of cookies. Empty if none.
+     */
+    public Map<String, String> getCookies() {
+        return Collections.unmodifiableMap(mCookies);
+    }
+
+    /**
+     * Gets the header list received at last response.
+     *
+     * @return Map of headers. Empty if none.
+     */
+    public Map<String, String> getHeaders() {
+        return Collections.unmodifiableMap(mHeaders);
+    }
+
+    /**
+     * Gets the underlying HTML document.
+     *
+     * @return Document object. Never null.
+     */
+    public Document getDocument() {
+        return mDocument;
     }
 
     /**
@@ -117,13 +152,35 @@ public class RestClient extends DownloadPage {
 
     /**
      * Fill up a FormElement by the provided value.
+     * <p>
+     * Normally it matches the NAME attribute with the KEY of <b>data</b>
+     * parameter. But another kind of match can be defined. Suppose we have
+     * these elements-
+     * <pre> &lt;input type="radio" name="rad1" value="1"&gt;
+     * &lt;input type="radio" name="rad2" value="2"&gt;
+     * &lt;input type="radio" name="rad3" value="3"&gt;</pre>
+     * <br/>
+     * Then if we put <code>(" #rad2", "2")</code> in <b>data<b>, the second
+     * input will have its "checked" attribute altered to True and will looks
+     * like-
+     * <pre> &lt;input type="radio" name="rad1" value="1"&gt;
+     * &lt;input type="radio" name="rad2" value="2" checked="true"&gt;
+     * &lt;input type="radio" name="rad3" value="3"&gt;</pre>
+     * </p>
      *
      * @param form Form element to fill up.
      * @param data Values to fill up.
      */
-    public void fillUpForm(FormElement form, HashMap<String, String> data) {
+    public void fillUpForm(FormElement form, Map<String, String> data) {
         form.elements().forEach((tag) -> {
-            tag.val(data.getOrDefault(tag.attr("name"), tag.val()));
+            String name = tag.attr("name");
+            if (data.containsKey(" #" + name)) {
+                if (tag.val().equals(data.get(" #" + name))) {
+                    tag.attr("checked", true);
+                }
+            } else {
+                tag.val(data.getOrDefault(name, tag.val()));
+            }
         });
     }
 }

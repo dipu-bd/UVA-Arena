@@ -15,7 +15,16 @@
  */
 package org.alulab.uvaarena.util;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.codec.binary.Base64;
 
 /**
@@ -23,6 +32,7 @@ import org.apache.commons.codec.binary.Base64;
  */
 public abstract class Commons {
 
+    private static final Logger logger = Logger.getLogger(Commons.class.getName());
     private static final String[] BYTE_LENGTH_SUFFIX = {"B", "KB", "MB", "GB", "TB", "PB"};
     private static BigInteger mCurrentHash = BigInteger.valueOf(System.currentTimeMillis() << 3);
 
@@ -92,6 +102,30 @@ public abstract class Commons {
             data[i] = i < cur.length ? cur[i] : 0;
         }
         return Base64.encodeBase64String(data);
+    }
+
+    /**
+     * Converts URL into a map of (key, value) pair of query data.
+     *
+     * @param Url URL to parse
+     * @return KeyValue pair of queries. Empty if none.
+     */
+    public static Map<String, String> splitQuery(String Url) {
+        Map<String, String> query_pairs = new LinkedHashMap<>();
+        try {
+            URL url = new URL(Url);
+            String query = url.getQuery();
+            String[] pairs = query.split("&");
+            for (String pair : pairs) {
+                int idx = pair.indexOf("=");
+                String key = URLDecoder.decode(pair.substring(0, idx), "UTF-8");
+                String value = URLDecoder.decode(pair.substring(idx + 1), "UTF-8");
+                query_pairs.put(key, value);
+            }
+        } catch (MalformedURLException | UnsupportedEncodingException ex) {
+            logger.log(Level.SEVERE, null, ex);
+        }
+        return query_pairs;
     }
 
 }

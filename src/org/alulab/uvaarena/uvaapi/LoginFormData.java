@@ -34,6 +34,9 @@ public interface LoginFormData {
     // provide names of the input fields we are interested on
     public static String USER_INPUT_NAME = "username";
     public static String PASS_INPUT_NAME = "passwd";
+    
+    public static String USER_NAME = "uarena";
+    public static String PASSWORD = "uarena_2_vjudge";
 
     // provide more data about connections
     public static String ACCEPT = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";

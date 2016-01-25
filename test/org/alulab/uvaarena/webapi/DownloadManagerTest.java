@@ -21,15 +21,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
-import static javafx.application.Application.launch;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker.State;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
-import org.alulab.uvaarena.Launcher;
+import java.util.List; 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -42,16 +34,10 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.html.HTMLFormElement;
+import static org.junit.Assert.*; 
 
 /**
- *
- * @author Dipu
+ * 
  */
 public class DownloadManagerTest {
 
@@ -80,7 +66,7 @@ public class DownloadManagerTest {
         long startTime = System.currentTimeMillis();
 
         // process request
-        HttpUriRequest req = new HttpGet("http://uhunt.felix-halim.net/api/poll/0");
+        HttpUriRequest req = new HttpGet("http://uva.online-judge.org");
         System.out.println("------------ Request -------------");
         System.out.println(req.getURI().toString());
         if (req.getProtocolVersion() != null) {
@@ -295,54 +281,5 @@ public class DownloadManagerTest {
 
         assertTrue(df.isSuccess());
     }
- 
-    @Test
-    public static void testDownloadPage() throws InterruptedException, IOException {
   
-        // TODO: its impossible via this method. Now host a WebBrowser and use its WebEngine for login.
-        String formname = "mod_loginform";
-        String unameid = "username";
-        String passid = "passwd";
-        String problemid = "localid";
-        String language = "language";
-        String code = "code";
-        String file = "codeupl";
-
-        String mainurl = "https://uva.onlinejudge.org";
-        String loginurl = "https://uva.onlinejudge.org/index.php?option=com_comprofiler&task=login";
-        String submiturl = "https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=25";
-       
-        WebEngine webEngine = new WebEngine();
-
-        webEngine.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> observable, State oldValue, State newValue) -> {
-            if (newValue == State.SUCCEEDED) {
-
-                Document doc = webEngine.getDocument();
-
-                System.out.println("-------- Content ----------");
-                System.out.println(doc.getElementById("col3_content").getTextContent());
-
-                try {
-                    HTMLFormElement loginform = (HTMLFormElement) doc.getElementById(formname);
-                    NodeList list = loginform.getElementsByTagName("input");
-                    for (int i = 0; i < list.getLength(); ++i) {
-                        Element elem = (Element) list.item(i);
-                        if (elem.getAttribute("name").equals(unameid)) {
-                            elem.setAttribute("value", "dipu_sust");
-                        } else if (elem.getAttribute("name").equals(passid)) {
-                            elem.setAttribute("value", "sd.19.93");
-                        }
-                    }
-                    System.out.println("...submitting login form...");
-                    loginform.submit();
-                } catch (Exception ex) {
-                    System.out.println(ex); 
-                }
-            }
-        });
-
-        webEngine.load(mainurl); 
-    }
-    
-    
 }

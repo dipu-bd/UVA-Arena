@@ -21,7 +21,7 @@ import org.apache.commons.codec.binary.Base64;
 /**
  *
  */
-public final class Commons {
+public abstract class Commons {
 
     private static final String[] BYTE_LENGTH_SUFFIX = {"B", "KB", "MB", "GB", "TB", "PB"};
     private static BigInteger mCurrentHash = BigInteger.valueOf(System.currentTimeMillis() << 3);

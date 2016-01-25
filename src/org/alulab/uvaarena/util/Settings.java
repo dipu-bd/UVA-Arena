@@ -21,7 +21,7 @@ import org.alulab.uvaarena.Launcher;
 /**
  * Connector with preferences to store settings.
  */
-public class Settings {
+public final class Settings {
     
     final String KEY_WORKING_DIR = "Working Folder";
     final String KEY_CODE_DIR = "Code Folder";

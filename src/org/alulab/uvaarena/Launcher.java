@@ -63,7 +63,7 @@ public class Launcher extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+ 
     private void testWebEngineLogin(WebView webView) throws InterruptedException, IOException {
 
         System.out.println("---- TEST DOWNLOAD PAGE ----");

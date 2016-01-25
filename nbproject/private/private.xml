@@ -3,15 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Z:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/webapi/DownloadString.java</file>
             <file>file:/Z:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/Launcher.java</file>
-            <file>file:/Z:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/webapi/DownloadTask.java</file>
-            <file>file:/Z:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/webapi/DownloadPage.java</file>
-            <file>file:/Z:/Projects/GitHub/UVA-Arena/test/org/alulab/uvaarena/webapi/HttpUrlConnectionExample.java</file>
-            <file>file:/Z:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/webapi/DownloadFile.java</file>
-            <file>file:/Z:/Projects/GitHub/UVA-Arena/test/org/alulab/uvaarena/webapi/DownloadManagerTest.java</file>
             <file>file:/Z:/Projects/GitHub/UVA-Arena/test/org/alulab/uvaarena/LauncherTest.java</file>
-            <file>file:/Z:/Projects/GitHub/UVA-Arena/src/org/alulab/uvaarena/webapi/DownloadManager.java</file>
         </group>
     </open-files>
 </project-private>

@@ -15,10 +15,13 @@
  */
 package org.alulab.uvaarena.webapi;
 
-import java.io.File;
+import java.io.File; 
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.List;
 import org.apache.http.HttpHost;
-import org.apache.http.NameValuePair;
+import org.apache.http.NameValuePair; 
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
@@ -32,26 +35,31 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 /**
  * This class handles all downloading tasks.
  */
-public final class DownloadManager {
+public abstract class DownloadManager {
 
-    private static final int DEFAULT_MAX_TOTAL = 20; 
+    public static final String USER_AGENT = "Mozilla/5.0";
     
+    private static final int DEFAULT_MAX_TOTAL = 20; 
+        
     private static final CacheConfig mCacheConfig;
     private static final RequestConfig mRequestConfig;
     private static final CloseableHttpClient mClient;
     private static final PoolingHttpClientConnectionManager mHttpPool;
     private static final CookieStore mCookieStore;
+    private static final CookieManager mCookieManager;
 
     /**
      * Initializes this instance of download manager
      */
     static {
-
-        mCookieStore = new BasicCookieStore();
-
         mHttpPool = new PoolingHttpClientConnectionManager();
         mHttpPool.setMaxTotal(DEFAULT_MAX_TOTAL);
-
+        
+        mCookieStore = new BasicCookieStore();
+        mCookieManager = new CookieManager();
+        mCookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+        CookieHandler.setDefault(mCookieManager);
+        
         mCacheConfig = CacheConfig.custom()
                 .setMaxCacheEntries(1000)
                 .setMaxObjectSize(8192)
@@ -68,6 +76,7 @@ public final class DownloadManager {
                 .setDefaultRequestConfig(mRequestConfig)
                 .setConnectionManager(mHttpPool)                
                 .setDefaultCookieStore(mCookieStore) 
+                .setUserAgent(USER_AGENT)
                 .build();
     }
 
@@ -79,7 +88,7 @@ public final class DownloadManager {
     public static CloseableHttpClient getHttpClient() {
         return mClient;
     }
-
+    
     /**
      * Gets the default cookie store used by the HTTP client.
      *
@@ -197,34 +206,5 @@ public final class DownloadManager {
     public static DownloadPage downloadPage(String url, TaskMonitor taskMonitor) {
         return (DownloadPage) downloadPage(url).addTaskMonitor(taskMonitor);
     }
-
-    /**
-     * Creates a new download page task and returns its instance. It does not
-     * starts the download. Call startDownload() method to start the download.
-     * <br/>
-     * It uses post method to send the given form data.
-     *
-     * @param url URL to download
-     * @param form
-     * @return
-     */
-    public static DownloadPage downloadPage(String url, List<NameValuePair> form) {
-        return new DownloadPage(url, form);
-    }
-
-    /**
-     * Creates a new download file task and returns its instance. It does not
-     * starts the download. Call startDownload() method to start the download.
-     * <br/>
-     * It uses post method to send the given form data.
-     *
-     * @param url URL to download
-     * @param form
-     * @param taskMonitor TaskMonitor object to monitor download progress.
-     * @return
-     */
-    public static DownloadPage downloadPage(String url, List<NameValuePair> form, TaskMonitor taskMonitor) {
-        return (DownloadPage) downloadPage(url, form).addTaskMonitor(taskMonitor);
-    }
-
+ 
 }

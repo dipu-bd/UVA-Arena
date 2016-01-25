@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import org.alulab.uvaarena.util.Commons;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.cache.HttpCacheContext;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -49,6 +50,8 @@ public abstract class DownloadTask {
     private String mContentCharset = null;
     private int mPriority = Thread.MIN_PRIORITY;
     private HttpUriRequest mUriRequest = null;
+    private Header[] mHeaders = null;
+    private String mCookies = null;
 
     private final String mHashCode;
     private final DownloadThread mThread;
@@ -114,9 +117,16 @@ public abstract class DownloadTask {
                 mDownloadedBytes = 0;
                 mIntervalPassed = 0;
                 reportProgress();
+                // load last cookies
+                if (mUriRequest.getFirstHeader("Cookie") == null) {
+                    mUriRequest.setHeader("Cookie", getCookies());
+                }
                 // get response 
                 try (CloseableHttpResponse response
                         = DownloadManager.getHttpClient().execute(mUriRequest, mCacheContext)) {
+                    //save headers
+                    mHeaders = (Header[]) response.getAllHeaders().clone();
+                    mCookies = response.getFirstHeader("Set-Cookie").toString();
                     // process response 
                     beforeProcessingResponse();
                     processResponse(response);
@@ -452,6 +462,24 @@ public abstract class DownloadTask {
      */
     public String getCharset() {
         return mContentCharset;
+    }
+
+    /**
+     * Gets all headers received on last HTTP response
+     *
+     * @return
+     */
+    public Header[] getAllHeaders() {
+        return mHeaders;
+    }
+
+    /**
+     * Gets the list of cookies received on last HTTP response.
+     *
+     * @return
+     */
+    public String getCookies() {
+        return mCookies == null ? "" : mCookies;
     }
 
     /**

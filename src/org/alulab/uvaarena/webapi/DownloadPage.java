@@ -17,13 +17,8 @@ package org.alulab.uvaarena.webapi;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost; 
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.ContentBody;
+import java.net.URI;
+import org.apache.http.client.methods.HttpGet; 
 import org.jsoup.nodes.Document;
 
 /**
@@ -34,7 +29,7 @@ public class DownloadPage extends DownloadTask {
 
     private Document mDocument;
     private final ByteArrayOutputStream mBAOS;
-
+    
     /**
      * Creates a new instance of DownloadPage using GET request method.
      *
@@ -48,30 +43,7 @@ public class DownloadPage extends DownloadTask {
         mBAOS = new ByteArrayOutputStream();
         setUriRequest(httpGet);
     }
-
-    /**
-     * Creates a new instance of DownloadPage using POST request method and with
-     * provided content.
-     *
-     * @param url
-     * @param form
-     */
-    public DownloadPage(String url, List<NameValuePair> form) {
-        // create post request
-        HttpPost httpPost = new HttpPost(url); 
-        httpPost.setConfig(DownloadManager.getRequestConfig());
-        // create entity
-        MultipartEntityBuilder multipart = MultipartEntityBuilder.create();
-        multipart.setContentType(ContentType.APPLICATION_FORM_URLENCODED);
-        form.forEach((pair) -> {
-            multipart.addTextBody(pair.getName(), pair.getValue());
-        });
-        httpPost.setEntity(multipart.build());
-        // initialize others
-        mBAOS = new ByteArrayOutputStream();
-        setUriRequest(httpPost);
-    }
-
+     
     @Override
     void beforeProcessingResponse() throws IOException {
         mBAOS.reset();

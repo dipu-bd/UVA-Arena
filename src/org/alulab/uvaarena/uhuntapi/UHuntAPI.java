@@ -18,6 +18,7 @@ package org.alulab.uvaarena.uhuntapi;
 import java.util.HashMap;
 import java.util.Map.Entry; 
 import org.alulab.uvaarena.Core;
+import org.alulab.uvaarena.uvaapi.LoginFormData;
 import org.alulab.uvaarena.webapi.DownloadManager;
 
 /**
@@ -42,7 +43,7 @@ public class UHuntAPI {
      * @param core UVA Arena core.
      */
     public UHuntAPI(Core core) {
-        mCore = core;
+        mCore = core;        
         mUserNameToID = new HashMap<>();
         DownloadManager.setMaxPerRoute(WEBHOST_UVA, MAX_CONNECTION_TO_UVA);
         DownloadManager.setMaxPerRoute(WEBHOST_UHUNT, MAX_CONNECTION_TO_UHUNT);

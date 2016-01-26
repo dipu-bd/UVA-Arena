@@ -15,73 +15,85 @@
  */
 package org.alulab.uvaarena.uvaapi;
 
-import org.junit.Test; 
+import java.util.Observable;
+import java.util.Observer;
+import org.junit.Test;
 
 /**
  *
- * @author Dipu
  */
 public class CodeSubmitterTest {
-    
+
     public CodeSubmitterTest() {
+    }
+
+    private final Observer observer = (Observable o, Object o1) -> {
+        CodeSubmitter instance = (CodeSubmitter) o;
+        System.out.println(o1);
+        if (o1 == CodeSubmitter.WorkState.CONFIRMED) {
+            System.out.println("Id = " + instance.getSubmissionID());
+        }
+        if (o1 == CodeSubmitter.WorkState.ERROR) {
+            System.out.println(instance.getError());
+        }
+    };
+
+    /**
+     * Test of login method, of class CodeSubmitter.
+     */
+    @Test
+    public void testLogin() throws InterruptedException {
+        System.out.println("-----Test Login-----");
+
+        CodeSubmitter instance = new CodeSubmitter();
+        instance.addObserver(observer);
+
+        instance.login("uarena", "uarena_2_vjudge");
+        while (instance.isBusy()) {
+            Thread.sleep(100);
+        }
     }
 
     /**
      * Test of submit method, of class CodeSubmitter.
      */
     @Test
-    public void testSubmit() {
+    public void testSubmit_3args() throws InterruptedException {
+        System.out.println("-----Test Submit 3args-----");
+
         CodeSubmitter instance = new CodeSubmitter();
-        instance.submit();
+        instance.addObserver(observer);
+
+        instance.login("uarena", "uarena_2_vjudge");
+        while (instance.isBusy()) {
+            Thread.sleep(100);
+        }
+
+        instance.submit("100", "", "Hello World!");
+        while (instance.isBusy()) {
+            Thread.sleep(100);
+        }
+
+        instance.submit("100", "4", "Hello World!");
+        while (instance.isBusy()) {
+            Thread.sleep(100);
+        }
     }
 
     /**
-     * Test of isLoggedIn method, of class CodeSubmitter.
+     * Test of submit method, of class CodeSubmitter.
      */
     @Test
-    public void testIsLoggedIn() {
+    public void testSubmit_5args() throws InterruptedException {
+        System.out.println("-----Test Submit 5args-----");
+
+        CodeSubmitter instance = new CodeSubmitter();
+        instance.addObserver(observer);
+
+        instance.submit("uarena", "uarena_2_vjudge", "100", "4", "");
+        while (instance.isBusy()) {
+            Thread.sleep(100);
+        }
     }
 
-    /**
-     * Test of userNameProperty method, of class CodeSubmitter.
-     */
-    @Test
-    public void testUserNameProperty() {
-    }
-
-    /**
-     * Test of passwordProperty method, of class CodeSubmitter.
-     */
-    @Test
-    public void testPasswordProperty() {
-    }
-
-    /**
-     * Test of getUserName method, of class CodeSubmitter.
-     */
-    @Test
-    public void testGetUserName() {
-    }
-
-    /**
-     * Test of setUserName method, of class CodeSubmitter.
-     */
-    @Test
-    public void testSetUserName() {
-    }
-
-    /**
-     * Test of getPassword method, of class CodeSubmitter.
-     */
-    @Test
-    public void testGetPassword() {
-    }
-
-    /**
-     * Test of setPassword method, of class CodeSubmitter.
-     */
-    @Test
-    public void testSetPassword() {
-    }
-    
 }

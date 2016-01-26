@@ -15,30 +15,18 @@
  */
 package org.alulab.uvaarena.webapi;
 
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.util.Callback;
-import org.apache.http.concurrent.BasicFuture;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -56,7 +44,6 @@ public class RestClient {
     private static final Document EMPTY_DOCUMENT = Jsoup.parse("<!DOCTYPE html><html></html>");
 
     private URL mUrl;
-    private Connection mLastConnection;
     private Map<String, String> mUrlQuery;
     private final Map<String, String> mHeaders;
     private final Map<String, String> mCookies;
@@ -74,7 +61,6 @@ public class RestClient {
 
     // open response from a connection and process it
     private void openResponse(Connection connection) {
-        mLastConnection = connection;
         try {
             mHeaders.clear();
             Connection.Response response;
@@ -112,6 +98,24 @@ public class RestClient {
      */
     public void submitForm(FormElement form) {
         openResponse(form.submit().method(Connection.Method.POST));
+    }
+
+    /**
+     * Resets the client and clears all caches and cookies
+     */
+    public void reset() {
+        mUrl = null;
+        mHeaders.clear();
+        mCookies.clear();
+        mUrlQuery.clear();
+        mDocument.set(EMPTY_DOCUMENT.clone());
+    }
+
+    /**
+     * Re-downloads the document.
+     */
+    public void reload() {
+        load(getFullUrl());
     }
 
     /**

@@ -44,7 +44,7 @@ public abstract class DownloadTask {
     private Header[] mHeaders = null;
     private boolean mChunked = false;
     private String mContentCharset = null;
-    
+
     private Exception mError = null;
     private long mLastReportTime = 0;
     private long mIntervalPassed = 0;
@@ -58,7 +58,7 @@ public abstract class DownloadTask {
         mTaskMonitors = new ArrayList<>();
         mHashCode = Commons.generateHashString();
     }
-    
+
     /**
      * Method that gets called before the starting to process the response.
      *
@@ -232,14 +232,15 @@ public abstract class DownloadTask {
     /**
      * Sets the task monitor to monitor progress of the download
      *
+     * @param <T>
      * @param taskMonitor
      * @return
      */
-    public DownloadTask addTaskMonitor(TaskMonitor<? extends DownloadTask> taskMonitor) {
+    public <T extends DownloadTask> T addTaskMonitor(TaskMonitor<T> taskMonitor) {
         if (taskMonitor != null) {
             mTaskMonitors.add(taskMonitor);
         }
-        return this;
+        return (T) this;
     }
 
     /**

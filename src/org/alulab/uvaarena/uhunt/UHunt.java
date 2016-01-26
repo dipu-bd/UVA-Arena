@@ -16,9 +16,12 @@
 package org.alulab.uvaarena.uhunt;
 
 import java.util.HashMap;
-import java.util.Map.Entry; 
-import org.alulab.uvaarena.Core; 
+import java.util.Map;
+import java.util.Map.Entry;
+import org.alulab.uvaarena.Core;
 import org.alulab.uvaarena.web.DownloadManager;
+import org.alulab.uvaarena.web.DownloadString;
+import org.alulab.uvaarena.web.TaskMonitor;
 
 /**
  *
@@ -29,12 +32,12 @@ public class UHunt {
     public final int MAX_CONNECTION_TO_UHUNT = 4;
     public final String WEBHOST_UVA = "uva.onlinejudge.org";
     public final String WEBHOST_UHUNT = "uhunt.felix-halim.net";
-    
+
     //
     // Private variables
     //
     private final Core mCore;
-    private final HashMap<String, Long> mUserNameToID;
+    private final Map<String, Long> mUserNameToID;
 
     /**
      * Initialize a new UhuntAPI.
@@ -42,7 +45,7 @@ public class UHunt {
      * @param core UVA Arena core.
      */
     public UHunt(Core core) {
-        mCore = core;        
+        mCore = core;
         mUserNameToID = new HashMap<>();
         DownloadManager.setMaxPerRoute(WEBHOST_UVA, MAX_CONNECTION_TO_UVA);
         DownloadManager.setMaxPerRoute(WEBHOST_UHUNT, MAX_CONNECTION_TO_UHUNT);
@@ -55,7 +58,12 @@ public class UHunt {
      * @return
      */
     public long getUserID(String userName) {
-        return mUserNameToID.getOrDefault(userName, 0L);
+        synchronized (mUserNameToID) {
+            if (!mUserNameToID.containsKey(userName)) {
+                downloadUserID(userName);
+            }
+            return mUserNameToID.getOrDefault(userName, 0L);
+        }
     }
 
     /**
@@ -66,24 +74,53 @@ public class UHunt {
      * @return
      */
     public String getUserName(long userID) {
-        for (Entry<String, Long> entry : mUserNameToID.entrySet()) {
-            if (entry.getValue() == userID) {
-                return entry.getKey();
+        synchronized (mUserNameToID) {
+            for (Entry<String, Long> entry : mUserNameToID.entrySet()) {
+                if (entry.getValue() == userID) {
+                    return entry.getKey();
+                }
             }
+            return "";
         }
-        return "";
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Methods to download data from web">
+    /**
+     * Sets the id of an user
+     *
+     * @param userName Name of the user.
+     * @param userID ID of the user.
+     */
+    public void setUserID(String userName, long userID) {
+        synchronized (mUserNameToID) {
+            mUserNameToID.put(userName, userID);
+        }
+    }
+
     /**
      * Gets the user id of a user.
      *
      * @param userName Name of the user.
-     * @param taskProgress Can be null. Gets called when progress changed.
-     * @param taskFinished Can be null. Gets called when download finished.
      */
-    public void downloadUserID(String userName, Runnable taskProgress, Runnable taskFinished) {
+    public void downloadUserID(String userName) {
+        String url = String.format(USERNAME_TO_USERID, userName);
+        DownloadManager.downloadString(url, new TaskMonitor<DownloadString>() {
+            @Override
+            public void downloadFinished(DownloadString task) {
+                try {
+                    if (task.isSuccess()) {
+                        long res = Long.parseLong(task.getResult());
+                        if (res > 0) {
+                            setUserID(userName, res);
+                        }
+                    }
+                } catch (Exception ex) {
+                }
+            }
 
+            @Override
+            public void statusChanged(DownloadString task) {
+            }
+        }).startDownload();
     }
 
     /**
@@ -93,7 +130,22 @@ public class UHunt {
      * @param taskFinished Can be null. Gets called when download finished.
      */
     public void downloadProblemList(Runnable taskProgress, Runnable taskFinished) {
+   String url = String.format(PROBLEM_LIST);
+        DownloadManager.downloadString(url, new TaskMonitor<DownloadString>() {
+            @Override
+            public void downloadFinished(DownloadString task) {
+                try {
+                    if (task.isSuccess()) {
+                                                
+                    }
+                } catch (Exception ex) {
+                }
+            }
 
+            @Override
+            public void statusChanged(DownloadString task) {
+            }
+        }).startDownload();
     }
 
     /**
@@ -156,5 +208,4 @@ public class UHunt {
      */
     final String USER_SUBMISSIONS = "http://uhunt.felix-halim.net/api/subs-user/%s/%s";
 
-    //</editor-fold>    
 }

@@ -16,7 +16,7 @@
 package org.alulab.uvaarena.util;
 
 import java.util.prefs.Preferences; 
-import org.alulab.uvaarena.Launcher;
+import org.alulab.uvaarena.Launcher; 
 
 /**
  * Connector with preferences to store settings.
@@ -24,7 +24,9 @@ import org.alulab.uvaarena.Launcher;
 public final class Settings {
     
     final String KEY_WORKING_DIR = "Working Folder";
-    final String KEY_CODE_DIR = "Code Folder";
+    final String KEY_CODE_DIR = "Code Folder";    
+    final String KEY_USERNAME = "Username";    
+    final String KEY_PASSWORD = "Passphrase";
     
     private final Preferences mPreference;
     
@@ -48,5 +50,20 @@ public final class Settings {
     }
     public void setCodeFolder(String dir) {
         mPreference.put(KEY_CODE_DIR, dir);
+    }
+    
+    public String getDefaultUsername() {
+        return mPreference.get(KEY_USERNAME, "");            
+    }
+    public void setDefaultUsername(String username) {
+        mPreference.put(KEY_USERNAME, username);
+    }
+    
+    public String getPassword() {
+        String pass = mPreference.get(KEY_PASSWORD, "");            
+        return Commons.decodePass(pass);
+    }
+    public void setPassword(String pass) {
+        mPreference.put(KEY_PASSWORD, Commons.encodePass(pass));
     }
 }

@@ -13,7 +13,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-package org.alulab.uvaarena.webapi;
+package org.alulab.uvaarena.web;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import org.alulab.uvaarena.util.Commons;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
-import org.apache.http.client.cache.HttpCacheContext;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 
@@ -32,43 +31,34 @@ public abstract class DownloadTask {
 
     private static final String DEFAULT_CHARSET = "UTF-8";
 
-    final int WAITING = 0;
-    final int RUNNING = 1;
-    final int STOPPING = 2;
-    final int FINISHED = 3;
     final int BUFFER_SIZE = 2048;
-    final int REPORT_INTERVAL_MILLIS = 100;
+    final long REPORT_INTERVAL_NANOS = 100_000_000; // 0.1 sec
 
-    private volatile int mStatus = WAITING;
+    private HttpUriRequest mUriRequest = null;
+    private volatile WorkState mStatus = WorkState.WAITING;
+    private int mPriority = Thread.MIN_PRIORITY;
     private int mRetryCount = 0;
     private long mTotalBytes = 0;
     private long mDownloadedBytes = 0;
-    private Exception mError = null;
+    private String mCookies = null;
+    private Header[] mHeaders = null;
     private boolean mChunked = false;
+    private String mContentCharset = null;
+    
+    private Exception mError = null;
     private long mLastReportTime = 0;
     private long mIntervalPassed = 0;
-    private String mContentCharset = null;
-    private int mPriority = Thread.MIN_PRIORITY;
-    private HttpUriRequest mUriRequest = null;
-    private Header[] mHeaders = null;
-    private String mCookies = null;
-
     private final String mHashCode;
-    private final DownloadThread mThread;
-    private final HttpCacheContext mCacheContext;
     private final ArrayList<TaskMonitor<? extends DownloadTask>> mTaskMonitors;
 
     /**
      * Initializes an instance of this class
      */
     public DownloadTask() {
-        mThread = new DownloadThread();
         mTaskMonitors = new ArrayList<>();
         mHashCode = Commons.generateHashString();
-        mCacheContext = HttpCacheContext.create();
-        mCacheContext.setCookieStore(DownloadManager.getCookieStore());
     }
-
+    
     /**
      * Method that gets called before the starting to process the response.
      *
@@ -101,99 +91,95 @@ public abstract class DownloadTask {
     /**
      * Handles the task to download data
      */
-    private final class DownloadThread extends Thread {
-
-        public DownloadThread() {
-            this.setPriority(Thread.MIN_PRIORITY);
-        }
-
-        @Override
-        public void run() {
-            mStatus = RUNNING;
-            for (int i = 0; mStatus == RUNNING; ++i) {
-                // reset some data
-                mError = null;
-                mTotalBytes = 0;
-                mDownloadedBytes = 0;
-                mIntervalPassed = 0;
-                reportProgress();
-                // load last cookies
-                if (mUriRequest.getFirstHeader("Cookie") == null) {
-                    mUriRequest.setHeader("Cookie", getCookies());
-                }
-                // get response 
-                try (CloseableHttpResponse response
-                        = DownloadManager.getHttpClient().execute(mUriRequest, mCacheContext)) {
-                    //save headers
+    private final Runnable mDownloadTask = () -> {
+        mStatus = WorkState.RUNNING;
+        for (int i = 0; mStatus == WorkState.RUNNING; ++i) {
+            // reset some data
+            mError = null;
+            mTotalBytes = 0;
+            mDownloadedBytes = 0;
+            mIntervalPassed = 0;
+            reportProgress();
+            // set cookies 
+            if (mCookies != null && mUriRequest.getFirstHeader("Cookie") == null) {
+                mUriRequest.setHeader("Cookie", mCookies);
+            }
+            // get response 
+            try (CloseableHttpResponse response
+                    = DownloadManager.getHttpClient().execute(mUriRequest)) {
+                // save response data
+                if (response.getAllHeaders() != null) {
                     mHeaders = (Header[]) response.getAllHeaders().clone();
+                }
+                if (response.getFirstHeader("Set-Cookie") != null) {
                     mCookies = response.getFirstHeader("Set-Cookie").toString();
-                    // process response 
-                    beforeProcessingResponse();
-                    processResponse(response);
-                    afterProcessingResponse();
-                    // report finish on success
-                    mStatus = FINISHED;
+                }
+                // process response 
+                beforeProcessingResponse();
+                processResponse(response);
+                afterProcessingResponse();
+                // report finish on success
+                mStatus = WorkState.FINISHED;
+                reportFinish();
+                return;
+            } catch (Exception ex) {
+                // stop download when retry slot is empty
+                if (i == getRetryCount() || mStatus != WorkState.RUNNING) {
+                    mError = ex;
+                    onDownloadFailed(ex);
+                    // report finish on failure
+                    mStatus = WorkState.FINISHED;
                     reportFinish();
                     return;
-                } catch (Exception ex) {
-                    // stop download when retry slot is empty
-                    if (i == getRetryCount() || mStatus != RUNNING) {
-                        mError = ex;
-                        onDownloadFailed(ex);
-                        // report finish on failure
-                        mStatus = FINISHED;
-                        reportFinish();
-                        return;
-                    }
-                    // increase priority of this thread on failure
-                    if (this.getPriority() < Thread.MAX_PRIORITY) {
-                        this.setPriority(this.getPriority() + 1);
-                    }
+                }
+                // increase priority of this thread on failure
+                if (this.getPriority() < Thread.MAX_PRIORITY) {
+                    this.setPriority(this.getPriority() + 1);
                 }
             }
-            // report finish on end of loop
-            mError = new Exception("Download Failed");
-            mStatus = FINISHED;
-            reportFinish();
         }
+        // report finish on end of loop
+        mError = new Exception("Download Failed");
+        mStatus = WorkState.FINISHED;
+        reportFinish();
+    };
 
-        /**
-         * Processes the response and receive contents in chunk
-         */
-        private void processResponse(CloseableHttpResponse response) throws IOException, InterruptedException {
-            // get entity
-            HttpEntity entity = response.getEntity();
-            mChunked = entity.isChunked();
-            // get total bytes
-            mTotalBytes = Math.max(0, entity.getContentLength());
-            reportProgress();
-            // get content
-            long start = System.currentTimeMillis();
-            byte[] data = new byte[BUFFER_SIZE];
-            try (InputStream is = entity.getContent()) {
-                for (int b; (b = is.read(data)) > 0;) {
-                    processByte(data, b);
-                    mDownloadedBytes += b;
-                    mTotalBytes = Math.max(mTotalBytes, mDownloadedBytes);
-                    mIntervalPassed = System.currentTimeMillis() - start;
-                    reportProgress();
-                    // check if download should continue
-                    if (mStatus != RUNNING) {
-                        throw new InterruptedException("Download was interrupted before it was finished.");
-                    }
+    /**
+     * Processes the response and receive contents in chunk
+     */
+    private void processResponse(CloseableHttpResponse response) throws IOException, InterruptedException {
+        // get entity
+        HttpEntity entity = response.getEntity();
+        mChunked = entity.isChunked();
+        // get total bytes
+        mTotalBytes = Math.max(0, entity.getContentLength());
+        reportProgress();
+        // get content
+        long start = System.nanoTime();
+        byte[] data = new byte[BUFFER_SIZE];
+        try (InputStream is = entity.getContent()) {
+            for (int b; (b = is.read(data)) > 0;) {
+                processByte(data, b);
+                mDownloadedBytes += b;
+                mTotalBytes = Math.max(mTotalBytes, mDownloadedBytes);
+                mIntervalPassed = System.nanoTime() - start;
+                reportProgress();
+                // check if download should continue
+                if (mStatus != WorkState.RUNNING) {
+                    throw new InterruptedException("Download was interrupted before it was finished.");
                 }
             }
-            mIntervalPassed = System.currentTimeMillis() - start;
-            // get encoding
-            mContentCharset = DEFAULT_CHARSET;
-            if (entity.getContentType() != null) {
-                String contentType = entity.getContentType().getValue();
-                String charsetKey = "charset=";
-                int index = contentType.indexOf(charsetKey);
-                if (index >= 0) {
-                    int last = Math.max(contentType.indexOf(";", index), contentType.length());
-                    mContentCharset = contentType.substring(index + charsetKey.length(), last);
-                }
+        }
+        mIntervalPassed = System.nanoTime() - start;
+        // get encoding
+        mContentCharset = DEFAULT_CHARSET;
+        if (entity.getContentType() != null) {
+            String contentType = entity.getContentType().getValue();
+            String charsetKey = "charset=";
+            int index = contentType.indexOf(charsetKey);
+            if (index >= 0) {
+                int last = Math.max(contentType.indexOf(";", index), contentType.length());
+                mContentCharset = contentType.substring(index + charsetKey.length(), last);
             }
         }
     }
@@ -202,9 +188,11 @@ public abstract class DownloadTask {
      * Starts the download. If download is running it ignores the request.
      */
     public void startDownload() {
-        if (!mThread.isAlive()) {
-            mThread.setPriority(mPriority);
-            mThread.start();
+        if (!isRunning()) {
+            mStatus = WorkState.RUNNING;
+            Thread thread = new Thread(mDownloadTask);
+            thread.setPriority(mPriority);
+            thread.start();
         }
     }
 
@@ -212,8 +200,8 @@ public abstract class DownloadTask {
      * Stops the download. If download is not ongoing it ignores the request.
      */
     public void stopDownload() {
-        if (mThread.isAlive()) {
-            mStatus = STOPPING;
+        if (isRunning()) {
+            mStatus = WorkState.STOPPING;
         }
     }
 
@@ -221,8 +209,8 @@ public abstract class DownloadTask {
      * Reports the current progress to all observers.
      */
     private void reportProgress() {
-        long curtime = System.currentTimeMillis();
-        if (curtime - mLastReportTime >= REPORT_INTERVAL_MILLIS) {
+        long curtime = System.nanoTime();
+        if (curtime - mLastReportTime >= REPORT_INTERVAL_NANOS) {
             mLastReportTime = curtime;
             mTaskMonitors.forEach((TaskMonitor runnable) -> {
                 runnable.statusChanged(this);
@@ -285,15 +273,6 @@ public abstract class DownloadTask {
     public DownloadTask setPriority(int priority) {
         mPriority = priority;
         return this;
-    }
-
-    /**
-     * Gets the thread controlling the download
-     *
-     * @return
-     */
-    public Thread getDownloadThread() {
-        return mThread;
     }
 
     /**
@@ -384,8 +363,9 @@ public abstract class DownloadTask {
      */
     public double getDownloadSpeed() {
         double download = (double) mDownloadedBytes;
-        double seconds = (double) mIntervalPassed / 1000.0;
-        double speed = (seconds == 0) ? download : download / seconds;
+        double seconds = (double) mIntervalPassed;
+        double unit = 1_000_000_000.0; // 1 nano second
+        double speed = (seconds == 0) ? download : unit * download / seconds;
         return (speed < download) ? speed : download;
     }
 
@@ -410,11 +390,11 @@ public abstract class DownloadTask {
     }
 
     /**
-     * Gets the total time required to download total data in milliseconds.
+     * Gets the total time spend on downloading in nanoseconds.
      *
      * @return
      */
-    public long getDownloadTimeMillis() {
+    public long getDownloadTime() {
         return mIntervalPassed;
     }
 
@@ -487,7 +467,7 @@ public abstract class DownloadTask {
      *
      * @return
      */
-    public int getStatusCode() {
+    public WorkState getStatusCode() {
         return mStatus;
     }
 
@@ -530,7 +510,7 @@ public abstract class DownloadTask {
      * @return
      */
     public boolean isWaiting() {
-        return mStatus == WAITING;
+        return mStatus == WorkState.WAITING;
     }
 
     /**
@@ -539,7 +519,7 @@ public abstract class DownloadTask {
      * @return
      */
     public boolean isRunning() {
-        return mStatus == RUNNING || mStatus == STOPPING;
+        return mStatus == WorkState.RUNNING || mStatus == WorkState.STOPPING;
     }
 
     /**
@@ -548,7 +528,7 @@ public abstract class DownloadTask {
      * @return
      */
     public boolean isFinished() {
-        return mStatus == FINISHED;
+        return mStatus == WorkState.FINISHED;
     }
 
     /**
@@ -557,7 +537,7 @@ public abstract class DownloadTask {
      * @return
      */
     public boolean isSuccess() {
-        return mStatus == FINISHED && mError == null;
+        return mStatus == WorkState.FINISHED && mError == null;
     }
 
     /**
@@ -566,7 +546,7 @@ public abstract class DownloadTask {
      * @return
      */
     public boolean isFailed() {
-        return mStatus == FINISHED && mError != null;
+        return mStatus == WorkState.FINISHED && mError != null;
     }
 
     /**
@@ -584,5 +564,13 @@ public abstract class DownloadTask {
                 mUriRequest, getDownloadProgress(2), getDownloadedByteLength(),
                 getTotalByteLength(), getDownloadSpeedFormatted(), getStatusMessage());
     }
+
+    public enum WorkState {
+
+        WAITING,
+        RUNNING,
+        STOPPING,
+        FINISHED
+    };
 
 }

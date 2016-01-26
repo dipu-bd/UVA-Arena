@@ -13,56 +13,67 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-package org.alulab.uvaarena.webapi;
+package org.alulab.uvaarena.web;
 
+import java.io.File;
+import java.io.FileOutputStream; 
 import java.io.IOException;
-import java.io.ByteArrayOutputStream;
+import org.apache.commons.io.FileUtils; 
+import org.apache.commons.io.IOUtils; 
 import org.apache.http.client.methods.HttpGet;
 
 /**
- * Extends the DownloadTask class to download string data.
+ * 
  */
-public class DownloadString extends DownloadTask {
+public class DownloadFile extends DownloadTask {
 
-    private String mResult = "";
-    private final ByteArrayOutputStream mBAOS;
+    private File mFile = null;
+    private File mTmpFile = null;
+    private FileOutputStream mFOS = null;
 
-    public DownloadString(String url) {
-        mBAOS = new ByteArrayOutputStream();
+    public DownloadFile(String url, File file) {
+        setFile(file);
         setUriRequest(new HttpGet(url));
     }
 
-    /**
-     * Gets the result string of the download. If download did not succeed an
-     * empty string is returned.
-     *
-     * @return
-     */
-    public String getResult() {
-        if (isSuccess()) {
-            return mResult;
-        } else {
-            return "";
+    public File getFile() {
+        return mFile;
+    }
+
+    public final void setFile(File file) {
+        mFile = file;        
+        mTmpFile = getTempFile();
+    }
+
+    private File getTempFile() {
+        File tmp = null;
+        String num = "";
+        String name = mFile.getAbsoluteFile() + ".dfdump";
+        for (int i = 1; (tmp = new File(name + num)).exists(); ++i) {
+            num = "_" + i;
         }
+        return tmp;
     }
 
     @Override
     void beforeProcessingResponse() throws IOException {
-        mBAOS.reset();
+        IOUtils.closeQuietly(mFOS);
+        mFOS = new FileOutputStream(mTmpFile);            
     }
 
     @Override
     void processByte(byte[] data, int size) throws IOException {
-        mBAOS.write(data, 0, size);
+        mFOS.write(data, 0, size);
     }
 
     @Override
     void afterProcessingResponse() throws IOException {
-        mBAOS.flush();
-        mResult = mBAOS.toString(getCharset());
+        mFOS.close();
+        FileUtils.moveFile(mTmpFile, mFile);
     }
-
+    
     @Override
-    void onDownloadFailed(Exception ex) {
-    }
-}
+    void onDownloadFailed(Exception ex) { 
+        FileUtils.deleteQuietly(mTmpFile);
+    }            
+} 

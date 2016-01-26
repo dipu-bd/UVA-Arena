@@ -14,10 +14,11 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 package org.alulab.uvaarena;
-      
+
 import javafx.stage.Stage;
-import org.alulab.uvaarena.uhuntapi.UHuntAPI; 
+import org.alulab.uvaarena.uhunt.UHunt;
 import org.alulab.uvaarena.util.Settings;
+import org.alulab.uvaarena.uva.CodeSubmitter;
 
 /**
  * Core object for interactivity among all the components of the application.
@@ -25,24 +26,60 @@ import org.alulab.uvaarena.util.Settings;
 public final class Core {
 
     private final Stage mPrimaryStage;
-    private final Settings mSetting; 
-    private final UHuntAPI mUhuntApi;
-    
+    private final Settings mSetting;
+    private final UHunt mUhunt;
+    private final CodeSubmitter mSubmitter;
+
     public Core(Stage stage) {
-        mPrimaryStage = stage;      
-        mSetting = new Settings();            
-        mUhuntApi = new UHuntAPI(this);
+        mPrimaryStage = stage;
+        mSetting = new Settings();
+        mSubmitter = new CodeSubmitter();
+        mUhunt = new UHunt(this);
+
+        initialize();
     }
-        
+
+    /**
+     * Initializes all values after the is core created
+     */
+    private void initialize() {
+        mSubmitter.setUserName(mSetting.getDefaultUsername());
+        mSubmitter.setPassword(mSetting.getPassword());
+    }
+
+    /**
+     * Gets the primary stage.
+     *
+     * @return
+     */
     public Stage primaryStage() {
         return mPrimaryStage;
     }
-    
+
+    /**
+     * Gets the settings.
+     *
+     * @return
+     */
     public Settings setting() {
         return mSetting;
     }
-         
-    public UHuntAPI uhunt() {
-        return mUhuntApi;
+
+    /**
+     * Gets the UHunt
+     *
+     * @return
+     */
+    public UHunt uhunt() {
+        return mUhunt;
+    }
+
+    /**
+     * Gets the code submitter.
+     *
+     * @return
+     */
+    public CodeSubmitter submitter() {
+        return mSubmitter;
     }
 }

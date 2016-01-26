@@ -13,7 +13,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-package org.alulab.uvaarena.uvaapi;
+package org.alulab.uvaarena.uva;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -26,7 +26,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import org.alulab.uvaarena.webapi.RestClient;
+import org.alulab.uvaarena.web.RestClient;
 import org.jsoup.nodes.FormElement;
 
 /**
@@ -242,6 +242,13 @@ public final class CodeSubmitter extends java.util.Observable {
     }
 
     /**
+     * Log into the UVA server.
+     */
+    public void login() {
+        login(mUserName.get(), mPassword.get());
+    }
+
+    /**
      * Submit the given code using the given credentials
      *
      * @param username Username
@@ -274,7 +281,6 @@ public final class CodeSubmitter extends java.util.Observable {
      * = C++11)
      * @param code Code to submit.
      */
-    @Deprecated
     public void submit(String problemNumber, String language, String code) {
         submit(mUserName.get(), mPassword.get(), problemNumber, language, code);
     }

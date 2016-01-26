@@ -15,6 +15,7 @@
  */
 package org.alulab.uvaarena.util;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -70,16 +71,16 @@ public class CommonsTest {
         //
         //benchmark test
         /*
-        for (int i = 0; i < 100000; ++i) {
-            Commons.formatByteLength(0L, 0);
-            Commons.formatByteLength(232333L, 0);
-            Commons.formatByteLength(2323223333L, 5);
-            Commons.formatByteLength(2323L, -1);
-            Commons.formatByteLength(2312253L, 4);
-            Commons.formatByteLength(2323224423123L, 6);
-            Commons.formatByteLength(2323223395423123L, -1);
-        } 
-        */
+         for (int i = 0; i < 100000; ++i) {
+         Commons.formatByteLength(0L, 0);
+         Commons.formatByteLength(232333L, 0);
+         Commons.formatByteLength(2323223333L, 5);
+         Commons.formatByteLength(2323L, -1);
+         Commons.formatByteLength(2312253L, 4);
+         Commons.formatByteLength(2323224423123L, 6);
+         Commons.formatByteLength(2323223395423123L, -1);
+         } 
+         */
     }
 
     /**
@@ -92,6 +93,47 @@ public class CommonsTest {
         String expResult = "60.65 GB";
         String result = Commons.formatByteLength(byteLength);
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of formatByteLength method, of class Commons.
+     */
+    @Test
+    public void testFormatByteLength_double_int() {
+    }
+
+    /**
+     * Test of formatByteLength method, of class Commons.
+     */
+    @Test
+    public void testFormatByteLength_double() {
+    }
+
+    /**
+     * Test of generateHashString method, of class Commons.
+     */
+    @Test
+    public void testGenerateHashString() {
+    }
+
+    /**
+     * Test of encodePass method, of class Commons.
+     */
+    @Test
+    public void testEncodeDecodePass() {   
+           
+        System.out.println(System.nanoTime());
+        System.out.println(System.currentTimeMillis());
+        System.out.println(System.nanoTime());
+        
+        System.out.println("testEncodeDecodePass");
+        String pass = "sd*^*laslkj28)35465#@#$32D";
+        String encoded = Commons.encodePass(pass);
+        String decoded = Commons.decodePass(encoded);
+        System.out.println("Original: " + pass);
+        System.out.println("Encoded: " + encoded);
+        System.out.println("Decoded: " + decoded);
+        assertEquals(pass, decoded);
     }
 
 }

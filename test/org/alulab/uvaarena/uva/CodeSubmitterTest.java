@@ -13,8 +13,9 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-package org.alulab.uvaarena.uvaapi;
+package org.alulab.uvaarena.uva;
 
+import org.alulab.uvaarena.uva.CodeSubmitter;
 import java.util.Observable;
 import java.util.Observer;
 import org.junit.Test;

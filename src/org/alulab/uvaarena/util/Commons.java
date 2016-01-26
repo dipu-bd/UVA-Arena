@@ -15,17 +15,10 @@
  */
 package org.alulab.uvaarena.util;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.StringUtils;
 
 /**
  *
@@ -34,7 +27,7 @@ public abstract class Commons {
 
     private static final Logger logger = Logger.getLogger(Commons.class.getName());
     private static final String[] BYTE_LENGTH_SUFFIX = {"B", "KB", "MB", "GB", "TB", "PB"};
-    private static BigInteger mCurrentHash = BigInteger.valueOf(System.currentTimeMillis() << 3);
+    private static BigInteger mCurrentHash = BigInteger.valueOf(System.nanoTime());
 
     /**
      * Converts a given byte length into suitable format.
@@ -104,4 +97,45 @@ public abstract class Commons {
         return Base64.encodeBase64String(data);
     }
 
+    /**
+     * Encodes a string. You can only decode() it by decodePass() method.
+     *
+     * @param word String to encode.
+     * @return Encoded string in Base64 format.
+     */
+    public static String encodePass(String word) {
+        final byte[] data = StringUtils.getBytesUtf8(word);
+        final byte[] salt = StringUtils.getBytesUtf8(getSecretSalt());
+        for (int i = 0; i < data.length; ++i) {
+            data[i] = (byte) (data[i] ^ salt[i % salt.length]);
+        }
+        return Base64.encodeBase64String(data);
+    }
+
+    /**
+     * Decodes a secret string encoded by encodePass() method.
+     *
+     * @param secret Secret string to decode.
+     * @return Decoded string.
+     */
+    public static String decodePass(String secret) {
+        final byte[] data = Base64.decodeBase64(secret);
+        final byte[] salt = StringUtils.getBytesUtf8(getSecretSalt());
+        for (int i = 0; i < data.length; ++i) {
+            data[i] = (byte) (data[i] ^ salt[i % salt.length]);
+        }
+        return StringUtils.newStringUtf8(data);
+    }
+
+    /**
+     * Gets a secure secret string which is pre-generated at the installation
+     * time of the application and can not be found anyway outside the system.
+     *
+     * @return
+     */
+    public static String getSecretSalt() {
+        // TODO: modify this method to generate secret salt.
+        // the following string is only for test purpose.        
+        return "secret-salt-for-test";
+    }
 }

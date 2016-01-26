@@ -13,17 +13,17 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-package org.alulab.uvaarena.uhuntapi;
+package org.alulab.uvaarena.uhunt;
 
 import java.util.HashMap;
 import java.util.Map.Entry; 
 import org.alulab.uvaarena.Core; 
-import org.alulab.uvaarena.webapi.DownloadManager;
+import org.alulab.uvaarena.web.DownloadManager;
 
 /**
  *
  */
-public class UHuntAPI {
+public class UHunt {
 
     public final int MAX_CONNECTION_TO_UVA = 1;
     public final int MAX_CONNECTION_TO_UHUNT = 4;
@@ -41,7 +41,7 @@ public class UHuntAPI {
      *
      * @param core UVA Arena core.
      */
-    public UHuntAPI(Core core) {
+    public UHunt(Core core) {
         mCore = core;        
         mUserNameToID = new HashMap<>();
         DownloadManager.setMaxPerRoute(WEBHOST_UVA, MAX_CONNECTION_TO_UVA);

@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2016, Sudipto Chandra
  * 
@@ -13,7 +14,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-package org.alulab.uvaarena.webapi;
+package org.alulab.uvaarena.web;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +22,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List; 
+import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -34,32 +35,32 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*; 
+import static org.junit.Assert.*;
 
 /**
- * 
+ *
  */
 public class DownloadManagerTest {
-
+    
     public DownloadManagerTest() {
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
     }
-
+    
     @Before
     public void setUp() {
     }
-
+    
     @After
     public void tearDown() {
     }
-
+    
     @Test
     public void testDownlaodClient() throws IOException {
         System.out.println("Response Header Test");
@@ -108,17 +109,17 @@ public class DownloadManagerTest {
             String output = IOUtils.toString(entity.getContent());
             System.out.println(output);
         }
-
+        
         long stopTime = System.currentTimeMillis();
         System.out.printf("------ Time : %.3f seconds -------\n", (stopTime - startTime) / 1000.0);
         assertTrue(true);
     }
-
+    
     @Test
     public void testUrlConnection() throws MalformedURLException, IOException {
         System.out.println("URL Connection test");
         long startTime = System.currentTimeMillis();
- 
+
         // process request
         URL url = new URL("http://uhunt.felix-halim.net/api/poll/0");
         System.out.println("------------ URL -------------");
@@ -151,27 +152,27 @@ public class DownloadManagerTest {
         System.out.println("------------ Content -------------");
         String output = IOUtils.toString((InputStream) huc.getContent());
         System.out.println(output);
-
+        
         long stopTime = System.currentTimeMillis();
         System.out.printf("------ Time : %.3f seconds -------\n", (stopTime - startTime) / 1000.0);
         assertTrue(true);
     }
-
+    
     @Test
     public void testFluentAPI() throws IOException {
         System.out.println("Fluet API Test");
         long startTime = System.currentTimeMillis();
         Request.Get("http://uhunt.felix-halim.net/api/poll/0").execute().returnContent().asString();
-
+        
         long stopTime = System.currentTimeMillis();
         System.out.printf("------ Time : %.3f seconds -------\n", (stopTime - startTime) / 1000.0);
     }
-
+    
     int finished = 0;
-
+    
     @Test
     public void testDownloadString() throws InterruptedException {
-
+        
         String urls[] = new String[]{
             "http://uhunt.felix-halim.net/api/poll/0",
             "https://www.google.com",
@@ -200,20 +201,20 @@ public class DownloadManagerTest {
             "https://www.facebook.com",
             "http://uhunt.felix-halim.net",
             "http://uva.online-judge.org",};
-
+        
         finished = 0;
         System.out.println("DownloadString test");
         System.out.println("---------------------------------");
-
+        
         long startTime = System.currentTimeMillis();
-
+        
         TaskMonitor<DownloadString> tm = new TaskMonitor<DownloadString>() {
-
+            
             @Override
             public void statusChanged(DownloadString task) {
                 System.out.println(task);
             }
-
+            
             @Override
             public void downloadFinished(DownloadString task) {
                 finished++;
@@ -222,14 +223,15 @@ public class DownloadManagerTest {
                     len = ((DownloadString) task).getResult().length();
                 }
                 System.out.printf("%s | [%s]\n", task, task.getCharset());
-                System.out.printf("Total Download Time : %.3f seconds\n", task.getDownloadTimeMillis() / 1000.0);
+                // System.out.printf("Total Download Time : %.3f seconds\n", task.getDownloadTime() / 1_000_000_000.0);
 
-                System.out.println("------------ Content -------------");
-                System.out.println(task.getResult());
+                System.out.println(task.getError());
+                //System.out.println("------------ Content -------------");
+                //System.out.println(task.getResult());
             }
-
+            
         };
-
+        
         int task = 0;
         for (String url : urls) {
             ++task;
@@ -241,44 +243,48 @@ public class DownloadManagerTest {
             }
         }
         System.out.println("Running " + task + " tasks");
-
+        
         while (finished < task) {
             Thread.sleep(100);
         }
-
+        
         long stopTime = System.currentTimeMillis();
         System.out.printf("------ Time : %.3f seconds -------\n", (stopTime - startTime) / 1000.0);
         assertEquals(finished, task);
     }
-
+    
     @Test
     public void testDownloadFile() throws InterruptedException {
-
+        
         System.out.println("Download File Test");
-
+        
         File store = new File("C:\\Users\\Dipu\\Desktop\\Data\\uvaarena.zip");
         String url = "https://github.com/dipu-bd/UVA-Arena/archive/javafx.zip";
-
+        
         TaskMonitor<DownloadFile> tm = new TaskMonitor<DownloadFile>() {
-
+            
             @Override
             public void statusChanged(DownloadFile task) {
                 System.out.println(task);
             }
-
+            
             @Override
             public void downloadFinished(DownloadFile task) {
                 System.out.println(task);
-                System.out.printf("Total Download Time : %.3f seconds\n", task.getDownloadTimeMillis() / 1000.0);
+                //  System.out.printf("Total Download Time : %.3f seconds\n",
+                //        task.getDownloadTime() / 1000_000_000.0);
             }
         };
-
+        
         DownloadFile df = DownloadManager.downloadFile(url, store, tm);
-
+        
         df.startDownload();
-        df.getDownloadThread().join();
-
-        assertTrue(df.isSuccess());
+        while (df.isRunning()) {
+            Thread.sleep(100);
+        }
+        
+        System.out.println(df.getError());
+        assertNull(df.getError());
     }
-  
+    
 }

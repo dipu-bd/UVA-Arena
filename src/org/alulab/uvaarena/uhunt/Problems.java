@@ -15,6 +15,11 @@
  */
 package org.alulab.uvaarena.uhunt;
 
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.NavigableSet;
+import java.util.SortedSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -23,7 +28,7 @@ import org.json.simple.JSONArray;
  *
  * @author Dipu
  */
-public class Problems extends java.util.HashSet<Problem> {
+public class Problems extends java.util.TreeSet<Problem> {
 
     private static final Logger logger = Logger.getLogger(Problems.class.getName());
 
@@ -33,6 +38,12 @@ public class Problems extends java.util.HashSet<Problem> {
     public Problems() {
     }
 
+    /**
+     * Parses a JSON array and creates problem array from it.
+     *
+     * @param jarr JSON array to parse.
+     * @return List of problems. EMPTY array if any error occurs while parsing.
+     */
     public static Problems parse(JSONArray jarr) {
         Problems problems = new Problems();
         try {
@@ -48,4 +59,63 @@ public class Problems extends java.util.HashSet<Problem> {
         return problems;
     }
 
+    /**
+     * Creates a new dummy problem using only problem number.
+     *
+     * @param number Problem number to use.
+     * @return A new Problem
+     */
+    public Problem dummy(long number) {
+        Problem p = new Problem();
+        p.setNumber(number);
+        return p;
+    }
+
+    public Problem lower(long number) {
+        return lower(dummy(number));
+    }
+
+    public Problem floor(long number) {
+        return floor(dummy(number));
+    }
+
+    public Problem ceiling(long number) {
+        return ceiling(dummy(number));
+    }
+
+    public Problem higher(long number) {
+        return higher(dummy(number));
+    }
+
+    public NavigableSet<Problem> subSet(long number, boolean bln, long number1, boolean bln1) {
+        return subSet(dummy(number), bln, dummy(number1), bln1);
+    }
+
+    public NavigableSet<Problem> headSet(long number, boolean bln) {
+        return headSet(dummy(number), bln);
+    }
+
+    public NavigableSet<Problem> tailSet(long number, boolean bln) {
+        return tailSet(dummy(number), bln);
+    }
+
+    public SortedSet<Problem> subSet(long first, long last) {
+        return subSet(dummy(first), dummy(last));
+    }
+
+    public SortedSet<Problem> headSet(long number) {
+        return headSet(dummy(number));
+    }
+
+    public SortedSet<Problem> tailSet(long number) {
+        return tailSet(dummy(number));
+    }
+
+    public Problem[] toProblemArray() {
+        return toArray(new Problem[0]);
+    }
+
+    public boolean contains(long number) {
+        return floor(number).number() == number;
+    }
 }

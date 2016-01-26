@@ -15,12 +15,17 @@
  */
 package org.alulab.uvaarena.uhunt;
 
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 
 /**
  *
  */
-public class Problem implements Comparable<Problem> {
+public class Problem implements Comparable<Problem>, Serializable {
+
+    private static final Logger logger = Logger.getLogger(Problem.class.getName());
 
     private final int MAX_LEVEL = 9;
 
@@ -56,35 +61,37 @@ public class Problem implements Comparable<Problem> {
      * Creates a new Problem object from given JSON array.
      *
      * @param jarr JSON Array representing the Problem.
-     * @return
+     * @return Problem object. NULL if parsing failed.
      */
     public static Problem parse(JSONArray jarr) {
-        if (jarr == null) {
+        try {
+            Problem problem = new Problem();
+            problem.setID((long) jarr.get(0));
+            problem.setNumber((long) jarr.get(1));
+            problem.setTitle((String) jarr.get(2));
+            problem.setDACU((long) jarr.get(3));
+            problem.setBestRuntime((long) jarr.get(4));
+            problem.setBestMemory((long) jarr.get(5));
+            problem.setNoVerdict((long) jarr.get(6));
+            problem.setSubError((long) jarr.get(7));
+            problem.setCantBeJudged((long) jarr.get(8));
+            problem.setInQueue((long) jarr.get(9));
+            problem.setComplieError((long) jarr.get(10));
+            problem.setRestrictedFunc((long) jarr.get(11));
+            problem.setRuntimeError((long) jarr.get(12));
+            problem.setOutLimExceed((long) jarr.get(13));
+            problem.setTimeLimExceed((long) jarr.get(14));
+            problem.setMemLimExceed((long) jarr.get(15));
+            problem.setWrongAnsCount((long) jarr.get(16));
+            problem.setPresentError((long) jarr.get(17));
+            problem.setAcceptedCount((long) jarr.get(18));
+            problem.setRunTimeLimit((long) jarr.get(19));
+            problem.setStatus((int) (long) jarr.get(20));
+            return problem;
+        } catch (NullPointerException | NumberFormatException | ClassCastException ex) {
+            logger.log(Level.SEVERE, null, ex);
             return null;
         }
-        Problem problem = new Problem();
-        problem.setID((long) jarr.get(0));
-        problem.setNumber((long) jarr.get(1));
-        problem.setTitle((String) jarr.get(2));
-        problem.setDACU((long) jarr.get(3));
-        problem.setBestRuntime((long) jarr.get(4));
-        problem.setBestMemory((long) jarr.get(5));
-        problem.setNoVerdict((long) jarr.get(6));
-        problem.setSubError((long) jarr.get(7));
-        problem.setCantBeJudged((long) jarr.get(8));
-        problem.setInQueue((long) jarr.get(9));
-        problem.setComplieError((long) jarr.get(10));
-        problem.setRestrictedFunc((long) jarr.get(11));
-        problem.setRuntimeError((long) jarr.get(12));
-        problem.setOutLimExceed((long) jarr.get(13));
-        problem.setTimeLimExceed((long) jarr.get(14));
-        problem.setMemLimExceed((long) jarr.get(15));
-        problem.setWrongAnsCount((long) jarr.get(16));
-        problem.setPresentError((long) jarr.get(17));
-        problem.setAcceptedCount((long) jarr.get(18));
-        problem.setRunTimeLimit((long) jarr.get(19));
-        problem.setStatus((int) jarr.get(20));
-        return problem;
     }
 
     @Override
@@ -94,7 +101,7 @@ public class Problem implements Comparable<Problem> {
 
     @Override
     public int compareTo(Problem t) {
-        return (int) (getNumber() - t.getNumber());
+        return (int) (number() - t.number());
     }
 
     /**
@@ -139,7 +146,7 @@ public class Problem implements Comparable<Problem> {
      *
      * @return
      */
-    public long getID() {
+    public long ID() {
         return mID;
     }
 
@@ -148,7 +155,7 @@ public class Problem implements Comparable<Problem> {
      *
      * @return
      */
-    public long getNumber() {
+    public long number() {
         return mNumber;
     }
 
@@ -157,7 +164,7 @@ public class Problem implements Comparable<Problem> {
      *
      * @return
      */
-    public String getTitle() {
+    public String title() {
         return mTitle;
     }
 
@@ -166,7 +173,7 @@ public class Problem implements Comparable<Problem> {
      *
      * @return
      */
-    public long getDACU() {
+    public long dacu() {
         return mDACU;
     }
 

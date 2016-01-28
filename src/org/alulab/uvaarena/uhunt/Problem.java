@@ -519,17 +519,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      * @param val
      */
     protected void setStatus(int val) {
-        switch (val) {
-            case 0:
-                setStatus(ProblemStatus.Unavailable);
-                break;
-            case 1:
-                setStatus(ProblemStatus.Normal);
-                break;
-            case 2:
-                setStatus(ProblemStatus.Special_Judge);
-                break;
-        }
+        mStatus = ProblemStatus.fromInt(val);
     }
 
     /**

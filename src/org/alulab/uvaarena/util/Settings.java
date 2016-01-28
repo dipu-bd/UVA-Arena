@@ -39,14 +39,14 @@ public final class Settings {
     }
     
     public String getWorkingFolder() {
-        return mPreference.get(KEY_WORKING_DIR, FileHelper.getDefaultWorkingFolder());        
+        return mPreference.get(KEY_WORKING_DIR, FileHelper.getDefaultWorkDir().toString());        
     }
     public void setWorkingFolder(String dir) {
         mPreference.put(KEY_WORKING_DIR, dir);        
     }
     
     public String getCodeFolder() {
-        return mPreference.get(KEY_CODE_DIR, FileHelper.getDefaultCodeFolder());        
+        return mPreference.get(KEY_CODE_DIR, FileHelper.getDefaultCodeDir().toString());        
     }
     public void setCodeFolder(String dir) {
         mPreference.put(KEY_CODE_DIR, dir);

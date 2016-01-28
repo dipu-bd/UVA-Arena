@@ -94,7 +94,7 @@ public class FileHelperTest {
     @Test
     public void testGetDefaultWorkingFolder() {
         System.out.println("getDefaultWorkingFolder");
-        String result = FileHelper.getDefaultWorkingFolder();
+        String result = FileHelper.getDefaultWorkDir();
         System.out.println(result);
     }
 
@@ -104,7 +104,7 @@ public class FileHelperTest {
     @Test
     public void testGetDefaultCodeFolder() {
         System.out.println("getDefaultCodeFolder");
-        String result = FileHelper.getDefaultCodeFolder();
+        String result = FileHelper.getDefaultCodeDir();
         System.out.println(result);
     }
 

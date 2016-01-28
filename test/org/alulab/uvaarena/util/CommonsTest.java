@@ -14,8 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 package org.alulab.uvaarena.util;
-
-import org.apache.commons.codec.binary.StringUtils;
+ 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -30,23 +29,7 @@ import static org.junit.Assert.*;
 public class CommonsTest {
 
     public CommonsTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
+    }    
 
     /**
      * Test of formatByteLength method, of class Commons.
@@ -93,29 +76,8 @@ public class CommonsTest {
         String expResult = "60.65 GB";
         String result = Commons.formatByteLength(byteLength);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of formatByteLength method, of class Commons.
-     */
-    @Test
-    public void testFormatByteLength_double_int() {
-    }
-
-    /**
-     * Test of formatByteLength method, of class Commons.
-     */
-    @Test
-    public void testFormatByteLength_double() {
-    }
-
-    /**
-     * Test of generateHashString method, of class Commons.
-     */
-    @Test
-    public void testGenerateHashString() {
-    }
-
+    } 
+    
     /**
      * Test of encodePass method, of class Commons.
      */
@@ -136,4 +98,13 @@ public class CommonsTest {
         assertEquals(pass, decoded);
     }
 
+    /**
+     * Test of formatTimeSpan method, of class Commons.
+     */
+    @Test
+    public void testFormatTimeSpan() {
+        System.out.println("----- formatTimeSpan -----");
+        System.out.println(Commons.formatTimeSpan(4531342222410L));
+    }
+ 
 }

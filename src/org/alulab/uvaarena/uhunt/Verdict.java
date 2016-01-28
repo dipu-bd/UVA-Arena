@@ -20,55 +20,55 @@ package org.alulab.uvaarena.uhunt;
  */
 public enum Verdict {
 
-    //10 : Submission error
-    Submission_Error,
+    //10 : Submission error 
+    SubmissionError,
     //15 : Can't be judged
-    Cant_Be_Judged,
+    CantBeJudged,
     //20 : In queue
-    In_Queue,
+    InQueue,
     //30 : Compile error
-    Compile_Error,
+    CompileError,
     //35 : Restricted function
-    Restricted_Function,
+    RestrictedFunction,
     //40 : Runtime error
-    Runtime_Error,
+    RuntimeError,
     //45 : Output limit
-    Output_Limit,
+    OutputLimit,
     //50 : Time limit
-    Time_Limit,
+    TimeLimit,
     //60 : Memory limit
-    Memory_Limit,
+    MemoryLimit,
     //70 : Wrong answer
-    Wrong_Answer,
+    WrongAnswer,
     //80 : PresentationE
-    Presentation_Error,
+    PresentationError,
     //90 : Accepted
     Accepted;
 
     @Override
     public String toString() {
         switch (this) {
-            case Submission_Error:
+            case SubmissionError:
                 return "Submission Error";
-            case Cant_Be_Judged:
+            case CantBeJudged:
                 return "Can't Be Judged";
-            case In_Queue:
+            case InQueue:
                 return "In Queue";
-            case Compile_Error:
+            case CompileError:
                 return "Compile Error";
-            case Restricted_Function:
+            case RestrictedFunction:
                 return "Restricted Function";
-            case Runtime_Error:
+            case RuntimeError:
                 return "Runtime Error";
-            case Output_Limit:
+            case OutputLimit:
                 return "Output Limit Exceeded";
-            case Time_Limit:
+            case TimeLimit:
                 return "Time Limit Exceeded";
-            case Memory_Limit:
+            case MemoryLimit:
                 return "Memory Limit Exceeded";
-            case Wrong_Answer:
+            case WrongAnswer:
                 return "Wrong Answer";
-            case Presentation_Error:
+            case PresentationError:
                 return "Presentation Error";
             case Accepted:
                 return "Accepted";
@@ -79,27 +79,27 @@ public enum Verdict {
 
     public int toInt() {
         switch (this) {
-            case Submission_Error:
+            case SubmissionError:
                 return 10;
-            case Cant_Be_Judged:
+            case CantBeJudged:
                 return 15;
-            case In_Queue:
+            case InQueue:
                 return 20;
-            case Compile_Error:
+            case CompileError:
                 return 30;
-            case Restricted_Function:
+            case RestrictedFunction:
                 return 35;
-            case Runtime_Error:
+            case RuntimeError:
                 return 40;
-            case Output_Limit:
+            case OutputLimit:
                 return 45;
-            case Time_Limit:
+            case TimeLimit:
                 return 50;
-            case Memory_Limit:
+            case MemoryLimit:
                 return 60;
-            case Wrong_Answer:
+            case WrongAnswer:
                 return 70;
-            case Presentation_Error:
+            case PresentationError:
                 return 80;
             case Accepted:
                 return 90;
@@ -108,4 +108,34 @@ public enum Verdict {
         }
     }
 
+    public static Verdict fromInt(int val) {
+        switch (val) {
+            case 10:
+                return SubmissionError;
+            case 15:
+                return CantBeJudged;
+            case 20:
+                return InQueue;
+            case 30:
+                return CompileError;
+            case 35:
+                return RestrictedFunction;
+            case 40:
+                return RuntimeError;
+            case 45:
+                return OutputLimit;
+            case 50:
+                return TimeLimit;
+            case 60:
+                return MemoryLimit;
+            case 70:
+                return WrongAnswer;
+            case 80:
+                return PresentationError;
+            case 90:
+                return Accepted;
+            default:
+                return InQueue;
+        }
+    }
 }

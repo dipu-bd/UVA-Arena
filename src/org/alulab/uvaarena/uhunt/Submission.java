@@ -15,22 +15,25 @@
  */
 package org.alulab.uvaarena.uhunt;
 
+import com.google.gson.JsonObject;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.alulab.uvaarena.util.Commons;
 
 /**
  *
- * @author Dipu
  */
 public class Submission implements Comparable<Submission>, Serializable {
+
+    private static final Logger logger = Logger.getLogger(Submission.class.getName());
 
     private long mGlobalID;
     private long mId;
     private long mUserId;
     private long mProblemId;
-    private long mProblemNumber;
-    private long mProblemTitle;
-    private long mVerdict;
+    private Verdict mVerdict;
     private Language mLanguage;
     private long mRuntime;
     private long mMemory;
@@ -41,7 +44,53 @@ public class Submission implements Comparable<Submission>, Serializable {
 
     public Submission(long id) {
         mId = id;
-        
+    }
+
+    /**
+     * Converts the JSON object into a submission
+     *
+     * @param jsob JSON object to convert.
+     * @return A new Submission object, NULL if failed.
+     */
+    public static Submission create(JsonObject jsob, Problems probList) {
+        try {
+            /*
+             * id: 1453152921685,
+             * type: "lastsubs",
+             * msg: {
+             *    sid: 16769928,
+             *    uid: 795271,
+             *    pid: 1011,
+             *    ver: 70,
+             *    lan: 3,
+             *    run: 0,
+             *    mem: 0,
+             *    rank: -1,
+             *    sbt: 1453990197,
+             *    name: "Ishaq Ali",
+             *    uname: "IshaqNiloy NSU"
+             }
+             */
+            JsonObject msg = jsob.get("msg").getAsJsonObject();
+            Submission submission = new Submission(0);
+            //load values
+            submission.setGlobalID(jsob.get("id").getAsLong());
+            submission.setID(msg.get("sid").getAsLong());
+            submission.setUserId(msg.get("uid").getAsLong());
+            submission.setProblemId(msg.get("pid").getAsLong());
+            submission.setVerdict(msg.get("ver").getAsInt());
+            submission.setLanguage(msg.get("lan").getAsInt());
+            submission.setRuntime(msg.get("run").getAsLong());
+            submission.setMemory(msg.get("mem").getAsLong());
+            submission.setRank(msg.get("rank").getAsLong());
+            submission.setSubmissionTime(msg.get("sbt").getAsLong());
+            submission.setFullName(msg.get("name").getAsString());
+            submission.setUserName(msg.get("uname").getAsString());
+            return submission;
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     /**
@@ -54,199 +103,199 @@ public class Submission implements Comparable<Submission>, Serializable {
     }
 
     /**
-     * @return the mGlobalID
+     * @return the GlobalID
      */
     public long getGlobalID() {
         return mGlobalID;
     }
 
     /**
-     * @return the mID
+     * @return the ID
      */
     public long getID() {
         return mId;
     }
 
     /**
-     * @return the mUserId
+     * @return the UserId
      */
     public long getUserId() {
         return mUserId;
     }
 
     /**
-     * @return the mProblemId
+     * @return the Problem
      */
     public long getProblemId() {
         return mProblemId;
     }
 
     /**
-     * @return the mProblemNumber
+     * @return the Verdict
      */
-    public long getProblemNumber() {
-        return mProblemNumber;
-    }
-
-    /**
-     * @return the mProblemTitle
-     */
-    public long getProblemTitle() {
-        return mProblemTitle;
-    }
-
-    /**
-     * @return the mVerdict
-     */
-    public long getVerdict() {
+    public Verdict verdict() {
         return mVerdict;
     }
 
     /**
-     * @return the mLanguage
+     * @return the Language
      */
-    public Language getLanguage() {
+    public Language language() {
         return mLanguage;
     }
 
     /**
-     * @return the mRuntime
+     * @return the Runtime
      */
     public long getRuntime() {
         return mRuntime;
     }
 
     /**
-     * @return the mMemory
+     * @return the Runtime in pretty format.
+     */
+    public String runtime() {
+        return Commons.formatTimeSpan(mRank);
+    }
+
+    /**
+     * @return the Memory
      */
     public long getMemory() {
         return mMemory;
     }
 
     /**
-     * @return the mRank
+     * @return the Memory in pretty format
+     */
+    public String memory() {
+        return Commons.formatByteLength(mMemory);
+    }
+
+    /**
+     * @return the Rank
      */
     public long getRank() {
         return mRank;
     }
 
     /**
-     * @return the mSubmissionTime in UNIX timestamp
+     * @return the SubmissionTime in UNIX timestamp
      */
     public long getSubmissionTimeUnix() {
         return mSubmissionTime;
     }
 
     /**
-     * @return the mFullName
+     * @return the FullName
      */
     public String getFullName() {
         return mFullName;
     }
 
     /**
-     * @return the mUserName
+     * @return the UserName
      */
     public String getUserName() {
         return mUserName;
     }
 
     /**
-     * @param globalID the mGlobalID to set
+     * @param globalID the GlobalID to set
      */
     public void setGlobalID(long globalID) {
-        this.mGlobalID = globalID;
+        mGlobalID = globalID;
     }
 
     /**
-     * @param mID the mID to set
+     * @param mID the ID to set
      */
     public void setID(long mID) {
-        this.mId = mID;
+        mId = mID;
     }
 
     /**
-     * @param userId the mUserId to set
+     * @param userId the UserId to set
      */
     public void setUserId(long userId) {
-        this.mUserId = userId;
+        mUserId = userId;
     }
 
     /**
-     * @param problemId the mProblemId to set
+     * @param problemId the ProblemId to set
      */
     public void setProblemId(long problemId) {
-        this.mProblemId = problemId;
+        mProblemId = problemId;
     }
-
+ 
     /**
-     * @param problemNumber the mProblemNumber to set
+     * @param verdict the Verdict to set
      */
-    public void setProblemNumber(long problemNumber) {
-        this.mProblemNumber = problemNumber;
+    public void setVerdict(Verdict verdict) {
+        mVerdict = verdict;
     }
 
     /**
-     * @param problemTitle the mProblemTitle to set
+     * @param verdict the Verdict to set
      */
-    public void setProblemTitle(long problemTitle) {
-        this.mProblemTitle = problemTitle;
+    public void setVerdict(int verdict) {
+        mVerdict = Verdict.fromInt(verdict);
     }
 
     /**
-     * @param verdict the mVerdict to set
-     */
-    public void setVerdict(long verdict) {
-        this.mVerdict = verdict;
-    }
-
-    /**
-     * @param language the mLanguage to set
+     * @param language the Language to set
      */
     public void setLanguage(Language language) {
-        this.mLanguage = language;
+        mLanguage = language;
     }
 
     /**
-     * @param runtime the mRuntime to set
+     * @param language the Language to set
+     */
+    public void setLanguage(int language) {
+        mLanguage = Language.fromInt(language);
+    }
+
+    /**
+     * @param runtime the Runtime to set
      */
     public void setRuntime(long runtime) {
-        this.mRuntime = runtime;
+        mRuntime = runtime;
     }
 
     /**
-     * @param memory the mMemory to set
+     * @param memory the Memory to set
      */
     public void setMemory(long memory) {
-        this.mMemory = memory;
+        mMemory = memory;
     }
 
     /**
-     * @param rank the mRank to set
+     * @param rank the Rank to set
      */
     public void setRank(long rank) {
-        this.mRank = rank;
+        mRank = rank;
     }
 
     /**
-     * @param submissionTime the mSubmissionTime to set
+     * @param submissionTime the SubmissionTime to set
      */
     public void setSubmissionTime(long submissionTime) {
-        this.mSubmissionTime = submissionTime;
+        mSubmissionTime = submissionTime;
     }
 
     /**
-     * @param fullName the mFullName to set
+     * @param fullName the FullName to set
      */
     public void setFullName(String fullName) {
-        this.mFullName = fullName;
+        mFullName = fullName;
     }
 
     /**
-     * @param userName the mUserName to set
+     * @param userName the UserName to set
      */
     public void setUserName(String userName) {
-        this.mUserName = userName;
+        mUserName = userName;
     }
 
     @Override
@@ -256,7 +305,7 @@ public class Submission implements Comparable<Submission>, Serializable {
 
     @Override
     public String toString() {
-        return String.format("{%d: %d %s}", mUserName, mProblemNumber, mVerdict);
+        return String.format("%d: %s : %s(%s)", mId, mVerdict, mFullName, mUserName);
     }
 
 }

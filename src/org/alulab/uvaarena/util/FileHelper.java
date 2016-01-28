@@ -36,8 +36,8 @@ public abstract class FileHelper {
     static {
         Arrays.sort(illegalChars);
         mDefaultWorkDir = FileUtils.getFile(FileUtils.getUserDirectory(), "Arena Suite", "UVA Arena");
-        mDefaultCodeDir = FileUtils.getFile(getDefaultWorkingFolder(), "Codes");
-        mProblemsDir = FileUtils.getFile(getDefaultWorkingFolder(), "problems.json");
+        mDefaultCodeDir = FileUtils.getFile(getDefaultWorkDir(), "Codes");
+        mProblemsDir = FileUtils.getFile(getDefaultWorkDir(), "problems.json");
     }
 
     /**
@@ -136,7 +136,7 @@ public abstract class FileHelper {
      *
      * @return USER_HOME/Arena Suite/UVA Arena
      */
-    public static File getDefaultWorkingFolder() {
+    public static File getDefaultWorkDir() {
         return mDefaultWorkDir;
     }
 
@@ -145,7 +145,7 @@ public abstract class FileHelper {
      *
      * @return USER_HOME/Arena Suite/UVA Arena/Codes
      */
-    public static File getDefaultCodeFolder() {
+    public static File getDefaultCodeDir() {
         return mDefaultCodeDir;
     }
 

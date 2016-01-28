@@ -64,4 +64,21 @@ public enum Language {
                 return 0;
         }
     }
+
+    public static Language fromInt(int val) {
+        switch (val) {
+            case 1:
+                return AnsiC;
+            case 2:
+                return Java;
+            case 3:
+                return Cpp;
+            case 4:
+                return Pascal;
+            case 5:
+                return Cpp11;
+            default:
+                return Unknown;
+        }
+    }
 }

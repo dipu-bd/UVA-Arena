@@ -21,6 +21,9 @@ import com.google.gson.JsonSyntaxException;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NavigableSet;
 import java.util.SortedSet;
 import java.util.logging.Level;
@@ -34,10 +37,13 @@ public final class Problems extends java.util.TreeSet<Problem> implements Serial
 
     private static final Logger logger = Logger.getLogger(Problems.class.getName());
 
+    private final Map<Long, Problem> mIdToProblem;
+
     /**
      * Creates a list of problems
      */
     public Problems() {
+        mIdToProblem = new HashMap<>();
     }
 
     /**
@@ -96,6 +102,33 @@ public final class Problems extends java.util.TreeSet<Problem> implements Serial
         }
     }
 
+    public Problem getByNumber(long number) {
+        Problem prob = floor(number);
+        return (prob != null && prob.number() == number) ? prob : null;
+    }
+
+    public Problem getById(long id) {
+        return mIdToProblem.get(id);
+    }
+
+    @Override
+    public boolean add(Problem p) {
+        if (super.add(p)) {
+            mIdToProblem.put(p.ID(), p);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends Problem> col) {
+        int lastSiz = size();
+        col.forEach((Problem p) -> {
+            add(p);
+        });
+        return size() != lastSiz;
+    }
+
     /**
      * Creates a new dummy problem using only problem number.
      *
@@ -151,6 +184,6 @@ public final class Problems extends java.util.TreeSet<Problem> implements Serial
     }
 
     public boolean contains(long number) {
-        return floor(number).number() == number;
+        return getByNumber(number) != null;
     }
 }

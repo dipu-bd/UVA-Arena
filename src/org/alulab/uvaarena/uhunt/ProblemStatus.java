@@ -56,4 +56,17 @@ public enum ProblemStatus {
                 return 1;
         }
     }
+    
+    public static ProblemStatus fromInt(int val) {
+          switch (val) {
+            case 0:
+                return Unavailable;
+            case 1:
+                return Normal;
+            case 2:
+                return Special_Judge;
+            default:
+                return Normal;
+        }
+    }
 }

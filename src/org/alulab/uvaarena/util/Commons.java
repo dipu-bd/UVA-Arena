@@ -16,9 +16,14 @@
 package org.alulab.uvaarena.util;
 
 import java.math.BigInteger;
+import java.util.Locale;
 import java.util.logging.Logger;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
+import org.joda.time.Period;
+import org.joda.time.format.PeriodFormat;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 
 /**
  *
@@ -80,6 +85,18 @@ public abstract class Commons {
      */
     public static String formatByteLength(long byteLength) {
         return formatByteLength(byteLength, 2);
+    }
+
+    /**
+     * Formats the time spanned into pretty format.
+     *
+     * @param span Amount of time spanned in milli-seconds
+     * @return
+     */
+    public static String formatTimeSpan(long span) {
+        Period period = new Period(span);                
+        PeriodFormatter formatter = PeriodFormat.getDefault();
+        return formatter.print(period);
     }
 
     /**

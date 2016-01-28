@@ -16,29 +16,33 @@
 package org.alulab.uvaarena.uhunt;
 
 /**
- * Status of a problem <br>
- * 0 = unavailable, 1 = normal, 2 = special judge
+ * Language of a submission <br>
+ * 1=ANSI C, 2=Java, 3=C++, 4=Pascal, 5=C++11
  *
  * @author Dipu
  */
-public enum ProblemStatus {
+public enum Language {
 
-    //0 = unavaiable
-    Unavailable,
-    //1 = normal
-    Normal,
-    //2 = special judge
-    Special_Judge;
+    Unknown,
+    AnsiC,
+    Java,
+    Cpp,
+    Pascal,
+    Cpp11;
 
     @Override
     public String toString() {
         switch (this) {
-            case Unavailable:
-                return "Unavaiable";
-            case Normal:
-                return "Normal";
-            case Special_Judge:
-                return "Special Judge";
+            case AnsiC:
+                return "ANSI C";
+            case Java:
+                return "Java";
+            case Cpp:
+                return "C++";
+            case Pascal:
+                return "Pascal";
+            case Cpp11:
+                return "C++ 11";
             default:
                 return super.toString();
         }
@@ -46,14 +50,18 @@ public enum ProblemStatus {
 
     public int toInt() {
         switch (this) {
-            case Unavailable:
-                return 0;
-            case Normal:
+            case AnsiC:
                 return 1;
-            case Special_Judge:
+            case Java:
                 return 2;
+            case Cpp:
+                return 3;
+            case Pascal:
+                return 4;
+            case Cpp11:
+                return 5;
             default:
-                return 1;
+                return 0;
         }
     }
 }

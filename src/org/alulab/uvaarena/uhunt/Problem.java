@@ -15,10 +15,10 @@
  */
 package org.alulab.uvaarena.uhunt;
 
+import com.google.gson.JsonArray;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.simple.JSONArray;
 
 /**
  *
@@ -29,10 +29,10 @@ public class Problem implements Comparable<Problem>, Serializable {
 
     private final int MAX_LEVEL = 9;
 
-    private long mID;
+    private long mId;
     private long mNumber;
     private String mTitle;
-    private long mDACU;
+    private long mDacu;
     private long mBestRuntime;
     private long mBestMemory;
     private long mNoVerdict;
@@ -53,8 +53,11 @@ public class Problem implements Comparable<Problem>, Serializable {
 
     /**
      * Creates a new Problem
+     *
+     * @param problemNumber
      */
-    public Problem() {
+    public Problem(long problemNumber) {
+        mNumber = problemNumber;
     }
 
     /**
@@ -63,30 +66,30 @@ public class Problem implements Comparable<Problem>, Serializable {
      * @param jarr JSON Array representing the Problem.
      * @return Problem object. NULL if parsing failed.
      */
-    public static Problem parse(JSONArray jarr) {
+    public static Problem create(JsonArray jarr) {
         try {
-            Problem problem = new Problem();
-            problem.setID((long) jarr.get(0));
-            problem.setNumber((long) jarr.get(1));
-            problem.setTitle((String) jarr.get(2));
-            problem.setDACU((long) jarr.get(3));
-            problem.setBestRuntime((long) jarr.get(4));
-            problem.setBestMemory((long) jarr.get(5));
-            problem.setNoVerdict((long) jarr.get(6));
-            problem.setSubError((long) jarr.get(7));
-            problem.setCantBeJudged((long) jarr.get(8));
-            problem.setInQueue((long) jarr.get(9));
-            problem.setComplieError((long) jarr.get(10));
-            problem.setRestrictedFunc((long) jarr.get(11));
-            problem.setRuntimeError((long) jarr.get(12));
-            problem.setOutLimExceed((long) jarr.get(13));
-            problem.setTimeLimExceed((long) jarr.get(14));
-            problem.setMemLimExceed((long) jarr.get(15));
-            problem.setWrongAnsCount((long) jarr.get(16));
-            problem.setPresentError((long) jarr.get(17));
-            problem.setAcceptedCount((long) jarr.get(18));
-            problem.setRunTimeLimit((long) jarr.get(19));
-            problem.setStatus((int) (long) jarr.get(20));
+            Problem problem = new Problem(0);
+            problem.setID(jarr.get(0).getAsLong());
+            problem.setNumber(jarr.get(1).getAsLong());
+            problem.setTitle((String) jarr.get(2).getAsString());
+            problem.setDACU(jarr.get(3).getAsLong());
+            problem.setBestRuntime(jarr.get(4).getAsLong());
+            problem.setBestMemory(jarr.get(5).getAsLong());
+            problem.setNoVerdict(jarr.get(6).getAsLong());
+            problem.setSubError(jarr.get(7).getAsLong());
+            problem.setCantBeJudged(jarr.get(8).getAsLong());
+            problem.setInQueue(jarr.get(9).getAsLong());
+            problem.setComplieError(jarr.get(10).getAsLong());
+            problem.setRestrictedFunc(jarr.get(11).getAsLong());
+            problem.setRuntimeError(jarr.get(12).getAsLong());
+            problem.setOutLimExceed(jarr.get(13).getAsLong());
+            problem.setTimeLimExceed(jarr.get(14).getAsLong());
+            problem.setMemLimExceed(jarr.get(15).getAsLong());
+            problem.setWrongAnsCount(jarr.get(16).getAsLong());
+            problem.setPresentError(jarr.get(17).getAsLong());
+            problem.setAcceptedCount(jarr.get(18).getAsLong());
+            problem.setRunTimeLimit(jarr.get(19).getAsLong());
+            problem.setStatus(jarr.get(20).getAsInt());
             return problem;
         } catch (NullPointerException | NumberFormatException | ClassCastException ex) {
             logger.log(Level.SEVERE, null, ex);
@@ -110,10 +113,10 @@ public class Problem implements Comparable<Problem>, Serializable {
      * @return
      */
     public int getLevel() {
-        if (mDACU <= 0) {
+        if (mDacu <= 0) {
             return (1 + MAX_LEVEL);
         } else {
-            return (1 + MAX_LEVEL) - Math.min(MAX_LEVEL, (int) Math.floor(Math.log(mDACU)));
+            return (1 + MAX_LEVEL) - Math.min(MAX_LEVEL, (int) Math.floor(Math.log(mDacu)));
         }
     }
 
@@ -147,7 +150,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      * @return
      */
     public long ID() {
-        return mID;
+        return mId;
     }
 
     /**
@@ -174,7 +177,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      * @return
      */
     public long dacu() {
-        return mDACU;
+        return mDacu;
     }
 
     /**
@@ -335,8 +338,8 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setID(long val) {
-        mID = val;
+    protected void setID(long val) {
+        mId = val;
     }
 
     /**
@@ -344,7 +347,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setNumber(long val) {
+    protected void setNumber(long val) {
         mNumber = val;
     }
 
@@ -353,7 +356,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setTitle(String val) {
+    protected void setTitle(String val) {
         mTitle = val;
     }
 
@@ -362,8 +365,8 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setDACU(long val) {
-        mDACU = val;
+    protected void setDACU(long val) {
+        mDacu = val;
     }
 
     /**
@@ -371,7 +374,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setBestRuntime(long val) {
+    protected void setBestRuntime(long val) {
         mBestRuntime = val;
     }
 
@@ -380,7 +383,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setBestMemory(long val) {
+    protected void setBestMemory(long val) {
         mBestMemory = val;
     }
 
@@ -389,7 +392,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setNoVerdict(long val) {
+    protected void setNoVerdict(long val) {
         mNoVerdict = val;
     }
 
@@ -398,7 +401,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setSubError(long val) {
+    protected void setSubError(long val) {
         mSubError = val;
     }
 
@@ -407,7 +410,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setCantBeJudged(long val) {
+    protected void setCantBeJudged(long val) {
         mCantBeJudged = val;
     }
 
@@ -416,7 +419,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setInQueue(long val) {
+    protected void setInQueue(long val) {
         mInQueue = val;
     }
 
@@ -425,7 +428,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setComplieError(long val) {
+    protected void setComplieError(long val) {
         mComplieError = val;
     }
 
@@ -434,7 +437,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setRestrictedFunc(long val) {
+    protected void setRestrictedFunc(long val) {
         mRestrictedFunc = val;
     }
 
@@ -443,7 +446,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setRuntimeError(long val) {
+    protected void setRuntimeError(long val) {
         mRuntimeError = val;
     }
 
@@ -452,7 +455,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setOutLimExceed(long val) {
+    protected void setOutLimExceed(long val) {
         mOutLimExceed = val;
     }
 
@@ -461,7 +464,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setTimeLimExceed(long val) {
+    protected void setTimeLimExceed(long val) {
         mTimeLimExceed = val;
     }
 
@@ -470,7 +473,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setMemLimExceed(long val) {
+    protected void setMemLimExceed(long val) {
         mMemLimExceed = val;
     }
 
@@ -479,7 +482,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setWrongAnsCount(long val) {
+    protected void setWrongAnsCount(long val) {
         mWrongAnsCount = val;
     }
 
@@ -488,7 +491,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setPresentError(long val) {
+    protected void setPresentError(long val) {
         mPresentError = val;
     }
 
@@ -497,7 +500,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setAcceptedCount(long val) {
+    protected void setAcceptedCount(long val) {
         mAcceptedCount = val;
     }
 
@@ -506,7 +509,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setRunTimeLimit(long val) {
+    protected void setRunTimeLimit(long val) {
         mRunTimeLimit = val;
     }
 
@@ -515,7 +518,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setStatus(int val) {
+    protected void setStatus(int val) {
         switch (val) {
             case 0:
                 setStatus(ProblemStatus.Unavailable);
@@ -534,7 +537,7 @@ public class Problem implements Comparable<Problem>, Serializable {
      *
      * @param val
      */
-    public void setStatus(ProblemStatus val) {
+    protected void setStatus(ProblemStatus val) {
         mStatus = val;
     }
 

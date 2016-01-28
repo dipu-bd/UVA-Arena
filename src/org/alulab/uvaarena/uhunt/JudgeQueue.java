@@ -16,44 +16,9 @@
 package org.alulab.uvaarena.uhunt;
 
 /**
- * Status of a problem <br>
- * 0 = unavailable, 1 = normal, 2 = special judge
  *
  * @author Dipu
  */
-public enum ProblemStatus {
-
-    //0 = unavaiable
-    Unavailable,
-    //1 = normal
-    Normal,
-    //2 = special judge
-    Special_Judge;
-
-    @Override
-    public String toString() {
-        switch (this) {
-            case Unavailable:
-                return "Unavaiable";
-            case Normal:
-                return "Normal";
-            case Special_Judge:
-                return "Special Judge";
-            default:
-                return super.toString();
-        }
-    }
-
-    public int toInt() {
-        switch (this) {
-            case Unavailable:
-                return 0;
-            case Normal:
-                return 1;
-            case Special_Judge:
-                return 2;
-            default:
-                return 1;
-        }
-    }
+public class JudgeQueue {
+    
 }

@@ -29,26 +29,15 @@ public abstract class FileHelper {
 
     private final static int[] illegalChars = {34, 60, 62, 124, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 58, 42, 63, 92, 47};
 
+    private static final File mDefaultWorkDir;
+    private static final File mDefaultCodeDir;
+    private static final File mProblemsDir;
+
     static {
         Arrays.sort(illegalChars);
-    }
-
-    /**
-     * Gets the default directory where all data is stored.
-     *
-     * @return USER_HOME/Arena Suite/UVA Arena
-     */
-    public static String getDefaultWorkingFolder() {
-        return FileUtils.getFile(FileUtils.getUserDirectory(), "Arena Suite", "UVA Arena").toString();
-    }
-
-    /**
-     * Gets the default directory to store code files.
-     *
-     * @return USER_HOME/Arena Suite/UVA Arena/Codes
-     */
-    public static String getDefaultCodeFolder() {
-        return FileUtils.getFile(getDefaultWorkingFolder(), "Codes").toString();
+        mDefaultWorkDir = FileUtils.getFile(FileUtils.getUserDirectory(), "Arena Suite", "UVA Arena");
+        mDefaultCodeDir = FileUtils.getFile(getDefaultWorkingFolder(), "Codes");
+        mProblemsDir = FileUtils.getFile(getDefaultWorkingFolder(), "problems.json");
     }
 
     /**
@@ -142,4 +131,30 @@ public abstract class FileHelper {
         return null;
     }
 
+    /**
+     * Gets the default directory where all data is stored.
+     *
+     * @return USER_HOME/Arena Suite/UVA Arena
+     */
+    public static File getDefaultWorkingFolder() {
+        return mDefaultWorkDir;
+    }
+
+    /**
+     * Gets the default directory to store code files.
+     *
+     * @return USER_HOME/Arena Suite/UVA Arena/Codes
+     */
+    public static File getDefaultCodeFolder() {
+        return mDefaultCodeDir;
+    }
+
+    /**
+     * Gets the file where list of problems should be stored.
+     *
+     * @return USER_HOME/Arena Suite/UVA Arena/problems.json
+     */
+    public static File getProblemsFile() {
+        return mProblemsDir;
+    }
 }

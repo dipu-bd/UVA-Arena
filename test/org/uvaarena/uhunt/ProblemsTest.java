@@ -15,12 +15,10 @@
  */
 package org.uvaarena.uhunt;
 
-import org.uvaarena.uhunt.Problems;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *
@@ -35,11 +33,12 @@ public class ProblemsTest {
      * Test of parse method, of class Problems.
      */
     @Test
-    public void testParse() throws ParseException {
+    public void testParse() {
         System.out.println("----get problems----");
         String json = "[[36,100,\"The 3n + 1 problem\",72828,0,0,3,6722,0,0,106689,0,61233,262,54871,5209,253524,4698,180925,3000,1,0],[38,102,\"Ecological Bin Packing\",22348,0,0,0,1950,0,0,12155,0,4605,18,2912,72,33451,640,34621,3000,1,0],[39,103,\"Stacking Boxes\",6595,0,0,0,37,0,0,9209,0,4490,4,2920,0,11788,1360,9950,3000,2,0],[40,104,\"Arbitrage\",3816,0,0,0,307,0,0,2288,0,2258,13,3623,427,12312,590,6534,3000,2,0],[41,105,\"The Skyline Problem\",8179,0,0,0,444,0,0,4979,0,6685,6,1353,214,15746,9579,12140,3000,1,0],[44,108,\"Maximum Sum\",13802,0,0,0,393,0,0,6204,0,2771,11,7960,336,11560,1527,21933,3000,1,0],[46,110,\"Meta-Loopless Sorts\",1846,0,0,0,200,0,0,949,0,558,11,395,15,4022,1581,3139,3000,2,0],[47,111,\"History Grading\",8153,0,0,0,130,0,0,3752,0,1436,10,1789,9,8478,49,11851,3000,1,0],[48,112,\"Tree Summing\",5278,0,0,0,360,0,0,3040,0,5418,0,2121,183,12949,194,8831,3000,1,0],[49,113,\"Power of Cryptography\",15865,0,0,0,703,0,0,6301,0,1967,3,6631,59,16938,115,21342,3000,1,0],[50,114,\"Simulation Wizardry\",1665,0,0,0,90,0,0,519,0,687,3,1150,6,3083,59,2482,3000,1,0],[51,115,\"Climbing Trees\",1583,0,0,0,53,0,0,618,0,616,2,317,17,2716,153,2185,3000,1,0],[52,116,\"Unidirectional TSP\",5978,0,0,0,373,0,0,3478,0,5041,7,2977,545,22841,2056,9957,3000,1,0],[53,117,\"The Postal Worker Rings Once\",3008,0,0,0,72,0,0,876,0,595,0,456,26,2235,13,3986,3000,1,0],[54,118,\"Mutant Flatworld Explorers\",5455,0,0,0,284,0,0,1689,0,839,0,303,5,7200,298,6509,3000,1,0],[55,119,\"Greedy Gift Givers\",6258,0,0,0,438,0,0,2556,0,2950,0,569,12,11954,3461,7610,3000,1,0],[56,120,\"Stacks of Flapjacks\",8093,0,0,0,1059,0,0,3651,0,2302,42,1523,47,10320,82,12567,3000,2,0],[42,106,\"Fermat vs. Pythagoras\",4016,0,0,0,132,0,0,3081,0,4072,2,5759,537,4674,27,8989,3000,1,0],[43,107,\"The Cat in the Hat\",5385,0,0,0,271,0,0,4130,0,4339,1,11783,62,17708,110,9789,3000,1,0],[37,101,\"The Blocks Problem\",12309,0,0,0,915,0,0,12708,0,19934,15,8812,200,21578,5881,18350,3000,1,0]]";
-        JSONArray jarr = (JSONArray) (new JSONParser()).parse(json);
-        Problems result = Problems.create(jarr);
+
+        Problems result = Problems.create((new Gson()).fromJson(json, JsonArray.class));
+
         System.out.println(result);
         assertNotNull(result);
         assertFalse(result.isEmpty());

@@ -14,8 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 package org.uvaarena.util;
-
-import org.uvaarena.util.FileHelper;
+ 
 import java.io.File;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -81,12 +80,7 @@ public class FileHelperTest {
      */
     @Test
     public void testCopyFiles() throws Exception {
-        System.out.println("copyFiles");
-        File destination = null;
-        File[] sources = null;
-        FileHelper.copyFiles(destination, sources);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -95,7 +89,7 @@ public class FileHelperTest {
     @Test
     public void testGetDefaultWorkingFolder() {
         System.out.println("getDefaultWorkingFolder");
-        String result = FileHelper.getDefaultWorkDir();
+        File result = FileHelper.getDefaultWorkDir();
         System.out.println(result);
     }
 
@@ -105,10 +99,20 @@ public class FileHelperTest {
     @Test
     public void testGetDefaultCodeFolder() {
         System.out.println("getDefaultCodeFolder");
-        String result = FileHelper.getDefaultCodeDir();
+        File result = FileHelper.getDefaultCodeDir();
         System.out.println(result);
     }
-
+    
+    /**
+     * Test of getDefaultCodeFolder method, of class FileHelper.
+     */
+    @Test
+    public void testGetProblemsFile() {
+        System.out.println("getProblemsFile");
+        File result = FileHelper.getProblemsFile();
+        System.out.println(result);
+    }
+    
     @Test
     public void testRenameFile() {
         System.out.println("renameFile");

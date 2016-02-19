@@ -80,9 +80,11 @@ public class CommonsTest {
     @Test
     public void testEncodeDecodePass() {
         System.out.println("testEncodeDecodePass");
+        String salt = Commons.getSecretSalt();
         String pass = "sd*^*laslkj28)35465#@#$32D";
         String encoded = Commons.encodePass(pass);
         String decoded = Commons.decodePass(encoded);
+        System.out.println("Salt: " + salt);
         System.out.println("Original: " + pass);
         System.out.println("Encoded: " + encoded);
         System.out.println("Decoded: " + decoded);
@@ -96,6 +98,19 @@ public class CommonsTest {
     public void getSecretSalt() {
         System.out.println("testSecrectSalt");
         System.out.println(Commons.getSecretSalt());
+    }
+    
+    
+    /**
+     * Test of generateHashString method, of class Commons.
+     */
+    @Test
+    public void generateHashString() {
+        System.out.println("generateHashString");
+        System.out.println(Commons.generateHashString());
+        System.out.println(Commons.generateHashString(5));
+        System.out.println(Commons.generateHashString(12));
+        System.out.println(Commons.generateHashString(7));
     }
 
     /**

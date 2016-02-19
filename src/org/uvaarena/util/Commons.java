@@ -15,14 +15,14 @@
  */
 package org.uvaarena.util;
 
-import java.math.BigInteger; 
+import java.math.BigInteger;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormat;
-import org.joda.time.format.PeriodFormatter; 
+import org.joda.time.format.PeriodFormatter;
 import org.uvaarena.Launcher;
 
 /**
@@ -102,16 +102,26 @@ public abstract class Commons {
     /**
      * Generates a unique string hash value
      *
-     * @return
+     * @param buf_siz Size of the buffer. Better if it is a multiple of 6.
+     * @return Hash string of length = <code>ceil(8 * buf_siz / 6)</code>
      */
-    public static String generateHashString() {
+    public static String generateHashString(int buf_siz) {
         mCurrentHash = mCurrentHash.add(BigInteger.ONE);
-        byte[] data = new byte[6];
+        byte[] data = new byte[buf_siz];
         byte[] cur = mCurrentHash.toByteArray();
-        for (int i = 0; i < 6; ++i) {
+        for (int i = 0; i < buf_siz; ++i) {
             data[i] = i < cur.length ? cur[i] : 0;
         }
         return Base64.encodeBase64String(data);
+    }
+
+    /**
+     * Generates a unique string hash value of length 8
+     *
+     * @return
+     */
+    public static String generateHashString() {
+        return generateHashString(6);
     }
 
     /**
@@ -150,14 +160,17 @@ public abstract class Commons {
      *
      * @return
      */
-    public static String getSecretSalt() {  
-        Preferences pref = Preferences.userNodeForPackage(Launcher.class);
-        String salt = pref.get(Settings.KEY_SALT, null);
-        if (salt == null) {
-            salt = generateHashString();
-            pref.put(Settings.KEY_SALT, salt);
+    public static String getSecretSalt() {
+        try {
+            Preferences pref = Preferences.userNodeForPackage(Launcher.class);
+            String salt = pref.get(Settings.KEY_SALT, null);
+            if (salt == null) {
+                salt = generateHashString();
+                pref.put(Settings.KEY_SALT, salt);
+            }
+            return salt;
+        } catch (Exception ex) {
+            return generateHashString();
         }
-        return salt;
-
     }
 }

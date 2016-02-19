@@ -15,15 +15,15 @@
  */
 package org.uvaarena.util;
 
-import java.math.BigInteger;
-import java.util.Locale;
+import java.math.BigInteger; 
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormat;
-import org.joda.time.format.PeriodFormatter;
-import org.joda.time.format.PeriodFormatterBuilder;
+import org.joda.time.format.PeriodFormatter; 
+import org.uvaarena.Launcher;
 
 /**
  *
@@ -94,7 +94,7 @@ public abstract class Commons {
      * @return
      */
     public static String formatTimeSpan(long span) {
-        Period period = new Period(span);                
+        Period period = new Period(span);
         PeriodFormatter formatter = PeriodFormat.getDefault();
         return formatter.print(period);
     }
@@ -150,9 +150,14 @@ public abstract class Commons {
      *
      * @return
      */
-    public static String getSecretSalt() {
-        // TODO: modify this method to generate secret salt.
-        // the following string is only for test purpose.        
-        return "secret-salt-for-test";
+    public static String getSecretSalt() {  
+        Preferences pref = Preferences.userNodeForPackage(Launcher.class);
+        String salt = pref.get(Settings.KEY_SALT, null);
+        if (salt == null) {
+            salt = generateHashString();
+            pref.put(Settings.KEY_SALT, salt);
+        }
+        return salt;
+
     }
 }

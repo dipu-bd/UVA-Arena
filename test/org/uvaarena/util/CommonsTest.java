@@ -14,7 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 package org.uvaarena.util;
-   
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 public class CommonsTest {
 
     public CommonsTest() {
-    }    
+    }
 
     /**
      * Test of formatByteLength method, of class Commons.
@@ -72,18 +72,13 @@ public class CommonsTest {
         String expResult = "60.65 GB";
         String result = Commons.formatByteLength(byteLength);
         assertEquals(expResult, result);
-    } 
-    
+    }
+
     /**
      * Test of encodePass method, of class Commons.
      */
     @Test
-    public void testEncodeDecodePass() {   
-           
-        System.out.println(System.nanoTime());
-        System.out.println(System.currentTimeMillis());
-        System.out.println(System.nanoTime());
-        
+    public void testEncodeDecodePass() {
         System.out.println("testEncodeDecodePass");
         String pass = "sd*^*laslkj28)35465#@#$32D";
         String encoded = Commons.encodePass(pass);
@@ -95,6 +90,15 @@ public class CommonsTest {
     }
 
     /**
+     * Test of getSecretSalt method, of class Commons.
+     */
+    @Test
+    public void getSecretSalt() {
+        System.out.println("testSecrectSalt");
+        System.out.println(Commons.getSecretSalt());
+    }
+
+    /**
      * Test of formatTimeSpan method, of class Commons.
      */
     @Test
@@ -102,5 +106,5 @@ public class CommonsTest {
         System.out.println("----- formatTimeSpan -----");
         System.out.println(Commons.formatTimeSpan(4531342222410L));
     }
- 
+
 }

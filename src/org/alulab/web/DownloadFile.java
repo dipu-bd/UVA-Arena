@@ -32,8 +32,8 @@ public class DownloadFile extends DownloadTask {
     private FileOutputStream mFOS = null;
 
     public DownloadFile(String url, File file) {
+        super(new HttpGet(url));
         setFile(file);
-        setUriRequest(new HttpGet(url));
     }
 
     public File getFile() {

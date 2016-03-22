@@ -28,8 +28,8 @@ public class DownloadString extends DownloadTask {
     private final ByteArrayOutputStream mBAOS;
 
     public DownloadString(String url) {
-        mBAOS = new ByteArrayOutputStream();
-        setUriRequest(new HttpGet(url));
+        super(new HttpGet(url));
+        mBAOS = new ByteArrayOutputStream();        
     }
 
     /**

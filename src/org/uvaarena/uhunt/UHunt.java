@@ -32,29 +32,35 @@ import org.alulab.web.TaskMonitor;
  */
 public class UHunt {
 
-    public final int MAX_CONNECTION_TO_UVA = 1;
-    public final int MAX_CONNECTION_TO_UHUNT = 4;
+    public final int MAX_CONNECTION_TO_UVA = 2;
+    public final int MAX_CONNECTION_TO_UHUNT = 6;
     public final String WEBHOST_UVA = "uva.onlinejudge.org";
     public final String WEBHOST_UHUNT = "uhunt.felix-halim.net";
 
     //
     // Private variables
     //
-    private final Core mCore;
+    private Core mCore;
     private Problems mProblems;
     private final Map<String, Long> mUserNameToID;
 
     /**
      * Initialize a new UhuntAPI.
-     *
-     * @param core UVA Arena core.
      */
-    public UHunt(Core core) {
-        mCore = core;
+    public UHunt() {
         mProblems = new Problems();
         mUserNameToID = new HashMap<>();
         DownloadManager.setMaxPerRoute(WEBHOST_UVA, MAX_CONNECTION_TO_UVA);
         DownloadManager.setMaxPerRoute(WEBHOST_UHUNT, MAX_CONNECTION_TO_UHUNT);
+    }
+
+    /**
+     * Sets the core object.
+     *
+     * @param core UVA Arena core.
+     */
+    public void setCore(Core core) {
+        mCore = core;
     }
 
     /**
@@ -216,7 +222,7 @@ public class UHunt {
      * @param taskFinished Can be null. Gets called when download finished.
      */
     public void downloadJudgeStatus(Runnable taskProgress, Runnable taskFinished) {
-        
+
     }
 
     /**

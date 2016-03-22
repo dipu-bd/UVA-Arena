@@ -13,31 +13,16 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-package org.uvaarena;
- 
-import static javafx.application.Application.launch;
-import javafx.application.Application; 
-import javafx.stage.Stage; 
+package org.alulab.web;
 
 /**
- * Start point of the application.
+ * Work state of a DownloadProgress
  */
-public class Launcher extends Application {
+public enum WorkState {
 
-    private Core mCore;
-    private Object DownloadManagerTest;
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        mCore = new Core(stage);
- 
-        stage.show(); 
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
+    WAITING,
+    RUNNING, 
+    STOPPING,
+    FINISHED,
+    FAILED
 }

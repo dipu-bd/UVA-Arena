@@ -34,7 +34,7 @@ public final class Core {
         mPrimaryStage = stage;
         mSetting = new Settings();
         mSubmitter = new CodeSubmitter();
-        mUhunt = new UHunt(this);
+        mUhunt = new UHunt();
 
         initialize();
     }
@@ -42,7 +42,8 @@ public final class Core {
     /**
      * Initializes all values after the is core created
      */
-    private void initialize() {
+    private void initialize() {        
+        mUhunt.setCore(this);
         mSubmitter.setUserName(mSetting.getDefaultUsername());
         mSubmitter.setPassword(mSetting.getPassword());
     }

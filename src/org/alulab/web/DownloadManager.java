@@ -16,17 +16,11 @@
 package org.alulab.web;
 
 import java.io.File;
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import org.apache.http.HttpHost;
-import org.apache.http.client.CookieStore;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.routing.HttpRoute;
-import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.cache.CacheConfig;
 import org.apache.http.impl.client.cache.CachingHttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
@@ -38,13 +32,10 @@ public abstract class DownloadManager {
     public static final String USER_AGENT = "Mozilla/5.0";
 
     private static final int DEFAULT_MAX_TOTAL = 20;
-
-    private static final CacheConfig mCacheConfig;
+ 
     private static final RequestConfig mRequestConfig;
     private static final CloseableHttpClient mClient;
-    private static final PoolingHttpClientConnectionManager mHttpPool;
-    private static final CookieStore mCookieStore;
-    private static final CookieManager mCookieManager;
+    private static final PoolingHttpClientConnectionManager mHttpPool; 
 
     /**
      * Initializes this instance of download manager
@@ -52,28 +43,16 @@ public abstract class DownloadManager {
     static {
         mHttpPool = new PoolingHttpClientConnectionManager();
         mHttpPool.setMaxTotal(DEFAULT_MAX_TOTAL);
-
-        mCookieStore = new BasicCookieStore();
-        mCookieManager = new CookieManager();
-        mCookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-        CookieHandler.setDefault(mCookieManager);
-
-        mCacheConfig = CacheConfig.custom()
-                .setMaxCacheEntries(1000)
-                .setMaxObjectSize(8192)
-                .build();
-
+  
         mRequestConfig = RequestConfig.custom()
                 .setCookieSpec(CookieSpecs.STANDARD)
                 .setConnectTimeout(30000)
                 .setSocketTimeout(30000)
                 .build();
 
-        mClient = CachingHttpClients.custom()
-                .setCacheConfig(mCacheConfig)
+        mClient = CachingHttpClients.custom() 
                 .setDefaultRequestConfig(mRequestConfig)
-                .setConnectionManager(mHttpPool)
-                .setDefaultCookieStore(mCookieStore)
+                .setConnectionManager(mHttpPool) 
                 .setUserAgent(USER_AGENT)
                 .build();
     }
@@ -86,16 +65,7 @@ public abstract class DownloadManager {
     public static CloseableHttpClient getHttpClient() {
         return mClient;
     }
-
-    /**
-     * Gets the default cookie store used by the HTTP client.
-     *
-     * @return
-     */
-    public static CookieStore getCookieStore() {
-        return mCookieStore;
-    }
-
+ 
     /**
      * Gets the request configuration for connection.
      *

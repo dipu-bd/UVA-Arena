@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UVA_Arena</RootNamespace>
     <AssemblyName>UVA Arena</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
@@ -96,102 +96,96 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ClassData\Data Structures\CategoryNode.cs" />
-    <Compile Include="ClassData\Data Structures\DownloadTask.cs" />
-    <Compile Include="ClassData\Data Structures\UserInfo.cs" />
-    <Compile Include="ClassData\Data Structures\UserRanklist.cs" />
+    <Compile Include="ClassData\Models\CategoryNode.cs" />
+    <Compile Include="ClassData\Models\DownloadTask.cs" />
+    <Compile Include="ClassData\Models\UserInfo.cs" />
+    <Compile Include="ClassData\Models\UserRanklist.cs" />
     <Compile Include="ClassData\Utilities\UpdateCheck.cs" />
     <Compile Include="ClassData\Utilities\WebBrowserHelper.cs" />
-    <Compile Include="Specials\PdfViewer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Specials\PdfViewer.Designer.cs">
-      <DependentUpon>PdfViewer.cs</DependentUpon>
-    </Compile>
     <Compile Include="ClassData\Utilities\CodeCompiler.cs" />
     <Compile Include="ClassData\Utilities\Internet.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ClassData\Data Structures\UserSubmissions.cs" />
+    <Compile Include="ClassData\Models\UserSubmissions.cs" />
     <Compile Include="ClassData\Utilities\DataCompressor.cs" />
-    <Compile Include="UserControls\CodesBrowser.cs">
+    <Compile Include="Pages\CodesBrowser.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\CodesBrowser.Designer.cs">
+    <Compile Include="Pages\CodesBrowser.Designer.cs">
       <DependentUpon>CodesBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CompareUsers.cs">
+    <Compile Include="Pages\CompareUsers.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\CompareUsers.Designer.cs">
+    <Compile Include="Pages\CompareUsers.Designer.cs">
       <DependentUpon>CompareUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Specials\CustomWebBrowser.cs">
+    <Compile Include="Components\CustomWebBrowser.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Specials\CustomWebBrowser.Designer.cs">
+    <Compile Include="Components\CustomWebBrowser.Designer.cs">
       <DependentUpon>CustomWebBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\JUDGE_STATUS.cs">
+    <Compile Include="Pages\JUDGE_STATUS.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\JUDGE_STATUS.Designer.cs">
+    <Compile Include="Pages\JUDGE_STATUS.Designer.cs">
       <DependentUpon>JUDGE_STATUS.cs</DependentUpon>
     </Compile>
     <Compile Include="ClassData\Utilities\DiffFileMerger.cs" />
     <Compile Include="ClassData\Utilities\FileOperations.cs" />
     <Compile Include="ClassData\Utilities\HighlightSyntax.cs" />
     <Compile Include="ClassData\Utilities\NativeMethods.cs" />
-    <Compile Include="Specials\CustomTabControl.cs">
+    <Compile Include="Components\CustomTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Specials\CueTextBox.cs">
+    <Compile Include="Components\CueTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Specials\NativeListView.cs">
+    <Compile Include="Components\NativeListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Specials\CustomSplitContainer.cs">
+    <Compile Include="Components\CustomSplitContainer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Specials\CustomStatusButton.cs" />
-    <Compile Include="Specials\NativeTreeView.cs">
+    <Compile Include="Components\CustomStatusButton.cs" />
+    <Compile Include="Components\NativeTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Specials\SearchBox.cs">
+    <Compile Include="Components\SearchBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Specials\SearchBox.Designer.cs">
+    <Compile Include="Components\SearchBox.Designer.cs">
       <DependentUpon>SearchBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CODES.cs">
+    <Compile Include="Pages\CODES.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\CODES.Designer.cs">
+    <Compile Include="Pages\CODES.Designer.cs">
       <DependentUpon>CODES.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PROBLEMS.cs">
+    <Compile Include="Pages\PROBLEMS.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\PROBLEMS.Designer.cs">
+    <Compile Include="Pages\PROBLEMS.Designer.cs">
       <DependentUpon>PROBLEMS.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ProblemViewer.cs">
+    <Compile Include="Pages\ProblemViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ProblemViewer.Designer.cs">
+    <Compile Include="Pages\ProblemViewer.Designer.cs">
       <DependentUpon>ProblemViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UserProgTracker.cs">
+    <Compile Include="Pages\UserProgTracker.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UserProgTracker.Designer.cs">
+    <Compile Include="Pages\UserProgTracker.Designer.cs">
       <DependentUpon>UserProgTracker.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\USER_STAT.cs">
+    <Compile Include="Pages\USER_STAT.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\USER_STAT.Designer.cs">
+    <Compile Include="Pages\USER_STAT.Designer.cs">
       <DependentUpon>USER_STAT.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\CheckUpdateForm.cs">
@@ -272,50 +266,44 @@
     <Compile Include="ClassData\Basic\Interactivity.cs" />
     <Compile Include="ClassData\Basic\LocalDirectory.cs" />
     <Compile Include="ClassData\Utilities\Logger.cs" />
-    <Compile Include="ClassData\Data Structures\ProblemInfo.cs" />
+    <Compile Include="ClassData\Models\ProblemInfo.cs" />
     <Compile Include="ClassData\Basic\RegistryAccess.cs" />
     <Compile Include="ClassData\Basic\LocalDatabase.cs" />
     <Compile Include="ClassData\Utilities\Stylish.cs" />
-    <Compile Include="ClassData\Data Structures\JudgeStatus.cs" />
+    <Compile Include="ClassData\Models\JudgeStatus.cs" />
     <Compile Include="ClassData\Utilities\TaskQueue.cs" />
     <Compile Include="ClassData\Utilities\UnixTimeStamp.cs" />
     <Compile Include="Settings.cs" />
     <None Include="Resources\failed.png" />
-    <Content Include="x86\pdfium.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <EmbeddedResource Include="Specials\PdfViewer.resx">
-      <DependentUpon>PdfViewer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\CodesBrowser.resx">
+    <EmbeddedResource Include="Pages\CodesBrowser.resx">
       <DependentUpon>CodesBrowser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Specials\CustomWebBrowser.resx">
+    <EmbeddedResource Include="Components\CustomWebBrowser.resx">
       <DependentUpon>CustomWebBrowser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Specials\SearchBox.resx">
+    <EmbeddedResource Include="Components\SearchBox.resx">
       <DependentUpon>SearchBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\CODES.resx">
+    <EmbeddedResource Include="Pages\CODES.resx">
       <DependentUpon>CODES.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\CompareUsers.resx">
+    <EmbeddedResource Include="Pages\CompareUsers.resx">
       <DependentUpon>CompareUsers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\PROBLEMS.resx">
+    <EmbeddedResource Include="Pages\PROBLEMS.resx">
       <DependentUpon>PROBLEMS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ProblemViewer.resx">
+    <EmbeddedResource Include="Pages\ProblemViewer.resx">
       <DependentUpon>ProblemViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\JUDGE_STATUS.resx">
+    <EmbeddedResource Include="Pages\JUDGE_STATUS.resx">
       <DependentUpon>JUDGE_STATUS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UserProgTracker.resx">
+    <EmbeddedResource Include="Pages\UserProgTracker.resx">
       <DependentUpon>UserProgTracker.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\USER_STAT.resx">
+    <EmbeddedResource Include="Pages\USER_STAT.resx">
       <DependentUpon>USER_STAT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\CheckUpdateForm.resx">
@@ -409,9 +397,14 @@
     <Reference Include="ObjectListView">
       <HintPath>..\..\lib\ObjectListView.DLL</HintPath>
     </Reference>
-    <Reference Include="PdfiumViewer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\PdfiumViewer.dll</HintPath>
+    <Reference Include="Spire.License">
+      <HintPath>..\..\lib\Spire.PdfViewer-FE\Bin\NET2.0\Spire.License.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Pdf">
+      <HintPath>..\..\lib\Spire.PdfViewer-FE\Bin\NET2.0\Spire.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.PdfViewer.Forms">
+      <HintPath>..\..\lib\Spire.PdfViewer-FE\Bin\NET2.0\Spire.PdfViewer.Forms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

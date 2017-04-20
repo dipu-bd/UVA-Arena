@@ -236,12 +236,6 @@ namespace UVA_Arena
             customTabControl1.SelectedTab = codesTab;
         }
 
-        private void discussForumToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Interactivity.problemViewer.tabControl1.SelectedTab = Interactivity.problemViewer.discussTab;
-            customTabControl1.SelectedTab = problemTab;
-        }
-
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Interactivity.ShowSettings();

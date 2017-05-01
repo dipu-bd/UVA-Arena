@@ -1,5 +1,5 @@
 {
-	"version":"1.6.1",
-	"link":"http://dipu-bd.github.io/UVA-Arena/",
-	"message":"**SOME ISSUES FIXED FROM VERSION 1.6**\r\nFollowing changes were made:\r\n\t * Problem category viewer design changed\r\n\t * \"User profile won't download\" - fixed.\r\n\t * \"World Rank not working\" - fixed.\r\n\t * \"User ID not showing in progress tracker tab\" - fixed."
+	"version":"1.7",
+	"link":"https://github.com/dipu-bd/UVA-Arena/releases/download/1.7/UVA_Arena_1.7_setup.exe",
+	"message":"Changed the PDF viewer module.\r\nRemoved Discussion tab from problem description.\r\nuDebug viewer: showing only necessary contents."	
 }

@@ -53,12 +53,12 @@ Here is a brief list of the features that this software provides:
 * User Statistics with graphs
 * World Rank viewer
 * Compare between users
-* Discuss and uDebug browser  
+* uDebug browser  
 
 #### Screen Shots 
 [![Whole](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/wiki/_all_.png)](https://raw.githubusercontent.com/dipu-bd/UVA-Arena/master/Images/wiki/_all_.png)  
 
-###Licence Information
+### Licence Information
 `This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License, version 3.0 as published by the Free Software Foundation.`  
 
 `This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.`  

@@ -1,5 +1,5 @@
 {
-	"version":"1.8",
-	"link":"https://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.8/UVA_Arena_1.8.exe",
-	"message":"Changed the PDF viewer: using pdf.js."	
+	"version":"1.8.1",
+	"link":"https://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.8/UVA_Arena_1.8.1.exe",
+	"message":"Changed the PDF viewer: using pdf.js.\r\nAuto input-output loader from uDebug."	
 }

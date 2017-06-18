@@ -1400,9 +1400,9 @@ namespace UVA_Arena.Elements
             });
         }
 
-        public void DownloadInputOutput(uDebugClient.UserInput user)
+        public void DownloadInputOutput(uDebugClient.UserInput user = null)
         {
-            if (mFormData == null || user == null)
+            if (mFormData == null)
             {
                 MessageBox.Show("Not Avaiable");
             }
@@ -1413,7 +1413,7 @@ namespace UVA_Arena.Elements
                 try
                 {
                     // download input
-                    string input = uDebugClient.GetInputdata(user);
+                    string input = user == null ? inputTextBox.Text : uDebugClient.GetInputdata(user);
                     
                     // download output
                     string output = uDebugClient.GetOutputData(input, mFormData);
@@ -1430,50 +1430,34 @@ namespace UVA_Arena.Elements
                 {
                     Logger.Add(ex.Message, ex.Source);
                 }
-            });
-        }
-
-        public void DownloadOutput()
-        {
-            if (mFormData == null)
-            {
-                MessageBox.Show("Not Avaiable");
-            }
-
-            System.Threading.ThreadPool.QueueUserWorkItem((WaitCallback)delegate
-            {
-                try
+                finally
                 {
-                    string input = inputTextBox.Text;
-
-                    // download output
-                    string output = uDebugClient.GetOutputData(input, mFormData);
-
+                    // reenable input output
                     this.BeginInvoke((MethodInvoker)delegate
                     {
-                        correctOutputTextBox.Text = output;
-                        saveInputOutputData();
+                        inputTextBox.Enabled = true;
+                        correctOutputTextBox.Enabled = true;
                     });
-                }
-                catch (Exception ex)
-                {
-                    Logger.Add(ex.Message, ex.Source);
                 }
             });
         }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
+            uDebugPane1.Enabled = false;
             LoadUDebug();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            DownloadOutput();
+            correctOutputTextBox.Enabled = false;
+            DownloadInputOutput();
         }
 
         private void uDebugUser_SelectedIndexChanged(object sender, EventArgs e)
         {
+            inputTextBox.Enabled = false;
+            correctOutputTextBox.Enabled = false;
             DownloadInputOutput((uDebugClient.UserInput)uDebugUser.SelectedItem);
         }
 

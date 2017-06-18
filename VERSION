@@ -1,5 +1,5 @@
 {
-	"version":"1.7",
-	"link":"https://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.7/UVA_Arena_1.7.exe",
-	"message":"Changed the PDF viewer module.\r\nRemoved Discussion tab from problem description.\r\nuDebug viewer: showing only necessary contents."	
+	"version":"1.8",
+	"link":"https://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.8/UVA_Arena_1.8.exe",
+	"message":"Changed the PDF viewer: using pdf.js."	
 }

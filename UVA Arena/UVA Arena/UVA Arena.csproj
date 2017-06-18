@@ -100,6 +100,7 @@
     <Compile Include="ClassData\Models\DownloadTask.cs" />
     <Compile Include="ClassData\Models\UserInfo.cs" />
     <Compile Include="ClassData\Models\UserRanklist.cs" />
+    <Compile Include="ClassData\Utilities\uDebugClient.cs" />
     <Compile Include="ClassData\Utilities\UpdateCheck.cs" />
     <Compile Include="ClassData\Utilities\WebBrowserHelper.cs" />
     <Compile Include="ClassData\Utilities\CodeCompiler.cs" />

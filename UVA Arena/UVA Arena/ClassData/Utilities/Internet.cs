@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using UVA_Arena.Structures;
 
 namespace UVA_Arena.Internet
 {
@@ -267,7 +268,7 @@ namespace UVA_Arena.Internet
 
         private static void __DownloadProblemDatabaseProgress(DownloadTask task)
         {
-            string msg = "Downloading problem list... [{0}/{1} completed]"; 
+            string msg = "Downloading problem list... [{0}/{1} completed]";
             msg = string.Format(msg, Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
             Interactivity.SetStatus(msg);
 

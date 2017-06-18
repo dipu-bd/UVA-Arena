@@ -76,8 +76,8 @@
             this.problemListView = new BrightIdeasSoftware.FastObjectListView();
             this.pnumProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.ptitleProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.levelProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.dacuProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.levelProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.rtlProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.runProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.totalProb = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -322,12 +322,13 @@
             this.submitCodeToolStripMenuItem,
             this.markAsFavorite});
             this.problemContextMenu.Name = "contextMenuStrip1";
-            this.problemContextMenu.Size = new System.Drawing.Size(163, 176);
+            this.problemContextMenu.Size = new System.Drawing.Size(163, 198);
             this.problemContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.problemContextMenu_Opening);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.ShowShortcutKeys = false;
             this.refreshToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
@@ -724,6 +725,16 @@
             this.ptitleProb.ToolTipText = "Problem title";
             this.ptitleProb.Width = 160;
             // 
+            // dacuProb
+            // 
+            this.dacuProb.AspectName = "dacu";
+            this.dacuProb.DisplayIndex = 3;
+            this.dacuProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dacuProb.Searchable = false;
+            this.dacuProb.Text = "DACU";
+            this.dacuProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dacuProb.ToolTipText = "Distinct Accepted User";
+            // 
             // levelProb
             // 
             this.levelProb.AspectName = "Level";
@@ -738,16 +749,6 @@
             this.levelProb.ToolTipText = "Hardness level of this problem";
             this.levelProb.UseFiltering = false;
             this.levelProb.Width = 50;
-            // 
-            // dacuProb
-            // 
-            this.dacuProb.AspectName = "dacu";
-            this.dacuProb.DisplayIndex = 3;
-            this.dacuProb.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.dacuProb.Searchable = false;
-            this.dacuProb.Text = "DACU";
-            this.dacuProb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.dacuProb.ToolTipText = "Distinct Accepted User";
             // 
             // rtlProb
             // 

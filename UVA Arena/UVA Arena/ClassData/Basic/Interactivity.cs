@@ -23,7 +23,7 @@ namespace UVA_Arena
         public static ProblemViewer problemViewer;
         public static CODES codes;
         public static STATUS status;
-        public static USER_STAT userstat; 
+        public static USER_STAT userstat;
         public static UserProgTracker progTracker;
         public static CompareUsers compareUser;
         public static CodesBrowser codesBrowser;
@@ -150,8 +150,9 @@ namespace UVA_Arena
         /// <param name="update">Update message that got downloaded</param>
         public static void UpdateFound(UpdateCheck.UpdateMessage update)
         {
-            if (update.version.Length > 2 &&
-                update.version != Application.ProductVersion)
+            int prev = parseUpdate(update.version);
+            int current = parseUpdate(Application.ProductVersion);
+            if (prev > current)
             {
                 mainForm.BeginInvoke((MethodInvoker)delegate
                 {
@@ -167,6 +168,29 @@ namespace UVA_Arena
                 Logger.Add("Update Checked : This is the latest version.", "Interactivity|UpdateFound()");
             }
         }
+
+
+        private static int parseUpdate(string text)
+        {
+            int version = 0;
+            try
+            {
+                int cnt = 0;
+                foreach (string s in text.Split(new char[] { '.' }))
+                {
+                    version = version * 100 + int.Parse(s);
+                    cnt++;
+                }
+                while (cnt < 4)
+                {
+                    version *= 100;
+                    cnt++;
+                }
+            }
+            catch { }
+            return version;
+        }
+
 
         /// <summary>
         /// This method is called when default user-name is changed

@@ -50,8 +50,21 @@ namespace UVA_Arena.Elements
             {
                 CollapsePanel2View();
             }
+
+            // check category
+            TaskQueue.AddTask(updateListIfEmpty, 5000);
         }
 
+        private void updateListIfEmpty()
+        {
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                if (categoryListView.Items.Count == 0)
+                {
+                    LocalDatabase.RunLoadAsync(true);
+                }
+            });
+        }
 
         void InitializeCategoryList()
         {

@@ -1,0 +1,8 @@
+title: UVA Arena
+description: UVA Arena is a utility application to make problem solving easier for the programmers.
+google_analytics: UA-58922673-1
+show_downloads: true
+theme: jekyll-theme-slate
+
+gems:
+  - jekyll-mentions

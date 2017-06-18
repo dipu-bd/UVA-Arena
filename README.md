@@ -11,6 +11,7 @@ To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena
 
 #### Version 1.7
 1. [Download Setup File (Windows Only)](https://github.com/dipu-bd/UVA-Arena/releases/download/1.7/UVA_Arena_1.7_setup.exe)
+1. [Download Setup File (SourceForge Mirror)](https://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.7/UVA_Arena_1.7.exe/download)
 
 
 ##### Version 1.6 [Fix 1]

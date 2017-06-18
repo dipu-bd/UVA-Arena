@@ -91,8 +91,15 @@
             this.inputOutputTabControl = new System.Windows.Forms.TabControl();
             this.inputTab = new System.Windows.Forms.TabPage();
             this.inputTextBox = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.uDebugPane1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.uDebugUser = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.correctOutputTab = new System.Windows.Forms.TabPage();
             this.correctOutputTextBox = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.uDebugPane2 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.outputTextBox = new FastColoredTextBoxNS.FastColoredTextBox();
             this.ouputToolBar = new System.Windows.Forms.ToolStrip();
@@ -103,8 +110,6 @@
             this.compareOutputButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.loadDefaultInput = new System.Windows.Forms.Button();
-            this.uDebugTab = new System.Windows.Forms.TabPage();
-            this.udebugBrowser = new UVA_Arena.ExtendedControls.CustomWebBrowser();
             this.compilerOutput = new FastColoredTextBoxNS.FastColoredTextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
@@ -146,13 +151,14 @@
             this.inputOutputTabControl.SuspendLayout();
             this.inputTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.inputTextBox)).BeginInit();
+            this.uDebugPane1.SuspendLayout();
             this.correctOutputTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.correctOutputTextBox)).BeginInit();
+            this.uDebugPane2.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputTextBox)).BeginInit();
             this.ouputToolBar.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.uDebugTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.compilerOutput)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.filenamePanel.SuspendLayout();
@@ -439,7 +445,6 @@
             // 
             this.tabControl1.Controls.Add(this.codeTAB);
             this.tabControl1.Controls.Add(this.ioTAB);
-            this.tabControl1.Controls.Add(this.uDebugTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -447,7 +452,6 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(596, 265);
             this.tabControl1.TabIndex = 1;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
             // codeTAB
@@ -776,6 +780,7 @@
             // inputTab
             // 
             this.inputTab.Controls.Add(this.inputTextBox);
+            this.inputTab.Controls.Add(this.uDebugPane1);
             this.inputTab.Location = new System.Drawing.Point(4, 25);
             this.inputTab.Name = "inputTab";
             this.inputTab.Padding = new System.Windows.Forms.Padding(3);
@@ -800,7 +805,7 @@
             this.inputTextBox.AutoIndent = false;
             this.inputTextBox.AutoIndentChars = false;
             this.inputTextBox.AutoIndentExistingLines = false;
-            this.inputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.inputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.inputTextBox.BackBrush = null;
             this.inputTextBox.BackColor = System.Drawing.Color.Snow;
             this.inputTextBox.CharHeight = 14;
@@ -813,21 +818,68 @@
             this.inputTextBox.Hotkeys = resources.GetString("inputTextBox.Hotkeys");
             this.inputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.inputTextBox.IsReplaceMode = false;
-            this.inputTextBox.Location = new System.Drawing.Point(3, 3);
+            this.inputTextBox.Location = new System.Drawing.Point(3, 30);
             this.inputTextBox.Name = "inputTextBox";
             this.inputTextBox.Paddings = new System.Windows.Forms.Padding(0);
             this.inputTextBox.ReadOnly = true;
             this.inputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.inputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("inputTextBox.ServiceColors")));
-            this.inputTextBox.Size = new System.Drawing.Size(257, 168);
+            this.inputTextBox.Size = new System.Drawing.Size(257, 141);
             this.inputTextBox.TabIndex = 0;
             this.inputTextBox.Zoom = 100;
             this.inputTextBox.SelectionChanged += new System.EventHandler(this.FCTB_SelectionChanged);
             this.inputTextBox.CustomAction += new System.EventHandler<FastColoredTextBoxNS.CustomActionEventArgs>(this.inputTextBox_CustomAction);
             // 
+            // uDebugPane1
+            // 
+            this.uDebugPane1.BackColor = System.Drawing.Color.LightBlue;
+            this.uDebugPane1.Controls.Add(this.button1);
+            this.uDebugPane1.Controls.Add(this.uDebugUser);
+            this.uDebugPane1.Controls.Add(this.label1);
+            this.uDebugPane1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.uDebugPane1.Enabled = false;
+            this.uDebugPane1.Location = new System.Drawing.Point(3, 3);
+            this.uDebugPane1.Name = "uDebugPane1";
+            this.uDebugPane1.Size = new System.Drawing.Size(257, 27);
+            this.uDebugPane1.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Image = global::UVA_Arena.Properties.Resources.reload;
+            this.button1.Location = new System.Drawing.Point(225, 1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 24);
+            this.button1.TabIndex = 2;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // uDebugUser
+            // 
+            this.uDebugUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uDebugUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.uDebugUser.FormattingEnabled = true;
+            this.uDebugUser.Location = new System.Drawing.Point(92, 3);
+            this.uDebugUser.Name = "uDebugUser";
+            this.uDebugUser.Size = new System.Drawing.Size(127, 21);
+            this.uDebugUser.TabIndex = 1;
+            this.uDebugUser.SelectedIndexChanged += new System.EventHandler(this.uDebugUser_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(5, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "From uDebug:";
+            // 
             // correctOutputTab
             // 
             this.correctOutputTab.Controls.Add(this.correctOutputTextBox);
+            this.correctOutputTab.Controls.Add(this.uDebugPane2);
             this.correctOutputTab.Location = new System.Drawing.Point(4, 25);
             this.correctOutputTab.Name = "correctOutputTab";
             this.correctOutputTab.Padding = new System.Windows.Forms.Padding(3);
@@ -852,7 +904,7 @@
             this.correctOutputTextBox.AutoIndent = false;
             this.correctOutputTextBox.AutoIndentChars = false;
             this.correctOutputTextBox.AutoIndentExistingLines = false;
-            this.correctOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.correctOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.correctOutputTextBox.BackBrush = null;
             this.correctOutputTextBox.BackColor = System.Drawing.Color.Snow;
             this.correctOutputTextBox.CharHeight = 14;
@@ -865,18 +917,52 @@
             this.correctOutputTextBox.Hotkeys = resources.GetString("correctOutputTextBox.Hotkeys");
             this.correctOutputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.correctOutputTextBox.IsReplaceMode = false;
-            this.correctOutputTextBox.Location = new System.Drawing.Point(3, 3);
+            this.correctOutputTextBox.Location = new System.Drawing.Point(3, 30);
             this.correctOutputTextBox.Name = "correctOutputTextBox";
             this.correctOutputTextBox.Paddings = new System.Windows.Forms.Padding(0);
             this.correctOutputTextBox.ReadOnly = true;
             this.correctOutputTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.correctOutputTextBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("correctOutputTextBox.ServiceColors")));
-            this.correctOutputTextBox.Size = new System.Drawing.Size(257, 168);
+            this.correctOutputTextBox.Size = new System.Drawing.Size(257, 141);
             this.correctOutputTextBox.TabIndex = 0;
             this.correctOutputTextBox.Zoom = 100;
             this.correctOutputTextBox.SelectionChanged += new System.EventHandler(this.tb_VisibleRangeChanged);
             this.correctOutputTextBox.VisibleRangeChanged += new System.EventHandler(this.tb_VisibleRangeChanged);
             this.correctOutputTextBox.CustomAction += new System.EventHandler<FastColoredTextBoxNS.CustomActionEventArgs>(this.correctOutputTextBox_CustomAction);
+            // 
+            // uDebugPane2
+            // 
+            this.uDebugPane2.BackColor = System.Drawing.Color.LightBlue;
+            this.uDebugPane2.Controls.Add(this.button3);
+            this.uDebugPane2.Controls.Add(this.label2);
+            this.uDebugPane2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.uDebugPane2.Enabled = false;
+            this.uDebugPane2.Location = new System.Drawing.Point(3, 3);
+            this.uDebugPane2.Name = "uDebugPane2";
+            this.uDebugPane2.Size = new System.Drawing.Size(257, 27);
+            this.uDebugPane2.TabIndex = 2;
+            // 
+            // button3
+            // 
+            this.button3.Image = global::UVA_Arena.Properties.Resources.download;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button3.Location = new System.Drawing.Point(92, 1);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(163, 24);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Get Correct Output";
+            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(5, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(81, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "From uDebug:";
             // 
             // tableLayoutPanel5
             // 
@@ -911,7 +997,7 @@
             this.outputTextBox.AutoIndent = false;
             this.outputTextBox.AutoIndentChars = false;
             this.outputTextBox.AutoIndentExistingLines = false;
-            this.outputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.outputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.outputTextBox.BackBrush = null;
             this.outputTextBox.BackColor = System.Drawing.Color.MintCream;
             this.outputTextBox.CharHeight = 14;
@@ -1020,36 +1106,6 @@
             this.loadDefaultInput.Text = "Load Default";
             this.loadDefaultInput.UseVisualStyleBackColor = true;
             this.loadDefaultInput.Click += new System.EventHandler(this.loadDefaultInput_Click);
-            // 
-            // uDebugTab
-            // 
-            this.uDebugTab.BackColor = System.Drawing.Color.Transparent;
-            this.uDebugTab.Controls.Add(this.udebugBrowser);
-            this.uDebugTab.Location = new System.Drawing.Point(4, 26);
-            this.uDebugTab.Name = "uDebugTab";
-            this.uDebugTab.Size = new System.Drawing.Size(588, 235);
-            this.uDebugTab.TabIndex = 3;
-            this.uDebugTab.Text = "uDebug";
-            // 
-            // udebugBrowser
-            // 
-            this.udebugBrowser.BackColor = System.Drawing.Color.Ivory;
-            this.udebugBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.udebugBrowser.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.udebugBrowser.ForeColor = System.Drawing.Color.Black;
-            this.udebugBrowser.HistoryButtons = false;
-            this.udebugBrowser.HomeUrl = null;
-            this.udebugBrowser.Location = new System.Drawing.Point(0, 0);
-            this.udebugBrowser.Name = "udebugBrowser";
-            this.udebugBrowser.Size = new System.Drawing.Size(588, 235);
-            this.udebugBrowser.StatusBarVisible = false;
-            this.udebugBrowser.TabIndex = 0;
-            this.udebugBrowser.TopBarColor = System.Drawing.Color.Tan;
-            this.udebugBrowser.Url = new System.Uri("about:blank", System.UriKind.Absolute);
-            this.udebugBrowser.UrlBoxFont = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.udebugBrowser.StatusChanged += new UVA_Arena.ExtendedControls.CustomWebBrowser.StatusChangedEventHandler(this.customWebBrowser1_StatusChanged);
-            this.udebugBrowser.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.customWebBrowser1_ProgressChanged);
-            this.udebugBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.customWebBrowser1_DocumentCompleted);
             // 
             // compilerOutput
             // 
@@ -1281,7 +1337,7 @@
             this.runtestToolButton.Image = global::UVA_Arena.Properties.Resources.runtest;
             this.runtestToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.runtestToolButton.Name = "runtestToolButton";
-            this.runtestToolButton.Size = new System.Drawing.Size(57, 35);
+            this.runtestToolButton.Size = new System.Drawing.Size(56, 35);
             this.runtestToolButton.Text = "Run Test";
             this.runtestToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.runtestToolButton.ToolTipText = "Run program on given input";
@@ -1333,15 +1389,18 @@
             this.inputOutputTabControl.ResumeLayout(false);
             this.inputTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.inputTextBox)).EndInit();
+            this.uDebugPane1.ResumeLayout(false);
+            this.uDebugPane1.PerformLayout();
             this.correctOutputTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.correctOutputTextBox)).EndInit();
+            this.uDebugPane2.ResumeLayout(false);
+            this.uDebugPane2.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputTextBox)).EndInit();
             this.ouputToolBar.ResumeLayout(false);
             this.ouputToolBar.PerformLayout();
             this.panel4.ResumeLayout(false);
-            this.uDebugTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.compilerOutput)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -1413,8 +1472,6 @@
         private System.Windows.Forms.Button loadDefaultInput;
         public FastColoredTextBoxNS.FastColoredTextBox compilerOutput;
         public System.Windows.Forms.TabControl tabControl1;
-        public System.Windows.Forms.TabPage uDebugTab;
-        private ExtendedControls.CustomWebBrowser udebugBrowser;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ToolStrip TopToolBar;
         private System.Windows.Forms.ToolStripSplitButton prevToolMenu;
@@ -1450,5 +1507,12 @@
         private System.Windows.Forms.TabPage inputTab;
         private System.Windows.Forms.TabPage correctOutputTab;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.Panel uDebugPane1;
+        private System.Windows.Forms.ComboBox uDebugUser;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel uDebugPane2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label2;
     }
 }

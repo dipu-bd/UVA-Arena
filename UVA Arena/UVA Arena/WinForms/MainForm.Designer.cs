@@ -36,7 +36,6 @@
             this.setDefaultUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.submitFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.uDebugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loggerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -141,7 +140,6 @@
             this.setDefaultUserToolStripMenuItem,
             this.submitFormToolStripMenuItem,
             this.toolStripSeparator4,
-            this.uDebugToolStripMenuItem,
             this.toolStripSeparator12,
             this.settingsToolStripMenuItem,
             this.loggerToolStripMenuItem,
@@ -170,13 +168,6 @@
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(179, 6);
-            // 
-            // uDebugToolStripMenuItem
-            // 
-            this.uDebugToolStripMenuItem.Name = "uDebugToolStripMenuItem";
-            this.uDebugToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.uDebugToolStripMenuItem.Text = "uDebug";
-            this.uDebugToolStripMenuItem.Click += new System.EventHandler(this.uDebugToolStripMenuItem_Click);
             // 
             // toolStripSeparator12
             // 
@@ -865,7 +856,6 @@
         private System.Windows.Forms.ToolStripMenuItem submissionOverTimeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem submissionPerVerdictrToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem submissionLanguagesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem uDebugToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripMenuItem worldRankToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compareToolStripMenuItem;

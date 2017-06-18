@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using UVA_Arena.Utilities;
 
 namespace UVA_Arena.Elements
 {
@@ -696,11 +697,17 @@ namespace UVA_Arena.Elements
         {
             if (!LocalDatabase.HasProblem(SelectedPNUM))
             {
-                e.Cancel = !(e.TabPage == codeTAB || e.TabPage == uDebugTab);
+                e.Cancel = !(e.TabPage == codeTAB);
             }
             if (e.Cancel)
             {
                 MessageBox.Show("Select a problem's source code to enable this feature.");
+            }
+            else
+            {
+                LoadUDebug();
+                uDebugPane1.Enabled = false;
+                uDebugPane2.Enabled = false;
             }
         }
 
@@ -805,8 +812,8 @@ namespace UVA_Arena.Elements
             {
                 if (SelectedPNUM == -1)
                 {
-                        MessageBox.Show("No problem is selected.");
-                        return;
+                    MessageBox.Show("No problem is selected.");
+                    return;
                 }
                 Interactivity.ShowProblem(SelectedPNUM);
             }
@@ -822,7 +829,7 @@ namespace UVA_Arena.Elements
             {
                 if (CurrentFile == null || !LocalDatabase.HasProblem(SelectedPNUM))
                 {
-                    MessageBox.Show("Select code of a problem first."); 
+                    MessageBox.Show("Select code of a problem first.");
                     return;
                 }
                 string code = File.ReadAllText(CurrentFile.FullName);
@@ -1118,7 +1125,7 @@ namespace UVA_Arena.Elements
         {
             inputTextBox.Paste();
         }
-        
+
         //
         //Load Default 
         // 
@@ -1137,7 +1144,7 @@ namespace UVA_Arena.Elements
                     "[Warning: It might be wrong. Please check to be sure.]");
             }
         }
-        
+
         //
         // Output Text Box
         //
@@ -1358,62 +1365,116 @@ namespace UVA_Arena.Elements
 
         #region uDebug
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        uDebugClient.FormData mFormData;
+
+        public void LoadUDebug()
         {
-            if (tabControl1.SelectedTab == uDebugTab)
+            if (SelectedPNUM <= 0)
             {
-                if (udebugBrowser.Tag == null ||
-                    (long)udebugBrowser.Tag != SelectedPNUM)
+                return;
+            }
+
+            System.Threading.ThreadPool.QueueUserWorkItem((WaitCallback)delegate
+            {
+                // get data
+                try
                 {
-                    string url = string.Format(@"http://www.udebug.com/UVa/{0}", SelectedPNUM);
-                    udebugBrowser.Navigate(url);
-                    udebugBrowser.Tag = SelectedPNUM;
-                    if (!compilerOutputIsHidden)
-                        ToggleCompilerOutput();
+                    mFormData = uDebugClient.ExtractInputUsers(SelectedPNUM);
                 }
-            }
-        }
-
-
-        private void customWebBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
-        {
-            Interactivity.SetProgress(e.CurrentProgress, e.MaximumProgress);
-        }
-
-        private void customWebBrowser1_StatusChanged(object sender, ExtendedControls.CustomWebBrowser.StatusChangedEventArgs e)
-        {
-            Interactivity.SetStatus("uDebug Browser: " + e.Status);
-        }
-
-        private void customWebBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            processUDPage();
-        }
-
-        private bool processUDPage()
-        {
-            try
-            {
-                HtmlDocument hdoc = udebugBrowser.Document;
-
-                string[] del = {
-                    "header_wrapper",
-                    "footer",
-                    "problem-title-problem-form",
-                    "udebug-custom-problem-list-query-form"
-                };
-
-                foreach(string x in del) {
-                    var elem = hdoc.GetElementById(x);
-                    elem.OuterHtml = "";
+                catch (Exception ex)
+                {
+                    Logger.Add(ex.Message, ex.Source);
+                    return;
                 }
+                // update UI
+                this.BeginInvoke((MethodInvoker)delegate
+                {
+                    if (mFormData != null && mFormData.inputs.Count > 0)
+                    {
+                        uDebugUser.Items.Clear();
+                        uDebugUser.Items.AddRange(mFormData.inputs.ToArray());
+                        uDebugPane1.Enabled = true;
+                    }
+                    uDebugPane2.Enabled = (mFormData != null);
+                });
+            });
+        }
 
-                return true;
-            }
-            catch
+        public void DownloadInputOutput(uDebugClient.UserInput user)
+        {
+            if (mFormData == null || user == null)
             {
-                return false;
+                MessageBox.Show("Not Avaiable");
             }
+
+
+            System.Threading.ThreadPool.QueueUserWorkItem((WaitCallback)delegate
+            {
+                try
+                {
+                    // download input
+                    string input = uDebugClient.GetInputdata(user);
+                    
+                    // download output
+                    string output = uDebugClient.GetOutputData(input, mFormData);
+
+                    // update UI and save input-output data
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        inputTextBox.Text = input;
+                        correctOutputTextBox.Text = output;
+                        saveInputOutputData();
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Logger.Add(ex.Message, ex.Source);
+                }
+            });
+        }
+
+        public void DownloadOutput()
+        {
+            if (mFormData == null)
+            {
+                MessageBox.Show("Not Avaiable");
+            }
+
+            System.Threading.ThreadPool.QueueUserWorkItem((WaitCallback)delegate
+            {
+                try
+                {
+                    string input = inputTextBox.Text;
+
+                    // download output
+                    string output = uDebugClient.GetOutputData(input, mFormData);
+
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        correctOutputTextBox.Text = output;
+                        saveInputOutputData();
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Logger.Add(ex.Message, ex.Source);
+                }
+            });
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadUDebug();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DownloadOutput();
+        }
+
+        private void uDebugUser_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DownloadInputOutput((uDebugClient.UserInput)uDebugUser.SelectedItem);
         }
 
         #endregion

@@ -229,13 +229,7 @@ namespace UVA_Arena
         {
             Interactivity.SubmitCode(0);
         }
-
-        private void uDebugToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Interactivity.codes.tabControl1.SelectedTab = Interactivity.codes.uDebugTab;
-            customTabControl1.SelectedTab = codesTab;
-        }
-
+        
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Interactivity.ShowSettings();

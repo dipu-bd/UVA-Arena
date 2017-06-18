@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.pdfTab = new System.Windows.Forms.TabPage();
-            this.pdfPanel = new System.Windows.Forms.Panel();
-            this.pdfMessage = new System.Windows.Forms.Label();
+            this.pdfViewer1 = new UVA_Arena.Components.PDFViewer();
+            this.pdfViewer2 = new UVA_Arena.Components.PDFViewer();
             this.htmlTab = new System.Windows.Forms.TabPage();
             this.problemWebBrowser = new System.Windows.Forms.WebBrowser();
             this.submissionTab = new System.Windows.Forms.TabPage();
@@ -93,7 +93,6 @@
             this.TopPanel = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.pdfTab.SuspendLayout();
-            this.pdfPanel.SuspendLayout();
             this.htmlTab.SuspendLayout();
             this.submissionTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).BeginInit();
@@ -128,7 +127,8 @@
             // 
             // pdfTab
             // 
-            this.pdfTab.Controls.Add(this.pdfPanel);
+            this.pdfTab.Controls.Add(this.pdfViewer1);
+            this.pdfTab.Controls.Add(this.pdfViewer2);
             this.pdfTab.Location = new System.Drawing.Point(4, 30);
             this.pdfTab.Name = "pdfTab";
             this.pdfTab.Size = new System.Drawing.Size(792, 321);
@@ -136,29 +136,25 @@
             this.pdfTab.Text = "PDF";
             this.pdfTab.UseVisualStyleBackColor = true;
             // 
-            // pdfPanel
+            // pdfViewer1
             // 
-            this.pdfPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pdfPanel.BackColor = System.Drawing.Color.LightBlue;
-            this.pdfPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel.Controls.Add(this.pdfMessage);
-            this.pdfPanel.Location = new System.Drawing.Point(257, 105);
-            this.pdfPanel.Name = "pdfPanel";
-            this.pdfPanel.Size = new System.Drawing.Size(267, 119);
-            this.pdfPanel.TabIndex = 0;
+            this.pdfViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pdfViewer1.Location = new System.Drawing.Point(0, 0);
+            this.pdfViewer1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.pdfViewer1.Name = "pdfViewer1";
+            this.pdfViewer1.ScriptErrorsSuppressed = true;
+            this.pdfViewer1.Size = new System.Drawing.Size(792, 321);
+            this.pdfViewer1.TabIndex = 1;
             // 
-            // pdfMessage
+            // pdfViewer2
             // 
-            this.pdfMessage.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pdfMessage.AutoSize = true;
-            this.pdfMessage.BackColor = System.Drawing.Color.Transparent;
-            this.pdfMessage.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pdfMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.pdfMessage.Location = new System.Drawing.Point(49, 49);
-            this.pdfMessage.Name = "pdfMessage";
-            this.pdfMessage.Size = new System.Drawing.Size(165, 21);
-            this.pdfMessage.TabIndex = 0;
-            this.pdfMessage.Text = "No problem to display";
+            this.pdfViewer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pdfViewer2.Location = new System.Drawing.Point(0, 0);
+            this.pdfViewer2.MinimumSize = new System.Drawing.Size(20, 20);
+            this.pdfViewer2.Name = "pdfViewer2";
+            this.pdfViewer2.ScriptErrorsSuppressed = true;
+            this.pdfViewer2.Size = new System.Drawing.Size(792, 321);
+            this.pdfViewer2.TabIndex = 0;
             // 
             // htmlTab
             // 
@@ -730,7 +726,7 @@
             this.externalButton.Image = global::UVA_Arena.Properties.Resources.web;
             this.externalButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.externalButton.Name = "externalButton";
-            this.externalButton.Size = new System.Drawing.Size(52, 35);
+            this.externalButton.Size = new System.Drawing.Size(51, 35);
             this.externalButton.Text = "To Web";
             this.externalButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.externalButton.Click += new System.EventHandler(this.externalButton_Click);
@@ -767,7 +763,7 @@
             this.tagsOrNoteToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tagsOrNoteToolButton.Name = "tagsOrNoteToolButton";
             this.tagsOrNoteToolButton.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.tagsOrNoteToolButton.Size = new System.Drawing.Size(81, 35);
+            this.tagsOrNoteToolButton.Size = new System.Drawing.Size(80, 35);
             this.tagsOrNoteToolButton.Text = "Tags + Notes";
             this.tagsOrNoteToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tagsOrNoteToolButton.ToolTipText = "Tags or Notes";
@@ -798,7 +794,7 @@
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 43F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
             this.tableLayoutPanel1.Controls.Add(this.up_downButton, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.problemMessage, 0, 1);
@@ -823,11 +819,11 @@
             this.up_downButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PowderBlue;
             this.up_downButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.up_downButton.Image = global::UVA_Arena.Properties.Resources.moveup;
-            this.up_downButton.Location = new System.Drawing.Point(724, 1);
+            this.up_downButton.Location = new System.Drawing.Point(720, 1);
             this.up_downButton.Margin = new System.Windows.Forms.Padding(0);
             this.up_downButton.Name = "up_downButton";
             this.tableLayoutPanel1.SetRowSpan(this.up_downButton, 2);
-            this.up_downButton.Size = new System.Drawing.Size(43, 52);
+            this.up_downButton.Size = new System.Drawing.Size(47, 52);
             this.up_downButton.TabIndex = 2;
             this.up_downButton.UseVisualStyleBackColor = false;
             this.up_downButton.Click += new System.EventHandler(this.up_downButton_Click);
@@ -842,7 +838,7 @@
             this.titleBox1.Margin = new System.Windows.Forms.Padding(0);
             this.titleBox1.Name = "titleBox1";
             this.titleBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.titleBox1.Size = new System.Drawing.Size(722, 29);
+            this.titleBox1.Size = new System.Drawing.Size(718, 29);
             this.titleBox1.TabIndex = 0;
             this.titleBox1.Text = "No problem selected";
             // 
@@ -855,7 +851,7 @@
             this.problemMessage.Margin = new System.Windows.Forms.Padding(1);
             this.problemMessage.Name = "problemMessage";
             this.problemMessage.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.problemMessage.Size = new System.Drawing.Size(720, 20);
+            this.problemMessage.Size = new System.Drawing.Size(716, 20);
             this.problemMessage.TabIndex = 1;
             this.problemMessage.Tag = "You DID NOT TRY this problem.";
             this.problemMessage.Text = "You DID NOT TRY this problem.";
@@ -911,8 +907,6 @@
             this.Size = new System.Drawing.Size(800, 450);
             this.tabControl1.ResumeLayout(false);
             this.pdfTab.ResumeLayout(false);
-            this.pdfPanel.ResumeLayout(false);
-            this.pdfPanel.PerformLayout();
             this.htmlTab.ResumeLayout(false);
             this.submissionTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).EndInit();
@@ -994,12 +988,12 @@
         public System.Windows.Forms.Button expandCollapseButton;
         private System.Windows.Forms.Label problemMessage;
         public System.Windows.Forms.Button up_downButton;
-        private System.Windows.Forms.TabPage pdfTab;
         private System.Windows.Forms.ToolStripButton tagsOrNoteToolButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton pdfToolButton;
         private System.Windows.Forms.ToolStripButton tagsEditorToolButton;
-        private System.Windows.Forms.Panel pdfPanel;
-        private System.Windows.Forms.Label pdfMessage;
+        private System.Windows.Forms.TabPage pdfTab;
+        private Components.PDFViewer pdfViewer2;
+        private Components.PDFViewer pdfViewer1;
     }
 }

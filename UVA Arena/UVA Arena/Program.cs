@@ -33,16 +33,16 @@ namespace UVA_Arena
             //task queue
             TaskQueue.StartTimer();
 
-            try
+            //try
             {
                 //launch application
                 Interactivity.mainForm = new MainForm();
                 Application.Run(Interactivity.mainForm);
             }
-            catch (Exception ex)
+            //catch (Exception ex)
             {
-                Logger.Add("Error in main form => ", ex.Message + " => " + ex.StackTrace);
-                Application.Exit();
+                //Logger.Add("Error in main form => ", ex.Message + " => " + ex.StackTrace);
+                //Application.Exit();
             }
 
             //end of application works

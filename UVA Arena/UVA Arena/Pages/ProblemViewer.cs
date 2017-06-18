@@ -11,30 +11,11 @@ namespace UVA_Arena.Elements
 {
     public partial class ProblemViewer : UserControl
     {
-        Spire.PdfViewer.Forms.PdfViewer pdfViewer1;
-
         #region Top Level
 
         public ProblemViewer()
         {
             InitializeComponent();
-
-            // 
-            // pdfViewer1
-            // 
-            this.pdfViewer1 = new Spire.PdfViewer.Forms.PdfViewer();
-            this.pdfViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pdfViewer1.Location = new System.Drawing.Point(0, 0);
-            this.pdfViewer1.Name = "pdfViewer1";
-            this.pdfViewer1.Size = new System.Drawing.Size(792, 321);
-            this.pdfViewer1.TabIndex = 0;
-            this.pdfViewer1.EnableHandTool();
-            this.pdfViewer1.Visible = false;
-            this.pdfTab.Controls.Add(this.pdfViewer1);
-            this.pdfViewer1.BringToFront();
-
-            Stylish.SetGradientBackground(this.pdfPanel,
-                new Stylish.GradientStyle(Color.PaleTurquoise, Color.LightSteelBlue, 90F));
         }
 
         protected override void OnBackColorChanged(EventArgs e)
@@ -101,16 +82,15 @@ namespace UVA_Arena.Elements
 
         private void setPdfFile(string file)
         {
-            if (file == null)
+            if(file == null)
             {
-                this.pdfViewer1.Visible = false;
+                pdfViewer1.Visible = false;
             }
             else
             {
-                pdfViewer1.LoadFromFile(file);
-                this.pdfViewer1.Visible = true;
+                pdfViewer1.Load(file);
+                pdfViewer1.Visible = true;
             }
-
         }
 
         private void ShowCurrent()

@@ -45,7 +45,7 @@
             this.replaceBox = new System.Windows.Forms.CheckBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.overallStatus = new System.Windows.Forms.Label();
-            this.replaceCombo1 = new System.Windows.Forms.ComboBox();
+            //this.replaceCombo1 = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -229,7 +229,8 @@
             this.overallStatus.Size = new System.Drawing.Size(64, 15);
             this.overallStatus.TabIndex = 10;
             this.overallStatus.Text = "no status...";
-            this.overallStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.overallStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;            
+            /*
             // 
             // replaceCombo1
             // 
@@ -247,6 +248,7 @@
             this.replaceCombo1.Size = new System.Drawing.Size(98, 25);
             this.replaceCombo1.TabIndex = 11;
             this.replaceCombo1.SelectedIndexChanged += new System.EventHandler(this.replaceCombo1_SelectedIndexChanged);
+            */
             // 
             // DownloadAllForm
             // 
@@ -255,7 +257,7 @@
             this.BackgroundImage = global::UVA_Arena.Properties.Resources.backimg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(534, 191);
-            this.Controls.Add(this.replaceCombo1);
+            //this.Controls.Add(this.replaceCombo1);
             this.Controls.Add(this.overallStatus);
             this.Controls.Add(this.replaceBox);
             this.Controls.Add(this.currentProblem);
@@ -299,7 +301,7 @@
         private System.Windows.Forms.CheckBox replaceBox;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label overallStatus;
-        private System.Windows.Forms.ComboBox replaceCombo1;
+        //private System.Windows.Forms.ComboBox replaceCombo1;
 
     }
 }

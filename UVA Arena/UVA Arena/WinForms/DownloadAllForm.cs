@@ -24,7 +24,7 @@ namespace UVA_Arena
         private void DownloadAllForm_Load(object sender, EventArgs e)
         {
             InitDownload();
-            replaceCombo1.SelectedIndex = ReplaceOldFiles;
+            //replaceCombo1.SelectedIndex = ReplaceOldFiles;
         }
 
         public enum State
@@ -118,18 +118,18 @@ namespace UVA_Arena
             }
         }
 
-        public int ReplaceOldFiles
+        public bool ReplaceOldFiles
         {
             get
             {
-                object dat = RegistryAccess.GetValue("Replace Old Files", -1);
-                if (dat == null || dat.GetType() != typeof(int)) return -1;
-                return (int)dat;
+                object dat = RegistryAccess.GetValue("Replace Old Files", 0);
+                if (dat == null || dat.GetType() != typeof(int)) return false;
+                return (int)dat == 1;
             }
             set
             {
-                replaceBox.Checked = (value >= 0);
-                RegistryAccess.SetValue("Replace Old Files", value, null, Microsoft.Win32.RegistryValueKind.DWord);
+                replaceBox.Checked = value;
+                RegistryAccess.SetValue("Replace Old Files", value ? 1 : 0);
             }
         }
 
@@ -142,23 +142,22 @@ namespace UVA_Arena
         {
             if (replaceBox.Checked)
             {
-                replaceBox.Checked = false;
-                ReplaceOldFiles = -1;
-                replaceCombo1.SelectedIndex = -1;
+                ReplaceOldFiles = false;
+                //replaceCombo1.SelectedIndex = -1;
             }
             else
             {
-                replaceBox.Checked = true;
-                ReplaceOldFiles = 0;
-                replaceCombo1.SelectedIndex = 0;
+                ReplaceOldFiles = true;
+                //replaceCombo1.SelectedIndex = 0;
             }
         }
 
+        /*
         private void replaceCombo1_SelectedIndexChanged(object sender, EventArgs e)
         {
             replaceBox.Checked = (replaceCombo1.SelectedIndex != -1);
             ReplaceOldFiles = replaceCombo1.SelectedIndex;
-        }
+        }*/
 
         private void downloadButton_Click(object sender, EventArgs e)
         {
@@ -338,12 +337,33 @@ namespace UVA_Arena
             int finished = 0;
             long vol = current / 100;
             string status = "";
+
+            //download PDF file
             FileInfo pdffile = new FileInfo(LocalDirectory.GetProblemPdf(current));
-            FileInfo htmlfile = new FileInfo(LocalDirectory.GetProblemHtml(current));
             string pdf = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.pdf", vol, current);
+
+            if (ReplaceOldFiles || !pdffile.Exists || pdffile.Length < 200)
+            {
+                status = "Downloading " + pdffile.Name + "... ";
+                backgroundWorker1.ReportProgress(100 * finished / total, status);
+                status = DownloadFile(pdf, pdffile.FullName, 200);
+                ++finished;
+                backgroundWorker1.ReportProgress(100 * finished / total, status);
+            }
+
+            if (!Internet.Downloader.IsInternetConnected())
+            {
+                status = "Not connected to the Internet";
+                backgroundWorker1.ReportProgress(0, status);
+                CurrentState = State.Cancelling;
+            }
+            if (CurrentState != State.Running) return;
+
+            /*
+            //download HTML file
+            FileInfo htmlfile = new FileInfo(LocalDirectory.GetProblemHtml(current));
             string html = string.Format("http://uva.onlinejudge.org/external/{0}/{1}.html", vol, current);
 
-            //download HTML file
             if (ReplaceOldFiles == 0 || ReplaceOldFiles == 1 ||
                 !htmlfile.Exists || htmlfile.Length < 100)
             {
@@ -361,26 +381,10 @@ namespace UVA_Arena
                 CurrentState = State.Cancelling;
             }
             if (CurrentState != State.Running) return;
+            */ 
 
-            //download PDF file                
-            if (ReplaceOldFiles == 0 || ReplaceOldFiles == 2
-                || !pdffile.Exists || pdffile.Length < 200)
-            {
-                status = "Downloading " + pdffile.Name + "... ";
-                backgroundWorker1.ReportProgress(100 * finished / total, status);
-                status = DownloadFile(pdf, pdffile.FullName, 200);
-                ++finished;
-                backgroundWorker1.ReportProgress(100 * finished / total, status);
-            }
 
-            if (!Internet.Downloader.IsInternetConnected())
-            {
-                status = "Not connected to the Internet";
-                backgroundWorker1.ReportProgress(0, status);
-                CurrentState = State.Cancelling;
-            }
-            if (CurrentState != State.Running) return;
-
+            /*
             //download HTML contents
             var list = Functions.ProcessHtmlContent(current,
                 ReplaceOldFiles == 0 || ReplaceOldFiles == 3);
@@ -405,7 +409,7 @@ namespace UVA_Arena
                     backgroundWorker1.ReportProgress(0, status);
                     CurrentState = State.Cancelling;
                 }
-            }
+            }*/
         }
 
         private string DownloadFile(string url, string file, int minSiz, int tryCount = 2)
@@ -436,7 +440,10 @@ namespace UVA_Arena
                     return DownloadFile(url, file, minSiz, tryCount - 1);
                 }
                 //if couldn't be downloaded
-                if (File.Exists(file) && LocalDirectory.GetFileSize(file) < minSiz) File.Delete(file);
+                if (File.Exists(file) && LocalDirectory.GetFileSize(file) < minSiz)
+                {
+                    File.Delete(file);
+                }
                 Logger.Add(ex.Message, this.Name);
                 return "Download Failed.";
             }

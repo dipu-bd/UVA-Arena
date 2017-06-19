@@ -322,7 +322,7 @@
             this.submitCodeToolStripMenuItem,
             this.markAsFavorite});
             this.problemContextMenu.Name = "contextMenuStrip1";
-            this.problemContextMenu.Size = new System.Drawing.Size(163, 198);
+            this.problemContextMenu.Size = new System.Drawing.Size(163, 176);
             this.problemContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.problemContextMenu_Opening);
             // 
             // refreshToolStripMenuItem
@@ -516,7 +516,7 @@
             this.descriptionDownloaderButton.Name = "descriptionDownloaderButton";
             this.descriptionDownloaderButton.Size = new System.Drawing.Size(182, 28);
             this.descriptionDownloaderButton.TabIndex = 3;
-            this.descriptionDownloaderButton.Text = "Description Downloader";
+            this.descriptionDownloaderButton.Text = "All Descriptions";
             this.descriptionDownloaderButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.descriptionDownloaderButton.UseVisualStyleBackColor = true;
             this.descriptionDownloaderButton.Click += new System.EventHandler(this.downloadAllToolStripMenuItem_Click);

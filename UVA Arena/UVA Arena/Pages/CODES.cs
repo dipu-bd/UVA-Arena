@@ -23,12 +23,12 @@ namespace UVA_Arena.Elements
             compilerSplitContainer1.SplitterDistance =
                     (int)Math.Round(Properties.Settings.Default.CompilerSplitterRatio * compilerSplitContainer1.Height);
 
-            splitContainer1.SplitterDistance =
-                (int)Math.Round(Properties.Settings.Default.CodesSplitterRatio * splitContainer1.Width);
+            // mainContainer.SplitterDistance =
+            //     (int)Math.Round(Properties.Settings.Default.CodesSplitterRatio * mainContainer.Width);
 
             Interactivity.codesBrowser = new CodesBrowser();
             Interactivity.codesBrowser.Dock = DockStyle.Fill;
-            splitContainer1.Panel1.Controls.Add(Interactivity.codesBrowser);
+            mainContainer.Panel1.Controls.Add(Interactivity.codesBrowser);
 
             codeTextBox.Font = Properties.Settings.Default.EditorFont;
             CustomLang = Structures.Language.CPP;
@@ -49,8 +49,8 @@ namespace UVA_Arena.Elements
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
-            Properties.Settings.Default.CodesSplitterRatio =
-                (double)splitContainer1.SplitterDistance / splitContainer1.Width;
+            //Properties.Settings.Default.CodesSplitterRatio =
+            //    (double)mainContainer.SplitterDistance / mainContainer.Width;
         }
 
         #endregion
@@ -118,6 +118,9 @@ namespace UVA_Arena.Elements
             //set runtime limit
             long timelim = LocalDatabase.GetProblem(SelectedPNUM).rtl;
             timeLimitCombo.Text = (timelim / 1000.0).ToString("F2");
+
+            // load udebug
+            this.LoadUDebug();
         }
 
         private bool PrecheckOpenFile(FileInfo file, bool history = true)
@@ -142,6 +145,10 @@ namespace UVA_Arena.Elements
             //check extension validity
             Regex invalid = new Regex(@".(exe|dll|o|class)");
             return (!invalid.IsMatch(file.Extension.ToLower()));
+
+            // disable udebug intput-output
+            this.uDebugPane1.Visible = false;
+            this.uDebugPane2.Visible = false;
         }
 
         private void ClearPrevOpenedFiles()
@@ -702,12 +709,6 @@ namespace UVA_Arena.Elements
             if (e.Cancel)
             {
                 MessageBox.Show("Select a problem's source code to enable this feature.");
-            }
-            else
-            {
-                LoadUDebug();
-                uDebugPane1.Enabled = false;
-                uDebugPane2.Enabled = false;
             }
         }
 
@@ -1393,9 +1394,9 @@ namespace UVA_Arena.Elements
                     {
                         uDebugUser.Items.Clear();
                         uDebugUser.Items.AddRange(mFormData.inputs.ToArray());
-                        uDebugPane1.Enabled = true;
+                        uDebugPane1.Visible = true;
                     }
-                    uDebugPane2.Enabled = (mFormData != null);
+                    uDebugPane2.Visible = (mFormData != null);
                 });
             });
         }
@@ -1444,7 +1445,7 @@ namespace UVA_Arena.Elements
         
         private void button1_Click(object sender, EventArgs e)
         {
-            uDebugPane1.Enabled = false;
+            uDebugPane1.Visible = false;
             LoadUDebug();
         }
 
@@ -1462,6 +1463,27 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
+
+        private void expandCollapseButton_Click(object sender, EventArgs e)
+        {
+            if(showProblemButton.Tag == null)
+            {
+                mainContainer.Panel1.Controls.Add(Interactivity.problemViewer.pdfViewer1);
+                Interactivity.problemViewer.pdfViewer1.BringToFront();
+                mainContainer.SplitterDistance = mainContainer.Width * 9 / 19;
+                Interactivity.mainForm.Controls.Add(this);
+                this.BringToFront();
+                showProblemButton.Tag = true;
+            }
+            else
+            {
+                Interactivity.problemViewer.pdfTab.Controls.Add(Interactivity.problemViewer.pdfViewer1);
+                mainContainer.SplitterDistance = mainContainer.Width / 4;
+                Interactivity.mainForm.codesTab.Controls.Add(this);
+                showProblemButton.Tag = null;
+            }
+
+        }
 
 
     }

@@ -61,7 +61,7 @@
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.splitContainer1 = new System.Windows.Forms.CustomSplitContainer();
+            this.mainContainer = new System.Windows.Forms.CustomSplitContainer();
             this.compilerSplitContainer1 = new System.Windows.Forms.CustomSplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.codeTAB = new System.Windows.Forms.TabPage();
@@ -116,6 +116,7 @@
             this.showHideOutput = new System.Windows.Forms.ToolStripButton();
             this.filenamePanel = new System.Windows.Forms.Panel();
             this.fileNameLabel = new System.Windows.Forms.Label();
+            this.showProblemButton = new System.Windows.Forms.Button();
             this.BottomToolbar = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel7 = new System.Windows.Forms.ToolStripLabel();
             this.timeLimitCombo = new System.Windows.Forms.ToolStripTextBox();
@@ -135,8 +136,8 @@
             this.inputContext.SuspendLayout();
             this.outputContext.SuspendLayout();
             this.correctCotext.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            this.mainContainer.Panel2.SuspendLayout();
+            this.mainContainer.SuspendLayout();
             this.compilerSplitContainer1.Panel1.SuspendLayout();
             this.compilerSplitContainer1.Panel2.SuspendLayout();
             this.compilerSplitContainer1.SuspendLayout();
@@ -399,27 +400,27 @@
             this.toolStripMenuItem5.Text = "Load From File";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.openCorrectToolButton_Click);
             // 
-            // splitContainer1
+            // mainContainer
             // 
-            this.splitContainer1.BackColor = System.Drawing.Color.MediumTurquoise;
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
+            this.mainContainer.BackColor = System.Drawing.Color.MediumTurquoise;
+            this.mainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainContainer.Location = new System.Drawing.Point(0, 0);
+            this.mainContainer.Name = "mainContainer";
             // 
-            // splitContainer1.Panel1
+            // mainContainer.Panel1
             // 
-            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(225)))), ((int)(((byte)(235)))));
+            this.mainContainer.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(225)))), ((int)(((byte)(235)))));
             // 
-            // splitContainer1.Panel2
+            // mainContainer.Panel2
             // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(210)))), ((int)(((byte)(225)))));
-            this.splitContainer1.Panel2.Controls.Add(this.compilerSplitContainer1);
-            this.splitContainer1.Panel2.Controls.Add(this.filenamePanel);
-            this.splitContainer1.Panel2.Controls.Add(this.BottomToolbar);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 432);
-            this.splitContainer1.SplitterDistance = 200;
-            this.splitContainer1.TabIndex = 0;
-            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
+            this.mainContainer.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(210)))), ((int)(((byte)(225)))));
+            this.mainContainer.Panel2.Controls.Add(this.compilerSplitContainer1);
+            this.mainContainer.Panel2.Controls.Add(this.filenamePanel);
+            this.mainContainer.Panel2.Controls.Add(this.BottomToolbar);
+            this.mainContainer.Size = new System.Drawing.Size(800, 432);
+            this.mainContainer.SplitterDistance = 200;
+            this.mainContainer.TabIndex = 0;
+            this.mainContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
             // compilerSplitContainer1
             // 
@@ -837,7 +838,6 @@
             this.uDebugPane1.Controls.Add(this.uDebugUser);
             this.uDebugPane1.Controls.Add(this.label1);
             this.uDebugPane1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.uDebugPane1.Enabled = false;
             this.uDebugPane1.Location = new System.Drawing.Point(3, 3);
             this.uDebugPane1.Name = "uDebugPane1";
             this.uDebugPane1.Size = new System.Drawing.Size(257, 27);
@@ -936,7 +936,6 @@
             this.uDebugPane2.Controls.Add(this.button3);
             this.uDebugPane2.Controls.Add(this.label2);
             this.uDebugPane2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.uDebugPane2.Enabled = false;
             this.uDebugPane2.Location = new System.Drawing.Point(3, 3);
             this.uDebugPane2.Name = "uDebugPane2";
             this.uDebugPane2.Size = new System.Drawing.Size(257, 27);
@@ -1185,6 +1184,7 @@
             // filenamePanel
             // 
             this.filenamePanel.Controls.Add(this.fileNameLabel);
+            this.filenamePanel.Controls.Add(this.showProblemButton);
             this.filenamePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.filenamePanel.Location = new System.Drawing.Point(0, 0);
             this.filenamePanel.Margin = new System.Windows.Forms.Padding(1);
@@ -1198,14 +1198,27 @@
             this.fileNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fileNameLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fileNameLabel.ForeColor = System.Drawing.Color.Navy;
-            this.fileNameLabel.Location = new System.Drawing.Point(0, 0);
+            this.fileNameLabel.Location = new System.Drawing.Point(37, 0);
             this.fileNameLabel.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.fileNameLabel.Name = "fileNameLabel";
             this.fileNameLabel.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.fileNameLabel.Size = new System.Drawing.Size(596, 35);
+            this.fileNameLabel.Size = new System.Drawing.Size(559, 35);
             this.fileNameLabel.TabIndex = 0;
             this.fileNameLabel.Text = "No Opened File";
             this.fileNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // showProblemButton
+            // 
+            this.showProblemButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.showProblemButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.showProblemButton.Image = global::UVA_Arena.Properties.Resources.expand;
+            this.showProblemButton.Location = new System.Drawing.Point(0, 0);
+            this.showProblemButton.Margin = new System.Windows.Forms.Padding(0);
+            this.showProblemButton.Name = "showProblemButton";
+            this.showProblemButton.Size = new System.Drawing.Size(37, 35);
+            this.showProblemButton.TabIndex = 1;
+            this.showProblemButton.UseVisualStyleBackColor = true;
+            this.showProblemButton.Click += new System.EventHandler(this.expandCollapseButton_Click);
             // 
             // BottomToolbar
             // 
@@ -1359,7 +1372,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.mainContainer);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
@@ -1369,9 +1382,9 @@
             this.inputContext.ResumeLayout(false);
             this.outputContext.ResumeLayout(false);
             this.correctCotext.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            this.splitContainer1.ResumeLayout(false);
+            this.mainContainer.Panel2.ResumeLayout(false);
+            this.mainContainer.Panel2.PerformLayout();
+            this.mainContainer.ResumeLayout(false);
             this.compilerSplitContainer1.Panel1.ResumeLayout(false);
             this.compilerSplitContainer1.Panel2.ResumeLayout(false);
             this.compilerSplitContainer1.Panel2.PerformLayout();
@@ -1413,7 +1426,7 @@
 
         #endregion
 
-        private System.Windows.Forms.CustomSplitContainer splitContainer1;
+        private System.Windows.Forms.CustomSplitContainer mainContainer;
         private System.Windows.Forms.Panel filenamePanel;
         private System.Windows.Forms.Label fileNameLabel;
         private System.Windows.Forms.CustomSplitContainer IOContainer1;
@@ -1514,5 +1527,6 @@
         private System.Windows.Forms.Panel uDebugPane2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Button showProblemButton;
     }
 }

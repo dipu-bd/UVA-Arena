@@ -32,9 +32,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.pdfTab = new System.Windows.Forms.TabPage();
             this.pdfViewer1 = new UVA_Arena.Components.PDFViewer();
-            this.pdfViewer2 = new UVA_Arena.Components.PDFViewer();
-            this.htmlTab = new System.Windows.Forms.TabPage();
-            this.problemWebBrowser = new System.Windows.Forms.WebBrowser();
             this.submissionTab = new System.Windows.Forms.TabPage();
             this.submissionStatus = new BrightIdeasSoftware.FastObjectListView();
             this.sidSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -93,7 +90,6 @@
             this.TopPanel = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.pdfTab.SuspendLayout();
-            this.htmlTab.SuspendLayout();
             this.submissionTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).BeginInit();
             this.panel7.SuspendLayout();
@@ -113,13 +109,12 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.pdfTab);
-            this.tabControl1.Controls.Add(this.htmlTab);
             this.tabControl1.Controls.Add(this.submissionTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(0, 95);
             this.tabControl1.Name = "tabControl1";
-            this.tabControl1.Padding = new System.Drawing.Point(35, 6);
+            this.tabControl1.Padding = new System.Drawing.Point(30, 6);
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(800, 355);
             this.tabControl1.TabIndex = 0;
@@ -128,7 +123,6 @@
             // pdfTab
             // 
             this.pdfTab.Controls.Add(this.pdfViewer1);
-            this.pdfTab.Controls.Add(this.pdfViewer2);
             this.pdfTab.Location = new System.Drawing.Point(4, 30);
             this.pdfTab.Name = "pdfTab";
             this.pdfTab.Size = new System.Drawing.Size(792, 321);
@@ -145,36 +139,6 @@
             this.pdfViewer1.ScriptErrorsSuppressed = true;
             this.pdfViewer1.Size = new System.Drawing.Size(792, 321);
             this.pdfViewer1.TabIndex = 1;
-            // 
-            // pdfViewer2
-            // 
-            this.pdfViewer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pdfViewer2.Location = new System.Drawing.Point(0, 0);
-            this.pdfViewer2.MinimumSize = new System.Drawing.Size(20, 20);
-            this.pdfViewer2.Name = "pdfViewer2";
-            this.pdfViewer2.ScriptErrorsSuppressed = true;
-            this.pdfViewer2.Size = new System.Drawing.Size(792, 321);
-            this.pdfViewer2.TabIndex = 0;
-            // 
-            // htmlTab
-            // 
-            this.htmlTab.BackColor = System.Drawing.Color.AliceBlue;
-            this.htmlTab.Controls.Add(this.problemWebBrowser);
-            this.htmlTab.Location = new System.Drawing.Point(4, 30);
-            this.htmlTab.Name = "htmlTab";
-            this.htmlTab.Size = new System.Drawing.Size(792, 321);
-            this.htmlTab.TabIndex = 0;
-            this.htmlTab.Text = "HTML";
-            // 
-            // problemWebBrowser
-            // 
-            this.problemWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.problemWebBrowser.Location = new System.Drawing.Point(0, 0);
-            this.problemWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.problemWebBrowser.Name = "problemWebBrowser";
-            this.problemWebBrowser.ScriptErrorsSuppressed = true;
-            this.problemWebBrowser.Size = new System.Drawing.Size(792, 321);
-            this.problemWebBrowser.TabIndex = 0;
             // 
             // submissionTab
             // 
@@ -794,7 +758,7 @@
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel1.Controls.Add(this.up_downButton, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.problemMessage, 0, 1);
@@ -819,11 +783,11 @@
             this.up_downButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PowderBlue;
             this.up_downButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.up_downButton.Image = global::UVA_Arena.Properties.Resources.moveup;
-            this.up_downButton.Location = new System.Drawing.Point(720, 1);
+            this.up_downButton.Location = new System.Drawing.Point(715, 1);
             this.up_downButton.Margin = new System.Windows.Forms.Padding(0);
             this.up_downButton.Name = "up_downButton";
             this.tableLayoutPanel1.SetRowSpan(this.up_downButton, 2);
-            this.up_downButton.Size = new System.Drawing.Size(47, 52);
+            this.up_downButton.Size = new System.Drawing.Size(52, 52);
             this.up_downButton.TabIndex = 2;
             this.up_downButton.UseVisualStyleBackColor = false;
             this.up_downButton.Click += new System.EventHandler(this.up_downButton_Click);
@@ -838,7 +802,7 @@
             this.titleBox1.Margin = new System.Windows.Forms.Padding(0);
             this.titleBox1.Name = "titleBox1";
             this.titleBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.titleBox1.Size = new System.Drawing.Size(718, 29);
+            this.titleBox1.Size = new System.Drawing.Size(713, 29);
             this.titleBox1.TabIndex = 0;
             this.titleBox1.Text = "No problem selected";
             // 
@@ -851,7 +815,7 @@
             this.problemMessage.Margin = new System.Windows.Forms.Padding(1);
             this.problemMessage.Name = "problemMessage";
             this.problemMessage.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.problemMessage.Size = new System.Drawing.Size(716, 20);
+            this.problemMessage.Size = new System.Drawing.Size(711, 20);
             this.problemMessage.TabIndex = 1;
             this.problemMessage.Tag = "You DID NOT TRY this problem.";
             this.problemMessage.Text = "You DID NOT TRY this problem.";
@@ -907,7 +871,6 @@
             this.Size = new System.Drawing.Size(800, 450);
             this.tabControl1.ResumeLayout(false);
             this.pdfTab.ResumeLayout(false);
-            this.htmlTab.ResumeLayout(false);
             this.submissionTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.submissionStatus)).EndInit();
             this.panel7.ResumeLayout(false);
@@ -933,7 +896,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TabPage htmlTab;
         private System.Windows.Forms.TabPage submissionTab;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ContextMenuStrip prevContext;
@@ -950,7 +912,6 @@
         public System.Windows.Forms.ToolStripButton nextButton;
         public System.Windows.Forms.ToolStripButton reloadButton;
         public System.Windows.Forms.Label titleBox1;
-        public System.Windows.Forms.WebBrowser problemWebBrowser;
         public System.Windows.Forms.TabControl tabControl1;
         public BrightIdeasSoftware.FastObjectListView submissionStatus;
         private BrightIdeasSoftware.OLVColumn sidSUB;
@@ -992,8 +953,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton pdfToolButton;
         private System.Windows.Forms.ToolStripButton tagsEditorToolButton;
-        private System.Windows.Forms.TabPage pdfTab;
-        private Components.PDFViewer pdfViewer2;
-        private Components.PDFViewer pdfViewer1;
+        public System.Windows.Forms.TabPage pdfTab;
+        public Components.PDFViewer pdfViewer1;
     }
 }

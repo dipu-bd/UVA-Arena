@@ -1466,6 +1466,10 @@ namespace UVA_Arena.Elements
 
         private void expandCollapseButton_Click(object sender, EventArgs e)
         {
+            if(SelectedPNUM <= 0)
+            {
+                return;
+            }
             if(showProblemButton.Tag == null)
             {
                 problemToolButton.PerformClick();

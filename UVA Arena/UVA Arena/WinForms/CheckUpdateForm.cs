@@ -19,14 +19,11 @@ namespace UVA_Arena
         {
             try
             {
-                Application.Exit();
-            }
-            finally
-            {
-
                 System.Diagnostics.Process.Start(updateLink.Text);
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                //Application.Exit();
             }
+            catch { }
         }
 
         private void checkUpdateButton_Click(object sender, EventArgs e)

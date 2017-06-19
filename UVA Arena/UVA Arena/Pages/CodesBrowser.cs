@@ -206,12 +206,12 @@ namespace UVA_Arena.Elements
         /// Import old uva codes into new folder
         /// </summary> 
         public void ImportOldCodes(object state)
-        { 
+        {
             if (!IsReady) return;
-             
+
             object[] data = (object[])state;
             bool background = (bool)data[0];
-            string oldpath = (string)data[1]; 
+            string oldpath = (string)data[1];
             if (background)
             {
                 data[0] = false;
@@ -219,7 +219,7 @@ namespace UVA_Arena.Elements
                 return;
             }
             IsReady = false;
-           
+
             try
             {
                 Interactivity.SetStatus("Importing codes...");
@@ -384,7 +384,7 @@ namespace UVA_Arena.Elements
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.Description = "Select a folder that stores code files.";
             if (fbd.ShowDialog() == DialogResult.OK)
-            { 
+            {
                 RegistryAccess.CodesPath = fbd.SelectedPath;
                 try
                 {
@@ -429,12 +429,29 @@ namespace UVA_Arena.Elements
 
         private void folderTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (folderTreeView.SelectedNode == null) Interactivity.codes.OpenFile(null);
-            if (folderTreeView.SelectedNode.Tag.GetType() == typeof(FileInfo))
+            if (folderTreeView.SelectedNode == null)
+            {
+                Interactivity.codes.OpenFile(null);
+            }
+
+            var tag = folderTreeView.SelectedNode.Tag;
+            if (tag.GetType() == typeof(FileInfo))
             {
                 Interactivity.codes.OpenFile((FileInfo)folderTreeView.SelectedNode.Tag);
             }
-            else Interactivity.codes.OpenFile(null);
+            else if (folderTreeView.SelectedNode.Nodes.Count > 0)
+            {
+                var child = folderTreeView.SelectedNode.Nodes[0];
+                FileSystemInfo fsi = (FileSystemInfo)child.Tag;
+                if (fsi.GetType() == typeof(FileInfo))
+                {
+                    folderTreeView.SelectedNode = child;
+                }
+            }
+            else
+            {
+                Interactivity.codes.OpenFile(null);
+            }
         }
 
         private void folderTreeView_Enter(object sender, EventArgs e)

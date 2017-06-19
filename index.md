@@ -6,7 +6,7 @@
 To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena/wiki/What's-New)        
 
 #### Version 1.8 [Update 2]  
-1. [GitHub release](https://github.com/dipu-bd/UVA-Arena/releases/download/v1.8/UVA_Arena_1.8.2.exe)
+1. [GitHub release](https://github.com/dipu-bd/UVA-Arena/releases/download/v1.8.2/UVA_Arena_1.8.2.exe)
 2. [SourceForge mirror](https://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.8/UVA_Arena_1.8.2.exe)
 
 #### Version 1.7

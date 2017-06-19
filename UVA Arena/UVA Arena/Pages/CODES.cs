@@ -1468,6 +1468,7 @@ namespace UVA_Arena.Elements
         {
             if(showProblemButton.Tag == null)
             {
+                problemToolButton.PerformClick();
                 mainContainer.Panel1.Controls.Add(Interactivity.problemViewer.pdfViewer1);
                 Interactivity.problemViewer.pdfViewer1.BringToFront();
                 mainContainer.SplitterDistance = mainContainer.Width * 9 / 19;

@@ -1235,7 +1235,7 @@ html[dir="rtl"] .secondaryToolbarButton > span {
   content: url(images/secondaryToolbarButton-rotateCw.png);
 }
 
-.secondaryToolbarButton.handTool::before {
+.handTool::before {
   content: url(images/secondaryToolbarButton-handTool.png);
 }
 

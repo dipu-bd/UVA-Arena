@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.pdfTab = new System.Windows.Forms.TabPage();
-            this.pdfViewer1 = new UVA_Arena.Components.PDFViewer();
             this.submissionTab = new System.Windows.Forms.TabPage();
             this.submissionStatus = new BrightIdeasSoftware.FastObjectListView();
             this.sidSUB = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -88,6 +87,8 @@
             this.prevContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.nextContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TopPanel = new System.Windows.Forms.Panel();
+            this.downloadingNoticeLabel = new System.Windows.Forms.Label();
+            this.pdfViewer1 = new UVA_Arena.Components.PDFViewer();
             this.tabControl1.SuspendLayout();
             this.pdfTab.SuspendLayout();
             this.submissionTab.SuspendLayout();
@@ -122,23 +123,14 @@
             // 
             // pdfTab
             // 
+            this.pdfTab.BackColor = System.Drawing.Color.MediumTurquoise;
             this.pdfTab.Controls.Add(this.pdfViewer1);
+            this.pdfTab.Controls.Add(this.downloadingNoticeLabel);
             this.pdfTab.Location = new System.Drawing.Point(4, 30);
             this.pdfTab.Name = "pdfTab";
             this.pdfTab.Size = new System.Drawing.Size(792, 321);
             this.pdfTab.TabIndex = 5;
             this.pdfTab.Text = "PDF";
-            this.pdfTab.UseVisualStyleBackColor = true;
-            // 
-            // pdfViewer1
-            // 
-            this.pdfViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pdfViewer1.Location = new System.Drawing.Point(0, 0);
-            this.pdfViewer1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.pdfViewer1.Name = "pdfViewer1";
-            this.pdfViewer1.ScriptErrorsSuppressed = true;
-            this.pdfViewer1.Size = new System.Drawing.Size(792, 321);
-            this.pdfViewer1.TabIndex = 1;
             // 
             // submissionTab
             // 
@@ -758,7 +750,7 @@
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 59F));
             this.tableLayoutPanel1.Controls.Add(this.up_downButton, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.titleBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.problemMessage, 0, 1);
@@ -783,11 +775,11 @@
             this.up_downButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PowderBlue;
             this.up_downButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.up_downButton.Image = global::UVA_Arena.Properties.Resources.moveup;
-            this.up_downButton.Location = new System.Drawing.Point(715, 1);
+            this.up_downButton.Location = new System.Drawing.Point(708, 1);
             this.up_downButton.Margin = new System.Windows.Forms.Padding(0);
             this.up_downButton.Name = "up_downButton";
             this.tableLayoutPanel1.SetRowSpan(this.up_downButton, 2);
-            this.up_downButton.Size = new System.Drawing.Size(52, 52);
+            this.up_downButton.Size = new System.Drawing.Size(59, 52);
             this.up_downButton.TabIndex = 2;
             this.up_downButton.UseVisualStyleBackColor = false;
             this.up_downButton.Click += new System.EventHandler(this.up_downButton_Click);
@@ -802,7 +794,7 @@
             this.titleBox1.Margin = new System.Windows.Forms.Padding(0);
             this.titleBox1.Name = "titleBox1";
             this.titleBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.titleBox1.Size = new System.Drawing.Size(713, 29);
+            this.titleBox1.Size = new System.Drawing.Size(706, 29);
             this.titleBox1.TabIndex = 0;
             this.titleBox1.Text = "No problem selected";
             // 
@@ -815,7 +807,7 @@
             this.problemMessage.Margin = new System.Windows.Forms.Padding(1);
             this.problemMessage.Name = "problemMessage";
             this.problemMessage.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.problemMessage.Size = new System.Drawing.Size(711, 20);
+            this.problemMessage.Size = new System.Drawing.Size(704, 20);
             this.problemMessage.TabIndex = 1;
             this.problemMessage.Tag = "You DID NOT TRY this problem.";
             this.problemMessage.Text = "You DID NOT TRY this problem.";
@@ -856,6 +848,29 @@
             this.TopPanel.Size = new System.Drawing.Size(800, 95);
             this.TopPanel.TabIndex = 1;
             this.TopPanel.TabStop = true;
+            // 
+            // downloadingNoticeLabel
+            // 
+            this.downloadingNoticeLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.downloadingNoticeLabel.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.downloadingNoticeLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.downloadingNoticeLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.downloadingNoticeLabel.Location = new System.Drawing.Point(246, 96);
+            this.downloadingNoticeLabel.Name = "downloadingNoticeLabel";
+            this.downloadingNoticeLabel.Size = new System.Drawing.Size(277, 125);
+            this.downloadingNoticeLabel.TabIndex = 2;
+            this.downloadingNoticeLabel.Text = "Downloading PDF file. \r\nPlease wait...";
+            this.downloadingNoticeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pdfViewer1
+            // 
+            this.pdfViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pdfViewer1.Location = new System.Drawing.Point(0, 0);
+            this.pdfViewer1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.pdfViewer1.Name = "pdfViewer1";
+            this.pdfViewer1.ScriptErrorsSuppressed = true;
+            this.pdfViewer1.Size = new System.Drawing.Size(792, 321);
+            this.pdfViewer1.TabIndex = 1;
             // 
             // ProblemViewer
             // 
@@ -955,5 +970,6 @@
         private System.Windows.Forms.ToolStripButton tagsEditorToolButton;
         public System.Windows.Forms.TabPage pdfTab;
         public Components.PDFViewer pdfViewer1;
+        private System.Windows.Forms.Label downloadingNoticeLabel;
     }
 }

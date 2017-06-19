@@ -85,11 +85,13 @@ namespace UVA_Arena.Elements
             if(file == null)
             {
                 pdfViewer1.Visible = false;
+                downloadingNoticeLabel.Visible = true;
             }
             else
             {
                 pdfViewer1.Load(file);
                 pdfViewer1.Visible = true;
+                downloadingNoticeLabel.Visible = false;
             }
         }
 

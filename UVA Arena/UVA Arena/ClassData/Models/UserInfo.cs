@@ -141,7 +141,7 @@ namespace UVA_Arena.Structures
             if (needToSort)
             {
                 submissions.Sort((Comparison<UserSubmission>)
-                   delegate(UserSubmission a, UserSubmission b)
+                   delegate (UserSubmission a, UserSubmission b)
                    {
                        return (int)(a.sid - b.sid);
                    });

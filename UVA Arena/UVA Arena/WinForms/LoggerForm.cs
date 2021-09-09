@@ -23,7 +23,7 @@ namespace UVA_Arena
         {
             TaskQueue.AddTask(RefreshList, 1000);
 
-            nameINT.AspectGetter = delegate(object row)
+            nameINT.AspectGetter = delegate (object row)
             {
                 if (row == null) return null;
                 Internet.DownloadTask task = (Internet.DownloadTask)row;
@@ -31,12 +31,12 @@ namespace UVA_Arena
                 else return task.Url.AbsolutePath;
             };
             receiveINT.AspectToStringConverter =
-                totalINT.AspectToStringConverter = delegate(object key)
+                totalINT.AspectToStringConverter = delegate (object key)
                 {
                     if (key == null) return "";
                     return Functions.FormatMemory((long)key);
                 };
-            funcTask.AspectToStringConverter = delegate(object key)
+            funcTask.AspectToStringConverter = delegate (object key)
             {
                 if (key == null) return "";
                 TaskQueue.Function func = (TaskQueue.Function)key;

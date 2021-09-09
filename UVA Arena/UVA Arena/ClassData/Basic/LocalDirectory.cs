@@ -179,7 +179,7 @@ namespace UVA_Arena
             CreateFile(file);
             return file;
         }
-         
+
         /// <summary>
         /// Get the folder where all problem's description is saved.
         /// </summary>

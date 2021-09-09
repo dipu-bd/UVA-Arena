@@ -25,10 +25,10 @@ namespace UVA_Arena.Elements
             base.OnLoad(e);
 
             AssignAspectFunctions();
-            SelectUpdateRateMenu();  
+            SelectUpdateRateMenu();
 
             //start refresh task
-            if(AutoUpdateStatus) JudgeStatusRefresh();
+            if (AutoUpdateStatus) JudgeStatusRefresh();
 
             Stylish.SetGradientBackground(panel1,
                 new Stylish.GradientStyle(Color.LightBlue, Color.PaleTurquoise, 90F));
@@ -107,7 +107,7 @@ namespace UVA_Arena.Elements
 
             ClearSome();
             Interactivity.SetStatus("Judge status update started...");
-            string url = string.Format("http://uhunt.felix-halim.net/api/poll/{0}.", LastSubID);
+            string url = string.Format(Config.uHuntBaseUrl + "/api/poll/{0}.", LastSubID);
             webClient1.DownloadDataAsync(new Uri(url));
         }
 
@@ -202,7 +202,7 @@ namespace UVA_Arena.Elements
         //Private functions
         //
         private void SelectUpdateRateMenu()
-        { 
+        {
             string tag = UpdateInterval.ToString();
             foreach (ToolStripItem item in updateContextMenu.Items)
             {
@@ -227,7 +227,7 @@ namespace UVA_Arena.Elements
         }
 
         private void autoUpdateToolMenu_Click(object sender, EventArgs e)
-        { 
+        {
             SelectUpdateRateMenu();
         }
 
@@ -241,28 +241,28 @@ namespace UVA_Arena.Elements
         //
         private void AssignAspectFunctions()
         {
-            subtimeSUB.AspectGetter = delegate(object row)
+            subtimeSUB.AspectGetter = delegate (object row)
             {
                 JudgeStatus last = (JudgeStatus)row;
                 return UnixTimestamp.FormatUnixTime(last.sbt);
             };
-            lanSUB.AspectToStringConverter = delegate(object dat)
+            lanSUB.AspectToStringConverter = delegate (object dat)
             {
                 return Functions.GetLanguage((Language)dat);
             };
-            verSUB.AspectToStringConverter = delegate(object dat)
+            verSUB.AspectToStringConverter = delegate (object dat)
             {
                 return Functions.GetVerdict((Verdict)dat);
             };
-            runSUB.AspectToStringConverter = delegate(object dat)
+            runSUB.AspectToStringConverter = delegate (object dat)
             {
                 return Functions.FormatRuntime((long)dat);
             };
-            memSUB.AspectToStringConverter = delegate(object dat)
+            memSUB.AspectToStringConverter = delegate (object dat)
             {
                 return Functions.FormatMemory((long)dat);
             };
-            rankSUB.AspectToStringConverter = delegate(object dat)
+            rankSUB.AspectToStringConverter = delegate (object dat)
             {
                 if ((long)dat == -1) return "-";
                 return ((long)dat).ToString();

@@ -8,7 +8,7 @@ namespace UVA_Arena
     {
         public UsernameForm()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         private void username1_KeyDown(object sender, KeyEventArgs e)

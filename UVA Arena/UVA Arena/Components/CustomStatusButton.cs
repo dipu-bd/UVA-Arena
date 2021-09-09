@@ -1,5 +1,5 @@
 ﻿namespace System.Windows.Forms
-{ 
+{
     public static class CustomStatusButton
     {
         public static void Initialize(StatusStrip statusbar)
@@ -49,5 +49,5 @@
             tsi.BorderStyle = Border3DStyle.Etched;
         }
 
-    } 
+    }
 }

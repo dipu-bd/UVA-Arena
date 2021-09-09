@@ -1,6 +1,5 @@
 ﻿using FastColoredTextBoxNS;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -144,11 +143,7 @@ namespace UVA_Arena.Elements
 
             //check extension validity
             Regex invalid = new Regex(@".(exe|dll|o|class)");
-            return (!invalid.IsMatch(file.Extension.ToLower()));
-
-            // disable udebug intput-output
-            this.uDebugPane1.Visible = false;
-            this.uDebugPane2.Visible = false;
+            return !invalid.IsMatch(file.Extension.ToLower());
         }
 
         private void ClearPrevOpenedFiles()
@@ -1415,7 +1410,7 @@ namespace UVA_Arena.Elements
                 {
                     // download input
                     string input = user == null ? inputTextBox.Text : uDebugClient.GetInputdata(user);
-                    
+
                     // download output
                     string output = uDebugClient.GetOutputData(input, mFormData);
 
@@ -1442,7 +1437,7 @@ namespace UVA_Arena.Elements
                 }
             });
         }
-        
+
         private void button1_Click(object sender, EventArgs e)
         {
             uDebugPane1.Visible = false;
@@ -1466,11 +1461,11 @@ namespace UVA_Arena.Elements
 
         private void expandCollapseButton_Click(object sender, EventArgs e)
         {
-            if(SelectedPNUM <= 0)
+            if (SelectedPNUM <= 0)
             {
                 return;
             }
-            if(showProblemButton.Tag == null)
+            if (showProblemButton.Tag == null)
             {
                 problemToolButton.PerformClick();
                 mainContainer.Panel1.Controls.Add(Interactivity.problemViewer.pdfViewer1);

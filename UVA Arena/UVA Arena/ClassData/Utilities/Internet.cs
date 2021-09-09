@@ -1,40 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Net;
-using UVA_Arena.Structures;
 
 namespace UVA_Arena.Internet
 {
     internal static class Downloader
     {
-        #region Check Connections
-
-        public static bool IsInternetConnected()
-        {
-            long dwConnectionFlags = 0;
-            if (NativeMethods.InternetGetConnectedState(dwConnectionFlags, 0))
-                return (NativeMethods.InternetAttemptConnect(0) == 0);
-            else
-                return false;
-        }
-
-        #endregion
-
-        #region General Properties and Functions
-
-        public static bool IsBusy()
-        {
-            if (CurrentTask == null) return false;
-            if (CurrentTask.Status == ProgressStatus.Disposed) return false;
-            if (CurrentTask.webClient == null) return false;
-            return CurrentTask.webClient.IsBusy;
-        }
-
-        #endregion
-
-        #region Web-client and Download Queue
+        #region Base Downloader
 
         private static int _highend = 0;
         private static int _normalend = 0;
@@ -91,7 +62,7 @@ namespace UVA_Arena.Internet
 
         #endregion
 
-        #region Download Next
+        #region Queue Manager
 
         private static bool __ContinueDownload = true;
 
@@ -176,7 +147,7 @@ namespace UVA_Arena.Internet
 
         public static void DownloadUserid(string name, Internet.DownloadTaskHandler complete)
         {
-            string url = "http://uhunt.felix-halim.net/api/uname2uid/" + name;
+            string url = Config.uHuntBaseUrl + "/api/uname2uid/" + name;
             DownloadTask dt = new DownloadTask(url, null, name, 2);
 
             if (LocalDatabase.ContainsUser(name))
@@ -229,9 +200,8 @@ namespace UVA_Arena.Internet
             _DownloadingProblemDatabase = true;
 
             //problem database
-            string url = "http://uhunt.felix-halim.net/api/p";
+            string url = Config.uHuntBaseUrl + "/api/p";
             string alternate = "https://raw.githubusercontent.com/dipu-bd/uva-problem-category/master/problems.json";
-
             string file = LocalDirectory.GetProblemInfoFile();
             DownloadFileAsync(url, file, alternate, Priority.High,
                 __DownloadProblemDatabaseProgress, __DownloadProblemDatabaseCompleted, 0);
@@ -290,13 +260,10 @@ namespace UVA_Arena.Internet
         }
         private static void __DownloadCategoryIndexProgress(DownloadTask task)
         {
-            string msg = msg = "Downloading category index... [{0}/{1} completed]";
+            string msg = "Downloading category index... [{0}/{1} completed]";
             msg = string.Format(msg, Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
             Interactivity.SetStatus(msg);
-
-            int percent = task.ProgressPercentage;
             Interactivity.SetProgress(task.ProgressPercentage);
-
         }
 
         private static void __DownloadProblemCategoryCompleted(DownloadTask task)
@@ -377,7 +344,7 @@ namespace UVA_Arena.Internet
         public static void DownloadDefaultUserInfo(long LastSID = 0)
         {
             //user submission info
-            string url = "http://uhunt.felix-halim.net/api/subs-user/{0}/{1}";
+            string url = Config.uHuntBaseUrl + "/api/subs-user/{0}/{1}";
             url = string.Format(url, LocalDatabase.GetUserid(RegistryAccess.DefaultUsername), LastSID);
             string file = LocalDirectory.GetUserSubPath(RegistryAccess.DefaultUsername);
             DownloadFileAsync(url, file, RegistryAccess.DefaultUsername, Priority.Normal,
@@ -413,6 +380,28 @@ namespace UVA_Arena.Internet
         }
 
         #endregion
+
+        #region Utilities
+
+        public static bool IsInternetConnected()
+        {
+            long dwConnectionFlags = 0;
+            if (NativeMethods.InternetGetConnectedState(dwConnectionFlags, 0))
+                return (NativeMethods.InternetAttemptConnect(0) == 0);
+            else
+                return false;
+        }
+
+        public static bool IsBusy()
+        {
+            if (CurrentTask == null) return false;
+            if (CurrentTask.Status == ProgressStatus.Disposed) return false;
+            if (CurrentTask.webClient == null) return false;
+            return CurrentTask.webClient.IsBusy;
+        }
+
+        #endregion
+
     }
 
 }

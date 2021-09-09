@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -125,10 +124,11 @@ namespace UVA_Arena
             try
             {
                 string file = LocalDirectory.GetCategoryIndexFile();
-                if (!File.Exists(file)) return result;
+                string text = File.ReadAllText(file);
+                var arr = JsonConvert.DeserializeObject(text);
+                if (arr == null) return result;
 
-                var arr = (JArray)JsonConvert.DeserializeObject(File.ReadAllText(file));
-                foreach (JToken tok in arr)
+                foreach (JToken tok in (JArray)arr)
                 {
                     result.Add(
                         tok.Value<string>("file"),

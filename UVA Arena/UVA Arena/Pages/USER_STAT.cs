@@ -370,7 +370,7 @@ namespace UVA_Arena.Elements
         public void DownloadUserSubs(string user)
         {
             if (webClient1.IsBusy || currentUser == null || currentUser.uname != user) return;
-            string format = "http://uhunt.felix-halim.net/api/subs-user/{0}/{1}";
+            string format = Config.uHuntBaseUrl + "/api/subs-user/{0}/{1}";
             string url = string.Format(format, currentUser.uid, currentUser.LastSID);
             Interactivity.SetStatus("Downloading " + user + "'s submissions...");
             webClient1.DownloadDataAsync(new Uri(url), currentUser.uname);
@@ -615,35 +615,35 @@ namespace UVA_Arena.Elements
 
         private void AssignAspectFunctions()
         {
-            subtimeSUB.AspectGetter = delegate(object row)
+            subtimeSUB.AspectGetter = delegate (object row)
             {
                 if (row == null) return null;
                 UserSubmission last = (UserSubmission)row;
                 return UnixTimestamp.FormatUnixTime(last.sbt);
             };
-            lanSUB.AspectToStringConverter = delegate(object dat)
+            lanSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 return Functions.GetLanguage((Language)((long)dat));
             };
-            verSUB.AspectToStringConverter = delegate(object dat)
+            verSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 return Functions.GetVerdict((Verdict)((long)dat));
             };
-            runSUB.AspectToStringConverter = delegate(object dat)
+            runSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 return Functions.FormatRuntime((long)dat);
             };
-            rankSUB.AspectToStringConverter = delegate(object dat)
+            rankSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 if ((long)dat == -1) return "-";
                 return ((long)dat).ToString();
             };
 
-            ptitleSUB.ImageGetter = delegate(object data)
+            ptitleSUB.ImageGetter = delegate (object data)
             {
                 if (data == null || data.GetType() != typeof(UserSubmission))
                     return null;
@@ -769,14 +769,14 @@ namespace UVA_Arena.Elements
             if ((int)from <= 0)
             {
                 //get current user's ranklist
-                string format = "http://uhunt.felix-halim.net/api/ranklist/{0}/{1}/{2}";
+                string format = Config.uHuntBaseUrl + "/api/ranklist/{0}/{1}/{2}";
                 url = string.Format(format, currentUser.uid, 100, 100);
                 Interactivity.SetStatus("Downloading " + currentUser.uname + "'s rank-list...");
             }
             else
             {
                 //get ranklist from a specific rank
-                string format = "http://uhunt.felix-halim.net/api/rank/{0}/{1}";
+                string format = Config.uHuntBaseUrl + "/api/rank/{0}/{1}";
                 url = string.Format(format, from, 200);
                 Interactivity.SetStatus("Downloading rank-list from " + from.ToString() + "...");
             }

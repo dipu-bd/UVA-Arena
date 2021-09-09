@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel;
-using System.Runtime.Serialization;
-using System.Windows.Forms;
+﻿using System.Collections.Generic;
 
 namespace UVA_Arena.Structures
 {
@@ -26,7 +20,7 @@ namespace UVA_Arena.Structures
     /// File System like structure for categorize problems
     /// </summary>
     public class CategoryNode
-    { 
+    {
         public CategoryNode(string name = "", string note = "", CategoryNode par = null)
         {
             this.name = name;
@@ -49,7 +43,7 @@ namespace UVA_Arena.Structures
         /// <summary> List of all problems </summary>
         public Dictionary<long, ProblemInfo> allProbs = new Dictionary<long, ProblemInfo>();
         public Dictionary<long, string> problemToNote = new Dictionary<long, string>();
-        
+
         /// <summary>
         /// Gets the level of current node int the tree
         /// </summary>

@@ -82,7 +82,7 @@ namespace UVA_Arena.Elements
 
         private void setPdfFile(string file)
         {
-            if(file == null)
+            if (file == null)
             {
                 pdfViewer1.Visible = false;
                 downloadingNoticeLabel.Visible = true;
@@ -105,7 +105,7 @@ namespace UVA_Arena.Elements
             //load meta info
             LoadTopBar();
             markButton.Checked = current.Marked;
-            
+
             //show data 
             //string html = LocalDirectory.GetProblemHtml(current.pnum);
             //bool htmlAvail = LocalDirectory.GetFileSize(html) > 100;
@@ -572,27 +572,27 @@ namespace UVA_Arena.Elements
                 case SubViewType.LastSubmission:
                     start = UnixTimestamp.ToUnixTime(dateTimePicker1.Value);
                     stop = UnixTimestamp.ToUnixTime(DateTime.Now);
-                    format = "http://uhunt.felix-halim.net/api/p/subs/{0}/{1}/{2}"; //pid, unix time start, stop
+                    format = Config.uHuntBaseUrl + "/api/p/subs/{0}/{1}/{2}"; //pid, unix time start, stop
                     url = string.Format(format, current.pid, start, stop);
                     Interactivity.SetStatus("Downloading last submissions on current problem...");
                     break;
                 case SubViewType.Ranklist:
                     start = 1;
                     stop = (long)numericUpDown1.Value;
-                    format = "http://uhunt.felix-halim.net/api/p/rank/{0}/{1}/{2}"; //pid, rank start, rank count
+                    format = Config.uHuntBaseUrl + "/api/p/rank/{0}/{1}/{2}"; //pid, rank start, rank count
                     url = string.Format(format, current.pid, start, stop);
                     Interactivity.SetStatus("Downloading ranks on current problem...");
                     break;
                 case SubViewType.UsersRank:
                     start = stop = 10;
                     if (string.IsNullOrEmpty(uid) || uid == "-") return;
-                    format = "http://uhunt.felix-halim.net/api/p/ranklist/{0}/{1}/{2}/{3}"; //pid, uid, before_count, after_count
+                    format = Config.uHuntBaseUrl + "/api/p/ranklist/{0}/{1}/{2}/{3}"; //pid, uid, before_count, after_count
                     url = string.Format(format, current.pid, uid, start, stop);
                     Interactivity.SetStatus("Downloading " + user + "'s rank-data on current problem...");
                     break;
                 case SubViewType.UsersSub:
                     if (string.IsNullOrEmpty(uid) || uid == "-") return;
-                    format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/{2}"; //uid, pnum, last sid
+                    format = Config.uHuntBaseUrl + "/api/subs-nums/{0}/{1}/{2}"; //uid, pnum, last sid
                     url = string.Format(format, uid, current.pnum, 0);
                     Interactivity.SetStatus("Downloading " + user + "'s submission on current problem...");
                     break;
@@ -600,7 +600,7 @@ namespace UVA_Arena.Elements
                     List<string> uidcol = new List<string>();
                     foreach (var val in LocalDatabase.usernames.Values) uidcol.Add(val);
                     if (uidcol.Count == 0) return;
-                    format = "http://uhunt.felix-halim.net/api/subs-nums/{0}/{1}/0"; //uids(sep = comma), pnum
+                    format = Config.uHuntBaseUrl + "/api/subs-nums/{0}/{1}/0"; //uids(sep = comma), pnum
                     url = string.Format(format, string.Join(",", uidcol.ToArray()), current.pnum);
                     Interactivity.SetStatus("Comparing user's on current problem...");
                     break;
@@ -713,27 +713,27 @@ namespace UVA_Arena.Elements
 
         private void AssignAspectToSubList()
         {
-            subtimeSUB.AspectToStringConverter = delegate(object dat)
+            subtimeSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 return UnixTimestamp.FormatUnixTime((long)dat);
             };
-            lanSUB.AspectToStringConverter = delegate(object dat)
+            lanSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 return Functions.GetLanguage((Language)((long)dat));
             };
-            verSUB.AspectToStringConverter = delegate(object dat)
+            verSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 return Functions.GetVerdict((Verdict)((long)dat));
             };
-            runSUB.AspectToStringConverter = delegate(object dat)
+            runSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 return Functions.FormatRuntime((long)dat);
             };
-            rankSUB.AspectToStringConverter = delegate(object dat)
+            rankSUB.AspectToStringConverter = delegate (object dat)
             {
                 if (dat == null) return "";
                 if ((long)dat == -1) return "-";
@@ -875,6 +875,6 @@ namespace UVA_Arena.Elements
         #endregion
 
         #endregion
-        
+
     }
 }

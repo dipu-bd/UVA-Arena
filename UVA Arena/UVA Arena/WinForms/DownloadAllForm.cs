@@ -381,7 +381,7 @@ namespace UVA_Arena
                 CurrentState = State.Cancelling;
             }
             if (CurrentState != State.Running) return;
-            */ 
+            */
 
 
             /*

@@ -60,7 +60,7 @@ namespace UVA_Arena
             /// </summary>
             FO_RENAME = 0x0004,
         }
-         
+
         /// <summary>
         /// SHFILEOPSTRUCT for SHFileOperation from COM
         /// </summary>

@@ -229,7 +229,7 @@ namespace UVA_Arena
         {
             Interactivity.SubmitCode(0);
         }
-        
+
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Interactivity.ShowSettings();

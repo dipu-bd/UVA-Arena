@@ -21,7 +21,7 @@ namespace UVA_Arena
         public static TextStyle WarningStyle = new TextStyle(Brushes.Blue, null, FontStyle.Italic);
         //code editor styles
         public static TextStyle NumberStyle = new TextStyle(Brushes.Magenta, null, FontStyle.Regular);
-        public static TextStyle KeywordStyle = new TextStyle(Brushes.Blue, null, FontStyle.Bold);        
+        public static TextStyle KeywordStyle = new TextStyle(Brushes.Blue, null, FontStyle.Bold);
         public static TextStyle ClassNameStyle = new TextStyle(Brushes.Teal, null, FontStyle.Bold);
         public static TextStyle AttributeStyle = new TextStyle(Brushes.Teal, null, FontStyle.Regular);
         public static TextStyle StringStyle = new TextStyle(Brushes.Brown, null, FontStyle.Regular);
@@ -94,7 +94,7 @@ namespace UVA_Arena
             if (CPPStringRegex == null) InitCPPRegex();
 
             //clear previous styles
-            range.ClearStyle(new Style[] { HyperCommentStyle, MacroStyle, CommentStyle, 
+            range.ClearStyle(new Style[] { HyperCommentStyle, MacroStyle, CommentStyle,
                 StringStyle, NumberStyle, KeywordStyle, ClassNameStyle, AttributeStyle });
 
             //--> the styles executes from bottom to top.

@@ -66,7 +66,7 @@ namespace UVA_Arena
         /// <param name="obj"> Object to convert </param>
         /// <returns> Byte array to get </returns>
         public static byte[] StructureToByteArray(object obj)
-        {           
+        {
             int len = Marshal.SizeOf(obj);
             byte[] arr = new byte[len];
             IntPtr ptr = Marshal.AllocHGlobal(len);

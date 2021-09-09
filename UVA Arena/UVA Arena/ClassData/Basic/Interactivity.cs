@@ -34,14 +34,14 @@ namespace UVA_Arena
         /// <param name="form"> Form to close </param>
         public static void CloseForm(Form form)
         {
-            if (form == null && form.IsDisposed) return;
+            if (form == null || form.IsDisposed) return;
             form.Close();
             form.Dispose();
         }
 
         public static void OpenForm(Form form)
         {
-            if (form == null && !form.IsDisposed) return;
+            if (form == null || form.IsDisposed) return;
             if (form.Visible) form.BringToFront();
             else form.Show();
         }

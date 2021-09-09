@@ -1,7 +1,7 @@
-﻿using System.Runtime.InteropServices; 
+﻿using System.Runtime.InteropServices;
 
 namespace System.Windows.Forms
-{ 
+{
     public class NativeTreeView : TreeView
     {
         protected override void CreateHandle()
@@ -10,5 +10,5 @@ namespace System.Windows.Forms
             IntPtr lparam = Marshal.StringToBSTR("explorer");
             UVA_Arena.NativeMethods.SetWindowTheme(this.Handle, lparam, IntPtr.Zero);
         }
-    } 
+    }
 }

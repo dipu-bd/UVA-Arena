@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
 using System.Net;
-using HtmlAgilityPack;
+using System.Text;
 
 namespace UVA_Arena.Utilities
 {
@@ -112,7 +112,7 @@ namespace UVA_Arena.Utilities
                             "&node_nid=&op=Get+Accepted+Output&output_data=&user_output=" +
                             "&form_build_id=" + form.BuildID +
                             "&form_id=udebug_custom_problem_view_input_output_form";
-            var data = Encoding.ASCII.GetBytes(postData);           
+            var data = Encoding.ASCII.GetBytes(postData);
 
             // send request and read response
             request.Method = "POST";

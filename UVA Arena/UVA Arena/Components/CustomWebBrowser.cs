@@ -23,7 +23,7 @@ namespace UVA_Arena.ExtendedControls
             get;
             set;
         }
-         
+
         /// <summary>
         /// Gets or sets the URL of the current document
         /// </summary>
@@ -121,7 +121,7 @@ namespace UVA_Arena.ExtendedControls
             SetUrlBox();
         }
 
- 
+
         //
         // Event Handlers
         //
@@ -172,7 +172,7 @@ namespace UVA_Arena.ExtendedControls
             if (webBrowser1.ReadyState == WebBrowserReadyState.Complete)
             {
                 if (DocumentCompleted != null)
-                    DocumentCompleted(sender, e); 
+                    DocumentCompleted(sender, e);
             }
         }
 
@@ -181,7 +181,7 @@ namespace UVA_Arena.ExtendedControls
             try
             {
                 Progress1.Value = (int)e.CurrentProgress;
-                if (ProgressChanged != null) ProgressChanged(sender, e); 
+                if (ProgressChanged != null) ProgressChanged(sender, e);
             }
             catch { }
         }
@@ -192,7 +192,7 @@ namespace UVA_Arena.ExtendedControls
             {
                 Status1.Text = webBrowser1.StatusText;
                 if (StatusChanged != null)
-                    StatusChanged(sender, new StatusChangedEventArgs(webBrowser1.StatusText)); 
+                    StatusChanged(sender, new StatusChangedEventArgs(webBrowser1.StatusText));
             }
             catch { }
         }
@@ -298,7 +298,7 @@ namespace UVA_Arena.ExtendedControls
             String msg = "Temporary Internet files and cache cleared.";
             msg += " If page is still not loading try following steps-" + Environment.NewLine + Environment.NewLine;
             msg += "  1) Check if the UVA server is down." + Environment.NewLine + Environment.NewLine;
-            msg += "  2) Go to Internet Explorer settings." + Environment.NewLine; 
+            msg += "  2) Go to Internet Explorer settings." + Environment.NewLine;
             msg += "     Clear temporary internet files and cache." + Environment.NewLine;
             msg += "     Refresh the submission page.";
             MessageBox.Show(msg);

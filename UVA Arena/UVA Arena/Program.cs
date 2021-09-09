@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Windows.Forms;
 
 namespace UVA_Arena
@@ -14,6 +15,9 @@ namespace UVA_Arena
             //enable application styles
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            //for https connections
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
 
             //add header to log file
             string dat = Environment.NewLine;

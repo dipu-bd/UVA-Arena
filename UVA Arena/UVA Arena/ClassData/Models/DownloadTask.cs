@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Net;
 
@@ -106,6 +105,7 @@ namespace UVA_Arena.Internet
                 webClient = new WebClient();
                 webClient.DownloadDataCompleted += webClient_DownloadDataCompleted;
                 webClient.DownloadProgressChanged += webClient_DownloadProgressChanged;
+                webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36");
             }
 
             Status = ProgressStatus.Running;
@@ -128,11 +128,11 @@ namespace UVA_Arena.Internet
         }
 
         void webClient_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
-        {            
+        {
             //write download to file or string
             this.Error = e.Error;
             if (this.Error == null && this.Status == ProgressStatus.Running)
-            { 
+            {
                 try
                 {
                     this.Result = System.Text.Encoding.UTF8.GetString(e.Result);
@@ -141,10 +141,14 @@ namespace UVA_Arena.Internet
                     this.Status = ProgressStatus.Completed;
                     this.Error = null;
                 }
-                catch (Exception ex) { this.Error = ex; }
+                catch (Exception ex)
+                {
+                    this.Error = ex;
+                }
             }
             if (this.Error != null)
             {
+                System.Console.WriteLine(this.Error);
                 this.Status = ProgressStatus.Failed;
             }
 

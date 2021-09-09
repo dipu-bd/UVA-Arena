@@ -79,7 +79,7 @@ namespace UVA_Arena.Elements
         {
             if (firstUser.SelectedIndex == -1 || secondUser.SelectedIndex == -1)
             {
-                MessageBox.Show("Select two users to compare."); 
+                MessageBox.Show("Select two users to compare.");
             }
             else
             {
@@ -129,7 +129,7 @@ namespace UVA_Arena.Elements
                first.TryList.Count - firstac, second.TryList.Count - secondac);
             totalsubLabel.Text = string.Format((string)totalsubLabel.Tag,
                 first.submissions.Count, second.submissions.Count);
-             
+
             //build up list
             List<UserSubmission> usub = new List<UserSubmission>();
 
@@ -180,33 +180,33 @@ namespace UVA_Arena.Elements
             lastSubmissions1.BuildGroups(pnumSUB, SortOrder.Ascending);
             lastSubmissions1.ShowGroups = !secondsSubs.Checked;
 
-            probInListLabel.Text = string.Format((string)probInListLabel.Tag, lastSubmissions1.OLVGroups.Count);            
+            probInListLabel.Text = string.Format((string)probInListLabel.Tag, lastSubmissions1.OLVGroups.Count);
         }
 
         private void SetAspectValues()
         {
-            subtimeSUB.AspectGetter = delegate(object row)
+            subtimeSUB.AspectGetter = delegate (object row)
             {
                 return UnixTimestamp.FormatUnixTime(((UserSubmission)row).sbt);
             };
-            lanSUB.AspectToStringConverter = delegate(object dat)
+            lanSUB.AspectToStringConverter = delegate (object dat)
             {
                 return Functions.GetLanguage((Language)(long)dat);
             };
-            verSUB.AspectToStringConverter = delegate(object dat)
+            verSUB.AspectToStringConverter = delegate (object dat)
             {
                 return Functions.GetVerdict((Verdict)(long)dat);
             };
-            runSUB.AspectToStringConverter = delegate(object dat)
+            runSUB.AspectToStringConverter = delegate (object dat)
             {
                 return Functions.FormatRuntime((long)dat);
             };
-            rankSUB.AspectToStringConverter = delegate(object dat)
+            rankSUB.AspectToStringConverter = delegate (object dat)
             {
                 if ((long)dat == -1) return "-";
                 return ((long)dat).ToString();
             };
-            pnumSUB.GroupKeyGetter = delegate(object row)
+            pnumSUB.GroupKeyGetter = delegate (object row)
             {
                 UserSubmission usub = (UserSubmission)row;
                 return string.Format("{0} - {1}", usub.pnum, usub.ptitle);

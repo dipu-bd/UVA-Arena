@@ -355,13 +355,13 @@ namespace UVA_Arena.Elements
 
             string runtime = string.Format("Runtime = {0:0.000} sec.",
                 (proc.ExitTime - proc.StartTime).TotalSeconds);
-            
+
             int exitcode = tle ? -1 : proc.ExitCode;
 
             string verdict = "Successful";
             if (exitcode != 0) verdict = "Failed";
             if (tle) verdict = "Time Limit Exceeded";
-            if (cancelationPending) verdict = "Canceled";            
+            if (cancelationPending) verdict = "Canceled";
 
             string msg = string.Format("Exit Code = {0} ({1}).\n", exitcode, verdict);
 

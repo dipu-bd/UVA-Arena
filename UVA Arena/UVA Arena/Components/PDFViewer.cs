@@ -25,20 +25,17 @@ namespace UVA_Arena.Components
 
         public void Load(string file)
         {
-            if (file == null || file == currentFile)
-            {
-                return;
-            }
+            if (file == null || file == currentFile) return;
 
-            currentFile = file;
-            
             // base64 data of pdf
-            Byte[] bytes = File.ReadAllBytes(file);
+            byte[] bytes = File.ReadAllBytes(file);
             string data = Convert.ToBase64String(bytes);
 
-            // display viewer 
-            this.Document.InvokeScript("openPdfFromBase64", new object[] { data });            
-        }        
+            // display viewer
+            if (this.Document == null) return;
+            this.Document.InvokeScript("openPdfFromBase64", new object[] { data });
+
+            currentFile = file;
+        }
     }
 }
-

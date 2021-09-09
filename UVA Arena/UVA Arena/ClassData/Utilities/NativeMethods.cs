@@ -5,9 +5,9 @@ using System.Security.Permissions;
 using System.Windows.Forms;
 
 namespace UVA_Arena
-{ 
+{
     public static class NativeMethods
-    { 
+    {
         //
         // Messages
         //
@@ -28,7 +28,7 @@ namespace UVA_Arena
         /// <summary> The left mouse button is down </summary>
         public const int MK_LBUTTON = 0x0001;
         /// <summary> Set Cue-text on a Textbox control</summary>
-        public const int EM_SETCUEBANNER = 0x1501; 
+        public const int EM_SETCUEBANNER = 0x1501;
         /// Animates the window from left to right. 
         /// This flag can be used with roll or slide animation.
         /// <span class="code-SummaryComment"></summary></span>
@@ -99,18 +99,18 @@ namespace UVA_Arena
         public static readonly ContentAlignment AnyBottomAlign = ContentAlignment.BottomRight | ContentAlignment.BottomCenter | ContentAlignment.BottomLeft;
         public static readonly ContentAlignment AnyMiddleAlign = ContentAlignment.MiddleRight | ContentAlignment.MiddleCenter | ContentAlignment.MiddleLeft;
         public static readonly ContentAlignment AnyCenterAlign = ContentAlignment.BottomCenter | ContentAlignment.MiddleCenter | ContentAlignment.TopCenter;
-        
+
         //
         // User32.dll
         //
         [DllImport("user32.dll"), SecurityPermission(SecurityAction.Demand)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam);         
-        
+        public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam);
+
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
         // P/Invoke declarations
-        [DllImport("user32.dll")]        
+        [DllImport("user32.dll")]
         public static extern IntPtr WindowFromPoint(Point pt);
 
         //
@@ -124,33 +124,33 @@ namespace UVA_Arena
         //
         [DllImport("dwmapi.dll")]
         private static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref MARGINS pMarInset);
-        
+
         //
         // WinINet
         [DllImport("wininet.dll", SetLastError = true)]
         public static extern int InternetAttemptConnect(uint res);
-        
+
         [DllImport("wininet.dll", SetLastError = true)]
         public static extern bool InternetGetConnectedState(long flags, long reserved);
-     
+
 
         //
         // Misc Functions
         //
         public static IntPtr ToIntPtr(object structure)
-        {            
+        {
             IntPtr lparam = IntPtr.Zero;
             lparam = Marshal.AllocCoTaskMem(Marshal.SizeOf(structure));
             Marshal.StructureToPtr(structure, lparam, false);
             return lparam;
         }
         public static IntPtr ToIntPtr(string str)
-        {            
+        {
             return Marshal.StringToBSTR(str);
         }
 
         public static object FromIntPtr(IntPtr ptr, Type structureType)
-        {            
+        {
             return Marshal.PtrToStructure(ptr, structureType);
         }
 

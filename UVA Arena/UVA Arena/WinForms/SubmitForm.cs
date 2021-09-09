@@ -94,7 +94,7 @@ namespace UVA_Arena
             {
                 result = false;
             }
-            
+
             //show this forms after processing 
             return result;
         }

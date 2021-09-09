@@ -1,7 +1,7 @@
-﻿using System.Runtime.InteropServices; 
+﻿using System.Runtime.InteropServices;
 
 namespace System.Windows.Forms
-{ 
+{
     public class CueTextBox : TextBox
     {
         public CueTextBox() { }
@@ -24,5 +24,5 @@ namespace System.Windows.Forms
             }
         }
     }
-     
+
 }

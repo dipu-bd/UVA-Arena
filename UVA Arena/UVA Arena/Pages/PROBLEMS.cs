@@ -68,15 +68,15 @@ namespace UVA_Arena.Elements
 
         void InitializeCategoryList()
         {
-            categoryListView.CanExpandGetter = delegate(object row)
+            categoryListView.CanExpandGetter = delegate (object row)
             {
                 return ((CategoryNode)row).branches.Count > 0;
             };
-            categoryListView.ChildrenGetter = delegate(object row)
+            categoryListView.ChildrenGetter = delegate (object row)
             {
                 return ((CategoryNode)row).branches;
             };
-            categoryListView.CellToolTipGetter = delegate(OLVColumn col, object row)
+            categoryListView.CellToolTipGetter = delegate (OLVColumn col, object row)
             {
                 return ((CategoryNode)row).note;
             };
@@ -91,39 +91,39 @@ namespace UVA_Arena.Elements
         {
             problemListView.MakeColumnSelectMenu(problemContextMenu);
 
-            pnumProb.GroupKeyGetter = delegate(object row)
+            pnumProb.GroupKeyGetter = delegate (object row)
             {
                 return ((ProblemInfo)row).Volume;
             };
-            levelProb.GroupKeyGetter = delegate(object row)
+            levelProb.GroupKeyGetter = delegate (object row)
             {
                 return Math.Round(((ProblemInfo)row).Level);
             };
-            rtlProb.AspectToStringConverter = delegate(object key)
+            rtlProb.AspectToStringConverter = delegate (object key)
             {
                 return Functions.FormatRuntime((long)key);
             };
-            runProb.AspectToStringConverter = delegate(object key)
+            runProb.AspectToStringConverter = delegate (object key)
             {
                 if ((long)key < 0) return "(?)";
                 else return Functions.FormatRuntime((long)key);
             };
-            memProb.AspectToStringConverter = delegate(object key)
+            memProb.AspectToStringConverter = delegate (object key)
             {
                 if ((long)key < 0) return "(512MB)";
                 else return Functions.FormatMemory((long)key);
             };
-            fileSizeProb.AspectToStringConverter = delegate(object key)
+            fileSizeProb.AspectToStringConverter = delegate (object key)
             {
                 if ((long)key < 100) return "-";
                 else return Functions.FormatMemory((long)key);
             };
-            statProb.AspectToStringConverter = delegate(object key)
+            statProb.AspectToStringConverter = delegate (object key)
             {
                 return key.ToString().Replace("_", " ");
             };
 
-            ptitleProb.ImageGetter = delegate(object data)
+            ptitleProb.ImageGetter = delegate (object data)
             {
                 if (data == null || data.GetType() != typeof(ProblemInfo))
                     return null;
@@ -133,14 +133,14 @@ namespace UVA_Arena.Elements
                     return Properties.Resources.favorite;
                 else if (prob.Solved)
                     return Properties.Resources.accept;
-                else if (LocalDatabase.DefaultUser != null && 
+                else if (LocalDatabase.DefaultUser != null &&
                          LocalDatabase.DefaultUser.TriedButUnsolved(prob.pnum))
                     return Properties.Resources.tried;
                 else
                     return Properties.Resources.file;
             };
 
-            nameCat.ImageGetter = delegate(object data)
+            nameCat.ImageGetter = delegate (object data)
             {
                 if (((CategoryNode)data).Level == 0)
                     return Properties.Resources.root;

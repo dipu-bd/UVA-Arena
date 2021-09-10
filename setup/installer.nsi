@@ -1,6 +1,5 @@
 ;NSIS Modern User Interface
-;Welcome/Finish Page Example Script
-;Written by Joost Verburg
+;Written by Sudipto Chandra
 
 ;--------------------------------
 ;Include Modern UI
@@ -12,11 +11,14 @@
 
   !define Company "Sand Soft"
   !define AppName "UVA Arena"
+  !define AppVersion "1.9.0"
   !define AppExeName "UVA Arena.exe"
   !define SetupIcon "setup.ico"
-  !define SetupFileName "UVA_Arena_1.9.0.exe"
   !define LicenseFile "..\LICENSE"
+  !define SetupFileName "UVA_Arena_${AppVersion}.exe"
   !define DistFiles "publish\Application Files\UVA Arena_1_9_0_82"
+
+  !define UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${AppName}"
 
 ;--------------------------------
 ;General
@@ -73,8 +75,14 @@ Section "${AppName}" AppFiles
   ;Add files to installer
   File /r "${DistFiles}\*"
 
-  ;Store installation folder
-  WriteRegStr HKCU "Software\${Company}\${AppName}" "" $INSTDIR
+  ;Create prorams and features entry
+  WriteRegStr SHCTX "${UNINST_KEY}" "Publisher" "Sand Soft"
+  WriteRegStr SHCTX "${UNINST_KEY}" "DisplayName" "${AppName}"
+  WriteRegStr SHCTX "${UNINST_KEY}" "DisplayVersion" "${AppVersion}"
+  WriteRegStr SHCTX "${UNINST_KEY}" "DisplayIcon" "$INSTDIR\main.ico"
+  WriteRegStr SHCTX "${UNINST_KEY}" "InstallLocation" "$INSTDIR"
+  WriteRegStr SHCTX "${UNINST_KEY}" "HelpLink" "https://github.com/dipu-bd/UVA-Arena"
+  WriteRegStr SHCTX "${UNINST_KEY}" "UninstallString" "$\"$INSTDIR\Uninstall.exe$\""
 
   ;Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
@@ -112,10 +120,10 @@ SectionEnd
 
 Section "Uninstall"
 
-  Delete "$INSTDIR\Uninstall.exe"
-
   RMDir "$INSTDIR"
+  RMDir "$SMPROGRAMS\${Company}\${AppName}"
+  Delete "$DESKTOP\${AppName}.lnk"
 
-  DeleteRegKey /ifempty HKCU "Software\${Company}\${AppName}"
+  DeleteRegKey SHCTX "${UNINST_KEY}"
 
 SectionEnd

@@ -14,8 +14,8 @@ To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena
   <summary>View older versions!</summary>
 	
 #### Version 1.8 [Update 2]
-[Download v1.8.2 (Windows Only)](https://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.8/UVA_Arena_1.8.2.exe)
-**Mirror**: [GitHub release](https://github.com/dipu-bd/UVA-Arena/releases/download/v1.8.2/UVA_Arena_1.8.2.exe)
+1. [Download v1.8.2 (Windows Only)](https://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.8/UVA_Arena_1.8.2.exe)
+2. **Mirror**: [GitHub release](https://github.com/dipu-bd/UVA-Arena/releases/download/v1.8.2/UVA_Arena_1.8.2.exe)
 
 #### Version 1.7
 1. [Download Setup File (Windows Only)](https://github.com/dipu-bd/UVA-Arena/releases/download/1.7/UVA_Arena_1.7_setup.exe)
@@ -85,6 +85,12 @@ This software uses controls from the following sources-
 * Main icon is a licenced as "Free for non-commercial use". Downloaded from [here](http://www.iconarchive.com/show/stark-icons-by-fruityth1ng/Applications-icon.html)  
 * Icon resources are mostly open-source and many of them are downloaded from [IconArchive](http://www.iconarchive.com/). I couldn't look up the licences for all icons. Please inform me if any icon here is under strict copyright protection.
 * Setup project [NSIS (Nullsoft Scriptable Install System)](http://nsis.sourceforge.net/Main_Page)
+
+### Publishing
+
+- Install [NSIS](https://nsis.sourceforge.io/Download).
+- Publish with __Visual Studio__ to `setup/publish` folder.
+- Run `makensis .\installer.nsi` inside `setup` folder.
 
 ## Developer  
 > __Sudipto Chandra Dipu__  

@@ -7,14 +7,19 @@
 ### Download  
 To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena/wiki/What's-New)        
 
+#### Version 1.9
+[![Download v1.9](Images/quick-download-media-file-image.png)](https://sourceforge.net/projects/uvaarena/files/UVA_Arena_1.9/UVA_Arena_1.9.0.exe)     
+
+<details>
+  <summary>View older versions!</summary>
+	
 #### Version 1.8 [Update 2]
-[![Download v1.8](Images/quick-download-media-file-image.png)](https://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.8/UVA_Arena_1.8.2.exe)     
+[Download v1.8.2 (Windows Only)](https://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.8/UVA_Arena_1.8.2.exe)
 **Mirror**: [GitHub release](https://github.com/dipu-bd/UVA-Arena/releases/download/v1.8.2/UVA_Arena_1.8.2.exe)
 
 #### Version 1.7
 1. [Download Setup File (Windows Only)](https://github.com/dipu-bd/UVA-Arena/releases/download/1.7/UVA_Arena_1.7_setup.exe)
 2. [Download Setup File (SourceForge Mirror)](https://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.7/UVA_Arena_1.7.exe/download)
-
 
 ##### Version 1.6 [Fix 1]
 1. [Download Setup file (EXE File : 4.34MB)](http://www.mediafire.com/download/kh7he74cceuxu3j/UVA_Arena_1.6.1.exe)     
@@ -31,8 +36,9 @@ To view a list of new features [click here](https://github.com/dipu-bd/UVA-Arena
 2. [Download Setup File with Problem Descriptions (ZIP File : 238MB)](http://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.2/UVA%20Arena%201.2%20full.zip/download)     
 
 ##### Version 1.1
-1. [For All Platforms](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Windows/UVA_Arena_1.1.exe?raw=true)     
-     
+1. [For All Platforms](https://github.com/dipu-bd/UVA-Arena/blob/master/Setup/Windows/UVA_Arena_1.1.exe?raw=true)
+	
+</details>
 	  
 ### Short Info
 Main target of this software is to provide a useful and informative tool to the users to help them with their programming practice. Today programming has become a very competitive field. You need to keep track of your progress daily, learn new things, and of-course solve new problems as fast as you can. Problem picking and managing your codes is a time consuming process. You can minimize this wasting of time as much as possible using **UVA Arena**.  

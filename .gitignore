@@ -157,5 +157,6 @@ $RECYCLE.BIN/
 
 #files in old folder
 old/
-
+setup/publish/
+setup/UVA_Arena_*.exe
 !UVA Arena/UVA Arena/pdf.js/build

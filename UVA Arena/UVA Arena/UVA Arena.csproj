@@ -15,7 +15,7 @@
     <TargetFrameworkProfile />
     <ProductVersion>12.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <PublishUrl>C:\Users\Dipu\Desktop\UVA Arena\</PublishUrl>
+    <PublishUrl>C:\Users\Dipu\Projects\UVA-Arena\setup\publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>

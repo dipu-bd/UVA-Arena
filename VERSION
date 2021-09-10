@@ -1,5 +1,5 @@
 {
-	"version":"1.8.2",
-	"link":"https://sourceforge.net/projects/uvaarena/files/UVA%20Arena%201.8/UVA_Arena_1.8.2.exe",
-	"message":"Changed the PDF viewer: using pdf.js.\r\nAuto input-output loader from uDebug.\r\nFull screen code editor side by side of problem description\r\nAuto select code file on selecting folder."	
+	"version": "1.9.0",
+	"link": "https://sourceforge.net/projects/uvaarena/files/UVA_Arena_1.9/UVA_Arena_1.9.0.exe",
+	"message": "Update uHunt API url\nFixed https network call issue\nUpdate list view library."
 }

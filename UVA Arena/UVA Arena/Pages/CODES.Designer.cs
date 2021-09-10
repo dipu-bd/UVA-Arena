@@ -572,7 +572,7 @@
             this.nextToolMenu.Image = global::UVA_Arena.Properties.Resources.next;
             this.nextToolMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.nextToolMenu.Name = "nextToolMenu";
-            this.nextToolMenu.Size = new System.Drawing.Size(47, 35);
+            this.nextToolMenu.Size = new System.Drawing.Size(48, 35);
             this.nextToolMenu.Text = "Next";
             this.nextToolMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.nextToolMenu.ButtonClick += new System.EventHandler(this.nextToolMenu_ButtonClick);
@@ -716,7 +716,7 @@
             this.exploreToolButton.Image = global::UVA_Arena.Properties.Resources.explorer;
             this.exploreToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.exploreToolButton.Name = "exploreToolButton";
-            this.exploreToolButton.Size = new System.Drawing.Size(53, 35);
+            this.exploreToolButton.Size = new System.Drawing.Size(54, 35);
             this.exploreToolButton.Text = "Explorer";
             this.exploreToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.exploreToolButton.ToolTipText = "Open file location in browser";
@@ -727,7 +727,7 @@
             this.externalToolButton.Image = global::UVA_Arena.Properties.Resources.external;
             this.externalToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.externalToolButton.Name = "externalToolButton";
-            this.externalToolButton.Size = new System.Drawing.Size(52, 35);
+            this.externalToolButton.Size = new System.Drawing.Size(53, 35);
             this.externalToolButton.Text = "External";
             this.externalToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.externalToolButton.ToolTipText = "Open with external program";
@@ -815,7 +815,6 @@
             this.inputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.inputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.inputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.inputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.inputTextBox.Hotkeys = resources.GetString("inputTextBox.Hotkeys");
             this.inputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.inputTextBox.IsReplaceMode = false;
@@ -904,7 +903,7 @@
             this.correctOutputTextBox.AutoIndent = false;
             this.correctOutputTextBox.AutoIndentChars = false;
             this.correctOutputTextBox.AutoIndentExistingLines = false;
-            this.correctOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.correctOutputTextBox.AutoScrollMinSize = new System.Drawing.Size(2, 14);
             this.correctOutputTextBox.BackBrush = null;
             this.correctOutputTextBox.BackColor = System.Drawing.Color.Snow;
             this.correctOutputTextBox.CharHeight = 14;
@@ -913,7 +912,6 @@
             this.correctOutputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.correctOutputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.correctOutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.correctOutputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.correctOutputTextBox.Hotkeys = resources.GetString("correctOutputTextBox.Hotkeys");
             this.correctOutputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.correctOutputTextBox.IsReplaceMode = false;
@@ -1004,7 +1002,6 @@
             this.outputTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.outputTextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.outputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.outputTextBox.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.outputTextBox.IndentBackColor = System.Drawing.Color.Ivory;
             this.outputTextBox.IsReplaceMode = false;
             this.outputTextBox.Location = new System.Drawing.Point(3, 25);
@@ -1104,6 +1101,7 @@
             this.loadDefaultInput.TabIndex = 1;
             this.loadDefaultInput.Text = "Load Default";
             this.loadDefaultInput.UseVisualStyleBackColor = true;
+            this.loadDefaultInput.Visible = false;
             this.loadDefaultInput.Click += new System.EventHandler(this.loadDefaultInput_Click);
             // 
             // compilerOutput
@@ -1270,7 +1268,7 @@
             // 
             this.toolStripLabel4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(70, 35);
+            this.toolStripLabel4.Size = new System.Drawing.Size(69, 35);
             this.toolStripLabel4.Text = "Time Limit :";
             // 
             // toolStripSeparator14
@@ -1350,7 +1348,7 @@
             this.runtestToolButton.Image = global::UVA_Arena.Properties.Resources.runtest;
             this.runtestToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.runtestToolButton.Name = "runtestToolButton";
-            this.runtestToolButton.Size = new System.Drawing.Size(56, 35);
+            this.runtestToolButton.Size = new System.Drawing.Size(55, 35);
             this.runtestToolButton.Text = "Run Test";
             this.runtestToolButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.runtestToolButton.ToolTipText = "Run program on given input";

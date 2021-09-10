@@ -145,7 +145,7 @@ namespace UVA_Arena.Elements
             //get compiler
             string compiler = RegistryAccess.MinGWCompilerPath;
             compiler = Path.Combine(compiler, "bin");
-            compiler = Path.Combine(compiler, "mingw32-gcc.exe");
+            compiler = Path.Combine(compiler, "gcc.exe");
             if (!File.Exists(compiler))
             {
                 throw new FileNotFoundException("MinGW path is not valid. Select one from settings.");
@@ -174,7 +174,7 @@ namespace UVA_Arena.Elements
             //get compiler
             string compiler = RegistryAccess.MinGWCompilerPath;
             compiler = Path.Combine(compiler, "bin");
-            compiler = Path.Combine(compiler, "mingw32-g++.exe");
+            compiler = Path.Combine(compiler, "g++.exe");
             if (!File.Exists(compiler))
                 throw new FileNotFoundException("MinGW path is not valid. Select one from settings.");
 
@@ -232,6 +232,7 @@ namespace UVA_Arena.Elements
             //get exe file name
             string filename = Path.GetFileNameWithoutExtension(CurrentProblem.Name) + ".exe";
             string exec = Path.Combine(CurrentProblem.DirectoryName, filename);
+            ReportCompileStatus("Program file: " + exec + "\n", HighlightSyntax.ClassNameStyle);
             if (!File.Exists(exec))
                 throw new FileNotFoundException("Executable file was not found. Please compile first");
 
@@ -331,8 +332,9 @@ namespace UVA_Arena.Elements
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
                 WindowStyle = ProcessWindowStyle.Hidden,
-                Arguments = "/c \"" + args + "\""
+                Arguments = "/c \"" + args + "\"",
             };
+            Console.WriteLine(proc.StartInfo.Arguments);
 
             //start process            
             proc.Start();

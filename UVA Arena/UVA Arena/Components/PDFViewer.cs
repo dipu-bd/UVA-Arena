@@ -17,10 +17,13 @@ namespace UVA_Arena.Components
         public override void Refresh()
         {
             string viewer = Path.GetFullPath(@"pdf.js\web\viewer.html");
-            if (File.Exists(viewer))
+            if (!File.Exists(viewer))
             {
-                this.Navigate(viewer);
+                string projectDir = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+                viewer = Path.Combine(projectDir, @"pdf.js\web\viewer.html");
             }
+            if (!File.Exists(viewer)) return;
+            this.Navigate(viewer);
         }
 
         public void Load(string file)

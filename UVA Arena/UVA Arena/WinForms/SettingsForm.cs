@@ -210,8 +210,8 @@ namespace UVA_Arena
             {
                 //check validity
                 string path = Path.Combine(fbd.SelectedPath, "bin");
-                string gcc = Path.Combine(path, @"mingw32-gcc.exe");
-                string gpp = Path.Combine(path, @"mingw32-g++.exe");
+                string gcc = Path.Combine(path, @"gcc.exe");
+                string gpp = Path.Combine(path, @"g++.exe");
                 if (!(File.Exists(gcc) && File.Exists(gpp)))
                 {
                     MessageBox.Show("Selected path doesn't seem to be valid.");

@@ -11,12 +11,12 @@
 
   !define Company "Sand Soft"
   !define AppName "UVA Arena"
-  !define AppVersion "1.9.0"
+  !define AppVersion "1.9.1"
   !define AppExeName "UVA Arena.exe"
   !define SetupIcon "setup.ico"
   !define LicenseFile "..\LICENSE"
   !define SetupFileName "UVA_Arena_${AppVersion}.exe"
-  !define DistFiles "publish\Application Files\UVA Arena_1_9_0_82"
+  !define DistFiles "publish\Application Files\UVA Arena_1_9_1_82"
 
   !define UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${AppName}"
 

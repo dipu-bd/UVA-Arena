@@ -241,10 +241,7 @@ namespace UVA_Arena.Internet
             string msg = "Downloading problem list... [{0}/{1} completed]";
             msg = string.Format(msg, Functions.FormatMemory(task.Received), Functions.FormatMemory(task.Total));
             Interactivity.SetStatus(msg);
-
-            int percent = task.ProgressPercentage;
             Interactivity.SetProgress(task.ProgressPercentage);
-
         }
 
         //

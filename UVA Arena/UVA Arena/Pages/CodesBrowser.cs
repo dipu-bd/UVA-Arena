@@ -1307,6 +1307,5 @@ namespace UVA_Arena.Elements
         }
 
         #endregion
-
     }
 }

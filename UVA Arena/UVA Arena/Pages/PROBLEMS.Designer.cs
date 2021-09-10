@@ -516,7 +516,7 @@
             this.descriptionDownloaderButton.Name = "descriptionDownloaderButton";
             this.descriptionDownloaderButton.Size = new System.Drawing.Size(182, 28);
             this.descriptionDownloaderButton.TabIndex = 3;
-            this.descriptionDownloaderButton.Text = "All Descriptions";
+            this.descriptionDownloaderButton.Text = "Download Problems";
             this.descriptionDownloaderButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.descriptionDownloaderButton.UseVisualStyleBackColor = true;
             this.descriptionDownloaderButton.Click += new System.EventHandler(this.downloadAllToolStripMenuItem_Click);
@@ -560,6 +560,7 @@
             this.categoryListView.AlternateRowBackColor = System.Drawing.Color.LightCyan;
             this.categoryListView.BackColor = System.Drawing.Color.AliceBlue;
             this.categoryListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.categoryListView.CellEditUseWholeCell = false;
             this.categoryListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameCat,
             this.countCat});
@@ -574,7 +575,6 @@
             this.categoryListView.Margin = new System.Windows.Forms.Padding(1);
             this.categoryListView.MultiSelect = false;
             this.categoryListView.Name = "categoryListView";
-            this.categoryListView.OwnerDraw = true;
             this.categoryListView.SelectAllOnControlA = false;
             this.categoryListView.ShowGroups = false;
             this.categoryListView.ShowImagesOnSubItems = true;
@@ -584,7 +584,6 @@
             this.categoryListView.UseAlternatingBackColors = true;
             this.categoryListView.UseCellFormatEvents = true;
             this.categoryListView.UseCompatibleStateImageBehavior = false;
-            this.categoryListView.UseCustomSelectionColors = true;
             this.categoryListView.UseFiltering = true;
             this.categoryListView.UseHotItem = true;
             this.categoryListView.UseTranslucentHotItem = true;
@@ -658,6 +657,7 @@
             this.problemListView.AlternateRowBackColor = System.Drawing.Color.LightCyan;
             this.problemListView.BackColor = System.Drawing.Color.Azure;
             this.problemListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.problemListView.CellEditUseWholeCell = false;
             this.problemListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.pnumProb,
             this.ptitleProb,
@@ -695,7 +695,6 @@
             this.problemListView.UseAlternatingBackColors = true;
             this.problemListView.UseCellFormatEvents = true;
             this.problemListView.UseCompatibleStateImageBehavior = false;
-            this.problemListView.UseCustomSelectionColors = true;
             this.problemListView.UseFiltering = true;
             this.problemListView.UseHotItem = true;
             this.problemListView.UseTranslucentHotItem = true;

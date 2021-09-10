@@ -16,14 +16,21 @@ namespace UVA_Arena
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //for https connections
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
-
             //add header to log file
             string dat = Environment.NewLine;
             for (int i = 0; i < 80; ++i) dat += '*';
             dat += Environment.NewLine;
             System.IO.File.AppendAllText(LocalDirectory.GetLogFile(), dat);
+
+            //enable TLS v1.2
+            try
+            {
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)0x00000C00;
+            }
+            catch (Exception ex)
+            {
+                Logger.Add("Could not enable TLS 1.2 => ", ex.Message + " => " + ex.StackTrace);
+            }
 
             //load user-names
             LocalDatabase.usernames = RegistryAccess.GetAllUsers();
@@ -37,16 +44,16 @@ namespace UVA_Arena
             //task queue
             TaskQueue.StartTimer();
 
-            //try
+            try
             {
                 //launch application
                 Interactivity.mainForm = new MainForm();
                 Application.Run(Interactivity.mainForm);
             }
-            //catch (Exception ex)
+            catch (Exception ex)
             {
-                //Logger.Add("Error in main form => ", ex.Message + " => " + ex.StackTrace);
-                //Application.Exit();
+                Logger.Add("Error in main form => ", ex.Message + " => " + ex.StackTrace);
+                Application.Exit();
             }
 
             //end of application works

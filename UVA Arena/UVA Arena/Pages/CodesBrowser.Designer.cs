@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CodesBrowser));
             this.problemListContainer = new System.Windows.Forms.TableLayoutPanel();
+            this.searchBox1 = new UVA_Arena.Custom.SearchBox();
             this.plistPanel = new System.Windows.Forms.Panel();
             this.plistLabel = new System.Windows.Forms.Label();
+            this.folderTreeView = new System.Windows.Forms.NativeTreeView();
             this.folderTreeContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -68,15 +69,13 @@
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.refreshAllToolButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.selectDirectoryPanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.browseFolderButton = new System.Windows.Forms.Button();
             this.cancelBrowseButton = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.searchBox1 = new UVA_Arena.Custom.SearchBox();
-            this.folderTreeView = new System.Windows.Forms.NativeTreeView();
             this.problemListContainer.SuspendLayout();
             this.plistPanel.SuspendLayout();
             this.folderTreeContext.SuspendLayout();
@@ -107,6 +106,23 @@
             this.problemListContainer.TabIndex = 3;
             this.problemListContainer.Tag = "115";
             // 
+            // searchBox1
+            // 
+            this.searchBox1.BackColor = System.Drawing.Color.LightCyan;
+            this.searchBox1.ClearButtonVisible = true;
+            this.searchBox1.CueText = "Search...";
+            this.searchBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchBox1.Location = new System.Drawing.Point(1, 392);
+            this.searchBox1.Margin = new System.Windows.Forms.Padding(1);
+            this.searchBox1.Name = "searchBox1";
+            this.searchBox1.SearchButtonVisible = true;
+            this.searchBox1.SearchText = "";
+            this.searchBox1.Size = new System.Drawing.Size(273, 26);
+            this.searchBox1.TabIndex = 1;
+            this.searchBox1.SearchButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchButtonClicked);
+            this.searchBox1.ClearButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_ClearButtonClicked);
+            // 
             // plistPanel
             // 
             this.plistPanel.Controls.Add(this.plistLabel);
@@ -130,6 +146,33 @@
             this.plistLabel.TabIndex = 2;
             this.plistLabel.Text = "Codes";
             this.plistLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // folderTreeView
+            // 
+            this.folderTreeView.BackColor = System.Drawing.Color.Azure;
+            this.folderTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.folderTreeView.ContextMenuStrip = this.folderTreeContext;
+            this.folderTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.folderTreeView.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.folderTreeView.ForeColor = System.Drawing.Color.Black;
+            this.folderTreeView.HideSelection = false;
+            this.folderTreeView.ImageIndex = 0;
+            this.folderTreeView.ImageList = this.imageList1;
+            this.folderTreeView.ItemHeight = 25;
+            this.folderTreeView.Location = new System.Drawing.Point(3, 56);
+            this.folderTreeView.Name = "folderTreeView";
+            this.folderTreeView.SelectedImageIndex = 0;
+            this.folderTreeView.ShowLines = false;
+            this.folderTreeView.ShowNodeToolTips = true;
+            this.folderTreeView.Size = new System.Drawing.Size(269, 332);
+            this.folderTreeView.TabIndex = 0;
+            this.folderTreeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.folderTreeView_AfterLabelEdit);
+            this.folderTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.folderTreeView_AfterSelect);
+            this.folderTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.folderTreeView_NodeMouseClick);
+            this.folderTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.folderTreeView_NodeMouseDoubleClick);
+            this.folderTreeView.Enter += new System.EventHandler(this.folderTreeView_Enter);
+            this.folderTreeView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.folderTreeView_KeyDown);
+            this.folderTreeView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.folderTreeView_MouseMove);
             // 
             // folderTreeContext
             // 
@@ -178,7 +221,7 @@
             this.outputFileToolStripMenuItem,
             this.correctOutputFileToolStripMenuItem});
             this.newContextMenu.Name = "newContextMenu";
-            this.newContextMenu.OwnerItem = this.newToolStripMenuItem;
+            this.newContextMenu.OwnerItem = this.toolStripButton2;
             this.newContextMenu.Size = new System.Drawing.Size(167, 242);
             // 
             // folderToolStripMenuItem
@@ -425,6 +468,16 @@
             this.refreshAllToolButton.Text = "Refresh All";
             this.refreshAllToolButton.Click += new System.EventHandler(this.refreshTool_Click);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton1.Image = global::UVA_Arena.Properties.Resources.export;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(99, 22);
+            this.toolStripButton1.Text = "Import Codes";
+            this.toolStripButton1.Click += new System.EventHandler(this.importOldCodesToolStripMenuItem_Click);
+            // 
             // selectDirectoryPanel
             // 
             this.selectDirectoryPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -433,11 +486,11 @@
             this.selectDirectoryPanel.Controls.Add(this.label1);
             this.selectDirectoryPanel.Controls.Add(this.tableLayoutPanel1);
             this.selectDirectoryPanel.ForeColor = System.Drawing.Color.Black;
-            this.selectDirectoryPanel.Location = new System.Drawing.Point(41, 123);
-            this.selectDirectoryPanel.MaximumSize = new System.Drawing.Size(210, 220);
+            this.selectDirectoryPanel.Location = new System.Drawing.Point(25, 127);
+            this.selectDirectoryPanel.MaximumSize = new System.Drawing.Size(225, 220);
             this.selectDirectoryPanel.MinimumSize = new System.Drawing.Size(180, 200);
             this.selectDirectoryPanel.Name = "selectDirectoryPanel";
-            this.selectDirectoryPanel.Size = new System.Drawing.Size(190, 220);
+            this.selectDirectoryPanel.Size = new System.Drawing.Size(224, 200);
             this.selectDirectoryPanel.TabIndex = 4;
             // 
             // label1
@@ -446,37 +499,38 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(188, 178);
+            this.label1.Size = new System.Drawing.Size(222, 109);
             this.label1.TabIndex = 0;
-            this.label1.Text = resources.GetString("label1.Text");
+            this.label1.Text = "Please select where to store codes.\r\n\r\nThe default directory is \"Documents/UVA Ar" +
+    "ena/Codes\".";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.DarkTurquoise;
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.browseFolderButton, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cancelBrowseButton, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.cancelBrowseButton, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 178);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 109);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(188, 40);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(222, 89);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // browseFolderButton
             // 
             this.browseFolderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.browseFolderButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.browseFolderButton.Location = new System.Drawing.Point(4, 5);
+            this.browseFolderButton.Location = new System.Drawing.Point(4, 7);
             this.browseFolderButton.Name = "browseFolderButton";
-            this.browseFolderButton.Size = new System.Drawing.Size(86, 30);
+            this.browseFolderButton.Size = new System.Drawing.Size(214, 30);
             this.browseFolderButton.TabIndex = 1;
-            this.browseFolderButton.Text = "Browse";
+            this.browseFolderButton.Text = "Select Directory";
             this.browseFolderButton.UseVisualStyleBackColor = true;
             this.browseFolderButton.Click += new System.EventHandler(this.browseFolderButton_Click);
             // 
@@ -484,11 +538,11 @@
             // 
             this.cancelBrowseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelBrowseButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelBrowseButton.Location = new System.Drawing.Point(97, 5);
+            this.cancelBrowseButton.Location = new System.Drawing.Point(4, 51);
             this.cancelBrowseButton.Name = "cancelBrowseButton";
-            this.cancelBrowseButton.Size = new System.Drawing.Size(87, 30);
+            this.cancelBrowseButton.Size = new System.Drawing.Size(214, 30);
             this.cancelBrowseButton.TabIndex = 2;
-            this.cancelBrowseButton.Text = "Cancel";
+            this.cancelBrowseButton.Text = "Use Default";
             this.cancelBrowseButton.UseVisualStyleBackColor = true;
             this.cancelBrowseButton.Click += new System.EventHandler(this.cancelBrowseButton_Click);
             // 
@@ -501,60 +555,6 @@
             this.fileSystemWatcher1.Created += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Created);
             this.fileSystemWatcher1.Deleted += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Deleted);
             this.fileSystemWatcher1.Renamed += new System.IO.RenamedEventHandler(this.fileSystemWatcher1_Renamed);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton1.Image = global::UVA_Arena.Properties.Resources.export;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(99, 22);
-            this.toolStripButton1.Text = "Import Codes";
-            this.toolStripButton1.Click += new System.EventHandler(this.importOldCodesToolStripMenuItem_Click);
-            // 
-            // searchBox1
-            // 
-            this.searchBox1.BackColor = System.Drawing.Color.LightCyan;
-            this.searchBox1.ClearButtonVisible = true;
-            this.searchBox1.CueText = "Search...";
-            this.searchBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.searchBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBox1.Location = new System.Drawing.Point(1, 392);
-            this.searchBox1.Margin = new System.Windows.Forms.Padding(1);
-            this.searchBox1.Name = "searchBox1";
-            this.searchBox1.SearchButtonVisible = true;
-            this.searchBox1.SearchText = "";
-            this.searchBox1.Size = new System.Drawing.Size(273, 26);
-            this.searchBox1.TabIndex = 1;
-            this.searchBox1.SearchButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_SearchButtonClicked);
-            this.searchBox1.ClearButtonClicked += new System.EventHandler<System.EventArgs>(this.searchBox1_ClearButtonClicked);
-            // 
-            // folderTreeView
-            // 
-            this.folderTreeView.BackColor = System.Drawing.Color.Azure;
-            this.folderTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.folderTreeView.ContextMenuStrip = this.folderTreeContext;
-            this.folderTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.folderTreeView.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.folderTreeView.ForeColor = System.Drawing.Color.Black;
-            this.folderTreeView.HideSelection = false;
-            this.folderTreeView.ImageIndex = 0;
-            this.folderTreeView.ImageList = this.imageList1;
-            this.folderTreeView.ItemHeight = 25;
-            this.folderTreeView.Location = new System.Drawing.Point(3, 56);
-            this.folderTreeView.Name = "folderTreeView";
-            this.folderTreeView.SelectedImageIndex = 0;
-            this.folderTreeView.ShowLines = false;
-            this.folderTreeView.ShowNodeToolTips = true;
-            this.folderTreeView.Size = new System.Drawing.Size(269, 332);
-            this.folderTreeView.TabIndex = 0;
-            this.folderTreeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.folderTreeView_AfterLabelEdit);
-            this.folderTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.folderTreeView_AfterSelect);
-            this.folderTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.folderTreeView_NodeMouseClick);
-            this.folderTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.folderTreeView_NodeMouseDoubleClick);
-            this.folderTreeView.Enter += new System.EventHandler(this.folderTreeView_Enter);
-            this.folderTreeView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.folderTreeView_KeyDown);
-            this.folderTreeView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.folderTreeView_MouseMove);
             // 
             // CodesBrowser
             // 

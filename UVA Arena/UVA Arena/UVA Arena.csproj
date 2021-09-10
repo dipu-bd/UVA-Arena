@@ -28,7 +28,7 @@
     <SupportUrl>https://github.com/dipu-bd/UVA-Arena</SupportUrl>
     <ProductName>UVA Arena</ProductName>
     <PublisherName>Sudipto Chandra</PublisherName>
-    <ApplicationRevision>81</ApplicationRevision>
+    <ApplicationRevision>82</ApplicationRevision>
     <ApplicationVersion>1.9.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -650,6 +650,7 @@
     <None Include="Resources\failed.png" />
     <EmbeddedResource Include="Pages\CodesBrowser.resx">
       <DependentUpon>CodesBrowser.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Components\CustomWebBrowser.resx">
       <DependentUpon>CustomWebBrowser.cs</DependentUpon>
